@@ -80,10 +80,6 @@ client.on('message', message => {
 			online.outfitLookup(oName, message.channel);
 		}
 	}
-	/*if (message.content.substring(0,17) == '!subscribe alerts'){
-		sName = message.content.substring(18);
-		alerts.subscribe(sName, message);
-	}*/
 	if (message.content == '!clean') {
 		//delete bot messages (and soon the commands that created them)
 		archive.push(message);
