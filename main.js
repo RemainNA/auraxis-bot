@@ -37,6 +37,7 @@ var listOfCommands = [
 "!outfit [tag]",
 "!online [tag]",
 "!(un)subscribe alerts [server]",
+"!population [server]",
 "!clean"
 ]
 // Create an event listener for messages
