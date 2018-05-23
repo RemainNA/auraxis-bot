@@ -37,6 +37,9 @@ var q = async.queue(function(task, callback) {
 					}
 					sendEmbed.addField('Online', memOn, true);
 				}
+				else{
+					sendEmbed.addField('Online', 'Service unavailable',true);
+				}
 				
 				try{
 					uri = 'https://census.daybreakgames.com/s:'+auth.serviceID+'/get/ps2:v2/character/'+resOut.leader_character_id+'?c:resolve=world'
