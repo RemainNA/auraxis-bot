@@ -15,6 +15,7 @@ var character = require('./character.js');
 var outfit = require('./outfit.js');
 var online = require('./online.js');
 var alerts = require('./subscribeAlert.js');
+var population = require('./serverPopulation.js');
 
 // Create an instance of a Discord client
 const client = new Discord.Client();
@@ -52,9 +53,9 @@ client.on('message', message => {
 	}
 	if (message.content.substring(0,10) == '!character') {
 		// Look up character
+		archive.push(message);
 		var cName = message.content.substring(11).toLowerCase();
 		character.characterLookup(cName, message.channel);
-		archive.push(message);
 	}
 	if (message.content.substring(0,7) == '!outfit'){
 		//look up outfit
@@ -80,8 +81,14 @@ client.on('message', message => {
 			online.outfitLookup(oName, message.channel);
 		}
 	}
+	if (message.content.substring(0,11) == '!population'){
+		//server population
+		archive.push(message);
+		var servers = message.content.substring(12);
+		population.check(servers, message.channel);
+	}
 	if (message.content == '!clean') {
-		//delete bot messages (and soon the commands that created them)
+		//delete bot messages
 		archive.push(message);
 		newArchive = [];
 		while (archive.length > 0){
