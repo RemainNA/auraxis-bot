@@ -29,12 +29,17 @@ var q = async.queue(function(task, callback) {
 				sendEmbed.setURL('https://ps2.fisu.pw/outfit/?name='+oTag);
 				sendEmbed.addField('Member count', resOut.member_count, true);
 				memOn = 0;
-				for (x in resOut.members){
-					if(resOut.members[x].online_status == "1"){
-						memOn = memOn + 1;
+				if(resOut.members[0].online_status != "service_unavailable"){
+					for (x in resOut.members){
+						if(resOut.members[x].online_status == "1"){
+							memOn = memOn + 1;
+						}
 					}
+					sendEmbed.addField('Online', memOn, true);
 				}
-				sendEmbed.addField('Online', memOn, true);
+				else{
+					sendEmbed.addField('Online', 'Service unavailable',true);
+				}
 				
 				try{
 					uri = 'https://census.daybreakgames.com/s:'+auth.serviceID+'/get/ps2:v2/character/'+resOut.leader_character_id+'?c:resolve=world'

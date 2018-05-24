@@ -15,6 +15,8 @@ var character = require('./character.js');
 var outfit = require('./outfit.js');
 var online = require('./online.js');
 var alerts = require('./subscribeAlert.js');
+var population = require('./serverPopulation.js');
+var prePrestige = require('./prePrestige.js');
 
 // Create an instance of a Discord client
 const client = new Discord.Client();
@@ -36,6 +38,8 @@ var listOfCommands = [
 "!outfit [tag]",
 "!online [tag]",
 "!(un)subscribe alerts [server]",
+"!population [server]",
+"!asp [name]",
 "!clean"
 ]
 // Create an event listener for messages
@@ -52,9 +56,9 @@ client.on('message', message => {
 	}
 	if (message.content.substring(0,10) == '!character') {
 		// Look up character
+		archive.push(message);
 		var cName = message.content.substring(11).toLowerCase();
 		character.characterLookup(cName, message.channel);
-		archive.push(message);
 	}
 	if (message.content.substring(0,7) == '!outfit'){
 		//look up outfit
@@ -80,12 +84,21 @@ client.on('message', message => {
 			online.outfitLookup(oName, message.channel);
 		}
 	}
-	/*if (message.content.substring(0,17) == '!subscribe alerts'){
-		sName = message.content.substring(18);
-		alerts.subscribe(sName, message);
-	}*/
+	if (message.content.substring(0,11) == '!population'){
+		//server population
+		archive.push(message);
+		var servers = message.content.substring(12);
+		population.check(servers, message.channel);
+	}
+	if (message.content.substring(0,4).toLowerCase() == '!asp'){
+		//BR before beginning ASP
+		archive.push(message);
+		var characterName = message.content.substring(5);
+		prePrestige.lookup(characterName, message);
+		
+	}
 	if (message.content == '!clean') {
-		//delete bot messages (and soon the commands that created them)
+		//delete bot messages
 		archive.push(message);
 		newArchive = [];
 		while (archive.length > 0){
