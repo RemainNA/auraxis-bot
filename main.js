@@ -16,6 +16,7 @@ var outfit = require('./outfit.js');
 var online = require('./online.js');
 var alerts = require('./subscribeAlert.js');
 var population = require('./serverPopulation.js');
+var prePrestige = require('./prePrestige.js');
 
 // Create an instance of a Discord client
 const client = new Discord.Client();
@@ -38,6 +39,7 @@ var listOfCommands = [
 "!online [tag]",
 "!(un)subscribe alerts [server]",
 "!population [server]",
+"!asp [name]",
 "!clean"
 ]
 // Create an event listener for messages
@@ -87,6 +89,13 @@ client.on('message', message => {
 		archive.push(message);
 		var servers = message.content.substring(12);
 		population.check(servers, message.channel);
+	}
+	if (message.content.substring(0,4).toLowerCase() == '!asp'){
+		//BR before beginning ASP
+		archive.push(message);
+		var characterName = message.content.substring(5);
+		prePrestige.lookup(characterName, message);
+		
 	}
 	if (message.content == '!clean') {
 		//delete bot messages
