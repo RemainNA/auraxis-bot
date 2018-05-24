@@ -130,6 +130,10 @@ var q = async.queue(function(task, callback){
 	callback();
 })
 
+q.drain = function() {
+	console.log('Done');
+}
+
 module.exports = {
 	check: function(servers, channel) {
 		q.push({sList: servers, chnl: channel}, function (err) {
