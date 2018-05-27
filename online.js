@@ -13,12 +13,13 @@ var async = require('async');
 var q = async.queue(function(task, callback) {
 	oTag = task.tag;
 	channel = task.inChannel;
+
 	uri = 'http://census.daybreakgames.com/s:'+auth.serviceID+'/get/ps2:v2/outfit?alias_lower='+oTag+'&c:resolve=member_character_name,member_online_status&c:join=character^on:leader_character_id^to:character_id';
 	try{
 		request(uri, function (error, response, body) {
 			data = JSON.parse(body);
 			if (data.outfit_list[0] == null){
-				channel.send("Tag not found");
+				channel.send("["+oTag+"] not found");
 				callback();
 			}
 			else{
@@ -64,10 +65,13 @@ var q = async.queue(function(task, callback) {
 		})
 	}
 	catch{
-		channel.send('an error occured');
+		channel.send('An error occured');
 		callback();
 	}
+
 })
+
+
 
 q.drain = function() {
 	console.log('done');
@@ -75,8 +79,11 @@ q.drain = function() {
 
 module.exports = {
 	outfitLookup: function (oTag, channel) {
-		q.push({tag: oTag, inChannel: channel}, function (err) {
-			console.log(oTag+" online");
-		});
+		tags = oTag.split(" ");
+		for (x in tags){
+			console.log(tags[x]+" online");
+			q.push({tag: tags[x], inChannel: channel}, function (err) {
+			});
+		}
 	}
 }

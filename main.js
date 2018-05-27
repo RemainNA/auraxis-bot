@@ -76,13 +76,7 @@ client.on('message', message => {
 		//return online outfit members
 		archive.push(message);
 		var oName = message.content.substring(8).toLowerCase();
-		if (oName.length > 4)
-		{
-			message.channel.send('Outfit tag too long');
-		}
-		else{
-			online.outfitLookup(oName, message.channel);
-		}
+		online.outfitLookup(oName, message.channel);
 	}
 	if (message.content.substring(0,11) == '!population'){
 		//server population
