@@ -45,7 +45,6 @@ var q = async.queue(function(task, callback){
 				decals = [];
 				for (x in resChar.items){
 					if (Number(resChar.items[x].item_id) >= 803931 && Number(resChar.items[x].item_id) <= 803950){
-						console.log(Number(resChar.items[x].item_id));
 						decals.push(Number(resChar.items[x].item_id));
 					}
 				}
@@ -54,7 +53,6 @@ var q = async.queue(function(task, callback){
 					preBR = 100;
 				}
 				else{
-					console.log(Math.max(decals));
 					preBR = Math.max.apply(Math, decals) - 803830;
 				}
 				sendEmbed.addField('Max BR pre ASP', preBR);
