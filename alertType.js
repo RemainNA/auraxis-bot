@@ -77,7 +77,7 @@ var q = async.queue(function(task, callback) {
 				}
 			}
 			catch{
-				console.log('JSON error in alertType, payload = '+body+' lookup URI = '+URI);
+				console.log('JSON error in alertType, payload = '+body+' lookup URI = '+uri);
 				callback();
 			}
 		})
