@@ -81,9 +81,11 @@ module.exports = {
 	outfitLookup: function (oTag, channel) {
 		tags = oTag.split(" ");
 		for (x in tags){
-			console.log(tags[x]+" online");
-			q.push({tag: tags[x], inChannel: channel}, function (err) {
-			});
+			if(tags[x] != ""){
+				console.log(tags[x]+" online");
+				q.push({tag: tags[x], inChannel: channel}, function (err) {
+				});
+			}
 		}
 	}
 }
