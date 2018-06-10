@@ -42,8 +42,14 @@ module.exports = {
 			});
 			
 			connection.on('message', function(message){
-				try{
-					parsed = JSON.parse(message.utf8Data);
+				if(message.utf8Data != null && message.utf8Data != undefined){
+					try{
+						//console.log(message.utf8Data);
+						parsed = JSON.parse(message.utf8Data);
+					}
+					catch{
+						console.log('JSON parse error: '+message.utf8Data);
+					}
 					if(parsed.payload != null){
 						if(parsed.payload.character_id != null){
 							character_id = parsed.payload.character_id;
@@ -61,18 +67,16 @@ module.exports = {
 						}
 					}
 				}
-				catch{
-					console.log('JSON parse error: '+message.utf8Data);
-				}
+				
 			});
 		})
 		
 		discordClient.on('message', message => {
 			if(message.content.substring(0,19) == '!subscribe activity'){
-				outfitID(message.content.substring(20), subListOutfits, 'subscribe', message.channel)
+				outfitID(message.content.substring(20).toLowerCase(), subListOutfits, 'subscribe', message.channel)
 			}
 			if(message.content.substring(0,21) == '!unsubscribe activity'){
-				outfitID(message.content.substring(22), subListOutfits, 'unsubscribe', message.channel)
+				outfitID(message.content.substring(22).toLowerCase(), subListOutfits, 'unsubscribe', message.channel)
 			}
 			if (message.content.substring(0,17) == '!subscribe alerts'){
 				console.log(message.content);
@@ -198,59 +202,80 @@ module.exports = {
 	}
 }
 
-function outfitID(oTag, subListOutfits, action, channel){
-	uri = 'http://census.daybreakgames.com/s:'+auth.serviceID+'/get/ps2:v2/outfit?alias_lower='+oTag+'&c:join=character^on:leader_character_id^to:character_id';
-	var options = {uri:uri, subListOutfits:subListOutfits, action:action, channel:channel, oTag:oTag}
-	request(options, function(error, respose, body){
-		data = JSON.parse(body)
-		if(data.outfit_list[0] == null){
-			channel.send(task.oTag+' not found');
+function outfitID(oTagLong, subListOutfits, action, channel){
+	oTagList = oTagLong.split(" ");
+	for (x in oTagList){
+		if (oTagList[x] != ""){
+			oTag = oTagList[x];
 		}
 		else{
-			ID = data.outfit_list[0].outfit_id;
-			resOut = data.outfit_list[0];
-
-			keys = Object.keys(subListOutfits);
-			if(action == 'subscribe' && keys.indexOf(ID) == -1){
-				if(resOut.leader_character_id_join_character.faction_id == "1"){
-					color = 'PURPLE';
-				}
-				else if(resOut.leader_character_id_join_character.faction_id == "2"){
-					color = 'BLUE';
-				}
-				else{
-					color = 'RED';
-				}
-				subListOutfits[ID] = [data.outfit_list[0].alias, color, channel];
-				channel.send('Subscribed');
-			}
-			else if(action == 'subscribe' && keys.indexOf(ID) > -1){
-				if(subListOutfits[ID].indexOf(channel) > -1){
-					channel.send('Error: already subscribed');
-				}
-				else{
-					subListOutfits[ID].push(channel);
-					channel.send('Subscribed');
-				}
-			}
-			else if(action == 'unsubscribe' && keys.indexOf(ID) == -1){
-				channel.send('Error: not subscribed to that outfit')
-			}
-			else if(action == 'unsubscribe' && keys.indexOf(ID) > -1){
-				if(subListOutfits[ID].length == 3){
-					delete subListOutfits[ID];
-					channel.send('Unsubscribed')
-				}
-				else if(subListOutfits[ID].indexOf(channel) > -1){
-					index = subListOutfits[ID].indexOf(channel);
-					subListOutfits[ID].splice(index, 1);
-					channel.send('Unsubscribed');
-				}
-				else{
-					channel.send('Error: not subscribed to that outfit');
-				}
-			}
+			continue;
 		}
-	})
+		uri = 'http://census.daybreakgames.com/s:'+auth.serviceID+'/get/ps2:v2/outfit?alias_lower='+oTag+'&c:join=character^on:leader_character_id^to:character_id';
+		var options = {uri:uri, subListOutfits:subListOutfits, action:action, channel:channel, oTag:oTag}
+		request(options, function(error, respose, body){
+			data = JSON.parse(body)
+			if(data.outfit_list[0] == null){
+				//outfit not found
+				channel.send(task.oTag+' not found');
+			}
+			else{
+				//tag found, returned results
+				ID = data.outfit_list[0].outfit_id;
+				resOut = data.outfit_list[0];
+
+				keys = Object.keys(subListOutfits);
+				if(action == 'subscribe' && keys.indexOf(ID) == -1){
+					//No active subscriptions for outfit
+					if(resOut.leader_character_id_join_character.faction_id == "1"){
+						color = 'PURPLE';
+					}
+					else if(resOut.leader_character_id_join_character.faction_id == "2"){
+						color = 'BLUE';
+					}
+					else{
+						color = 'RED';
+					}
+					subListOutfits[ID] = [data.outfit_list[0].alias, color, channel];
+					channel.send('Subscribed to '+resOut.alias);
+				}
+				else if(action == 'subscribe' && keys.indexOf(ID) > -1){
+					//existing subscription
+					if(subListOutfits[ID].indexOf(channel) > -1){
+						//source channel is subscribed
+						channel.send('Error: already subscribed to '+resOut.alias);
+					}
+					else{
+						//source channel is not subscribed
+						subListOutfits[ID].push(channel);
+						channel.send('Subscribed to '+resOut.alias);
+					}
+				}
+				else if(action == 'unsubscribe' && keys.indexOf(ID) == -1){
+					//no active subscriptions to outfit
+					channel.send('Error: not subscribed to '+resOut.alias)
+				}
+				else if(action == 'unsubscribe' && keys.indexOf(ID) > -1){
+					//active subscriptions to outfit
+					if(subListOutfits[ID].length == 3 && subListOutfits[ID].indexOf(channel) > -1){
+						//source channel is only active subscription
+						delete subListOutfits[ID];
+						channel.send('Unsubscribed from '+resOut.alias)
+					}
+					else if(subListOutfits[ID].indexOf(channel) > -1){
+						//source channel is not only active subscription
+						index = subListOutfits[ID].indexOf(channel);
+						subListOutfits[ID].splice(index, 1);
+						channel.send('Unsubscribed from '+resOut.alias);
+					}
+					else{
+						//not subscribed
+						channel.send('Error: not subscribed to '+resOut.alias);
+					}
+				}
+			}
+		})
+	}
+	
 	
 }

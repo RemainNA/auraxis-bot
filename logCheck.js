@@ -16,39 +16,48 @@ var q = async.queue(function(task, callback) {
 	playerEvent = task.pEvent;
 	uri = 'https://census.daybreakgames.com/s:'+auth.serviceID+'/get/ps2:v2/character/'+character_id+'?c:resolve=outfit_member'
 	var options = {uri:uri, playerEvent:playerEvent, subList:subList}
+	//console.log(character_id);
 	request(options, function (error, response, body) {
-		data = JSON.parse(body);
-		if (data.character_list[0] == null)
-		{
-			callback();
-		}
-		else{
-			resChar = data.character_list[0];
-			/*info[0] = resChar.name.first;
-			info[2] = resChar.faction_id;*/
-			if(resChar.outfit_member != null){
-				//console.log(resChar.name.first);
-				keys = Object.keys(subList);
-				//console.log(keys);
-				if (keys.indexOf(resChar.outfit_member.outfit_id) > -1)
-				{
-					sendEmbed = new Discord.RichEmbed();
-					sendEmbed.setTitle(subList[resChar.outfit_member.outfit_id][0]+' '+playerEvent);
-					sendEmbed.setDescription(resChar.name.first);
-					sendEmbed.setColor(subList[resChar.outfit_member.outfit_id][1]);
-					for (i = 2; i < subList[resChar.outfit_member.outfit_id].length; i++){
-						subList[resChar.outfit_member.outfit_id][i].send(sendEmbed);
+		if(body != null && body != undefined){
+			try{
+				data = JSON.parse(body);
+			}
+			catch{
+				console.log('Error with '+body);
+				callback();
+			}
+			if (data.character_list[0] == null)
+			{
+				callback();
+			}
+			else{
+				resChar = data.character_list[0];
+				/*info[0] = resChar.name.first;
+				info[2] = resChar.faction_id;*/
+				if(resChar.outfit_member != null){
+					//console.log(resChar.name.first);
+					keys = Object.keys(subList);
+					//console.log(keys);
+					if (keys.indexOf(resChar.outfit_member.outfit_id) > -1)
+					{
+						sendEmbed = new Discord.RichEmbed();
+						sendEmbed.setTitle(subList[resChar.outfit_member.outfit_id][0]+' '+playerEvent);
+						sendEmbed.setDescription(resChar.name.first);
+						sendEmbed.setColor(subList[resChar.outfit_member.outfit_id][1]);
+						for (i = 2; i < subList[resChar.outfit_member.outfit_id].length; i++){
+							subList[resChar.outfit_member.outfit_id][i].send(sendEmbed);
+						}
+						callback();
 					}
-					callback();
+					else{
+						callback();
+					}
 				}
 				else{
 					callback();
 				}
+				
 			}
-			else{
-				callback();
-			}
-			
 		}
 	})
 	
