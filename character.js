@@ -78,7 +78,7 @@ var q = async.queue(function(task, callback) {
 				}
 				
 				//Online Status
-				if (resChar.online_status == "1"){
+				if (resChar.online_status >= 1){
 					sendEmbed.addField('Online', ':white_check_mark:', true);
 				}
 				else if (resChar.online_status == "service_unavailable"){
