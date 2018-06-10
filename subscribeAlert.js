@@ -11,7 +11,7 @@ var WebSocket = require('websocket').client;
 
 module.exports = {
 	subscribe: function (discordClient) {
-		subList = {"connery": [], "cobalt": [], "miller": [], "emerald": [], "jaegar": [], "briggs": []}
+		subListAlerts = {"connery": [], "cobalt": [], "miller": [], "emerald": [], "jaegar": [], "briggs": []}
 		subscribeRequest = '{"service":"event","action":"subscribe","worlds":["1","10","13","17","19","25"],"eventNames":["MetagameEvent"]}';
 		var client = new WebSocket();
 		
@@ -38,13 +38,15 @@ module.exports = {
 				try{
 					parsed = JSON.parse(message.utf8Data);
 					if(parsed.payload != null){
-						if(parsed.payload.metagame_event_state_name == "started"){
-							alertType.notify(parsed, subList);
+						if(parsed.payload.metagame_event_state_name != null){
+							if(parsed.payload.metagame_event_state_name == "started"){
+								alertType.notify(parsed, subListAlerts);
+							}
 						}
 					}
 				}
 				catch{
-					console.log('JSON parse error: '+message);
+					console.log('JSON parse error: '+message.utf8Data);
 				}
 			});
 		})
@@ -54,8 +56,8 @@ module.exports = {
 			if (message.content.substring(0,17) == '!subscribe alerts'){
 				console.log(message.content);
 				if(message.content.substring(18).toLowerCase().includes('connery')){
-					if(subList.connery.indexOf(message.channel) == -1){
-						subList.connery.push(message.channel);
+					if(subListAlerts.connery.indexOf(message.channel) == -1){
+						subListAlerts.connery.push(message.channel);
 						message.channel.send("Confirmed subscription to Connery alerts");
 					}
 					else{
@@ -63,8 +65,8 @@ module.exports = {
 					}
 				}
 				if(message.content.substring(18).toLowerCase().includes('miller')){
-					if(subList.miller.indexOf(message.channel) == -1){
-						subList.miller.push(message.channel);
+					if(subListAlerts.miller.indexOf(message.channel) == -1){
+						subListAlerts.miller.push(message.channel);
 						message.channel.send("Confirmed subscription to Miller alerts");
 					}
 					else{
@@ -72,8 +74,8 @@ module.exports = {
 					}
 				}
 				if(message.content.substring(18).toLowerCase().includes('cobalt')){
-					if(subList.cobalt.indexOf(message.channel) == -1){
-						subList.cobalt.push(message.channel);
+					if(subListAlerts.cobalt.indexOf(message.channel) == -1){
+						subListAlerts.cobalt.push(message.channel);
 						message.channel.send("Confirmed subscription to Cobalt alerts");
 					}
 					else{
@@ -81,8 +83,8 @@ module.exports = {
 					}
 				}
 				if(message.content.substring(18).toLowerCase().includes('emerald')){
-					if(subList.emerald.indexOf(message.channel) == -1){
-						subList.emerald.push(message.channel);
+					if(subListAlerts.emerald.indexOf(message.channel) == -1){
+						subListAlerts.emerald.push(message.channel);
 						message.channel.send("Confirmed subscription to Emerald alerts");
 					}
 					else{
@@ -90,8 +92,8 @@ module.exports = {
 					}
 				}
 				if(message.content.substring(18).toLowerCase().includes('jaegar')){
-					if(subList.jaegar.indexOf(message.channel) == -1){
-						subList.jaegar.push(message.channel);
+					if(subListAlerts.jaegar.indexOf(message.channel) == -1){
+						subListAlerts.jaegar.push(message.channel);
 						message.channel.send("Confirmed subscription to Jaegar alerts");
 					}
 					else{
@@ -99,8 +101,8 @@ module.exports = {
 					}
 				}
 				if(message.content.substring(18).toLowerCase().includes('briggs')){
-					if(subList.briggs.indexOf(message.channel) == -1){
-						subList.briggs.push(message.channel);
+					if(subListAlerts.briggs.indexOf(message.channel) == -1){
+						subListAlerts.briggs.push(message.channel);
 						message.channel.send("Confirmed subscription to Briggs alerts");
 					}
 					else{
@@ -110,9 +112,9 @@ module.exports = {
 			}
 			if (message.content.substring(0,19) == '!unsubscribe alerts'){
 				if(message.content.substring(20).toLowerCase().includes('connery')){
-					index = subList.connery.indexOf(message.channel);
+					index = subListAlerts.connery.indexOf(message.channel);
 					if(index > -1){
-						subList.connery.splice(index, 1);
+						subListAlerts.connery.splice(index, 1);
 						message.channel.send("Unsubscribed from Connery alerts");
 					}
 					else{
@@ -120,9 +122,9 @@ module.exports = {
 					}
 				}
 				if(message.content.substring(20).toLowerCase().includes('cobalt')){
-					index = subList.cobalt.indexOf(message.channel);
+					index = subListAlerts.cobalt.indexOf(message.channel);
 					if(index > -1){
-						subList.cobalt.splice(index, 1);
+						subListAlerts.cobalt.splice(index, 1);
 						message.channel.send("Unsubscribed from Cobalt alerts");
 					}
 					else{
@@ -130,9 +132,9 @@ module.exports = {
 					}
 				}
 				if(message.content.substring(20).toLowerCase().includes('miller')){
-					index = subList.miller.indexOf(message.channel);
+					index = subListAlerts.miller.indexOf(message.channel);
 					if(index > -1){
-						subList.miller.splice(index, 1);
+						subListAlerts.miller.splice(index, 1);
 						message.channel.send("Unsubscribed from Miller alerts");
 					}
 					else{
@@ -140,9 +142,9 @@ module.exports = {
 					}
 				}
 				if(message.content.substring(20).toLowerCase().includes('emerald')){
-					index = subList.emerald.indexOf(message.channel);
+					index = subListAlerts.emerald.indexOf(message.channel);
 					if(index > -1){
-						subList.emerald.splice(index, 1);
+						subListAlerts.emerald.splice(index, 1);
 						message.channel.send("Unsubscribed from Emerald alerts");
 					}
 					else{
@@ -150,9 +152,9 @@ module.exports = {
 					}
 				}
 				if(message.content.substring(20).toLowerCase().includes('jaegar')){
-					index = subList.jaegar.indexOf(message.channel);
+					index = subListAlerts.jaegar.indexOf(message.channel);
 					if(index > -1){
-						subList.jaegar.splice(index, 1);
+						subListAlerts.jaegar.splice(index, 1);
 						message.channel.send("Unsubscribed from Jaegar alerts");
 					}
 					else{
@@ -160,9 +162,9 @@ module.exports = {
 					}
 				}
 				if(message.content.substring(20).toLowerCase().includes('briggs')){
-					index = subList.briggs.indexOf(message.channel);
+					index = subListAlerts.briggs.indexOf(message.channel);
 					if(index > -1){
-						subList.briggs.splice(index, 1);
+						subListAlerts.briggs.splice(index, 1);
 						message.channel.send("Unsubscribed from Briggs alerts");
 					}
 					else{
