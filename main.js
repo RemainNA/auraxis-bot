@@ -17,6 +17,7 @@ var online = require('./online.js');
 var alerts = require('./subscribeAlert.js');
 var population = require('./serverPopulation.js');
 var prePrestige = require('./prePrestige.js');
+var logins = require('./outfitLogins.js');
 
 // Create an instance of a Discord client
 const client = new Discord.Client();
@@ -29,6 +30,7 @@ const token = auth.token;
 client.on('ready', () => {
   console.log('I am ready!');
   alerts.subscribe(client);
+  logins.subscribe(client);
 });
 
 var archive = []; //list of bot messages and commands
@@ -38,6 +40,7 @@ var listOfCommands = [
 "!outfit [tag]",
 "!online [tag]",
 "!(un)subscribe alerts [server]",
+"!(un)subscribe activity [outfit]",
 "!population [server]",
 "!asp [name]",
 "!clean"
@@ -98,14 +101,16 @@ client.on('message', message => {
 		while (archive.length > 0){
 			msg = archive.shift();
 			if (msg.channel == message.channel && msg.pinned == false) {
-				msg.delete();
+				msg.delete()
+					.then(console.log('Deleted message'))
+					.catch(console.error);
 			}
 			else{
 				newArchive.push(msg);
 			}
 		}
 		archive = newArchive;
-		delete newArchive;
+		//delete newArchive;
 	}
 	if (message.author.id == client.user.id) {
 		//adds bot messages to array, utilized in clean
@@ -116,7 +121,7 @@ client.on('message', message => {
 			archive.shift();
 		}
 	}
-	if (message.content.substring(0,17) == '!subscribe alerts' || message.content.substring(0,19) == '!unsubscribe alerts'){
+	if (message.content.substring(0,10) == '!subscribe' || message.content.substring(0,12) == '!unsubscribe'){
 		//command is handled in a separate file, this is just for !clean
 		archive.push(message);
 	}
