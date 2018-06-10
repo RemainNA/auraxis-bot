@@ -14,10 +14,9 @@ var auth = require('./auth.json');
 var character = require('./character.js');
 var outfit = require('./outfit.js');
 var online = require('./online.js');
-var alerts = require('./subscribeAlert.js');
+var wsListen = require('./websocketListener.js');
 var population = require('./serverPopulation.js');
 var prePrestige = require('./prePrestige.js');
-var logins = require('./outfitLogins.js');
 
 // Create an instance of a Discord client
 const client = new Discord.Client();
@@ -29,8 +28,7 @@ const token = auth.token;
 // from Discord _after_ ready is emitted
 client.on('ready', () => {
   console.log('I am ready!');
-  alerts.subscribe(client);
-  logins.subscribe(client);
+  wsListen.subscribe(client);
 });
 
 var archive = []; //list of bot messages and commands
