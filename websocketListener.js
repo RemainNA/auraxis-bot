@@ -7,9 +7,10 @@ var auth = require('./auth.json');
 // Import request for API access
 var request = require('request');
 
+var async = require('async');
+
 //commands
-var checker = require('./logCheck.js')
-var alertType = require('./alertType.js');
+var handler = require('./websocketHandler.js');
 
 var WebSocket = require('websocket').client;
 
@@ -44,14 +45,14 @@ module.exports = {
 			connection.on('message', function(message){
 				if(message.utf8Data != null && message.utf8Data != undefined){
 					try{
-						//console.log(message.utf8Data);
 						parsed = JSON.parse(message.utf8Data);
 					}
 					catch{
 						console.log('JSON parse error: '+message.utf8Data);
 					}
 					if(parsed.payload != null){
-						if(parsed.payload.character_id != null){
+						handler.check(parsed, subListAlerts, subListOutfits);
+						/*if(parsed.payload.character_id != null){
 							character_id = parsed.payload.character_id;
 							if(parsed.payload.event_name == 'PlayerLogin'){
 								checker.check(character_id, subListOutfits, 'Log in');
@@ -64,7 +65,7 @@ module.exports = {
 							if(parsed.payload.metagame_event_state_name == "started"){
 								alertType.notify(parsed, subListAlerts);
 							}
-						}
+						}*/
 					}
 				}
 				
@@ -217,7 +218,7 @@ function outfitID(oTagLong, subListOutfits, action, channel){
 			data = JSON.parse(body)
 			if(data.outfit_list[0] == null){
 				//outfit not found
-				channel.send(task.oTag+' not found');
+				channel.send(oTag+' not found');
 			}
 			else{
 				//tag found, returned results

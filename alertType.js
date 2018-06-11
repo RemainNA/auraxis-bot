@@ -10,12 +10,12 @@ var auth = require('./auth.json');
 // import async
 var async = require('async');
 
-var q = async.queue(function(task, callback) {
+var qa = async.queue(function(task, callback) {
 	payload = task.message;
 	subList = task.subscriptions;
-	uri = 'https://census.daybreakgames.com/s:'+auth.serviceID+'/get/ps2:v2/metagame_event/'+payload.payload.metagame_event_id;
+	url = 'https://census.daybreakgames.com/s:'+auth.serviceID+'/get/ps2:v2/metagame_event/'+payload.payload.metagame_event_id;
 	try{
-		request(uri, function (error, response, body) {
+		request(url, function (error, response, body) {
 			try{
 				data = JSON.parse(body);
 				if (data.metagame_event_list[0] == null){
@@ -78,7 +78,7 @@ var q = async.queue(function(task, callback) {
 			}
 			catch{
 				console.log('JSON error in alertType, payload = '+body+' lookup URI = '+uri);
-				callback();
+				//callback();
 			}
 		})
 	}
@@ -87,10 +87,14 @@ var q = async.queue(function(task, callback) {
 	}
 })
 
+qa.drain = function() {
+	
+}
+
 module.exports = {
 	notify: function(payload, subList) {
-		q.push({message: payload, subscriptions: subList}, function (err) {
-			console.log('Received alert notification');
+		qa.push({message: payload, subscriptions: subList}, function (err) {
+			console.log('Received alert notification '+message.world_id);
 		});
 	}
 }

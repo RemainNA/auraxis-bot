@@ -10,7 +10,7 @@ var auth = require('./auth.json');
 // import async
 var async = require('async');
 
-var q = async.queue(function(task, callback) {
+var qu = async.queue(function(task, callback) {
 	character_id = task.id;
 	subList = task.sList;
 	playerEvent = task.pEvent;
@@ -24,7 +24,7 @@ var q = async.queue(function(task, callback) {
 			}
 			catch{
 				console.log('Error with '+body);
-				callback();
+				//callback();
 			}
 			if (data.character_list[0] == null)
 			{
@@ -63,14 +63,14 @@ var q = async.queue(function(task, callback) {
 	
 })
 
-q.drain = function() {
+qu.drain = function() {
 	
 }
 
 
 module.exports = {
 	check: function(character_id, subList, playerEvent){
-		q.push({id: character_id, sList: subList, pEvent: playerEvent}, function(err) {
+		qu.push({id: character_id, sList: subList, pEvent: playerEvent}, function(err) {
 			
 		})
 	}
