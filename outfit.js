@@ -31,7 +31,7 @@ var q = async.queue(function(task, callback) {
 				memOn = 0;
 				if(resOut.members[0].online_status != "service_unavailable"){
 					for (x in resOut.members){
-						if(resOut.members[x].online_status == "1"){
+						if(resOut.members[x].online_status >= 1){
 							memOn = memOn + 1;
 						}
 					}

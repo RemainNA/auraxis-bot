@@ -27,7 +27,7 @@ var q = async.queue(function(task, callback) {
 				var onArray = [];
 				if(resOut.members[0].online_status != "service_unavailable"){
 					for (x in resOut.members){
-						if (resOut.members[x].online_status == "1"){
+						if (resOut.members[x].online_status >= 1){
 							onArray.push(resOut.members[x].name.first);
 						}	
 					}
