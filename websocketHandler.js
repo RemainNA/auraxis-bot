@@ -38,8 +38,6 @@ var qu = async.queue(function(task, callback) {
 				}
 				else{
 					resChar = data.character_list[0];
-					/*info[0] = resChar.name.first;
-					info[2] = resChar.faction_id;*/
 					if(resChar.outfit_member != null){
 						keys = Object.keys(outfitList);
 						if (keys.indexOf(resChar.outfit_member.outfit_id) > -1)
@@ -65,9 +63,9 @@ var qu = async.queue(function(task, callback) {
 			}
 		})
 	}
-	else if(message.payload.metagame_event_state_name != null)
-	{
+	else if(message.payload.metagame_event_state_name != null){
 		if(message.payload.metagame_event_state_name == "started"){
+			console.log("Received alert notification")
 			url = 'https://census.daybreakgames.com/s:'+auth.serviceID+'/get/ps2:v2/metagame_event/'+message.payload.metagame_event_id;
 			try{
 				request(url, function (error, response, body) {
@@ -97,38 +95,43 @@ var qu = async.queue(function(task, callback) {
 									for(x in alertList.connery){
 										alertList.connery[x].send(sendEmbed);
 									}
+									callback();
 									break;
 								case "10":
 									sendEmbed.addField('Server', 'Miller', true);
 									for(x in alertList.miller){
 										alertList.miller[x].send(sendEmbed);
 									}
+									callback();
 									break;
 								case "13":
 									sendEmbed.addField('Server', 'Cobalt', true);
 									for(x in alertList.cobalt){
 										alertList.cobalt[x].send(sendEmbed);
 									}
+									callback();
 									break;
 								case "17":
 									sendEmbed.addField('Server', 'Emerald', true);
 									for(x in alertList.emerald){
 										alertList.emerald[x].send(sendEmbed);
 									}
+									callback();
 									break;
 								case "19":
 									sendEmbed.addField('Server', 'Jaeger', true);
 									for(x in alertList.jaegar){
 										alertList.jaegar[x].send(sendEmbed);
 									}
+									callback();
 									break;
 								case "25":
 									sendEmbed.addField('Server', 'Briggs', true);
 									for(x in alertList.briggs){
 										alertList.briggs[x].send(sendEmbed);
 									}
+									callback();
 							}
-							callback();
 						}
 					}
 					catch{
@@ -141,12 +144,15 @@ var qu = async.queue(function(task, callback) {
 				callback();
 			}
 		}
+		else{
+			callback();
+		}
 	}
 	
 })
 
 qu.drain = function() {
-	
+
 }
 
 
