@@ -52,20 +52,6 @@ module.exports = {
 					}
 					if(parsed.payload != null){
 						handler.check(parsed, subListAlerts, subListOutfits);
-						/*if(parsed.payload.character_id != null){
-							character_id = parsed.payload.character_id;
-							if(parsed.payload.event_name == 'PlayerLogin'){
-								checker.check(character_id, subListOutfits, 'Log in');
-							}
-							else{
-								checker.check(character_id, subListOutfits, 'Log out');
-							}
-						}
-						if(parsed.payload.metagame_event_state_name != null){
-							if(parsed.payload.metagame_event_state_name == "started"){
-								alertType.notify(parsed, subListAlerts);
-							}
-						}*/
 					}
 				}
 				
