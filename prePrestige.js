@@ -14,8 +14,10 @@ var q = async.queue(function(task, callback){
 	cName = task.chr;
 	message = task.msg;
 	uri = 'https://census.daybreakgames.com/s:'+auth.serviceID+'/get/ps2:v2/character?name.first_lower='+cName+'&c:resolve=item_full&c:lang=en';
+	var options = {uri:uri, message:message};
 	try{
-		request(uri, function (error, response, body) {
+		request(options, function (error, response, body) {
+			message = options.message;
 			data = JSON.parse(body)
 			if (data.character_list[0] == null)
 			{
