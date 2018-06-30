@@ -47,21 +47,22 @@ var listOfCommands = [
 client.on('message', message => {
 	//console.log(client.user);
 	// If the message is "!ping"
-	if (message.content == '!ping') {
+	if (message.content.toLowerCase() == '!ping') {
 		// Send "pong" to the same channel
 		archive.push(message);
 		message.channel.send('pong!');
 	}
-	if (message.content == '!help'){
+	if (message.content.toLowerCase() == '!help'){
+		archive.push(message);
 		message.channel.send(listOfCommands);
 	}
-	if (message.content.substring(0,10) == '!character') {
+	if (message.content.substring(0,10).toLowerCase() == '!character') {
 		// Look up character
 		archive.push(message);
 		var cName = message.content.substring(11).toLowerCase();
 		character.characterLookup(cName, message.channel);
 	}
-	if (message.content.substring(0,7) == '!outfit'){
+	if (message.content.substring(0,7).toLowerCase() == '!outfit'){
 		//look up outfit
 		archive.push(message);
 		var oName = message.content.substring(8).toLowerCase();
@@ -73,13 +74,13 @@ client.on('message', message => {
 			outfit.outfitLookup(oName, message.channel);
 		}
 	}
-	if (message.content.substring(0,7) == '!online'){
+	if (message.content.substring(0,7).toLowerCase() == '!online'){
 		//return online outfit members
 		archive.push(message);
 		var oName = message.content.substring(8).toLowerCase();
 		online.outfitLookup(oName, message.channel);
 	}
-	if (message.content.substring(0,11) == '!population'){
+	if (message.content.substring(0,11).toLowerCase() == '!population'){
 		//server population
 		archive.push(message);
 		var servers = message.content.substring(12);
@@ -92,7 +93,7 @@ client.on('message', message => {
 		prePrestige.lookup(characterName, message);
 		
 	}
-	if (message.content == '!clean') {
+	if (message.content.toLowerCase() == '!clean') {
 		//delete bot messages
 		archive.push(message);
 		newArchive = [];
@@ -119,7 +120,7 @@ client.on('message', message => {
 			archive.shift();
 		}
 	}
-	if (message.content.substring(0,10) == '!subscribe' || message.content.substring(0,12) == '!unsubscribe'){
+	if (message.content.substring(0,10).toLowerCase() == '!subscribe' || message.content.substring(0,12).toLowerCase() == '!unsubscribe'){
 		//command is handled in a separate file, this is just for !clean
 		archive.push(message);
 	}
