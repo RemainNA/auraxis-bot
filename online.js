@@ -5,7 +5,7 @@ const Discord = require('discord.js');
 var request = require('request');
 
 // auth file
-var auth = require('./auth.json');
+//var auth = require('./auth.json');
 
 // import async
 var async = require('async');
@@ -14,7 +14,7 @@ var q = async.queue(function(task, callback) {
 	oTag = task.tag;
 	channel = task.inChannel;
 
-	uri = 'http://census.daybreakgames.com/s:'+auth.serviceID+'/get/ps2:v2/outfit?alias_lower='+oTag+'&c:resolve=member_character_name,member_online_status&c:join=character^on:leader_character_id^to:character_id';
+	uri = 'http://census.daybreakgames.com/s:'+process.env.serviceID+'/get/ps2:v2/outfit?alias_lower='+oTag+'&c:resolve=member_character_name,member_online_status&c:join=character^on:leader_character_id^to:character_id';
 	try{
 		request(uri, function (error, response, body) {
 			data = JSON.parse(body);
@@ -48,17 +48,17 @@ var q = async.queue(function(task, callback) {
 				}
 				
 				if (resOut.leader_character_id_join_character.faction_id == "1") //vs
-							{
-								sendEmbed.setColor('PURPLE');
-							}
-							else if (resOut.leader_character_id_join_character.faction_id == "2") //nc
-							{
-								sendEmbed.setColor('BLUE');
-							}
-							else //tr
-							{
-								sendEmbed.setColor('RED');
-							}
+				{
+					sendEmbed.setColor('PURPLE');
+				}
+				else if (resOut.leader_character_id_join_character.faction_id == "2") //nc
+				{
+					sendEmbed.setColor('BLUE');
+				}
+				else //tr
+				{
+					sendEmbed.setColor('RED');
+				}
 				channel.send(sendEmbed);
 				callback();
 			}

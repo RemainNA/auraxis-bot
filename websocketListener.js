@@ -2,7 +2,7 @@
 const Discord = require('discord.js');
 
 // auth file
-var auth = require('./auth.json');
+//var auth = require('./auth.json');
 
 // Import request for API access
 var request = require('request');
@@ -22,7 +22,7 @@ module.exports = {
 		subscribeRequestAlerts = '{"service":"event","action":"subscribe","worlds":["1","10","13","17","19","25"],"eventNames":["MetagameEvent"]}';
 		var client = new WebSocket();
 		
-		client.connect('wss://push.planetside2.com/streaming?environment=ps2&service-id=s:'+auth.serviceID);
+		client.connect('wss://push.planetside2.com/streaming?environment=ps2&service-id=s:'+process.env.serviceID);
 		
 		client.on('connectFailed', function(error){
 			console.log('Connection failed: '+error);
@@ -39,7 +39,7 @@ module.exports = {
 			
 			connection.on('close', function(){
 				console.log("Connection closed");
-				client.connect('wss://push.planetside2.com/streaming?environment=ps2&service-id=s:'+auth.serviceID);
+				client.connect('wss://push.planetside2.com/streaming?environment=ps2&service-id=s:'+process.env.serviceID);
 			});
 			
 			connection.on('message', function(message){
@@ -198,7 +198,7 @@ function outfitID(oTagLong, subListOutfits, action, channel){
 		else{
 			continue;
 		}
-		uri = 'http://census.daybreakgames.com/s:'+auth.serviceID+'/get/ps2:v2/outfit?alias_lower='+oTag+'&c:join=character^on:leader_character_id^to:character_id';
+		uri = 'http://census.daybreakgames.com/s:'+process.env.serviceID+'/get/ps2:v2/outfit?alias_lower='+oTag+'&c:join=character^on:leader_character_id^to:character_id';
 		var options = {uri:uri, subListOutfits:subListOutfits, action:action, channel:channel, oTag:oTag}
 		request(options, function(error, respose, body){
 			data = JSON.parse(body)

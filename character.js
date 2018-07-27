@@ -5,7 +5,7 @@ const Discord = require('discord.js');
 var request = require('request');
 
 // auth file
-var auth = require('./auth.json');
+//var auth = require('./auth.json');
 
 // import async
 var async = require('async');
@@ -13,7 +13,7 @@ var async = require('async');
 var q = async.queue(function(task, callback) {
 	cName = task.name;
 	channel = task.inChannel;
-	uri = 'https://census.daybreakgames.com/s:'+auth.serviceID+'/get/ps2:v2/character?name.first_lower='+cName+'&c:resolve=outfit_member_extended,online_status,world,stat_history,weapon_stat_by_faction&c:join=title'
+	uri = 'https://census.daybreakgames.com/s:'+process.env.serviceID+'/get/ps2:v2/character?name.first_lower='+cName+'&c:resolve=outfit_member_extended,online_status,world,stat_history,weapon_stat_by_faction&c:join=title'
 	var options = {uri: uri, channel: channel};
 	try{
 		request(options, function (error, response, body) {
@@ -131,7 +131,7 @@ var q = async.queue(function(task, callback) {
 					}
 				}
 				try{
-					weapURI = 'https://census.daybreakgames.com/s:'+auth.serviceID+'/get/ps2:v2/item/'+topID;
+					weapURI = 'https://census.daybreakgames.com/s:'+process.env.serviceID+'/get/ps2:v2/item/'+topID;
 					var options = {uri: weapURI, sendEmbed: sendEmbed, topNum: topNum, channel: channel}
 					request(options, function(error, response, body){
 							weapData = JSON.parse(body);

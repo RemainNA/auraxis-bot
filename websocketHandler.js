@@ -5,7 +5,7 @@ const Discord = require('discord.js');
 var request = require('request');
 
 // auth file
-var auth = require('./auth.json');
+//var auth = require('./auth.json');
 
 // import async
 var async = require('async');
@@ -17,7 +17,7 @@ var qu = async.queue(function(task, callback) {
 	if(message.payload.character_id != null){
 		character_id = message.payload.character_id;
 		playerEvent = message.payload.event_name.substring(6);
-		uri = 'https://census.daybreakgames.com/s:'+auth.serviceID+'/get/ps2:v2/character/'+character_id+'?c:resolve=outfit_member'
+		uri = 'https://census.daybreakgames.com/s:'+process.env.serviceID+'/get/ps2:v2/character/'+character_id+'?c:resolve=outfit_member'
 		var options = {uri:uri, playerEvent:playerEvent, outfitList:outfitList}
 		request(options, function (error, response, body) {
 			if(body != null && body != undefined){
@@ -67,7 +67,7 @@ var qu = async.queue(function(task, callback) {
 		console.log('Alert notification');
 		if(message.payload.metagame_event_state_name == "started"){
 			console.log("Alert start")
-			url = 'https://census.daybreakgames.com/s:'+auth.serviceID+'/get/ps2:v2/metagame_event/'+message.payload.metagame_event_id;
+			url = 'https://census.daybreakgames.com/s:'+process.env.serviceID+'/get/ps2:v2/metagame_event/'+message.payload.metagame_event_id;
 			try{
 				request(url, function (error, response, body) {
 					try{

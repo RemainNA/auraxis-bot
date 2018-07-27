@@ -8,7 +8,7 @@ var request = require('request');
 var async = require('async');
 
 // auth file
-var auth = require('./auth.json');
+//var auth = require('./auth.json');
 
 // commands
 var character = require('./character.js');
@@ -22,7 +22,7 @@ var prePrestige = require('./prePrestige.js');
 const client = new Discord.Client();
 
 // The token of your bot - https://discordapp.com/developers/applications/me
-const token = auth.token;
+const token = process.env.token;
 
 // The ready event is vital, it means that your bot will only start reacting to information
 // from Discord _after_ ready is emitted

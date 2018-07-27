@@ -5,7 +5,7 @@ const Discord = require('discord.js');
 var request = require('request');
 
 // auth file
-var auth = require('./auth.json');
+//var auth = require('./auth.json');
 
 // import async
 var async = require('async');
@@ -13,7 +13,7 @@ var async = require('async');
 var q = async.queue(function(task, callback){
 	cName = task.chr;
 	message = task.msg;
-	uri = 'https://census.daybreakgames.com/s:'+auth.serviceID+'/get/ps2:v2/character?name.first_lower='+cName+'&c:resolve=item_full&c:lang=en';
+	uri = 'https://census.daybreakgames.com/s:'+process.env.serviceID+'/get/ps2:v2/character?name.first_lower='+cName+'&c:resolve=item_full&c:lang=en';
 	var options = {uri:uri, message:message};
 	try{
 		request(options, function (error, response, body) {
