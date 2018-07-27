@@ -1,8 +1,8 @@
 {
-  "name": "Auraxis Bot",
+  "name": "Auraxis_Bot",
   "version": "0.1.0",
   "description": "Bot for Planetside info",
-  "main": "bot.js",
+  "main": "main.js",
   "author": "Ultimastorm",
   "dependencies": {
     "async": "^2.6.0",
