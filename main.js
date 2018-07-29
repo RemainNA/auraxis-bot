@@ -8,7 +8,14 @@ var request = require('request');
 var async = require('async');
 
 // auth file
-//var auth = require('./auth.json');
+try{
+	var auth = require('./auth.json');
+	process.env.serviceID = auth.serviceID;
+	process.env.token = auth.token;
+}
+catch(e){
+	console.log('no auth file found');
+}
 
 // commands
 var character = require('./character.js');
