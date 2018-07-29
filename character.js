@@ -141,7 +141,7 @@ var q = async.queue(function(task, callback) {
 							callback();
 						})
 				}
-				catch{
+				catch(e){
 					channel.send(sendEmbed);
 					callback();
 				}
