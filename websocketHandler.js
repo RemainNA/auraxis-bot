@@ -25,7 +25,7 @@ var qu = async.queue(function(task, callback) {
 					console.log('Error with '+JSON.stringify(message.payload));
 					//callback();
 				}
-				if (data.character_list[0] == null)
+				if (data.character_list == null)
 				{
 					callback();
 				}

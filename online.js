@@ -15,7 +15,7 @@ var q = async.queue(function(task, callback) {
 	try{
 		request(uri, function (error, response, body) {
 			data = JSON.parse(body);
-			if (data.outfit_list[0] == null){
+			if (data.outfit_list == null){
 				channel.send("["+oTag+"] not found");
 				callback();
 			}
