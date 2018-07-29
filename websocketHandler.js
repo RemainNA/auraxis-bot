@@ -24,7 +24,7 @@ var qu = async.queue(function(task, callback) {
 				try{
 					data = JSON.parse(body);
 				}
-				catch{
+				catch(e){
 					console.log('Error with '+JSON.stringify(message.payload));
 					//callback();
 				}
@@ -135,13 +135,13 @@ var qu = async.queue(function(task, callback) {
 							}
 						}
 					}
-					catch{
+					catch(e){
 						console.log('JSON error in alertType, payload = '+body+' lookup URI = '+uri);
 						callback();
 					}
 				})
 			}
-			catch{
+			catch(e){
 				callback();
 			}
 		}

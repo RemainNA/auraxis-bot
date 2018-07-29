@@ -148,7 +148,7 @@ var q = async.queue(function(task, callback) {
 			}
 		})
 	}
-	catch {
+	catch(e) {
 		console.log('character error');
 		channel.send('An error occured');
 		callback();

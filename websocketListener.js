@@ -47,7 +47,7 @@ module.exports = {
 					try{
 						parsed = JSON.parse(message.utf8Data);
 					}
-					catch{
+					catch(e){
 						console.log('JSON parse error: '+message.utf8Data);
 					}
 					if(parsed.payload != null){

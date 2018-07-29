@@ -63,7 +63,7 @@ var q = async.queue(function(task, callback){
 			}
 		})
 	}
-	catch{
+	catch(e){
 		callback();
 	}
 })

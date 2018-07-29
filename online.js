@@ -64,7 +64,7 @@ var q = async.queue(function(task, callback) {
 			}
 		})
 	}
-	catch{
+	catch(e){
 		channel.send('An error occured');
 		callback();
 	}

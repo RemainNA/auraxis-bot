@@ -93,14 +93,14 @@ var q = async.queue(function(task, callback) {
 						}
 					})
 				}
-				catch{
+				catch(e){
 					channel.send(sendEmbed);
 					callback();
 				}
 			}
 		});
 	}
-	catch{
+	catch(e){
 		console.log('pos 5')
 		callback();
 	}

@@ -25,7 +25,7 @@ var q = async.queue(function(task, callback){
 				channel.send(sendEmbed);
 			})
 		}
-		catch{
+		catch(e){
 			console.log('connery pop error');
 		}
 	}
@@ -44,7 +44,7 @@ var q = async.queue(function(task, callback){
 				channel.send(sendEmbed);
 			})
 		}
-		catch{
+		catch(e){
 			console.log('miller pop error');
 		}
 	}
@@ -63,7 +63,7 @@ var q = async.queue(function(task, callback){
 				channel.send(sendEmbed);
 			})
 		}
-		catch{
+		catch(e){
 			console.log('cobalt pop error');
 		}
 	}
@@ -82,7 +82,7 @@ var q = async.queue(function(task, callback){
 				channel.send(sendEmbed);
 			})
 		}
-		catch{
+		catch(e){
 			console.log('emerald pop error');
 		}
 	}
@@ -101,7 +101,7 @@ var q = async.queue(function(task, callback){
 				channel.send(sendEmbed);
 			})
 		}
-		catch{
+		catch(e){
 			console.log('jaegar pop error');
 		}
 	}
@@ -120,7 +120,7 @@ var q = async.queue(function(task, callback){
 				channel.send(sendEmbed);
 			})
 		}
-		catch{
+		catch(e){
 			console.log('Briggs pop error');
 		}
 	}
