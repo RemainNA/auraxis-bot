@@ -1,6 +1,6 @@
 {
   "name": "Auraxis_Bot",
-  "version": "0.1.0",
+  "version": "2.0.0",
   "description": "Bot for Planetside info",
   "main": "main.js",
   "author": "Ultimastorm",
@@ -9,7 +9,5 @@
     "discord.js": "^11.3.2",
     "request": "^2.85.0",
     "websocket": "^1.0.26"
-  },
-  "scripts": {
-    "start": "node main.js"}
+  }
 }
