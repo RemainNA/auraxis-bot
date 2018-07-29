@@ -4,9 +4,6 @@ const Discord = require('discord.js');
 // Import request for API access
 var request = require('request');
 
-// auth file
-//var auth = require('./auth.json');
-
 // import async
 var async = require('async');
 

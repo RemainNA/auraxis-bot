@@ -1,9 +1,6 @@
 // Import the discord.js module
 const Discord = require('discord.js');
 
-// auth file
-//var auth = require('./auth.json');
-
 // Import request for API access
 var request = require('request');
 
