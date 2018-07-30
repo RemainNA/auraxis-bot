@@ -31,7 +31,7 @@ var qu = async.queue(function(task, callback) {
 				}
 				else{
 					resChar = data.character_list[0];
-					if(resChar.outfit_member != null){
+					if(resChar != null && resChar.outfit_member != null){
 						keys = Object.keys(outfitList);
 						if (keys.indexOf(resChar.outfit_member.outfit_id) > -1)
 						{
