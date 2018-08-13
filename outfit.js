@@ -20,14 +20,16 @@ var q = async.queue(function(task, callback) {
 			}
 			else{
 				resOut = data.outfit_list[0];
+				//create new discord rich embed object
 				sendEmbed = new Discord.RichEmbed();
 				sendEmbed.setTitle(resOut.name);
-				sendEmbed.setDescription(resOut.alias);
+				sendEmbed.setDescription(resOut.alias); //include outfit tag
 				sendEmbed.setURL('https://ps2.fisu.pw/outfit/?name='+oTag);
 				sendEmbed.addField('Member count', resOut.member_count, true);
-				memOn = 0;
+				memOn = 0; //members online
 				if(resOut.members[0].online_status != "service_unavailable"){
 					for (x in resOut.members){
+						//iterate through members, count online
 						if(resOut.members[x].online_status >= 1){
 							memOn = memOn + 1;
 						}
@@ -35,21 +37,24 @@ var q = async.queue(function(task, callback) {
 					sendEmbed.addField('Online', memOn, true);
 				}
 				else{
+					//indicate if unable to get online member info
 					sendEmbed.addField('Online', 'Service unavailable',true);
 				}
 				
 				try{
+					//get info from outfit owner
 					uri = 'https://census.daybreakgames.com/s:'+process.env.serviceID+'/get/ps2:v2/character/'+resOut.leader_character_id+'?c:resolve=world'
 					options = {uri: uri, sendEmbed: sendEmbed, channel: channel};
 					request(options, function(error, respose, body) {
 						data2 = JSON.parse(body);
 						if (data2.character_list[0] == null){
+							//send rich embed if unable to pull outfit owner info
 							channel.send(sendEmbed);
 							callback();
 						}
 						else {
 							resChar = data2.character_list[0];
-							switch (resChar.world_id)
+							switch (resChar.world_id) //server
 							{
 								case "1":
 									sendEmbed.addField('Server', 'Connery', true);
@@ -69,6 +74,7 @@ var q = async.queue(function(task, callback) {
 								case "25":
 									sendEmbed.addField('Server', 'Briggs', true);
 							}
+							//change rich embed color based on faction
 							if (resChar.faction_id == "1") //vs
 							{
 								sendEmbed.addField('Faction', 'VS', true);

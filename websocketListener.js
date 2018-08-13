@@ -15,6 +15,7 @@ module.exports = {
 	subscribe: function(discordClient) {
 		subListOutfits = {}
 		subListAlerts = {"connery": [], "cobalt": [], "miller": [], "emerald": [], "jaegar": [], "briggs": []}
+		//subscription messages to send to websocket
 		subscribeRequestLogin = '{"service":"event","action":"subscribe","worlds":["1","10","13","17","19","25"],"eventNames":["PlayerLogin","PlayerLogout"]}'
 		subscribeRequestAlerts = '{"service":"event","action":"subscribe","worlds":["1","10","13","17","19","25"],"eventNames":["MetagameEvent"]}';
 		var client = new WebSocket();
@@ -40,6 +41,7 @@ module.exports = {
 			});
 			
 			connection.on('message', function(message){
+				//on message parse JSON and send to handler
 				if(message.utf8Data != null && message.utf8Data != undefined){
 					try{
 						parsed = JSON.parse(message.utf8Data);
@@ -56,6 +58,7 @@ module.exports = {
 		})
 		
 		discordClient.on('message', message => {
+			//listen to discord for subscribe/unsubscribe requests
 			if(message.content.substring(0,19) == '!subscribe activity'){
 				outfitID(message.content.substring(20).toLowerCase(), subListOutfits, 'subscribe', message.channel)
 			}
@@ -186,6 +189,7 @@ module.exports = {
 	}
 }
 
+//handle outfit activity reausts, grabs outfit id and adds/removes from arrays
 function outfitID(oTagLong, subListOutfits, action, channel){
 	oTagList = oTagLong.split(" ");
 	for (x in oTagList){

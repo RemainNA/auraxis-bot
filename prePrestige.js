@@ -27,6 +27,7 @@ var q = async.queue(function(task, callback){
 			}
 			else{
 				resChar = data.character_list[0];
+				//create rich embed, color based on faction
 				sendEmbed = new Discord.RichEmbed();
 				sendEmbed.setTitle(resChar.name.first);
 				if (resChar.faction_id == "1") //vs
@@ -41,17 +42,18 @@ var q = async.queue(function(task, callback){
 				{
 					sendEmbed.setColor('RED');
 				}
-				decals = [];
+				decals = []; //count br 101-120 decals
 				for (x in resChar.items){
 					if (Number(resChar.items[x].item_id) >= 803931 && Number(resChar.items[x].item_id) <= 803950){
+						//record br 101-120 decals
 						decals.push(Number(resChar.items[x].item_id));
 					}
 				}
 				var preBR = 0;
-				if (decals.length == 0){
+				if (decals.length == 0){ //if no decals, recorded, prestiged at br 100
 					preBR = 100;
 				}
-				else{
+				else{ //decals ids are br + 803830
 					preBR = Math.max.apply(Math, decals) - 803830;
 				}
 				sendEmbed.addField('Max BR pre ASP', preBR);

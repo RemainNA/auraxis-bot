@@ -11,10 +11,12 @@ var qu = async.queue(function(task, callback) {
 	message = task.msg;
 	alertList = task.aList;
 	outfitList = task.oList;
+	//if message is a login/out event
 	if(message.payload.character_id != null){
 		character_id = message.payload.character_id;
 		playerEvent = message.payload.event_name.substring(6);
 		uri = 'https://census.daybreakgames.com/s:'+process.env.serviceID+'/get/ps2:v2/character/'+character_id+'?c:resolve=outfit_member'
+		//lookup character info and outfit membership
 		var options = {uri:uri, playerEvent:playerEvent, outfitList:outfitList}
 		request(options, function (error, response, body) {
 			if(body != null && body != undefined){
@@ -33,8 +35,10 @@ var qu = async.queue(function(task, callback) {
 					resChar = data.character_list[0];
 					if(resChar != null && resChar.outfit_member != null){
 						keys = Object.keys(outfitList);
+						//if character's outfit id is in the list of outfits that are subscribed to
 						if (keys.indexOf(resChar.outfit_member.outfit_id) > -1)
 						{
+							//create and send rich embed to all subscribed channels
 							sendEmbed = new Discord.RichEmbed();
 							sendEmbed.setTitle(outfitList[resChar.outfit_member.outfit_id][0]+' '+playerEvent);
 							sendEmbed.setDescription(resChar.name.first);
@@ -60,8 +64,10 @@ var qu = async.queue(function(task, callback) {
 			}
 		})
 	}
+	//alert notification
 	else if(message.payload.metagame_event_state_name != null){
 		console.log('Alert notification');
+		//ignore ending alerts
 		if(message.payload.metagame_event_state_name == "started"){
 			console.log("Alert start")
 			url = 'https://census.daybreakgames.com/s:'+process.env.serviceID+'/get/ps2:v2/metagame_event/'+message.payload.metagame_event_id;
@@ -78,6 +84,7 @@ var qu = async.queue(function(task, callback) {
 							sendEmbed.setTitle(resEvent.name.en);
 							sendEmbed.setDescription(resEvent.description.en);
 							sendEmbed.addField('Status', message.payload.metagame_event_state_name, true);
+							//color rich embed based on starting faction if applicable
 							if (resEvent.name.en.includes('Enlightenment')){
 								sendEmbed.setColor('PURPLE');
 							}
@@ -87,6 +94,7 @@ var qu = async.queue(function(task, callback) {
 							else if (resEvent.name.en.includes('Superiority')){
 								sendEmbed.setColor('RED');
 							}
+							//add server to embed and send to appropriate channels
 							switch (message.payload.world_id){
 								case "1":
 									sendEmbed.addField('Server', 'Connery', true);

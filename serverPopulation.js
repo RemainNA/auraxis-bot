@@ -10,7 +10,9 @@ var async = require('async');
 var q = async.queue(function(task, callback){
 	servers = task.sList.toLowerCase();
 	channel = task.chnl;
+	//using if instead of else if allows for multiple server population checks in one command
 	if(servers.includes('connery')){
+		//call fisu api.  User agent is because fisu will refuse connections without one
 		options = {uri:'http://ps2.fisu.pw/api/population/?world=1', headers: {'User-Agent': "Auraxis bot"}};
 		try{
 			request(options, function (error, response, body) {

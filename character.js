@@ -22,6 +22,7 @@ var q = async.queue(function(task, callback) {
 			}
 			else{
 				resChar = data.character_list[0]; //resChar = resulting character
+				//create Discord rich embed object
 				sendEmbed = new Discord.RichEmbed();
 				
 				//name
@@ -39,6 +40,8 @@ var q = async.queue(function(task, callback) {
 				//BR, Prestige
 				sendEmbed.addField('BR', resChar.battle_rank.value, true);
 				sendEmbed.addField('Prestige', prestige = resChar.prestige_level, true);
+				
+				//server
 				switch (resChar.world_id)
 				{
 					case "1":
@@ -116,6 +119,7 @@ var q = async.queue(function(task, callback) {
 				topID = '';
 				topNum = -1;
 				weaponStat = resChar.stats.weapon_stat_by_faction;
+				//iterate through weapons, find max value
 				for (x in weaponStat)
 				{
 					if (weaponStat[x].stat_name == "weapon_kills" && weaponStat[x].item_id != "0")
@@ -128,6 +132,7 @@ var q = async.queue(function(task, callback) {
 					}
 				}
 				try{
+					//get weapon info, add to rich embed and send
 					weapURI = 'https://census.daybreakgames.com/s:'+process.env.serviceID+'/get/ps2:v2/item/'+topID;
 					var options = {uri: weapURI, sendEmbed: sendEmbed, topNum: topNum, channel: channel}
 					request(options, function(error, response, body){
@@ -139,6 +144,7 @@ var q = async.queue(function(task, callback) {
 						})
 				}
 				catch(e){
+					//send rich embed without top weapon if it fails
 					channel.send(sendEmbed);
 					callback();
 				}
@@ -156,6 +162,7 @@ q.drain = function() {
 	console.log('Done');
 }
 module.exports = {
+	//external files call this, which then calls the code above
 	characterLookup: function (cName, channel) {
 		q.push({name: cName, inChannel: channel}, function(err) {
 			console.log(cName);
