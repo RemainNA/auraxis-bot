@@ -26,9 +26,9 @@ var population = require('./serverPopulation.js');
 var prePrestige = require('./prePrestige.js');
 
 //PostgreSQL connection
-const { SQLClient } = require('pg');
+const { Client } = require('pg');
 
-const SQLclient = new SQLClient({
+const SQLclient = new Client({
   connectionString: process.env.DATABASE_URL,
   ssl: true,
 });
