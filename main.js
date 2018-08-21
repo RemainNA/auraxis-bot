@@ -25,6 +25,24 @@ var wsListen = require('./websocketListener.js');
 var population = require('./serverPopulation.js');
 var prePrestige = require('./prePrestige.js');
 
+//PostgreSQL connection
+const { SQLClient } = require('pg');
+
+const client = new SQLClient({
+  connectionString: process.env.DATABASE_URL,
+  ssl: true,
+});
+
+client.connect();
+
+client.query('SELECT table_schema,table_name FROM information_schema.tables;', (err, res) => {
+  if (err) throw err;
+  for (let row of res.rows) {
+    console.log(JSON.stringify(row));
+  }
+  client.end();
+});
+
 // Create an instance of a Discord client
 const client = new Discord.Client();
 
