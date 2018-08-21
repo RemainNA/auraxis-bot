@@ -28,19 +28,19 @@ var prePrestige = require('./prePrestige.js');
 //PostgreSQL connection
 const { SQLClient } = require('pg');
 
-const client = new SQLClient({
+const SQLclient = new SQLClient({
   connectionString: process.env.DATABASE_URL,
   ssl: true,
 });
 
-client.connect();
+SQLclient.connect();
 
-client.query('SELECT table_schema,table_name FROM information_schema.tables;', (err, res) => {
+SQLclient.query('SELECT table_schema,table_name FROM information_schema.tables;', (err, res) => {
   if (err) throw err;
   for (let row of res.rows) {
     console.log(JSON.stringify(row));
   }
-  client.end();
+  SQLclient.end();
 });
 
 // Create an instance of a Discord client
