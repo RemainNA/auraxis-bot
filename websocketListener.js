@@ -11,6 +11,9 @@ var handler = require('./websocketHandler.js');
 
 var WebSocket = require('websocket').client;
 
+//PostgreSQL connection
+const { Client } = require('pg');
+
 module.exports = {
 	subscribe: function(discordClient) {
 		subListOutfits = {}
