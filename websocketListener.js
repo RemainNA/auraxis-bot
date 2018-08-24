@@ -32,10 +32,12 @@ module.exports = {
 					SQLclient.end();
 				});
 			} 
-		    for (let row of res.rows) {
+		    else{
+				for (let row of res.rows) {
 				subListAlerts.connery.push(row.channel);
 			    console.log(JSON.stringify(row));
-		    }
+				}
+			}
 		    SQLclient.end();
 		});
 		//subscription messages to send to websocket
