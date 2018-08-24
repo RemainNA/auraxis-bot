@@ -15,6 +15,23 @@ module.exports = {
 	subscribe: function(discordClient) {
 		subListOutfits = {}
 		subListAlerts = {"connery": [], "cobalt": [], "miller": [], "emerald": [], "jaegar": [], "briggs": []}
+		const SQLclient = new Client({
+		  connectionString: process.env.DATABASE_URL,
+		  ssl: true,
+		});
+
+		SQLclient.connect();
+		SQLclient.query("SELECT * connery", (err, res) => {
+		    if (err){
+				console.log("Creating connery table");
+				SQLclient.query("create table connery (channel text);")
+			} 
+		    for (let row of res.rows) {
+				subListAlerts.connery.push(row.channel);
+			    console.log(JSON.stringify(row));
+		    }
+		    SQLclient.end();
+		});
 		//subscription messages to send to websocket
 		subscribeRequestLogin = '{"service":"event","action":"subscribe","worlds":["1","10","13","17","19","25"],"eventNames":["PlayerLogin","PlayerLogout"]}'
 		subscribeRequestAlerts = '{"service":"event","action":"subscribe","worlds":["1","10","13","17","19","25"],"eventNames":["MetagameEvent"]}';
