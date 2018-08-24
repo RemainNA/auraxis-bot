@@ -37,8 +37,9 @@ module.exports = {
 				subListAlerts.connery.push(row.channel);
 			    console.log(JSON.stringify(row));
 				}
+				SQLclient.end();
 			}
-		    SQLclient.end();
+		    
 		});
 		//subscription messages to send to websocket
 		subscribeRequestLogin = '{"service":"event","action":"subscribe","worlds":["1","10","13","17","19","25"],"eventNames":["PlayerLogin","PlayerLogout"]}'
