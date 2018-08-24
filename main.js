@@ -38,7 +38,7 @@ SQLclient.connect();
 SQLclient.query("SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_TYPE='BASE TABLE'", (err, res) => {
   if (err) throw err;
   for (let row of res.rows) {
-    console.log(JSON.stringify(row));
+    //console.log(JSON.stringify(row));
   }
   SQLclient.end();
 });

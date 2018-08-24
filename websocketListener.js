@@ -23,8 +23,11 @@ module.exports = {
 		SQLclient.connect();
 		SQLclient.query("SELECT * connery", (err, res) => {
 		    if (err){
+				console.log(err);
 				console.log("Creating connery table");
-				SQLclient.query("create table connery (channel text);")
+				SQLclient.query("create table connery (channel text);", (err, res) => {
+					SQLclient.end();
+				});
 			} 
 		    for (let row of res.rows) {
 				subListAlerts.connery.push(row.channel);
