@@ -102,7 +102,7 @@ module.exports = {
 				if(message.content.substring(18).toLowerCase().includes('connery')){
 					if(subListAlerts.connery.indexOf(message.channel) == -1){
 						subListAlerts.connery.push(message.channel);
-						SQLclient.query("INSERT INTO connery VALUES (message.channel);", (err, res) => {
+						SQLclient.query("INSERT INTO connery VALUES ("+message.channel+");", (err, res) => {
 							if (err){
 								console.log(err);
 							} 
