@@ -29,7 +29,7 @@ module.exports = {
 				console.log(err);
 				console.log("Creating connery table");
 				SQLclient.query("create table connery (channel text);", (err, res) => {
-					SQLclient.end();
+					//SQLclient.end();
 				});
 			} 
 		    else{
@@ -37,7 +37,7 @@ module.exports = {
 				subListAlerts.connery.push(row.channel);
 			    console.log(JSON.stringify(row));
 				}
-				SQLclient.end();
+				//SQLclient.end();
 			}
 		    
 		});
@@ -45,7 +45,7 @@ module.exports = {
 			if (err){
 				console.log(err);
 			} 
-			SQLclient.end();
+			//SQLclient.end();
 		});
 		//subscription messages to send to websocket
 		subscribeRequestLogin = '{"service":"event","action":"subscribe","worlds":["1","10","13","17","19","25"],"eventNames":["PlayerLogin","PlayerLogout"]}'
@@ -106,7 +106,7 @@ module.exports = {
 							if (err){
 								console.log(err);
 							} 
-						  SQLclient.end();
+						  //SQLclient.end();
 						});
 						message.channel.send("Confirmed subscription to Connery alerts");
 					}
@@ -169,7 +169,7 @@ module.exports = {
 							if (err){
 								console.log(err);
 							} 
-						  SQLclient.end();
+						  //SQLclient.end();
 						});
 						message.channel.send("Unsubscribed from Connery alerts");
 					}
