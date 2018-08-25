@@ -28,7 +28,7 @@ module.exports = {
 		    if (err){
 				console.log(err);
 				console.log("Creating connery table");
-				SQLclient.query("CREATE TABLE connery (channel TINYTEXT);", (err, res) => {
+				SQLclient.query("CREATE TABLE connery (channel TEXT);", (err, res) => {
 					if (err){
 						console.log(err);
 					}
