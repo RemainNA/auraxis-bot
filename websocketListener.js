@@ -28,14 +28,16 @@ module.exports = {
 		    if (err){
 				console.log(err);
 				console.log("Creating connery table");
-				SQLclient.query("create table connery (channel text);", (err, res) => {
+				SQLclient.query("CREATE TABLE connery (channel TINYTEXT);", (err, res) => {
 					//SQLclient.end();
 				});
 			} 
 		    else{
 				for (let row of res.rows) {
-				subListAlerts.connery.push(row.channel);
-			    console.log(JSON.stringify(row));
+					//convert channel id into channel object
+					resChann = client.channels.get(row.channel);
+					subListAlerts.connery.push(resChann);
+					console.log(JSON.stringify(row));
 				}
 				//SQLclient.end();
 			}
@@ -102,7 +104,7 @@ module.exports = {
 				if(message.content.substring(18).toLowerCase().includes('connery')){
 					if(subListAlerts.connery.indexOf(message.channel) == -1){
 						subListAlerts.connery.push(message.channel);
-						SQLclient.query("INSERT INTO connery VALUES ("+message.channel+");", (err, res) => {
+						SQLclient.query("INSERT INTO connery VALUES ("+message.channel.id+");", (err, res) => {
 							if (err){
 								console.log(err);
 							} 
@@ -165,7 +167,7 @@ module.exports = {
 					index = subListAlerts.connery.indexOf(message.channel);
 					if(index > -1){
 						subListAlerts.connery.splice(index, 1);
-						SQLclient.query("DELETE FROM connery WHERE channel="+message.channel+";", (err, res) => {
+						SQLclient.query("DELETE FROM connery WHERE channel="+message.channel.id+";", (err, res) => {
 							if (err){
 								console.log(err);
 							} 
