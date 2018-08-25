@@ -41,12 +41,12 @@ module.exports = {
 			}
 		    
 		});
-		SQLclient.query("DELETE FROM connery;", (err, res) => {
+		/*SQLclient.query("DELETE FROM connery;", (err, res) => {
 			if (err){
 				console.log(err);
 			} 
 			//SQLclient.end();
-		});
+		});*/
 		//subscription messages to send to websocket
 		subscribeRequestLogin = '{"service":"event","action":"subscribe","worlds":["1","10","13","17","19","25"],"eventNames":["PlayerLogin","PlayerLogout"]}'
 		subscribeRequestAlerts = '{"service":"event","action":"subscribe","worlds":["1","10","13","17","19","25"],"eventNames":["MetagameEvent"]}';
