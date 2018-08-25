@@ -29,7 +29,12 @@ module.exports = {
 				console.log(err);
 				console.log("Creating connery table");
 				SQLclient.query("CREATE TABLE connery (channel TINYTEXT);", (err, res) => {
-					//SQLclient.end();
+					if (err){
+						console.log(err);
+					}
+					else{
+						console.log(res);
+					}
 				});
 			} 
 		    else{
