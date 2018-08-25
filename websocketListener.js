@@ -24,7 +24,7 @@ module.exports = {
 		});
 
 		SQLclient.connect();
-		SQLclient.query("SELECT * connery", (err, res) => {
+		SQLclient.query("SELECT * FROM connery;", (err, res) => {
 		    if (err){
 				console.log(err);
 				console.log("Creating connery table");
@@ -40,6 +40,12 @@ module.exports = {
 				SQLclient.end();
 			}
 		    
+		});
+		SQLclient.query("DELETE FROM connery;", (err, res) => {
+			if (err){
+				console.log(err);
+			} 
+			SQLclient.end();
 		});
 		//subscription messages to send to websocket
 		subscribeRequestLogin = '{"service":"event","action":"subscribe","worlds":["1","10","13","17","19","25"],"eventNames":["PlayerLogin","PlayerLogout"]}'
@@ -96,6 +102,12 @@ module.exports = {
 				if(message.content.substring(18).toLowerCase().includes('connery')){
 					if(subListAlerts.connery.indexOf(message.channel) == -1){
 						subListAlerts.connery.push(message.channel);
+						SQLclient.query("INSERT INTO connery VALUES (message.channel);", (err, res) => {
+							if (err){
+								console.log(err);
+							} 
+						  SQLclient.end();
+						});
 						message.channel.send("Confirmed subscription to Connery alerts");
 					}
 					else{
@@ -153,6 +165,12 @@ module.exports = {
 					index = subListAlerts.connery.indexOf(message.channel);
 					if(index > -1){
 						subListAlerts.connery.splice(index, 1);
+						SQLclient.query("DELETE FROM connery WHERE channel="message.channel";", (err, res) => {
+							if (err){
+								console.log(err);
+							} 
+						  SQLclient.end();
+						});
 						message.channel.send("Unsubscribed from Connery alerts");
 					}
 					else{
@@ -212,10 +230,20 @@ module.exports = {
 			}
 		})
 		
+		//restart handler
+		/*process.on('SIGINT', () => {
+			console.log('Received SIGINT.');
+			SQLclient.query("DELETE FROM connery", (err, res) => {
+				if (err){
+					console.log(err);
+				} 
+			  SQLclient.end();
+			});
+		});*/
 	}
 }
 
-//handle outfit activity reausts, grabs outfit id and adds/removes from arrays
+//handle outfit activity requests, grabs outfit id and adds/removes from arrays
 function outfitID(oTagLong, subListOutfits, action, channel){
 	oTagList = oTagLong.split(" ");
 	for (x in oTagList){
