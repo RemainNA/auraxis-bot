@@ -172,7 +172,7 @@ module.exports = {
 					index = subListAlerts.connery.indexOf(message.channel);
 					if(index > -1){
 						subListAlerts.connery.splice(index, 1);
-						SQLclient.query("DELETE FROM connery WHERE channel="+message.channel.id+";", (err, res) => {
+						SQLclient.query("DELETE FROM connery WHERE channel='"+message.channel.id+"';", (err, res) => {
 							if (err){
 								console.log(err);
 							} 
