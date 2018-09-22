@@ -18,14 +18,17 @@ module.exports = {
 	subscribe: function(discordClient) {
 		subListOutfits = {}
 		subListAlerts = {"connery": [], "cobalt": [], "miller": [], "emerald": [], "jaegar": [], "briggs": []}
+		//************
+		//START OF SQL
+		//************
 		const SQLclient = new Client({
 		  connectionString: process.env.DATABASE_URL,
 		  ssl: true,
 		});
-
 		SQLclient.connect();
 		SQLclient.query("SELECT * FROM connery;", (err, res) => {
 		    if (err){
+				//create table if one not found
 				console.log(err);
 				console.log("Creating connery table");
 				SQLclient.query("CREATE TABLE connery (channel TEXT);", (err, res) => {
@@ -44,16 +47,132 @@ module.exports = {
 					subListAlerts.connery.push(resChann);
 					console.log(JSON.stringify(row));
 				}
-				//SQLclient.end();
 			}
 		    
 		});
-		/*SQLclient.query("DELETE FROM connery;", (err, res) => {
-			if (err){
+		SQLclient.query("SELECT * FROM cobalt;", (err, res) => {
+		    if (err){
+				//create table if one not found
 				console.log(err);
+				console.log("Creating cobalt table");
+				SQLclient.query("CREATE TABLE cobalt (channel TEXT);", (err, res) => {
+					if (err){
+						console.log(err);
+					}
+					else{
+						console.log(res);
+					}
+				});
 			} 
-			//SQLclient.end();
-		});*/
+		    else{
+				for (let row of res.rows) {
+					//convert channel id into channel object
+					resChann = discordClient.channels.get(row.channel);
+					subListAlerts.cobalt.push(resChann);
+					console.log(JSON.stringify(row));
+				}
+			}
+		    
+		});
+		SQLclient.query("SELECT * FROM miller;", (err, res) => {
+		    if (err){
+				//create table if one not found
+				console.log(err);
+				console.log("Creating miller table");
+				SQLclient.query("CREATE TABLE miller (channel TEXT);", (err, res) => {
+					if (err){
+						console.log(err);
+					}
+					else{
+						console.log(res);
+					}
+				});
+			} 
+		    else{
+				for (let row of res.rows) {
+					//convert channel id into channel object
+					resChann = discordClient.channels.get(row.channel);
+					subListAlerts.miller.push(resChann);
+					console.log(JSON.stringify(row));
+				}
+			}
+		    
+		});
+		SQLclient.query("SELECT * FROM emerald;", (err, res) => {
+		    if (err){
+				//create table if one not found
+				console.log(err);
+				console.log("Creating emerald table");
+				SQLclient.query("CREATE TABLE emerald (channel TEXT);", (err, res) => {
+					if (err){
+						console.log(err);
+					}
+					else{
+						console.log(res);
+					}
+				});
+			} 
+		    else{
+				for (let row of res.rows) {
+					//convert channel id into channel object
+					resChann = discordClient.channels.get(row.channel);
+					subListAlerts.emerald.push(resChann);
+					console.log(JSON.stringify(row));
+				}
+			}
+		    
+		});
+		SQLclient.query("SELECT * FROM jaegar;", (err, res) => {
+		    if (err){
+				//create table if one not found
+				console.log(err);
+				console.log("Creating jaegar table");
+				SQLclient.query("CREATE TABLE jaegar (channel TEXT);", (err, res) => {
+					if (err){
+						console.log(err);
+					}
+					else{
+						console.log(res);
+					}
+				});
+			} 
+		    else{
+				for (let row of res.rows) {
+					//convert channel id into channel object
+					resChann = discordClient.channels.get(row.channel);
+					subListAlerts.jaegar.push(resChann);
+					console.log(JSON.stringify(row));
+				}
+			}
+		    
+		});
+		SQLclient.query("SELECT * FROM briggs;", (err, res) => {
+		    if (err){
+				//create table if one not found
+				console.log(err);
+				console.log("Creating briggs table");
+				SQLclient.query("CREATE TABLE briggs (channel TEXT);", (err, res) => {
+					if (err){
+						console.log(err);
+					}
+					else{
+						console.log(res);
+					}
+				});
+			} 
+		    else{
+				for (let row of res.rows) {
+					//convert channel id into channel object
+					resChann = discordClient.channels.get(row.channel);
+					subListAlerts.briggs.push(resChann);
+					console.log(JSON.stringify(row));
+				}
+			}
+		    
+		});
+		//**********
+		//END OF SQL
+		//**********
 		//subscription messages to send to websocket
 		subscribeRequestLogin = '{"service":"event","action":"subscribe","worlds":["1","10","13","17","19","25"],"eventNames":["PlayerLogin","PlayerLogout"]}'
 		subscribeRequestAlerts = '{"service":"event","action":"subscribe","worlds":["1","10","13","17","19","25"],"eventNames":["MetagameEvent"]}';
@@ -113,7 +232,6 @@ module.exports = {
 							if (err){
 								console.log(err);
 							} 
-						  //SQLclient.end();
 						});
 						message.channel.send("Confirmed subscription to Connery alerts");
 					}
@@ -124,6 +242,11 @@ module.exports = {
 				if(message.content.substring(18).toLowerCase().includes('miller')){
 					if(subListAlerts.miller.indexOf(message.channel) == -1){
 						subListAlerts.miller.push(message.channel);
+						SQLclient.query("INSERT INTO miller VALUES ("+message.channel.id+");", (err, res) => {
+							if (err){
+								console.log(err);
+							} 
+						});
 						message.channel.send("Confirmed subscription to Miller alerts");
 					}
 					else{
@@ -133,6 +256,11 @@ module.exports = {
 				if(message.content.substring(18).toLowerCase().includes('cobalt')){
 					if(subListAlerts.cobalt.indexOf(message.channel) == -1){
 						subListAlerts.cobalt.push(message.channel);
+						SQLclient.query("INSERT INTO cobalt VALUES ("+message.channel.id+");", (err, res) => {
+							if (err){
+								console.log(err);
+							} 
+						});
 						message.channel.send("Confirmed subscription to Cobalt alerts");
 					}
 					else{
@@ -142,6 +270,11 @@ module.exports = {
 				if(message.content.substring(18).toLowerCase().includes('emerald')){
 					if(subListAlerts.emerald.indexOf(message.channel) == -1){
 						subListAlerts.emerald.push(message.channel);
+						SQLclient.query("INSERT INTO emerald VALUES ("+message.channel.id+");", (err, res) => {
+							if (err){
+								console.log(err);
+							} 
+						});
 						message.channel.send("Confirmed subscription to Emerald alerts");
 					}
 					else{
@@ -151,6 +284,11 @@ module.exports = {
 				if(message.content.substring(18).toLowerCase().includes('jaegar')){
 					if(subListAlerts.jaegar.indexOf(message.channel) == -1){
 						subListAlerts.jaegar.push(message.channel);
+						SQLclient.query("INSERT INTO jaegar VALUES ("+message.channel.id+");", (err, res) => {
+							if (err){
+								console.log(err);
+							} 
+						});
 						message.channel.send("Confirmed subscription to Jaegar alerts");
 					}
 					else{
@@ -160,6 +298,11 @@ module.exports = {
 				if(message.content.substring(18).toLowerCase().includes('briggs')){
 					if(subListAlerts.briggs.indexOf(message.channel) == -1){
 						subListAlerts.briggs.push(message.channel);
+						SQLclient.query("INSERT INTO briggs VALUES ("+message.channel.id+");", (err, res) => {
+							if (err){
+								console.log(err);
+							} 
+						});
 						message.channel.send("Confirmed subscription to Briggs alerts");
 					}
 					else{
@@ -176,7 +319,6 @@ module.exports = {
 							if (err){
 								console.log(err);
 							} 
-						  //SQLclient.end();
 						});
 						message.channel.send("Unsubscribed from Connery alerts");
 					}
@@ -188,6 +330,11 @@ module.exports = {
 					index = subListAlerts.cobalt.indexOf(message.channel);
 					if(index > -1){
 						subListAlerts.cobalt.splice(index, 1);
+						SQLclient.query("DELETE FROM connery WHERE channel='"+message.channel.id+"';", (err, res) => {
+							if (err){
+								console.log(err);
+							} 
+						});
 						message.channel.send("Unsubscribed from Cobalt alerts");
 					}
 					else{
@@ -198,6 +345,11 @@ module.exports = {
 					index = subListAlerts.miller.indexOf(message.channel);
 					if(index > -1){
 						subListAlerts.miller.splice(index, 1);
+						SQLclient.query("DELETE FROM miller WHERE channel='"+message.channel.id+"';", (err, res) => {
+							if (err){
+								console.log(err);
+							} 
+						});
 						message.channel.send("Unsubscribed from Miller alerts");
 					}
 					else{
@@ -208,6 +360,11 @@ module.exports = {
 					index = subListAlerts.emerald.indexOf(message.channel);
 					if(index > -1){
 						subListAlerts.emerald.splice(index, 1);
+						SQLclient.query("DELETE FROM emerald WHERE channel='"+message.channel.id+"';", (err, res) => {
+							if (err){
+								console.log(err);
+							} 
+						});
 						message.channel.send("Unsubscribed from Emerald alerts");
 					}
 					else{
@@ -218,6 +375,11 @@ module.exports = {
 					index = subListAlerts.jaegar.indexOf(message.channel);
 					if(index > -1){
 						subListAlerts.jaegar.splice(index, 1);
+						SQLclient.query("DELETE FROM jaegar WHERE channel='"+message.channel.id+"';", (err, res) => {
+							if (err){
+								console.log(err);
+							} 
+						});
 						message.channel.send("Unsubscribed from Jaegar alerts");
 					}
 					else{
@@ -228,6 +390,11 @@ module.exports = {
 					index = subListAlerts.briggs.indexOf(message.channel);
 					if(index > -1){
 						subListAlerts.briggs.splice(index, 1);
+						SQLclient.query("DELETE FROM briggs WHERE channel='"+message.channel.id+"';", (err, res) => {
+							if (err){
+								console.log(err);
+							} 
+						});
 						message.channel.send("Unsubscribed from Briggs alerts");
 					}
 					else{
