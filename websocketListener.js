@@ -443,6 +443,10 @@ module.exports = {
 
 //handle outfit activity requests, grabs outfit id and adds/removes from arrays
 function outfitID(oTagLong, subListOutfits, action, channel){
+	const SQLclient = new Client({
+		  connectionString: process.env.DATABASE_URL,
+		  ssl: true,
+		});
 	oTagList = oTagLong.split(" ");
 	for (x in oTagList){
 		if (oTagList[x] != ""){
@@ -564,6 +568,6 @@ function outfitID(oTagLong, subListOutfits, action, channel){
 			}
 		})
 	}
-	
+	SQLclient.end();
 	
 }
