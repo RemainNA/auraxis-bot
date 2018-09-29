@@ -175,7 +175,7 @@ module.exports = {
 				//create table if one not found
 				console.log(err);
 				console.log("Creating outfit table");
-				SQLclient.query("CREATE TABLE outfit (id int, color TEXT, alias TEXT, channel TEXT);", (err, res) => {
+				SQLclient.query("CREATE TABLE outfit (id bigint, color TEXT, alias TEXT, channel TEXT);", (err, res) => {
 					if (err){
 						console.log(err);
 					}
