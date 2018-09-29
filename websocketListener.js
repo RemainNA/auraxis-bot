@@ -494,31 +494,32 @@ function outfitID(oTagLong, subListOutfits, action, channel, SQLclient){
 							console.log(err);
 						} 
 						subCount = res.rows[0].quant;
-					});
-					if(subCount == 1){
-						//source channel is subscribed
-						channel.send('Error: already subscribed to '+resOut.alias);
-					}
-					else{
-						//source channel is not subscribed
-						//subListOutfits[ID].push(channel);
-						if(resOut.leader_character_id_join_character.faction_id == "1"){
-							color = 'PURPLE';
-						}
-						else if(resOut.leader_character_id_join_character.faction_id == "2"){
-							color = 'BLUE';
+						if(subCount == 1){
+							//source channel is subscribed
+							channel.send('Error: already subscribed to '+resOut.alias);
 						}
 						else{
-							color = 'RED';
+							//source channel is not subscribed
+							//subListOutfits[ID].push(channel);
+							if(resOut.leader_character_id_join_character.faction_id == "1"){
+								color = 'PURPLE';
+							}
+							else if(resOut.leader_character_id_join_character.faction_id == "2"){
+								color = 'BLUE';
+							}
+							else{
+								color = 'RED';
+							}
+							SQLclient.query("INSERT INTO outfit (id, alias, color, channel) VALUES ("+ID+", '"+resOut.alias+"', '"+color+"', '"+channel.id+"');", (err, res) => {
+								if (err){
+									console.log('pos 3');
+									console.log(err);
+								} 
+							});
+							channel.send('Subscribed to '+resOut.alias);
 						}
-						SQLclient.query("INSERT INTO outfit (id, alias, color, channel) VALUES ("+ID+", '"+resOut.alias+"', '"+color+"', '"+channel.id+"');", (err, res) => {
-							if (err){
-								console.log('pos 3');
-								console.log(err);
-							} 
-						});
-						channel.send('Subscribed to '+resOut.alias);
-					}
+					});
+					
 				}
 				else if(action == 'unsubscribe' && subListOutfits.indexOf(ID) == -1){
 					//no active subscriptions to outfit
