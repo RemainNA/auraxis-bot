@@ -242,10 +242,10 @@ module.exports = {
 		discordClient.on('message', message => {
 			//listen to discord for subscribe/unsubscribe requests
 			if(message.content.substring(0,19) == '!subscribe activity'){
-				outfitID(message.content.substring(20).toLowerCase(), subListOutfits, 'subscribe', message.channel)
+				outfitID(message.content.substring(20).toLowerCase(), subListOutfits, 'subscribe', message.channel, SQLclient)
 			}
 			if(message.content.substring(0,21) == '!unsubscribe activity'){
-				outfitID(message.content.substring(22).toLowerCase(), subListOutfits, 'unsubscribe', message.channel)
+				outfitID(message.content.substring(22).toLowerCase(), subListOutfits, 'unsubscribe', message.channel, SQLclient)
 			}
 			if (message.content.substring(0,17) == '!subscribe alerts'){
 				console.log(message.content);
@@ -442,11 +442,7 @@ module.exports = {
 }
 
 //handle outfit activity requests, grabs outfit id and adds/removes from arrays
-function outfitID(oTagLong, subListOutfits, action, channel){
-	const SQLclient = new Client({
-		  connectionString: process.env.DATABASE_URL,
-		  ssl: true,
-		});
+function outfitID(oTagLong, subListOutfits, action, channel, SQLclient){
 	oTagList = oTagLong.split(" ");
 	for (x in oTagList){
 		if (oTagList[x] != ""){
@@ -568,6 +564,5 @@ function outfitID(oTagLong, subListOutfits, action, channel){
 			}
 		})
 	}
-	SQLclient.end();
 	
 }
