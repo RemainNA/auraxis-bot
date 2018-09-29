@@ -188,7 +188,7 @@ module.exports = {
 				for (let row of res.rows) {
 					//convert channel id into channel object
 					//resChann = discordClient.channels.get(row.channel);
-					subListOutfits.push(row.channel);
+					subListOutfits.push(row.id);
 					console.log(JSON.stringify(row));
 				}
 			}
