@@ -13,7 +13,7 @@ var qu = async.queue(function(task, callback) {
 	message = task.msg;
 	alertList = task.aList;
 	outfitList = task.oList;
-	SQLclient = SClient;
+	SQLclient = task.SClient;
 	//if message is a login/out event
 	if(message.payload.character_id != null){
 		character_id = message.payload.character_id;
