@@ -16,7 +16,7 @@ const { Client } = require('pg');
 
 module.exports = {
 	subscribe: function(discordClient) {
-		subListOutfits = {}
+		subListOutfits = []
 		subListAlerts = {"connery": [], "cobalt": [], "miller": [], "emerald": [], "jaegar": [], "briggs": []}
 		//************
 		//START OF SQL
