@@ -13,6 +13,7 @@ var qu = async.queue(function(task, callback) {
 	message = task.msg;
 	alertList = task.aList;
 	outfitList = task.oList;
+	SQLclient = SClient;
 	//if message is a login/out event
 	if(message.payload.character_id != null){
 		character_id = message.payload.character_id;
@@ -173,8 +174,8 @@ qu.drain = function() {
 
 
 module.exports = {
-	check: function(message, alertList, outfitList){
-		qu.push({msg: message, aList: alertList, oList: outfitList}, function(err) {
+	check: function(message, alertList, outfitList, SQLclient){
+		qu.push({msg: message, aList: alertList, oList: outfitList, SClient: SQLclient}, function(err) {
 			
 		})
 	}
