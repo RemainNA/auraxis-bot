@@ -1,6 +1,8 @@
 // Import the discord.js module
 const Discord = require('discord.js');
 
+const { Client } = require('pg');
+
 // Import request for API access
 var request = require('request');
 
@@ -40,14 +42,15 @@ var qu = async.queue(function(task, callback) {
 						{
 							console.log('pos 1.1');
 							//create and send rich embed to all subscribed channels
-							sendEmbed = new Discord.RichEmbed();
-							sendEmbed.setTitle(outfitList[resChar.outfit_member.outfit_id][0]+' '+playerEvent);
-							sendEmbed.setDescription(resChar.name.first);
-							sendEmbed.setColor(outfitList[resChar.outfit_member.outfit_id][1]);
+							
 							SQLclient.query("SELECT * FROM outfit WHERE id="+resChar.outfit_member.outfit_id+";", (err, res) => {
 								if (err){
 									console.log(err);
 								} 
+								sendEmbed = new Discord.RichEmbed();
+								sendEmbed.setTitle(outfitList[res.rows[0].alias+' '+playerEvent);
+								sendEmbed.setDescription(resChar.name.first);
+								sendEmbed.setColor(outfitList[res.rows[0].color);
 								for (let row of res.rows){
 									resChann = discordClient.channels.get(row.channel);
 									resChann.send(sendEmbed);
