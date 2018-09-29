@@ -51,8 +51,8 @@ var qu = async.queue(function(task, callback) {
 									resChann = discordClient.channels.get(row.channel);
 									resChann.send(sendEmbed);
 								}
+								callback();
 							});
-							callback();
 						}
 						else{
 							callback();
