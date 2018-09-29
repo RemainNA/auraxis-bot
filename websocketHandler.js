@@ -48,9 +48,9 @@ var qu = async.queue(function(task, callback) {
 									console.log(err);
 								} 
 								sendEmbed = new Discord.RichEmbed();
-								sendEmbed.setTitle(outfitList[res.rows[0].alias+' '+playerEvent);
+								sendEmbed.setTitle(res.rows[0].alias+' '+playerEvent);
 								sendEmbed.setDescription(resChar.name.first);
-								sendEmbed.setColor(outfitList[res.rows[0].color);
+								sendEmbed.setColor(res.rows[0].color);
 								for (let row of res.rows){
 									resChann = discordClient.channels.get(row.channel);
 									resChann.send(sendEmbed);
