@@ -232,7 +232,7 @@ module.exports = {
 						console.log('JSON parse error: '+message.utf8Data);
 					}
 					if(parsed.payload != null){
-						handler.check(parsed, subListAlerts, subListOutfits, SQLclient);
+						handler.check(parsed, subListAlerts, subListOutfits, SQLclient, discordClient);
 					}
 				}
 				
