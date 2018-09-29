@@ -34,18 +34,24 @@ var qu = async.queue(function(task, callback) {
 				else{
 					resChar = data.character_list[0];
 					if(resChar != null && resChar.outfit_member != null){
-						keys = Object.keys(outfitList);
+						//keys = Object.keys(outfitList);
 						//if character's outfit id is in the list of outfits that are subscribed to
-						if (keys.indexOf(resChar.outfit_member.outfit_id) > -1)
+						if (outfitList.indexOf(resChar.outfit_member.outfit_id) > -1)
 						{
 							//create and send rich embed to all subscribed channels
 							sendEmbed = new Discord.RichEmbed();
 							sendEmbed.setTitle(outfitList[resChar.outfit_member.outfit_id][0]+' '+playerEvent);
 							sendEmbed.setDescription(resChar.name.first);
 							sendEmbed.setColor(outfitList[resChar.outfit_member.outfit_id][1]);
-							for (i = 2; i < outfitList[resChar.outfit_member.outfit_id].length; i++){
-								outfitList[resChar.outfit_member.outfit_id][i].send(sendEmbed);
-							}
+							SQLclient.query("SELECT * FROM outfit WHERE id="+resChar.outfit_member.outfit_id+";", (err, res) => {
+								if (err){
+									console.log(err);
+								} 
+								for (let row of res.rows){
+									resChann = discordClient.channels.get(row.channel);
+									resChann.send(sendEmbed);
+								}
+							});
 							callback();
 						}
 						else{

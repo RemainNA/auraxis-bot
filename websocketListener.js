@@ -170,6 +170,30 @@ module.exports = {
 			}
 		    
 		});
+		SQLclient.query("SELECT * FROM outfit;", (err, res) => {
+		    if (err){
+				//create table if one not found
+				console.log(err);
+				console.log("Creating outfit table");
+				SQLclient.query("CREATE TABLE outfit (id int, color TEXT, alias TEXT, channel TEXT);", (err, res) => {
+					if (err){
+						console.log(err);
+					}
+					else{
+						console.log(res);
+					}
+				});
+			} 
+		    else{
+				for (let row of res.rows) {
+					//convert channel id into channel object
+					//resChann = discordClient.channels.get(row.channel);
+					subListOutfits.push(row.channel);
+					console.log(JSON.stringify(row));
+				}
+			}
+		    
+		});
 		//**********
 		//END OF SQL
 		//**********
@@ -441,7 +465,7 @@ function outfitID(oTagLong, subListOutfits, action, channel){
 				resOut = data.outfit_list[0];
 
 				keys = Object.keys(subListOutfits);
-				if(action == 'subscribe' && keys.indexOf(ID) == -1){
+				if(action == 'subscribe' && subListOutfits.indexOf(ID) == -1){
 					//No active subscriptions for outfit
 					if(resOut.leader_character_id_join_character.faction_id == "1"){
 						color = 'PURPLE';
@@ -452,36 +476,84 @@ function outfitID(oTagLong, subListOutfits, action, channel){
 					else{
 						color = 'RED';
 					}
-					subListOutfits[ID] = [data.outfit_list[0].alias, color, channel];
+					subListOutfits.push(ID);
+					SQLclient.query("INSERT INTO outfit VALUES ("+ID+","+resOut.alias+","+color+","+channel.id+");", (err, res) => {
+						if (err){
+							console.log(err);
+						} 
+					});
+					//subListOutfits[ID] = [data.outfit_list[0].alias, color, channel];
 					channel.send('Subscribed to '+resOut.alias);
 				}
-				else if(action == 'subscribe' && keys.indexOf(ID) > -1){
+				else if(action == 'subscribe' && subListOutfits.indexOf(ID) > -1){
 					//existing subscription
-					if(subListOutfits[ID].indexOf(channel) > -1){
+					SQLclient.query("SELECT COUNT(channel) AS quant FROM outfit WHERE id="+ID+" AND channel='"+channel+"';", (err, res) => {
+						if (err){
+							console.log(err);
+						} 
+						subCount = res.rows[0].quant;
+					});
+					if(subCount == 1){
 						//source channel is subscribed
 						channel.send('Error: already subscribed to '+resOut.alias);
 					}
 					else{
 						//source channel is not subscribed
-						subListOutfits[ID].push(channel);
+						//subListOutfits[ID].push(channel);
+						if(resOut.leader_character_id_join_character.faction_id == "1"){
+							color = 'PURPLE';
+						}
+						else if(resOut.leader_character_id_join_character.faction_id == "2"){
+							color = 'BLUE';
+						}
+						else{
+							color = 'RED';
+						}
+						SQLclient.query("INSERT INTO outfit VALUES ("+ID+","+resOut.alias+","+color+","+channel.id+");", (err, res) => {
+							if (err){
+								console.log(err);
+							} 
+						});
 						channel.send('Subscribed to '+resOut.alias);
 					}
 				}
-				else if(action == 'unsubscribe' && keys.indexOf(ID) == -1){
+				else if(action == 'unsubscribe' && subListOutfits.indexOf(ID) == -1){
 					//no active subscriptions to outfit
 					channel.send('Error: not subscribed to '+resOut.alias)
 				}
-				else if(action == 'unsubscribe' && keys.indexOf(ID) > -1){
+				else if(action == 'unsubscribe' && subListOutfits.indexOf(ID) > -1){
 					//active subscriptions to outfit
-					if(subListOutfits[ID].length == 3 && subListOutfits[ID].indexOf(channel) > -1){
+					SQLclient.query("SELECT channel FROM outfit WHERE (id = "+ID+");", (err, res) => {
+						if (err){
+							console.log(err);
+						}
+						console.log(res);
+						//count = res.rows[0].quant;
+						subCount = 0;
+						subArray = [];
+						for(let row of res.rows) {
+							subCount += 1;
+							subArray.push(row.channel);
+						}
+					});
+					if(subCount == 1 && subArray.indexOf(channel.id) > -1){ //modify subListOutfits
 						//source channel is only active subscription
-						delete subListOutfits[ID];
 						channel.send('Unsubscribed from '+resOut.alias)
+						SQLclient.query("DELETE FROM outfit WHERE id="+ID+" AND channel='"+channel.id+"';", (err, res) => {
+							if (err){
+								console.log(err);
+							} 
+						});
+						index = subListOutfits.indexOf(ID);
+						subListOutfits.splice(index, 1);
 					}
-					else if(subListOutfits[ID].indexOf(channel) > -1){
+					else if(subCount > 1 && subArray.indexOf(channel.id) > -1){
 						//source channel is not only active subscription
-						index = subListOutfits[ID].indexOf(channel);
-						subListOutfits[ID].splice(index, 1);
+						SQLclient.query("DELETE FROM outfit WHERE id="+ID+" AND channel='"+channel.id+"';", (err, res) => {
+							if (err){
+								console.log(err);
+							} 
+						});
 						channel.send('Unsubscribed from '+resOut.alias);
 					}
 					else{
