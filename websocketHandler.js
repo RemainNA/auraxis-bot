@@ -38,6 +38,7 @@ var qu = async.queue(function(task, callback) {
 						//if character's outfit id is in the list of outfits that are subscribed to
 						if (outfitList.indexOf(resChar.outfit_member.outfit_id) > -1)
 						{
+							console.log('pos 1.1');
 							//create and send rich embed to all subscribed channels
 							sendEmbed = new Discord.RichEmbed();
 							sendEmbed.setTitle(outfitList[resChar.outfit_member.outfit_id][0]+' '+playerEvent);
