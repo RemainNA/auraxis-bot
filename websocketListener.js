@@ -477,7 +477,7 @@ function outfitID(oTagLong, subListOutfits, action, channel, SQLclient){
 						color = 'RED';
 					}
 					subListOutfits.push(ID);
-					SQLclient.query("INSERT INTO outfit (id, alias, color, channel) VALUES ("+ID+", "+resOut.alias+", "+color+", "+channel.id+");", (err, res) => {
+					SQLclient.query("INSERT INTO outfit (id, alias, color, channel) VALUES ("+ID+", '"+resOut.alias+"', '"+color+"', '"+channel.id+"');", (err, res) => {
 						if (err){
 							console.log('pos 1');
 							console.log(err);
@@ -511,7 +511,7 @@ function outfitID(oTagLong, subListOutfits, action, channel, SQLclient){
 						else{
 							color = 'RED';
 						}
-						SQLclient.query("INSERT INTO outfit (id, alias, color, channel) VALUES ("+ID+", "+resOut.alias+", "+color+", "+channel.id+");", (err, res) => {
+						SQLclient.query("INSERT INTO outfit (id, alias, color, channel) VALUES ("+ID+", '"+resOut.alias+"', '"+color+"', '"+channel.id+"');", (err, res) => {
 							if (err){
 								console.log('pos 3');
 								console.log(err);
