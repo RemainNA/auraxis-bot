@@ -464,7 +464,7 @@ function outfitID(oTagLong, subListOutfits, action, channel, SQLclient){
 				ID = data.outfit_list[0].outfit_id;
 				resOut = data.outfit_list[0];
 
-				keys = Object.keys(subListOutfits);
+				//keys = Object.keys(subListOutfits);
 				if(action == 'subscribe' && subListOutfits.indexOf(ID) == -1){
 					//No active subscriptions for outfit
 					if(resOut.leader_character_id_join_character.faction_id == "1"){
@@ -479,6 +479,7 @@ function outfitID(oTagLong, subListOutfits, action, channel, SQLclient){
 					subListOutfits.push(ID);
 					SQLclient.query("INSERT INTO outfit (id, alias, color, channel) VALUES ("+ID+", "+resOut.alias+", "+color+", "+channel.id+");", (err, res) => {
 						if (err){
+							console.log('pos 1');
 							console.log(err);
 						} 
 					});
@@ -489,6 +490,7 @@ function outfitID(oTagLong, subListOutfits, action, channel, SQLclient){
 					//existing subscription
 					SQLclient.query("SELECT COUNT(channel) AS quant FROM outfit WHERE id="+ID+" AND channel='"+channel+"';", (err, res) => {
 						if (err){
+							console.log('pos 2');
 							console.log(err);
 						} 
 						subCount = res.rows[0].quant;
@@ -511,6 +513,7 @@ function outfitID(oTagLong, subListOutfits, action, channel, SQLclient){
 						}
 						SQLclient.query("INSERT INTO outfit (id, alias, color, channel) VALUES ("+ID+", "+resOut.alias+", "+color+", "+channel.id+");", (err, res) => {
 							if (err){
+								console.log('pos 3');
 								console.log(err);
 							} 
 						});
