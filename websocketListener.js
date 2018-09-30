@@ -493,6 +493,7 @@ function outfitID(oTagLong, subListOutfits, action, channel, SQLclient){
 							console.log('pos 2');
 							console.log(err);
 						} 
+						console.log(JSON.stringify(res));
 						subCount = res.rows[0].quant;
 						if(subCount == 1){
 							//source channel is subscribed
