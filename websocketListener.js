@@ -539,31 +539,31 @@ function outfitID(oTagLong, subListOutfits, action, channel, SQLclient){
 							subCount += 1;
 							subArray.push(row.channel);
 						}
+						if(subCount == 1 && subArray.indexOf(channel.id) > -1){ //modify subListOutfits
+							//source channel is only active subscription
+							channel.send('Unsubscribed from '+resOut.alias)
+							SQLclient.query("DELETE FROM outfit WHERE id="+ID+" AND channel='"+channel.id+"';", (err, res) => {
+								if (err){
+									console.log(err);
+								} 
+							});
+							index = subListOutfits.indexOf(ID);
+							subListOutfits.splice(index, 1);
+						}
+						else if(subCount > 1 && subArray.indexOf(channel.id) > -1){
+							//source channel is not only active subscription
+							SQLclient.query("DELETE FROM outfit WHERE id="+ID+" AND channel='"+channel.id+"';", (err, res) => {
+								if (err){
+									console.log(err);
+								} 
+							});
+							channel.send('Unsubscribed from '+resOut.alias);
+						}
+						else{
+							//not subscribed
+							channel.send('Error: not subscribed to '+resOut.alias);
+						}
 					});
-					if(subCount == 1 && subArray.indexOf(channel.id) > -1){ //modify subListOutfits
-						//source channel is only active subscription
-						channel.send('Unsubscribed from '+resOut.alias)
-						SQLclient.query("DELETE FROM outfit WHERE id="+ID+" AND channel='"+channel.id+"';", (err, res) => {
-							if (err){
-								console.log(err);
-							} 
-						});
-						index = subListOutfits.indexOf(ID);
-						subListOutfits.splice(index, 1);
-					}
-					else if(subCount > 1 && subArray.indexOf(channel.id) > -1){
-						//source channel is not only active subscription
-						SQLclient.query("DELETE FROM outfit WHERE id="+ID+" AND channel='"+channel.id+"';", (err, res) => {
-							if (err){
-								console.log(err);
-							} 
-						});
-						channel.send('Unsubscribed from '+resOut.alias);
-					}
-					else{
-						//not subscribed
-						channel.send('Error: not subscribed to '+resOut.alias);
-					}
 				}
 			}
 		})
