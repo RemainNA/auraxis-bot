@@ -488,13 +488,13 @@ function outfitID(oTagLong, subListOutfits, action, channel, SQLclient){
 				}
 				else if(action == 'subscribe' && subListOutfits.indexOf(ID) > -1){
 					//existing subscription
-					SQLclient.query("SELECT COUNT(channel) AS quant FROM outfit WHERE id="+ID+" AND channel='"+channel+"';", (err, res) => {
+					SQLclient.query("SELECT COUNT(channel) AS quant FROM outfit WHERE id="+ID+" AND channel='"+channel.id+"';", (err, res) => {
 						if (err){
 							console.log('pos 2');
 							console.log(err);
 						} 
 						console.log(JSON.stringify(res.rows));
-						console.log(ID+", "+channel);
+						console.log(ID+", "+channel.id);
 						subCount = res.rows[0].quant;
 						if(subCount == 1){
 							//source channel is subscribed
