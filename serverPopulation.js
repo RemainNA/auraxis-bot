@@ -47,9 +47,16 @@ var q = async.queue(function(task, callback){
 				sendEmbed = new Discord.RichEmbed();
 				sendEmbed.setTitle('Miller Population');
 				sendEmbed.setFooter('From ps2.fisu.pw');
-				sendEmbed.addField('VS', data.result[0].vs, true);
-				sendEmbed.addField('NC', data.result[0].nc, true);
-				sendEmbed.addField('TR', data.result[0].tr, true);
+				totalPop = data.result[0].vs + data.result[0].nc + data.result[0].tr;
+				vsPc = (data.result[0].vs/totalPop)*100;
+				vsPc = Number.parseFloat(vsPc).toPrecision(3);
+				ncPc = (data.result[0].nc/totalPop)*100;
+				ncPc = Number.parseFloat(ncPc).toPrecision(3);
+				trPc = (data.result[0].tr/totalPop)*100;
+				trPc = Number.parseFloat(trPc).toPrecision(3);
+				sendEmbed.addField('VS', data.result[0].vs+" ("+vsPc+"%)", true);
+				sendEmbed.addField('NC', data.result[0].nc+" ("+ncPc+"%)", true);
+				sendEmbed.addField('TR', data.result[0].tr+" ("+trPc+"%)", true);
 				channel.send(sendEmbed);
 			})
 		}
@@ -66,9 +73,16 @@ var q = async.queue(function(task, callback){
 				sendEmbed = new Discord.RichEmbed();
 				sendEmbed.setTitle('Cobalt Population');
 				sendEmbed.setFooter('From ps2.fisu.pw');
-				sendEmbed.addField('VS', data.result[0].vs, true);
-				sendEmbed.addField('NC', data.result[0].nc, true);
-				sendEmbed.addField('TR', data.result[0].tr, true);
+				totalPop = data.result[0].vs + data.result[0].nc + data.result[0].tr;
+				vsPc = (data.result[0].vs/totalPop)*100;
+				vsPc = Number.parseFloat(vsPc).toPrecision(3);
+				ncPc = (data.result[0].nc/totalPop)*100;
+				ncPc = Number.parseFloat(ncPc).toPrecision(3);
+				trPc = (data.result[0].tr/totalPop)*100;
+				trPc = Number.parseFloat(trPc).toPrecision(3);
+				sendEmbed.addField('VS', data.result[0].vs+" ("+vsPc+"%)", true);
+				sendEmbed.addField('NC', data.result[0].nc+" ("+ncPc+"%)", true);
+				sendEmbed.addField('TR', data.result[0].tr+" ("+trPc+"%)", true);
 				channel.send(sendEmbed);
 			})
 		}
@@ -85,9 +99,16 @@ var q = async.queue(function(task, callback){
 				sendEmbed = new Discord.RichEmbed();
 				sendEmbed.setTitle('Emerald Population');
 				sendEmbed.setFooter('From ps2.fisu.pw');
-				sendEmbed.addField('VS', data.result[0].vs, true);
-				sendEmbed.addField('NC', data.result[0].nc, true);
-				sendEmbed.addField('TR', data.result[0].tr, true);
+				totalPop = data.result[0].vs + data.result[0].nc + data.result[0].tr;
+				vsPc = (data.result[0].vs/totalPop)*100;
+				vsPc = Number.parseFloat(vsPc).toPrecision(3);
+				ncPc = (data.result[0].nc/totalPop)*100;
+				ncPc = Number.parseFloat(ncPc).toPrecision(3);
+				trPc = (data.result[0].tr/totalPop)*100;
+				trPc = Number.parseFloat(trPc).toPrecision(3);
+				sendEmbed.addField('VS', data.result[0].vs+" ("+vsPc+"%)", true);
+				sendEmbed.addField('NC', data.result[0].nc+" ("+ncPc+"%)", true);
+				sendEmbed.addField('TR', data.result[0].tr+" ("+trPc+"%)", true);
 				channel.send(sendEmbed);
 			})
 		}
@@ -104,9 +125,16 @@ var q = async.queue(function(task, callback){
 				sendEmbed = new Discord.RichEmbed();
 				sendEmbed.setTitle('Jaegar Population');
 				sendEmbed.setFooter('From ps2.fisu.pw');
-				sendEmbed.addField('VS', data.result[0].vs, true);
-				sendEmbed.addField('NC', data.result[0].nc, true);
-				sendEmbed.addField('TR', data.result[0].tr, true);
+				totalPop = data.result[0].vs + data.result[0].nc + data.result[0].tr;
+				vsPc = (data.result[0].vs/totalPop)*100;
+				vsPc = Number.parseFloat(vsPc).toPrecision(3);
+				ncPc = (data.result[0].nc/totalPop)*100;
+				ncPc = Number.parseFloat(ncPc).toPrecision(3);
+				trPc = (data.result[0].tr/totalPop)*100;
+				trPc = Number.parseFloat(trPc).toPrecision(3);
+				sendEmbed.addField('VS', data.result[0].vs+" ("+vsPc+"%)", true);
+				sendEmbed.addField('NC', data.result[0].nc+" ("+ncPc+"%)", true);
+				sendEmbed.addField('TR', data.result[0].tr+" ("+trPc+"%)", true);
 				channel.send(sendEmbed);
 			})
 		}
@@ -123,9 +151,16 @@ var q = async.queue(function(task, callback){
 				sendEmbed = new Discord.RichEmbed();
 				sendEmbed.setTitle('Briggs Population');
 				sendEmbed.setFooter('From ps2.fisu.pw');
-				sendEmbed.addField('VS', data.result[0].vs, true);
-				sendEmbed.addField('NC', data.result[0].nc, true);
-				sendEmbed.addField('TR', data.result[0].tr, true);
+				totalPop = data.result[0].vs + data.result[0].nc + data.result[0].tr;
+				vsPc = (data.result[0].vs/totalPop)*100;
+				vsPc = Number.parseFloat(vsPc).toPrecision(3);
+				ncPc = (data.result[0].nc/totalPop)*100;
+				ncPc = Number.parseFloat(ncPc).toPrecision(3);
+				trPc = (data.result[0].tr/totalPop)*100;
+				trPc = Number.parseFloat(trPc).toPrecision(3);
+				sendEmbed.addField('VS', data.result[0].vs+" ("+vsPc+"%)", true);
+				sendEmbed.addField('NC', data.result[0].nc+" ("+ncPc+"%)", true);
+				sendEmbed.addField('TR', data.result[0].tr+" ("+trPc+"%)", true);
 				channel.send(sendEmbed);
 			})
 		}
