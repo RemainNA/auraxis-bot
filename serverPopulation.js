@@ -23,11 +23,14 @@ var q = async.queue(function(task, callback){
 				sendEmbed.setFooter('From ps2.fisu.pw');
 				totalPop = data.result[0].vs + data.result[0].nc + data.result[0].tr;
 				vsPc = data.result[0].vs/totalPop;
+				vsPc = Number.parseFloat(vsPc).toPrecision(3) * 100;
 				ncPc = data.result[0].nc/totalPop;
+				ncPc = Number.parseFloat(ncPc).toPrecision(3) * 100;
 				trPc = data.result[0].tr/totalPop;
-				sendEmbed.addField('VS', data.result[0].vs+" ("+vsPc+")", true);
-				sendEmbed.addField('NC', data.result[0].nc+" ("+ncPc+")", true);
-				sendEmbed.addField('TR', data.result[0].tr+" ("+trPc+")", true);
+				trPc = Number.parseFloat(trPc).toPrecision(3) * 100;
+				sendEmbed.addField('VS', data.result[0].vs+" ("+vsPc+"%)", true);
+				sendEmbed.addField('NC', data.result[0].nc+" ("+ncPc+"%)", true);
+				sendEmbed.addField('TR', data.result[0].tr+" ("+trPc+"%)", true);
 				channel.send(sendEmbed);
 			})
 		}
