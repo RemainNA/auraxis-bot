@@ -14,8 +14,8 @@ var q = async.queue(function(task, callback) {
 	try{
 		request(uri, function (error, response, body) {
 			data = JSON.parse(body);
-			if (data.outfit_list == null){
-				channel.send("Tag not found");
+			if (data.outfit_list == null || data.returned == 0){
+				channel.send("["+oTag+"] not found");
 				callback();
 			}
 			else{
