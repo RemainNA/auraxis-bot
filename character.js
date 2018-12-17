@@ -15,7 +15,7 @@ var q = async.queue(function(task, callback) {
 	try{
 		request(options, function (error, response, body) {
 			data = JSON.parse(body);
-			if (data.character_list == null)
+			if (data.character_list == null or data == undefined)
 			{
 				channel.send("Character not found");
 				callback();
@@ -61,6 +61,8 @@ var q = async.queue(function(task, callback) {
 						break;
 					case "25":
 						sendEmbed.addField('Server', 'Briggs', true);
+					case "40":
+						sendEmbed.addField('Server', 'SolTech', true);
 				}
 				
 				//Playtime

@@ -17,7 +17,7 @@ const { Client } = require('pg');
 module.exports = {
 	subscribe: function(discordClient) {
 		subListOutfits = []
-		subListAlerts = {"connery": [], "cobalt": [], "miller": [], "emerald": [], "jaegar": [], "briggs": []}
+		subListAlerts = {"connery": [], "cobalt": [], "miller": [], "emerald": [], "jaegar": [], "briggs": [], "soltech": []}
 		//************
 		//START OF SQL
 		//************
@@ -165,6 +165,30 @@ module.exports = {
 					//convert channel id into channel object
 					resChann = discordClient.channels.get(row.channel);
 					subListAlerts.briggs.push(resChann);
+					console.log(JSON.stringify(row));
+				}
+			}
+		    
+		});
+		SQLclient.query("SELECT * FROM soltech;", (err, res) => {
+		    if (err){
+				//create table if one not found
+				console.log(err);
+				console.log("Creating soltech table");
+				SQLclient.query("CREATE TABLE soltech (channel TEXT);", (err, res) => {
+					if (err){
+						console.log(err);
+					}
+					else{
+						console.log(res);
+					}
+				});
+			} 
+		    else{
+				for (let row of res.rows) {
+					//convert channel id into channel object
+					resChann = discordClient.channels.get(row.channel);
+					subListAlerts.soltech.push(resChann);
 					console.log(JSON.stringify(row));
 				}
 			}
@@ -333,6 +357,20 @@ module.exports = {
 						message.channel.send("Error: Channel already subscribed to Briggs alerts")
 					}
 				}
+				if(message.content.substring(18).toLowerCase().includes('soltech')){
+					if(subListAlerts.soltech.indexOf(message.channel) == -1){
+						subListAlerts.soltech.push(message.channel);
+						SQLclient.query("INSERT INTO soltech VALUES ("+message.channel.id+");", (err, res) => {
+							if (err){
+								console.log(err);
+							} 
+						});
+						message.channel.send("Confirmed subscription to SolTech alerts");
+					}
+					else{
+						message.channel.send("Error: Channel already subscribed to SolTech alerts")
+					}
+				}
 			}
 			if (message.content.substring(0,19) == '!unsubscribe alerts'){
 				if(message.content.substring(20).toLowerCase().includes('connery')){
@@ -423,6 +461,21 @@ module.exports = {
 					}
 					else{
 						message.channel.send("Error: Not subscribed to Briggs alerts");
+					}
+				}
+				if(message.content.substring(20).toLowerCase().includes('soltech')){
+					index = subListAlerts.soltech.indexOf(message.channel);
+					if(index > -1){
+						subListAlerts.soltech.splice(index, 1);
+						SQLclient.query("DELETE FROM soltech WHERE channel='"+message.channel.id+"';", (err, res) => {
+							if (err){
+								console.log(err);
+							} 
+						});
+						message.channel.send("Unsubscribed from SolTech alerts");
+					}
+					else{
+						message.channel.send("Error: Not subscribed to SolTech alerts");
 					}
 				}
 			}

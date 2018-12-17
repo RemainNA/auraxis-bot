@@ -73,6 +73,8 @@ var q = async.queue(function(task, callback) {
 									break;
 								case "25":
 									sendEmbed.addField('Server', 'Briggs', true);
+								case "40":
+									sendEmbed.addField('Server', 'SolTech', true);
 							}
 							//change rich embed color based on faction
 							if (resChar.faction_id == "1") //vs

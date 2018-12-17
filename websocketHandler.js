@@ -149,6 +149,12 @@ var qu = async.queue(function(task, callback) {
 										alertList.briggs[x].send(sendEmbed);
 									}
 									callback();
+								case "40":
+									sendEmbed.addField('Server', 'SolTech', true);
+									for(x in alertList.soltech){
+										alertList.soltech[x].send(sendEmbed);
+									}
+									callback();
 							}
 						}
 					}
