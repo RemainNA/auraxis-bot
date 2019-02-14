@@ -43,8 +43,8 @@ module.exports = {
 		    else{
 				for (let row of res.rows) {
 					//convert channel id into channel object
-					resChann = discordClient.channels.get(row.channel);
-					subListAlerts.connery.push(resChann);
+					//resChann = discordClient.channels.get(row.channel);
+					subListAlerts.connery.push(row.channel);
 					console.log(JSON.stringify(row));
 				}
 			}
@@ -67,8 +67,8 @@ module.exports = {
 		    else{
 				for (let row of res.rows) {
 					//convert channel id into channel object
-					resChann = discordClient.channels.get(row.channel);
-					subListAlerts.cobalt.push(resChann);
+					//resChann = discordClient.channels.get(row.channel);
+					subListAlerts.cobalt.push(row.channel);
 					console.log(JSON.stringify(row));
 				}
 			}
@@ -91,8 +91,8 @@ module.exports = {
 		    else{
 				for (let row of res.rows) {
 					//convert channel id into channel object
-					resChann = discordClient.channels.get(row.channel);
-					subListAlerts.miller.push(resChann);
+					//resChann = discordClient.channels.get(row.channel);
+					subListAlerts.miller.push(row.channel);
 					console.log(JSON.stringify(row));
 				}
 			}
@@ -115,8 +115,8 @@ module.exports = {
 		    else{
 				for (let row of res.rows) {
 					//convert channel id into channel object
-					resChann = discordClient.channels.get(row.channel);
-					subListAlerts.emerald.push(resChann);
+					//resChann = discordClient.channels.get(row.channel);
+					subListAlerts.emerald.push(row.channel);
 					console.log(JSON.stringify(row));
 				}
 			}
@@ -139,8 +139,8 @@ module.exports = {
 		    else{
 				for (let row of res.rows) {
 					//convert channel id into channel object
-					resChann = discordClient.channels.get(row.channel);
-					subListAlerts.jaegar.push(resChann);
+					//resChann = discordClient.channels.get(row.channel);
+					subListAlerts.jaegar.push(row.channel);
 					console.log(JSON.stringify(row));
 				}
 			}
@@ -163,8 +163,8 @@ module.exports = {
 		    else{
 				for (let row of res.rows) {
 					//convert channel id into channel object
-					resChann = discordClient.channels.get(row.channel);
-					subListAlerts.briggs.push(resChann);
+					//resChann = discordClient.channels.get(row.channel);
+					subListAlerts.briggs.push(row.channel);
 					console.log(JSON.stringify(row));
 				}
 			}
@@ -187,8 +187,8 @@ module.exports = {
 		    else{
 				for (let row of res.rows) {
 					//convert channel id into channel object
-					resChann = discordClient.channels.get(row.channel);
-					subListAlerts.soltech.push(resChann);
+					//resChann = discordClient.channels.get(row.channel);
+					subListAlerts.soltech.push(row.channel);
 					console.log(JSON.stringify(row));
 				}
 			}

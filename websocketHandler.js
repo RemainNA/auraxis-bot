@@ -120,50 +120,205 @@ var qu = async.queue(function(task, callback) {
 							//add server to embed and send to appropriate channels
 							switch (message.payload.world_id){
 								case "1":
+									inaccessible = []
 									sendEmbed.addField('Server', 'Connery', true);
 									for(x in alertList.connery){
-										alertList.connery[x].send(sendEmbed);
+										resChann = discordClient.channels.get(alertList.connery[x]);
+										if(resChann != undefined){
+											resChann.send(sendEmbed);
+										}
+										//inaccessible channel
+										else{
+											inaccessible.push(x);
+											continue;
+										}
+									}
+									if(inaccessible.length > 0){
+										for(y in inaccessible){
+											index = alertList.connery.indexOf(inaccessible[y]);
+											if(index > -1){
+												subListAlerts.connery.splice(index, 1);
+												SQLclient.query("DELETE FROM connery WHERE channel='"+inaccessible[y]+"';", (err, res) => {
+													if (err){
+														console.log(err);
+													} 
+												});
+											}
+										}
 									}
 									callback();
 									break;
 								case "10":
+									inaccessible = []
 									sendEmbed.addField('Server', 'Miller', true);
 									for(x in alertList.miller){
-										alertList.miller[x].send(sendEmbed);
+										resChann = discordClient.channels.get(alertList.miller[x]);
+										if(resChann != undefined){
+											resChann.send(sendEmbed);
+										}
+										//inaccessible channel
+										else{
+											inaccessible.push(x);
+											continue;
+										}
+									}
+									if(inaccessible.length > 0){
+										for(y in inaccessible){
+											index = alertList.miller.indexOf(inaccessible[y]);
+											if(index > -1){
+												subListAlerts.miller.splice(index, 1);
+												SQLclient.query("DELETE FROM miller WHERE channel='"+inaccessible[y]+"';", (err, res) => {
+													if (err){
+														console.log(err);
+													} 
+												});
+											}
+										}
 									}
 									callback();
 									break;
 								case "13":
+									inaccessible = []
 									sendEmbed.addField('Server', 'Cobalt', true);
 									for(x in alertList.cobalt){
-										alertList.cobalt[x].send(sendEmbed);
+										resChann = discordClient.channels.get(alertList.cobalt[x]);
+										if(resChann != undefined){
+											resChann.send(sendEmbed);
+										}
+										//inaccessible channel
+										else{
+											inaccessible.push(x);
+											continue;
+										}
+									}
+									if(inaccessible.length > 0){
+										for(y in inaccessible){
+											index = alertList.cobalt.indexOf(inaccessible[y]);
+											if(index > -1){
+												subListAlerts.cobalt.splice(index, 1);
+												SQLclient.query("DELETE FROM cobalt WHERE channel='"+inaccessible[y]+"';", (err, res) => {
+													if (err){
+														console.log(err);
+													} 
+												});
+											}
+										}
 									}
 									callback();
 									break;
 								case "17":
+									inaccessible = []
 									sendEmbed.addField('Server', 'Emerald', true);
 									for(x in alertList.emerald){
-										alertList.emerald[x].send(sendEmbed);
+										resChann = discordClient.channels.get(alertList.emerald[x]);
+										if(resChann != undefined){
+											resChann.send(sendEmbed);
+										}
+										//inaccessible channel
+										else{
+											inaccessible.push(x);
+											continue;
+										}
+									}
+									if(inaccessible.length > 0){
+										for(y in inaccessible){
+											index = alertList.emerald.indexOf(inaccessible[y]);
+											if(index > -1){
+												subListAlerts.emerald.splice(index, 1);
+												SQLclient.query("DELETE FROM emerald WHERE channel='"+inaccessible[y]+"';", (err, res) => {
+													if (err){
+														console.log(err);
+													} 
+												});
+											}
+										}
 									}
 									callback();
 									break;
 								case "19":
-									sendEmbed.addField('Server', 'Jaeger', true);
+									inaccessible = []
+									sendEmbed.addField('Server', 'Jaegar', true);
 									for(x in alertList.jaegar){
-										alertList.jaegar[x].send(sendEmbed);
+										resChann = discordClient.channels.get(alertList.jaegar[x]);
+										if(resChann != undefined){
+											resChann.send(sendEmbed);
+										}
+										//inaccessible channel
+										else{
+											inaccessible.push(x);
+											continue;
+										}
+									}
+									if(inaccessible.length > 0){
+										for(y in inaccessible){
+											index = alertList.jaegar.indexOf(inaccessible[y]);
+											if(index > -1){
+												subListAlerts.jaegar.splice(index, 1);
+												SQLclient.query("DELETE FROM jaegar WHERE channel='"+inaccessible[y]+"';", (err, res) => {
+													if (err){
+														console.log(err);
+													} 
+												});
+											}
+										}
 									}
 									callback();
 									break;
 								case "25":
+									inaccessible = []
 									sendEmbed.addField('Server', 'Briggs', true);
 									for(x in alertList.briggs){
-										alertList.briggs[x].send(sendEmbed);
+										resChann = discordClient.channels.get(alertList.briggs[x]);
+										if(resChann != undefined){
+											resChann.send(sendEmbed);
+										}
+										//inaccessible channel
+										else{
+											inaccessible.push(x);
+											continue;
+										}
+									}
+									if(inaccessible.length > 0){
+										for(y in inaccessible){
+											index = alertList.briggs.indexOf(inaccessible[y]);
+											if(index > -1){
+												subListAlerts.briggs.splice(index, 1);
+												SQLclient.query("DELETE FROM briggs WHERE channel='"+inaccessible[y]+"';", (err, res) => {
+													if (err){
+														console.log(err);
+													} 
+												});
+											}
+										}
 									}
 									callback();
+									break;
 								case "40":
+									inaccessible = []
 									sendEmbed.addField('Server', 'SolTech', true);
 									for(x in alertList.soltech){
-										alertList.soltech[x].send(sendEmbed);
+										resChann = discordClient.channels.get(alertList.soltech[x]);
+										if(resChann != undefined){
+											resChann.send(sendEmbed);
+										}
+										//inaccessible channel
+										else{
+											inaccessible.push(x);
+											continue;
+										}
+									}
+									if(inaccessible.length > 0){
+										for(y in inaccessible){
+											index = alertList.soltech.indexOf(inaccessible[y]);
+											if(index > -1){
+												subListAlerts.soltech.splice(index, 1);
+												SQLclient.query("DELETE FROM soltech WHERE channel='"+inaccessible[y]+"';", (err, res) => {
+													if (err){
+														console.log(err);
+													} 
+												});
+											}
+										}
 									}
 									callback();
 							}
