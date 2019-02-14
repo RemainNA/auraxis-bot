@@ -55,7 +55,18 @@ var qu = async.queue(function(task, callback) {
 								sendEmbed.setColor(res.rows[0].color);
 								for (let row of res.rows){
 									resChann = discordClient.channels.get(row.channel);
-									resChann.send(sendEmbed);
+									if(resChann != undefined){
+										resChann.send(sendEmbed);
+									}
+									//in case channel is deleted or otherwise unaccessible
+									else{
+										SQLclient.query("DELETE FROM outfit WHERE id="+resChar.outfit_member.outfit_id+" AND channel='"+row.channel+"';", (err, res) => {
+											if (err){
+												console.log(err);
+											} 
+										});
+										//cleanup of subListOutfits is not performed as this should be automatic at restart
+									}
 								}
 								callback();
 							});
