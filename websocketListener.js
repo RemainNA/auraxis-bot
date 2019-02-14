@@ -222,8 +222,8 @@ module.exports = {
 		//END OF SQL
 		//**********
 		//subscription messages to send to websocket
-		subscribeRequestLogin = '{"service":"event","action":"subscribe","worlds":["1","10","13","17","19","25"],"eventNames":["PlayerLogin","PlayerLogout"]}'
-		subscribeRequestAlerts = '{"service":"event","action":"subscribe","worlds":["1","10","13","17","19","25"],"eventNames":["MetagameEvent"]}';
+		subscribeRequestLogin = '{"service":"event","action":"subscribe","worlds":["1","10","13","17","19","25","40"],"eventNames":["PlayerLogin","PlayerLogout"]}'
+		subscribeRequestAlerts = '{"service":"event","action":"subscribe","worlds":["1","10","13","17","19","25","40"],"eventNames":["MetagameEvent"]}';
 		var client = new WebSocket();
 		
 		client.connect('wss://push.planetside2.com/streaming?environment=ps2&service-id=s:'+process.env.serviceID);
