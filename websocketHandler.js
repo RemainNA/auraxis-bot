@@ -129,7 +129,7 @@ var qu = async.queue(function(task, callback) {
 										}
 										//inaccessible channel
 										else{
-											inaccessible.push(x);
+											inaccessible.push(alertList.connery[x]);
 											continue;
 										}
 									}
@@ -158,7 +158,7 @@ var qu = async.queue(function(task, callback) {
 										}
 										//inaccessible channel
 										else{
-											inaccessible.push(x);
+											inaccessible.push(alertList.miller[x]);
 											continue;
 										}
 									}
@@ -187,7 +187,7 @@ var qu = async.queue(function(task, callback) {
 										}
 										//inaccessible channel
 										else{
-											inaccessible.push(x);
+											inaccessible.push(alertList.cobalt[x]);
 											continue;
 										}
 									}
@@ -216,7 +216,7 @@ var qu = async.queue(function(task, callback) {
 										}
 										//inaccessible channel
 										else{
-											inaccessible.push(x);
+											inaccessible.push(alertList.emerald[x]);
 											continue;
 										}
 									}
@@ -245,7 +245,7 @@ var qu = async.queue(function(task, callback) {
 										}
 										//inaccessible channel
 										else{
-											inaccessible.push(x);
+											inaccessible.push(alertList.jaegar[x])
 											continue;
 										}
 									}
@@ -274,7 +274,7 @@ var qu = async.queue(function(task, callback) {
 										}
 										//inaccessible channel
 										else{
-											inaccessible.push(x);
+											inaccessible.push(alertList.briggs[x])
 											continue;
 										}
 									}
@@ -303,7 +303,7 @@ var qu = async.queue(function(task, callback) {
 										}
 										//inaccessible channel
 										else{
-											inaccessible.push(x);
+											inaccessible.push(alertList.soltech[x])
 											continue;
 										}
 									}
