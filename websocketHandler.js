@@ -58,7 +58,7 @@ var qu = async.queue(function(task, callback) {
 									if(resChann != undefined){
 										resChann.send(sendEmbed);
 									}
-									//in case channel is deleted or otherwise unaccessible
+									//in case channel is deleted or otherwise inaccessible
 									else{
 										SQLclient.query("DELETE FROM outfit WHERE id="+resChar.outfit_member.outfit_id+" AND channel='"+row.channel+"';", (err, res) => {
 											if (err){
