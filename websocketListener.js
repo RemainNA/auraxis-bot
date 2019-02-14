@@ -274,8 +274,8 @@ module.exports = {
 			if (message.content.substring(0,17) == '!subscribe alerts'){
 				console.log(message.content);
 				if(message.content.substring(18).toLowerCase().includes('connery')){
-					if(subListAlerts.connery.indexOf(message.channel) == -1){
-						subListAlerts.connery.push(message.channel);
+					if(subListAlerts.connery.indexOf(message.channel.id) == -1){
+						subListAlerts.connery.push(message.channel.id);
 						SQLclient.query("INSERT INTO connery VALUES ("+message.channel.id+");", (err, res) => {
 							if (err){
 								console.log(err);
@@ -288,8 +288,8 @@ module.exports = {
 					}
 				}
 				if(message.content.substring(18).toLowerCase().includes('miller')){
-					if(subListAlerts.miller.indexOf(message.channel) == -1){
-						subListAlerts.miller.push(message.channel);
+					if(subListAlerts.miller.indexOf(message.channel.id) == -1){
+						subListAlerts.miller.push(message.channel.id);
 						SQLclient.query("INSERT INTO miller VALUES ("+message.channel.id+");", (err, res) => {
 							if (err){
 								console.log(err);
@@ -302,8 +302,8 @@ module.exports = {
 					}
 				}
 				if(message.content.substring(18).toLowerCase().includes('cobalt')){
-					if(subListAlerts.cobalt.indexOf(message.channel) == -1){
-						subListAlerts.cobalt.push(message.channel);
+					if(subListAlerts.cobalt.indexOf(message.channel.id) == -1){
+						subListAlerts.cobalt.push(message.channel.id);
 						SQLclient.query("INSERT INTO cobalt VALUES ("+message.channel.id+");", (err, res) => {
 							if (err){
 								console.log(err);
@@ -316,8 +316,8 @@ module.exports = {
 					}
 				}
 				if(message.content.substring(18).toLowerCase().includes('emerald')){
-					if(subListAlerts.emerald.indexOf(message.channel) == -1){
-						subListAlerts.emerald.push(message.channel);
+					if(subListAlerts.emerald.indexOf(message.channel.id) == -1){
+						subListAlerts.emerald.push(message.channel.id);
 						SQLclient.query("INSERT INTO emerald VALUES ("+message.channel.id+");", (err, res) => {
 							if (err){
 								console.log(err);
@@ -330,8 +330,8 @@ module.exports = {
 					}
 				}
 				if(message.content.substring(18).toLowerCase().includes('jaegar')){
-					if(subListAlerts.jaegar.indexOf(message.channel) == -1){
-						subListAlerts.jaegar.push(message.channel);
+					if(subListAlerts.jaegar.indexOf(message.channel.id) == -1){
+						subListAlerts.jaegar.push(message.channel.id);
 						SQLclient.query("INSERT INTO jaegar VALUES ("+message.channel.id+");", (err, res) => {
 							if (err){
 								console.log(err);
@@ -344,8 +344,8 @@ module.exports = {
 					}
 				}
 				if(message.content.substring(18).toLowerCase().includes('briggs')){
-					if(subListAlerts.briggs.indexOf(message.channel) == -1){
-						subListAlerts.briggs.push(message.channel);
+					if(subListAlerts.briggs.indexOf(message.channel.id) == -1){
+						subListAlerts.briggs.push(message.channel.id);
 						SQLclient.query("INSERT INTO briggs VALUES ("+message.channel.id+");", (err, res) => {
 							if (err){
 								console.log(err);
@@ -358,8 +358,8 @@ module.exports = {
 					}
 				}
 				if(message.content.substring(18).toLowerCase().includes('soltech')){
-					if(subListAlerts.soltech.indexOf(message.channel) == -1){
-						subListAlerts.soltech.push(message.channel);
+					if(subListAlerts.soltech.indexOf(message.channel.id) == -1){
+						subListAlerts.soltech.push(message.channel.id);
 						SQLclient.query("INSERT INTO soltech VALUES ("+message.channel.id+");", (err, res) => {
 							if (err){
 								console.log(err);
@@ -374,7 +374,7 @@ module.exports = {
 			}
 			if (message.content.substring(0,19) == '!unsubscribe alerts'){
 				if(message.content.substring(20).toLowerCase().includes('connery')){
-					index = subListAlerts.connery.indexOf(message.channel);
+					index = subListAlerts.connery.indexOf(message.channel.id);
 					if(index > -1){
 						subListAlerts.connery.splice(index, 1);
 						SQLclient.query("DELETE FROM connery WHERE channel='"+message.channel.id+"';", (err, res) => {
@@ -389,7 +389,7 @@ module.exports = {
 					}
 				}
 				if(message.content.substring(20).toLowerCase().includes('cobalt')){
-					index = subListAlerts.cobalt.indexOf(message.channel);
+					index = subListAlerts.cobalt.indexOf(message.channel.id);
 					if(index > -1){
 						subListAlerts.cobalt.splice(index, 1);
 						SQLclient.query("DELETE FROM connery WHERE channel='"+message.channel.id+"';", (err, res) => {
@@ -404,7 +404,7 @@ module.exports = {
 					}
 				}
 				if(message.content.substring(20).toLowerCase().includes('miller')){
-					index = subListAlerts.miller.indexOf(message.channel);
+					index = subListAlerts.miller.indexOf(message.channel.id);
 					if(index > -1){
 						subListAlerts.miller.splice(index, 1);
 						SQLclient.query("DELETE FROM miller WHERE channel='"+message.channel.id+"';", (err, res) => {
@@ -419,7 +419,7 @@ module.exports = {
 					}
 				}
 				if(message.content.substring(20).toLowerCase().includes('emerald')){
-					index = subListAlerts.emerald.indexOf(message.channel);
+					index = subListAlerts.emerald.indexOf(message.channel.id);
 					if(index > -1){
 						subListAlerts.emerald.splice(index, 1);
 						SQLclient.query("DELETE FROM emerald WHERE channel='"+message.channel.id+"';", (err, res) => {
@@ -434,7 +434,7 @@ module.exports = {
 					}
 				}
 				if(message.content.substring(20).toLowerCase().includes('jaegar')){
-					index = subListAlerts.jaegar.indexOf(message.channel);
+					index = subListAlerts.jaegar.indexOf(message.channel.id);
 					if(index > -1){
 						subListAlerts.jaegar.splice(index, 1);
 						SQLclient.query("DELETE FROM jaegar WHERE channel='"+message.channel.id+"';", (err, res) => {
@@ -449,7 +449,7 @@ module.exports = {
 					}
 				}
 				if(message.content.substring(20).toLowerCase().includes('briggs')){
-					index = subListAlerts.briggs.indexOf(message.channel);
+					index = subListAlerts.briggs.indexOf(message.channel.id);
 					if(index > -1){
 						subListAlerts.briggs.splice(index, 1);
 						SQLclient.query("DELETE FROM briggs WHERE channel='"+message.channel.id+"';", (err, res) => {
@@ -464,7 +464,7 @@ module.exports = {
 					}
 				}
 				if(message.content.substring(20).toLowerCase().includes('soltech')){
-					index = subListAlerts.soltech.indexOf(message.channel);
+					index = subListAlerts.soltech.indexOf(message.channel.id);
 					if(index > -1){
 						subListAlerts.soltech.splice(index, 1);
 						SQLclient.query("DELETE FROM soltech WHERE channel='"+message.channel.id+"';", (err, res) => {
