@@ -122,33 +122,35 @@ var q = async.queue(function(task, callback) {
 				topNum = -1;
 				weaponStat = resChar.stats.weapon_stat_by_faction;
 				//iterate through weapons, find max value
-				for (x in weaponStat)
-				{
-					if (weaponStat[x].stat_name == "weapon_kills" && weaponStat[x].item_id != "0")
+				if(resChar.stats != undefined){
+					for (x in weaponStat)
 					{
-						item_num = Number(weaponStat[x].value_vs) + Number(weaponStat[x].value_nc) + Number(weaponStat[x].value_tr);
-						if (item_num > topNum){
-							topNum = item_num;
-							topID = weaponStat[x].item_id;
+						if (weaponStat[x].stat_name == "weapon_kills" && weaponStat[x].item_id != "0")
+						{
+							item_num = Number(weaponStat[x].value_vs) + Number(weaponStat[x].value_nc) + Number(weaponStat[x].value_tr);
+							if (item_num > topNum){
+								topNum = item_num;
+								topID = weaponStat[x].item_id;
+							}
 						}
 					}
-				}
-				try{
-					//get weapon info, add to rich embed and send
-					weapURI = 'https://census.daybreakgames.com/s:'+process.env.serviceID+'/get/ps2:v2/item/'+topID;
-					var options = {uri: weapURI, sendEmbed: sendEmbed, topNum: topNum, channel: channel}
-					request(options, function(error, response, body){
-							weapData = JSON.parse(body);
-							topName = weapData.item_list[0].name.en;
-							sendEmbed.addField('Top Weapon (kills)', topName+" ("+topNum+")", true);
-							channel.send(sendEmbed);
-							callback();
-						})
-				}
-				catch(e){
-					//send rich embed without top weapon if it fails
-					channel.send(sendEmbed);
-					callback();
+					try{
+						//get weapon info, add to rich embed and send
+						weapURI = 'https://census.daybreakgames.com/s:'+process.env.serviceID+'/get/ps2:v2/item/'+topID;
+						var options = {uri: weapURI, sendEmbed: sendEmbed, topNum: topNum, channel: channel}
+						request(options, function(error, response, body){
+								weapData = JSON.parse(body);
+								topName = weapData.item_list[0].name.en;
+								sendEmbed.addField('Top Weapon (kills)', topName+" ("+topNum+")", true);
+								channel.send(sendEmbed);
+								callback();
+							})
+					}
+					catch(e){
+						//send rich embed without top weapon if it fails
+						channel.send(sendEmbed);
+						callback();
+					}
 				}
 			}
 		})
