@@ -19,9 +19,9 @@ var q = async.queue(function(task, callback){
 				//console.log(body);
 				data = JSON.parse(body);
 				sendEmbed = new Discord.RichEmbed();
-				sendEmbed.setTitle('Connery Population');
-				sendEmbed.setFooter('From ps2.fisu.pw');
 				totalPop = data.result[0].vs + data.result[0].nc + data.result[0].tr;
+				sendEmbed.setTitle('Connery Population - '+totalPop);
+				sendEmbed.setFooter('From ps2.fisu.pw');
 				vsPc = (data.result[0].vs/totalPop)*100;
 				vsPc = Number.parseFloat(vsPc).toPrecision(3);
 				ncPc = (data.result[0].nc/totalPop)*100;
@@ -45,9 +45,9 @@ var q = async.queue(function(task, callback){
 				//console.log(body);
 				data = JSON.parse(body);
 				sendEmbed = new Discord.RichEmbed();
-				sendEmbed.setTitle('Miller Population');
-				sendEmbed.setFooter('From ps2.fisu.pw');
 				totalPop = data.result[0].vs + data.result[0].nc + data.result[0].tr;
+				sendEmbed.setTitle('Miller Population - '+totalPop);
+				sendEmbed.setFooter('From ps2.fisu.pw');
 				vsPc = (data.result[0].vs/totalPop)*100;
 				vsPc = Number.parseFloat(vsPc).toPrecision(3);
 				ncPc = (data.result[0].nc/totalPop)*100;
@@ -71,9 +71,9 @@ var q = async.queue(function(task, callback){
 				//console.log(body);
 				data = JSON.parse(body);
 				sendEmbed = new Discord.RichEmbed();
-				sendEmbed.setTitle('Cobalt Population');
-				sendEmbed.setFooter('From ps2.fisu.pw');
 				totalPop = data.result[0].vs + data.result[0].nc + data.result[0].tr;
+				sendEmbed.setTitle('Cobalt Population - '+totalPop);
+				sendEmbed.setFooter('From ps2.fisu.pw');
 				vsPc = (data.result[0].vs/totalPop)*100;
 				vsPc = Number.parseFloat(vsPc).toPrecision(3);
 				ncPc = (data.result[0].nc/totalPop)*100;
@@ -97,9 +97,9 @@ var q = async.queue(function(task, callback){
 				//console.log(body);
 				data = JSON.parse(body);
 				sendEmbed = new Discord.RichEmbed();
-				sendEmbed.setTitle('Emerald Population');
-				sendEmbed.setFooter('From ps2.fisu.pw');
 				totalPop = data.result[0].vs + data.result[0].nc + data.result[0].tr;
+				sendEmbed.setTitle('Emerald Population - '+totalPop);
+				sendEmbed.setFooter('From ps2.fisu.pw');
 				vsPc = (data.result[0].vs/totalPop)*100;
 				vsPc = Number.parseFloat(vsPc).toPrecision(3);
 				ncPc = (data.result[0].nc/totalPop)*100;
@@ -123,9 +123,9 @@ var q = async.queue(function(task, callback){
 				//console.log(body);
 				data = JSON.parse(body);
 				sendEmbed = new Discord.RichEmbed();
-				sendEmbed.setTitle('Jaegar Population');
-				sendEmbed.setFooter('From ps2.fisu.pw');
 				totalPop = data.result[0].vs + data.result[0].nc + data.result[0].tr;
+				sendEmbed.setTitle('Jaegar Population - '+totalPop);
+				sendEmbed.setFooter('From ps2.fisu.pw');
 				vsPc = (data.result[0].vs/totalPop)*100;
 				vsPc = Number.parseFloat(vsPc).toPrecision(3);
 				ncPc = (data.result[0].nc/totalPop)*100;
@@ -149,9 +149,9 @@ var q = async.queue(function(task, callback){
 				//console.log(body);
 				data = JSON.parse(body);
 				sendEmbed = new Discord.RichEmbed();
-				sendEmbed.setTitle('Briggs Population');
-				sendEmbed.setFooter('From ps2.fisu.pw');
 				totalPop = data.result[0].vs + data.result[0].nc + data.result[0].tr;
+				sendEmbed.setTitle('Briggs Population - '+totalPop);
+				sendEmbed.setFooter('From ps2.fisu.pw');
 				vsPc = (data.result[0].vs/totalPop)*100;
 				vsPc = Number.parseFloat(vsPc).toPrecision(3);
 				ncPc = (data.result[0].nc/totalPop)*100;
@@ -175,9 +175,9 @@ var q = async.queue(function(task, callback){
 				//console.log(body);
 				data = JSON.parse(body);
 				sendEmbed = new Discord.RichEmbed();
-				sendEmbed.setTitle('Soltech Population');
-				sendEmbed.setFooter('From ps2.fisu.pw');
 				totalPop = data.result[0].vs + data.result[0].nc + data.result[0].tr;
+				sendEmbed.setTitle('SolTech Population - '+totalPop);
+				sendEmbed.setFooter('From ps2.fisu.pw');
 				vsPc = (data.result[0].vs/totalPop)*100;
 				vsPc = Number.parseFloat(vsPc).toPrecision(3);
 				ncPc = (data.result[0].nc/totalPop)*100;
@@ -191,7 +191,7 @@ var q = async.queue(function(task, callback){
 			})
 		}
 		catch(e){
-			console.log('Briggs pop error');
+			console.log('SolTech pop error');
 		}
 	}
 	callback();
