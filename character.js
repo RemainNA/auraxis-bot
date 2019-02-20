@@ -142,7 +142,8 @@ var q = async.queue(function(task, callback) {
 								weapData = JSON.parse(body);
 								topName = weapData.item_list[0].name.en;
 								sendEmbed.addField('Top Weapon (kills)', topName+" ("+topNum+")", true);
-								
+								channel.send(sendEmbed);
+								callback();
 							})
 					}
 					catch(e){
@@ -151,8 +152,10 @@ var q = async.queue(function(task, callback) {
 						callback();
 					}
 				}
-				channel.send(sendEmbed);
-				callback();
+				else{
+					channel.send(sendEmbed);
+					callback();
+				}
 			}
 		})
 	}
