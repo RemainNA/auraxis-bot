@@ -120,9 +120,9 @@ var q = async.queue(function(task, callback) {
 				//Top Weapon
 				topID = '';
 				topNum = -1;
-				weaponStat = resChar.stats.weapon_stat_by_faction;
-				//iterate through weapons, find max value
 				if(resChar.stats != undefined){
+					weaponStat = resChar.stats.weapon_stat_by_faction;
+					//iterate through weapons, find max value
 					for (x in weaponStat)
 					{
 						if (weaponStat[x].stat_name == "weapon_kills" && weaponStat[x].item_id != "0")
