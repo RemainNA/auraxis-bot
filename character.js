@@ -72,7 +72,7 @@ var q = async.queue(function(task, callback) {
 				sendEmbed.addField('Playtime', hours+' hours, '+minutesPlayed+' minutes', true);
 				
 				//KD
-				if(resChar.stats.stat_history != null){
+				if(resChar.stats != undefined && resChar.stats.stat_history != null){
 					kills = resChar.stats.stat_history[5].all_time;
 					deaths = resChar.stats.stat_history[2].all_time;
 					ratio = Number.parseFloat(kills/deaths).toPrecision(3);  //sets to 3 sig figs
