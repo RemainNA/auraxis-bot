@@ -8,4 +8,4 @@ The main event listener is in main.js, it starts a separate event listener in su
 The bot is designed to be simple to use.  Once added to your server, commands can be viewed with "!help".  In order to get the most out of the bot, please grant it the "embed link" and "manage messages" permissions.
 
 # Contact
-For feedback or error reports, the best ways to contact are reddit (/u/ultimatestormer) and Discord (Ultimastorm#8013)
+For feedback or error reports, the best ways to contact are reddit (/u/ultimatestormer), Discord (Ultimastorm#0159), and the Auraxis bot server (https://discord.gg/Kf5P6Ut)
