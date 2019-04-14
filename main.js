@@ -54,6 +54,7 @@ const token = process.env.token;
 client.on('ready', () => {
   console.log('I am ready!');
   wsListen.subscribe(client);
+  client.user.setActivity('!help')
 });
 
 var archive = []; //list of bot messages and commands
