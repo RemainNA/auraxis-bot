@@ -4,33 +4,32 @@ const Discord = require('discord.js');
 // Import request for API access
 var request = require('request');
 
-// auth file
-var auth = require('./auth.json');
-
 // import async
 var async = require('async');
 
 var q = async.queue(function(task, callback) {
 	oTag = task.tag;
 	channel = task.inChannel;
-	uri = 'http://census.daybreakgames.com/s:'+auth.serviceID+'/get/ps2:v2/outfit?alias_lower='+oTag+'&c:resolve=member_character_name,member_online_status&c:join=character^on:leader_character_id^to:character_id';
+	uri = 'http://census.daybreakgames.com/s:'+process.env.serviceID+'/get/ps2:v2/outfit?alias_lower='+oTag+'&c:resolve=member_character_name,member_online_status&c:join=character^on:leader_character_id^to:character_id';
 	try{
 		request(uri, function (error, response, body) {
 			data = JSON.parse(body);
-			if (data.outfit_list[0] == null){
-				channel.send("Tag not found");
+			if (data.outfit_list == null || data.returned == 0){
+				channel.send("["+oTag+"] not found");
 				callback();
 			}
 			else{
 				resOut = data.outfit_list[0];
+				//create new discord rich embed object
 				sendEmbed = new Discord.RichEmbed();
 				sendEmbed.setTitle(resOut.name);
-				sendEmbed.setDescription(resOut.alias);
+				sendEmbed.setDescription(resOut.alias); //include outfit tag
 				sendEmbed.setURL('https://ps2.fisu.pw/outfit/?name='+oTag);
 				sendEmbed.addField('Member count', resOut.member_count, true);
-				memOn = 0;
+				memOn = 0; //members online
 				if(resOut.members[0].online_status != "service_unavailable"){
 					for (x in resOut.members){
+						//iterate through members, count online
 						if(resOut.members[x].online_status >= 1){
 							memOn = memOn + 1;
 						}
@@ -38,21 +37,24 @@ var q = async.queue(function(task, callback) {
 					sendEmbed.addField('Online', memOn, true);
 				}
 				else{
+					//indicate if unable to get online member info
 					sendEmbed.addField('Online', 'Service unavailable',true);
 				}
 				
 				try{
-					uri = 'https://census.daybreakgames.com/s:'+auth.serviceID+'/get/ps2:v2/character/'+resOut.leader_character_id+'?c:resolve=world'
+					//get info from outfit owner
+					uri = 'https://census.daybreakgames.com/s:'+process.env.serviceID+'/get/ps2:v2/character/'+resOut.leader_character_id+'?c:resolve=world'
 					options = {uri: uri, sendEmbed: sendEmbed, channel: channel};
 					request(options, function(error, respose, body) {
 						data2 = JSON.parse(body);
 						if (data2.character_list[0] == null){
+							//send rich embed if unable to pull outfit owner info
 							channel.send(sendEmbed);
 							callback();
 						}
 						else {
 							resChar = data2.character_list[0];
-							switch (resChar.world_id)
+							switch (resChar.world_id) //server
 							{
 								case "1":
 									sendEmbed.addField('Server', 'Connery', true);
@@ -71,7 +73,10 @@ var q = async.queue(function(task, callback) {
 									break;
 								case "25":
 									sendEmbed.addField('Server', 'Briggs', true);
+								case "40":
+									sendEmbed.addField('Server', 'SolTech', true);
 							}
+							//change rich embed color based on faction
 							if (resChar.faction_id == "1") //vs
 							{
 								sendEmbed.addField('Faction', 'VS', true);
@@ -93,14 +98,14 @@ var q = async.queue(function(task, callback) {
 						}
 					})
 				}
-				catch{
+				catch(e){
 					channel.send(sendEmbed);
 					callback();
 				}
 			}
 		});
 	}
-	catch{
+	catch(e){
 		console.log('pos 5')
 		callback();
 	}

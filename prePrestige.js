@@ -4,22 +4,19 @@ const Discord = require('discord.js');
 // Import request for API access
 var request = require('request');
 
-// auth file
-var auth = require('./auth.json');
-
 // import async
 var async = require('async');
 
 var q = async.queue(function(task, callback){
 	cName = task.chr;
 	message = task.msg;
-	uri = 'https://census.daybreakgames.com/s:'+auth.serviceID+'/get/ps2:v2/character?name.first_lower='+cName+'&c:resolve=item_full&c:lang=en';
+	uri = 'https://census.daybreakgames.com/s:'+process.env.serviceID+'/get/ps2:v2/character?name.first_lower='+cName+'&c:resolve=item_full&c:lang=en';
 	var options = {uri:uri, message:message};
 	try{
 		request(options, function (error, response, body) {
 			message = options.message;
 			data = JSON.parse(body)
-			if (data.character_list[0] == null)
+			if (data.character_list == null)
 			{
 				message.channel.send("Character not found");
 				callback();
@@ -30,6 +27,7 @@ var q = async.queue(function(task, callback){
 			}
 			else{
 				resChar = data.character_list[0];
+				//create rich embed, color based on faction
 				sendEmbed = new Discord.RichEmbed();
 				sendEmbed.setTitle(resChar.name.first);
 				if (resChar.faction_id == "1") //vs
@@ -44,17 +42,18 @@ var q = async.queue(function(task, callback){
 				{
 					sendEmbed.setColor('RED');
 				}
-				decals = [];
+				decals = []; //count br 101-120 decals
 				for (x in resChar.items){
 					if (Number(resChar.items[x].item_id) >= 803931 && Number(resChar.items[x].item_id) <= 803950){
+						//record br 101-120 decals
 						decals.push(Number(resChar.items[x].item_id));
 					}
 				}
 				var preBR = 0;
-				if (decals.length == 0){
+				if (decals.length == 0){ //if no decals, recorded, prestiged at br 100
 					preBR = 100;
 				}
-				else{
+				else{ //decals ids are br + 803830
 					preBR = Math.max.apply(Math, decals) - 803830;
 				}
 				sendEmbed.addField('Max BR pre ASP', preBR);
@@ -63,7 +62,7 @@ var q = async.queue(function(task, callback){
 			}
 		})
 	}
-	catch{
+	catch(e){
 		callback();
 	}
 })

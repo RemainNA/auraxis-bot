@@ -3,3 +3,6 @@ auth.json
 
 # Outline #
 plan.txt
+
+# Dependencies #
+node_modules

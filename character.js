@@ -4,27 +4,25 @@ const Discord = require('discord.js');
 // Import request for API access
 var request = require('request');
 
-// auth file
-var auth = require('./auth.json');
-
 // import async
 var async = require('async');
 
 var q = async.queue(function(task, callback) {
 	cName = task.name;
 	channel = task.inChannel;
-	uri = 'https://census.daybreakgames.com/s:'+auth.serviceID+'/get/ps2:v2/character?name.first_lower='+cName+'&c:resolve=outfit_member_extended,online_status,world,stat_history,weapon_stat_by_faction&c:join=title'
+	uri = 'https://census.daybreakgames.com/s:'+process.env.serviceID+'/get/ps2:v2/character?name.first_lower='+cName+'&c:resolve=outfit_member_extended,online_status,world,stat_history,weapon_stat_by_faction&c:join=title'
 	var options = {uri: uri, channel: channel};
 	try{
 		request(options, function (error, response, body) {
 			data = JSON.parse(body);
-			if (data.character_list[0] == null)
+			if (data.character_list == null || data.returned == 0)
 			{
 				channel.send("Character not found");
 				callback();
 			}
 			else{
 				resChar = data.character_list[0]; //resChar = resulting character
+				//create Discord rich embed object
 				sendEmbed = new Discord.RichEmbed();
 				
 				//name
@@ -42,6 +40,8 @@ var q = async.queue(function(task, callback) {
 				//BR, Prestige
 				sendEmbed.addField('BR', resChar.battle_rank.value, true);
 				sendEmbed.addField('Prestige', prestige = resChar.prestige_level, true);
+				
+				//server
 				switch (resChar.world_id)
 				{
 					case "1":
@@ -61,6 +61,8 @@ var q = async.queue(function(task, callback) {
 						break;
 					case "25":
 						sendEmbed.addField('Server', 'Briggs', true);
+					case "40":
+						sendEmbed.addField('Server', 'SolTech', true);
 				}
 				
 				//Playtime
@@ -70,7 +72,7 @@ var q = async.queue(function(task, callback) {
 				sendEmbed.addField('Playtime', hours+' hours, '+minutesPlayed+' minutes', true);
 				
 				//KD
-				if(resChar.stats.stat_history != null){
+				if(resChar.stats != undefined && resChar.stats.stat_history != null){
 					kills = resChar.stats.stat_history[5].all_time;
 					deaths = resChar.stats.stat_history[2].all_time;
 					ratio = Number.parseFloat(kills/deaths).toPrecision(3);  //sets to 3 sig figs
@@ -118,37 +120,46 @@ var q = async.queue(function(task, callback) {
 				//Top Weapon
 				topID = '';
 				topNum = -1;
-				weaponStat = resChar.stats.weapon_stat_by_faction;
-				for (x in weaponStat)
-				{
-					if (weaponStat[x].stat_name == "weapon_kills" && weaponStat[x].item_id != "0")
+				if(resChar.stats != undefined){
+					weaponStat = resChar.stats.weapon_stat_by_faction;
+					//iterate through weapons, find max value
+					for (x in weaponStat)
 					{
-						item_num = Number(weaponStat[x].value_vs) + Number(weaponStat[x].value_nc) + Number(weaponStat[x].value_tr);
-						if (item_num > topNum){
-							topNum = item_num;
-							topID = weaponStat[x].item_id;
+						if (weaponStat[x].stat_name == "weapon_kills" && weaponStat[x].item_id != "0")
+						{
+							item_num = Number(weaponStat[x].value_vs) + Number(weaponStat[x].value_nc) + Number(weaponStat[x].value_tr);
+							if (item_num > topNum){
+								topNum = item_num;
+								topID = weaponStat[x].item_id;
+							}
 						}
 					}
+					try{
+						//get weapon info, add to rich embed and send
+						weapURI = 'https://census.daybreakgames.com/s:'+process.env.serviceID+'/get/ps2:v2/item/'+topID;
+						var options = {uri: weapURI, sendEmbed: sendEmbed, topNum: topNum, channel: channel}
+						request(options, function(error, response, body){
+								weapData = JSON.parse(body);
+								topName = weapData.item_list[0].name.en;
+								sendEmbed.addField('Top Weapon (kills)', topName+" ("+topNum+")", true);
+								channel.send(sendEmbed);
+								callback();
+							})
+					}
+					catch(e){
+						//send rich embed without top weapon if it fails
+						channel.send(sendEmbed);
+						callback();
+					}
 				}
-				try{
-					weapURI = 'https://census.daybreakgames.com/s:'+auth.serviceID+'/get/ps2:v2/item/'+topID;
-					var options = {uri: weapURI, sendEmbed: sendEmbed, topNum: topNum, channel: channel}
-					request(options, function(error, response, body){
-							weapData = JSON.parse(body);
-							topName = weapData.item_list[0].name.en;
-							sendEmbed.addField('Top Weapon (kills)', topName+" ("+topNum+")", true);
-							channel.send(sendEmbed);
-							callback();
-						})
-				}
-				catch{
+				else{
 					channel.send(sendEmbed);
 					callback();
 				}
 			}
 		})
 	}
-	catch {
+	catch(e) {
 		console.log('character error');
 		channel.send('An error occured');
 		callback();
@@ -159,6 +170,7 @@ q.drain = function() {
 	console.log('Done');
 }
 module.exports = {
+	//external files call this, which then calls the code above
 	characterLookup: function (cName, channel) {
 		q.push({name: cName, inChannel: channel}, function(err) {
 			console.log(cName);

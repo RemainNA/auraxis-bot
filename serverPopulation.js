@@ -4,31 +4,37 @@ const Discord = require('discord.js');
 // Import request for API access
 var request = require('request');
 
-// auth file
-var auth = require('./auth.json');
-
 // import async
 var async = require('async');
 
 var q = async.queue(function(task, callback){
 	servers = task.sList.toLowerCase();
 	channel = task.chnl;
+	//using if instead of else if allows for multiple server population checks in one command
 	if(servers.includes('connery')){
+		//call fisu api.  User agent is because fisu will refuse connections without one
 		options = {uri:'http://ps2.fisu.pw/api/population/?world=1', headers: {'User-Agent': "Auraxis bot"}};
 		try{
 			request(options, function (error, response, body) {
 				//console.log(body);
 				data = JSON.parse(body);
 				sendEmbed = new Discord.RichEmbed();
-				sendEmbed.setTitle('Connery Population');
+				totalPop = data.result[0].vs + data.result[0].nc + data.result[0].tr;
+				sendEmbed.setTitle('Connery Population - '+totalPop);
 				sendEmbed.setFooter('From ps2.fisu.pw');
-				sendEmbed.addField('VS', data.result[0].vs, true);
-				sendEmbed.addField('NC', data.result[0].nc, true);
-				sendEmbed.addField('TR', data.result[0].tr, true);
+				vsPc = (data.result[0].vs/totalPop)*100;
+				vsPc = Number.parseFloat(vsPc).toPrecision(3);
+				ncPc = (data.result[0].nc/totalPop)*100;
+				ncPc = Number.parseFloat(ncPc).toPrecision(3);
+				trPc = (data.result[0].tr/totalPop)*100;
+				trPc = Number.parseFloat(trPc).toPrecision(3);
+				sendEmbed.addField('VS', data.result[0].vs+" ("+vsPc+"%)", true);
+				sendEmbed.addField('NC', data.result[0].nc+" ("+ncPc+"%)", true);
+				sendEmbed.addField('TR', data.result[0].tr+" ("+trPc+"%)", true);
 				channel.send(sendEmbed);
 			})
 		}
-		catch{
+		catch(e){
 			console.log('connery pop error');
 		}
 	}
@@ -39,15 +45,22 @@ var q = async.queue(function(task, callback){
 				//console.log(body);
 				data = JSON.parse(body);
 				sendEmbed = new Discord.RichEmbed();
-				sendEmbed.setTitle('Miller Population');
+				totalPop = data.result[0].vs + data.result[0].nc + data.result[0].tr;
+				sendEmbed.setTitle('Miller Population - '+totalPop);
 				sendEmbed.setFooter('From ps2.fisu.pw');
-				sendEmbed.addField('VS', data.result[0].vs, true);
-				sendEmbed.addField('NC', data.result[0].nc, true);
-				sendEmbed.addField('TR', data.result[0].tr, true);
+				vsPc = (data.result[0].vs/totalPop)*100;
+				vsPc = Number.parseFloat(vsPc).toPrecision(3);
+				ncPc = (data.result[0].nc/totalPop)*100;
+				ncPc = Number.parseFloat(ncPc).toPrecision(3);
+				trPc = (data.result[0].tr/totalPop)*100;
+				trPc = Number.parseFloat(trPc).toPrecision(3);
+				sendEmbed.addField('VS', data.result[0].vs+" ("+vsPc+"%)", true);
+				sendEmbed.addField('NC', data.result[0].nc+" ("+ncPc+"%)", true);
+				sendEmbed.addField('TR', data.result[0].tr+" ("+trPc+"%)", true);
 				channel.send(sendEmbed);
 			})
 		}
-		catch{
+		catch(e){
 			console.log('miller pop error');
 		}
 	}
@@ -58,15 +71,22 @@ var q = async.queue(function(task, callback){
 				//console.log(body);
 				data = JSON.parse(body);
 				sendEmbed = new Discord.RichEmbed();
-				sendEmbed.setTitle('Cobalt Population');
+				totalPop = data.result[0].vs + data.result[0].nc + data.result[0].tr;
+				sendEmbed.setTitle('Cobalt Population - '+totalPop);
 				sendEmbed.setFooter('From ps2.fisu.pw');
-				sendEmbed.addField('VS', data.result[0].vs, true);
-				sendEmbed.addField('NC', data.result[0].nc, true);
-				sendEmbed.addField('TR', data.result[0].tr, true);
+				vsPc = (data.result[0].vs/totalPop)*100;
+				vsPc = Number.parseFloat(vsPc).toPrecision(3);
+				ncPc = (data.result[0].nc/totalPop)*100;
+				ncPc = Number.parseFloat(ncPc).toPrecision(3);
+				trPc = (data.result[0].tr/totalPop)*100;
+				trPc = Number.parseFloat(trPc).toPrecision(3);
+				sendEmbed.addField('VS', data.result[0].vs+" ("+vsPc+"%)", true);
+				sendEmbed.addField('NC', data.result[0].nc+" ("+ncPc+"%)", true);
+				sendEmbed.addField('TR', data.result[0].tr+" ("+trPc+"%)", true);
 				channel.send(sendEmbed);
 			})
 		}
-		catch{
+		catch(e){
 			console.log('cobalt pop error');
 		}
 	}
@@ -77,15 +97,22 @@ var q = async.queue(function(task, callback){
 				//console.log(body);
 				data = JSON.parse(body);
 				sendEmbed = new Discord.RichEmbed();
-				sendEmbed.setTitle('Emerald Population');
+				totalPop = data.result[0].vs + data.result[0].nc + data.result[0].tr;
+				sendEmbed.setTitle('Emerald Population - '+totalPop);
 				sendEmbed.setFooter('From ps2.fisu.pw');
-				sendEmbed.addField('VS', data.result[0].vs, true);
-				sendEmbed.addField('NC', data.result[0].nc, true);
-				sendEmbed.addField('TR', data.result[0].tr, true);
+				vsPc = (data.result[0].vs/totalPop)*100;
+				vsPc = Number.parseFloat(vsPc).toPrecision(3);
+				ncPc = (data.result[0].nc/totalPop)*100;
+				ncPc = Number.parseFloat(ncPc).toPrecision(3);
+				trPc = (data.result[0].tr/totalPop)*100;
+				trPc = Number.parseFloat(trPc).toPrecision(3);
+				sendEmbed.addField('VS', data.result[0].vs+" ("+vsPc+"%)", true);
+				sendEmbed.addField('NC', data.result[0].nc+" ("+ncPc+"%)", true);
+				sendEmbed.addField('TR', data.result[0].tr+" ("+trPc+"%)", true);
 				channel.send(sendEmbed);
 			})
 		}
-		catch{
+		catch(e){
 			console.log('emerald pop error');
 		}
 	}
@@ -96,15 +123,22 @@ var q = async.queue(function(task, callback){
 				//console.log(body);
 				data = JSON.parse(body);
 				sendEmbed = new Discord.RichEmbed();
-				sendEmbed.setTitle('Jaegar Population');
+				totalPop = data.result[0].vs + data.result[0].nc + data.result[0].tr;
+				sendEmbed.setTitle('Jaegar Population - '+totalPop);
 				sendEmbed.setFooter('From ps2.fisu.pw');
-				sendEmbed.addField('VS', data.result[0].vs, true);
-				sendEmbed.addField('NC', data.result[0].nc, true);
-				sendEmbed.addField('TR', data.result[0].tr, true);
+				vsPc = (data.result[0].vs/totalPop)*100;
+				vsPc = Number.parseFloat(vsPc).toPrecision(3);
+				ncPc = (data.result[0].nc/totalPop)*100;
+				ncPc = Number.parseFloat(ncPc).toPrecision(3);
+				trPc = (data.result[0].tr/totalPop)*100;
+				trPc = Number.parseFloat(trPc).toPrecision(3);
+				sendEmbed.addField('VS', data.result[0].vs+" ("+vsPc+"%)", true);
+				sendEmbed.addField('NC', data.result[0].nc+" ("+ncPc+"%)", true);
+				sendEmbed.addField('TR', data.result[0].tr+" ("+trPc+"%)", true);
 				channel.send(sendEmbed);
 			})
 		}
-		catch{
+		catch(e){
 			console.log('jaegar pop error');
 		}
 	}
@@ -115,16 +149,49 @@ var q = async.queue(function(task, callback){
 				//console.log(body);
 				data = JSON.parse(body);
 				sendEmbed = new Discord.RichEmbed();
-				sendEmbed.setTitle('Briggs Population');
+				totalPop = data.result[0].vs + data.result[0].nc + data.result[0].tr;
+				sendEmbed.setTitle('Briggs Population - '+totalPop);
 				sendEmbed.setFooter('From ps2.fisu.pw');
-				sendEmbed.addField('VS', data.result[0].vs, true);
-				sendEmbed.addField('NC', data.result[0].nc, true);
-				sendEmbed.addField('TR', data.result[0].tr, true);
+				vsPc = (data.result[0].vs/totalPop)*100;
+				vsPc = Number.parseFloat(vsPc).toPrecision(3);
+				ncPc = (data.result[0].nc/totalPop)*100;
+				ncPc = Number.parseFloat(ncPc).toPrecision(3);
+				trPc = (data.result[0].tr/totalPop)*100;
+				trPc = Number.parseFloat(trPc).toPrecision(3);
+				sendEmbed.addField('VS', data.result[0].vs+" ("+vsPc+"%)", true);
+				sendEmbed.addField('NC', data.result[0].nc+" ("+ncPc+"%)", true);
+				sendEmbed.addField('TR', data.result[0].tr+" ("+trPc+"%)", true);
 				channel.send(sendEmbed);
 			})
 		}
-		catch{
+		catch(e){
 			console.log('Briggs pop error');
+		}
+	}
+	if(servers.includes('soltech')){
+		options = {uri:'http://ps2.fisu.pw/api/population/?world=40', headers: {'User-Agent': "Auraxis bot"}};
+		try{
+			request(options, function (error, response, body) {
+				//console.log(body);
+				data = JSON.parse(body);
+				sendEmbed = new Discord.RichEmbed();
+				totalPop = data.result[0].vs + data.result[0].nc + data.result[0].tr;
+				sendEmbed.setTitle('SolTech Population - '+totalPop);
+				sendEmbed.setFooter('From ps2.fisu.pw');
+				vsPc = (data.result[0].vs/totalPop)*100;
+				vsPc = Number.parseFloat(vsPc).toPrecision(3);
+				ncPc = (data.result[0].nc/totalPop)*100;
+				ncPc = Number.parseFloat(ncPc).toPrecision(3);
+				trPc = (data.result[0].tr/totalPop)*100;
+				trPc = Number.parseFloat(trPc).toPrecision(3);
+				sendEmbed.addField('VS', data.result[0].vs+" ("+vsPc+"%)", true);
+				sendEmbed.addField('NC', data.result[0].nc+" ("+ncPc+"%)", true);
+				sendEmbed.addField('TR', data.result[0].tr+" ("+trPc+"%)", true);
+				channel.send(sendEmbed);
+			})
+		}
+		catch(e){
+			console.log('SolTech pop error');
 		}
 	}
 	callback();
