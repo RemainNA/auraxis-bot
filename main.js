@@ -144,7 +144,6 @@ client.on('message', message => {
 			}
 		}
 		archive = newArchive;
-		//delete newArchive;
 	}
 	if (message.author.id == client.user.id) {
 		//adds bot messages to array, utilized in clean

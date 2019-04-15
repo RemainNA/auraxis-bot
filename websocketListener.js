@@ -480,17 +480,6 @@ module.exports = {
 				}
 			}
 		})
-		
-		//restart handler
-		/*process.on('SIGINT', () => {
-			console.log('Received SIGINT.');
-			SQLclient.query("DELETE FROM connery", (err, res) => {
-				if (err){
-					console.log(err);
-				} 
-			  SQLclient.end();
-			});
-		});*/
 	}
 }
 

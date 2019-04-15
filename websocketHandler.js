@@ -38,7 +38,6 @@ var qu = async.queue(function(task, callback) {
 				else{
 					resChar = data.character_list[0];
 					if(resChar != null && resChar.outfit_member != null){
-						//keys = Object.keys(outfitList);
 						//if character's outfit id is in the list of outfits that are subscribed to
 						if (outfitList.indexOf(resChar.outfit_member.outfit_id) > -1)
 						{
