@@ -105,10 +105,15 @@ var q = async.queue(function(task, callback) {
 					sendEmbed.addField('Faction', 'NC', true);
 					sendEmbed.setColor('BLUE');
 				}
-				else //tr
+				else if (resChar.faction_id == "3") //tr
 				{
 					sendEmbed.addField('Faction', 'TR', true);
 					sendEmbed.setColor('RED');
+				}
+				else //NSO
+				{
+					sendEmbed.addField('Faction', 'NSO', true);
+					sendEmbed.setColor('GREY');
 				}
 				
 				//Outfit & rank
