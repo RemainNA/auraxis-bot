@@ -515,8 +515,11 @@ function outfitID(oTagLong, subListOutfits, action, channel, SQLclient){
 					else if(resOut.leader_character_id_join_character.faction_id == "2"){
 						color = 'BLUE';
 					}
-					else{
+					else if(resOut.leader_character_id_join_character.faction_id == "3"{
 						color = 'RED';
+					}
+					else{
+						color = 'GREY';
 					}
 					subListOutfits.push(ID);
 					SQLclient.query("INSERT INTO outfit (id, alias, color, channel) VALUES ("+ID+", '"+resOut.alias+"', '"+color+"', '"+channel.id+"');", (err, res) => {

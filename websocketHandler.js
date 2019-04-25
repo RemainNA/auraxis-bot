@@ -41,7 +41,6 @@ var qu = async.queue(function(task, callback) {
 						//if character's outfit id is in the list of outfits that are subscribed to
 						if (outfitList.indexOf(resChar.outfit_member.outfit_id) > -1)
 						{
-							console.log('pos 1.1');
 							//create and send rich embed to all subscribed channels
 							
 							SQLclient.query("SELECT * FROM outfit WHERE id="+resChar.outfit_member.outfit_id+";", (err, res) => {
@@ -51,7 +50,22 @@ var qu = async.queue(function(task, callback) {
 								sendEmbed = new Discord.RichEmbed();
 								sendEmbed.setTitle(res.rows[0].alias+' '+playerEvent);
 								sendEmbed.setDescription(resChar.name.first);
-								sendEmbed.setColor(res.rows[0].color);
+								if (resChar.faction_id == "1") //vs
+								{
+									sendEmbed.setColor('PURPLE');
+								}
+								else if (resChar.faction_id == "2") //nc
+								{
+									sendEmbed.setColor('BLUE');
+								}
+								else if (resChar.faction_id == "3") //tr
+								{
+									sendEmbed.setColor('RED');
+								}
+								else //NSO
+								{
+									sendEmbed.setColor('GREY');
+								}
 								for (let row of res.rows){
 									resChann = discordClient.channels.get(row.channel);
 									if(resChann != undefined){
