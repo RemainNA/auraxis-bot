@@ -515,7 +515,7 @@ function outfitID(oTagLong, subListOutfits, action, channel, SQLclient){
 					else if(resOut.leader_character_id_join_character.faction_id == "2"){
 						color = 'BLUE';
 					}
-					else if(resOut.leader_character_id_join_character.faction_id == "3"{
+					else if(resOut.leader_character_id_join_character.faction_id == "3"){
 						color = 'RED';
 					}
 					else{
