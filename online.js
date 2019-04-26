@@ -56,9 +56,13 @@ var q = async.queue(function(task, callback) {
 				{
 					sendEmbed.setColor('BLUE');
 				}
-				else //tr
+				else if (resOut.leader_character_id_join_character.faction_id == "3")//tr
 				{
 					sendEmbed.setColor('RED');
+				}
+				else //nso
+				{
+					sendEmbed.setColor('GREY');
 				}
 				channel.send(sendEmbed);
 				callback();

@@ -38,9 +38,13 @@ var q = async.queue(function(task, callback){
 				{
 					sendEmbed.setColor('BLUE');
 				}
-				else //tr
+				else if (resChar.faction_id == "3") //tr
 				{
 					sendEmbed.setColor('RED');
+				}
+				else //nso
+				{
+					sendEmbed.setColor('GREY');
 				}
 				decals = []; //count br 101-120 decals
 				for (x in resChar.items){
