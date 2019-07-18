@@ -310,7 +310,7 @@ module.exports = {
 						}, function(err){
 							console.log("Insufficient permissions on !subscribe alerts miller");
 							console.log(message.guild.name);
-						};
+						});
 					}
 					else{
 						message.channel.send("Error: Channel already subscribed to Miller alerts").then(function(result){
@@ -334,7 +334,7 @@ module.exports = {
 						}, function(err){
 							console.log("Insufficient permissions on !subscribe alerts cobalt");
 							console.log(message.guild.name);
-						};
+						});
 					}
 					else{
 						message.channel.send("Error: Channel already subscribed to Cobalt alerts").then(function(result){
@@ -358,7 +358,7 @@ module.exports = {
 						}, function(err){
 							console.log("Insufficient permissions on !subscribe alerts emerald");
 							console.log(message.guild.name);
-						};
+						});
 					}
 					else{
 						message.channel.send("Error: Channel already subscribed to Emerald alerts").then(function(result){
@@ -382,7 +382,7 @@ module.exports = {
 						}, function(err){
 							console.log("Insufficient permissions on !subscribe alerts jaegar");
 							console.log(message.guild.name);
-						};
+						});
 					}
 					else{
 						message.channel.send("Error: Channel already subscribed to Jaegar alerts").then(function(result){
@@ -406,7 +406,7 @@ module.exports = {
 						}, function(err){
 							console.log("Insufficient permissions on !subscribe alerts briggs");
 							console.log(message.guild.name);
-						};
+						});
 					}
 					else{
 						message.channel.send("Error: Channel already subscribed to Briggs alerts").then(function(result){
@@ -430,7 +430,7 @@ module.exports = {
 						}, function(err){
 							console.log("Insufficient permissions on !subscribe alerts soltech");
 							console.log(message.guild.name);
-						};
+						});
 					}
 					else{
 						message.channel.send("Error: Channel already subscribed to SolTech alerts").then(function(result){
