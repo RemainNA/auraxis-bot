@@ -19,7 +19,7 @@ var q = async.queue(function(task, callback) {
 					
 				}, function(err) {
 					console.log("Insufficient permissions on !outfit tag not found");
-					console.log(messsage.guild.name);
+					console.log(channel.guild.name);
 				});
 				callback();
 			}
@@ -58,7 +58,7 @@ var q = async.queue(function(task, callback) {
 								
 							}, function(err){
 								console.log("Insufficient permissions on !outfit no owner");
-								console.log(message.guild.name);
+								console.log(channel.guild.name);
 							});
 							callback();
 						}
@@ -113,7 +113,7 @@ var q = async.queue(function(task, callback) {
 								
 							}, function(err){
 								console.log("Insufficient permissions on !outfit with owner");
-								console.log(message.guild.name);
+								console.log(channel.guild.name);
 							});
 							callback();
 						}
@@ -124,7 +124,7 @@ var q = async.queue(function(task, callback) {
 						
 					}, function(err){
 						console.log("Insufficient permissions on !outfit on catch");
-						console.log(message.guild.name);
+						console.log(channel.guild.name);
 					});
 					callback();
 				}

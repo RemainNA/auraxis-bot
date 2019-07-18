@@ -35,7 +35,7 @@ var q = async.queue(function(task, callback){
 					
 				}, function(err){
 					console.log("Insufficient permission on !population connery");
-					console.log(message.guild.name);
+					console.log(channel.guild.name);
 				});
 			})
 		}
@@ -66,7 +66,7 @@ var q = async.queue(function(task, callback){
 					
 				}, function(err){
 					console.log("Insufficient permission on !population miller");
-					console.log(message.guild.name);
+					console.log(channel.guild.name);
 				});
 			})
 		}
@@ -97,7 +97,7 @@ var q = async.queue(function(task, callback){
 					
 				}, function(err){
 					console.log("Insufficient permission on !population cobalt");
-					console.log(message.guild.name);
+					console.log(channel.guild.name);
 				});
 			})
 		}
@@ -128,7 +128,7 @@ var q = async.queue(function(task, callback){
 					
 				}, function(err){
 					console.log("Insufficient permission on !population emerald");
-					console.log(message.guild.name);
+					console.log(channel.guild.name);
 				});
 			})
 		}
@@ -159,7 +159,7 @@ var q = async.queue(function(task, callback){
 					
 				}, function(err){
 					console.log("Insufficient permission on !population jaegar");
-					console.log(message.guild.name);
+					console.log(channel.guild.name);
 				});
 			})
 		}
@@ -190,7 +190,7 @@ var q = async.queue(function(task, callback){
 					
 				}, function(err){
 					console.log("Insufficient permission on !population briggs");
-					console.log(message.guild.name);
+					console.log(channel.guild.name);
 				});
 			})
 		}
@@ -221,7 +221,7 @@ var q = async.queue(function(task, callback){
 					
 				}, function(err){
 					console.log("Insufficient permission on !population soltech");
-					console.log(message.guild.name);
+					console.log(channel.guild.name);
 				});
 			})
 		}

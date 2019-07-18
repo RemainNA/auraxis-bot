@@ -21,7 +21,7 @@ var q = async.queue(function(task, callback) {
 				
 				}, function(err){
 					console.log("Insufficient permissions on !character");
-					console.log(message.guild.name);
+					console.log(channel.guild.name);
 				});
 				callback();
 			}
@@ -157,7 +157,7 @@ var q = async.queue(function(task, callback) {
 									
 								}, function(err) {
 									console.log("Insufficient permissions on !character, with top weapon");
-									console.log(message.guild.name);
+									console.log(channel.guild.name);
 								});
 								callback();
 							})
@@ -168,7 +168,7 @@ var q = async.queue(function(task, callback) {
 							
 						}, function(err) {
 							console.log("Insufficient permissions on !character, without top weapon 1");
-							console.log(message.guild.name);
+							console.log(channel.guild.name);
 						});
 						callback();
 					}
@@ -178,7 +178,7 @@ var q = async.queue(function(task, callback) {
 						
 					}, function(err) {
 						console.log("Insufficient permissions on !character, without top weapon 2");
-						console.log(message.guild.name);
+						console.log(channel.guild.name);
 					});
 					callback();
 				}

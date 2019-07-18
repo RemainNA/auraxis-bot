@@ -20,7 +20,7 @@ var q = async.queue(function(task, callback) {
 					
 				}, function(err) {
 					console.log("Insufficient permissions on !online not found");
-					console.log(message.guild.name)'
+					console.log(channel.guild.name);
 				});
 				callback();
 			}
@@ -73,7 +73,7 @@ var q = async.queue(function(task, callback) {
 					
 				}, function(err) {
 					console.log("Insufficient permissions on !online");
-					console.log(message.guild.name);
+					console.log(channel.guild.name);
 				});
 				callback();
 			}
@@ -84,7 +84,7 @@ var q = async.queue(function(task, callback) {
 			
 		}, function(err) {
 			console.log("Insufficient permissions on !online error");
-			console.log(message.guild.name);
+			console.log(channel.guild.name);
 		});
 		callback();
 	}
