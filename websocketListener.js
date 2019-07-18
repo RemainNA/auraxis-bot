@@ -286,7 +286,7 @@ module.exports = {
 						}, function(err){
 							console.log("Insufficient permissions on !subscribe alerts connery");
 							console.log(message.guild.name);
-						};
+						});
 					}
 					else{
 						message.channel.send("Error: Channel already subscribed to Connery alerts").then(function(result){
