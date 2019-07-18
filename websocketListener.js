@@ -281,10 +281,20 @@ module.exports = {
 								console.log(err);
 							} 
 						});
-						message.channel.send("Confirmed subscription to Connery alerts");
+						message.channel.send("Confirmed subscription to Connery alerts").then(function(result){
+							
+						}, function(err){
+							console.log("Insufficient permissions on !subscribe alerts connery");
+							console.log(message.guild.name);
+						};
 					}
 					else{
-						message.channel.send("Error: Channel already subscribed to Connery alerts")
+						message.channel.send("Error: Channel already subscribed to Connery alerts").then(function(result){
+							
+						}, function(err){
+							console.log("Insufficient permissions on !subscribe alerts connery already subscribed");
+							console.log(message.guild.name);
+						});
 					}
 				}
 				if(message.content.substring(18).toLowerCase().includes('miller')){
@@ -295,10 +305,20 @@ module.exports = {
 								console.log(err);
 							} 
 						});
-						message.channel.send("Confirmed subscription to Miller alerts");
+						message.channel.send("Confirmed subscription to Miller alerts").then(function(result){
+							
+						}, function(err){
+							console.log("Insufficient permissions on !subscribe alerts miller");
+							console.log(message.guild.name);
+						};
 					}
 					else{
-						message.channel.send("Error: Channel already subscribed to Miller alerts")
+						message.channel.send("Error: Channel already subscribed to Miller alerts").then(function(result){
+							
+						}, function(err){
+							console.log("Insufficient permissions on !subscribe alerts miller already subscribed");
+							console.log(message.guild.name);
+						});
 					}
 				}
 				if(message.content.substring(18).toLowerCase().includes('cobalt')){
@@ -309,10 +329,20 @@ module.exports = {
 								console.log(err);
 							} 
 						});
-						message.channel.send("Confirmed subscription to Cobalt alerts");
+						message.channel.send("Confirmed subscription to Cobalt alerts").then(function(result){
+							
+						}, function(err){
+							console.log("Insufficient permissions on !subscribe alerts cobalt");
+							console.log(message.guild.name);
+						};
 					}
 					else{
-						message.channel.send("Error: Channel already subscribed to Cobalt alerts")
+						message.channel.send("Error: Channel already subscribed to Cobalt alerts").then(function(result){
+							
+						}, function(err){
+							console.log("Insufficient permissions on !subscribe alerts cobalt already subscribed");
+							console.log(message.guild.name);
+						});
 					}
 				}
 				if(message.content.substring(18).toLowerCase().includes('emerald')){
@@ -323,10 +353,20 @@ module.exports = {
 								console.log(err);
 							} 
 						});
-						message.channel.send("Confirmed subscription to Emerald alerts");
+						message.channel.send("Confirmed subscription to Emerald alerts").then(function(result){
+							
+						}, function(err){
+							console.log("Insufficient permissions on !subscribe alerts emerald");
+							console.log(message.guild.name);
+						};
 					}
 					else{
-						message.channel.send("Error: Channel already subscribed to Emerald alerts")
+						message.channel.send("Error: Channel already subscribed to Emerald alerts").then(function(result){
+							
+						}, function(err){
+							console.log("Insufficient permissions on !subscribe alerts emerald already subscribed");
+							console.log(message.guild.name);
+						});
 					}
 				}
 				if(message.content.substring(18).toLowerCase().includes('jaegar')){
@@ -337,10 +377,20 @@ module.exports = {
 								console.log(err);
 							} 
 						});
-						message.channel.send("Confirmed subscription to Jaegar alerts");
+						message.channel.send("Confirmed subscription to Jaegar alerts").then(function(result){
+							
+						}, function(err){
+							console.log("Insufficient permissions on !subscribe alerts jaegar");
+							console.log(message.guild.name);
+						};
 					}
 					else{
-						message.channel.send("Error: Channel already subscribed to Jaegar alerts")
+						message.channel.send("Error: Channel already subscribed to Jaegar alerts").then(function(result){
+							
+						}, function(err){
+							console.log("Insufficient permissions on !subscribe alerts jaegar already subscribed");
+							console.log(message.guild.name);
+						});
 					}
 				}
 				if(message.content.substring(18).toLowerCase().includes('briggs')){
@@ -351,10 +401,20 @@ module.exports = {
 								console.log(err);
 							} 
 						});
-						message.channel.send("Confirmed subscription to Briggs alerts");
+						message.channel.send("Confirmed subscription to Briggs alerts").then(function(result){
+							
+						}, function(err){
+							console.log("Insufficient permissions on !subscribe alerts briggs");
+							console.log(message.guild.name);
+						};
 					}
 					else{
-						message.channel.send("Error: Channel already subscribed to Briggs alerts")
+						message.channel.send("Error: Channel already subscribed to Briggs alerts").then(function(result){
+							
+						}, function(err){
+							console.log("Insufficient permissions on !subscribe alerts briggs already subscribed");
+							console.log(message.guild.name);
+						});
 					}
 				}
 				if(message.content.substring(18).toLowerCase().includes('soltech')){
@@ -365,10 +425,20 @@ module.exports = {
 								console.log(err);
 							} 
 						});
-						message.channel.send("Confirmed subscription to SolTech alerts");
+						message.channel.send("Confirmed subscription to SolTech alerts").then(function(result){
+							
+						}, function(err){
+							console.log("Insufficient permissions on !subscribe alerts soltech");
+							console.log(message.guild.name);
+						};
 					}
 					else{
-						message.channel.send("Error: Channel already subscribed to SolTech alerts")
+						message.channel.send("Error: Channel already subscribed to SolTech alerts").then(function(result){
+							
+						}, function(err){
+							console.log("Insufficient permissions on !subscribe alerts soltech already subscribed");
+							console.log(message.guild.name);
+						});
 					}
 				}
 			}
@@ -382,25 +452,45 @@ module.exports = {
 								console.log(err);
 							} 
 						});
-						message.channel.send("Unsubscribed from Connery alerts");
+						message.channel.send("Unsubscribed from Connery alerts").then(function(result){
+							
+						}, function(err){
+							console.log("Insufficient permissions on !unsubscribe alerts connery");
+							console.log(message.guild.name);
+						});
 					}
 					else{
-						message.channel.send("Error: Not subscribed to Connery alerts");
+						message.channel.send("Error: Not subscribed to Connery alerts").then(function(result){
+							
+						}, function(err){
+							console.log("Insufficient permissions on !unsubscribe alerts connery error");
+							console.log(message.guild.name);
+						});
 					}
 				}
 				if(message.content.substring(20).toLowerCase().includes('cobalt')){
 					index = subListAlerts.cobalt.indexOf(message.channel.id);
 					if(index > -1){
 						subListAlerts.cobalt.splice(index, 1);
-						SQLclient.query("DELETE FROM connery WHERE channel='"+message.channel.id+"';", (err, res) => {
+						SQLclient.query("DELETE FROM cobalt WHERE channel='"+message.channel.id+"';", (err, res) => {
 							if (err){
 								console.log(err);
 							} 
 						});
-						message.channel.send("Unsubscribed from Cobalt alerts");
+						message.channel.send("Unsubscribed from Cobalt alerts").then(function(result){
+							
+						}, function(err){
+							console.log("Insufficient permissions on !unsubscribe alerts cobalt");
+							console.log(message.guild.name);
+						});
 					}
 					else{
-						message.channel.send("Error: Not subscribed to Cobalt alerts");
+						message.channel.send("Error: Not subscribed to Cobalt alerts").then(function(result){
+							
+						}, function(err){
+							console.log("Insufficient permissions on !unsubscribe alerts cobalt error");
+							console.log(message.guild.name);
+						});
 					}
 				}
 				if(message.content.substring(20).toLowerCase().includes('miller')){
@@ -412,10 +502,20 @@ module.exports = {
 								console.log(err);
 							} 
 						});
-						message.channel.send("Unsubscribed from Miller alerts");
+						message.channel.send("Unsubscribed from Miller alerts").then(function(result){
+							
+						}, function(err){
+							console.log("Insufficient permissions on !unsubscribe alerts miller");
+							console.log(message.guild.name);
+						});
 					}
 					else{
-						message.channel.send("Error: Not subscribed to Miller alerts");
+						message.channel.send("Error: Not subscribed to Miller alerts").then(function(result){
+							
+						}, function(err){
+							console.log("Insufficient permissions on !unsubscribe alerts miller error");
+							console.log(message.guild.name);
+						});
 					}
 				}
 				if(message.content.substring(20).toLowerCase().includes('emerald')){
@@ -427,10 +527,20 @@ module.exports = {
 								console.log(err);
 							} 
 						});
-						message.channel.send("Unsubscribed from Emerald alerts");
+						message.channel.send("Unsubscribed from Emerald alerts").then(function(result){
+							
+						}, function(err){
+							console.log("Insufficient permissions on !unsubscribe alerts emerald");
+							console.log(message.guild.name);
+						});
 					}
 					else{
-						message.channel.send("Error: Not subscribed to Emerald alerts");
+						message.channel.send("Error: Not subscribed to Emerald alerts").then(function(result){
+							
+						}, function(err){
+							console.log("Insufficient permissions on !unsubscribe alerts emerald error");
+							console.log(message.guild.name);
+						});
 					}
 				}
 				if(message.content.substring(20).toLowerCase().includes('jaegar')){
@@ -442,10 +552,20 @@ module.exports = {
 								console.log(err);
 							} 
 						});
-						message.channel.send("Unsubscribed from Jaegar alerts");
+						message.channel.send("Unsubscribed from Jaegar alerts").then(function(result){
+							
+						}, function(err){
+							console.log("Insufficient permissions on !unsubscribe alerts jaegar");
+							console.log(message.guild.name);
+						});
 					}
 					else{
-						message.channel.send("Error: Not subscribed to Jaegar alerts");
+						message.channel.send("Error: Not subscribed to Jaegar alerts").then(function(result){
+							
+						}, function(err){
+							console.log("Insufficient permissions on !unsubscribe alerts jaegar error");
+							console.log(message.guild.name);
+						});
 					}
 				}
 				if(message.content.substring(20).toLowerCase().includes('briggs')){
@@ -457,10 +577,20 @@ module.exports = {
 								console.log(err);
 							} 
 						});
-						message.channel.send("Unsubscribed from Briggs alerts");
+						message.channel.send("Unsubscribed from Briggs alerts").then(function(result){
+							
+						}, function(err){
+							console.log("Insufficient permissions on !unsubscribe alerts briggs");
+							console.log(message.guild.name);
+						});
 					}
 					else{
-						message.channel.send("Error: Not subscribed to Briggs alerts");
+						message.channel.send("Error: Not subscribed to Briggs alerts").then(function(result){
+							
+						}, function(err){
+							console.log("Insufficient permissions on !unsubscribe alerts briggs error");
+							console.log(message.guild.name);
+						});
 					}
 				}
 				if(message.content.substring(20).toLowerCase().includes('soltech')){
@@ -472,10 +602,20 @@ module.exports = {
 								console.log(err);
 							} 
 						});
-						message.channel.send("Unsubscribed from SolTech alerts");
+						message.channel.send("Unsubscribed from SolTech alerts").then(function(result){
+							
+						}, function(err){
+							console.log("Insufficient permissions on !unsubscribe alerts soltech");
+							console.log(message.guild.name);
+						});
 					}
 					else{
-						message.channel.send("Error: Not subscribed to SolTech alerts");
+						message.channel.send("Error: Not subscribed to SolTech alerts").then(function(result){
+							
+						}, function(err){
+							console.log("Insufficient permissions on !unsubscribe alerts soltech error");
+							console.log(message.guild.name);
+						});
 					}
 				}
 			}
@@ -499,7 +639,12 @@ function outfitID(oTagLong, subListOutfits, action, channel, SQLclient){
 			data = JSON.parse(body)
 			if(data.outfit_list[0] == null){
 				//outfit not found
-				channel.send(oTag+' not found');
+				channel.send(oTag+' not found').then(function(result){
+					
+				}, function(err){
+					console.log("Insufficient permissions on outfitID tag not found");
+					console.log(channel.guild.name);
+				});
 			}
 			else{
 				//tag found, returned results
@@ -529,7 +674,12 @@ function outfitID(oTagLong, subListOutfits, action, channel, SQLclient){
 						} 
 					});
 					//subListOutfits[ID] = [data.outfit_list[0].alias, color, channel];
-					channel.send('Subscribed to '+resOut.alias);
+					channel.send('Subscribed to '+resOut.alias).then(function(result){
+						
+					}, function(err){
+						console.log("Insufficient permissions on !subscribe activity");
+						console.log(channel.guild.name);
+					});
 				}
 				else if(action == 'subscribe' && subListOutfits.indexOf(ID) > -1){
 					//existing subscription
@@ -543,7 +693,12 @@ function outfitID(oTagLong, subListOutfits, action, channel, SQLclient){
 						subCount = res.rows[0].quant;
 						if(subCount == 1){
 							//source channel is subscribed
-							channel.send('Error: already subscribed to '+resOut.alias);
+							channel.send('Error: already subscribed to '+resOut.alias).then(function(result){
+								
+							}, function(err){
+								console.log("Insufficient permissions on !subscribe activity already subscribed");
+								console.log(channel.guild.name);
+							});
 						}
 						else{
 							//source channel is not subscribed
@@ -563,14 +718,24 @@ function outfitID(oTagLong, subListOutfits, action, channel, SQLclient){
 									console.log(err);
 								} 
 							});
-							channel.send('Subscribed to '+resOut.alias);
+							channel.send('Subscribed to '+resOut.alias).then(function(result){
+								
+							}, function(err){
+								console.log("Insufficient permissions on !subscribe activity p2");
+								console.log(channel.guild.name);
+							});
 						}
 					});
 					
 				}
 				else if(action == 'unsubscribe' && subListOutfits.indexOf(ID) == -1){
 					//no active subscriptions to outfit
-					channel.send('Error: not subscribed to '+resOut.alias)
+					channel.send('Error: not subscribed to '+resOut.alias).then(function(result){
+						
+					}, function(err){
+						console.log("Insufficient permissions on !unsubscribe activity not subscribed");
+						console.log(channel.guild.name);
+					});
 				}
 				else if(action == 'unsubscribe' && subListOutfits.indexOf(ID) > -1){
 					//active subscriptions to outfit
@@ -588,7 +753,12 @@ function outfitID(oTagLong, subListOutfits, action, channel, SQLclient){
 						}
 						if(subCount == 1 && subArray.indexOf(channel.id) > -1){ //modify subListOutfits
 							//source channel is only active subscription
-							channel.send('Unsubscribed from '+resOut.alias)
+							channel.send('Unsubscribed from '+resOut.alias).then(function(result){
+								
+							}, function(err){
+								console.log("Insufficient permissions on !unsubscribe activity only subscription");
+								console.log(channel.guild.name);
+							});
 							SQLclient.query("DELETE FROM outfit WHERE id="+ID+" AND channel='"+channel.id+"';", (err, res) => {
 								if (err){
 									console.log(err);
@@ -604,11 +774,21 @@ function outfitID(oTagLong, subListOutfits, action, channel, SQLclient){
 									console.log(err);
 								} 
 							});
-							channel.send('Unsubscribed from '+resOut.alias);
+							channel.send('Unsubscribed from '+resOut.alias).then(function(result){
+								
+							}, function(err){
+								console.log("Insufficient permissions on !unsubscribe activity not only subscription");
+								console.log(channel.guild.name);
+							});
 						}
 						else{
 							//not subscribed
-							channel.send('Error: not subscribed to '+resOut.alias);
+							channel.send('Error: not subscribed to '+resOut.alias).then(function(result){
+								
+							}, function(err){
+								console.log("Insufficient permissions on !unsubscribe activity not subscribed with active subscription");
+								console.log(channel.guild.name);
+							});
 						}
 					});
 				}

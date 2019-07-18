@@ -18,11 +18,21 @@ var q = async.queue(function(task, callback){
 			data = JSON.parse(body)
 			if (data.character_list == null)
 			{
-				message.channel.send("Character not found");
+				message.channel.send("Character not found").then(function(result){
+					
+				}, function(err){
+					console.log("Insufficient permissions on !asp character not found");
+					console.log(message.guild.name);
+				});
 				callback();
 			}
 			else if (data.character_list[0].prestige_level == "0"){
-				message.channel.send("Character has not yet prestiged");
+				message.channel.send("Character has not yet prestiged").then(function(result){
+					
+				}, function(err){
+					console.log("Insufficient permissions on !asp character not prestiged");
+					console.log(message.guild.name);
+				});
 				callback();
 			}
 			else{
@@ -61,7 +71,12 @@ var q = async.queue(function(task, callback){
 					preBR = Math.max.apply(Math, decals) - 803830;
 				}
 				sendEmbed.addField('Max BR pre ASP', preBR);
-				message.channel.send(sendEmbed);
+				message.channel.send(sendEmbed).then(function(result){
+				
+				}, function(err){
+					console.log("Insufficient permissions on !asp character");
+					console.log(message.guild.name);
+				});
 				callback();
 			}
 		})

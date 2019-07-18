@@ -15,7 +15,12 @@ var q = async.queue(function(task, callback) {
 		request(uri, function (error, response, body) {
 			data = JSON.parse(body);
 			if (data.outfit_list == null || data.returned == 0){
-				channel.send("["+oTag+"] not found");
+				channel.send("["+oTag+"] not found").then(function(result) {
+					
+				}, function(err) {
+					console.log("Insufficient permissions on !outfit tag not found");
+					console.log(messsage.guild.name);
+				});
 				callback();
 			}
 			else{
@@ -49,7 +54,12 @@ var q = async.queue(function(task, callback) {
 						data2 = JSON.parse(body);
 						if (data2.character_list[0] == null){
 							//send rich embed if unable to pull outfit owner info
-							channel.send(sendEmbed);
+							channel.send(sendEmbed).then(function(result){
+								
+							}, function(err){
+								console.log("Insufficient permissions on !outfit no owner");
+								console.log(message.guild.name);
+							});
 							callback();
 						}
 						else {
@@ -99,13 +109,23 @@ var q = async.queue(function(task, callback) {
 								sendEmbed.setColor('GREY');
 							}
 							sendEmbed.addField('Owner', resChar.name.first, true);
-							channel.send(sendEmbed);
+							channel.send(sendEmbed).then(function(result){
+								
+							}, function(err){
+								console.log("Insufficient permissions on !outfit with owner");
+								console.log(message.guild.name);
+							});
 							callback();
 						}
 					})
 				}
 				catch(e){
-					channel.send(sendEmbed);
+					channel.send(sendEmbed).then(function(result){
+						
+					}, function(err){
+						console.log("Insufficient permissions on !outfit on catch");
+						console.log(message.guild.name);
+					});
 					callback();
 				}
 			}

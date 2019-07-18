@@ -31,7 +31,12 @@ var q = async.queue(function(task, callback){
 				sendEmbed.addField('VS', data.result[0].vs+" ("+vsPc+"%)", true);
 				sendEmbed.addField('NC', data.result[0].nc+" ("+ncPc+"%)", true);
 				sendEmbed.addField('TR', data.result[0].tr+" ("+trPc+"%)", true);
-				channel.send(sendEmbed);
+				channel.send(sendEmbed).then(function(result){
+					
+				}, function(err){
+					console.log("Insufficient permission on !population connery");
+					console.log(message.guild.name);
+				});
 			})
 		}
 		catch(e){
@@ -57,7 +62,12 @@ var q = async.queue(function(task, callback){
 				sendEmbed.addField('VS', data.result[0].vs+" ("+vsPc+"%)", true);
 				sendEmbed.addField('NC', data.result[0].nc+" ("+ncPc+"%)", true);
 				sendEmbed.addField('TR', data.result[0].tr+" ("+trPc+"%)", true);
-				channel.send(sendEmbed);
+				channel.send(sendEmbed).then(function(result){
+					
+				}, function(err){
+					console.log("Insufficient permission on !population miller");
+					console.log(message.guild.name);
+				});
 			})
 		}
 		catch(e){
@@ -83,7 +93,12 @@ var q = async.queue(function(task, callback){
 				sendEmbed.addField('VS', data.result[0].vs+" ("+vsPc+"%)", true);
 				sendEmbed.addField('NC', data.result[0].nc+" ("+ncPc+"%)", true);
 				sendEmbed.addField('TR', data.result[0].tr+" ("+trPc+"%)", true);
-				channel.send(sendEmbed);
+				channel.send(sendEmbed).then(function(result){
+					
+				}, function(err){
+					console.log("Insufficient permission on !population cobalt");
+					console.log(message.guild.name);
+				});
 			})
 		}
 		catch(e){
@@ -109,7 +124,12 @@ var q = async.queue(function(task, callback){
 				sendEmbed.addField('VS', data.result[0].vs+" ("+vsPc+"%)", true);
 				sendEmbed.addField('NC', data.result[0].nc+" ("+ncPc+"%)", true);
 				sendEmbed.addField('TR', data.result[0].tr+" ("+trPc+"%)", true);
-				channel.send(sendEmbed);
+				channel.send(sendEmbed).then(function(result){
+					
+				}, function(err){
+					console.log("Insufficient permission on !population emerald");
+					console.log(message.guild.name);
+				});
 			})
 		}
 		catch(e){
@@ -135,7 +155,12 @@ var q = async.queue(function(task, callback){
 				sendEmbed.addField('VS', data.result[0].vs+" ("+vsPc+"%)", true);
 				sendEmbed.addField('NC', data.result[0].nc+" ("+ncPc+"%)", true);
 				sendEmbed.addField('TR', data.result[0].tr+" ("+trPc+"%)", true);
-				channel.send(sendEmbed);
+				channel.send(sendEmbed).then(function(result){
+					
+				}, function(err){
+					console.log("Insufficient permission on !population jaegar");
+					console.log(message.guild.name);
+				});
 			})
 		}
 		catch(e){
@@ -161,7 +186,12 @@ var q = async.queue(function(task, callback){
 				sendEmbed.addField('VS', data.result[0].vs+" ("+vsPc+"%)", true);
 				sendEmbed.addField('NC', data.result[0].nc+" ("+ncPc+"%)", true);
 				sendEmbed.addField('TR', data.result[0].tr+" ("+trPc+"%)", true);
-				channel.send(sendEmbed);
+				channel.send(sendEmbed).then(function(result){
+					
+				}, function(err){
+					console.log("Insufficient permission on !population briggs");
+					console.log(message.guild.name);
+				});
 			})
 		}
 		catch(e){
@@ -187,7 +217,12 @@ var q = async.queue(function(task, callback){
 				sendEmbed.addField('VS', data.result[0].vs+" ("+vsPc+"%)", true);
 				sendEmbed.addField('NC', data.result[0].nc+" ("+ncPc+"%)", true);
 				sendEmbed.addField('TR', data.result[0].tr+" ("+trPc+"%)", true);
-				channel.send(sendEmbed);
+				channel.send(sendEmbed).then(function(result){
+					
+				}, function(err){
+					console.log("Insufficient permission on !population soltech");
+					console.log(message.guild.name);
+				});
 			})
 		}
 		catch(e){

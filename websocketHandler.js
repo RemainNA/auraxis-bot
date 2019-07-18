@@ -69,7 +69,12 @@ var qu = async.queue(function(task, callback) {
 								for (let row of res.rows){
 									resChann = discordClient.channels.get(row.channel);
 									if(resChann != undefined){
-										resChann.send(sendEmbed);
+										resChann.send(sendEmbed).then(function(result){
+											
+										}, function(err){
+											console.log("Insufficient permissions on outfit activity message");
+											console.log(resChann.guild.name);
+										});
 									}
 									//in case channel is deleted or otherwise inaccessible
 									else{
@@ -138,7 +143,12 @@ var qu = async.queue(function(task, callback) {
 									for(x in alertList.connery){
 										resChann = discordClient.channels.get(alertList.connery[x]);
 										if(resChann != undefined){
-											resChann.send(sendEmbed);
+											resChann.send(sendEmbed).then(function(result){
+												
+											}, function(err){
+												console.log("Insufficient permissions on connery alert");
+												console.log(resChann.guild.name);
+											});
 										}
 										//inaccessible channel
 										else{
@@ -167,7 +177,12 @@ var qu = async.queue(function(task, callback) {
 									for(x in alertList.miller){
 										resChann = discordClient.channels.get(alertList.miller[x]);
 										if(resChann != undefined){
-											resChann.send(sendEmbed);
+											resChann.send(sendEmbed).then(function(result){
+												
+											}, function(err){
+												console.log("Insufficient permissions on miller alert");
+												console.log(resChann.guild.name);
+											});
 										}
 										//inaccessible channel
 										else{
@@ -196,7 +211,12 @@ var qu = async.queue(function(task, callback) {
 									for(x in alertList.cobalt){
 										resChann = discordClient.channels.get(alertList.cobalt[x]);
 										if(resChann != undefined){
-											resChann.send(sendEmbed);
+											resChann.send(sendEmbed).then(function(result){
+												
+											}, function(err){
+												console.log("Insufficient permissions on cobalt alert");
+												console.log(resChann.guild.name);
+											});
 										}
 										//inaccessible channel
 										else{
@@ -225,7 +245,12 @@ var qu = async.queue(function(task, callback) {
 									for(x in alertList.emerald){
 										resChann = discordClient.channels.get(alertList.emerald[x]);
 										if(resChann != undefined){
-											resChann.send(sendEmbed);
+											resChann.send(sendEmbed).then(function(result){
+												
+											}, function(err){
+												console.log("Insufficient permissions on emerald alert");
+												console.log(resChann.guild.name);
+											});
 										}
 										//inaccessible channel
 										else{
@@ -254,7 +279,12 @@ var qu = async.queue(function(task, callback) {
 									for(x in alertList.jaegar){
 										resChann = discordClient.channels.get(alertList.jaegar[x]);
 										if(resChann != undefined){
-											resChann.send(sendEmbed);
+											resChann.send(sendEmbed).then(function(result){
+												
+											}, function(err){
+												console.log("Insufficient permissions on jaegar alert");
+												console.log(resChann.guild.name);
+											});
 										}
 										//inaccessible channel
 										else{
@@ -283,7 +313,12 @@ var qu = async.queue(function(task, callback) {
 									for(x in alertList.briggs){
 										resChann = discordClient.channels.get(alertList.briggs[x]);
 										if(resChann != undefined){
-											resChann.send(sendEmbed);
+											resChann.send(sendEmbed).then(function(result){
+												
+											}, function(err){
+												console.log("Insufficient permissions on briggs alert");
+												console.log(resChann.guild.name);
+											});
 										}
 										//inaccessible channel
 										else{
@@ -312,7 +347,12 @@ var qu = async.queue(function(task, callback) {
 									for(x in alertList.soltech){
 										resChann = discordClient.channels.get(alertList.soltech[x]);
 										if(resChann != undefined){
-											resChann.send(sendEmbed);
+											resChann.send(sendEmbed).then(function(result){
+												
+											}, function(err){
+												console.log("Insufficient permissions on soltech alert");
+												console.log(resChann.guild.name);
+											});
 										}
 										//inaccessible channel
 										else{

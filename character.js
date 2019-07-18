@@ -17,7 +17,12 @@ var q = async.queue(function(task, callback) {
 			data = JSON.parse(body);
 			if (data.character_list == null || data.returned == 0)
 			{
-				channel.send("Character not found");
+				channel.send("Character not found").then(function(result){
+				
+				}, function(err){
+					console.log("Insufficient permissions on !character");
+					console.log(message.guild.name);
+				});
 				callback();
 			}
 			else{
@@ -148,18 +153,33 @@ var q = async.queue(function(task, callback) {
 								weapData = JSON.parse(body);
 								topName = weapData.item_list[0].name.en;
 								sendEmbed.addField('Top Weapon (kills)', topName+" ("+topNum+")", true);
-								channel.send(sendEmbed);
+								channel.send(sendEmbed).then(function(result){
+									
+								}, function(err) {
+									console.log("Insufficient permissions on !character, with top weapon");
+									console.log(message.guild.name);
+								});
 								callback();
 							})
 					}
 					catch(e){
 						//send rich embed without top weapon if it fails
-						channel.send(sendEmbed);
+						channel.send(sendEmbed).then(function(result){
+							
+						}, function(err) {
+							console.log("Insufficient permissions on !character, without top weapon 1");
+							console.log(message.guild.name);
+						});
 						callback();
 					}
 				}
 				else{
-					channel.send(sendEmbed);
+					channel.send(sendEmbed).then(function(result){
+						
+					}, function(err) {
+						console.log("Insufficient permissions on !character, without top weapon 2");
+						console.log(message.guild.name);
+					});
 					callback();
 				}
 			}

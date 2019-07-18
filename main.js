@@ -76,12 +76,22 @@ client.on('message', message => {
 	if (message.content.toLowerCase() == '!ping') {
 		// Send "pong" to the same channel
 		archive.push(message);
-		message.channel.send('pong!');
+		message.channel.send('pong!').then(function(result){
+			
+		}, function(err) {
+			console.log("Insufficient permissions on !ping");
+			console.log(message.guild.name);
+		});
 	}
 	if (message.content.toLowerCase() == '!help'){
 		//show list of all commands (stored in listOfCommands)
 		archive.push(message);
-		message.channel.send(listOfCommands);
+		message.channel.send(listOfCommands).then(function(result){
+			
+		}, function(err) {
+			console.log("Insufficient permissions on !help");
+			console.log(message.guild.name);
+		});
 	}
 	if (message.content.substring(0,10).toLowerCase() == '!character') {
 		// Look up character
@@ -96,7 +106,12 @@ client.on('message', message => {
 		var oName = message.content.substring(8).toLowerCase();
 		if (oName.length > 4)
 		{
-			message.channel.send('Outfit tag too long');
+			message.channel.send('Outfit tag too long').then(function(result){
+			
+			}, function(err) {
+				console.log("Insufficient permissions on !outfit tag length");
+				console.log(message.guild.name);
+			});
 		}
 		else{
 			//calls outfit.js

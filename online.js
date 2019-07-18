@@ -16,7 +16,12 @@ var q = async.queue(function(task, callback) {
 		request(uri, function (error, response, body) {
 			data = JSON.parse(body);
 			if (data.outfit_list == null || data.returned == 0){
-				channel.send("["+oTag+"] not found");
+				channel.send("["+oTag+"] not found").then(function(result){
+					
+				}, function(err) {
+					console.log("Insufficient permissions on !online not found");
+					console.log(message.guild.name)'
+				});
 				callback();
 			}
 			else{
@@ -64,13 +69,23 @@ var q = async.queue(function(task, callback) {
 				{
 					sendEmbed.setColor('GREY');
 				}
-				channel.send(sendEmbed);
+				channel.send(sendEmbed).then(function(result){
+					
+				}, function(err) {
+					console.log("Insufficient permissions on !online");
+					console.log(message.guild.name);
+				});
 				callback();
 			}
 		})
 	}
 	catch(e){
-		channel.send('An error occured');
+		channel.send('An error occured').then(function(result){
+			
+		}, function(err) {
+			console.log("Insufficient permissions on !online error");
+			console.log(message.guild.name);
+		});
 		callback();
 	}
 
