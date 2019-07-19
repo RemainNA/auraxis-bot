@@ -124,7 +124,8 @@ var qu = async.queue(function(task, callback) {
 							sendEmbed = new Discord.RichEmbed();
 							sendEmbed.setTitle(resEvent.name.en);
 							sendEmbed.setDescription(resEvent.description.en);
-							sendEmbed.addField('Status', message.payload.metagame_event_state_name, true);
+							sendEmbed.setTimestamp();
+							//sendEmbed.addField('Status', message.payload.metagame_event_state_name, true);
 							//color rich embed based on starting faction if applicable
 							if (resEvent.name.en.includes('Enlightenment')){
 								sendEmbed.setColor('PURPLE');
