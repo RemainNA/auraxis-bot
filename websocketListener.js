@@ -82,7 +82,7 @@ module.exports = {
 						}
 						else{
 							if(res.rows[0].count == 0){
-								insertQueryText = "INSERT INTO connery VALUES ('$1')";
+								insertQueryText = "INSERT INTO connery VALUES ($1)";
 								insertQueryValues = [message.channel.id];
 								SQLclient.query(insertQueryText, insertQueryValues, (err,res) =>{
 									if(err){
@@ -110,7 +110,7 @@ module.exports = {
 					})
 				}
 				if(message.content.substring(18).toLowerCase().includes('miller')){
-					queryText = "SELECT count(*) FROM miller WHERE channel='$1'";
+					queryText = "SELECT count(*) FROM miller WHERE channel=$1";
 					queryValues = [message.channel.id];
 					SQLclient.query(queryText, queryValues, (err, res) =>{
 						if(err){
@@ -118,7 +118,7 @@ module.exports = {
 						}
 						else{
 							if(res.rows[0].count == 0){
-								insertQueryText = "INSERT INTO miller VALUES ('$1')";
+								insertQueryText = "INSERT INTO miller VALUES ($1)";
 								insertQueryValues = [message.channel.id];
 								SQLclient.query(insertQueryText, insertQueryValues, (err,res) =>{
 									if(err){
@@ -146,7 +146,7 @@ module.exports = {
 					})
 				}
 				if(message.content.substring(18).toLowerCase().includes('cobalt')){
-					queryText = "SELECT count(*) FROM cobalt WHERE channel='$1'";
+					queryText = "SELECT count(*) FROM cobalt WHERE channel=$1";
 					queryValues = [message.channel.id];
 					SQLclient.query(queryText, queryValues, (err, res) =>{
 						if(err){
@@ -154,7 +154,7 @@ module.exports = {
 						}
 						else{
 							if(res.rows[0].count == 0){
-								insertQueryText = "INSERT INTO cobalt VALUES ('$1')";
+								insertQueryText = "INSERT INTO cobalt VALUES ($1)";
 								insertQueryValues = [message.channel.id];
 								SQLclient.query(insertQueryText, insertQueryValues, (err,res) =>{
 									if(err){
@@ -182,7 +182,7 @@ module.exports = {
 					})
 				}
 				if(message.content.substring(18).toLowerCase().includes('emerald')){
-					queryText = "SELECT count(*) FROM emerald WHERE channel='$1'";
+					queryText = "SELECT count(*) FROM emerald WHERE channel=$1";
 					queryValues = [message.channel.id];
 					SQLclient.query(queryText, queryValues, (err, res) =>{
 						if(err){
@@ -190,7 +190,7 @@ module.exports = {
 						}
 						else{
 							if(res.rows[0].count == 0){
-								insertQueryText = "INSERT INTO emerald VALUES ('$1')";
+								insertQueryText = "INSERT INTO emerald VALUES ($1)";
 								insertQueryValues = [message.channel.id];
 								SQLclient.query(insertQueryText, insertQueryValues, (err,res) =>{
 									if(err){
@@ -218,7 +218,7 @@ module.exports = {
 					})
 				}
 				if(message.content.substring(18).toLowerCase().includes('jaegar')){
-					queryText = "SELECT count(*) FROM jaegar WHERE channel='$1'";
+					queryText = "SELECT count(*) FROM jaegar WHERE channel=$1";
 					queryValues = [message.channel.id];
 					SQLclient.query(queryText, queryValues, (err, res) =>{
 						if(err){
@@ -226,7 +226,7 @@ module.exports = {
 						}
 						else{
 							if(res.rows[0].count == 0){
-								insertQueryText = "INSERT INTO jaegar VALUES ('$1')";
+								insertQueryText = "INSERT INTO jaegar VALUES ($1)";
 								insertQueryValues = [message.channel.id];
 								SQLclient.query(insertQueryText, insertQueryValues, (err,res) =>{
 									if(err){
@@ -254,7 +254,7 @@ module.exports = {
 					})
 				}
 				if(message.content.substring(18).toLowerCase().includes('briggs')){
-					queryText = "SELECT count(*) FROM briggs WHERE channel='$1'";
+					queryText = "SELECT count(*) FROM briggs WHERE channel=$1";
 					queryValues = [message.channel.id];
 					SQLclient.query(queryText, queryValues, (err, res) =>{
 						if(err){
@@ -262,7 +262,7 @@ module.exports = {
 						}
 						else{
 							if(res.rows[0].count == 0){
-								insertQueryText = "INSERT INTO briggs VALUES ('$1')";
+								insertQueryText = "INSERT INTO briggs VALUES ($1)";
 								insertQueryValues = [message.channel.id];
 								SQLclient.query(insertQueryText, insertQueryValues, (err,res) =>{
 									if(err){
@@ -290,7 +290,7 @@ module.exports = {
 					})
 				}
 				if(message.content.substring(18).toLowerCase().includes('soltech')){
-					queryText = "SELECT count(*) FROM soltech WHERE channel='$1'";
+					queryText = "SELECT count(*) FROM soltech WHERE channel=$1";
 					queryValues = [message.channel.id];
 					SQLclient.query(queryText, queryValues, (err, res) =>{
 						if(err){
@@ -298,7 +298,7 @@ module.exports = {
 						}
 						else{
 							if(res.rows[0].count == 0){
-								insertQueryText = "INSERT INTO soltech VALUES ('$1')";
+								insertQueryText = "INSERT INTO soltech VALUES ($1)";
 								insertQueryValues = [message.channel.id];
 								SQLclient.query(insertQueryText, insertQueryValues, (err,res) =>{
 									if(err){
@@ -328,7 +328,7 @@ module.exports = {
 			}
 			if (message.content.substring(0,19) == '!unsubscribe alerts'){
 				if(message.content.substring(20).toLowerCase().includes('connery')){
-					queryText = "SELECT count(*) FROM connery WHERE channel='$1'";
+					queryText = "SELECT count(*) FROM connery WHERE channel=$1";
 					queryValues = [message.channel.id];
 					SQLclient.query(queryText, queryValues, (err, res) =>{
 						if(err){
@@ -336,7 +336,7 @@ module.exports = {
 						}
 						else{
 							if(res.rows[0].count > 0){
-								removeQueryText = "DELETE FROM connery WHERE channel='$1'";
+								removeQueryText = "DELETE FROM connery WHERE channel=$1";
 								removeQueryValues = [message.channel.id];
 								SQLclient.query(removeQueryText, removeQueryValues, (err,res) =>{
 									if(err){
@@ -364,7 +364,7 @@ module.exports = {
 					})
 				}
 				if(message.content.substring(20).toLowerCase().includes('cobalt')){
-					queryText = "SELECT count(*) FROM cobalt WHERE channel='$1'";
+					queryText = "SELECT count(*) FROM cobalt WHERE channel=$1";
 					queryValues = [message.channel.id];
 					SQLclient.query(queryText, queryValues, (err, res) =>{
 						if(err){
@@ -372,7 +372,7 @@ module.exports = {
 						}
 						else{
 							if(res.rows[0].count > 0){
-								removeQueryText = "DELETE FROM cobalt WHERE channel='$1'";
+								removeQueryText = "DELETE FROM cobalt WHERE channel=$1";
 								removeQueryValues = [message.channel.id];
 								SQLclient.query(removeQueryText, removeQueryValues, (err,res) =>{
 									if(err){
@@ -400,7 +400,7 @@ module.exports = {
 					})
 				}
 				if(message.content.substring(20).toLowerCase().includes('miller')){
-					queryText = "SELECT count(*) FROM miller WHERE channel='$1'";
+					queryText = "SELECT count(*) FROM miller WHERE channel=$1";
 					queryValues = [message.channel.id];
 					SQLclient.query(queryText, queryValues, (err, res) =>{
 						if(err){
@@ -408,7 +408,7 @@ module.exports = {
 						}
 						else{
 							if(res.rows[0].count > 0){
-								removeQueryText = "DELETE FROM milller WHERE channel='$1'";
+								removeQueryText = "DELETE FROM milller WHERE channel=$1";
 								removeQueryValues = [message.channel.id];
 								SQLclient.query(removeQueryText, removeQueryValues, (err,res) =>{
 									if(err){
@@ -436,7 +436,7 @@ module.exports = {
 					})
 				}
 				if(message.content.substring(20).toLowerCase().includes('emerald')){
-					queryText = "SELECT count(*) FROM emerald WHERE channel='$1'";
+					queryText = "SELECT count(*) FROM emerald WHERE channel=$1";
 					queryValues = [message.channel.id];
 					SQLclient.query(queryText, queryValues, (err, res) =>{
 						if(err){
@@ -444,7 +444,7 @@ module.exports = {
 						}
 						else{
 							if(res.rows[0].count > 0){
-								removeQueryText = "DELETE FROM emerald WHERE channel='$1'";
+								removeQueryText = "DELETE FROM emerald WHERE channel=$1";
 								removeQueryValues = [message.channel.id];
 								SQLclient.query(removeQueryText, removeQueryValues, (err,res) =>{
 									if(err){
@@ -472,7 +472,7 @@ module.exports = {
 					})
 				}
 				if(message.content.substring(20).toLowerCase().includes('jaegar')){
-					queryText = "SELECT count(*) FROM jaegar WHERE channel='$1'";
+					queryText = "SELECT count(*) FROM jaegar WHERE channel=$1";
 					queryValues = [message.channel.id];
 					SQLclient.query(queryText, queryValues, (err, res) =>{
 						if(err){
@@ -480,7 +480,7 @@ module.exports = {
 						}
 						else{
 							if(res.rows[0].count > 0){
-								removeQueryText = "DELETE FROM jaegar WHERE channel='$1'";
+								removeQueryText = "DELETE FROM jaegar WHERE channel=$1";
 								removeQueryValues = [message.channel.id];
 								SQLclient.query(removeQueryText, removeQueryValues, (err,res) =>{
 									if(err){
@@ -508,7 +508,7 @@ module.exports = {
 					})
 				}
 				if(message.content.substring(20).toLowerCase().includes('briggs')){
-					queryText = "SELECT count(*) FROM briggs WHERE channel='$1'";
+					queryText = "SELECT count(*) FROM briggs WHERE channel=$1";
 					queryValues = [message.channel.id];
 					SQLclient.query(queryText, queryValues, (err, res) =>{
 						if(err){
@@ -516,7 +516,7 @@ module.exports = {
 						}
 						else{
 							if(res.rows[0].count > 0){
-								removeQueryText = "DELETE FROM briggs WHERE channel='$1'";
+								removeQueryText = "DELETE FROM briggs WHERE channel=$1";
 								removeQueryValues = [message.channel.id];
 								SQLclient.query(removeQueryText, removeQueryValues, (err,res) =>{
 									if(err){
@@ -544,7 +544,7 @@ module.exports = {
 					})
 				}
 				if(message.content.substring(20).toLowerCase().includes('soltech')){
-					queryText = "SELECT count(*) FROM soltech WHERE channel='$1'";
+					queryText = "SELECT count(*) FROM soltech WHERE channel=$1";
 					queryValues = [message.channel.id];
 					SQLclient.query(queryText, queryValues, (err, res) =>{
 						if(err){
@@ -552,7 +552,7 @@ module.exports = {
 						}
 						else{
 							if(res.rows[0].count > 0){
-								removeQueryText = "DELETE FROM soltech WHERE channel='$1'";
+								removeQueryText = "DELETE FROM soltech WHERE channel=$1";
 								removeQueryValues = [message.channel.id];
 								SQLclient.query(removeQueryText, removeQueryValues, (err,res) =>{
 									if(err){

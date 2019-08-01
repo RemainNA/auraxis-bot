@@ -182,7 +182,7 @@ var qu = async.queue(function(task, callback) {
 											});
 										}
 										else{
-											removeQueryText = "DELETE from $1 WHERE channel='$2'";
+											removeQueryText = "DELETE from $1 WHERE channel=$2";
 											removeQueryValues = [serverName, row.channel];
 											SQLclient.query(removeQueryText, removeQueryValues, (err, res) => {
 												if(err){
