@@ -11,8 +11,6 @@ var async = require('async');
 
 var qu = async.queue(function(task, callback) {
 	message = task.msg;
-	alertList = task.aList;
-	outfitList = task.oList;
 	SQLclient = task.SClient;
 	discordClient = task.dClient;
 	//if message is a login/out event
@@ -21,7 +19,7 @@ var qu = async.queue(function(task, callback) {
 		playerEvent = message.payload.event_name.substring(6);
 		uri = 'https://census.daybreakgames.com/s:'+process.env.serviceID+'/get/ps2:v2/character/'+character_id+'?c:resolve=outfit_member'
 		//lookup character info and outfit membership
-		var options = {uri:uri, playerEvent:playerEvent, outfitList:outfitList}
+		var options = {uri:uri, playerEvent:playerEvent}
 		request(options, function (error, response, body) {
 			if(body != null && body != undefined){
 				try{
@@ -39,14 +37,13 @@ var qu = async.queue(function(task, callback) {
 					resChar = data.character_list[0];
 					if(resChar != null && resChar.outfit_member != null){
 						//if character's outfit id is in the list of outfits that are subscribed to
-						if (outfitList.indexOf(resChar.outfit_member.outfit_id) > -1)
-						{
 							//create and send rich embed to all subscribed channels
 							
-							SQLclient.query("SELECT * FROM outfit WHERE id="+resChar.outfit_member.outfit_id+";", (err, res) => {
-								if (err){
-									console.log(err);
-								} 
+						SQLclient.query("SELECT * FROM outfit WHERE id="+resChar.outfit_member.outfit_id+";", (err, res) => {
+							if (err){
+								console.log(err);
+							} 
+							if (res.rows.length > 0){
 								sendEmbed = new Discord.RichEmbed();
 								sendEmbed.setTitle(res.rows[0].alias+' '+playerEvent);
 								sendEmbed.setDescription(resChar.name.first);
@@ -83,15 +80,15 @@ var qu = async.queue(function(task, callback) {
 												console.log(err);
 											} 
 										});
-										//cleanup of subListOutfits is not performed as this should be automatic at restart
 									}
 								}
 								callback();
-							});
-						}
-						else{
-							callback();
-						}
+							}
+							else{
+								callback();
+							}
+						});
+						
 					}
 					else{
 						callback();
@@ -125,7 +122,6 @@ var qu = async.queue(function(task, callback) {
 							sendEmbed.setTitle(resEvent.name.en);
 							sendEmbed.setDescription(resEvent.description.en);
 							sendEmbed.setTimestamp();
-							//sendEmbed.addField('Status', message.payload.metagame_event_state_name, true);
 							//color rich embed based on starting faction if applicable
 							if (resEvent.name.en.includes('Enlightenment')){
 								sendEmbed.setColor('PURPLE');
@@ -136,246 +132,68 @@ var qu = async.queue(function(task, callback) {
 							else if (resEvent.name.en.includes('Superiority')){
 								sendEmbed.setColor('RED');
 							}
-							//add server to embed and send to appropriate channels
+							//add server to embed
 							switch (message.payload.world_id){
 								case "1":
-									inaccessible = []
 									sendEmbed.addField('Server', 'Connery', true);
-									for(x in alertList.connery){
-										resChann = discordClient.channels.get(alertList.connery[x]);
-										if(resChann != undefined){
-											resChann.send(sendEmbed).then(function(result){
-												
-											}, function(err){
-												console.log("Insufficient permissions on connery alert");
-												console.log(resChann.guild.name);
-											});
-										}
-										//inaccessible channel
-										else{
-											inaccessible.push(alertList.connery[x]);
-											continue;
-										}
-									}
-									if(inaccessible.length > 0){
-										for(y in inaccessible){
-											index = alertList.connery.indexOf(inaccessible[y]);
-											if(index > -1){
-												subListAlerts.connery.splice(index, 1);
-												SQLclient.query("DELETE FROM connery WHERE channel='"+inaccessible[y]+"';", (err, res) => {
-													if (err){
-														console.log(err);
-													} 
-												});
-											}
-										}
-									}
-									callback();
+									serverName = 'connery';
 									break;
 								case "10":
-									inaccessible = []
 									sendEmbed.addField('Server', 'Miller', true);
-									for(x in alertList.miller){
-										resChann = discordClient.channels.get(alertList.miller[x]);
-										if(resChann != undefined){
-											resChann.send(sendEmbed).then(function(result){
-												
-											}, function(err){
-												console.log("Insufficient permissions on miller alert");
-												console.log(resChann.guild.name);
-											});
-										}
-										//inaccessible channel
-										else{
-											inaccessible.push(alertList.miller[x]);
-											continue;
-										}
-									}
-									if(inaccessible.length > 0){
-										for(y in inaccessible){
-											index = alertList.miller.indexOf(inaccessible[y]);
-											if(index > -1){
-												subListAlerts.miller.splice(index, 1);
-												SQLclient.query("DELETE FROM miller WHERE channel='"+inaccessible[y]+"';", (err, res) => {
-													if (err){
-														console.log(err);
-													} 
-												});
-											}
-										}
-									}
-									callback();
+									serverName = 'miller';
 									break;
 								case "13":
-									inaccessible = []
 									sendEmbed.addField('Server', 'Cobalt', true);
-									for(x in alertList.cobalt){
-										resChann = discordClient.channels.get(alertList.cobalt[x]);
-										if(resChann != undefined){
-											resChann.send(sendEmbed).then(function(result){
-												
-											}, function(err){
-												console.log("Insufficient permissions on cobalt alert");
-												console.log(resChann.guild.name);
-											});
-										}
-										//inaccessible channel
-										else{
-											inaccessible.push(alertList.cobalt[x]);
-											continue;
-										}
-									}
-									if(inaccessible.length > 0){
-										for(y in inaccessible){
-											index = alertList.cobalt.indexOf(inaccessible[y]);
-											if(index > -1){
-												subListAlerts.cobalt.splice(index, 1);
-												SQLclient.query("DELETE FROM cobalt WHERE channel='"+inaccessible[y]+"';", (err, res) => {
-													if (err){
-														console.log(err);
-													} 
-												});
-											}
-										}
-									}
-									callback();
+									serverName = 'cobalt';
 									break;
 								case "17":
-									inaccessible = []
 									sendEmbed.addField('Server', 'Emerald', true);
-									for(x in alertList.emerald){
-										resChann = discordClient.channels.get(alertList.emerald[x]);
-										if(resChann != undefined){
-											resChann.send(sendEmbed).then(function(result){
-												
-											}, function(err){
-												console.log("Insufficient permissions on emerald alert");
-												console.log(resChann.guild.name);
-											});
-										}
-										//inaccessible channel
-										else{
-											inaccessible.push(alertList.emerald[x]);
-											continue;
-										}
-									}
-									if(inaccessible.length > 0){
-										for(y in inaccessible){
-											index = alertList.emerald.indexOf(inaccessible[y]);
-											if(index > -1){
-												subListAlerts.emerald.splice(index, 1);
-												SQLclient.query("DELETE FROM emerald WHERE channel='"+inaccessible[y]+"';", (err, res) => {
-													if (err){
-														console.log(err);
-													} 
-												});
-											}
-										}
-									}
-									callback();
+									serverName = 'emerald';
 									break;
 								case "19":
-									inaccessible = []
 									sendEmbed.addField('Server', 'Jaegar', true);
-									for(x in alertList.jaegar){
-										resChann = discordClient.channels.get(alertList.jaegar[x]);
-										if(resChann != undefined){
-											resChann.send(sendEmbed).then(function(result){
-												
-											}, function(err){
-												console.log("Insufficient permissions on jaegar alert");
-												console.log(resChann.guild.name);
-											});
-										}
-										//inaccessible channel
-										else{
-											inaccessible.push(alertList.jaegar[x])
-											continue;
-										}
-									}
-									if(inaccessible.length > 0){
-										for(y in inaccessible){
-											index = alertList.jaegar.indexOf(inaccessible[y]);
-											if(index > -1){
-												subListAlerts.jaegar.splice(index, 1);
-												SQLclient.query("DELETE FROM jaegar WHERE channel='"+inaccessible[y]+"';", (err, res) => {
-													if (err){
-														console.log(err);
-													} 
-												});
-											}
-										}
-									}
-									callback();
+									serverName = 'jaegar';
 									break;
 								case "25":
-									inaccessible = []
 									sendEmbed.addField('Server', 'Briggs', true);
-									for(x in alertList.briggs){
-										resChann = discordClient.channels.get(alertList.briggs[x]);
-										if(resChann != undefined){
-											resChann.send(sendEmbed).then(function(result){
-												
-											}, function(err){
-												console.log("Insufficient permissions on briggs alert");
-												console.log(resChann.guild.name);
-											});
-										}
-										//inaccessible channel
-										else{
-											inaccessible.push(alertList.briggs[x])
-											continue;
-										}
-									}
-									if(inaccessible.length > 0){
-										for(y in inaccessible){
-											index = alertList.briggs.indexOf(inaccessible[y]);
-											if(index > -1){
-												subListAlerts.briggs.splice(index, 1);
-												SQLclient.query("DELETE FROM briggs WHERE channel='"+inaccessible[y]+"';", (err, res) => {
-													if (err){
-														console.log(err);
-													} 
-												});
-											}
-										}
-									}
-									callback();
+									serverName = 'briggs';
 									break;
 								case "40":
-									inaccessible = []
 									sendEmbed.addField('Server', 'SolTech', true);
-									for(x in alertList.soltech){
-										resChann = discordClient.channels.get(alertList.soltech[x]);
+									serverName = 'soltech';									
+							}
+							//pull list of subscriptions from SQL
+							queryText = "SELECT * from $1";
+							queryValues = [serverName];
+							SQLclient.query(queryText, queryValues, (err, res) => {
+								if(err){
+									console.log(err);
+								}
+								else{
+									for (let row of res.rows){
+										//send notification
+										resChann = discordClient.channels.get(row.channel);
 										if(resChann != undefined){
 											resChann.send(sendEmbed).then(function(result){
 												
 											}, function(err){
-												console.log("Insufficient permissions on soltech alert");
+												console.log("Insufficient permissions on alert notification");
 												console.log(resChann.guild.name);
 											});
 										}
-										//inaccessible channel
 										else{
-											inaccessible.push(alertList.soltech[x])
-											continue;
+											removeQueryText = "DELETE from $1 WHERE channel='$2'";
+											removeQueryValues = [serverName, row.channel];
+											SQLclient.query(removeQueryText, removeQueryValues, (err, res) => {
+												if(err){
+													console.log(err);
+												}
+											});
 										}
 									}
-									if(inaccessible.length > 0){
-										for(y in inaccessible){
-											index = alertList.soltech.indexOf(inaccessible[y]);
-											if(index > -1){
-												subListAlerts.soltech.splice(index, 1);
-												SQLclient.query("DELETE FROM soltech WHERE channel='"+inaccessible[y]+"';", (err, res) => {
-													if (err){
-														console.log(err);
-													} 
-												});
-											}
-										}
-									}
-									callback();
-							}
+								}
+								callback();
+							});
 						}
 					}
 					catch(e){
@@ -401,8 +219,8 @@ qu.drain = function() {
 
 
 module.exports = {
-	check: function(message, alertList, outfitList, SQLclient, discordClient){
-		qu.push({msg: message, aList: alertList, oList: outfitList, SClient: SQLclient, dClient: discordClient}, function(err) {
+	check: function(message, SQLclient, discordClient){ 
+		qu.push({msg: message, SClient: SQLclient, dClient: discordClient}, function(err) {
 			
 		})
 	}

@@ -40,7 +40,6 @@ SQLclient.query("SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_TYPE='BASE 
   for (let row of res.rows) {
     //console.log(JSON.stringify(row));
   }
-  SQLclient.end();
 });
 
 // Create an instance of a Discord client
@@ -53,7 +52,7 @@ const token = process.env.token;
 // from Discord _after_ ready is emitted
 client.on('ready', () => {
   console.log('I am ready!');
-  wsListen.subscribe(client);
+  wsListen.subscribe(client, SQLclient);
   client.user.setActivity('!help')
 });
 
