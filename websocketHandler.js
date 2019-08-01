@@ -36,10 +36,10 @@ var qu = async.queue(function(task, callback) {
 				else{
 					resChar = data.character_list[0];
 					if(resChar != null && resChar.outfit_member != null){
-						//if character's outfit id is in the list of outfits that are subscribed to
 							//create and send rich embed to all subscribed channels
-							
-						SQLclient.query("SELECT * FROM outfit WHERE id="+resChar.outfit_member.outfit_id+";", (err, res) => {
+						queryText = "SELECT * FROM outfit WHERE id=$1";
+						queryValues = [resChar.outfit_member.outfit_id];
+						SQLclient.query(queryText, queryValues, (err, res) => {
 							if (err){
 								console.log(err);
 							} 
@@ -75,7 +75,9 @@ var qu = async.queue(function(task, callback) {
 									}
 									//in case channel is deleted or otherwise inaccessible
 									else{
-										SQLclient.query("DELETE FROM outfit WHERE id="+resChar.outfit_member.outfit_id+" AND channel='"+row.channel+"';", (err, res) => {
+										removeQueryText = "DELETE FROM outfit WHERE id=$1 AND channel=$2";
+										removeQueryValues = [resChar.outfit_member.outfit_id, row.channel];
+										SQLclient.query(removeQueryText, removeQueryValues, (err, res) => {
 											if (err){
 												console.log(err);
 											} 
@@ -136,36 +138,34 @@ var qu = async.queue(function(task, callback) {
 							switch (message.payload.world_id){
 								case "1":
 									sendEmbed.addField('Server', 'Connery', true);
-									serverName = 'connery';
+									queryText = "SELECT * from connery";
 									break;
 								case "10":
 									sendEmbed.addField('Server', 'Miller', true);
-									serverName = 'miller';
+									queryText = "SELECT * from miller";
 									break;
 								case "13":
 									sendEmbed.addField('Server', 'Cobalt', true);
-									serverName = 'cobalt';
+									queryText = "SELECT * from cobalt";
 									break;
 								case "17":
 									sendEmbed.addField('Server', 'Emerald', true);
-									serverName = 'emerald';
+									queryText = "SELECT * from emerald";
 									break;
 								case "19":
 									sendEmbed.addField('Server', 'Jaegar', true);
-									serverName = 'jaegar';
+									queryText = "SELECT * from jaegar";
 									break;
 								case "25":
 									sendEmbed.addField('Server', 'Briggs', true);
-									serverName = 'briggs';
+									queryText = "SELECT * from jaegar";
 									break;
 								case "40":
 									sendEmbed.addField('Server', 'SolTech', true);
-									serverName = 'soltech';									
+									queryText = "SELECT * from soltech";								
 							}
 							//pull list of subscriptions from SQL
-							queryText = "SELECT * from $1";
-							queryValues = [serverName];
-							SQLclient.query(queryText, queryValues, (err, res) => {
+							SQLclient.query(queryText, (err, res) => {
 								if(err){
 									console.log(err);
 								}
