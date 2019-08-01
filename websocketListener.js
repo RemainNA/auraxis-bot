@@ -74,7 +74,7 @@ module.exports = {
 			if (message.content.substring(0,17) == '!subscribe alerts'){
 				console.log(message.content);
 				if(message.content.substring(18).toLowerCase().includes('connery')){
-					queryText = "SELECT count(*) FROM connery WHERE channel='$1'";
+					queryText = "SELECT count(*) FROM connery WHERE channel=$1";
 					queryValues = [message.channel.id];
 					SQLclient.query(queryText, queryValues, (err, res) =>{
 						if(err){
