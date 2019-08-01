@@ -613,7 +613,7 @@ function outfitID(oTagLong, action, channel, SQLclient){
 				resOut = data.outfit_list[0];
 				
 				if(action == 'subscribe'){
-					queryText = "SELECT COUNT(channel) FROM outfit WHERE id=$1 AND channel='$2'";
+					queryText = "SELECT COUNT(channel) FROM outfit WHERE id=$1 AND channel=$2";
 					queryValues = [ID, channel.id];
 					SQLclient.query(queryText, queryValues, (err, res) => {
 						if(err){
@@ -640,7 +640,7 @@ function outfitID(oTagLong, action, channel, SQLclient){
 								else{
 									color = 'GREY';
 								}
-								subscribeQueryText = "INSERT INTO outfit (id, alias, color, channel) VALUES ($1, '$'2, '$3', '$4')";
+								subscribeQueryText = "INSERT INTO outfit (id, alias, color, channel) VALUES ($1, $2, $3, $4)";
 								subscribeQueryValues = [ID, resOut.alias, color, channel.id];
 								SQLclient.query(subscribeQueryText, subscribeQueryValues, (err, res) => {
 									if(err){
@@ -669,7 +669,7 @@ function outfitID(oTagLong, action, channel, SQLclient){
 					});
 				}
 				else if(action == 'unsubscribe'){
-					queryText = "SELECT COUNT(channel) FROM outfit WHERE id=$1 AND channel='$2'";
+					queryText = "SELECT COUNT(channel) FROM outfit WHERE id=$1 AND channel=$2";
 					queryValues = [ID, channel.id];
 					SQLclient.query(queryText, queryValues, (err, res) => {
 						if(err){
@@ -684,7 +684,7 @@ function outfitID(oTagLong, action, channel, SQLclient){
 						else{
 							if (res.rows[0].count > 0){
 								//channel is subscribed
-								subscribeQueryText = "DELETE FROM outfit WHERE id=$1 and channel='$2'";
+								subscribeQueryText = "DELETE FROM outfit WHERE id=$1 and channel=$2";
 								subscribeQueryValues = [ID, channel.id];
 								SQLclient.query(subscribeQueryText, subscribeQueryValues, (err, res) => {
 									if(err){
