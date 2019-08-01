@@ -158,7 +158,7 @@ var qu = async.queue(function(task, callback) {
 									break;
 								case "25":
 									sendEmbed.addField('Server', 'Briggs', true);
-									queryText = "SELECT * from jaegar";
+									queryText = "SELECT * from briggs";
 									break;
 								case "40":
 									sendEmbed.addField('Server', 'SolTech', true);
