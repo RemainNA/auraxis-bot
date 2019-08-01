@@ -131,6 +131,8 @@ var q = async.queue(function(task, callback) {
 				//Top Weapon
 				topID = '';
 				topNum = -1;
+				//Auraxium medals
+				medalCount = 0;
 				if(resChar.stats != undefined){
 					weaponStat = resChar.stats.weapon_stat_by_faction;
 					//iterate through weapons, find max value
@@ -143,6 +145,9 @@ var q = async.queue(function(task, callback) {
 								topNum = item_num;
 								topID = weaponStat[x].item_id;
 							}
+							if (item_num >= 1160){
+								medalCount++;
+							}
 						}
 					}
 					try{
@@ -152,7 +157,10 @@ var q = async.queue(function(task, callback) {
 						request(options, function(error, response, body){
 								weapData = JSON.parse(body);
 								topName = weapData.item_list[0].name.en;
-								sendEmbed.addField('Top Weapon (kills)', topName+" ("+topNum+")", true);
+								if(topNum > 0){
+									sendEmbed.addField('Top Weapon (kills)', topName+" ("+topNum+")", true);
+								}
+								sendEmbed.addField('Auraxium Medals', medalCount, true);
 								channel.send(sendEmbed).then(function(result){
 									
 								}, function(err) {
