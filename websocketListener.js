@@ -647,7 +647,7 @@ function outfitID(oTagLong, action, channel, SQLclient){
 										console.log(err);
 									}
 									else{
-										channel.send("Subscribed to "+resout.alias).then(function(result){
+										channel.send("Subscribed to "+resOut.alias).then(function(result){
 								
 										}, function(err){
 											console.log("Insufficient permissions on subscribe success");
