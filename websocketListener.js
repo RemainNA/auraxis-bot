@@ -96,7 +96,7 @@ module.exports = {
 											console.log(message.guild.name);
 										});
 									}
-								}
+								})
 							}
 							else{
 								message.channel.send("Error: Already subscribed to Connery alerts").then(function(result){
@@ -107,7 +107,7 @@ module.exports = {
 								});
 							}
 						}
-					}
+					})
 				}
 				if(message.content.substring(18).toLowerCase().includes('miller')){
 					queryText = "SELECT count(*) FROM miller WHERE channel='$1'";
@@ -132,7 +132,7 @@ module.exports = {
 											console.log(message.guild.name);
 										});
 									}
-								}
+								})
 							}
 							else{
 								message.channel.send("Error: Already subscribed to Miller alerts").then(function(result){
@@ -143,7 +143,7 @@ module.exports = {
 								});
 							}
 						}
-					}
+					})
 				}
 				if(message.content.substring(18).toLowerCase().includes('cobalt')){
 					queryText = "SELECT count(*) FROM cobalt WHERE channel='$1'";
@@ -168,7 +168,7 @@ module.exports = {
 											console.log(message.guild.name);
 										});
 									}
-								}
+								})
 							}
 							else{
 								message.channel.send("Error: Already subscribed to Cobalt alerts").then(function(result){
@@ -179,7 +179,7 @@ module.exports = {
 								});
 							}
 						}
-					}
+					})
 				}
 				if(message.content.substring(18).toLowerCase().includes('emerald')){
 					queryText = "SELECT count(*) FROM emerald WHERE channel='$1'";
@@ -204,7 +204,7 @@ module.exports = {
 											console.log(message.guild.name);
 										});
 									}
-								}
+								})
 							}
 							else{
 								message.channel.send("Error: Already subscribed to Emerald alerts").then(function(result){
@@ -215,7 +215,7 @@ module.exports = {
 								});
 							}
 						}
-					}
+					})
 				}
 				if(message.content.substring(18).toLowerCase().includes('jaegar')){
 					queryText = "SELECT count(*) FROM jaegar WHERE channel='$1'";
@@ -240,7 +240,7 @@ module.exports = {
 											console.log(message.guild.name);
 										});
 									}
-								}
+								})
 							}
 							else{
 								message.channel.send("Error: Already subscribed to Jaegar alerts").then(function(result){
@@ -251,7 +251,7 @@ module.exports = {
 								});
 							}
 						}
-					}
+					})
 				}
 				if(message.content.substring(18).toLowerCase().includes('briggs')){
 					queryText = "SELECT count(*) FROM briggs WHERE channel='$1'";
@@ -276,7 +276,7 @@ module.exports = {
 											console.log(message.guild.name);
 										});
 									}
-								}
+								})
 							}
 							else{
 								message.channel.send("Error: Already subscribed to Briggs alerts").then(function(result){
@@ -287,7 +287,7 @@ module.exports = {
 								});
 							}
 						}
-					}
+					})
 				}
 				if(message.content.substring(18).toLowerCase().includes('soltech')){
 					queryText = "SELECT count(*) FROM soltech WHERE channel='$1'";
@@ -312,7 +312,7 @@ module.exports = {
 											console.log(message.guild.name);
 										});
 									}
-								}
+								})
 							}
 							else{
 								message.channel.send("Error: Already subscribed to Soltech alerts").then(function(result){
@@ -323,7 +323,7 @@ module.exports = {
 								});
 							}
 						}
-					}
+					})
 				}
 			}
 			if (message.content.substring(0,19) == '!unsubscribe alerts'){
@@ -350,7 +350,7 @@ module.exports = {
 											console.log(message.guild.name);
 										});
 									}
-								}
+								})
 							}
 							else{
 								message.channel.send("Error: Not subscribed to Connery alerts").then(function(result){
@@ -361,7 +361,7 @@ module.exports = {
 								});
 							}
 						}
-					}
+					})
 				}
 				if(message.content.substring(20).toLowerCase().includes('cobalt')){
 					queryText = "SELECT count(*) FROM cobalt WHERE channel='$1'";
@@ -386,7 +386,7 @@ module.exports = {
 											console.log(message.guild.name);
 										});
 									}
-								}
+								})
 							}
 							else{
 								message.channel.send("Error: Not subscribed to Cobalt alerts").then(function(result){
@@ -397,7 +397,7 @@ module.exports = {
 								});
 							}
 						}
-					}
+					})
 				}
 				if(message.content.substring(20).toLowerCase().includes('miller')){
 					queryText = "SELECT count(*) FROM miller WHERE channel='$1'";
@@ -422,7 +422,7 @@ module.exports = {
 											console.log(message.guild.name);
 										});
 									}
-								}
+								})
 							}
 							else{
 								message.channel.send("Error: Not subscribed to Miller alerts").then(function(result){
@@ -433,7 +433,7 @@ module.exports = {
 								});
 							}
 						}
-					}
+					})
 				}
 				if(message.content.substring(20).toLowerCase().includes('emerald')){
 					queryText = "SELECT count(*) FROM emerald WHERE channel='$1'";
@@ -458,7 +458,7 @@ module.exports = {
 											console.log(message.guild.name);
 										});
 									}
-								}
+								})
 							}
 							else{
 								message.channel.send("Error: Not subscribed to Emerald alerts").then(function(result){
@@ -469,7 +469,7 @@ module.exports = {
 								});
 							}
 						}
-					}
+					})
 				}
 				if(message.content.substring(20).toLowerCase().includes('jaegar')){
 					queryText = "SELECT count(*) FROM jaegar WHERE channel='$1'";
@@ -494,7 +494,7 @@ module.exports = {
 											console.log(message.guild.name);
 										});
 									}
-								}
+								})
 							}
 							else{
 								message.channel.send("Error: Not subscribed to Jaegar alerts").then(function(result){
@@ -505,7 +505,7 @@ module.exports = {
 								});
 							}
 						}
-					}
+					})
 				}
 				if(message.content.substring(20).toLowerCase().includes('briggs')){
 					queryText = "SELECT count(*) FROM briggs WHERE channel='$1'";
@@ -530,7 +530,7 @@ module.exports = {
 											console.log(message.guild.name);
 										});
 									}
-								}
+								})
 							}
 							else{
 								message.channel.send("Error: Not subscribed to Briggs alerts").then(function(result){
@@ -541,7 +541,7 @@ module.exports = {
 								});
 							}
 						}
-					}
+					})
 				}
 				if(message.content.substring(20).toLowerCase().includes('soltech')){
 					queryText = "SELECT count(*) FROM soltech WHERE channel='$1'";
@@ -566,7 +566,7 @@ module.exports = {
 											console.log(message.guild.name);
 										});
 									}
-								}
+								})
 							}
 							else{
 								message.channel.send("Error: Not subscribed to SolTech alerts").then(function(result){
@@ -577,7 +577,7 @@ module.exports = {
 								});
 							}
 						}
-					}
+					})
 				}
 			}
 		})
