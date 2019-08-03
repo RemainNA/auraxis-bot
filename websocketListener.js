@@ -11,216 +11,16 @@ var handler = require('./websocketHandler.js');
 
 var WebSocket = require('websocket').client;
 
+var initialize = require('./initializeSQL.js');
+
 //PostgreSQL connection
 const { Client } = require('pg');
 
 module.exports = {
-	subscribe: function(discordClient) {
-		subListOutfits = []
-		subListAlerts = {"connery": [], "cobalt": [], "miller": [], "emerald": [], "jaegar": [], "briggs": [], "soltech": []}
-		//************
-		//START OF SQL
-		//************
-		const SQLclient = new Client({
-		  connectionString: process.env.DATABASE_URL,
-		  ssl: true,
-		});
-		SQLclient.connect();
-		SQLclient.query("SELECT * FROM connery;", (err, res) => {
-		    if (err){
-				//create table if one not found
-				console.log(err);
-				console.log("Creating connery table");
-				SQLclient.query("CREATE TABLE connery (channel TEXT);", (err, res) => {
-					if (err){
-						console.log(err);
-					}
-					else{
-						console.log(res);
-					}
-				});
-			} 
-		    else{
-				for (let row of res.rows) {
-					//convert channel id into channel object
-					//resChann = discordClient.channels.get(row.channel);
-					subListAlerts.connery.push(row.channel);
-					console.log(JSON.stringify(row));
-				}
-			}
-		    
-		});
-		SQLclient.query("SELECT * FROM cobalt;", (err, res) => {
-		    if (err){
-				//create table if one not found
-				console.log(err);
-				console.log("Creating cobalt table");
-				SQLclient.query("CREATE TABLE cobalt (channel TEXT);", (err, res) => {
-					if (err){
-						console.log(err);
-					}
-					else{
-						console.log(res);
-					}
-				});
-			} 
-		    else{
-				for (let row of res.rows) {
-					//convert channel id into channel object
-					//resChann = discordClient.channels.get(row.channel);
-					subListAlerts.cobalt.push(row.channel);
-					console.log(JSON.stringify(row));
-				}
-			}
-		    
-		});
-		SQLclient.query("SELECT * FROM miller;", (err, res) => {
-		    if (err){
-				//create table if one not found
-				console.log(err);
-				console.log("Creating miller table");
-				SQLclient.query("CREATE TABLE miller (channel TEXT);", (err, res) => {
-					if (err){
-						console.log(err);
-					}
-					else{
-						console.log(res);
-					}
-				});
-			} 
-		    else{
-				for (let row of res.rows) {
-					//convert channel id into channel object
-					//resChann = discordClient.channels.get(row.channel);
-					subListAlerts.miller.push(row.channel);
-					console.log(JSON.stringify(row));
-				}
-			}
-		    
-		});
-		SQLclient.query("SELECT * FROM emerald;", (err, res) => {
-		    if (err){
-				//create table if one not found
-				console.log(err);
-				console.log("Creating emerald table");
-				SQLclient.query("CREATE TABLE emerald (channel TEXT);", (err, res) => {
-					if (err){
-						console.log(err);
-					}
-					else{
-						console.log(res);
-					}
-				});
-			} 
-		    else{
-				for (let row of res.rows) {
-					//convert channel id into channel object
-					//resChann = discordClient.channels.get(row.channel);
-					subListAlerts.emerald.push(row.channel);
-					console.log(JSON.stringify(row));
-				}
-			}
-		    
-		});
-		SQLclient.query("SELECT * FROM jaegar;", (err, res) => {
-		    if (err){
-				//create table if one not found
-				console.log(err);
-				console.log("Creating jaegar table");
-				SQLclient.query("CREATE TABLE jaegar (channel TEXT);", (err, res) => {
-					if (err){
-						console.log(err);
-					}
-					else{
-						console.log(res);
-					}
-				});
-			} 
-		    else{
-				for (let row of res.rows) {
-					//convert channel id into channel object
-					//resChann = discordClient.channels.get(row.channel);
-					subListAlerts.jaegar.push(row.channel);
-					console.log(JSON.stringify(row));
-				}
-			}
-		    
-		});
-		SQLclient.query("SELECT * FROM briggs;", (err, res) => {
-		    if (err){
-				//create table if one not found
-				console.log(err);
-				console.log("Creating briggs table");
-				SQLclient.query("CREATE TABLE briggs (channel TEXT);", (err, res) => {
-					if (err){
-						console.log(err);
-					}
-					else{
-						console.log(res);
-					}
-				});
-			} 
-		    else{
-				for (let row of res.rows) {
-					//convert channel id into channel object
-					//resChann = discordClient.channels.get(row.channel);
-					subListAlerts.briggs.push(row.channel);
-					console.log(JSON.stringify(row));
-				}
-			}
-		    
-		});
-		SQLclient.query("SELECT * FROM soltech;", (err, res) => {
-		    if (err){
-				//create table if one not found
-				console.log(err);
-				console.log("Creating soltech table");
-				SQLclient.query("CREATE TABLE soltech (channel TEXT);", (err, res) => {
-					if (err){
-						console.log(err);
-					}
-					else{
-						console.log(res);
-					}
-				});
-			} 
-		    else{
-				for (let row of res.rows) {
-					//convert channel id into channel object
-					//resChann = discordClient.channels.get(row.channel);
-					subListAlerts.soltech.push(row.channel);
-					console.log(JSON.stringify(row));
-				}
-			}
-		    
-		});
-		SQLclient.query("SELECT * FROM outfit;", (err, res) => {
-		    if (err){
-				//create table if one not found
-				console.log(err);
-				console.log("Creating outfit table");
-				SQLclient.query("CREATE TABLE outfit (id bigint, color TEXT, alias TEXT, channel TEXT);", (err, res) => {
-					if (err){
-						console.log(err);
-					}
-					else{
-						console.log(res);
-					}
-				});
-			} 
-		    else{
-				for (let row of res.rows) {
-					//convert channel id into channel object
-					//resChann = discordClient.channels.get(row.channel);
-					subListOutfits.push(row.id);
-					console.log(JSON.stringify(row));
-				}
-			}
-		    
-		});
-		//**********
-		//END OF SQL
-		//**********
+	subscribe: function(discordClient, SQLclient) {
+		//make sure SQL is set up
+		initialize.start(SQLclient);
+		
 		//subscription messages to send to websocket
 		subscribeRequestLogin = '{"service":"event","action":"subscribe","worlds":["1","10","13","17","19","25","40"],"eventNames":["PlayerLogin","PlayerLogout"]}'
 		subscribeRequestAlerts = '{"service":"event","action":"subscribe","worlds":["1","10","13","17","19","25","40"],"eventNames":["MetagameEvent"]}';
@@ -256,7 +56,7 @@ module.exports = {
 						console.log('JSON parse error: '+message.utf8Data);
 					}
 					if(parsed.payload != null){
-						handler.check(parsed, subListAlerts, subListOutfits, SQLclient, discordClient);
+						handler.check(parsed, SQLclient, discordClient);
 					}
 				}
 				
@@ -266,357 +66,518 @@ module.exports = {
 		discordClient.on('message', message => {
 			//listen to discord for subscribe/unsubscribe requests
 			if(message.content.substring(0,19) == '!subscribe activity'){
-				outfitID(message.content.substring(20).toLowerCase(), subListOutfits, 'subscribe', message.channel, SQLclient)
+				outfitID(message.content.substring(20).toLowerCase(), 'subscribe', message.channel, SQLclient)
 			}
 			if(message.content.substring(0,21) == '!unsubscribe activity'){
-				outfitID(message.content.substring(22).toLowerCase(), subListOutfits, 'unsubscribe', message.channel, SQLclient)
+				outfitID(message.content.substring(22).toLowerCase(), 'unsubscribe', message.channel, SQLclient)
 			}
 			if (message.content.substring(0,17) == '!subscribe alerts'){
 				console.log(message.content);
 				if(message.content.substring(18).toLowerCase().includes('connery')){
-					if(subListAlerts.connery.indexOf(message.channel.id) == -1){
-						subListAlerts.connery.push(message.channel.id);
-						SQLclient.query("INSERT INTO connery VALUES ("+message.channel.id+");", (err, res) => {
-							if (err){
-								console.log(err);
-							} 
-						});
-						message.channel.send("Confirmed subscription to Connery alerts").then(function(result){
+					queryText = "SELECT count(*) FROM connery WHERE channel=$1";
+					queryValues = [message.channel.id];
+					SQLclient.query(queryText, queryValues, (err, res) =>{
+						if(err){
+							console.log(err);
+						}
+						else{
+							if(res.rows[0].count == 0){
+								insertQueryText = "INSERT INTO connery VALUES ($1)";
+								insertQueryValues = [message.channel.id];
+								SQLclient.query(insertQueryText, insertQueryValues, (err,res) =>{
+									if(err){
+										console.log(err);
+									}
+									else{
+										message.channel.send("Subscribed to Connery alerts").then(function(result){
 							
-						}, function(err){
-							console.log("Insufficient permissions on !subscribe alerts connery");
-							console.log(message.guild.name);
-						});
-					}
-					else{
-						message.channel.send("Error: Channel already subscribed to Connery alerts").then(function(result){
+										}, function(err){
+											console.log("Insufficient permissions on !subscribe alerts connery");
+											console.log(message.guild.name);
+										});
+									}
+								})
+							}
+							else{
+								message.channel.send("Error: Already subscribed to Connery alerts").then(function(result){
 							
-						}, function(err){
-							console.log("Insufficient permissions on !subscribe alerts connery already subscribed");
-							console.log(message.guild.name);
-						});
-					}
+								}, function(err){
+									console.log("Insufficient permissions on !subscribe alerts connery error");
+									console.log(message.guild.name);
+								});
+							}
+						}
+					})
 				}
 				if(message.content.substring(18).toLowerCase().includes('miller')){
-					if(subListAlerts.miller.indexOf(message.channel.id) == -1){
-						subListAlerts.miller.push(message.channel.id);
-						SQLclient.query("INSERT INTO miller VALUES ("+message.channel.id+");", (err, res) => {
-							if (err){
-								console.log(err);
-							} 
-						});
-						message.channel.send("Confirmed subscription to Miller alerts").then(function(result){
+					queryText = "SELECT count(*) FROM miller WHERE channel=$1";
+					queryValues = [message.channel.id];
+					SQLclient.query(queryText, queryValues, (err, res) =>{
+						if(err){
+							console.log(err);
+						}
+						else{
+							if(res.rows[0].count == 0){
+								insertQueryText = "INSERT INTO miller VALUES ($1)";
+								insertQueryValues = [message.channel.id];
+								SQLclient.query(insertQueryText, insertQueryValues, (err,res) =>{
+									if(err){
+										console.log(err);
+									}
+									else{
+										message.channel.send("Subscribed to Miller alerts").then(function(result){
 							
-						}, function(err){
-							console.log("Insufficient permissions on !subscribe alerts miller");
-							console.log(message.guild.name);
-						});
-					}
-					else{
-						message.channel.send("Error: Channel already subscribed to Miller alerts").then(function(result){
+										}, function(err){
+											console.log("Insufficient permissions on !subscribe alerts miller");
+											console.log(message.guild.name);
+										});
+									}
+								})
+							}
+							else{
+								message.channel.send("Error: Already subscribed to Miller alerts").then(function(result){
 							
-						}, function(err){
-							console.log("Insufficient permissions on !subscribe alerts miller already subscribed");
-							console.log(message.guild.name);
-						});
-					}
+								}, function(err){
+									console.log("Insufficient permissions on !subscribe alerts miller error");
+									console.log(message.guild.name);
+								});
+							}
+						}
+					})
 				}
 				if(message.content.substring(18).toLowerCase().includes('cobalt')){
-					if(subListAlerts.cobalt.indexOf(message.channel.id) == -1){
-						subListAlerts.cobalt.push(message.channel.id);
-						SQLclient.query("INSERT INTO cobalt VALUES ("+message.channel.id+");", (err, res) => {
-							if (err){
-								console.log(err);
-							} 
-						});
-						message.channel.send("Confirmed subscription to Cobalt alerts").then(function(result){
+					queryText = "SELECT count(*) FROM cobalt WHERE channel=$1";
+					queryValues = [message.channel.id];
+					SQLclient.query(queryText, queryValues, (err, res) =>{
+						if(err){
+							console.log(err);
+						}
+						else{
+							if(res.rows[0].count == 0){
+								insertQueryText = "INSERT INTO cobalt VALUES ($1)";
+								insertQueryValues = [message.channel.id];
+								SQLclient.query(insertQueryText, insertQueryValues, (err,res) =>{
+									if(err){
+										console.log(err);
+									}
+									else{
+										message.channel.send("Subscribed to Cobalt alerts").then(function(result){
 							
-						}, function(err){
-							console.log("Insufficient permissions on !subscribe alerts cobalt");
-							console.log(message.guild.name);
-						});
-					}
-					else{
-						message.channel.send("Error: Channel already subscribed to Cobalt alerts").then(function(result){
+										}, function(err){
+											console.log("Insufficient permissions on !subscribe alerts cobalt");
+											console.log(message.guild.name);
+										});
+									}
+								})
+							}
+							else{
+								message.channel.send("Error: Already subscribed to Cobalt alerts").then(function(result){
 							
-						}, function(err){
-							console.log("Insufficient permissions on !subscribe alerts cobalt already subscribed");
-							console.log(message.guild.name);
-						});
-					}
+								}, function(err){
+									console.log("Insufficient permissions on !subscribe alerts cobalt error");
+									console.log(message.guild.name);
+								});
+							}
+						}
+					})
 				}
 				if(message.content.substring(18).toLowerCase().includes('emerald')){
-					if(subListAlerts.emerald.indexOf(message.channel.id) == -1){
-						subListAlerts.emerald.push(message.channel.id);
-						SQLclient.query("INSERT INTO emerald VALUES ("+message.channel.id+");", (err, res) => {
-							if (err){
-								console.log(err);
-							} 
-						});
-						message.channel.send("Confirmed subscription to Emerald alerts").then(function(result){
+					queryText = "SELECT count(*) FROM emerald WHERE channel=$1";
+					queryValues = [message.channel.id];
+					SQLclient.query(queryText, queryValues, (err, res) =>{
+						if(err){
+							console.log(err);
+						}
+						else{
+							if(res.rows[0].count == 0){
+								insertQueryText = "INSERT INTO emerald VALUES ($1)";
+								insertQueryValues = [message.channel.id];
+								SQLclient.query(insertQueryText, insertQueryValues, (err,res) =>{
+									if(err){
+										console.log(err);
+									}
+									else{
+										message.channel.send("Subscribed to Emerald alerts").then(function(result){
 							
-						}, function(err){
-							console.log("Insufficient permissions on !subscribe alerts emerald");
-							console.log(message.guild.name);
-						});
-					}
-					else{
-						message.channel.send("Error: Channel already subscribed to Emerald alerts").then(function(result){
+										}, function(err){
+											console.log("Insufficient permissions on !subscribe alerts emerald");
+											console.log(message.guild.name);
+										});
+									}
+								})
+							}
+							else{
+								message.channel.send("Error: Already subscribed to Emerald alerts").then(function(result){
 							
-						}, function(err){
-							console.log("Insufficient permissions on !subscribe alerts emerald already subscribed");
-							console.log(message.guild.name);
-						});
-					}
+								}, function(err){
+									console.log("Insufficient permissions on !subscribe alerts emerald error");
+									console.log(message.guild.name);
+								});
+							}
+						}
+					})
 				}
 				if(message.content.substring(18).toLowerCase().includes('jaegar')){
-					if(subListAlerts.jaegar.indexOf(message.channel.id) == -1){
-						subListAlerts.jaegar.push(message.channel.id);
-						SQLclient.query("INSERT INTO jaegar VALUES ("+message.channel.id+");", (err, res) => {
-							if (err){
-								console.log(err);
-							} 
-						});
-						message.channel.send("Confirmed subscription to Jaegar alerts").then(function(result){
+					queryText = "SELECT count(*) FROM jaegar WHERE channel=$1";
+					queryValues = [message.channel.id];
+					SQLclient.query(queryText, queryValues, (err, res) =>{
+						if(err){
+							console.log(err);
+						}
+						else{
+							if(res.rows[0].count == 0){
+								insertQueryText = "INSERT INTO jaegar VALUES ($1)";
+								insertQueryValues = [message.channel.id];
+								SQLclient.query(insertQueryText, insertQueryValues, (err,res) =>{
+									if(err){
+										console.log(err);
+									}
+									else{
+										message.channel.send("Subscribed to Jaegar alerts").then(function(result){
 							
-						}, function(err){
-							console.log("Insufficient permissions on !subscribe alerts jaegar");
-							console.log(message.guild.name);
-						});
-					}
-					else{
-						message.channel.send("Error: Channel already subscribed to Jaegar alerts").then(function(result){
+										}, function(err){
+											console.log("Insufficient permissions on !subscribe alerts jaegar");
+											console.log(message.guild.name);
+										});
+									}
+								})
+							}
+							else{
+								message.channel.send("Error: Already subscribed to Jaegar alerts").then(function(result){
 							
-						}, function(err){
-							console.log("Insufficient permissions on !subscribe alerts jaegar already subscribed");
-							console.log(message.guild.name);
-						});
-					}
+								}, function(err){
+									console.log("Insufficient permissions on !subscribe alerts jaegar error");
+									console.log(message.guild.name);
+								});
+							}
+						}
+					})
 				}
 				if(message.content.substring(18).toLowerCase().includes('briggs')){
-					if(subListAlerts.briggs.indexOf(message.channel.id) == -1){
-						subListAlerts.briggs.push(message.channel.id);
-						SQLclient.query("INSERT INTO briggs VALUES ("+message.channel.id+");", (err, res) => {
-							if (err){
-								console.log(err);
-							} 
-						});
-						message.channel.send("Confirmed subscription to Briggs alerts").then(function(result){
+					queryText = "SELECT count(*) FROM briggs WHERE channel=$1";
+					queryValues = [message.channel.id];
+					SQLclient.query(queryText, queryValues, (err, res) =>{
+						if(err){
+							console.log(err);
+						}
+						else{
+							if(res.rows[0].count == 0){
+								insertQueryText = "INSERT INTO briggs VALUES ($1)";
+								insertQueryValues = [message.channel.id];
+								SQLclient.query(insertQueryText, insertQueryValues, (err,res) =>{
+									if(err){
+										console.log(err);
+									}
+									else{
+										message.channel.send("Subscribed to Briggs alerts").then(function(result){
 							
-						}, function(err){
-							console.log("Insufficient permissions on !subscribe alerts briggs");
-							console.log(message.guild.name);
-						});
-					}
-					else{
-						message.channel.send("Error: Channel already subscribed to Briggs alerts").then(function(result){
+										}, function(err){
+											console.log("Insufficient permissions on !subscribe alerts briggs");
+											console.log(message.guild.name);
+										});
+									}
+								})
+							}
+							else{
+								message.channel.send("Error: Already subscribed to Briggs alerts").then(function(result){
 							
-						}, function(err){
-							console.log("Insufficient permissions on !subscribe alerts briggs already subscribed");
-							console.log(message.guild.name);
-						});
-					}
+								}, function(err){
+									console.log("Insufficient permissions on !subscribe alerts briggs error");
+									console.log(message.guild.name);
+								});
+							}
+						}
+					})
 				}
 				if(message.content.substring(18).toLowerCase().includes('soltech')){
-					if(subListAlerts.soltech.indexOf(message.channel.id) == -1){
-						subListAlerts.soltech.push(message.channel.id);
-						SQLclient.query("INSERT INTO soltech VALUES ("+message.channel.id+");", (err, res) => {
-							if (err){
-								console.log(err);
-							} 
-						});
-						message.channel.send("Confirmed subscription to SolTech alerts").then(function(result){
+					queryText = "SELECT count(*) FROM soltech WHERE channel=$1";
+					queryValues = [message.channel.id];
+					SQLclient.query(queryText, queryValues, (err, res) =>{
+						if(err){
+							console.log(err);
+						}
+						else{
+							if(res.rows[0].count == 0){
+								insertQueryText = "INSERT INTO soltech VALUES ($1)";
+								insertQueryValues = [message.channel.id];
+								SQLclient.query(insertQueryText, insertQueryValues, (err,res) =>{
+									if(err){
+										console.log(err);
+									}
+									else{
+										message.channel.send("Subscribed to SolTech alerts").then(function(result){
 							
-						}, function(err){
-							console.log("Insufficient permissions on !subscribe alerts soltech");
-							console.log(message.guild.name);
-						});
-					}
-					else{
-						message.channel.send("Error: Channel already subscribed to SolTech alerts").then(function(result){
+										}, function(err){
+											console.log("Insufficient permissions on !subscribe alerts soltech");
+											console.log(message.guild.name);
+										});
+									}
+								})
+							}
+							else{
+								message.channel.send("Error: Already subscribed to Soltech alerts").then(function(result){
 							
-						}, function(err){
-							console.log("Insufficient permissions on !subscribe alerts soltech already subscribed");
-							console.log(message.guild.name);
-						});
-					}
+								}, function(err){
+									console.log("Insufficient permissions on !subscribe alerts soltech error");
+									console.log(message.guild.name);
+								});
+							}
+						}
+					})
 				}
 			}
 			if (message.content.substring(0,19) == '!unsubscribe alerts'){
 				if(message.content.substring(20).toLowerCase().includes('connery')){
-					index = subListAlerts.connery.indexOf(message.channel.id);
-					if(index > -1){
-						subListAlerts.connery.splice(index, 1);
-						SQLclient.query("DELETE FROM connery WHERE channel='"+message.channel.id+"';", (err, res) => {
-							if (err){
-								console.log(err);
-							} 
-						});
-						message.channel.send("Unsubscribed from Connery alerts").then(function(result){
+					queryText = "SELECT count(*) FROM connery WHERE channel=$1";
+					queryValues = [message.channel.id];
+					SQLclient.query(queryText, queryValues, (err, res) =>{
+						if(err){
+							console.log(err);
+						}
+						else{
+							if(res.rows[0].count > 0){
+								removeQueryText = "DELETE FROM connery WHERE channel=$1";
+								removeQueryValues = [message.channel.id];
+								SQLclient.query(removeQueryText, removeQueryValues, (err,res) =>{
+									if(err){
+										console.log(err);
+									}
+									else{
+										message.channel.send("Unsubscribed from Connery alerts").then(function(result){
 							
-						}, function(err){
-							console.log("Insufficient permissions on !unsubscribe alerts connery");
-							console.log(message.guild.name);
-						});
-					}
-					else{
-						message.channel.send("Error: Not subscribed to Connery alerts").then(function(result){
+										}, function(err){
+											console.log("Insufficient permissions on !unsubscribe alerts connery");
+											console.log(message.guild.name);
+										});
+									}
+								})
+							}
+							else{
+								message.channel.send("Error: Not subscribed to Connery alerts").then(function(result){
 							
-						}, function(err){
-							console.log("Insufficient permissions on !unsubscribe alerts connery error");
-							console.log(message.guild.name);
-						});
-					}
+								}, function(err){
+									console.log("Insufficient permissions on !unsubscribe alerts connery error");
+									console.log(message.guild.name);
+								});
+							}
+						}
+					})
 				}
 				if(message.content.substring(20).toLowerCase().includes('cobalt')){
-					index = subListAlerts.cobalt.indexOf(message.channel.id);
-					if(index > -1){
-						subListAlerts.cobalt.splice(index, 1);
-						SQLclient.query("DELETE FROM cobalt WHERE channel='"+message.channel.id+"';", (err, res) => {
-							if (err){
-								console.log(err);
-							} 
-						});
-						message.channel.send("Unsubscribed from Cobalt alerts").then(function(result){
+					queryText = "SELECT count(*) FROM cobalt WHERE channel=$1";
+					queryValues = [message.channel.id];
+					SQLclient.query(queryText, queryValues, (err, res) =>{
+						if(err){
+							console.log(err);
+						}
+						else{
+							if(res.rows[0].count > 0){
+								removeQueryText = "DELETE FROM cobalt WHERE channel=$1";
+								removeQueryValues = [message.channel.id];
+								SQLclient.query(removeQueryText, removeQueryValues, (err,res) =>{
+									if(err){
+										console.log(err);
+									}
+									else{
+										message.channel.send("Unsubscribed from Cobalt alerts").then(function(result){
 							
-						}, function(err){
-							console.log("Insufficient permissions on !unsubscribe alerts cobalt");
-							console.log(message.guild.name);
-						});
-					}
-					else{
-						message.channel.send("Error: Not subscribed to Cobalt alerts").then(function(result){
+										}, function(err){
+											console.log("Insufficient permissions on !unsubscribe alerts cobalt");
+											console.log(message.guild.name);
+										});
+									}
+								})
+							}
+							else{
+								message.channel.send("Error: Not subscribed to Cobalt alerts").then(function(result){
 							
-						}, function(err){
-							console.log("Insufficient permissions on !unsubscribe alerts cobalt error");
-							console.log(message.guild.name);
-						});
-					}
+								}, function(err){
+									console.log("Insufficient permissions on !unsubscribe alerts cobalt error");
+									console.log(message.guild.name);
+								});
+							}
+						}
+					})
 				}
 				if(message.content.substring(20).toLowerCase().includes('miller')){
-					index = subListAlerts.miller.indexOf(message.channel.id);
-					if(index > -1){
-						subListAlerts.miller.splice(index, 1);
-						SQLclient.query("DELETE FROM miller WHERE channel='"+message.channel.id+"';", (err, res) => {
-							if (err){
-								console.log(err);
-							} 
-						});
-						message.channel.send("Unsubscribed from Miller alerts").then(function(result){
+					queryText = "SELECT count(*) FROM miller WHERE channel=$1";
+					queryValues = [message.channel.id];
+					SQLclient.query(queryText, queryValues, (err, res) =>{
+						if(err){
+							console.log(err);
+						}
+						else{
+							if(res.rows[0].count > 0){
+								removeQueryText = "DELETE FROM milller WHERE channel=$1";
+								removeQueryValues = [message.channel.id];
+								SQLclient.query(removeQueryText, removeQueryValues, (err,res) =>{
+									if(err){
+										console.log(err);
+									}
+									else{
+										message.channel.send("Unsubscribed from Miller alerts").then(function(result){
 							
-						}, function(err){
-							console.log("Insufficient permissions on !unsubscribe alerts miller");
-							console.log(message.guild.name);
-						});
-					}
-					else{
-						message.channel.send("Error: Not subscribed to Miller alerts").then(function(result){
+										}, function(err){
+											console.log("Insufficient permissions on !unsubscribe alerts miller");
+											console.log(message.guild.name);
+										});
+									}
+								})
+							}
+							else{
+								message.channel.send("Error: Not subscribed to Miller alerts").then(function(result){
 							
-						}, function(err){
-							console.log("Insufficient permissions on !unsubscribe alerts miller error");
-							console.log(message.guild.name);
-						});
-					}
+								}, function(err){
+									console.log("Insufficient permissions on !unsubscribe alerts miller error");
+									console.log(message.guild.name);
+								});
+							}
+						}
+					})
 				}
 				if(message.content.substring(20).toLowerCase().includes('emerald')){
-					index = subListAlerts.emerald.indexOf(message.channel.id);
-					if(index > -1){
-						subListAlerts.emerald.splice(index, 1);
-						SQLclient.query("DELETE FROM emerald WHERE channel='"+message.channel.id+"';", (err, res) => {
-							if (err){
-								console.log(err);
-							} 
-						});
-						message.channel.send("Unsubscribed from Emerald alerts").then(function(result){
+					queryText = "SELECT count(*) FROM emerald WHERE channel=$1";
+					queryValues = [message.channel.id];
+					SQLclient.query(queryText, queryValues, (err, res) =>{
+						if(err){
+							console.log(err);
+						}
+						else{
+							if(res.rows[0].count > 0){
+								removeQueryText = "DELETE FROM emerald WHERE channel=$1";
+								removeQueryValues = [message.channel.id];
+								SQLclient.query(removeQueryText, removeQueryValues, (err,res) =>{
+									if(err){
+										console.log(err);
+									}
+									else{
+										message.channel.send("Unsubscribed from Emerald alerts").then(function(result){
 							
-						}, function(err){
-							console.log("Insufficient permissions on !unsubscribe alerts emerald");
-							console.log(message.guild.name);
-						});
-					}
-					else{
-						message.channel.send("Error: Not subscribed to Emerald alerts").then(function(result){
+										}, function(err){
+											console.log("Insufficient permissions on !unsubscribe alerts emerald");
+											console.log(message.guild.name);
+										});
+									}
+								})
+							}
+							else{
+								message.channel.send("Error: Not subscribed to Emerald alerts").then(function(result){
 							
-						}, function(err){
-							console.log("Insufficient permissions on !unsubscribe alerts emerald error");
-							console.log(message.guild.name);
-						});
-					}
+								}, function(err){
+									console.log("Insufficient permissions on !unsubscribe alerts emerald error");
+									console.log(message.guild.name);
+								});
+							}
+						}
+					})
 				}
 				if(message.content.substring(20).toLowerCase().includes('jaegar')){
-					index = subListAlerts.jaegar.indexOf(message.channel.id);
-					if(index > -1){
-						subListAlerts.jaegar.splice(index, 1);
-						SQLclient.query("DELETE FROM jaegar WHERE channel='"+message.channel.id+"';", (err, res) => {
-							if (err){
-								console.log(err);
-							} 
-						});
-						message.channel.send("Unsubscribed from Jaegar alerts").then(function(result){
+					queryText = "SELECT count(*) FROM jaegar WHERE channel=$1";
+					queryValues = [message.channel.id];
+					SQLclient.query(queryText, queryValues, (err, res) =>{
+						if(err){
+							console.log(err);
+						}
+						else{
+							if(res.rows[0].count > 0){
+								removeQueryText = "DELETE FROM jaegar WHERE channel=$1";
+								removeQueryValues = [message.channel.id];
+								SQLclient.query(removeQueryText, removeQueryValues, (err,res) =>{
+									if(err){
+										console.log(err);
+									}
+									else{
+										message.channel.send("Unsubscribed from Jaegar alerts").then(function(result){
 							
-						}, function(err){
-							console.log("Insufficient permissions on !unsubscribe alerts jaegar");
-							console.log(message.guild.name);
-						});
-					}
-					else{
-						message.channel.send("Error: Not subscribed to Jaegar alerts").then(function(result){
+										}, function(err){
+											console.log("Insufficient permissions on !unsubscribe alerts jaegar");
+											console.log(message.guild.name);
+										});
+									}
+								})
+							}
+							else{
+								message.channel.send("Error: Not subscribed to Jaegar alerts").then(function(result){
 							
-						}, function(err){
-							console.log("Insufficient permissions on !unsubscribe alerts jaegar error");
-							console.log(message.guild.name);
-						});
-					}
+								}, function(err){
+									console.log("Insufficient permissions on !unsubscribe alerts jaegar error");
+									console.log(message.guild.name);
+								});
+							}
+						}
+					})
 				}
 				if(message.content.substring(20).toLowerCase().includes('briggs')){
-					index = subListAlerts.briggs.indexOf(message.channel.id);
-					if(index > -1){
-						subListAlerts.briggs.splice(index, 1);
-						SQLclient.query("DELETE FROM briggs WHERE channel='"+message.channel.id+"';", (err, res) => {
-							if (err){
-								console.log(err);
-							} 
-						});
-						message.channel.send("Unsubscribed from Briggs alerts").then(function(result){
+					queryText = "SELECT count(*) FROM briggs WHERE channel=$1";
+					queryValues = [message.channel.id];
+					SQLclient.query(queryText, queryValues, (err, res) =>{
+						if(err){
+							console.log(err);
+						}
+						else{
+							if(res.rows[0].count > 0){
+								removeQueryText = "DELETE FROM briggs WHERE channel=$1";
+								removeQueryValues = [message.channel.id];
+								SQLclient.query(removeQueryText, removeQueryValues, (err,res) =>{
+									if(err){
+										console.log(err);
+									}
+									else{
+										message.channel.send("Unsubscribed from Briggs alerts").then(function(result){
 							
-						}, function(err){
-							console.log("Insufficient permissions on !unsubscribe alerts briggs");
-							console.log(message.guild.name);
-						});
-					}
-					else{
-						message.channel.send("Error: Not subscribed to Briggs alerts").then(function(result){
+										}, function(err){
+											console.log("Insufficient permissions on !unsubscribe alerts briggs");
+											console.log(message.guild.name);
+										});
+									}
+								})
+							}
+							else{
+								message.channel.send("Error: Not subscribed to Briggs alerts").then(function(result){
 							
-						}, function(err){
-							console.log("Insufficient permissions on !unsubscribe alerts briggs error");
-							console.log(message.guild.name);
-						});
-					}
+								}, function(err){
+									console.log("Insufficient permissions on !unsubscribe alerts briggs error");
+									console.log(message.guild.name);
+								});
+							}
+						}
+					})
 				}
 				if(message.content.substring(20).toLowerCase().includes('soltech')){
-					index = subListAlerts.soltech.indexOf(message.channel.id);
-					if(index > -1){
-						subListAlerts.soltech.splice(index, 1);
-						SQLclient.query("DELETE FROM soltech WHERE channel='"+message.channel.id+"';", (err, res) => {
-							if (err){
-								console.log(err);
-							} 
-						});
-						message.channel.send("Unsubscribed from SolTech alerts").then(function(result){
+					queryText = "SELECT count(*) FROM soltech WHERE channel=$1";
+					queryValues = [message.channel.id];
+					SQLclient.query(queryText, queryValues, (err, res) =>{
+						if(err){
+							console.log(err);
+						}
+						else{
+							if(res.rows[0].count > 0){
+								removeQueryText = "DELETE FROM soltech WHERE channel=$1";
+								removeQueryValues = [message.channel.id];
+								SQLclient.query(removeQueryText, removeQueryValues, (err,res) =>{
+									if(err){
+										console.log(err);
+									}
+									else{
+										message.channel.send("Unsubscribed from SolTech alerts").then(function(result){
 							
-						}, function(err){
-							console.log("Insufficient permissions on !unsubscribe alerts soltech");
-							console.log(message.guild.name);
-						});
-					}
-					else{
-						message.channel.send("Error: Not subscribed to SolTech alerts").then(function(result){
+										}, function(err){
+											console.log("Insufficient permissions on !unsubscribe alerts soltech");
+											console.log(message.guild.name);
+										});
+									}
+								})
+							}
+							else{
+								message.channel.send("Error: Not subscribed to SolTech alerts").then(function(result){
 							
-						}, function(err){
-							console.log("Insufficient permissions on !unsubscribe alerts soltech error");
-							console.log(message.guild.name);
-						});
-					}
+								}, function(err){
+									console.log("Insufficient permissions on !unsubscribe alerts soltech error");
+									console.log(message.guild.name);
+								});
+							}
+						}
+					})
 				}
 			}
 		})
@@ -624,7 +585,7 @@ module.exports = {
 }
 
 //handle outfit activity requests, grabs outfit id and adds/removes from arrays
-function outfitID(oTagLong, subListOutfits, action, channel, SQLclient){
+function outfitID(oTagLong, action, channel, SQLclient){
 	oTagList = oTagLong.split(" ");
 	for (x in oTagList){
 		if (oTagList[x] != ""){
@@ -634,7 +595,7 @@ function outfitID(oTagLong, subListOutfits, action, channel, SQLclient){
 			continue;
 		}
 		uri = 'http://census.daybreakgames.com/s:'+process.env.serviceID+'/get/ps2:v2/outfit?alias_lower='+oTag+'&c:join=character^on:leader_character_id^to:character_id';
-		var options = {uri:uri, subListOutfits:subListOutfits, action:action, channel:channel, oTag:oTag}
+		var options = {uri:uri, action:action, channel:channel, oTag:oTag}
 		request(options, function(error, respose, body){
 			data = JSON.parse(body)
 			if(data.outfit_list[0] == null){
@@ -650,145 +611,104 @@ function outfitID(oTagLong, subListOutfits, action, channel, SQLclient){
 				//tag found, returned results
 				ID = data.outfit_list[0].outfit_id;
 				resOut = data.outfit_list[0];
-
-				//keys = Object.keys(subListOutfits);
-				if(action == 'subscribe' && subListOutfits.indexOf(ID) == -1){
-					//No active subscriptions for outfit
-					if(resOut.leader_character_id_join_character.faction_id == "1"){
-						color = 'PURPLE';
-					}
-					else if(resOut.leader_character_id_join_character.faction_id == "2"){
-						color = 'BLUE';
-					}
-					else if(resOut.leader_character_id_join_character.faction_id == "3"){
-						color = 'RED';
-					}
-					else{
-						color = 'GREY';
-					}
-					subListOutfits.push(ID);
-					SQLclient.query("INSERT INTO outfit (id, alias, color, channel) VALUES ("+ID+", '"+resOut.alias+"', '"+color+"', '"+channel.id+"');", (err, res) => {
-						if (err){
-							console.log('pos 1');
+				
+				if(action == 'subscribe'){
+					queryText = "SELECT COUNT(channel) FROM outfit WHERE id=$1 AND channel=$2";
+					queryValues = [ID, channel.id];
+					SQLclient.query(queryText, queryValues, (err, res) => {
+						if(err){
 							console.log(err);
-						} 
-					});
-					//subListOutfits[ID] = [data.outfit_list[0].alias, color, channel];
-					channel.send('Subscribed to '+resOut.alias).then(function(result){
-						
-					}, function(err){
-						console.log("Insufficient permissions on !subscribe activity");
-						console.log(channel.guild.name);
-					});
-				}
-				else if(action == 'subscribe' && subListOutfits.indexOf(ID) > -1){
-					//existing subscription
-					SQLclient.query("SELECT COUNT(channel) AS quant FROM outfit WHERE id="+ID+" AND channel='"+channel.id+"';", (err, res) => {
-						if (err){
-							console.log('pos 2');
-							console.log(err);
-						} 
-						console.log(JSON.stringify(res.rows));
-						console.log(ID+", "+channel.id);
-						subCount = res.rows[0].quant;
-						if(subCount == 1){
-							//source channel is subscribed
-							channel.send('Error: already subscribed to '+resOut.alias).then(function(result){
+							channel.send("An error occurred, unable to process request").then(function(result){
 								
 							}, function(err){
-								console.log("Insufficient permissions on !subscribe activity already subscribed");
+								console.log("Insufficient permissions on SQL error 1");
 								console.log(channel.guild.name);
 							});
 						}
 						else{
-							//source channel is not subscribed
-							//subListOutfits[ID].push(channel);
-							if(resOut.leader_character_id_join_character.faction_id == "1"){
-								color = 'PURPLE';
-							}
-							else if(resOut.leader_character_id_join_character.faction_id == "2"){
-								color = 'BLUE';
+							if (res.rows[0].count == 0){
+								//channel is not subscribed
+								if(resOut.leader_character_id_join_character.faction_id == "1"){
+									color = 'PURPLE';
+								}
+								else if(resOut.leader_character_id_join_character.faction_id == "2"){
+									color = 'BLUE';
+								}
+								else if(resOut.leader_character_id_join_character.faction_id == "3"){
+									color = 'RED';
+								}
+								else{
+									color = 'GREY';
+								}
+								subscribeQueryText = "INSERT INTO outfit (id, alias, color, channel) VALUES ($1, $2, $3, $4)";
+								subscribeQueryValues = [ID, resOut.alias, color, channel.id];
+								SQLclient.query(subscribeQueryText, subscribeQueryValues, (err, res) => {
+									if(err){
+										console.log(err);
+									}
+									else{
+										channel.send("Subscribed to "+resOut.alias).then(function(result){
+								
+										}, function(err){
+											console.log("Insufficient permissions on subscribe success");
+											console.log(channel.guild.name);
+										});
+									}
+								});
 							}
 							else{
-								color = 'RED';
-							}
-							SQLclient.query("INSERT INTO outfit (id, alias, color, channel) VALUES ("+ID+", '"+resOut.alias+"', '"+color+"', '"+channel.id+"');", (err, res) => {
-								if (err){
-									console.log('pos 3');
-									console.log(err);
-								} 
-							});
-							channel.send('Subscribed to '+resOut.alias).then(function(result){
-								
-							}, function(err){
-								console.log("Insufficient permissions on !subscribe activity p2");
-								console.log(channel.guild.name);
-							});
+								//channel is already subscribed
+								channel.send("Error: already subscribed to "+resOut.alias).then(function(result){
+									
+								}, function(err){
+									console.log("Insufficient permissions on !subscribe activity already subscribed");
+									console.log(channel.guild.name);
+								});
+							};
 						}
 					});
-					
 				}
-				else if(action == 'unsubscribe' && subListOutfits.indexOf(ID) == -1){
-					//no active subscriptions to outfit
-					channel.send('Error: not subscribed to '+resOut.alias).then(function(result){
-						
-					}, function(err){
-						console.log("Insufficient permissions on !unsubscribe activity not subscribed");
-						console.log(channel.guild.name);
-					});
-				}
-				else if(action == 'unsubscribe' && subListOutfits.indexOf(ID) > -1){
-					//active subscriptions to outfit
-					SQLclient.query("SELECT channel FROM outfit WHERE (id = "+ID+");", (err, res) => {
-						if (err){
+				else if(action == 'unsubscribe'){
+					queryText = "SELECT COUNT(channel) FROM outfit WHERE id=$1 AND channel=$2";
+					queryValues = [ID, channel.id];
+					SQLclient.query(queryText, queryValues, (err, res) => {
+						if(err){
 							console.log(err);
-						}
-						console.log(res);
-						//count = res.rows[0].quant;
-						subCount = 0;
-						subArray = [];
-						for(let row of res.rows) {
-							subCount += 1;
-							subArray.push(row.channel);
-						}
-						if(subCount == 1 && subArray.indexOf(channel.id) > -1){ //modify subListOutfits
-							//source channel is only active subscription
-							channel.send('Unsubscribed from '+resOut.alias).then(function(result){
+							channel.send("An error occurred, unable to process request").then(function(result){
 								
 							}, function(err){
-								console.log("Insufficient permissions on !unsubscribe activity only subscription");
-								console.log(channel.guild.name);
-							});
-							SQLclient.query("DELETE FROM outfit WHERE id="+ID+" AND channel='"+channel.id+"';", (err, res) => {
-								if (err){
-									console.log(err);
-								} 
-							});
-							index = subListOutfits.indexOf(ID);
-							subListOutfits.splice(index, 1);
-						}
-						else if(subCount > 1 && subArray.indexOf(channel.id) > -1){
-							//source channel is not only active subscription
-							SQLclient.query("DELETE FROM outfit WHERE id="+ID+" AND channel='"+channel.id+"';", (err, res) => {
-								if (err){
-									console.log(err);
-								} 
-							});
-							channel.send('Unsubscribed from '+resOut.alias).then(function(result){
-								
-							}, function(err){
-								console.log("Insufficient permissions on !unsubscribe activity not only subscription");
+								console.log("Insufficient permissions on SQL error 2");
 								console.log(channel.guild.name);
 							});
 						}
 						else{
-							//not subscribed
-							channel.send('Error: not subscribed to '+resOut.alias).then(function(result){
+							if (res.rows[0].count > 0){
+								//channel is subscribed
+								subscribeQueryText = "DELETE FROM outfit WHERE id=$1 and channel=$2";
+								subscribeQueryValues = [ID, channel.id];
+								SQLclient.query(subscribeQueryText, subscribeQueryValues, (err, res) => {
+									if(err){
+										console.log(err);
+									}
+									else{
+										channel.send("Unsubscribed from "+resOut.alias).then(function(result){
 								
-							}, function(err){
-								console.log("Insufficient permissions on !unsubscribe activity not subscribed with active subscription");
-								console.log(channel.guild.name);
-							});
+										}, function(err){
+											console.log("Insufficient permissions on subscribe success");
+											console.log(channel.guild.name);
+										});
+									}
+								});
+							}
+							else{
+								//channel is not subscribed
+								channel.send("Error: not subscribed to "+resOut.alias).then(function(result){
+									
+								}, function(err){
+									console.log("Insufficient permissions on !unsubscribe activity not subscribed");
+									console.log(channel.guild.name);
+								});
+							};
 						}
 					});
 				}

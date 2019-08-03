@@ -131,6 +131,8 @@ var q = async.queue(function(task, callback) {
 				//Top Weapon
 				topID = '';
 				topNum = -1;
+				//Auraxium medals
+				medalCount = 0;
 				if(resChar.stats != undefined){
 					weaponStat = resChar.stats.weapon_stat_by_faction;
 					//iterate through weapons, find max value
@@ -150,9 +152,25 @@ var q = async.queue(function(task, callback) {
 						weapURI = 'https://census.daybreakgames.com/s:'+process.env.serviceID+'/get/ps2:v2/item/'+topID;
 						var options = {uri: weapURI, sendEmbed: sendEmbed, topNum: topNum, channel: channel}
 						request(options, function(error, response, body){
-								weapData = JSON.parse(body);
-								topName = weapData.item_list[0].name.en;
+							weapData = JSON.parse(body);
+							topName = weapData.item_list[0].name.en;
+							if(topNum > 0){
 								sendEmbed.addField('Top Weapon (kills)', topName+" ("+topNum+")", true);
+							}
+						})
+						if(topNum > 10){
+							//Ensure character has at least a bronze medal to avoid crash
+							auraxURI = "http://census.daybreakgames.com/s:"+process.env.serviceID+"/get/ps2:v2/character?name.first_lower="+cName+"&c:join=characters_achievement^list:1^terms:earned_count=1^outer:0^hide:character_id%27earned_count%27start%27finish%27last_save%27last_save_date%27start_date(achievement^terms:repeatable=0^outer:0^show:name.en%27description.en)"
+							var options = {uri: auraxURI, sendEmbed: sendEmbed, topNum: topNum, channel: channel}
+							request(options, function(error, response, body){
+								outputData = JSON.parse(body);
+								achievementList = outputData.character_list[0].character_id_join_characters_achievement;
+								for(x in achievementList){
+									if (achievementList[x].achievement_id_join_achievement.description.en == "1000 Enemies Killed"){
+										medalCount++;
+									}
+								}
+								sendEmbed.addField('Auraxium Medals', medalCount, true);
 								channel.send(sendEmbed).then(function(result){
 									
 								}, function(err) {
@@ -161,9 +179,21 @@ var q = async.queue(function(task, callback) {
 								});
 								callback();
 							})
+						}
+						else{
+							sendEmbed.addField('Auraxium Medals', "0", true);
+							channel.send(sendEmbed).then(function(result){
+								
+							}, function(err) {
+								console.log("Insufficient permissions on !character, with top weapon");
+								console.log(channel.guild.name);
+							});
+							callback();
+						}
 					}
 					catch(e){
 						//send rich embed without top weapon if it fails
+						console.log(e);
 						channel.send(sendEmbed).then(function(result){
 							
 						}, function(err) {
