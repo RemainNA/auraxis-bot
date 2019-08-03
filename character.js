@@ -164,7 +164,7 @@ var q = async.queue(function(task, callback) {
 							outputData = JSON.parse(body);
 							achievementList = outputData.character_list[0].character_id_join_characters_achievement;
 							for(x in achievementList){
-								if (achievementList[x].achievement_id_join_achievement.description.en = "1000 Enemies Killed"){
+								if (achievementList[x].achievement_id_join_achievement.description.en == "1000 Enemies Killed"){
 									medalCount++;
 								}
 							}
