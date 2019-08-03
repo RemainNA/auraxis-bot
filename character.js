@@ -161,8 +161,10 @@ var q = async.queue(function(task, callback) {
 						auraxURI = "http://census.daybreakgames.com/s:"+process.env.serviceID+"/get/ps2:v2/character?name.first_lower="+cName+"&c:join=characters_achievement^list:1^terms:earned_count=1^outer:0^hide:character_id%27earned_count%27start%27finish%27last_save%27last_save_date%27start_date(achievement^terms:repeatable=0^outer:0^show:name.en%27description.en)"
 						var options = {uri: auraxURI, sendEmbed: sendEmbed, topNum: topNum, channel: channel}
 						request(options, function(error, response, body){
-							for(x in character_id_join_characters_achievement){
-								if (character_id_join_characters_achievement[x].achievement_id_join_achievement.description.en = "1000 Enemies Killed"){
+							outputData = JSON.parse(body);
+							achievementList = outputData.character_list[0].character_id_join_characters_achievement;
+							for(x in achievementList){
+								if (achievementList[x].achievement_id_join_achievement.description.en = "1000 Enemies Killed"){
 									medalCount++;
 								}
 							}
