@@ -178,6 +178,7 @@ var q = async.queue(function(task, callback) {
 					}
 					catch(e){
 						//send rich embed without top weapon if it fails
+						console.log(e);
 						channel.send(sendEmbed).then(function(result){
 							
 						}, function(err) {
