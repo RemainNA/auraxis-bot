@@ -139,30 +139,37 @@ var qu = async.queue(function(task, callback) {
 								case "1":
 									sendEmbed.addField('Server', 'Connery', true);
 									queryText = "SELECT * from connery";
+									removeQueryText = "REMOVE * from connery WHERE channel=$1";
 									break;
 								case "10":
 									sendEmbed.addField('Server', 'Miller', true);
 									queryText = "SELECT * from miller";
+									removeQueryText = "REMOVE * from miller WHERE channel=$1";
 									break;
 								case "13":
 									sendEmbed.addField('Server', 'Cobalt', true);
 									queryText = "SELECT * from cobalt";
+									removeQueryText = "REMOVE * from cobalt WHERE channel=$1";
 									break;
 								case "17":
 									sendEmbed.addField('Server', 'Emerald', true);
 									queryText = "SELECT * from emerald";
+									removeQueryText = "REMOVE * from emerald WHERE channel=$1";
 									break;
 								case "19":
 									sendEmbed.addField('Server', 'Jaegar', true);
 									queryText = "SELECT * from jaegar";
+									removeQueryText = "REMOVE * from jaegar WHERE channel=$1";
 									break;
 								case "25":
 									sendEmbed.addField('Server', 'Briggs', true);
 									queryText = "SELECT * from briggs";
+									removeQueryText = "REMOVE * from briggs WHERE channel=$1";
 									break;
 								case "40":
 									sendEmbed.addField('Server', 'SolTech', true);
-									queryText = "SELECT * from soltech";								
+									queryText = "SELECT * from soltech";
+									removeQueryText = "REMOVE * from soltech WHERE channel=$1";
 							}
 							//pull list of subscriptions from SQL
 							SQLclient.query(queryText, (err, res) => {
@@ -182,8 +189,7 @@ var qu = async.queue(function(task, callback) {
 											});
 										}
 										else{
-											removeQueryText = "DELETE from $1 WHERE channel=$2";
-											removeQueryValues = [serverName, row.channel];
+											removeQueryValues = [row.channel];
 											SQLclient.query(removeQueryText, removeQueryValues, (err, res) => {
 												if(err){
 													console.log(err);
