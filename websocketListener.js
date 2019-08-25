@@ -253,42 +253,6 @@ module.exports = {
 						}
 					})
 				}
-				if(message.content.substring(18).toLowerCase().includes('briggs')){
-					queryText = "SELECT count(*) FROM briggs WHERE channel=$1";
-					queryValues = [message.channel.id];
-					SQLclient.query(queryText, queryValues, (err, res) =>{
-						if(err){
-							console.log(err);
-						}
-						else{
-							if(res.rows[0].count == 0){
-								insertQueryText = "INSERT INTO briggs VALUES ($1)";
-								insertQueryValues = [message.channel.id];
-								SQLclient.query(insertQueryText, insertQueryValues, (err,res) =>{
-									if(err){
-										console.log(err);
-									}
-									else{
-										message.channel.send("Subscribed to Briggs alerts").then(function(result){
-							
-										}, function(err){
-											console.log("Insufficient permissions on !subscribe alerts briggs");
-											console.log(message.guild.name);
-										});
-									}
-								})
-							}
-							else{
-								message.channel.send("Error: Already subscribed to Briggs alerts").then(function(result){
-							
-								}, function(err){
-									console.log("Insufficient permissions on !subscribe alerts briggs error");
-									console.log(message.guild.name);
-								});
-							}
-						}
-					})
-				}
 				if(message.content.substring(18).toLowerCase().includes('soltech')){
 					queryText = "SELECT count(*) FROM soltech WHERE channel=$1";
 					queryValues = [message.channel.id];
@@ -501,42 +465,6 @@ module.exports = {
 							
 								}, function(err){
 									console.log("Insufficient permissions on !unsubscribe alerts jaegar error");
-									console.log(message.guild.name);
-								});
-							}
-						}
-					})
-				}
-				if(message.content.substring(20).toLowerCase().includes('briggs')){
-					queryText = "SELECT count(*) FROM briggs WHERE channel=$1";
-					queryValues = [message.channel.id];
-					SQLclient.query(queryText, queryValues, (err, res) =>{
-						if(err){
-							console.log(err);
-						}
-						else{
-							if(res.rows[0].count > 0){
-								removeQueryText = "DELETE FROM briggs WHERE channel=$1";
-								removeQueryValues = [message.channel.id];
-								SQLclient.query(removeQueryText, removeQueryValues, (err,res) =>{
-									if(err){
-										console.log(err);
-									}
-									else{
-										message.channel.send("Unsubscribed from Briggs alerts").then(function(result){
-							
-										}, function(err){
-											console.log("Insufficient permissions on !unsubscribe alerts briggs");
-											console.log(message.guild.name);
-										});
-									}
-								})
-							}
-							else{
-								message.channel.send("Error: Not subscribed to Briggs alerts").then(function(result){
-							
-								}, function(err){
-									console.log("Insufficient permissions on !unsubscribe alerts briggs error");
 									console.log(message.guild.name);
 								});
 							}

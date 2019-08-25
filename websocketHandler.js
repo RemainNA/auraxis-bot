@@ -161,11 +161,6 @@ var qu = async.queue(function(task, callback) {
 									queryText = "SELECT * from jaegar";
 									removeQueryText = "DELETE from jaegar WHERE channel=$1";
 									break;
-								case "25":
-									sendEmbed.addField('Server', 'Briggs', true);
-									queryText = "SELECT * from briggs";
-									removeQueryText = "DELETE from briggs WHERE channel=$1";
-									break;
 								case "40":
 									sendEmbed.addField('Server', 'SolTech', true);
 									queryText = "SELECT * from soltech";

@@ -81,9 +81,6 @@ var q = async.queue(function(task, callback) {
 								case "19":
 									sendEmbed.addField('Server', 'Jaeger', true);
 									break;
-								case "25":
-									sendEmbed.addField('Server', 'Briggs', true);
-									break;
 								case "40":
 									sendEmbed.addField('Server', 'SolTech', true);
 							}
