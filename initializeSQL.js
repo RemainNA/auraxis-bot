@@ -83,22 +83,6 @@ module.exports = {
 			}
 		    
 		});
-		SQLclient.query("SELECT * FROM briggs;", (err, res) => {
-		    if (err){
-				//create table if one not found
-				console.log(err);
-				console.log("Creating briggs table");
-				SQLclient.query("CREATE TABLE briggs (channel TEXT);", (err, res) => {
-					if (err){
-						console.log(err);
-					}
-					else{
-						console.log(res);
-					}
-				});
-			}
-		    
-		});
 		SQLclient.query("SELECT * FROM soltech;", (err, res) => {
 		    if (err){
 				//create table if one not found
