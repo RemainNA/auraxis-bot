@@ -24,6 +24,7 @@ var online = require('./online.js');
 var wsListen = require('./websocketListener.js');
 var population = require('./serverPopulation.js');
 var prePrestige = require('./prePrestige.js');
+var initialize = require('./initializeSQL.js');
 
 //PostgreSQL connection
 const { Client } = require('pg');
@@ -41,6 +42,8 @@ SQLclient.query("SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_TYPE='BASE 
     //console.log(JSON.stringify(row));
   }
 });
+
+initialize.start(SQLclient);
 
 // Create an instance of a Discord client
 const client = new Discord.Client();
