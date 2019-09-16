@@ -99,6 +99,38 @@ module.exports = {
 			}
 		    
 		});
+		SQLclient.query("SELECT * FROM genudine;", (err, res) => {
+		    if (err){
+				//create table if one not found
+				console.log(err);
+				console.log("Creating genudine table");
+				SQLclient.query("CREATE TABLE genudine (channel TEXT);", (err, res) => {
+					if (err){
+						console.log(err);
+					}
+					else{
+						console.log(res);
+					}
+				});
+			}
+		    
+		});
+		SQLclient.query("SELECT * FROM ceres;", (err, res) => {
+		    if (err){
+				//create table if one not found
+				console.log(err);
+				console.log("Creating ceres table");
+				SQLclient.query("CREATE TABLE ceres (channel TEXT);", (err, res) => {
+					if (err){
+						console.log(err);
+					}
+					else{
+						console.log(res);
+					}
+				});
+			}
+		    
+		});
 		SQLclient.query("SELECT * FROM outfit;", (err, res) => {
 		    if (err){
 				//create table if one not found
