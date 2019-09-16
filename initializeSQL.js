@@ -115,5 +115,37 @@ module.exports = {
 			}
 		    
 		});
+		SQLclient.query("SELECT * FROM ps4usoutfit;", (err, res) => {
+		    if (err){
+				//create table if one not found
+				console.log(err);
+				console.log("Creating outfit table");
+				SQLclient.query("CREATE TABLE ps4usoutfit (id bigint, color TEXT, alias TEXT, channel TEXT);", (err, res) => {
+					if (err){
+						console.log(err);
+					}
+					else{
+						console.log(res);
+					}
+				});
+			}
+		    
+		});
+		SQLclient.query("SELECT * FROM ps4euoutfit;", (err, res) => {
+		    if (err){
+				//create table if one not found
+				console.log(err);
+				console.log("Creating outfit table");
+				SQLclient.query("CREATE TABLE ps4euoutfit (id bigint, color TEXT, alias TEXT, channel TEXT);", (err, res) => {
+					if (err){
+						console.log(err);
+					}
+					else{
+						console.log(res);
+					}
+				});
+			}
+		    
+		});
 	}
 }
