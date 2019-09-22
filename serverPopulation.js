@@ -198,6 +198,28 @@ var q = async.queue(function(task, callback){
 			console.log('SolTech pop error');
 		}
 	}
+	if(servers.includes('arena')){
+		options = {uri:'https://api.steampowered.com/ISteamUserStats/GetNumberOfCurrentPlayers/v0001/?appid=987350', headers: {'User-Agent': 'Auraxis bot'}};
+		try{
+			request(options, function(error, response, body){
+				data = JSON.parse(body);
+				sendEmbed = new Discord.RichEmbed();
+				population = data.response.player_count;
+				sendEmbed.setTitle('Planetside Arena Population');
+				sendEmbed.addField('Players', population, true);
+				sendEmbed.setFooter('From Steam API');
+				channel.send(sendEmbed).then(function(result){
+
+				}, function(err){
+					console.log("Insufficient permission on !population arena");
+					console.log(channel.guild.name);
+				});
+			})
+		}
+		catch(e){
+			console.log('Arena pop error');
+		}
+	}
 	callback();
 })
 
