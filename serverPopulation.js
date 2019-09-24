@@ -44,36 +44,31 @@ var q = async.queue(function(task, callback){
 			callback();
 	}
 	if(!isArena){
-		try{
-			request(option, function (error, response, body) {
-				data = JSON.parse(body);
-				sendEmbed = new Discord.RichEmbed();
-				totalPop = data.result[0].vs + data.result[0].nc + data.result[0].tr + data.result[0].ns;
-				sendEmbed.setTitle(titleBase+totalPop);
-				sendEmbed.setFooter('From ps2.fisu.pw');
-				vsPc = (data.result[0].vs/totalPop)*100;
-				vsPc = Number.parseFloat(vsPc).toPrecision(3);
-				ncPc = (data.result[0].nc/totalPop)*100;
-				ncPc = Number.parseFloat(ncPc).toPrecision(3);
-				trPc = (data.result[0].tr/totalPop)*100;
-				trPc = Number.parseFloat(trPc).toPrecision(3);
-				nsPc = (data.result[0].ns/totalPop)*100;
-				nsPc = Number.parseFloat(nsPc).toPrecision(3);
-				sendEmbed.addField('VS', data.result[0].vs+" ("+vsPc+"%)", true);
-				sendEmbed.addField('NC', data.result[0].nc+" ("+ncPc+"%)", true);
-				sendEmbed.addField('TR', data.result[0].tr+" ("+trPc+"%)", true);
-				sendEmbed.addField('NSO', data.result[0].ns+" ("+nsPc+"%)", true);
-				channel.send(sendEmbed).then(function(result){
-					
-				}, function(err){
-					console.log("Insufficient permission on !population "+server);
-					console.log(channel.guild.name);
-				});
-			})
-		}
-		catch(e){
-			console.log('ps2 pop error');
-		}
+		request(option, function (error, response, body) {
+			data = JSON.parse(body);
+			sendEmbed = new Discord.RichEmbed();
+			totalPop = data.result[0].vs + data.result[0].nc + data.result[0].tr + data.result[0].ns;
+			sendEmbed.setTitle(titleBase+totalPop);
+			sendEmbed.setFooter('From ps2.fisu.pw');
+			vsPc = (data.result[0].vs/totalPop)*100;
+			vsPc = Number.parseFloat(vsPc).toPrecision(3);
+			ncPc = (data.result[0].nc/totalPop)*100;
+			ncPc = Number.parseFloat(ncPc).toPrecision(3);
+			trPc = (data.result[0].tr/totalPop)*100;
+			trPc = Number.parseFloat(trPc).toPrecision(3);
+			nsPc = (data.result[0].ns/totalPop)*100;
+			nsPc = Number.parseFloat(nsPc).toPrecision(3);
+			sendEmbed.addField('VS', data.result[0].vs+" ("+vsPc+"%)", true);
+			sendEmbed.addField('NC', data.result[0].nc+" ("+ncPc+"%)", true);
+			sendEmbed.addField('TR', data.result[0].tr+" ("+trPc+"%)", true);
+			sendEmbed.addField('NSO', data.result[0].ns+" ("+nsPc+"%)", true);
+			channel.send(sendEmbed).then(function(result){
+				
+			}, function(err){
+				console.log("Insufficient permission on !population "+server);
+				console.log(channel.guild.name);
+			});
+		})
 	}
 	else{
 		try{
