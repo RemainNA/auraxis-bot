@@ -48,7 +48,7 @@ var q = async.queue(function(task, callback){
 			request(option, function (error, response, body) {
 				data = JSON.parse(body);
 				sendEmbed = new Discord.RichEmbed();
-				totalPop = data.result[0].vs + data.result[0].nc + data.result[0].tr;
+				totalPop = data.result[0].vs + data.result[0].nc + data.result[0].tr + data.result[0].ns;
 				sendEmbed.setTitle(titleBase+totalPop);
 				sendEmbed.setFooter('From ps2.fisu.pw');
 				vsPc = (data.result[0].vs/totalPop)*100;
@@ -57,9 +57,12 @@ var q = async.queue(function(task, callback){
 				ncPc = Number.parseFloat(ncPc).toPrecision(3);
 				trPc = (data.result[0].tr/totalPop)*100;
 				trPc = Number.parseFloat(trPc).toPrecision(3);
+				nsPc = (data.result[0].ns/totalPop)*100;
+				nsPc = Number.parseFloat(nsPc).toPrecision(3);
 				sendEmbed.addField('VS', data.result[0].vs+" ("+vsPc+"%)", true);
 				sendEmbed.addField('NC', data.result[0].nc+" ("+ncPc+"%)", true);
 				sendEmbed.addField('TR', data.result[0].tr+" ("+trPc+"%)", true);
+				sendEmbed.addField('NSO', data.result[0].ns+" ("+nsPc+"%)", true);
 				channel.send(sendEmbed).then(function(result){
 					
 				}, function(err){
@@ -105,11 +108,11 @@ module.exports = {
 		parsed = servers.split(" ");
 		for (x in parsed){
 			if(parsed[x] != ""){
+				console.log(parsed[x]+" population");
 				q.push({inServer: parsed[x], chnl: channel}, function (err) {
-					console.log(parsed[x]+" population");
+					
 				});
 			}
-		}
-		
+		}	
 	}
 }
