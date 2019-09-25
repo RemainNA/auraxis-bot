@@ -7,7 +7,8 @@ var request = require('request');
 // import async
 var async = require('async');
 
-var q = async.queue(function(task, callback){
+//var q = async.queue(function(task, callback){
+async function checkPopulation(task, callback){
 	server = task.inServer.toLowerCase();
 	channel = task.chnl;
 	isArena = false;
@@ -97,22 +98,25 @@ var q = async.queue(function(task, callback){
 		}
 	}
 	callback();
-}, 1)
-
-q.drain = function() {
-	console.log('Done');
 }
+
+/*q.drain = function() {
+	console.log('Done');
+}*/
 
 module.exports = {
 	check: function(servers, channel) {
 		parsed = servers.split(" ");
-		for (x in parsed){
+		async.eachSeries(parsed, checkPopulation, function(err){
+			console.log(err);
+		});
+		/*for (x in parsed){
 			if(parsed[x] != ""){
 				console.log(parsed[x]+" population");
 				q.push({inServer: parsed[x], chnl: channel}, function (err) {
 					
 				});
 			}
-		}	
+		}	*/
 	}
 }
