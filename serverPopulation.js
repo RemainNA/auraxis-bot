@@ -97,7 +97,7 @@ var q = async.queue(function(task, callback){
 		}
 	}
 	callback();
-})
+}, 1)
 
 q.drain = function() {
 	console.log('Done');
