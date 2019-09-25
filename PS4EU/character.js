@@ -44,7 +44,7 @@ var q = async.queue(function(task, callback) {
 				
 				//BR, Prestige
 				sendEmbed.addField('BR', resChar.battle_rank.value, true);
-				sendEmbed.addField('Prestige', prestige = resChar.prestige_level, true);
+				//sendEmbed.addField('Prestige', prestige = resChar.prestige_level, true);
 				
 				//server
 				sendEmbed.addField('Server', 'Ceres', true);
