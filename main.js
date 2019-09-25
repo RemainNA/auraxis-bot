@@ -25,6 +25,8 @@ var outfit = require('./outfit.js');
 var ps4usOutfit = require('./PS4US/outfit.js');
 var ps4euOutfit = require('./PS4EU/outfit.js');
 var online = require('./online.js');
+var ps4usOnline = require('./PS4US/online.js');
+var ps4euOnline = require('./PS4EU/online.js');
 var wsListen = require('./websocketListener.js');
 var ps4usListen = require('./PS4US/websocketListener.js');
 var ps4euListen = require('./PS4EU/websocketListener.js');
@@ -184,6 +186,20 @@ client.on('message', message => {
 		var oName = message.content.substring(8).toLowerCase();
 		//calls online.js
 		online.outfitLookup(oName, message.channel);
+	}
+	if (message.content.substring(0,13).toLowerCase() == '!ps4us online'){
+		//return online outfit members
+		archive.push(message);
+		var oName = message.content.substring(14).toLowerCase();
+		//calls online.js
+		ps4usOnline.outfitLookup(oName, message.channel);
+	}
+	if (message.content.substring(0,13).toLowerCase() == '!ps4eu online'){
+		//return online outfit members
+		archive.push(message);
+		var oName = message.content.substring(14).toLowerCase();
+		//calls online.js
+		ps4euOnline.outfitLookup(oName, message.channel);
 	}
 	if (message.content.substring(0,11).toLowerCase() == '!population'){
 		//server population
