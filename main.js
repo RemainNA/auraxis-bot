@@ -22,6 +22,8 @@ var character = require('./character.js');
 var ps4usCharacter = require('./PS4US/character.js');
 var ps4euCharacter = require('./PS4EU/character.js');
 var outfit = require('./outfit.js');
+var ps4usOutfit = require('./PS4US/outfit.js');
+var ps4euOutfit = require('./PS4EU/outfit.js');
 var online = require('./online.js');
 var wsListen = require('./websocketListener.js');
 var ps4usListen = require('./PS4US/websocketListener.js');
@@ -138,6 +140,42 @@ client.on('message', message => {
 		else{
 			//calls outfit.js
 			outfit.outfitLookup(oName, message.channel);
+		}
+	}
+	if (message.content.substring(0,13).toLowerCase() == '!ps4us outfit'){
+		//look up outfit
+		archive.push(message);
+		var oName = message.content.substring(14).toLowerCase();
+		if (oName.length > 4)
+		{
+			message.channel.send('Outfit tag too long').then(function(result){
+			
+			}, function(err) {
+				console.log("Insufficient permissions on !outfit tag length");
+				console.log(message.guild.name);
+			});
+		}
+		else{
+			//calls outfit.js
+			ps4usOutfit.outfitLookup(oName, message.channel);
+		}
+	}
+	if (message.content.substring(0,13).toLowerCase() == '!ps4eu outfit'){
+		//look up outfit
+		archive.push(message);
+		var oName = message.content.substring(14).toLowerCase();
+		if (oName.length > 4)
+		{
+			message.channel.send('Outfit tag too long').then(function(result){
+			
+			}, function(err) {
+				console.log("Insufficient permissions on !outfit tag length");
+				console.log(message.guild.name);
+			});
+		}
+		else{
+			//calls outfit.js
+			ps4euOutfit.outfitLookup(oName, message.channel);
 		}
 	}
 	if (message.content.substring(0,7).toLowerCase() == '!online'){
