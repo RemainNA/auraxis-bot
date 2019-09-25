@@ -61,10 +61,10 @@ module.exports = {
 		discordClient.on('message', message => {
 			//listen to discord for subscribe/unsubscribe requests
 			if(message.content.substring(0,25) == '!ps4us subscribe activity'){
-				outfitID(message.content.substring(20).toLowerCase(), 'subscribe', message.channel, SQLclient)
+				outfitID(message.content.substring(26).toLowerCase(), 'subscribe', message.channel, SQLclient)
 			}
 			if(message.content.substring(0,27) == '!ps4us unsubscribe activity'){
-				outfitID(message.content.substring(22).toLowerCase(), 'unsubscribe', message.channel, SQLclient)
+				outfitID(message.content.substring(28).toLowerCase(), 'unsubscribe', message.channel, SQLclient)
 			}
 			if (message.content.substring(0,17) == '!subscribe alerts'){
 				console.log(message.content);

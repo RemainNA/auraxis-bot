@@ -61,10 +61,10 @@ module.exports = {
 		discordClient.on('message', message => {
 			//listen to discord for subscribe/unsubscribe requests
 			if(message.content.substring(0,25) == '!ps4eu subscribe activity'){
-				outfitID(message.content.substring(20).toLowerCase(), 'subscribe', message.channel, SQLclient)
+				outfitID(message.content.substring(26).toLowerCase(), 'subscribe', message.channel, SQLclient)
 			}
 			if(message.content.substring(0,27) == '!ps4eu unsubscribe activity'){
-				outfitID(message.content.substring(22).toLowerCase(), 'unsubscribe', message.channel, SQLclient)
+				outfitID(message.content.substring(28).toLowerCase(), 'unsubscribe', message.channel, SQLclient)
 			}
 			if (message.content.substring(0,17) == '!subscribe alerts'){
 				console.log(message.content);
@@ -161,7 +161,7 @@ function outfitID(oTagLong, action, channel, SQLclient){
 		var options = {uri:uri, action:action, channel:channel, oTag:oTag}
 		request(options, function(error, respose, body){
 			data = JSON.parse(body)
-			if(data.returned == 0){
+			if(data.outfit_list[0] == null){
 				//outfit not found
 				channel.send(oTag+' not found').then(function(result){
 					
@@ -170,7 +170,7 @@ function outfitID(oTagLong, action, channel, SQLclient){
 					console.log(channel.guild.name);
 				});
 			}
-			else if(data.outfit_list[0] != null){
+			else{
 				//tag found, returned results
 				ID = data.outfit_list[0].outfit_id;
 				resOut = data.outfit_list[0];
