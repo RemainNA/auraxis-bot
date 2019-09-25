@@ -164,13 +164,15 @@ var q = async.queue(function(task, callback) {
 								achievementList = outputData.character_list[0].character_id_join_characters_achievement;
 								for(x in achievementList){
 									achievement = achievementList[x].achievement_id_join_achievement;
-									if(achievement.description == undefined){
-										if(achievement.name.en.indexOf("Auraxium") > -1){
+									if(achievement != undefined){
+										if(achievement.description == undefined){
+											if(achievement.name.en.indexOf("Auraxium") > -1){
+												medalCount++;
+											}
+										}
+										else if(achievement.description.en == "1000 Enemies Killed"){
 											medalCount++;
 										}
-									}
-									else if(achievement.description.en == "1000 Enemies Killed"){
-										medalCount++;
 									}
 								}
 								sendEmbed.addField('Auraxium Medals', medalCount, true);
