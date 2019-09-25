@@ -36,6 +36,14 @@ var q = async.queue(function(task, callback){
 			options = {uri:'http://ps2.fisu.pw/api/population/?world=40', headers: {'User-Agent': "Auraxis bot"}};
 			titleBase = 'SolTech Population - ';
 			break;
+		case 'genudine':
+			options = {uri:'http://ps4us.ps2.fisu.pw/api/population/?world=1000', headers: {'User-Agent': "Auraxis bot"}};
+			titleBase = 'Genudine Population - ';
+			break;
+		case 'ceres':
+			options = {uri:'http://ps4eu.ps2.fisu.pw/api/population/?world=2000', headers: {'User-Agent': "Auraxis bot"}};
+			titleBase = 'Ceres Population - ';
+			break;
 		case 'arena':
 			options = {uri:'https://api.steampowered.com/ISteamUserStats/GetNumberOfCurrentPlayers/v0001/?appid=987350', headers: {'User-Agent': 'Auraxis bot'}};
 			isArena = true;
