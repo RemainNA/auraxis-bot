@@ -161,7 +161,7 @@ function outfitID(oTagLong, action, channel, SQLclient){
 		var options = {uri:uri, action:action, channel:channel, oTag:oTag}
 		request(options, function(error, respose, body){
 			data = JSON.parse(body)
-			if(data.outfit_list[0] == null){
+			if(data.returned == 0){
 				//outfit not found
 				channel.send(oTag+' not found').then(function(result){
 					
@@ -170,7 +170,7 @@ function outfitID(oTagLong, action, channel, SQLclient){
 					console.log(channel.guild.name);
 				});
 			}
-			else{
+			else if(data.outfit_list[0] != null){
 				//tag found, returned results
 				ID = data.outfit_list[0].outfit_id;
 				resOut = data.outfit_list[0];
