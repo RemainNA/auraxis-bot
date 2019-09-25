@@ -10,7 +10,7 @@ var async = require('async');
 var q = async.queue(function(task, callback) {
 	cName = task.name;
 	channel = task.inChannel;
-	uri = 'https://census.daybreakgames.com/s:'+process.env.serviceID+'/get/ps2ps4e:v2/character?name.first_lower='+cName+'&c:resolve=outfit_member_extended,online_status,world,stat_history,weapon_stat_by_faction&c:join=title'
+	uri = 'https://census.daybreakgames.com/s:'+process.env.serviceID+'/get/ps2ps4eu:v2/character?name.first_lower='+cName+'&c:resolve=outfit_member_extended,online_status,world,stat_history,weapon_stat_by_faction&c:join=title'
 	var options = {uri: uri, channel: channel};
 	try{
 		request(options, function (error, response, body) {
