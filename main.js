@@ -72,6 +72,8 @@ client.on('ready', () => {
 var archive = []; //list of bot messages and commands
 var listOfCommands = [
 "!help",
+"PC",
+"------",
 "!character [name]",
 "!outfit [tag]",
 "!online [tag]",
@@ -79,7 +81,28 @@ var listOfCommands = [
 "!(un)subscribe activity [outfit]",
 "!population [server]",
 "!asp [name]",
-"!clean"
+" ",
+"PS4 US",
+"------",
+"!ps4us character [name]",
+"!ps4us outfit [tag]",
+"!ps4us online [tag]",
+"!(un)subscribe alerts [server]",
+"!ps4us (un)subscribe activity [outfit]",
+"!population [server]",
+" ",
+"PS4 EU",
+"------",
+"!ps4eu character [name]",
+"!ps4eu outfit [tag]",
+"!ps4eu online [tag]",
+"!(un)subscribe alerts [server]",
+"!ps4eu (un)subscribe activity [outfit]",
+"!population [server]",
+" ",
+"Planetside Arena",
+"------",
+"!population arena"
 ]
 // Create an event listener for messages
 client.on('message', message => {
