@@ -19,6 +19,8 @@ catch(e){
 
 // commands
 var character = require('./character.js');
+var ps4usCharacter = require('./PS4US/character.js');
+var ps4euCharacter = require('./PS4EU/character.js');
 var outfit = require('./outfit.js');
 var online = require('./online.js');
 var wsListen = require('./websocketListener.js');
@@ -105,6 +107,20 @@ client.on('message', message => {
 		var cName = message.content.substring(11).toLowerCase();
 		//calls character.js
 		character.characterLookup(cName, message.channel);
+	}
+	if (message.content.substring(0,16).toLowerCase() == '!ps4us character') {
+		// Look up character
+		archive.push(message);
+		var cName = message.content.substring(17).toLowerCase();
+		//calls character.js
+		ps4usCharacter.characterLookup(cName, message.channel);
+	}
+	if (message.content.substring(0,16).toLowerCase() == '!ps4eu character') {
+		// Look up character
+		archive.push(message);
+		var cName = message.content.substring(17).toLowerCase();
+		//calls character.js
+		ps4euCharacter.characterLookup(cName, message.channel);
 	}
 	if (message.content.substring(0,7).toLowerCase() == '!outfit'){
 		//look up outfit
