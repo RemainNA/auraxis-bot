@@ -7,8 +7,7 @@ var request = require('request');
 // import async
 var async = require('async');
 
-//var q = async.queue(function(task, callback){
-async function checkPopulation(task, callback){
+var q = async.queue(function(task, callback){
 	server = task.inServer.toLowerCase();
 	channel = task.chnl;
 	isArena = false;
@@ -65,15 +64,17 @@ async function checkPopulation(task, callback){
 				sendEmbed.addField('TR', data.result[0].tr+" ("+trPc+"%)", true);
 				sendEmbed.addField('NSO', data.result[0].ns+" ("+nsPc+"%)", true);
 				channel.send(sendEmbed).then(function(result){
-					
+					callback();
 				}, function(err){
 					console.log("Insufficient permission on !population "+server);
 					console.log(channel.guild.name);
+					callback();
 				});
 			})
 		}
 		catch(e){
 			console.log('ps2 pop error');
+			callback();
 		}
 	}
 	else{
@@ -86,37 +87,35 @@ async function checkPopulation(task, callback){
 				sendEmbed.addField('Players', population, true);
 				sendEmbed.setFooter('From Steam API');
 				channel.send(sendEmbed).then(function(result){
-
+					callback();
 				}, function(err){
 					console.log("Insufficient permission on !population arena");
 					console.log(channel.guild.name);
+					callback();
 				});
 			})
 		}
 		catch(e){
 			console.log('Arena pop error');
+			callback();
 		}
 	}
-	callback();
-}
+}, 1)
 
-/*q.drain = function() {
+q.drain = function() {
 	console.log('Done');
-}*/
+}
 
 module.exports = {
 	check: function(servers, channel) {
 		parsed = servers.split(" ");
-		async.eachSeries(parsed, checkPopulation, function(err){
-			console.log(err);
-		});
-		/*for (x in parsed){
+		for (x in parsed){
 			if(parsed[x] != ""){
 				console.log(parsed[x]+" population");
 				q.push({inServer: parsed[x], chnl: channel}, function (err) {
 					
 				});
 			}
-		}	*/
+		}	
 	}
 }
