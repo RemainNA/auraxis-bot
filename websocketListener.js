@@ -11,15 +11,11 @@ var handler = require('./websocketHandler.js');
 
 var WebSocket = require('websocket').client;
 
-var initialize = require('./initializeSQL.js');
-
 //PostgreSQL connection
 const { Client } = require('pg');
 
 module.exports = {
 	subscribe: function(discordClient, SQLclient) {
-		//make sure SQL is set up
-		initialize.start(SQLclient);
 		
 		//subscription messages to send to websocket
 		subscribeRequestLogin = '{"service":"event","action":"subscribe","worlds":["1","10","13","17","19","40"],"eventNames":["PlayerLogin","PlayerLogout"]}'

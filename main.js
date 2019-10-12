@@ -19,11 +19,20 @@ catch(e){
 
 // commands
 var character = require('./character.js');
+var ps4usCharacter = require('./PS4US/character.js');
+var ps4euCharacter = require('./PS4EU/character.js');
 var outfit = require('./outfit.js');
+var ps4usOutfit = require('./PS4US/outfit.js');
+var ps4euOutfit = require('./PS4EU/outfit.js');
 var online = require('./online.js');
+var ps4usOnline = require('./PS4US/online.js');
+var ps4euOnline = require('./PS4EU/online.js');
 var wsListen = require('./websocketListener.js');
+var ps4usListen = require('./PS4US/websocketListener.js');
+var ps4euListen = require('./PS4EU/websocketListener.js');
 var population = require('./serverPopulation.js');
 var prePrestige = require('./prePrestige.js');
+var initialize = require('./initializeSQL.js');
 
 //PostgreSQL connection
 const { Client } = require('pg');
@@ -42,6 +51,8 @@ SQLclient.query("SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_TYPE='BASE 
   }
 });
 
+initialize.start(SQLclient);
+
 // Create an instance of a Discord client
 const client = new Discord.Client();
 
@@ -53,12 +64,16 @@ const token = process.env.token;
 client.on('ready', () => {
   console.log('I am ready!');
   wsListen.subscribe(client, SQLclient);
+  ps4usListen.subscribe(client, SQLclient);
+  ps4euListen.subscribe(client, SQLclient);
   client.user.setActivity('!help')
 });
 
 var archive = []; //list of bot messages and commands
 var listOfCommands = [
 "!help",
+"PC",
+"------",
 "!character [name]",
 "!outfit [tag]",
 "!online [tag]",
@@ -66,7 +81,28 @@ var listOfCommands = [
 "!(un)subscribe activity [outfit]",
 "!population [server]",
 "!asp [name]",
-"!clean"
+" ",
+"PS4 US",
+"------",
+"!ps4us character [name]",
+"!ps4us outfit [tag]",
+"!ps4us online [tag]",
+"!(un)subscribe alerts [server]",
+"!ps4us (un)subscribe activity [outfit]",
+"!population [server]",
+" ",
+"PS4 EU",
+"------",
+"!ps4eu character [name]",
+"!ps4eu outfit [tag]",
+"!ps4eu online [tag]",
+"!(un)subscribe alerts [server]",
+"!ps4eu (un)subscribe activity [outfit]",
+"!population [server]",
+" ",
+"Planetside Arena",
+"------",
+"!population arena"
 ]
 // Create an event listener for messages
 client.on('message', message => {
@@ -99,6 +135,20 @@ client.on('message', message => {
 		//calls character.js
 		character.characterLookup(cName, message.channel);
 	}
+	if (message.content.substring(0,16).toLowerCase() == '!ps4us character') {
+		// Look up character
+		archive.push(message);
+		var cName = message.content.substring(17).toLowerCase();
+		//calls character.js
+		ps4usCharacter.characterLookup(cName, message.channel);
+	}
+	if (message.content.substring(0,16).toLowerCase() == '!ps4eu character') {
+		// Look up character
+		archive.push(message);
+		var cName = message.content.substring(17).toLowerCase();
+		//calls character.js
+		ps4euCharacter.characterLookup(cName, message.channel);
+	}
 	if (message.content.substring(0,7).toLowerCase() == '!outfit'){
 		//look up outfit
 		archive.push(message);
@@ -117,12 +167,62 @@ client.on('message', message => {
 			outfit.outfitLookup(oName, message.channel);
 		}
 	}
+	if (message.content.substring(0,13).toLowerCase() == '!ps4us outfit'){
+		//look up outfit
+		archive.push(message);
+		var oName = message.content.substring(14).toLowerCase();
+		if (oName.length > 4)
+		{
+			message.channel.send('Outfit tag too long').then(function(result){
+			
+			}, function(err) {
+				console.log("Insufficient permissions on !outfit tag length");
+				console.log(message.guild.name);
+			});
+		}
+		else{
+			//calls outfit.js
+			ps4usOutfit.outfitLookup(oName, message.channel);
+		}
+	}
+	if (message.content.substring(0,13).toLowerCase() == '!ps4eu outfit'){
+		//look up outfit
+		archive.push(message);
+		var oName = message.content.substring(14).toLowerCase();
+		if (oName.length > 4)
+		{
+			message.channel.send('Outfit tag too long').then(function(result){
+			
+			}, function(err) {
+				console.log("Insufficient permissions on !outfit tag length");
+				console.log(message.guild.name);
+			});
+		}
+		else{
+			//calls outfit.js
+			ps4euOutfit.outfitLookup(oName, message.channel);
+		}
+	}
 	if (message.content.substring(0,7).toLowerCase() == '!online'){
 		//return online outfit members
 		archive.push(message);
 		var oName = message.content.substring(8).toLowerCase();
 		//calls online.js
 		online.outfitLookup(oName, message.channel);
+	}
+	if (message.content.substring(0,13).toLowerCase() == '!ps4us online'){
+		//return online outfit members
+		archive.push(message);
+		var oName = message.content.substring(14).toLowerCase();
+		//calls online.js
+		ps4usOnline.outfitLookup(oName, message.channel);
+	}
+	if (message.content.substring(0,13).toLowerCase() == '!ps4eu online'){
+		//return online outfit members
+		archive.push(message);
+		var oName = message.content.substring(14).toLowerCase();
+		//calls online.js
+		ps4euOnline.outfitLookup(oName, message.channel);
 	}
 	if (message.content.substring(0,11).toLowerCase() == '!population'){
 		//server population

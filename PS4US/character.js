@@ -10,7 +10,7 @@ var async = require('async');
 var q = async.queue(function(task, callback) {
 	cName = task.name;
 	channel = task.inChannel;
-	uri = 'https://census.daybreakgames.com/s:'+process.env.serviceID+'/get/ps2:v2/character?name.first_lower='+cName+'&c:resolve=outfit_member_extended,online_status,world,stat_history,weapon_stat_by_faction&c:join=title'
+	uri = 'https://census.daybreakgames.com/s:'+process.env.serviceID+'/get/ps2ps4us:v2/character?name.first_lower='+cName+'&c:resolve=outfit_member_extended,online_status,world,stat_history,weapon_stat_by_faction&c:join=title'
 	var options = {uri: uri, channel: channel};
 	try{
 		request(options, function (error, response, body) {
@@ -40,33 +40,14 @@ var q = async.queue(function(task, callback) {
 				}
 				
 				//fisu URL
-				sendEmbed.setURL('http://ps2.fisu.pw/player/?name='+cName);
+				sendEmbed.setURL('http://ps4us.ps2.fisu.pw/player/?name='+cName);
 				
 				//BR, Prestige
 				sendEmbed.addField('BR', resChar.battle_rank.value, true);
-				sendEmbed.addField('Prestige', prestige = resChar.prestige_level, true);
+				//sendEmbed.addField('Prestige', prestige = resChar.prestige_level, true);
 				
 				//server
-				switch (resChar.world_id)
-				{
-					case "1":
-						sendEmbed.addField('Server', 'Connery', true);
-						break;
-					case "10":
-						sendEmbed.addField('Server', 'Miller', true);
-						break;
-					case "13":
-						sendEmbed.addField('Server', 'Cobalt', true);
-						break;
-					case "17":
-						sendEmbed.addField('Server', 'Emerald', true);
-						break;
-					case "19":
-						sendEmbed.addField('Server', 'Jaeger', true);
-						break;
-					case "40":
-						sendEmbed.addField('Server', 'SolTech', true);
-				}
+				sendEmbed.addField('Server', 'Genudine', true);
 				
 				//Playtime
 				minutesPlayed = resChar.times.minutes_played;
@@ -146,7 +127,7 @@ var q = async.queue(function(task, callback) {
 					}
 					try{
 						//get weapon info, add to rich embed and send
-						weapURI = 'https://census.daybreakgames.com/s:'+process.env.serviceID+'/get/ps2:v2/item/'+topID;
+						weapURI = 'https://census.daybreakgames.com/s:'+process.env.serviceID+'/get/ps2ps4us:v2/item/'+topID;
 						var options = {uri: weapURI, sendEmbed: sendEmbed, topNum: topNum, channel: channel}
 						request(options, function(error, response, body){
 							weapData = JSON.parse(body);
@@ -157,7 +138,7 @@ var q = async.queue(function(task, callback) {
 						})
 						if(topNum > 10){
 							//Ensure character has at least a bronze medal to avoid crash
-							auraxURI = "http://census.daybreakgames.com/s:"+process.env.serviceID+"/get/ps2:v2/character?name.first_lower="+cName+"&c:join=characters_achievement^list:1^terms:earned_count=1^outer:0^hide:character_id%27earned_count%27start%27finish%27last_save%27last_save_date%27start_date(achievement^terms:repeatable=0^outer:0^show:name.en%27description.en)"
+							auraxURI = "http://census.daybreakgames.com/s:"+process.env.serviceID+"/get/ps2ps4us:v2/character?name.first_lower="+cName+"&c:join=characters_achievement^list:1^terms:earned_count=1^outer:0^hide:character_id%27earned_count%27start%27finish%27last_save%27last_save_date%27start_date(achievement^terms:repeatable=0^outer:0^show:name.en%27description.en)"
 							var options = {uri: auraxURI, sendEmbed: sendEmbed, topNum: topNum, channel: channel}
 							request(options, function(error, response, body){
 								outputData = JSON.parse(body);
