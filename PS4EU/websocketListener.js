@@ -7,7 +7,7 @@ var request = require('request');
 var async = require('async');
 
 //commands
-var handlerEU = require('./websocketHandlerEU.js/index.js');
+var handlerEU = require('./websocketHandlerEU.js');
 
 var WebSocket = require('websocket').client;
 
