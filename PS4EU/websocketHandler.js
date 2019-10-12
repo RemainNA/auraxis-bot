@@ -17,7 +17,7 @@ var qu = async.queue(function(task, callback) {
 	if(message.payload.character_id != null){
 		character_id = message.payload.character_id;
 		playerEvent = message.payload.event_name.substring(6);
-		uri = 'https://census.daybreakgames.com/s:'+process.env.serviceID+'/get/ps2ps4us:v2/character/'+character_id+'?c:resolve=outfit_member'
+		uri = 'https://census.daybreakgames.com/s:'+process.env.serviceID+'/get/ps2ps4eu:v2/character/'+character_id+'?c:resolve=outfit_member'
 		//lookup character info and outfit membership
 		var options = {uri:uri, playerEvent:playerEvent}
 		request(options, function (error, response, body) {
@@ -110,7 +110,7 @@ var qu = async.queue(function(task, callback) {
 		//ignore ending alerts
 		if(message.payload.metagame_event_state_name == "started"){
 			console.log("Alert start")
-			url = 'https://census.daybreakgames.com/s:'+process.env.serviceID+'/get/ps2ps4us:v2/metagame_event/'+message.payload.metagame_event_id;
+			url = 'https://census.daybreakgames.com/s:'+process.env.serviceID+'/get/ps2ps4eu:v2/metagame_event/'+message.payload.metagame_event_id;
 			try{
 				request(url, function (error, response, body) {
 					try{
