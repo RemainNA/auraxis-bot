@@ -7,7 +7,7 @@ var request = require('request');
 var async = require('async');
 
 //commands
-var handler = require('./websocketHandler.js');
+var handlerEU = require('./websocketHandlerEU.js');
 
 var WebSocket = require('websocket').client;
 
@@ -51,7 +51,7 @@ module.exports = {
 						console.log('JSON parse error: '+message.utf8Data);
 					}
 					if(parsed.payload != null){
-						handler.check(parsed, SQLclient, discordClient);
+						handlerEU.check(parsed, SQLclient, discordClient);
 					}
 				}
 				
