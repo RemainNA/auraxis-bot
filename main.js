@@ -28,8 +28,8 @@ var online = require('./online.js');
 var ps4usOnline = require('./PS4US/online.js');
 var ps4euOnline = require('./PS4EU/online.js');
 var wsListen = require('./websocketListener.js');
-var ps4usListen = require('./PS4US/websocketListener.js');
-var ps4euListen = require('./PS4EU/websocketListener.js');
+//var ps4usListen = require('./PS4US/websocketListener.js');
+//var ps4euListen = require('./PS4EU/websocketListener.js');
 var population = require('./serverPopulation.js');
 var prePrestige = require('./prePrestige.js');
 var initialize = require('./initializeSQL.js');
@@ -64,8 +64,8 @@ const token = process.env.token;
 client.on('ready', () => {
   console.log('I am ready!');
   wsListen.subscribe(client, SQLclient);
-  ps4usListen.subscribe(client, SQLclient);
-  ps4euListen.subscribe(client, SQLclient);
+  //ps4usListen.subscribe(client, SQLclient);
+  //ps4euListen.subscribe(client, SQLclient);
   client.user.setActivity('!help')
 });
 
