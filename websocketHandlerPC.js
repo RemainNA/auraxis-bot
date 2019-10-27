@@ -19,7 +19,7 @@ var qu = async.queue(function(task, callback) {
 		playerEvent = message.payload.event_name.substring(6);
 		uri = 'https://census.daybreakgames.com/s:'+process.env.serviceID+'/get/ps2:v2/character/'+character_id+'?c:resolve=outfit_member'
 		//lookup character info and outfit membership
-		var options = {uri:uri, playerEvent:playerEvent, agentOption:{minVersion: 'TLSv1.1'}}
+		var options = {uri:uri, playerEvent:playerEvent, agentOption:{minVersion: 'TLSv1'}}
 		request(options, function (error, response, body) {
 			if(body != null && body != undefined){
 				try{
