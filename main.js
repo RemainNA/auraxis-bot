@@ -8,6 +8,7 @@ var request = require('request');
 var async = require('async');
 
 // auth file
+var runningOnline = false; //The assumption is an auth file will be present iff running offline
 try{
 	var auth = require('./auth.json');
 	process.env.serviceID = auth.serviceID;
@@ -15,6 +16,7 @@ try{
 }
 catch(e){
 	console.log('no auth file found');
+	runningOnline = true;
 }
 
 // commands
@@ -34,24 +36,29 @@ var population = require('./serverPopulation.js');
 var prePrestige = require('./prePrestige.js');
 var initialize = require('./initializeSQL.js');
 
-//PostgreSQL connection
-const { Client } = require('pg');
 
-const SQLclient = new Client({
-  connectionString: process.env.DATABASE_URL,
-  ssl: true,
-});
+//Online components
+if(runningOnline){
+	//PostgreSQL connection
+	const { Client } = require('pg');
 
-SQLclient.connect();
+	const SQLclient = new Client({
+	connectionString: process.env.DATABASE_URL,
+	ssl: true,
+	});
 
-SQLclient.query("SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_TYPE='BASE TABLE'", (err, res) => {
-  if (err) throw err;
-  for (let row of res.rows) {
-    //console.log(JSON.stringify(row));
-  }
-});
+	SQLclient.connect();
 
-initialize.start(SQLclient);
+	SQLclient.query("SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_TYPE='BASE TABLE'", (err, res) => {
+	if (err) throw err;
+	for (let row of res.rows) {
+		//console.log(JSON.stringify(row));
+	}
+	});
+
+	initialize.start(SQLclient);
+}
+
 
 // Create an instance of a Discord client
 const client = new Discord.Client();
@@ -63,9 +70,12 @@ const token = process.env.token;
 // from Discord _after_ ready is emitted
 client.on('ready', () => {
   console.log('I am ready!');
-  wsListen.subscribe(client, SQLclient);
-  //ps4usListen.subscribe(client, SQLclient);
-  //ps4euListen.subscribe(client, SQLclient);
+  if(runningOnline){
+	wsListen.subscribe(client, SQLclient);
+	//ps4usListen.subscribe(client, SQLclient);
+	//ps4euListen.subscribe(client, SQLclient);
+  }
+  
   client.user.setActivity('!help')
 });
 
@@ -238,6 +248,14 @@ client.on('message', message => {
 		//calls prePrestige.js
 		prePrestige.lookup(characterName, message);
 		
+	}
+	if (message.content.substring(0,1) == '!' && message.content.toLowerCase().indexOf('subscribe') != -1 && !runningOnline){
+		message.channel.send('Subscription functionality currently unavailable').then(function(result){
+			
+		}, function(err) {
+			console.log("Insufficient permissions on !subscribe unavailable");
+			console.log(message.guild.name);
+		});
 	}
 	if (message.content.toLowerCase() == '!clean') {
 		//delete bot messages
