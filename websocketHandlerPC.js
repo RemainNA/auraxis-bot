@@ -99,6 +99,8 @@ var qu = async.queue(function(task, callback) {
 				}
 			}
 			else{
+				console.log(uri);
+				console.log(message);
 				console.log("null body error");
 				callback();
 			}
