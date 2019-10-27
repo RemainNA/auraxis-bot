@@ -16,7 +16,7 @@ const { Client } = require('pg');
 
 module.exports = {
 	subscribe: function(discordClient, SQLclient) {
-		
+		lastMessage = "";
 		//subscription messages to send to websocket
 		subscribeRequestLogin = '{"service":"event","action":"subscribe","worlds":["1","10","13","17","19","40"],"eventNames":["PlayerLogin","PlayerLogout"]}'
 		subscribeRequestAlerts = '{"service":"event","action":"subscribe","worlds":["1","10","13","17","19","40"],"eventNames":["MetagameEvent"]}';
@@ -44,7 +44,8 @@ module.exports = {
 			
 			connection.on('message', function(message){
 				//on message parse JSON and send to handler
-				if(message.utf8Data != null && message.utf8Data != undefined){
+				if(message.utf8Data != null && message.utf8Data != undefined && message.utf8Data != lastMessage){
+					lastMessage = message.utf8Data;
 					try{
 						parsed = JSON.parse(message.utf8Data);
 					}
