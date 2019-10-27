@@ -249,6 +249,14 @@ client.on('message', message => {
 		prePrestige.lookup(characterName, message);
 		
 	}
+	if (message.content.substring(0,1) == '!' && message.content.toLowerCase().indexOf('subscribe') != -1 && !runningOnline){
+		message.channel.send('Subscription functionality currently unavailable').then(function(result){
+			
+		}, function(err) {
+			console.log("Insufficient permissions on !subscribe unavailable");
+			console.log(message.guild.name);
+		});
+	}
 	if (message.content.toLowerCase() == '!clean') {
 		//delete bot messages
 		//stores clean message to be removed at end of cleanup
