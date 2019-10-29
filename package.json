@@ -6,7 +6,7 @@
   "author": "Ultimastorm",
   "dependencies": {
     "async": "^2.6.0",
-    "discord.js": "^11.3.2",
+    "discord.js": "^11.5.1",
     "pg": "^7.4.3",
     "request": "^2.85.0",
     "websocket": "^1.0.26"
