@@ -7,6 +7,9 @@ var request = require('request');
 // import async
 var async = require('async');
 
+//PostgreSQL connection
+const { Client } = require('pg');
+
 // auth file
 var runningOnline = false; //The assumption is an auth file will be present iff running offline
 try{
@@ -39,9 +42,6 @@ var initialize = require('./initializeSQL.js');
 
 //Online components
 if(runningOnline){
-	//PostgreSQL connection
-	const { Client } = require('pg');
-
 	const SQLclient = new Client({
 	connectionString: process.env.DATABASE_URL,
 	ssl: true,
@@ -69,14 +69,22 @@ const token = process.env.token;
 // The ready event is vital, it means that your bot will only start reacting to information
 // from Discord _after_ ready is emitted
 client.on('ready', () => {
-  console.log('I am ready!');
-  if(runningOnline){
-	wsListen.subscribe(client, SQLclient);
-	//ps4usListen.subscribe(client, SQLclient);
-	//ps4euListen.subscribe(client, SQLclient);
-  }
-  
-  client.user.setActivity('!help')
+	console.log('I am ready!');
+	if(runningOnline){
+		const SQLclient = new Client({
+			connectionString: process.env.DATABASE_URL,
+			ssl: true,
+		});
+
+		SQLclient.connect();
+
+		initialize.start(SQLclient);
+		wsListen.subscribe(client, SQLclient);
+		//ps4usListen.subscribe(client, SQLclient);
+		//ps4euListen.subscribe(client, SQLclient);
+	}
+
+	client.user.setActivity('!help')
 });
 
 var archive = []; //list of bot messages and commands
