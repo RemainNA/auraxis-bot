@@ -16,7 +16,7 @@ var q = async.queue(function(task, callback){
 		request(options, function (error, response, body) {
 			message = options.message;
 			data = JSON.parse(body)
-			if (data.character_list == null)
+			if (data.character_list[0] == undefined || data.character_list == null)
 			{
 				message.channel.send("Character not found").then(function(result){
 					

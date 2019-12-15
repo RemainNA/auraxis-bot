@@ -252,7 +252,7 @@ client.on('message', message => {
 	if (message.content.substring(0,4).toLowerCase() == '!asp'){
 		//BR before beginning ASP
 		archive.push(message);
-		var characterName = message.content.substring(5);
+		var characterName = message.content.substring(5).toLowerCase();
 		//calls prePrestige.js
 		prePrestige.lookup(characterName, message);
 		
