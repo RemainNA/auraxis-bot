@@ -10,7 +10,7 @@ var async = require('async');
 var q = async.queue(function(task, callback){
 	server = task.inServer.toLowerCase();
 	channel = task.chnl;
-	isArena = false;
+	recognized = true;
 	switch(server){
 		case 'connery':
 			options = {uri:'http://ps2.fisu.pw/api/population/?world=1', headers: {'User-Agent': "Auraxis bot"}};
@@ -44,14 +44,17 @@ var q = async.queue(function(task, callback){
 			options = {uri:'http://ps4eu.ps2.fisu.pw/api/population/?world=2000', headers: {'User-Agent': "Auraxis bot"}};
 			titleBase = 'Ceres Population - ';
 			break;
-		case 'arena':
-			options = {uri:'https://api.steampowered.com/ISteamUserStats/GetNumberOfCurrentPlayers/v0001/?appid=987350', headers: {'User-Agent': 'Auraxis bot'}};
-			isArena = true;
-			break;
 		default:
-			callback();
+			recognized = false;
+			channel.send(server+" not recognized.").then(function(result){
+				callback();
+			}, function(err){
+				console.log("Insufficient permission on !population error"+server);
+				console.log(channel.guild.name);
+				callback();
+			});
 	}
-	if(!isArena){
+	if(recognized){
 		try{
 			request(options, function (error, response, body) {
 				if(typeof body !== 'undefined' && body){ //ref: https://stackoverflow.com/questions/13335873/how-can-i-check-whether-a-variable-is-defined-in-node-js
@@ -93,29 +96,6 @@ var q = async.queue(function(task, callback){
 		}
 		catch(e){
 			console.log('ps2 pop error');
-			callback();
-		}
-	}
-	else{
-		try{
-			request(options, function(error, response, body){
-				data = JSON.parse(body);
-				sendEmbed = new Discord.RichEmbed();
-				population = data.response.player_count;
-				sendEmbed.setTitle('Planetside Arena Population');
-				sendEmbed.addField('Players', population, true);
-				sendEmbed.setFooter('From Steam API');
-				channel.send(sendEmbed).then(function(result){
-					callback();
-				}, function(err){
-					console.log("Insufficient permission on !population arena");
-					console.log(channel.guild.name);
-					callback();
-				});
-			})
-		}
-		catch(e){
-			console.log('Arena pop error');
 			callback();
 		}
 	}

@@ -1,5 +1,5 @@
 # auraxis-bot
-A discord bot to look up stats and information from Planetside 2 and Planetside Arena
+A discord bot to look up stats and information from Planetside 2
 
 # Invite
 The bot can be added to your server with this link: https://discordapp.com/oauth2/authorize?client_id=437756856774033408&scope=bot&permissions=19456

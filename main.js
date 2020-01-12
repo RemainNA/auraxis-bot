@@ -116,11 +116,7 @@ var listOfCommands = [
 "!ps4eu online [tag]",
 "!(un)subscribe alerts [server]",
 "!ps4eu (un)subscribe activity [outfit]",
-"!population [server]",
-" ",
-"Planetside Arena",
-"------",
-"!population arena"
+"!population [server]"
 ]
 // Create an event listener for messages
 client.on('message', message => {
