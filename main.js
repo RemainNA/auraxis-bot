@@ -87,7 +87,6 @@ client.on('ready', () => {
 	client.user.setActivity('!help')
 });
 
-var archive = []; //list of bot messages and commands
 var listOfCommands = [
 "!help",
 "PC",
@@ -124,7 +123,6 @@ client.on('message', message => {
 	// If the message is "!ping"
 	if (message.content.toLowerCase() == '!ping') {
 		// Send "pong" to the same channel
-		archive.push(message);
 		message.channel.send('pong!').then(function(result){
 			
 		}, function(err) {
@@ -134,7 +132,6 @@ client.on('message', message => {
 	}
 	if (message.content.toLowerCase() == '!help'){
 		//show list of all commands (stored in listOfCommands)
-		archive.push(message);
 		message.channel.send(listOfCommands).then(function(result){
 			
 		}, function(err) {
@@ -144,28 +141,24 @@ client.on('message', message => {
 	}
 	if (message.content.substring(0,10).toLowerCase() == '!character') {
 		// Look up character
-		archive.push(message);
 		var cName = message.content.substring(11).toLowerCase();
 		//calls character.js
 		character.characterLookup(cName, message.channel);
 	}
 	if (message.content.substring(0,16).toLowerCase() == '!ps4us character') {
 		// Look up character
-		archive.push(message);
 		var cName = message.content.substring(17).toLowerCase();
 		//calls character.js
 		ps4usCharacter.characterLookup(cName, message.channel);
 	}
 	if (message.content.substring(0,16).toLowerCase() == '!ps4eu character') {
 		// Look up character
-		archive.push(message);
 		var cName = message.content.substring(17).toLowerCase();
 		//calls character.js
 		ps4euCharacter.characterLookup(cName, message.channel);
 	}
 	if (message.content.substring(0,7).toLowerCase() == '!outfit'){
 		//look up outfit
-		archive.push(message);
 		var oName = message.content.substring(8).toLowerCase();
 		if (oName.length > 4)
 		{
@@ -183,7 +176,6 @@ client.on('message', message => {
 	}
 	if (message.content.substring(0,13).toLowerCase() == '!ps4us outfit'){
 		//look up outfit
-		archive.push(message);
 		var oName = message.content.substring(14).toLowerCase();
 		if (oName.length > 4)
 		{
@@ -201,7 +193,6 @@ client.on('message', message => {
 	}
 	if (message.content.substring(0,13).toLowerCase() == '!ps4eu outfit'){
 		//look up outfit
-		archive.push(message);
 		var oName = message.content.substring(14).toLowerCase();
 		if (oName.length > 4)
 		{
@@ -219,35 +210,30 @@ client.on('message', message => {
 	}
 	if (message.content.substring(0,7).toLowerCase() == '!online'){
 		//return online outfit members
-		archive.push(message);
 		var oName = message.content.substring(8).toLowerCase();
 		//calls online.js
 		online.outfitLookup(oName, message.channel);
 	}
 	if (message.content.substring(0,13).toLowerCase() == '!ps4us online'){
 		//return online outfit members
-		archive.push(message);
 		var oName = message.content.substring(14).toLowerCase();
 		//calls online.js
 		ps4usOnline.outfitLookup(oName, message.channel);
 	}
 	if (message.content.substring(0,13).toLowerCase() == '!ps4eu online'){
 		//return online outfit members
-		archive.push(message);
 		var oName = message.content.substring(14).toLowerCase();
 		//calls online.js
 		ps4euOnline.outfitLookup(oName, message.channel);
 	}
 	if (message.content.substring(0,11).toLowerCase() == '!population'){
 		//server population
-		archive.push(message);
 		var servers = message.content.substring(12);
 		//calls serverPopulation.js
 		population.check(servers, message.channel);
 	}
 	if (message.content.substring(0,4).toLowerCase() == '!asp'){
 		//BR before beginning ASP
-		archive.push(message);
 		var characterName = message.content.substring(5).toLowerCase();
 		//calls prePrestige.js
 		prePrestige.lookup(characterName, message);
@@ -260,39 +246,6 @@ client.on('message', message => {
 			console.log("Insufficient permissions on !subscribe unavailable");
 			console.log(message.guild.name);
 		});
-	}
-	if (message.content.toLowerCase() == '!clean') {
-		//delete bot messages
-		//stores clean message to be removed at end of cleanup
-		archive.push(message);
-		newArchive = [];
-		while (archive.length > 0){
-			msg = archive.shift();
-			//if message is in the same channel as !clean and is not pinned
-			if (msg.channel == message.channel && msg.pinned == false) {
-				msg.delete()
-					.then(console.log('Deleted message'))
-					.catch(console.error); //logs issues with deleting messages (such as permission mismatches)
-			}
-			else{
-				//re-archives message in same order if not in the same channel
-				newArchive.push(msg);
-			}
-		}
-		archive = newArchive;
-	}
-	if (message.author.id == client.user.id) {
-		//adds bot messages to array, utilized in clean
-		archive.push(message);		
-		console.log('added');
-		while(archive.length > 1000){
-			//avoid array becoming too long
-			archive.shift();
-		}
-	}
-	if (message.content.substring(0,10).toLowerCase() == '!subscribe' || message.content.substring(0,12).toLowerCase() == '!unsubscribe'){
-		//command is handled in a separate file, this is just for !clean
-		archive.push(message);
 	}
 });
 
