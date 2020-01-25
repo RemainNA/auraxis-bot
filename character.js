@@ -161,17 +161,19 @@ var q = async.queue(function(task, callback) {
 							var options = {uri: auraxURI, sendEmbed: sendEmbed, topNum: topNum, channel: channel}
 							request(options, function(error, response, body){
 								outputData = JSON.parse(body);
-								achievementList = outputData.character_list[0].character_id_join_characters_achievement;
-								for(x in achievementList){
-									achievement = achievementList[x].achievement_id_join_achievement;
-									if(achievement != undefined){
-										if(achievement.description == undefined){
-											if(achievement.name.en.indexOf("Auraxium") > -1){
+								if(typeof outputData.character_list[0] !== undefined && outputData.character_list[0]){
+									achievementList = outputData.character_list[0].character_id_join_characters_achievement;
+									for(x in achievementList){
+										achievement = achievementList[x].achievement_id_join_achievement;
+										if(achievement != undefined){
+											if(achievement.description == undefined){
+												if(achievement.name.en.indexOf("Auraxium") > -1){
+													medalCount++;
+												}
+											}
+											else if(achievement.description.en == "1000 Enemies Killed"){
 												medalCount++;
 											}
-										}
-										else if(achievement.description.en == "1000 Enemies Killed"){
-											medalCount++;
 										}
 									}
 								}
