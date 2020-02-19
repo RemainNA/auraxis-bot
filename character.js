@@ -3,9 +3,7 @@ var got = require('got');
 
 var basicInfo = async function(cName, platform){
     let uri = 'https://census.daybreakgames.com/s:'+process.env.serviceID+'/get/'+platform+'/character?name.first_lower='+cName+'&c:resolve=outfit_member_extended,online_status,world,stat_history,weapon_stat_by_faction&c:join=title';
-    console.log(uri);
     let response = await got(uri).json();
-    console.log(response);
     if(response.error != undefined){
         return new Promise(function(resolve, reject){
             reject(response.error);
@@ -87,7 +85,6 @@ var basicInfo = async function(cName, platform){
 
 var getWeaponName = async function(ID, platform){
     let URI = 'https://census.daybreakgames.com/s:'+process.env.serviceID+'/get/'+platform+'/item/'+ID;
-    console.log(URI);
     let response = await got(URI).json();
     if(response.returned==1){
         return new Promise(function(resolve, reject){
@@ -103,7 +100,6 @@ var getWeaponName = async function(ID, platform){
 
 var getAuraxiumCount = async function(cName, platform){
     let URI = "http://census.daybreakgames.com/s:"+process.env.serviceID+"/get/"+platform+"/character?name.first_lower="+cName+"&c:join=characters_achievement^list:1^terms:earned_count=1^outer:0^hide:character_id%27earned_count%27start%27finish%27last_save%27last_save_date%27start_date(achievement^terms:repeatable=0^outer:0^show:name.en%27description.en)"
-    console.log(URI);
     let response = await got(URI).json();
     let medalCount = 0;
     let achievementList = response.character_list[0].character_id_join_characters_achievement;
@@ -129,7 +125,6 @@ module.exports = {
     character: async function(cName, platform){
         try{
             cInfo = await basicInfo(cName, platform);
-            console.log(cInfo);
         }
         catch(error){
             console.log(error);
