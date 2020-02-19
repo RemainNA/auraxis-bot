@@ -23,9 +23,7 @@ catch(e){
 }
 
 // commands
-var character = require('./character.js');
-var ps4usCharacter = require('./PS4US/character.js');
-var ps4euCharacter = require('./PS4EU/character.js');
+var char = require('./character.js');
 var outfit = require('./outfit.js');
 var ps4usOutfit = require('./PS4US/outfit.js');
 var ps4euOutfit = require('./PS4EU/outfit.js');
@@ -139,23 +137,47 @@ client.on('message', message => {
 			console.log(message.guild.name);
 		});
 	}
-	if (message.content.substring(0,10).toLowerCase() == '!character') {
-		// Look up character
-		var cName = message.content.substring(11).toLowerCase();
-		//calls character.js
-		character.characterLookup(cName, message.channel);
+	if (message.content.substring(0,11).toLowerCase() == '!character '){
+		chars = message.content.substring(11).toLowerCase().split(" ");
+		for(x in chars){
+			if(chars[x] != ""){
+				char.character(chars[x], 'ps2:v2')
+					.then(res => message.channel.send(res))
+					.catch(err => {
+						if(typeof(err) == "string"){
+							message.channel.send(err);
+						}
+					})
+			}
+		}
 	}
-	if (message.content.substring(0,16).toLowerCase() == '!ps4us character') {
-		// Look up character
-		var cName = message.content.substring(17).toLowerCase();
-		//calls character.js
-		ps4usCharacter.characterLookup(cName, message.channel);
+	if (message.content.substring(0,17).toLowerCase() == '!ps4us character '){
+		chars = message.content.substring(17).toLowerCase().split(" ");
+		for(x in chars){
+			if(chars[x] != ""){
+				char.character(chars[x], 'ps2ps4us:v2')
+					.then(res => message.channel.send(res))
+					.catch(err => {
+						if(typeof(err) == "string"){
+							message.channel.send(err);
+						}
+					})
+			}
+		}
 	}
-	if (message.content.substring(0,16).toLowerCase() == '!ps4eu character') {
-		// Look up character
-		var cName = message.content.substring(17).toLowerCase();
-		//calls character.js
-		ps4euCharacter.characterLookup(cName, message.channel);
+	if (message.content.substring(0,17).toLowerCase() == '!ps4eu character '){
+		chars = message.content.substring(17).toLowerCase().split(" ");
+		for(x in chars){
+			if(chars[x] != ""){
+				char.character(chars[x], 'ps2ps4eu:v2')
+					.then(res => message.channel.send(res))
+					.catch(err => {
+						if(typeof(err) == "string"){
+							message.channel.send(err);
+						}
+					})
+			}
+		}
 	}
 	if (message.content.substring(0,7).toLowerCase() == '!outfit'){
 		//look up outfit
