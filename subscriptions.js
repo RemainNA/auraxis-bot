@@ -2,7 +2,7 @@ const { Client } = require('pg');
 
 module.exports = {
     alertSubscribe: async function(server, channel, client){
-        if(['connery', 'miller', 'cobalt', 'emerald', 'jaegar', 'soltech', 'genudine','ceres'].indexOf(server.toLowerCase) == -1){
+        if(['connery', 'miller', 'cobalt', 'emerald', 'jaegar', 'soltech', 'genudine','ceres'].indexOf(server.toLowerCase()) == -1){
             // Input validation
             return new Promise(function(resolve, reject){
                 reject("Server not found");
