@@ -59,7 +59,7 @@ var basicInfo = async function(cName, platform){
             resObj.topWeaponID = topID;
             if(mostKills > 0){
                 resObj.topWeaponName = await getWeaponName(topID, platform);
-                if(mostKills > 1000){
+                if(mostKills > 100){
                     resObj.auraxCount = await getAuraxiumCount(cName, platform);
                 }
                 else{
