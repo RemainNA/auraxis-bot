@@ -40,7 +40,7 @@ var subscriptions = require('./subscriptions.js');
 
 //Online components
 if(runningOnline){
-	const SQLclient = new Client({
+	SQLclient = new Client({
 	connectionString: process.env.DATABASE_URL,
 	ssl: true,
 	});
