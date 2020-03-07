@@ -369,7 +369,7 @@ module.exports = {
 						}
 						else{
 							if(res.rows[0].count > 0){
-								removeQueryText = "DELETE FROM milller WHERE channel=$1";
+								removeQueryText = "DELETE FROM miller WHERE channel=$1";
 								removeQueryValues = [message.channel.id];
 								SQLclient.query(removeQueryText, removeQueryValues, (err,res) =>{
 									if(err){
