@@ -30,13 +30,13 @@ var ps4euOutfit = require('./PS4EU/outfit.js');
 var online = require('./online.js');
 var ps4usOnline = require('./PS4US/online.js');
 var ps4euOnline = require('./PS4EU/online.js');
-// var wsListen = require('./websocketListener.js');
-//var ps4usListen = require('./PS4US/websocketListener.js');
-//var ps4euListen = require('./PS4EU/websocketListener.js');
+var wsListen = require('./websocketListener.js');
+var ps4usListen = require('./PS4US/websocketListener.js');
+var ps4euListen = require('./PS4EU/websocketListener.js');
 var population = require('./serverPopulation.js');
 var prePrestige = require('./prePrestige.js');
 var initialize = require('./initializeSQL.js');
-var subscriptions = require('./subscriptions.js');
+// var subscriptions = require('./subscriptions.js');
 
 //Online components
 if(runningOnline){

@@ -9,7 +9,7 @@ var async = require('async');
 //commands
 var handlerEU = require('./websocketHandlerEU.js');
 
-var WebSocket = require('websocket').client;
+var WebSocket = require('ws');
 
 //PostgreSQL connection
 const { Client } = require('pg');
@@ -17,46 +17,58 @@ const { Client } = require('pg');
 module.exports = {
 	subscribe: function(discordClient, SQLclient) {
 		//subscription messages to send to websocket
-		subscribeRequestLogin = '{"service":"event","action":"subscribe","worlds":["2000"],"eventNames":["PlayerLogin","PlayerLogout"]}'
-		subscribeRequestAlerts = '{"service":"event","action":"subscribe","worlds":["2000"],"eventNames":["MetagameEvent"]}';
-		var client = new WebSocket();
+		let subscribeRequestLogin = '{"service":"event","action":"subscribe","worlds":["2000"],"eventNames":["PlayerLogin","PlayerLogout"]}'
+		let subscribeRequestAlerts = '{"service":"event","action":"subscribe","worlds":["2000"],"eventNames":["MetagameEvent"]}';
+		var client = new WebSocket('wss://push.planetside2.com/streaming?environment=ps2ps4eu&service-id=s:'+process.env.token);
 		
-		client.connect('wss://push.planetside2.com/streaming?environment=ps2ps4eu&service-id=s:'+process.env.serviceID);
+		// client.connect('wss://push.planetside2.com/streaming?environment=ps2ps4eu&service-id=s:'+process.env.serviceID);
 		
+		client.on('open', function open() {
+			client.send(subscribeRequestAlerts);
+			client.send(subscribeRequestLogin);
+		})
+
+		client.on('message', function incoming(data) {
+			let parsed = JSON.parse(data);
+			if(parsed.payload != null){
+				handlerEU.check(parsed, SQLclient, discordClient);
+			}
+		})
+
 		client.on('connectFailed', function(error){
 			console.log('Connection failed: '+error);
 		});
 		
-		client.on('connect', function(connection) {
-			console.log('Connected to Stream API');
-			connection.sendUTF(subscribeRequestLogin);
-			connection.sendUTF(subscribeRequestAlerts);
+		// client.on('connect', function(connection) {
+		// 	console.log('Connected to Stream API');
+		// 	connection.sendUTF(subscribeRequestLogin);
+		// 	connection.sendUTF(subscribeRequestAlerts);
 			
-			connection.on('error', function(error){
-				console.log("Connection error: " +error);
-			});
+		// 	connection.on('error', function(error){
+		// 		console.log("Connection error: " +error);
+		// 	});
 			
-			connection.on('close', function(){
-				console.log("Connection closed");
-				client.connect('wss://push.planetside2.com/streaming?environment=ps2ps4eu&service-id=s:'+process.env.serviceID);
-			});
+		// 	connection.on('close', function(){
+		// 		console.log("Connection closed");
+		// 		client.connect('wss://push.planetside2.com/streaming?environment=ps2ps4eu&service-id=s:'+process.env.serviceID);
+		// 	});
 			
-			connection.on('message', function(message){
-				//on message parse JSON and send to handler
-				if(message.utf8Data != null && message.utf8Data != undefined){
-					try{
-						parsed = JSON.parse(message.utf8Data);
-					}
-					catch(e){
-						console.log('JSON parse error: '+message.utf8Data);
-					}
-					if(parsed.payload != null){
-						handlerEU.check(parsed, SQLclient, discordClient);
-					}
-				}
+		// 	connection.on('message', function(message){
+		// 		//on message parse JSON and send to handler
+		// 		if(message.utf8Data != null && message.utf8Data != undefined){
+		// 			try{
+		// 				parsed = JSON.parse(message.utf8Data);
+		// 			}
+		// 			catch(e){
+		// 				console.log('JSON parse error: '+message.utf8Data);
+		// 			}
+		// 			if(parsed.payload != null){
+		// 				handlerEU.check(parsed, SQLclient, discordClient);
+		// 			}
+		// 		}
 				
-			});
-		})
+		// 	});
+		// })
 		
 		discordClient.on('message', message => {
 			//listen to discord for subscribe/unsubscribe requests
