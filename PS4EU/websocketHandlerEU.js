@@ -13,7 +13,6 @@ var qu = async.queue(function(task, callback) {
 	message = task.msg;
 	SQLclient = task.SClient;
 	discordClient = task.dClient;
-	console.log(message);
 	//if message is a login/out event
 	if(message.payload.character_id != null){
 		character_id = message.payload.character_id;
