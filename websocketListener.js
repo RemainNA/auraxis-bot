@@ -9,7 +9,7 @@ var async = require('async');
 //commands
 var handlerPC = require('./websocketHandlerPC.js');
 
-var WebSocket = require('websocket').client;
+var WebSocket = require('ws').client;
 
 //PostgreSQL connection
 const { Client } = require('pg');
@@ -20,44 +20,25 @@ module.exports = {
 		//subscription messages to send to websocket
 		subscribeRequestLogin = '{"service":"event","action":"subscribe","worlds":["1","10","13","17","19","40"],"eventNames":["PlayerLogin","PlayerLogout"]}'
 		subscribeRequestAlerts = '{"service":"event","action":"subscribe","worlds":["1","10","13","17","19","40"],"eventNames":["MetagameEvent"]}';
-		var client = new WebSocket();
+		uri = 'wss://push.planetside2.com/streaming?environment=ps2&service-id=s:'+process.env.serviceID;
+
+		var client = new WebSocket(uri);
 		
-		client.connect('wss://push.planetside2.com/streaming?environment=ps2&service-id=s:'+process.env.serviceID);
-		
-		client.on('connectFailed', function(error){
-			console.log('Connection failed: '+error);
-		});
-		
-		client.on('connect', function(connection) {
-			console.log('Connected to Stream API');
-			connection.sendUTF(subscribeRequestLogin);
-			connection.sendUTF(subscribeRequestAlerts);
-			
-			connection.on('error', function(error){
-				console.log("Connection error: " +error);
-			});
-			
-			connection.on('close', function(){
-				console.log("Connection closed");
-				client.connect('wss://push.planetside2.com/streaming?environment=ps2&service-id=s:'+process.env.serviceID);
-			});
-			
-			connection.on('message', function(message){
-				//on message parse JSON and send to handler
-				if(message.utf8Data != null && message.utf8Data != undefined && message.utf8Data != lastMessage){
-					lastMessage = message.utf8Data;
-					try{
-						parsed = JSON.parse(message.utf8Data);
-					}
-					catch(e){
-						console.log('JSON parse error: '+message.utf8Data);
-					}
-					if(parsed.payload != null){
-						handlerPC.check(parsed, SQLclient, discordClient);
-					}
-				}
-				
-			});
+		client.on('open', function open() {
+			console.log('Connected to PC Stream API')
+			client.send(subscribeRequestAlerts);
+			client.send(subscribeRequestLogin);
+		})
+
+		client.on('message', function incoming(data) {
+			let parsed = JSON.parse(data);
+			if(parsed.payload != null){
+				handlerPC.check(parsed, SQLclient, discordClient);
+			}
+		})
+
+		client.on('error', function err(error) {
+			console.log(error);
 		})
 		
 		discordClient.on('message', message => {
