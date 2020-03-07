@@ -77,9 +77,9 @@ client.on('ready', () => {
 		SQLclient.connect();
 
 		initialize.start(SQLclient);
-		// wsListen.subscribe(client, SQLclient);
-		//ps4usListen.subscribe(client, SQLclient);
-		//ps4euListen.subscribe(client, SQLclient);
+		wsListen.subscribe(client, SQLclient);
+		ps4usListen.subscribe(client, SQLclient);
+		ps4euListen.subscribe(client, SQLclient);
 	}
 
 	client.user.setActivity('!help')
@@ -261,17 +261,17 @@ client.on('message', message => {
 		prePrestige.lookup(characterName, message);
 		
 	}
-	if (message.content.substring(0,17).toLowerCase() == '!subscribe alerts' && runningOnline){
-		servers = message.content.substring(18).toLowerCase().split(" ");
-		for(x in servers){
-			if(servers[x] != ""){
-				subscriptions.alertSubscribe(servers[x], message.channel.id, SQLclient)
-					.then(res => message.channel.send(res))
-					.catch(err => console.log(err))
-			}
-		}
-		subscriptions.alertSubscribe()
-	}
+	// if (message.content.substring(0,17).toLowerCase() == '!subscribe alerts' && runningOnline){
+	// 	servers = message.content.substring(18).toLowerCase().split(" ");
+	// 	for(x in servers){
+	// 		if(servers[x] != ""){
+	// 			subscriptions.alertSubscribe(servers[x], message.channel.id, SQLclient)
+	// 				.then(res => message.channel.send(res))
+	// 				.catch(err => console.log(err))
+	// 		}
+	// 	}
+	// 	subscriptions.alertSubscribe()
+	// }
 	if (message.content.substring(0,1) == '!' && message.content.toLowerCase().indexOf('subscribe') != -1 && !runningOnline){
 		message.channel.send('Subscription functionality currently unavailable').then(function(result){
 			
