@@ -36,7 +36,6 @@ var ps4euListen = require('./PS4EU/websocketListener.js');
 var population = require('./serverPopulation.js');
 var prePrestige = require('./prePrestige.js');
 var initialize = require('./initializeSQL.js');
-// var subscriptions = require('./subscriptions.js');
 
 //Online components
 if(runningOnline){
@@ -261,17 +260,6 @@ client.on('message', message => {
 		prePrestige.lookup(characterName, message);
 		
 	}
-	// if (message.content.substring(0,17).toLowerCase() == '!subscribe alerts' && runningOnline){
-	// 	servers = message.content.substring(18).toLowerCase().split(" ");
-	// 	for(x in servers){
-	// 		if(servers[x] != ""){
-	// 			subscriptions.alertSubscribe(servers[x], message.channel.id, SQLclient)
-	// 				.then(res => message.channel.send(res))
-	// 				.catch(err => console.log(err))
-	// 		}
-	// 	}
-	// 	subscriptions.alertSubscribe()
-	// }
 	if (message.content.substring(0,1) == '!' && message.content.toLowerCase().indexOf('subscribe') != -1 && !runningOnline){
 		message.channel.send('Subscription functionality currently unavailable').then(function(result){
 			
