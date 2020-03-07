@@ -35,9 +35,13 @@ module.exports = {
 			}
 		})
 
-		client.on('connectFailed', function(error){
-			console.log('Connection failed: '+error);
-		});
+		client.on('error', function err(error) {
+			console.log(error);
+		})
+
+		// client.on('connectFailed', function(error){
+		// 	console.log('Connection failed: '+error);
+		// });
 		
 		// client.on('connect', function(connection) {
 		// 	console.log('Connected to Stream API');
