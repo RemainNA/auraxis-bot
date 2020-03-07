@@ -37,7 +37,7 @@ var qu = async.queue(function(task, callback) {
 					resChar = data.character_list[0];
 					if(resChar != null && resChar.outfit_member != null){
 							//create and send rich embed to all subscribed channels
-						queryText = "SELECT * FROM outfit WHERE id=$1";
+						queryText = "SELECT * FROM ps4euoutfit WHERE id=$1";
 						queryValues = [resChar.outfit_member.outfit_id];
 						SQLclient.query(queryText, queryValues, (err, res) => {
 							if (err){
@@ -75,7 +75,7 @@ var qu = async.queue(function(task, callback) {
 									}
 									//in case channel is deleted or otherwise inaccessible
 									else{
-										removeQueryText = "DELETE FROM outfit WHERE id=$1 AND channel=$2";
+										removeQueryText = "DELETE FROM ps4euoutfit WHERE id=$1 AND channel=$2";
 										removeQueryValues = [resChar.outfit_member.outfit_id, row.channel];
 										SQLclient.query(removeQueryText, removeQueryValues, (err, res) => {
 											if (err){
