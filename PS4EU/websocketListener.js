@@ -20,7 +20,7 @@ module.exports = {
 		let subscribeRequestLogin = '{"service":"event","action":"subscribe","worlds":["2000"],"eventNames":["PlayerLogin","PlayerLogout"]}'
 		let subscribeRequestAlerts = '{"service":"event","action":"subscribe","worlds":["2000"],"eventNames":["MetagameEvent"]}';
 		uri = 'wss://push.planetside2.com/streaming?environment=ps2ps4eu&service-id=s:'+process.env.serviceID;
-		console.log(uri);
+
 		var client = new WebSocket(uri);
 		
 		client.on('open', function open() {
