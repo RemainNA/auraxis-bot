@@ -32,6 +32,7 @@ module.exports = {
 
 		client.on('message', function incoming(data) {
 			let parsed = JSON.parse(data);
+			console.log(data);
 			if(parsed.payload != null){
 				handlerPC.check(parsed, SQLclient, discordClient);
 			}
