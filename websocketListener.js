@@ -18,8 +18,8 @@ module.exports = {
 	subscribe: function(discordClient, SQLclient) {
 		lastMessage = "";
 		//subscription messages to send to websocket
-		subscribeRequestLogin = '{"service":"event","action":"subscribe","worlds":["1","10","13","17","19","40"],"eventNames":["PlayerLogin","PlayerLogout"]}'
-		subscribeRequestAlerts = '{"service":"event","action":"subscribe","worlds":["1","10","13","17","19","40"],"eventNames":["MetagameEvent"]}';
+		let subscribeRequestLogin = '{"service":"event","action":"subscribe","worlds":["1","10","13","17","19","40"],"eventNames":["PlayerLogin","PlayerLogout"]}'
+		let subscribeRequestAlerts = '{"service":"event","action":"subscribe","worlds":["1","10","13","17","19","40"],"eventNames":["MetagameEvent"]}';
 		uri = 'wss://push.planetside2.com/streaming?environment=ps2&service-id=s:'+process.env.serviceID;
 
 		var client = new WebSocket(uri);
@@ -32,7 +32,6 @@ module.exports = {
 
 		client.on('message', function incoming(data) {
 			let parsed = JSON.parse(data);
-			console.log(data);
 			if(parsed.payload != null){
 				handlerPC.check(parsed, SQLclient, discordClient);
 			}

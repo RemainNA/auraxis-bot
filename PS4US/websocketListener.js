@@ -17,8 +17,8 @@ const { Client } = require('pg');
 module.exports = {
 	subscribe: function(discordClient, SQLclient) {
 		//subscription messages to send to websocket
-		subscribeRequestLogin = '{"service":"event","action":"subscribe","worlds":["1000"],"eventNames":["PlayerLogin","PlayerLogout"]}'
-		subscribeRequestAlerts = '{"service":"event","action":"subscribe","worlds":["1000"],"eventNames":["MetagameEvent"]}';
+		let subscribeRequestLogin = '{"service":"event","action":"subscribe","worlds":["1000"],"eventNames":["PlayerLogin","PlayerLogout"]}'
+		let subscribeRequestAlerts = '{"service":"event","action":"subscribe","worlds":["1000"],"eventNames":["MetagameEvent"]}';
 		uri = 'wss://push.planetside2.com/streaming?environment=ps2ps4us&service-id=s:'+process.env.serviceID;
 
 		var client = new WebSocket(uri);
