@@ -9,7 +9,7 @@ var async = require('async');
 //commands
 var handlerPC = require('./websocketHandlerPC.js');
 
-var WebSocket = require('ws').client;
+var WebSocket = require('ws');
 
 //PostgreSQL connection
 const { Client } = require('pg');
