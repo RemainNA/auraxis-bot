@@ -16,17 +16,17 @@ environmentToTable = function(environment){
 
 logEvent = async function(payload, environment, pgClient, discordClient){
     let uri = 'https://census.daybreakgames.com/s:'+process.env.serviceID+'/get/'+environment+'/character/'+payload.character_id+'?c:resolve=outfit_member';
-    let res = await got(uri).json();
+    let response = await got(uri).json();
     if(response.error != undefined){
         return new Promise(function(resolve, reject){
             reject(response.error);
         })
     }
-    if(typeof(res.character_list[0]) != undefined && res.character_list[0]){
+    if(typeof(response.character_list[0]) != undefined && response.character_list[0]){
         let table = environmentToTable(environment); //helper function used for scope management
         let playerEvent = payload.event_name.substring(6);
-        if(res.character_list[0].outfit_member != null){
-            let char = res.character_list[0];
+        if(response.character_list[0].outfit_member != null){
+            let char = response.character_list[0];
             try{
                 result = await pgClient.query("SELECT * FROM "+table+" WHERE id=$1", [char.outfit_member.outfit_id]);
             }
@@ -102,7 +102,7 @@ alertEvent = async function(payload, environment, pgClient, discordClient){
         let server = serverIdToName(payload.world_id);
         let queryText = "SELECT * FROM "+server;
         let removeQueryText = "DELETE FROM "+server+" WHERE channel=$1";
-        let res = await got(url).json();
+        let response = await got(url).json();
         if(response.error != undefined){
             return new Promise(function(resolve, reject){
                 reject(response.error);
