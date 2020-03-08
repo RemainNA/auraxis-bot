@@ -28,11 +28,11 @@ logEvent = async function(payload, environment, pgClient, discordClient){
         if(response.character_list[0].outfit_member != null){
             let char = response.character_list[0];
             try{
-                result = await pgClient.query("SELECT * FROM "+table+" WHERE id=$1", [char.outfit_member.outfit_id]);
+                result = await pgClient.query("SELECT * FROM "+table+" WHERE id=$1;", [char.outfit_member.outfit_id]);
             }
             catch(error){
                 return new Promise(function(resolve, reject){
-                    reject(error);
+                    reject("1"+error);
                 })
             }
             if (result.rows.length > 0){
@@ -62,10 +62,10 @@ logEvent = async function(payload, environment, pgClient, discordClient){
                     }
                     //in case channel is deleted or otherwise inaccessible
                     else{
-                        removeQueryText = "DELETE FROM "+table+" WHERE id=$1 AND channel=$2";
+                        removeQueryText = "DELETE FROM "+table+" WHERE id=$1 AND channel=$2;";
                         SQLclient.query(removeQueryText, [char.outfit_member.outfit_id, row.channel], (err, res) => {
                             if (err){
-                                console.log(err);
+                                console.log("2"+err);
                             } 
                         });
                     }
@@ -135,9 +135,9 @@ alertEvent = async function(payload, environment, pgClient, discordClient){
                     });
                 }
                 else{
-                    SQLclient.query(removeQueryText, [row.channel], (err, res) => {
+                    pgClient.query(removeQueryText, [row.channel], (err, res) => {
                         if(err){
-                            console.log(err);
+                            console.log("3"+err);
                         }
                     });
                 }
