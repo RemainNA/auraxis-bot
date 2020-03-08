@@ -148,7 +148,7 @@ alertEvent = async function(payload, environment, pgClient, discordClient){
 
 
 module.exports = {
-    router = async function(payload, environment, pgClient, discordClient){
+    router: async function(payload, environment, pgClient, discordClient){
         if(payload.character_id != null){
             logEvent(payload, pgClient, discordClient)
                 .catch(error => console.log(error));

@@ -64,7 +64,7 @@ outfitInfo = async function(tag, environment){
 
 
 module.exports = {
-    subscribeActivity = async function(pgClient, channel, tag, environment){
+    subscribeActivity: async function(pgClient, channel, tag, environment){
         //pgClient is the pgClient object from main
         //channel is the discord channel ID
         //tag is the outfit tag
@@ -181,7 +181,7 @@ module.exports = {
         }
     },
 
-    unsubscribeActivity = async function(pgClient, channel, tag, environment){
+    unsubscribeActivity: async function(pgClient, channel, tag, environment){
         try{
             let outfit = await outfitInfo(tag, environment);
         }
@@ -276,7 +276,7 @@ module.exports = {
         }
     },
 
-    subscribeAlert = async function(pgClient, channel, server, environment){
+    subscribeAlert: async function(pgClient, channel, server, environment){
         if(!isValid(server)){
             return new Promise(function(resolve, reject){ 
                 reject(server+" not recognized");
@@ -312,7 +312,7 @@ module.exports = {
         }
     },
 
-    unsubscribeAlert = async function(pgClient, channel, server, environment){
+    unsubscribeAlert: async function(pgClient, channel, server, environment){
         if(!isValid(server)){
             return new Promise(function(resolve, reject){ 
                 reject(server+" not recognized");
