@@ -43,17 +43,17 @@ logEvent = async function(payload, environment, pgClient, discordClient){
                 if (char.faction_id == "1"){ //vs
                     sendEmbed.setColor('PURPLE');
                 }
-                else if (resChar.faction_id == "2"){ //nc
+                else if (char.faction_id == "2"){ //nc
                     sendEmbed.setColor('BLUE');
                 }
-                else if (resChar.faction_id == "3"){ //tr
+                else if (char.faction_id == "3"){ //tr
                     sendEmbed.setColor('RED');
                 }
                 else{ //nso
                     sendEmbed.setColor('GREY');
                 }
                 for (let row of result.rows){
-                    resChann = discordClient.channels.get(row.channel);
+                    let resChann = discordClient.channels.get(row.channel);
                     if(resChann != undefined){
                         resChann.send(sendEmbed).then(function(result){
                             
