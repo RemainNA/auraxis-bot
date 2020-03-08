@@ -19,7 +19,7 @@ logEvent = async function(payload, environment, pgClient, discordClient){
     let response = await got(uri).json();
     if(response.error != undefined){
         return new Promise(function(resolve, reject){
-            console.log("A");
+            console.log(uri);
             reject(response.error);
         })
     }
