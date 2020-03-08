@@ -19,6 +19,7 @@ logEvent = async function(payload, environment, pgClient, discordClient){
     let response = await got(uri).json();
     if(response.error != undefined){
         return new Promise(function(resolve, reject){
+            console.log("A");
             reject(response.error);
         })
     }
@@ -105,6 +106,7 @@ alertEvent = async function(payload, environment, pgClient, discordClient){
         let response = await got(url).json();
         if(response.error != undefined){
             return new Promise(function(resolve, reject){
+                console.log("B");
                 reject(response.error);
             })
         }
