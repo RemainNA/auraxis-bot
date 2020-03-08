@@ -38,7 +38,7 @@ logEvent = async function(payload, environment, pgClient, discordClient){
             }
             if (result.rows.length > 0){
                 let sendEmbed = new Discord.RichEmbed();
-                sendEmbed.setTitle(tows.rows[0].alias+' '+playerEvent);
+                sendEmbed.setTitle(result.rows[0].alias+' '+playerEvent);
                 sendEmbed.setDescription(char.name.first);
                 if (char.faction_id == "1"){ //vs
                     sendEmbed.setColor('PURPLE');
