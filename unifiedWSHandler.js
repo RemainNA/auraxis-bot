@@ -152,7 +152,7 @@ alertEvent = async function(payload, environment, pgClient, discordClient){
 module.exports = {
     router: async function(payload, environment, pgClient, discordClient){
         if(payload.character_id != null){
-            logEvent(payload, pgClient, discordClient)
+            logEvent(payload, environment, pgClient, discordClient)
                 .catch(error => console.log(error));
         }
         else if(payload.metagame_event_state_name != null){
