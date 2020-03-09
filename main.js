@@ -263,6 +263,90 @@ client.on('message', message => {
 		prePrestige.lookup(characterName, message);
 		
 	}
+	if (message.content.substring(0,20).toLowerCase() == '!subscribe activity '){
+		outfits = message.content.substring(20).toLowerCase().split(" ");
+		for(x in outfits){
+			if(outfits[x] != ""){
+				subscription.subscribeActivity(SQLclient, message.channel.id, outfits[x], 'ps2:v2')
+					.then(res => message.channel.send(res))
+					.catch(err => {
+						if(typeof(err) == "string"){
+							message.channel.send(err);
+						}
+					})
+			}
+		}
+	}
+	if (message.content.substring(0,22).toLowerCase() == '!unsubscribe activity '){
+		outfits = message.content.substring(22).toLowerCase().split(" ");
+		for(x in outfits){
+			if(outfits[x] != ""){
+				subscription.unsubscribeActivity(SQLclient, message.channel.id, outfits[x], 'ps2:v2')
+					.then(res => message.channel.send(res))
+					.catch(err => {
+						if(typeof(err) == "string"){
+							message.channel.send(err);
+						}
+					})
+			}
+		}
+	}
+	if (message.content.substring(0,26).toLowerCase() == '!ps4us subscribe activity '){
+		outfits = message.content.substring(26).toLowerCase().split(" ");
+		for(x in outfits){
+			if(outfits[x] != ""){
+				subscription.subscribeActivity(SQLclient, message.channel.id, outfits[x], 'ps2ps4us:v2')
+					.then(res => message.channel.send(res))
+					.catch(err => {
+						if(typeof(err) == "string"){
+							message.channel.send(err);
+						}
+					})
+			}
+		}
+	}
+	if (message.content.substring(0,28).toLowerCase() == '!ps4us unsubscribe activity '){
+		outfits = message.content.substring(28).toLowerCase().split(" ");
+		for(x in outfits){
+			if(outfits[x] != ""){
+				subscription.unsubscribeActivity(SQLclient, message.channel.id, outfits[x], 'ps2ps4us:v2')
+					.then(res => message.channel.send(res))
+					.catch(err => {
+						if(typeof(err) == "string"){
+							message.channel.send(err);
+						}
+					})
+			}
+		}
+	}
+	if (message.content.substring(0,26).toLowerCase() == '!ps4eu subscribe activity '){
+		outfits = message.content.substring(26).toLowerCase().split(" ");
+		for(x in outfits){
+			if(outfits[x] != ""){
+				subscription.subscribeActivity(SQLclient, message.channel.id, outfits[x], 'ps2ps4eu:v2')
+					.then(res => message.channel.send(res))
+					.catch(err => {
+						if(typeof(err) == "string"){
+							message.channel.send(err);
+						}
+					})
+			}
+		}
+	}
+	if (message.content.substring(0,28).toLowerCase() == '!ps4eu unsubscribe activity '){
+		outfits = message.content.substring(28).toLowerCase().split(" ");
+		for(x in outfits){
+			if(outfits[x] != ""){
+				subscription.unsubscribeActivity(SQLclient, message.channel.id, outfits[x], 'ps2ps4eu:v2')
+					.then(res => message.channel.send(res))
+					.catch(err => {
+						if(typeof(err) == "string"){
+							message.channel.send(err);
+						}
+					})
+			}
+		}
+	}
 	if (message.content.substring(0,18).toLowerCase() == '!subscribe alerts '){
 		servers = message.content.substring(18).toLowerCase().split(" ");
 		for(x in servers){
