@@ -314,6 +314,7 @@ module.exports = {
     },
 
     unsubscribeAlert: async function(pgClient, channel, server){
+        console.log(server);
         if(isValid(server) == false){
             return new Promise(function(resolve, reject){ 
                 reject(server+" not recognized");
