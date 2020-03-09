@@ -32,9 +32,7 @@ standardizeName = function(server){
 
 outfitInfo = async function(tag, environment){
     let uri = 'http://census.daybreakgames.com/s:'+process.env.serviceID+'/get/'+environment+'/outfit?alias_lower='+tag.toLowerCase()+'&c:join=character^on:leader_character_id^to:character_id';
-    // console.log(uri)
     let response = await got(uri).json();
-    // console.log(response)
     if(response.error != undefined){
         return new Promise(function(resolve, reject){
             console.log(error);
@@ -59,7 +57,6 @@ outfitInfo = async function(tag, environment){
     }
     else{
         return new Promise(function(resolve, reject){
-            // console.log('D')
             reject("Not found");
         })
     }
@@ -73,20 +70,9 @@ module.exports = {
         //channel is the discord channel ID
         //tag is the outfit tag
         //environment is ps2:v2, ps2ps4us:v2, or ps2ps4eu:v2
-        // try{
-        //     let outfit = await outfitInfo(tag, environment);
-        // }
-        // catch(error){
-        //     return new Promise(function(resolve, reject){
-        //         reject(error);
-        //     })
-        // }
-        // console.log(tag, environment);
         let outfit = await outfitInfo(tag, environment);
-        // console.log(outfit);
         if(environment == "ps2:v2"){
             let count = await pgClient.query('SELECT COUNT(channel) FROM outfit WHERE id=$1 AND channel=$2', [outfit.ID, channel]);
-            // console.log(count);
             if (count.rows[0].count == 0){
                 if(outfit.faction == "1"){
                     color = 'PURPLE';
@@ -101,7 +87,6 @@ module.exports = {
                     color = 'GREY';
                 }
                 try{
-                    // console.log('B')
                     pgClient.query("INSERT INTO outfit (id, alias, color, channel) VALUES ($1, $2, $3, $4)", [outfit.ID, outfit.alias, color, channel]);
                 }
                 catch(error){
@@ -111,12 +96,10 @@ module.exports = {
                     })
                 }
                 return new Promise(function(resolve, reject){
-                    // console.log('C')
                     resolve("Subscribed to "+outfit.alias);
                 })
             }
             else{
-                // console.log('A')
                 return new Promise(function(resolve, reject){
                     reject("Already subscribed to "+outfit.alias);
                 })
@@ -124,7 +107,6 @@ module.exports = {
         }
         if(environment == "ps2ps4us:v2"){
             let count = await pgClient.query('SELECT COUNT(channel) FROM ps4usoutfit WHERE id=$1 AND channel=$2', [outfit.ID, channel]);
-            // console.log(count);
             if (count.rows[0].count == 0){
                 if(outfit.faction == "1"){
                     color = 'PURPLE';
@@ -139,7 +121,6 @@ module.exports = {
                     color = 'GREY';
                 }
                 try{
-                    // console.log('B');
                     pgClient.query("INSERT INTO ps4usoutfit (id, alias, color, channel) VALUES ($1, $2, $3, $4)", [outfit.ID, outfit.alias, color, channel]);
                 }
                 catch(error){
@@ -149,12 +130,10 @@ module.exports = {
                     })
                 }
                 return new Promise(function(resolve, reject){
-                    // console.log('C')
                     resolve("Subscribed to "+outfit.alias);
                 })
             }
             else{
-                // console.log('A')
                 return new Promise(function(resolve, reject){
                     reject("Already subscribed to "+outfit.alias);
                 })
@@ -162,7 +141,6 @@ module.exports = {
         }
         if(environment == "ps2ps4eu:v2"){
             let count = await pgClient.query('SELECT COUNT(channel) FROM ps4euoutfit WHERE id=$1 AND channel=$2', [outfit.ID, channel]);
-            // console.log(count);
             if (count.rows[0].count == 0){
                 if(outfit.faction == "1"){
                     color = 'PURPLE';
@@ -177,7 +155,6 @@ module.exports = {
                     color = 'GREY';
                 }
                 try{
-                    // console.log('B');
                     pgClient.query("INSERT INTO ps4euoutfit (id, alias, color, channel) VALUES ($1, $2, $3, $4)", [outfit.ID, outfit.alias, color, channel]);
                 }
                 catch(error){
@@ -187,12 +164,10 @@ module.exports = {
                     })
                 }
                 return new Promise(function(resolve, reject){
-                    // console.log('C')
                     resolve("Subscribed to "+outfit.alias);
                 })
             }
             else{
-                // console.log('A')
                 return new Promise(function(resolve, reject){
                     reject("Already subscribed to "+outfit.alias);
                 })
@@ -201,24 +176,8 @@ module.exports = {
     },
 
     unsubscribeActivity: async function(pgClient, channel, tag, environment){
-        // try{
-        //     let outfit = await outfitInfo(tag, environment);
-        // }
-        // catch(error){
-        //     return new Promise(function(resolve, reject){
-        //         reject(error);
-        //     })
-        // }
         let outfit = await outfitInfo(tag, environment);
         if(environment == "ps2:v2"){
-            // try{
-            //     let count = pgClient.query('SELECT COUNT(channel) FROM outfit WHERE id=$1 AND channel=$2', [outfit.ID, channel]);
-            // }
-            // catch(error){
-            //     return new Promise(function(resolve, reject){ 
-            //         reject(error);
-            //     })
-            // }
             let count = await pgClient.query('SELECT COUNT(channel) FROM outfit WHERE id=$1 AND channel=$2', [outfit.ID, channel]);
             if(count.rows[0].count == 0){
                 return new Promise(function(resolve, reject){ 
@@ -240,14 +199,6 @@ module.exports = {
             }
         }
         if(environment == "ps2ps4us:v2"){
-            // try{
-            //     let count = pgClient.query('SELECT COUNT(channel) FROM ps4usoutfit WHERE id=$1 AND channel=$2', [outfit.ID, channel]);
-            // }
-            // catch(error){
-            //     return new Promise(function(resolve, reject){ 
-            //         reject(error);
-            //     })
-            // }
             let count = await pgClient.query('SELECT COUNT(channel) FROM ps4usoutfit WHERE id=$1 AND channel=$2', [outfit.ID, channel]);
             if(count.rows[0].count == 0){
                 return new Promise(function(resolve, reject){ 
@@ -269,14 +220,6 @@ module.exports = {
             }
         }
         if(environment == "ps2ps4eu:v2"){
-            // try{
-            //     let count = pgClient.query('SELECT COUNT(channel) FROM ps4euoutfit WHERE id=$1 AND channel=$2', [outfit.ID, channel]);
-            // }
-            // catch(error){
-            //     return new Promise(function(resolve, reject){ 
-            //         reject(error);
-            //     })
-            // }
             let count = await pgClient.query('SELECT COUNT(channel) FROM ps4euoutfit WHERE id=$1 AND channel=$2', [outfit.ID, channel]);
             if(count.rows[0].count == 0){
                 return new Promise(function(resolve, reject){ 
@@ -307,14 +250,6 @@ module.exports = {
         }
         let countQuery = "SELECT count(*) FROM "+server+" WHERE channel=$1"; //Only uses string concatenation after input validation
         let insertQuery = "INSERT INTO "+server+" VALUES ($1)";
-        // try{
-        //     let count = await pgClient.query(countQuery, [channel]);
-        // }
-        // catch(error){
-        //     return new Promise(function(resolve, reject){ 
-        //         reject(error);
-        //     })
-        // }
         let count = await pgClient.query(countQuery, [channel]);
         if(count.rows[0].count == 0){
             try{
@@ -337,7 +272,6 @@ module.exports = {
     },
 
     unsubscribeAlert: async function(pgClient, channel, server){
-        // console.log(server);
         if(isValid(server) == false){
             return new Promise(function(resolve, reject){ 
                 reject(server+" not recognized");
@@ -345,14 +279,6 @@ module.exports = {
         }
         let countQuery = "SELECT count(*) FROM "+server+" WHERE channel=$1"; //Only uses string concatenation after input validation
         let deleteQuery = "DELETE FROM "+server+" WHERE channel=$1";
-        // try{
-        //     let count = await pgClient.query(countQuery, [channel]);
-        // }
-        // catch(error){
-        //     return new Promise(function(resolve, reject){ 
-        //         reject(error);
-        //     })
-        // }
         let count = await pgClient.query(countQuery, [channel]);
         if(count.rows[0].count == 0){
             return new Promise(function(resolve, reject){ 
