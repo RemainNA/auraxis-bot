@@ -81,7 +81,7 @@ module.exports = {
         let outfit = await outfitInfo(tag, environment);
         console.log(outfit);
         if(environment == "ps2:v2"){
-            let count = pgClient.query('SELECT COUNT(channel) FROM outfit WHERE id=$1 AND channel=$2', [outfit.ID, channel]);
+            let count = await pgClient.query('SELECT COUNT(channel) FROM outfit WHERE id=$1 AND channel=$2', [outfit.ID, channel]);
             console.log(count);
             if (count.rows[0].count == 0){
                 if(outfit.faction == "1"){
@@ -119,7 +119,7 @@ module.exports = {
             }
         }
         if(environment == "ps2ps4us:v2"){
-            let count = pgClient.query('SELECT COUNT(channel) FROM ps4usoutfit WHERE id=$1 AND channel=$2', [outfit.ID, channel]);
+            let count = await pgClient.query('SELECT COUNT(channel) FROM ps4usoutfit WHERE id=$1 AND channel=$2', [outfit.ID, channel]);
             if (count.rows[0].count == 0){
                 if(outfit.faction == "1"){
                     color = 'PURPLE';
@@ -153,7 +153,7 @@ module.exports = {
             }
         }
         if(environment == "ps2ps4us:v2"){
-            let count = pgClient.query('SELECT COUNT(channel) FROM ps4euoutfit WHERE id=$1 AND channel=$2', [outfit.ID, channel]);
+            let count = await pgClient.query('SELECT COUNT(channel) FROM ps4euoutfit WHERE id=$1 AND channel=$2', [outfit.ID, channel]);
             if (count.rows[0].count == 0){
                 if(outfit.faction == "1"){
                     color = 'PURPLE';
@@ -207,7 +207,7 @@ module.exports = {
             //         reject(error);
             //     })
             // }
-            let count = pgClient.query('SELECT COUNT(channel) FROM outfit WHERE id=$1 AND channel=$2', [outfit.ID, channel]);
+            let count = await pgClient.query('SELECT COUNT(channel) FROM outfit WHERE id=$1 AND channel=$2', [outfit.ID, channel]);
             if(count.rows[0].count == 0){
                 return new Promise(function(resolve, reject){ 
                     reject("Not subscribed to "+outfit.alias);
@@ -236,7 +236,7 @@ module.exports = {
             //         reject(error);
             //     })
             // }
-            let count = pgClient.query('SELECT COUNT(channel) FROM ps4usoutfit WHERE id=$1 AND channel=$2', [outfit.ID, channel]);
+            let count = await pgClient.query('SELECT COUNT(channel) FROM ps4usoutfit WHERE id=$1 AND channel=$2', [outfit.ID, channel]);
             if(count.rows[0].count == 0){
                 return new Promise(function(resolve, reject){ 
                     reject("Not subscribed to "+outfit.alias);
@@ -265,7 +265,7 @@ module.exports = {
             //         reject(error);
             //     })
             // }
-            let count = pgClient.query('SELECT COUNT(channel) FROM ps4euoutfit WHERE id=$1 AND channel=$2', [outfit.ID, channel]);
+            let count = await pgClient.query('SELECT COUNT(channel) FROM ps4euoutfit WHERE id=$1 AND channel=$2', [outfit.ID, channel]);
             if(count.rows[0].count == 0){
                 return new Promise(function(resolve, reject){ 
                     reject("Not subscribed to "+outfit.alias);
