@@ -34,6 +34,7 @@ var ps4euOnline = require('./PS4EU/online.js');
 // var ps4usListen = require('./PS4US/websocketListener.js');
 // var ps4euListen = require('./PS4EU/websocketListener.js');
 var listener = require('./unifiedWSListener.js');
+var subscription = require('./subscriptions.js');
 var population = require('./serverPopulation.js');
 var prePrestige = require('./prePrestige.js');
 var initialize = require('./initializeSQL.js');
@@ -261,6 +262,34 @@ client.on('message', message => {
 		//calls prePrestige.js
 		prePrestige.lookup(characterName, message);
 		
+	}
+	if (message.content.substring(0,18).toLowerCase() == '!subscribe alerts '){
+		servers = message.content.substring(18).toLowerCase().split(" ");
+		for(x in servers){
+			if(servers[x] != ""){
+				subscription.subscribeAlert(SQLclient, message.channel.id, servers[x])
+					.then(res => message.channel.send(res))
+					.catch(err => {
+						if(typeof(err) == "string"){
+							message.channel.send(err);
+						}
+					})
+			}
+		}
+	}
+	if (message.content.substring(0,20).toLowerCase() == '!unsubscribe alerts '){
+		servers = message.content.substring(20).toLowerCase().split(" ");
+		for(x in servers){
+			if(servers[x] != ""){
+				subscription.unsubscribeAlert(SQLclient, message.channel.id, servers[x])
+					.then(res => message.channel.send(res))
+					.catch(err => {
+						if(typeof(err) == "string"){
+							message.channel.send(err);
+						}
+					})
+			}
+		}
 	}
 	if (message.content.substring(0,1) == '!' && message.content.toLowerCase().indexOf('subscribe') != -1 && !runningOnline){
 		message.channel.send('Subscription functionality currently unavailable').then(function(result){
