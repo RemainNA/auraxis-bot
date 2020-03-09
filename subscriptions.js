@@ -34,6 +34,7 @@ outfitInfo = async function(tag, environment){
     let uri = 'http://census.daybreakgames.com/s:'+process.env.serviceID+'/get/'+environment+'/outfit?alias_lower='+tag.toLowerCase()+'&c:join=character^on:leader_character_id^to:character_id';
     console.log(uri)
     let response = await got(uri).json();
+    console.log(response)
     if(response.error != undefined){
         return new Promise(function(resolve, reject){
             console.log(error);
@@ -58,6 +59,7 @@ outfitInfo = async function(tag, environment){
     }
     else{
         return new Promise(function(resolve, reject){
+            console.log('D')
             reject("Not found");
         })
     }
