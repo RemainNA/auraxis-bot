@@ -277,7 +277,7 @@ module.exports = {
     },
 
     subscribeAlert: async function(pgClient, channel, server){
-        if(!isValid(server)){
+        if(isValid(server) == false){
             return new Promise(function(resolve, reject){ 
                 reject(server+" not recognized");
             })
@@ -313,7 +313,7 @@ module.exports = {
     },
 
     unsubscribeAlert: async function(pgClient, channel, server){
-        if(!isValid(server)){
+        if(isValid(server) == false){
             return new Promise(function(resolve, reject){ 
                 reject(server+" not recognized");
             })
