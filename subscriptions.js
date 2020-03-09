@@ -3,7 +3,7 @@ var got = require('got');
 
 isValid = function(server){
     servers = ['connery', 'miller', 'cobalt', 'emerald', 'soltech', 'genudine', 'ceres', 'jaegar']
-    if(servers.indexOf(server.lower) > -1){
+    if(servers.indexOf(server.toLowerCase()) > -1){
         return true;
     }
     return false;
