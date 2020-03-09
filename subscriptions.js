@@ -32,6 +32,7 @@ standardizeName = function(server){
 
 outfitInfo = async function(tag, environment){
     let uri = 'http://census.daybreakgames.com/s:'+process.env.serviceID+'/get/'+environment+'/outfit?alias_lower='+tag.toLowerCase()+'&c:join=character^on:leader_character_id^to:character_id';
+    console.log(uri)
     let response = await got(uri).json();
     if(response.error != undefined){
         return new Promise(function(resolve, reject){
@@ -78,7 +79,7 @@ module.exports = {
         //         reject(error);
         //     })
         // }
-        console.log(tag);
+        console.log(tag, environment);
         let outfit = await outfitInfo(tag, environment);
         console.log(outfit);
         if(environment == "ps2:v2"){
