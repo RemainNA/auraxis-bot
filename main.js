@@ -270,6 +270,7 @@ client.on('message', message => {
 				subscription.subscribeActivity(SQLclient, message.channel.id, outfits[x], 'ps2:v2')
 					.then(res => message.channel.send(res))
 					.catch(err => {
+						console.log(err);
 						if(typeof(err) == "string"){
 							message.channel.send(err);
 						}
@@ -284,6 +285,7 @@ client.on('message', message => {
 				subscription.unsubscribeActivity(SQLclient, message.channel.id, outfits[x], 'ps2:v2')
 					.then(res => message.channel.send(res))
 					.catch(err => {
+						console.log(err);
 						if(typeof(err) == "string"){
 							message.channel.send(err);
 						}
@@ -298,6 +300,7 @@ client.on('message', message => {
 				subscription.subscribeActivity(SQLclient, message.channel.id, outfits[x], 'ps2ps4us:v2')
 					.then(res => message.channel.send(res))
 					.catch(err => {
+						console.log(err);
 						if(typeof(err) == "string"){
 							message.channel.send(err);
 						}
@@ -312,6 +315,7 @@ client.on('message', message => {
 				subscription.unsubscribeActivity(SQLclient, message.channel.id, outfits[x], 'ps2ps4us:v2')
 					.then(res => message.channel.send(res))
 					.catch(err => {
+						console.log(err);
 						if(typeof(err) == "string"){
 							message.channel.send(err);
 						}
@@ -326,6 +330,7 @@ client.on('message', message => {
 				subscription.subscribeActivity(SQLclient, message.channel.id, outfits[x], 'ps2ps4eu:v2')
 					.then(res => message.channel.send(res))
 					.catch(err => {
+						console.log(err);
 						if(typeof(err) == "string"){
 							message.channel.send(err);
 						}
@@ -340,6 +345,7 @@ client.on('message', message => {
 				subscription.unsubscribeActivity(SQLclient, message.channel.id, outfits[x], 'ps2ps4eu:v2')
 					.then(res => message.channel.send(res))
 					.catch(err => {
+						console.log(err);
 						if(typeof(err) == "string"){
 							message.channel.send(err);
 						}
@@ -354,6 +360,7 @@ client.on('message', message => {
 				subscription.subscribeAlert(SQLclient, message.channel.id, servers[x])
 					.then(res => message.channel.send(res))
 					.catch(err => {
+						console.log(err);
 						if(typeof(err) == "string"){
 							message.channel.send(err);
 						}
@@ -368,6 +375,7 @@ client.on('message', message => {
 				subscription.unsubscribeAlert(SQLclient, message.channel.id, servers[x])
 					.then(res => message.channel.send(res))
 					.catch(err => {
+						console.log(err);
 						if(typeof(err) == "string"){
 							message.channel.send(err);
 						}
