@@ -46,7 +46,7 @@ outfitInfo = async function(tag, environment){
     if(typeof(response.outfit_list[0]) != undefined && response.outfit_list[0]){
         let data = response.outfit_list[0];
         let resObj = {
-            ID: data.outfit_ID,
+            ID: data.outfit_id,
             faction: data.leader_character_id_join_character.faction_id,
             alias: data.alias
         }
