@@ -79,9 +79,6 @@ client.on('ready', () => {
 
 		initialize.start(SQLclient);
 		listener.start(SQLclient, client);
-		// wsListen.subscribe(client, SQLclient);
-		// ps4usListen.subscribe(client, SQLclient);
-		// ps4euListen.subscribe(client, SQLclient);
 	}
 
 	client.user.setActivity('!help')
