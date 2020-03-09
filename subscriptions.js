@@ -35,6 +35,7 @@ outfitInfo = async function(tag, environment){
     let response = await got(uri).json();
     if(response.error != undefined){
         return new Promise(function(resolve, reject){
+            console.log(error);
             reject(response.error);
         })
     }
@@ -120,6 +121,7 @@ module.exports = {
         }
         if(environment == "ps2ps4us:v2"){
             let count = await pgClient.query('SELECT COUNT(channel) FROM ps4usoutfit WHERE id=$1 AND channel=$2', [outfit.ID, channel]);
+            console.log(count);
             if (count.rows[0].count == 0){
                 if(outfit.faction == "1"){
                     color = 'PURPLE';
@@ -134,6 +136,7 @@ module.exports = {
                     color = 'GREY';
                 }
                 try{
+                    console.log('B');
                     pgClient.query("INSERT INTO ps4usoutfit (id, alias, color, channel) VALUES ($1, $2, $3, $4)", [outfit.ID, outfit.alias, color, channel]);
                 }
                 catch(error){
@@ -143,10 +146,12 @@ module.exports = {
                     })
                 }
                 return new Promise(function(resolve, reject){
+                    console.log('C')
                     resolve("Subscribed to "+outfit.alias);
                 })
             }
             else{
+                console.log('A')
                 return new Promise(function(resolve, reject){
                     reject("Already subscribed to "+outfit.alias);
                 })
