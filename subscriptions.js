@@ -32,9 +32,9 @@ standardizeName = function(server){
 
 outfitInfo = async function(tag, environment){
     let uri = 'http://census.daybreakgames.com/s:'+process.env.serviceID+'/get/'+environment+'/outfit?alias_lower='+tag.toLowerCase()+'&c:join=character^on:leader_character_id^to:character_id';
-    console.log(uri)
+    // console.log(uri)
     let response = await got(uri).json();
-    console.log(response)
+    // console.log(response)
     if(response.error != undefined){
         return new Promise(function(resolve, reject){
             console.log(error);
@@ -59,7 +59,7 @@ outfitInfo = async function(tag, environment){
     }
     else{
         return new Promise(function(resolve, reject){
-            console.log('D')
+            // console.log('D')
             reject("Not found");
         })
     }
@@ -81,12 +81,12 @@ module.exports = {
         //         reject(error);
         //     })
         // }
-        console.log(tag, environment);
+        // console.log(tag, environment);
         let outfit = await outfitInfo(tag, environment);
-        console.log(outfit);
+        // console.log(outfit);
         if(environment == "ps2:v2"){
             let count = await pgClient.query('SELECT COUNT(channel) FROM outfit WHERE id=$1 AND channel=$2', [outfit.ID, channel]);
-            console.log(count);
+            // console.log(count);
             if (count.rows[0].count == 0){
                 if(outfit.faction == "1"){
                     color = 'PURPLE';
@@ -101,7 +101,7 @@ module.exports = {
                     color = 'GREY';
                 }
                 try{
-                    console.log('B')
+                    // console.log('B')
                     pgClient.query("INSERT INTO outfit (id, alias, color, channel) VALUES ($1, $2, $3, $4)", [outfit.ID, outfit.alias, color, channel]);
                 }
                 catch(error){
@@ -111,12 +111,12 @@ module.exports = {
                     })
                 }
                 return new Promise(function(resolve, reject){
-                    console.log('C')
+                    // console.log('C')
                     resolve("Subscribed to "+outfit.alias);
                 })
             }
             else{
-                console.log('A')
+                // console.log('A')
                 return new Promise(function(resolve, reject){
                     reject("Already subscribed to "+outfit.alias);
                 })
@@ -124,7 +124,7 @@ module.exports = {
         }
         if(environment == "ps2ps4us:v2"){
             let count = await pgClient.query('SELECT COUNT(channel) FROM ps4usoutfit WHERE id=$1 AND channel=$2', [outfit.ID, channel]);
-            console.log(count);
+            // console.log(count);
             if (count.rows[0].count == 0){
                 if(outfit.faction == "1"){
                     color = 'PURPLE';
@@ -139,7 +139,7 @@ module.exports = {
                     color = 'GREY';
                 }
                 try{
-                    console.log('B');
+                    // console.log('B');
                     pgClient.query("INSERT INTO ps4usoutfit (id, alias, color, channel) VALUES ($1, $2, $3, $4)", [outfit.ID, outfit.alias, color, channel]);
                 }
                 catch(error){
@@ -149,12 +149,12 @@ module.exports = {
                     })
                 }
                 return new Promise(function(resolve, reject){
-                    console.log('C')
+                    // console.log('C')
                     resolve("Subscribed to "+outfit.alias);
                 })
             }
             else{
-                console.log('A')
+                // console.log('A')
                 return new Promise(function(resolve, reject){
                     reject("Already subscribed to "+outfit.alias);
                 })
@@ -162,7 +162,7 @@ module.exports = {
         }
         if(environment == "ps2ps4eu:v2"){
             let count = await pgClient.query('SELECT COUNT(channel) FROM ps4euoutfit WHERE id=$1 AND channel=$2', [outfit.ID, channel]);
-            console.log(count);
+            // console.log(count);
             if (count.rows[0].count == 0){
                 if(outfit.faction == "1"){
                     color = 'PURPLE';
@@ -177,7 +177,7 @@ module.exports = {
                     color = 'GREY';
                 }
                 try{
-                    console.log('B');
+                    // console.log('B');
                     pgClient.query("INSERT INTO ps4euoutfit (id, alias, color, channel) VALUES ($1, $2, $3, $4)", [outfit.ID, outfit.alias, color, channel]);
                 }
                 catch(error){
@@ -187,12 +187,12 @@ module.exports = {
                     })
                 }
                 return new Promise(function(resolve, reject){
-                    console.log('C')
+                    // console.log('C')
                     resolve("Subscribed to "+outfit.alias);
                 })
             }
             else{
-                console.log('A')
+                // console.log('A')
                 return new Promise(function(resolve, reject){
                     reject("Already subscribed to "+outfit.alias);
                 })
@@ -337,7 +337,7 @@ module.exports = {
     },
 
     unsubscribeAlert: async function(pgClient, channel, server){
-        console.log(server);
+        // console.log(server);
         if(isValid(server) == false){
             return new Promise(function(resolve, reject){ 
                 reject(server+" not recognized");
