@@ -82,8 +82,8 @@ module.exports = {
         console.log(outfit);
         if(environment == "ps2:v2"){
             let count = pgClient.query('SELECT COUNT(channel) FROM outfit WHERE id=$1 AND channel=$2', [outfit.ID, channel]);
+            console.log(count);
             if (count.rows[0].count == 0){
-                console.log(count.rows[0].count)
                 if(outfit.faction == "1"){
                     color = 'PURPLE';
                 }
