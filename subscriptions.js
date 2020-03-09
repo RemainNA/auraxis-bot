@@ -152,7 +152,7 @@ module.exports = {
                 })
             }
         }
-        if(environment == "ps2ps4us:v2"){
+        if(environment == "ps2ps4eu:v2"){
             let count = await pgClient.query('SELECT COUNT(channel) FROM ps4euoutfit WHERE id=$1 AND channel=$2', [outfit.ID, channel]);
             if (count.rows[0].count == 0){
                 if(outfit.faction == "1"){
