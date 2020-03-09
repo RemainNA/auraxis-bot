@@ -77,6 +77,7 @@ module.exports = {
         //         reject(error);
         //     })
         // }
+        console.log(tag);
         let outfit = await outfitInfo(tag, environment);
         if(environment == "ps2:v2"){
             let count = pgClient.query('SELECT COUNT(channel) FROM outfit WHERE id=$1 AND channel=$2', [outfit.ID, channel]);
