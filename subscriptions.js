@@ -284,14 +284,15 @@ module.exports = {
         }
         let countQuery = "SELECT count(*) FROM "+server+" WHERE channel=$1"; //Only uses string concatenation after input validation
         let insertQuery = "INSERT INTO "+server+" VALUES ($1)";
-        try{
-            let count = await pgClient.query(countQuery, [channel]);
-        }
-        catch(error){
-            return new Promise(function(resolve, reject){ 
-                reject(error);
-            })
-        }
+        // try{
+        //     let count = await pgClient.query(countQuery, [channel]);
+        // }
+        // catch(error){
+        //     return new Promise(function(resolve, reject){ 
+        //         reject(error);
+        //     })
+        // }
+        let count = await pgClient.query(countQuery, [channel]);
         if(count.rows[0].count == 0){
             try{
                 pgClient.query(insertQuery, [channel]);
@@ -320,15 +321,16 @@ module.exports = {
         }
         let countQuery = "SELECT count(*) FROM "+server+" WHERE channel=$1"; //Only uses string concatenation after input validation
         let deleteQuery = "DELETE FROM "+server+" WHERE channel=$1";
-        try{
-            let count = await pgClient.query(countQuery, [channel]);
-        }
-        catch(error){
-            return new Promise(function(resolve, reject){ 
-                reject(error);
-            })
-        }
-        if(count == 0){
+        // try{
+        //     let count = await pgClient.query(countQuery, [channel]);
+        // }
+        // catch(error){
+        //     return new Promise(function(resolve, reject){ 
+        //         reject(error);
+        //     })
+        // }
+        let count = await pgClient.query(countQuery, [channel]);
+        if(count.rows[0].count == 0){
             return new Promise(function(resolve, reject){ 
                 reject("Not subscribed to "+standardizeName(server)+" alerts");
             })
