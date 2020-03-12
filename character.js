@@ -137,7 +137,17 @@ module.exports = {
         if(cInfo.title != null){
             resEmbed.setDescription(cInfo.title);
         }
-        resEmbed.setURL('http://ps2.fisu.pw/player/?name='+cName);
+        
+        if(platform == 'ps2:v2'){
+            resEmbed.setURL('http://ps2.fisu.pw/player/?name='+cName);
+        }
+        else if(platform == 'ps2ps4us:v2'){
+            resEmbed.setURL('http://ps4us.ps2.fisu.pw/player/?name='+cName);
+        }
+        else if(platform == 'ps2ps4eu:v2'){
+            resEmbed.setURL('http://ps4eu.ps2.fisu.pw/player/?name='+cName);
+        }
+        
         if(cInfo.prestige > 0){
             resEmbed.addField('BR', cInfo.br+"~"+cInfo.prestige, true);
         }
