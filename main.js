@@ -35,6 +35,7 @@ var subscription = require('./subscriptions.js');
 var population = require('./serverPopulation.js');
 var prePrestige = require('./prePrestige.js');
 var initialize = require('./initializeSQL.js');
+var territory = require('./territory.js');
 
 //Online components
 if(runningOnline){
@@ -255,6 +256,20 @@ client.on('message', message => {
 		//calls prePrestige.js
 		prePrestige.lookup(characterName, message);
 		
+	}
+	if (message.content.substring(0,11).toLowerCase() == '!territory '){
+		servers = message.content.substring(11).toLowerCase().split(" ");
+		for(x in servers){
+			if(servers[x] != ""){
+				territory.territory(servers[x])
+					.then(res => message.channel.send(res))
+					.catch(err => {
+						if(typeof(err) == "string"){
+							message.channel.send(err);
+						}
+					})
+			}
+		}
 	}
 	if (message.content.substring(0,20).toLowerCase() == '!subscribe activity ' && runningOnline){
 		outfits = message.content.substring(20).toLowerCase().split(" ");
