@@ -23,6 +23,12 @@ logEvent = async function(payload, environment, pgClient, discordClient){
             reject(response.error);
         })
     }
+    if(typeof(response.character_list) == undefined || !response.character_list[0]){
+        return new Promise(function(resolve, reject){
+            console.log("Invalid response content");
+            reject(uri);
+        })
+    }
     if(typeof(response.character_list[0]) != undefined && response.character_list[0]){
         let table = environmentToTable(environment); //helper function used for scope management
         let playerEvent = payload.event_name.substring(6);
@@ -156,7 +162,8 @@ module.exports = {
                 .catch(error => console.log(error));
         }
         else if(payload.metagame_event_state_name != null){
-            alertEvent(payload, environment, pgClient, discordClient);
+            alertEvent(payload, environment, pgClient, discordClient)
+                .catch(error => console.log(error));
         }
     }
 }
