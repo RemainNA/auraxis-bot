@@ -23,12 +23,8 @@ logEvent = async function(payload, environment, pgClient, discordClient){
             reject(response.error);
         })
     }
-    console.log(uri);
     if(typeof(response.character_list) == undefined){
-        return new Promise(function(resolve, reject){
-            console.log("Invalid response content");
-            reject(uri);
-        })
+        console.log(uri);
     }
     if(typeof(response.character_list[0]) != undefined && response.character_list[0]){
         let table = environmentToTable(environment); //helper function used for scope management
