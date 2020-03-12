@@ -18,6 +18,11 @@ logEvent = async function(payload, environment, pgClient, discordClient){
     let uri = 'https://census.daybreakgames.com/s:'+process.env.serviceID+'/get/'+environment+'/character/'+payload.character_id+'?c:resolve=outfit_member';
     let response = await got(uri).json();
     // console.log(typeof(response.character_list), uri);
+    if(typeof(response.character_list) === 'undefined'){
+        return new Promise(function(resolve, reject){
+            reject(null);
+        })
+    }
     if(typeof(response.character_list) != undefined){
         let table = environmentToTable(environment); //helper function used for scope management
         let playerEvent = payload.event_name.substring(6);
@@ -148,7 +153,11 @@ module.exports = {
     router: async function(payload, environment, pgClient, discordClient){
         if(payload.character_id != null){
             logEvent(payload, environment, pgClient, discordClient)
-                .catch(error => console.log(error));
+                .catch(error => {
+                    if(typeof(error) == "string"){
+                        console.log(error);
+                    }
+                });
         }
         else if(payload.metagame_event_state_name != null){
             alertEvent(payload, environment, pgClient, discordClient)
