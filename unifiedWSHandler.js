@@ -23,6 +23,7 @@ logEvent = async function(payload, environment, pgClient, discordClient){
             reject(response.error);
         })
     }
+    console.log(uri);
     if(typeof(response.character_list) == undefined){
         return new Promise(function(resolve, reject){
             console.log("Invalid response content");
