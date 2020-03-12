@@ -17,15 +17,7 @@ environmentToTable = function(environment){
 logEvent = async function(payload, environment, pgClient, discordClient){
     let uri = 'https://census.daybreakgames.com/s:'+process.env.serviceID+'/get/'+environment+'/character/'+payload.character_id+'?c:resolve=outfit_member';
     let response = await got(uri).json();
-    if(response.error != undefined){
-        return new Promise(function(resolve, reject){
-            console.log(uri);
-            reject(response.error);
-        })
-    }
-    if(typeof(response.character_list) == undefined){
-        console.log(uri);
-    }
+    console.log(typeof(response.character_list));
     if(typeof(response.character_list[0]) != undefined && response.character_list[0]){
         let table = environmentToTable(environment); //helper function used for scope management
         let playerEvent = payload.event_name.substring(6);
