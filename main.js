@@ -30,9 +30,6 @@ var ps4euOutfit = require('./PS4EU/outfit.js');
 var online = require('./online.js');
 var ps4usOnline = require('./PS4US/online.js');
 var ps4euOnline = require('./PS4EU/online.js');
-// var wsListen = require('./websocketListener.js');
-// var ps4usListen = require('./PS4US/websocketListener.js');
-// var ps4euListen = require('./PS4EU/websocketListener.js');
 var listener = require('./unifiedWSListener.js');
 var subscription = require('./subscriptions.js');
 var population = require('./serverPopulation.js');
@@ -116,7 +113,6 @@ var listOfCommands = [
 ]
 // Create an event listener for messages
 client.on('message', message => {
-	//console.log(client.user);
 	// If the message is "!ping"
 	if (message.content.toLowerCase() == '!ping') {
 		// Send "pong" to the same channel
