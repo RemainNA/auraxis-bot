@@ -256,7 +256,7 @@ client.on('message', message => {
 		prePrestige.lookup(characterName, message);
 		
 	}
-	if (message.content.substring(0,20).toLowerCase() == '!subscribe activity '){
+	if (message.content.substring(0,20).toLowerCase() == '!subscribe activity ' && runningOnline){
 		outfits = message.content.substring(20).toLowerCase().split(" ");
 		for(x in outfits){
 			if(outfits[x] != ""){
@@ -270,7 +270,7 @@ client.on('message', message => {
 			}
 		}
 	}
-	if (message.content.substring(0,22).toLowerCase() == '!unsubscribe activity '){
+	if (message.content.substring(0,22).toLowerCase() == '!unsubscribe activity ' && runningOnline){
 		outfits = message.content.substring(22).toLowerCase().split(" ");
 		for(x in outfits){
 			if(outfits[x] != ""){
@@ -284,7 +284,7 @@ client.on('message', message => {
 			}
 		}
 	}
-	if (message.content.substring(0,26).toLowerCase() == '!ps4us subscribe activity '){
+	if (message.content.substring(0,26).toLowerCase() == '!ps4us subscribe activity ' && runningOnline){
 		outfits = message.content.substring(26).toLowerCase().split(" ");
 		for(x in outfits){
 			if(outfits[x] != ""){
@@ -298,7 +298,7 @@ client.on('message', message => {
 			}
 		}
 	}
-	if (message.content.substring(0,28).toLowerCase() == '!ps4us unsubscribe activity '){
+	if (message.content.substring(0,28).toLowerCase() == '!ps4us unsubscribe activity ' && runningOnline){
 		outfits = message.content.substring(28).toLowerCase().split(" ");
 		for(x in outfits){
 			if(outfits[x] != ""){
@@ -312,7 +312,7 @@ client.on('message', message => {
 			}
 		}
 	}
-	if (message.content.substring(0,26).toLowerCase() == '!ps4eu subscribe activity '){
+	if (message.content.substring(0,26).toLowerCase() == '!ps4eu subscribe activity ' && runningOnline){
 		outfits = message.content.substring(26).toLowerCase().split(" ");
 		for(x in outfits){
 			if(outfits[x] != ""){
@@ -326,7 +326,7 @@ client.on('message', message => {
 			}
 		}
 	}
-	if (message.content.substring(0,28).toLowerCase() == '!ps4eu unsubscribe activity '){
+	if (message.content.substring(0,28).toLowerCase() == '!ps4eu unsubscribe activity ' && runningOnline){
 		outfits = message.content.substring(28).toLowerCase().split(" ");
 		for(x in outfits){
 			if(outfits[x] != ""){
@@ -340,7 +340,7 @@ client.on('message', message => {
 			}
 		}
 	}
-	if (message.content.substring(0,18).toLowerCase() == '!subscribe alerts '){
+	if (message.content.substring(0,18).toLowerCase() == '!subscribe alerts ' && runningOnline){
 		servers = message.content.substring(18).toLowerCase().split(" ");
 		for(x in servers){
 			if(servers[x] != ""){
@@ -354,7 +354,7 @@ client.on('message', message => {
 			}
 		}
 	}
-	if (message.content.substring(0,20).toLowerCase() == '!unsubscribe alerts '){
+	if (message.content.substring(0,20).toLowerCase() == '!unsubscribe alerts ' && runningOnline){
 		servers = message.content.substring(20).toLowerCase().split(" ");
 		for(x in servers){
 			if(servers[x] != ""){
