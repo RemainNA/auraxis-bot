@@ -14,73 +14,78 @@ var basicInfo = async function(cName, platform){
             reject("API Unreachable");
         })
     }
-    if(typeof(response.character_list[0]) != undefined && response.character_list[0]){
-        let data = response.character_list[0];
-        let resObj = {
-            name: data.name.first,
-            title: null,
-            br: data.battle_rank.value,
-            prestige: data.prestige_level,
-            score: data.stats.stat_history[8].all_time,
-            server: data.world_id,
-            playTime: data.times.minutes_played,
-            online: data.online_status,
-            lastLogin: data.times.last_login_date,
-            faction: data.faction_id,
-            inOutfit: false,
-            stats: false
-        }
-        if(data.title_id_join_title != null){
-            resObj.title = data.title_id_join_title.name.en;
-        }
-        if(data.outfit_member != null){
-            resObj.inOutfit = true;
-            resObj.outfitName = data.outfit_member.name;
-            resObj.outfitAlias = data.outfit_member.alias;
-            resObj.outfitRank = data.outfit_member.member_rank;
-        }
-        if(data.stats != null){
-            resObj.stats = true;
-            resObj.kills = data.stats.stat_history[5].all_time;
-            resObj.deaths = data.stats.stat_history[2].all_time;
-            topID = 0;
-            mostKills = -1;
-            weaponStat = data.stats.weapon_stat_by_faction;
-            for (x in weaponStat){
-                if (weaponStat[x].stat_name == "weapon_kills" && weaponStat[x].item_id != "0"){
-                    itemKills = Number(weaponStat[x].value_vs) + Number(weaponStat[x].value_nc) + Number(weaponStat[x].value_tr);
-                    if (itemKills > mostKills){
-                        mostKills = itemKills;
-                        topID = weaponStat[x].item_id;
-                    }
+    if(typeof(response.character_list) === 'undefined'){
+        console.log("A")
+        return new Promise(function(resolve, reject){
+            reject(cName+" not found");
+        })
+    }
+    let data = response.character_list[0];
+    let resObj = {
+        name: data.name.first,
+        title: null,
+        br: data.battle_rank.value,
+        prestige: data.prestige_level,
+        score: data.stats.stat_history[8].all_time,
+        server: data.world_id,
+        playTime: data.times.minutes_played,
+        online: data.online_status,
+        lastLogin: data.times.last_login_date,
+        faction: data.faction_id,
+        inOutfit: false,
+        stats: false
+    }
+    if(data.title_id_join_title != null){
+        resObj.title = data.title_id_join_title.name.en;
+    }
+    if(data.outfit_member != null){
+        resObj.inOutfit = true;
+        resObj.outfitName = data.outfit_member.name;
+        resObj.outfitAlias = data.outfit_member.alias;
+        resObj.outfitRank = data.outfit_member.member_rank;
+    }
+    if(data.stats != null){
+        resObj.stats = true;
+        resObj.kills = data.stats.stat_history[5].all_time;
+        resObj.deaths = data.stats.stat_history[2].all_time;
+        topID = 0;
+        mostKills = -1;
+        weaponStat = data.stats.weapon_stat_by_faction;
+        for (x in weaponStat){
+            if (weaponStat[x].stat_name == "weapon_kills" && weaponStat[x].item_id != "0"){
+                itemKills = Number(weaponStat[x].value_vs) + Number(weaponStat[x].value_nc) + Number(weaponStat[x].value_tr);
+                if (itemKills > mostKills){
+                    mostKills = itemKills;
+                    topID = weaponStat[x].item_id;
                 }
             }
-            resObj.mostKills = mostKills;
-            resObj.topWeaponID = topID;
-            if(mostKills > 0){
+        }
+        resObj.mostKills = mostKills;
+        resObj.topWeaponID = topID;
+        if(mostKills > 0){
+            try{
                 resObj.topWeaponName = await getWeaponName(topID, platform);
-                if(mostKills > 100){
-                    resObj.auraxCount = await getAuraxiumCount(cName, platform);
-                }
-                else{
-                    resObj.auraxCount = 0;
-                }
+            }
+            catch{
+                console.log("Error retrieving top weapon name for id "+topID);
+                resObj.topWeaponName = "Error";
+            }
+            if(mostKills > 100){
+                resObj.auraxCount = await getAuraxiumCount(cName, platform);
             }
             else{
-                resObj.topWeaponName = "No kills";
                 resObj.auraxCount = 0;
             }
-            
         }
-        return new Promise(function(resolve, reject){
-            resolve(resObj);
-        })
+        else{
+            resObj.topWeaponName = "No kills";
+            resObj.auraxCount = 0;
+        }
+        
     }
-    else{
-        return new Promise(function(resolve, reject){
-            reject("Not found");
-        })
-    }
+    return new Promise(function(resolve, reject){
+        resolve(resObj);
+    })
 }
 
 var getWeaponName = async function(ID, platform){
@@ -102,6 +107,11 @@ var getAuraxiumCount = async function(cName, platform){
     let URI = "http://census.daybreakgames.com/s:"+process.env.serviceID+"/get/"+platform+"/character?name.first_lower="+cName+"&c:join=characters_achievement^list:1^terms:earned_count=1^outer:0^hide:character_id%27earned_count%27start%27finish%27last_save%27last_save_date%27start_date(achievement^terms:repeatable=0^outer:0^show:name.en%27description.en)"
     let response = await got(URI).json();
     let medalCount = 0;
+    if(typeof(response.character_list) === 'undefined' || typeof(response.character_list[0]) === 'undefined'){
+        return new Promise(function(resolve, reject){
+            resolve("Error");
+        })
+    }
     let achievementList = response.character_list[0].character_id_join_characters_achievement;
     for(x in achievementList){
         achievement = achievementList[x].achievement_id_join_achievement;
@@ -137,7 +147,6 @@ module.exports = {
         if(cInfo.title != null){
             resEmbed.setDescription(cInfo.title);
         }
-        
         if(platform == 'ps2:v2'){
             resEmbed.setURL('http://ps2.fisu.pw/player/?name='+cName);
         }
@@ -223,9 +232,12 @@ module.exports = {
             resEmbed.addField('Outfit Rank', cInfo.outfitRank, true);
         }
         if(cInfo.stats){
-
-            resEmbed.addField('Top Weapon (kills)', cInfo.topWeaponName+" ("+cInfo.mostKills+")", true);
-            resEmbed.addField('Auraxium medals', cInfo.auraxCount, true);
+            if(cInfo.topWeaponName != "Error"){
+                resEmbed.addField('Top Weapon (kills)', cInfo.topWeaponName+" ("+cInfo.mostKills+")", true);
+            }
+            if(cInfo.auraxCount != "Error"){
+                resEmbed.addField('Auraxium medals', cInfo.auraxCount, true);
+            }
         }
         return new Promise(function(resolve, reject){
             resolve(resEmbed);
