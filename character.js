@@ -15,7 +15,11 @@ var basicInfo = async function(cName, platform){
         })
     }
     if(typeof(response.character_list) === 'undefined'){
-        console.log("A")
+        return new Promise(function(resolve, reject){
+            reject("API Error");
+        })
+    }
+    if(typeof(response.character_list[0]) === 'undefined'){
         return new Promise(function(resolve, reject){
             reject(cName+" not found");
         })
@@ -96,11 +100,16 @@ var getWeaponName = async function(ID, platform){
             resolve(response.item_list[0].name.en);
         })
     }
-    else{
+    URI = 'https://ps2.fisu.pw/api/weapons/?id='+ID; //Fallback Fisu URI
+    let fisuResponse = await got(URI).json();
+    if(typeof(fisuResponse[ID]) !== 'undefined'){
         return new Promise(function(resolve, reject){
-            reject("Not found");
+            resolve(fisuResponse[ID].name);
         })
     }
+    return new Promise(function(resolve, reject){
+        reject("Not found");
+    })
 }
 
 var getAuraxiumCount = async function(cName, platform){
@@ -137,7 +146,6 @@ module.exports = {
             cInfo = await basicInfo(cName, platform);
         }
         catch(error){
-            console.log(error);
             return new Promise(function(resolve, reject){
                 reject(error);
             })
