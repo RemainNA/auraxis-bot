@@ -94,32 +94,57 @@ serverIdToName = function(server){
     }
 }
 
+alertInfo = async function(payload, environment){
+    let url = 'https://census.daybreakgames.com/s:'+process.env.serviceID+'/get/'+environment+'/metagame_event/'+payload.metagame_event_id;
+    let response = await got(url).json();
+    if(response.returned == 0 || typeof(response.metagame_event_list) === 'undefined' || typeof(response.metagame_event_list[0]) == 'undefined'){
+        var alerts = require('./alerts.json');
+        if(typeof(alerts[process.env.serviceID]) === 'undefined'){
+            console.log("Unable to find alert info for id "+payload.metagame_event_id);
+            return new Promise(function(resolve, reject){
+                reject("Alert notification error");
+            })
+        }
+        let resObj = {
+            name: alerts[process.env.serviceID].name,
+            description: alerts[process.env.serviceID].description
+        }
+        return new Promise(function(resolve, reject){
+            resolve(resObj);
+        })
+    }
+    if(response.error != undefined){
+        return new Promise(function(resolve, reject){
+            reject(response.error);
+        })
+    }
+    let resObj = {
+        name: response.metagame_event_list[0].name.en,
+        description: response.metagame_event_list[0].description.en
+    }
+    return new Promise(function(resolve, reject){
+        resolve(resObj);
+    })
+}
+
 alertEvent = async function(payload, environment, pgClient, discordClient){
     if(payload.metagame_event_state_name == "started"){
-        let url = 'https://census.daybreakgames.com/s:'+process.env.serviceID+'/get/'+environment+'/metagame_event/'+payload.metagame_event_id;
         let server = serverIdToName(payload.world_id);
         let queryText = "SELECT * FROM "+server;
         let removeQueryText = "DELETE FROM "+server+" WHERE channel=$1";
-        let response = await got(url).json();
-        if(response.error != undefined){
-            return new Promise(function(resolve, reject){
-                console.log("B");
-                reject(response.error);
-            })
-        }
-        if(typeof(response.metagame_event_list[0]) != undefined && response.metagame_event_list[0]){
-            let event = response.metagame_event_list[0];
+        let response = await alertInfo(payload, environment);
+        if(typeof(response.name) != undefined && response.name){
             let sendEmbed = new Discord.RichEmbed();
-            sendEmbed.setTitle(event.name.en);
-            sendEmbed.setDescription(event.description.en);
+            sendEmbed.setTitle(response.name);
+            sendEmbed.setDescription(response.description);
             sendEmbed.setTimestamp();
-            if (event.name.en.includes('Enlightenment')){
+            if (response.name.includes('Enlightenment')){
                 sendEmbed.setColor('PURPLE');
             }
-            else if (event.name.en.includes('Liberation')){
+            else if (response.name.includes('Liberation')){
                 sendEmbed.setColor('BLUE');
             }
-            else if (event.name.en.includes('Superiority')){
+            else if (response.name.includes('Superiority')){
                 sendEmbed.setColor('RED');
             }
             sendEmbed.addField('Server', server, true);
