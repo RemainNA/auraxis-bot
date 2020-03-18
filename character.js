@@ -96,11 +96,16 @@ var getWeaponName = async function(ID, platform){
             resolve(response.item_list[0].name.en);
         })
     }
-    else{
+    URI = 'https://ps2.fisu.pw/api/weapons/?id='+ID; //Fallback Fisu URI
+    let fisuResponse = await got(URI).json();
+    if(typeof(fisuResponse[ID]) !== 'undefined'){
         return new Promise(function(resolve, reject){
-            reject("Not found");
+            resolve(fisuResponse[ID].name);
         })
     }
+    return new Promise(function(resolve, reject){
+        reject("Not found");
+    })
 }
 
 var getAuraxiumCount = async function(cName, platform){
