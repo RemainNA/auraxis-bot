@@ -15,7 +15,11 @@ var basicInfo = async function(cName, platform){
         })
     }
     if(typeof(response.character_list) === 'undefined'){
-        console.log("A")
+        return new Promise(function(resolve, reject){
+            reject("API Error");
+        })
+    }
+    if(typeof(response.character_list[0]) === 'undefined'){
         return new Promise(function(resolve, reject){
             reject(cName+" not found");
         })
@@ -142,7 +146,6 @@ module.exports = {
             cInfo = await basicInfo(cName, platform);
         }
         catch(error){
-            console.log(error);
             return new Promise(function(resolve, reject){
                 reject(error);
             })
