@@ -99,15 +99,15 @@ alertInfo = async function(payload, environment){
     let response = await got(url).json();
     if(response.returned == 0 || typeof(response.metagame_event_list) === 'undefined' || typeof(response.metagame_event_list[0]) == 'undefined'){
         var alerts = require('./alerts.json');
-        if(typeof(alerts[process.env.serviceID]) === 'undefined'){
+        if(typeof(alerts[payload.metagame_event_id]) === 'undefined'){
             console.log("Unable to find alert info for id "+payload.metagame_event_id);
             return new Promise(function(resolve, reject){
                 reject("Alert notification error");
             })
         }
         let resObj = {
-            name: alerts[process.env.serviceID].name,
-            description: alerts[process.env.serviceID].description
+            name: alerts[payload.metagame_event_id].name,
+            description: alerts[payload.metagame_event_id].description
         }
         return new Promise(function(resolve, reject){
             resolve(resObj);
