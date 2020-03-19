@@ -84,7 +84,7 @@ var basicInfo = async function(cName, platform){
             resObj.auraxCount = 0;
         }
         if(typeof(data.stats.stat_history) !== 'undefined'){
-            resObj.stat_history == true;
+            resObj.stat_history = true;
             resObj.score = data.stats.stat_history[8].all_time
             resObj.kills = data.stats.stat_history[5].all_time;
             resObj.deaths = data.stats.stat_history[2].all_time;
