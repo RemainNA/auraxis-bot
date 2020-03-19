@@ -30,14 +30,14 @@ var basicInfo = async function(cName, platform){
         title: null,
         br: data.battle_rank.value,
         prestige: data.prestige_level,
-        score: data.stats.stat_history[8].all_time,
         server: data.world_id,
         playTime: data.times.minutes_played,
         online: data.online_status,
         lastLogin: data.times.last_login_date,
         faction: data.faction_id,
         inOutfit: false,
-        stats: false
+        stats: false,
+        stat_history: false
     }
     if(data.title_id_join_title != null){
         resObj.title = data.title_id_join_title.name.en;
@@ -50,8 +50,6 @@ var basicInfo = async function(cName, platform){
     }
     if(data.stats != null){
         resObj.stats = true;
-        resObj.kills = data.stats.stat_history[5].all_time;
-        resObj.deaths = data.stats.stat_history[2].all_time;
         topID = 0;
         mostKills = -1;
         weaponStat = data.stats.weapon_stat_by_faction;
@@ -84,6 +82,12 @@ var basicInfo = async function(cName, platform){
         else{
             resObj.topWeaponName = "No kills";
             resObj.auraxCount = 0;
+        }
+        if(typeof(data.stats.stat_history) !== 'undefined'){
+            resObj.stat_history == true;
+            resObj.score = data.stats.stat_history[8].all_time
+            resObj.kills = data.stats.stat_history[5].all_time;
+            resObj.deaths = data.stats.stat_history[2].all_time;
         }
         
     }
@@ -171,7 +175,9 @@ module.exports = {
         else{
             resEmbed.addField('BR', cInfo.br, true);
         }
-        resEmbed.addField('Score (SPM)', cInfo.score.toLocaleString()+" ("+Number.parseFloat(cInfo.score/cInfo.playTime).toPrecision(4)+")", true);
+        if(cInfo.stat_history){
+            resEmbed.addField('Score (SPM)', cInfo.score.toLocaleString()+" ("+Number.parseFloat(cInfo.score/cInfo.playTime).toPrecision(4)+")", true);
+        }
         switch (cInfo.server)
         {
             case "1":
@@ -201,7 +207,7 @@ module.exports = {
         hours = Math.floor(cInfo.playTime/60);
         minutesPlayed = cInfo.playTime - hours*60;
         resEmbed.addField('Playtime', hours+' hours, '+minutesPlayed+' minutes', true);
-        if(cInfo.stats){
+        if(cInfo.stat_history){
             resEmbed.addField('KD', Number.parseFloat(cInfo.kills/cInfo.deaths).toPrecision(3), true);
         }
         if (cInfo.online == "service_unavailable"){
