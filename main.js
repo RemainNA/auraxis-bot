@@ -36,6 +36,7 @@ var population = require('./serverPopulation.js');
 var prePrestige = require('./prePrestige.js');
 var initialize = require('./initializeSQL.js');
 var territory = require('./territory.js');
+var messageHandler = require('./messageHandler.js');
 
 //Online components
 if(runningOnline){
@@ -141,12 +142,8 @@ client.on('message', message => {
 		for(x in chars){
 			if(chars[x] != ""){
 				char.character(chars[x], 'ps2:v2')
-					.then(res => message.channel.send(res))
-					.catch(err => {
-						if(typeof(err) == "string"){
-							message.channel.send(err);
-						}
-					})
+					.then(res => messageHandler.send(message.channel, res, "PC Character"))
+					.catch(err => messageHandler.handleError(message.channel, err, "PC Character"))
 			}
 		}
 	}
@@ -155,12 +152,8 @@ client.on('message', message => {
 		for(x in chars){
 			if(chars[x] != ""){
 				char.character(chars[x], 'ps2ps4us:v2')
-					.then(res => message.channel.send(res))
-					.catch(err => {
-						if(typeof(err) == "string"){
-							message.channel.send(err);
-						}
-					})
+					.then(res => messageHandler.send(message.channel, res, "PS4US Character"))
+					.catch(err => messageHandler.handleError(message.channel, err, "PS4US Character"))
 			}
 		}
 	}
@@ -169,12 +162,8 @@ client.on('message', message => {
 		for(x in chars){
 			if(chars[x] != ""){
 				char.character(chars[x], 'ps2ps4eu:v2')
-					.then(res => message.channel.send(res))
-					.catch(err => {
-						if(typeof(err) == "string"){
-							message.channel.send(err);
-						}
-					})
+					.then(res => messageHandler.send(message.channel, res, "PS4EU Character"))
+					.catch(err => messageHandler.handleError(message.channel, err, "PS4EU Character"))
 			}
 		}
 	}
@@ -265,12 +254,8 @@ client.on('message', message => {
 		for(x in servers){
 			if(servers[x] != ""){
 				territory.territory(servers[x])
-					.then(res => message.channel.send(res))
-					.catch(err => {
-						if(typeof(err) == "string"){
-							message.channel.send(err);
-						}
-					})
+					.then(res => messageHandler.send(message.channel, res, "Territory"))
+					.catch(err => messageHandler.handleError(message.channel, err, "Territory"))
 			}
 		}
 	}
@@ -279,12 +264,8 @@ client.on('message', message => {
 		for(x in outfits){
 			if(outfits[x] != ""){
 				subscription.subscribeActivity(SQLclient, message.channel.id, outfits[x], 'ps2:v2')
-					.then(res => message.channel.send(res))
-					.catch(err => {
-						if(typeof(err) == "string"){
-							message.channel.send(err);
-						}
-					})
+					.then(res => messageHandler.send(message.channel, res, "Subscribe activity"))
+					.catch(err => messageHandler.handleError(message.channel, err, "Subscribe activity"))
 			}
 		}
 	}
@@ -293,12 +274,8 @@ client.on('message', message => {
 		for(x in outfits){
 			if(outfits[x] != ""){
 				subscription.unsubscribeActivity(SQLclient, message.channel.id, outfits[x], 'ps2:v2')
-					.then(res => message.channel.send(res))
-					.catch(err => {
-						if(typeof(err) == "string"){
-							message.channel.send(err);
-						}
-					})
+					.then(res => messageHandler.send(message.channel, res, "Unsubscribe activity"))
+					.catch(err => messageHandler.handleError(message.channel, err, "Unsubscribe activity"))
 			}
 		}
 	}
@@ -307,12 +284,8 @@ client.on('message', message => {
 		for(x in outfits){
 			if(outfits[x] != ""){
 				subscription.subscribeActivity(SQLclient, message.channel.id, outfits[x], 'ps2ps4us:v2')
-					.then(res => message.channel.send(res))
-					.catch(err => {
-						if(typeof(err) == "string"){
-							message.channel.send(err);
-						}
-					})
+					.then(res => messageHandler.send(message.channel, res, "PS4US Subscribe activity"))
+					.catch(err => messageHandler.handleError(message.channel, err, "PS4US Subscribe activity"))
 			}
 		}
 	}
@@ -321,12 +294,8 @@ client.on('message', message => {
 		for(x in outfits){
 			if(outfits[x] != ""){
 				subscription.unsubscribeActivity(SQLclient, message.channel.id, outfits[x], 'ps2ps4us:v2')
-					.then(res => message.channel.send(res))
-					.catch(err => {
-						if(typeof(err) == "string"){
-							message.channel.send(err);
-						}
-					})
+					.then(res => messageHandler.send(message.channel, res, "PS4US Unsubscribe activity"))
+					.catch(err => messageHandler.handleError(message.channel, err, "PS4US Unsubscribe activity"))
 			}
 		}
 	}
@@ -335,12 +304,8 @@ client.on('message', message => {
 		for(x in outfits){
 			if(outfits[x] != ""){
 				subscription.subscribeActivity(SQLclient, message.channel.id, outfits[x], 'ps2ps4eu:v2')
-					.then(res => message.channel.send(res))
-					.catch(err => {
-						if(typeof(err) == "string"){
-							message.channel.send(err);
-						}
-					})
+				.then(res => messageHandler.send(message.channel, res, "PS4EU Subscribe activity"))
+				.catch(err => messageHandler.handleError(message.channel, err, "PS4EU Subscribe Activity"))
 			}
 		}
 	}
@@ -349,12 +314,8 @@ client.on('message', message => {
 		for(x in outfits){
 			if(outfits[x] != ""){
 				subscription.unsubscribeActivity(SQLclient, message.channel.id, outfits[x], 'ps2ps4eu:v2')
-					.then(res => message.channel.send(res))
-					.catch(err => {
-						if(typeof(err) == "string"){
-							message.channel.send(err);
-						}
-					})
+					.then(res => messageHandler.send(message.channel, res, "PS4EU Unsubscribe activity"))
+					.catch(err => messageHandler.handleError(message.channel, err, "PS4EU Unsubscribe activity"))
 			}
 		}
 	}
@@ -363,12 +324,8 @@ client.on('message', message => {
 		for(x in servers){
 			if(servers[x] != ""){
 				subscription.subscribeAlert(SQLclient, message.channel.id, servers[x])
-					.then(res => message.channel.send(res))
-					.catch(err => {
-						if(typeof(err) == "string"){
-							message.channel.send(err);
-						}
-					})
+					.then(res => messageHandler.send(message.channel, res, "Subscribe alerts"))
+					.catch(err => messageHandler.handleError(message.channel, err, "Subscribe alerts"))
 			}
 		}
 	}
@@ -377,22 +334,13 @@ client.on('message', message => {
 		for(x in servers){
 			if(servers[x] != ""){
 				subscription.unsubscribeAlert(SQLclient, message.channel.id, servers[x])
-					.then(res => message.channel.send(res))
-					.catch(err => {
-						if(typeof(err) == "string"){
-							message.channel.send(err);
-						}
-					})
+					.then(res => messageHandler.send(message.channel, res, "Unsubscribe alerts"))
+					.catch(err => messageHandler.handleError(message.channel, err, "Unsubscribe alerts"))
 			}
 		}
 	}
 	if (message.content.substring(0,1) == '!' && message.content.toLowerCase().indexOf('subscribe') != -1 && !runningOnline){
-		message.channel.send('Subscription functionality currently unavailable').then(function(result){
-			
-		}, function(err) {
-			console.log("Insufficient permissions on !subscribe unavailable");
-			console.log(message.guild.name);
-		});
+		messageHandler.send(message.channel, 'Subscription functionality currently unavailable', "Subscriptions unabailable");
 	}
 });
 

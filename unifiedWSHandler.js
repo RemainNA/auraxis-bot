@@ -1,6 +1,7 @@
 var got = require('got');
 const Discord = require('discord.js');
 const { Client } = require('pg');
+var messageHandler = require('./messageHandler.js');
 
 environmentToTable = function(environment){
     if(environment == "ps2:v2"){
@@ -53,11 +54,7 @@ logEvent = async function(payload, environment, pgClient, discordClient){
             for (let row of result.rows){
                 let resChann = discordClient.channels.get(row.channel);
                 if(resChann != undefined){
-                    resChann.send(sendEmbed).then(function(result){
-                        
-                    }, function(err){
-                        console.log(err);
-                    });
+                    messageHandler.send(resChann, sendEmbed, "Log event");
                 }
                 //in case channel is deleted or otherwise inaccessible
                 else{
@@ -152,11 +149,7 @@ alertEvent = async function(payload, environment, pgClient, discordClient){
             for (let row of rows.rows){
                 resChann = discordClient.channels.get(row.channel);
                 if(resChann != undefined){
-                    resChann.send(sendEmbed).then(function(result){
-                        
-                    }, function(err){
-                        console.log(err);
-                    });
+                    messageHandler.send(resChann, sendEmbed, "Alert notification");
                 }
                 else{
                     pgClient.query(removeQueryText, [row.channel], (err, res) => {
