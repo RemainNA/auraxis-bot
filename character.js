@@ -1,7 +1,11 @@
+// This file implements functions to look up a character's basic information, the number of Auraxium medals they have, and their top weapon
+// All three platforms are supported, but must be specified in the "platform" parameter
+
 const Discord = require('discord.js');
 var got = require('got');
 
 var basicInfo = async function(cName, platform){
+    // Main function for character lookup.  Pulls most stats and calls other functions for medals/top weapon info
     let uri = 'https://census.daybreakgames.com/s:'+process.env.serviceID+'/get/'+platform+'/character?name.first_lower='+cName+'&c:resolve=outfit_member_extended,online_status,world,stat_history,weapon_stat_by_faction&c:join=title';
     let response = await got(uri).json();
     if(response.error != undefined){
@@ -25,6 +29,7 @@ var basicInfo = async function(cName, platform){
         })
     }
     let data = response.character_list[0];
+    //store basic information
     let resObj = {
         name: data.name.first,
         title: null,
@@ -53,6 +58,7 @@ var basicInfo = async function(cName, platform){
         topID = 0;
         mostKills = -1;
         weaponStat = data.stats.weapon_stat_by_faction;
+        //find most used weapon
         for (x in weaponStat){
             if (weaponStat[x].stat_name == "weapon_kills" && weaponStat[x].item_id != "0"){
                 itemKills = Number(weaponStat[x].value_vs) + Number(weaponStat[x].value_nc) + Number(weaponStat[x].value_tr);
@@ -64,6 +70,7 @@ var basicInfo = async function(cName, platform){
         }
         resObj.mostKills = mostKills;
         resObj.topWeaponID = topID;
+        // Find name of most used weapon, calculate number of Auraxium medals
         if(mostKills > 0){
             try{
                 resObj.topWeaponName = await getWeaponName(topID, platform);
@@ -83,6 +90,7 @@ var basicInfo = async function(cName, platform){
             resObj.topWeaponName = "No kills";
             resObj.auraxCount = 0;
         }
+        // Pull stats for score, spm, and K/D
         if(typeof(data.stats.stat_history) !== 'undefined'){
             resObj.stat_history = true;
             resObj.score = data.stats.stat_history[8].all_time
@@ -97,6 +105,7 @@ var basicInfo = async function(cName, platform){
 }
 
 var getWeaponName = async function(ID, platform){
+    // Returns the name of the weapon ID specified.  If the Census API is unreachable it will fall back to the fisu api
     let URI = 'https://census.daybreakgames.com/s:'+process.env.serviceID+'/get/'+platform+'/item/'+ID;
     let response = await got(URI).json();
     if(response.returned==1){
@@ -117,6 +126,7 @@ var getWeaponName = async function(ID, platform){
 }
 
 var getAuraxiumCount = async function(cName, platform){
+    // Calculates the number of Auraxium medals a specified character has
     let URI = "http://census.daybreakgames.com/s:"+process.env.serviceID+"/get/"+platform+"/character?name.first_lower="+cName+"&c:join=characters_achievement^list:1^terms:earned_count=1^outer:0^hide:character_id%27earned_count%27start%27finish%27last_save%27last_save_date%27start_date(achievement^terms:repeatable=0^outer:0^show:name.en%27description.en)"
     let response = await got(URI).json();
     let medalCount = 0;
@@ -146,6 +156,7 @@ var getAuraxiumCount = async function(cName, platform){
 
 module.exports = {
     character: async function(cName, platform){
+        // Calls function to get basic info, extracts info from returned object and constructs the Discord embed to send
         try{
             cInfo = await basicInfo(cName, platform);
         }
@@ -155,6 +166,8 @@ module.exports = {
             })
         }
         let resEmbed = new Discord.RichEmbed();
+
+        // Username, title, fisu url
         resEmbed.setTitle(cInfo.name);
         if(cInfo.title != null){
             resEmbed.setDescription(cInfo.title);
@@ -169,15 +182,20 @@ module.exports = {
             resEmbed.setURL('http://ps4eu.ps2.fisu.pw/player/?name='+cName);
         }
         
+        // BR & ASP
         if(cInfo.prestige > 0){
             resEmbed.addField('BR', cInfo.br+"~"+cInfo.prestige, true);
         }
         else{
             resEmbed.addField('BR', cInfo.br, true);
         }
+
+        // Score, SPM
         if(cInfo.stat_history){
             resEmbed.addField('Score (SPM)', cInfo.score.toLocaleString()+" ("+Number.parseFloat(cInfo.score/cInfo.playTime).toPrecision(4)+")", true);
         }
+
+        // Server
         switch (cInfo.server)
         {
             case "1":
@@ -204,6 +222,8 @@ module.exports = {
             case "2000":
                 resEmbed.addField('Server', 'Ceres', true);
         }
+
+        // Playtime, K/D, online status, last login
         hours = Math.floor(cInfo.playTime/60);
         minutesPlayed = cInfo.playTime - hours*60;
         resEmbed.addField('Playtime', hours+' hours, '+minutesPlayed+' minutes', true);
@@ -220,6 +240,8 @@ module.exports = {
             resEmbed.addField('Online', ':x:', true);
         }
         resEmbed.addField('Last Login', cInfo.lastLogin.substring(0,10), true);
+
+        // Faction, embed color
         if (cInfo.faction == "1"){ //vs
             resEmbed.addField('Faction', 'VS', true);
             resEmbed.setColor('PURPLE');
@@ -236,6 +258,8 @@ module.exports = {
             resEmbed.addField('Faction', 'NSO', true);
             resEmbed.setColor('GREY');
         }
+
+        // Outfit info
         if(cInfo.inOutfit){
             if(cInfo.outfitAlias != ""){
                 resEmbed.addField('Outfit', '['+cInfo.outfitAlias+']'+' '+cInfo.outfitName, true);
@@ -245,6 +269,8 @@ module.exports = {
             }
             resEmbed.addField('Outfit Rank', cInfo.outfitRank, true);
         }
+
+        // Top Weapon, Auraxium medals
         if(cInfo.stats){
             if(cInfo.topWeaponName != "Error"){
                 resEmbed.addField('Top Weapon (kills)', cInfo.topWeaponName+" ("+cInfo.mostKills+")", true);

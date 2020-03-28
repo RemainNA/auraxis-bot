@@ -1,3 +1,5 @@
+// This file defined several functions used in subscribing or unsubscribing to server alerts and outfit activity
+
 const { Client } = require('pg');
 var got = require('got');
 

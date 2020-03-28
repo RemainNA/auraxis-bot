@@ -1,3 +1,5 @@
+// This file implements a function that returns the online members in a specified outfit
+
 // Import the discord.js module
 const Discord = require('discord.js');
 

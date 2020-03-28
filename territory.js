@@ -1,3 +1,5 @@
+// This file defines functions used in finding and returning the current territory control on a given server, broken up by continent
+
 const Discord = require('discord.js');
 var got = require('got');
 

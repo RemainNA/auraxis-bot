@@ -1,3 +1,5 @@
+// This file implements a function which finds and returns the max BR a character reached before joining ASP
+
 // Import the discord.js module
 const Discord = require('discord.js');
 

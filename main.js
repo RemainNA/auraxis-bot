@@ -1,3 +1,5 @@
+// This file implements the main event listener of the bot, which picks up messages, parses them for commands, and calls the appropriate functions.
+
 // Import the discord.js module
 const Discord = require('discord.js');
 
@@ -18,7 +20,7 @@ try{
 	process.env.token = auth.token;
 }
 catch(e){
-	console.log('no auth file found');
+	console.log('No auth file found');
 	runningOnline = true;
 }
 
