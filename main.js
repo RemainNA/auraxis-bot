@@ -1,3 +1,5 @@
+// This file implements the main event listener of the bot, which picks up messages, parses them for commands, and calls the appropriate functions.
+
 // Import the discord.js module
 const Discord = require('discord.js');
 
@@ -18,7 +20,7 @@ try{
 	process.env.token = auth.token;
 }
 catch(e){
-	console.log('no auth file found');
+	console.log('No auth file found');
 	runningOnline = true;
 }
 
@@ -57,17 +59,13 @@ if(runningOnline){
 	initialize.start(SQLclient);
 }
 
-
-// Create an instance of a Discord client
 const client = new Discord.Client();
 
-// The token of your bot - https://discordapp.com/developers/applications/me
+// https://discordapp.com/developers/applications/me
 const token = process.env.token;
 
-// The ready event is vital, it means that your bot will only start reacting to information
-// from Discord _after_ ready is emitted
 client.on('ready', () => {
-	console.log('I am ready!');
+	console.log('Running on '+client.guilds.size+' servers!');
 	if(runningOnline){
 		const SQLclient = new Client({
 			connectionString: process.env.DATABASE_URL,
@@ -118,24 +116,13 @@ var listOfCommands = [
 ]
 // Create an event listener for messages
 client.on('message', message => {
-	// If the message is "!ping"
 	if (message.content.toLowerCase() == '!ping') {
-		// Send "pong" to the same channel
-		message.channel.send('pong!').then(function(result){
-			
-		}, function(err) {
-			console.log("Insufficient permissions on !ping");
-			console.log(message.guild.name);
-		});
+		// ping function to check if bot is up
+		messageHandler.send(message.channel, 'pong!', 'ping');
 	}
 	if (message.content.toLowerCase() == '!help'){
 		//show list of all commands (stored in listOfCommands)
-		message.channel.send(listOfCommands).then(function(result){
-			
-		}, function(err) {
-			console.log("Insufficient permissions on !help");
-			console.log(message.guild.name);
-		});
+		messageHandler.send(message.channel, listOfCommands, 'help');
 	}
 	if (message.content.substring(0,11).toLowerCase() == '!character '){
 		chars = message.content.substring(11).toLowerCase().split(" ");
@@ -170,14 +157,8 @@ client.on('message', message => {
 	if (message.content.substring(0,7).toLowerCase() == '!outfit'){
 		//look up outfit
 		var oName = message.content.substring(8).toLowerCase();
-		if (oName.length > 4)
-		{
-			message.channel.send('Outfit tag too long').then(function(result){
-			
-			}, function(err) {
-				console.log("Insufficient permissions on !outfit tag length");
-				console.log(message.guild.name);
-			});
+		if (oName.length > 4){
+			messageHandler.send(message.channel, 'Outfit tag too long', 'Outfit tag too long');
 		}
 		else{
 			//calls outfit.js
@@ -187,14 +168,8 @@ client.on('message', message => {
 	if (message.content.substring(0,13).toLowerCase() == '!ps4us outfit'){
 		//look up outfit
 		var oName = message.content.substring(14).toLowerCase();
-		if (oName.length > 4)
-		{
-			message.channel.send('Outfit tag too long').then(function(result){
-			
-			}, function(err) {
-				console.log("Insufficient permissions on !outfit tag length");
-				console.log(message.guild.name);
-			});
+		if (oName.length > 4){
+			messageHandler.send(message.channel, 'Outfit tag too long', 'Outfit tag too long');
 		}
 		else{
 			//calls outfit.js
@@ -204,14 +179,8 @@ client.on('message', message => {
 	if (message.content.substring(0,13).toLowerCase() == '!ps4eu outfit'){
 		//look up outfit
 		var oName = message.content.substring(14).toLowerCase();
-		if (oName.length > 4)
-		{
-			message.channel.send('Outfit tag too long').then(function(result){
-			
-			}, function(err) {
-				console.log("Insufficient permissions on !outfit tag length");
-				console.log(message.guild.name);
-			});
+		if (oName.length > 4){
+			messageHandler.send(message.channel, 'Outfit tag too long', 'Outfit tag too long');
 		}
 		else{
 			//calls outfit.js

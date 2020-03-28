@@ -1,3 +1,5 @@
+// This file defines functions used in finding and returning the current territory control on a given server, broken up by continent
+
 const Discord = require('discord.js');
 var got = require('got');
 
@@ -149,7 +151,6 @@ module.exports = {
         let terObj = await this.territoryInfo(server);
         let resEmbed = new Discord.RichEmbed();
         resEmbed.setTitle(printableName(server)+" territory");
-        resEmbed.setDescription("Territory shown VS/NC/TR");
         let IndarTotal = terObj.Indar.vs + terObj.Indar.nc + terObj.Indar.tr;
         let vsPc = (terObj.Indar.vs/IndarTotal)*100;
         vsPc = Number.parseFloat(vsPc).toPrecision(3);
@@ -167,7 +168,7 @@ module.exports = {
             resEmbed.addField('Indar', 'Owned by the TR');
         }
         else{
-            resEmbed.addField('Indar', terObj.Indar.vs+' ('+vsPc+'%)/'+terObj.Indar.nc+' ('+ncPc+'%)/'+terObj.Indar.tr+' ('+trPc+'%)');
+            resEmbed.addField('Indar', 'VS: '+vsPc+'% ('+terObj.Indar.vs+') | NC: '+ncPc+'% ('+terObj.Indar.nc+') | TR: '+trPc+'% ('+terObj.Indar.tr+')');
         }
         let HossinTotal = terObj.Hossin.vs + terObj.Hossin.nc + terObj.Hossin.tr;
         vsPc = (terObj.Hossin.vs/HossinTotal)*100;
@@ -186,7 +187,7 @@ module.exports = {
             resEmbed.addField('Hossin', 'Owned by the TR');
         }
         else{
-            resEmbed.addField('Hossin', terObj.Hossin.vs+' ('+vsPc+'%)/'+terObj.Hossin.nc+' ('+ncPc+'%)/'+terObj.Hossin.tr+' ('+trPc+'%)');
+            resEmbed.addField('Hossin', 'VS: '+vsPc+'% ('+terObj.Hossin.vs+') | NC: '+ncPc+'% ('+terObj.Hossin.nc+') | TR: '+trPc+'% ('+terObj.Hossin.tr+')');
         }
         let AmerishTotal = terObj.Amerish.vs + terObj.Amerish.nc + terObj.Amerish.tr;
         vsPc = (terObj.Amerish.vs/AmerishTotal)*100;
@@ -205,7 +206,7 @@ module.exports = {
             resEmbed.addField('Amerish', 'Owned by the TR');
         }
         else{
-            resEmbed.addField('Amerish', terObj.Amerish.vs+' ('+vsPc+'%)/'+terObj.Amerish.nc+' ('+ncPc+'%)/'+terObj.Amerish.tr+' ('+trPc+'%)');
+            resEmbed.addField('Amerish', 'VS: '+vsPc+'% ('+terObj.Amerish.vs+') | NC: '+ncPc+'% ('+terObj.Amerish.nc+') | TR: '+trPc+'% ('+terObj.Amerish.tr+')');
         }
         let EsamirTotal = terObj.Esamir.vs + terObj.Esamir.nc + terObj.Esamir.tr;
         vsPc = (terObj.Esamir.vs/EsamirTotal)*100;
@@ -224,7 +225,7 @@ module.exports = {
             resEmbed.addField('Esamir', 'Owned by the TR');
         }
         else{
-            resEmbed.addField('Esamir', terObj.Esamir.vs+' ('+vsPc+'%)/'+terObj.Esamir.nc+' ('+ncPc+'%)/'+terObj.Esamir.tr+' ('+trPc+'%)');
+            resEmbed.addField('Esamir', 'VS: '+vsPc+'% ('+terObj.Esamir.vs+') | NC: '+ncPc+'% ('+terObj.Esamir.nc+') | TR: '+trPc+'% ('+terObj.Esamir.tr+')');
         }
         return new Promise(function(resolve, reject){
             resolve(resEmbed);

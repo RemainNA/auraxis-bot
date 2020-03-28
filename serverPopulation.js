@@ -1,3 +1,5 @@
+// This file implements a function that queries the fisu api to return server population, divided by faction
+
 // Import the discord.js module
 const Discord = require('discord.js');
 

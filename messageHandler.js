@@ -1,7 +1,5 @@
 // This file defines methods for sending messages, and handles errors that occur in that process.
 
-const Discord = require('discord.js');
-
 module.exports = {
     send: function(channel, message, context="default"){
         channel.send(message).then(function(result){

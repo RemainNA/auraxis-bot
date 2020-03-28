@@ -1,3 +1,5 @@
+// This file implements functions which parse messages from the Stream API and send messages to the appropriate channels based on subscription status.
+
 var got = require('got');
 const Discord = require('discord.js');
 const { Client } = require('pg');

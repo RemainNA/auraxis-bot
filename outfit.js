@@ -1,3 +1,5 @@
+// This file implements a function that returns the basic information of a given outfit
+
 // Import the discord.js module
 const Discord = require('discord.js');
 
