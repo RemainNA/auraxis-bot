@@ -192,7 +192,7 @@ module.exports = {
 
         // Score, SPM
         if(cInfo.stat_history){
-            resEmbed.addField('Score (SPM)', cInfo.score.toLocaleString()+" ("+Number.parseFloat(cInfo.score/cInfo.playTime).toPrecision(4)+")", true);
+            resEmbed.addField('Score (SPM)', parseInt(cInfo.score).toLocaleString()+" ("+Number.parseFloat(cInfo.score/cInfo.playTime).toPrecision(4)+")", true);
         }
 
         // Server
