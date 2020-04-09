@@ -12,6 +12,7 @@ var running = false;
 module.exports = {
     start: function(pgClient, discordClient){
         if(running){
+            console.log('Listener already running');
             return;
         }
         running = true;
