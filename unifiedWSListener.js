@@ -7,8 +7,14 @@ const { Client } = require('pg');
 
 var handler = require('./unifiedWSHandler');
 
+var running = false;
+
 module.exports = {
     start: function(pgClient, discordClient){
+        if(running){
+            return;
+        }
+        running = true;
         lastMessage = "";
         pcLogin = '{"service":"event","action":"subscribe","worlds":["1","10","13","17","19","40"],"eventNames":["PlayerLogin","PlayerLogout"]}';
         pcAlerts = '{"service":"event","action":"subscribe","worlds":["1","10","13","17","19","40"],"eventNames":["MetagameEvent"]}';
