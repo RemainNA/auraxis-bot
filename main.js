@@ -18,6 +18,10 @@ try{
 	var auth = require('./auth.json');
 	process.env.serviceID = auth.serviceID;
 	process.env.token = auth.token;
+	if(typeof(auth.DATABASE_URL) !== 'undefined'){
+		process.env.DATABASE_URL = auth.DATABASE_URL;
+		runningOnline = true;
+	}
 }
 catch(e){
 	console.log('No auth file found');
