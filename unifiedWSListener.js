@@ -40,8 +40,9 @@ module.exports = {
 
         pcClient.on('message', function incoming(data){
             let parsed = JSON.parse(data);
-			if(parsed.payload != null){
-				handler.router(parsed.payload, "ps2:v2", pgClient, discordClient);
+			if(parsed.payload != null && parsed.payload != lastMessage){
+                handler.router(parsed.payload, "ps2:v2", pgClient, discordClient);
+                lastMessage = parsed.payload;
 			}
         })
 
@@ -58,8 +59,9 @@ module.exports = {
 
         usClient.on('message', function incoming(data){
             let parsed = JSON.parse(data);
-			if(parsed.payload != null){
-				handler.router(parsed.payload, "ps2ps4us:v2", pgClient, discordClient);
+			if(parsed.payload != null && parsed.payload != lastMessage){
+                handler.router(parsed.payload, "ps2ps4us:v2", pgClient, discordClient);
+                lastMessage = parsed.payload;
 			}
         })
 
@@ -76,8 +78,9 @@ module.exports = {
 
         euClient.on('message', function incoming(data){
             let parsed = JSON.parse(data);
-			if(parsed.payload != null){
-				handler.router(parsed.payload, "ps2ps4eu:v2", pgClient, discordClient);
+			if(parsed.payload != null && parsed.payload != lastMessage){
+                handler.router(parsed.payload, "ps2ps4eu:v2", pgClient, discordClient);
+                lastMessage = parsed.payload;
 			}
         })
 
