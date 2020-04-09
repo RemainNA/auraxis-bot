@@ -64,9 +64,12 @@ const client = new Discord.Client();
 // https://discordapp.com/developers/applications/me
 const token = process.env.token;
 
+var running = false;
+
 client.on('ready', () => {
 	console.log('Running on '+client.guilds.size+' servers!');
-	if(runningOnline){
+	console.log(running);
+	if(runningOnline && !running){
 		const SQLclient = new Client({
 			connectionString: process.env.DATABASE_URL,
 			ssl: true,
@@ -78,6 +81,7 @@ client.on('ready', () => {
 		listener.start(SQLclient, client);
 	}
 
+	running = true;
 	client.user.setActivity('!help')
 });
 
