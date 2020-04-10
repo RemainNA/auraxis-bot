@@ -86,7 +86,12 @@ client.on('ready', () => {
 });
 
 var listOfCommands = [
+"About the bot",
+"------",
 "!help",
+"!about",
+"!invite",
+" ",
 "PC",
 "------",
 "!character [name]",
@@ -127,6 +132,14 @@ client.on('message', message => {
 	if (message.content.toLowerCase() == '!help'){
 		//show list of all commands (stored in listOfCommands)
 		messageHandler.send(message.channel, listOfCommands, 'help');
+	}
+	if (message.content.toLowerCase() == '!about'){
+		//link to GitHub page
+		messageHandler.send(message.channel, "For documentation and support info, visit the GitHub page: https://github.com/ultimastormGH/auraxis-bot", 'about');
+	}
+	if (message.content.toLowerCase() == '!invite'){
+		//post invite link
+		messageHandler.send(message.channel, "https://discordapp.com/oauth2/authorize?client_id=437756856774033408&scope=bot&permissions=19456", 'invite');
 	}
 	if (message.content.substring(0,11).toLowerCase() == '!character '){
 		chars = message.content.substring(11).toLowerCase().split(" ");
