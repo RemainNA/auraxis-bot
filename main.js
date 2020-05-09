@@ -111,7 +111,7 @@ var links = [
 client.on('message', message => {
 	if (message.content.toLowerCase() == '!ping') {
 		// ping function to check if bot is up
-		messageHandler.send(message.channel, 'pong!', 'ping');
+		messageHandler.send(message.channel, "Bot's ping to Discord is "+client.ping+'ms', 'ping');
 	}
 	if (message.content.toLowerCase() == '!help' || message.content.toLowerCase() == '!about'){
 		//show list of commands and relevant links
