@@ -61,7 +61,7 @@ var basicInfo = async function(cName, platform){
     if(data.stats != null){
         resObj.stats = true;
         topID = 0;
-        mostKills = -1;
+        mostKills = 0;
         weaponStat = data.stats.weapon_stat_by_faction;
         //find most used weapon
         for (x in weaponStat){
