@@ -5,11 +5,11 @@
   "main": "main.js",
   "author": "Ultimastorm",
   "dependencies": {
-    "async": "^2.6.0",
-    "discord.js": "^11.5.1",
-    "got": "^10.5.5",
-    "pg": "^7.4.3",
-    "request": "^2.85.0",
-    "ws": "^7.2.1"
+    "async": "^2.6.3",
+    "discord.js": "^11.6.4",
+    "got": "^10.7.0",
+    "pg": "^7.18.2",
+    "request": "^2.88.2",
+    "ws": "^7.2.5"
   }
 }

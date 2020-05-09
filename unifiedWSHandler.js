@@ -4,6 +4,7 @@ var got = require('got');
 const Discord = require('discord.js');
 const { Client } = require('pg');
 var messageHandler = require('./messageHandler.js');
+var territory = require('./territory.js');
 
 environmentToTable = function(environment){
     if(environment == "ps2:v2"){
@@ -147,6 +148,47 @@ alertEvent = async function(payload, environment, pgClient, discordClient){
                 sendEmbed.setColor('RED');
             }
             sendEmbed.addField('Server', server, true);
+            let terObj = await territory.territoryInfo(server);
+            if(response.name.toLowerCase().indexOf("indar") > -1){
+                let IndarTotal = terObj.Indar.vs + terObj.Indar.nc + terObj.Indar.tr;
+                let vsPc = (terObj.Indar.vs/IndarTotal)*100;
+                vsPc = Number.parseFloat(vsPc).toPrecision(3);
+                let ncPc = (terObj.Indar.nc/IndarTotal)*100;
+                ncPc = Number.parseFloat(ncPc).toPrecision(3);
+                let trPc = (terObj.Indar.tr/IndarTotal)*100;
+                trPc = Number.parseFloat(trPc).toPrecision(3);
+                sendEmbed.addField('Territory', 'VS: '+vsPc+'% ('+terObj.Indar.vs+') | NC: '+ncPc+'% ('+terObj.Indar.nc+') | TR: '+trPc+'% ('+terObj.Indar.tr+')');
+            }
+            else if(response.name.toLowerCase().indexOf("esamir") > -1){
+                let EsamirTotal = terObj.Esamir.vs + terObj.Esamir.nc + terObj.Esamir.tr;
+                let vsPc = (terObj.Esamir.vs/EsamirTotal)*100;
+                vsPc = Number.parseFloat(vsPc).toPrecision(3);
+                let ncPc = (terObj.Esamir.nc/EsamirTotal)*100;
+                ncPc = Number.parseFloat(ncPc).toPrecision(3);
+                let trPc = (terObj.Esamir.tr/EsamirTotal)*100;
+                trPc = Number.parseFloat(trPc).toPrecision(3);
+                sendEmbed.addField('Territory', 'VS: '+vsPc+'% ('+terObj.Esamir.vs+') | NC: '+ncPc+'% ('+terObj.Esamir.nc+') | TR: '+trPc+'% ('+terObj.Esamir.tr+')');
+            }
+            else if(response.name.toLowerCase().indexOf("amerish") > -1){
+                let AmerishTotal = terObj.Amerish.vs + terObj.Amerish.nc + terObj.Amerish.tr;
+                let vsPc = (terObj.Amerish.vs/AmerishTotal)*100;
+                vsPc = Number.parseFloat(vsPc).toPrecision(3);
+                let ncPc = (terObj.Amerish.nc/AmerishTotal)*100;
+                ncPc = Number.parseFloat(ncPc).toPrecision(3);
+                let trPc = (terObj.Amerish.tr/AmerishTotal)*100;
+                trPc = Number.parseFloat(trPc).toPrecision(3);
+                sendEmbed.addField('Territory', 'VS: '+vsPc+'% ('+terObj.Amerish.vs+') | NC: '+ncPc+'% ('+terObj.Amerish.nc+') | TR: '+trPc+'% ('+terObj.Amerish.tr+')');
+            }
+            else if(response.name.toLowerCase().indexOf("hossin") > -1){
+                let HossinTotal = terObj.Hossin.vs + terObj.Hossin.nc + terObj.Hossin.tr;
+                let vsPc = (terObj.Hossin.vs/HossinTotal)*100;
+                vsPc = Number.parseFloat(vsPc).toPrecision(3);
+                let ncPc = (terObj.Hossin.nc/HossinTotal)*100;
+                ncPc = Number.parseFloat(ncPc).toPrecision(3);
+                let trPc = (terObj.Hossin.tr/HossinTotal)*100;
+                trPc = Number.parseFloat(trPc).toPrecision(3);
+                sendEmbed.addField('Territory', 'VS: '+vsPc+'% ('+terObj.Hossin.vs+') | NC: '+ncPc+'% ('+terObj.Hossin.nc+') | TR: '+trPc+'% ('+terObj.Hossin.tr+')');
+            }
             let rows = await pgClient.query(queryText);
             for (let row of rows.rows){
                 resChann = discordClient.channels.get(row.channel);
