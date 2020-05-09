@@ -95,6 +95,7 @@ var listOfCommands = [
 "!unsubscribe alerts [server]",
 "!<ps4us/ps4eu> subscribe activity [tag]",
 "!<ps4us/ps4eu> unsubscribe activity [tag]",
+"!unsubscribe all",
 "!population [server]",
 "!territory [server]",
 "!asp [name]"
@@ -306,6 +307,12 @@ client.on('message', message => {
 					.catch(err => messageHandler.handleError(message.channel, err, "Unsubscribe alerts"))
 			}
 		}
+	}
+	if (message.content.toLowerCase() == "!unsubscribe all" && runningOnline){
+		subscription.unsubscribeAll(SQLclient, message.channel.id)
+			.then(res => messageHandler.send(message.channel, res, "Unsubscribe all"))
+			.catch(err => messageHandler.handleError(message.channel, err, "Unsubscribe all"))
+
 	}
 	if (message.content.substring(0,1) == '!' && message.content.toLowerCase().indexOf('subscribe') != -1 && !runningOnline){
 		messageHandler.send(message.channel, 'Subscription functionality currently unavailable', "Subscriptions unabailable");

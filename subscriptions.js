@@ -300,5 +300,29 @@ module.exports = {
                 resolve("Unsubscribed from "+standardizeName(server)+" alerts");
             })
         }
+    },
+
+    unsubscribeAll: async function(pgClient, channelId){
+        let commands = [
+            "DELETE FROM connery WHERE channel = $1",
+            "DELETE FROM miller WHERE channel = $1",
+            "DELETE FROM cobalt WHERE channel = $1",
+            "DELETE FROM emerald WHERE channel = $1",
+            "DELETE FROM soltech WHERE channel = $1",
+            "DELETE FROM genudine WHERE channel = $1",
+            "DELETE FROM ceres WHERE channel = $1",
+            "DELETE FROM outfit WHERE channel = $1",
+            "DELETE FROM ps4usoutfit WHERE channel = $1",
+            "DELETE FROM ps4euoutfit WHERE channel = $1",
+        ]
+
+        for(i in commands){
+            pgClient.query(commands[i], [channelId])
+                .catch(err => console.log(err))
+        }
+
+        return new Promise(function(resolve, reject){
+            resolve("Unsubscribed channel from all lists");
+        })
     }
 }
