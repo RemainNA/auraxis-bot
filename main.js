@@ -86,60 +86,43 @@ client.on('ready', () => {
 });
 
 var listOfCommands = [
-"About the bot",
-"------",
 "!help",
-"!about",
-"!invite",
 " ",
-"PC",
-"------",
-"!character [name]",
-"!outfit [tag]",
-"!online [tag]",
-"!(un)subscribe alerts [server]",
-"!(un)subscribe activity [outfit]",
+"!<ps4us/ps4eu> character [name]",
+"!<ps4us/ps4eu> outfit [tag]",
+"!<ps4us/ps4eu> online [tag]",
+"!subscribe alerts [server]",
+"!unsubscribe alerts [server]",
+"!<ps4us/ps4eu> subscribe activity [tag]",
+"!<ps4us/ps4eu> unsubscribe activity [tag]",
+"!unsubscribe all",
 "!population [server]",
 "!territory [server]",
-"!asp [name]",
-" ",
-"PS4 US",
-"------",
-"!ps4us character [name]",
-"!ps4us outfit [tag]",
-"!ps4us online [tag]",
-"!(un)subscribe alerts [server]",
-"!ps4us (un)subscribe activity [outfit]",
-"!population [server]",
-"!territory [server]",
-" ",
-"PS4 EU",
-"------",
-"!ps4eu character [name]",
-"!ps4eu outfit [tag]",
-"!ps4eu online [tag]",
-"!(un)subscribe alerts [server]",
-"!ps4eu (un)subscribe activity [outfit]",
-"!population [server]",
-"!territory [server]"
+"!asp [name]"
 ]
+
+var links = [
+	"[GitHub page](https://github.com/ultimastormGH/auraxis-bot)",
+	"[Support server](https://discord.gg/Kf5P6Ut)",
+	"[Invite bot](https://discordapp.com/oauth2/authorize?client_id=437756856774033408&scope=bot&permissions=19456)",
+	"[Support on Ko-fi](https://ko-fi.com/remainna)"
+]
+
 // Create an event listener for messages
 client.on('message', message => {
 	if (message.content.toLowerCase() == '!ping') {
 		// ping function to check if bot is up
-		messageHandler.send(message.channel, 'pong!', 'ping');
+		messageHandler.send(message.channel, "Bot's ping to Discord is "+client.ping+'ms', 'ping');
 	}
-	if (message.content.toLowerCase() == '!help'){
-		//show list of all commands (stored in listOfCommands)
-		messageHandler.send(message.channel, listOfCommands, 'help');
-	}
-	if (message.content.toLowerCase() == '!about'){
-		//link to GitHub page
-		messageHandler.send(message.channel, "For documentation and support info, visit the GitHub page: https://github.com/ultimastormGH/auraxis-bot", 'about');
-	}
-	if (message.content.toLowerCase() == '!invite'){
-		//post invite link
-		messageHandler.send(message.channel, "https://discordapp.com/oauth2/authorize?client_id=437756856774033408&scope=bot&permissions=19456", 'invite');
+	if (message.content.toLowerCase() == '!help' || message.content.toLowerCase() == '!about'){
+		//show list of commands and relevant links
+		let helpEmbed = new Discord.RichEmbed();
+		helpEmbed.setTitle("Auraxis bot");
+		helpEmbed.setColor("BLUE");
+		helpEmbed.addField("Commands", listOfCommands);
+		helpEmbed.addField("Links", links);
+		helpEmbed.setFooter("<> = Optional, [] = Required");
+		messageHandler.send(message.channel, helpEmbed, 'help');
 	}
 	if (message.content.substring(0,11).toLowerCase() == '!character '){
 		chars = message.content.substring(11).toLowerCase().split(" ");
@@ -324,6 +307,12 @@ client.on('message', message => {
 					.catch(err => messageHandler.handleError(message.channel, err, "Unsubscribe alerts"))
 			}
 		}
+	}
+	if (message.content.toLowerCase() == "!unsubscribe all" && runningOnline){
+		subscription.unsubscribeAll(SQLclient, message.channel.id)
+			.then(res => messageHandler.send(message.channel, res, "Unsubscribe all"))
+			.catch(err => messageHandler.handleError(message.channel, err, "Unsubscribe all"))
+
 	}
 	if (message.content.substring(0,1) == '!' && message.content.toLowerCase().indexOf('subscribe') != -1 && !runningOnline){
 		messageHandler.send(message.channel, 'Subscription functionality currently unavailable', "Subscriptions unabailable");

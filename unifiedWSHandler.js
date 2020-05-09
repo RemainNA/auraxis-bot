@@ -149,7 +149,7 @@ alertEvent = async function(payload, environment, pgClient, discordClient){
             }
             sendEmbed.addField('Server', server, true);
             let terObj = await territory.territoryInfo(server);
-            if(response.name.toLowerCase().indexOf("indar") > -1){
+            if(response.name.toLowerCase().indexOf("indar") > -1 && typeof(terObj.Indar) !== 'undefined'){
                 let IndarTotal = terObj.Indar.vs + terObj.Indar.nc + terObj.Indar.tr;
                 let vsPc = (terObj.Indar.vs/IndarTotal)*100;
                 vsPc = Number.parseFloat(vsPc).toPrecision(3);
@@ -157,9 +157,9 @@ alertEvent = async function(payload, environment, pgClient, discordClient){
                 ncPc = Number.parseFloat(ncPc).toPrecision(3);
                 let trPc = (terObj.Indar.tr/IndarTotal)*100;
                 trPc = Number.parseFloat(trPc).toPrecision(3);
-                sendEmbed.addField('Territory', 'VS: '+vsPc+'% ('+terObj.Indar.vs+') | NC: '+ncPc+'% ('+terObj.Indar.nc+') | TR: '+trPc+'% ('+terObj.Indar.tr+')');
+                sendEmbed.addField('Territory % (Bases owned)', 'VS: '+vsPc+'% ('+terObj.Indar.vs+') | NC: '+ncPc+'% ('+terObj.Indar.nc+') | TR: '+trPc+'% ('+terObj.Indar.tr+')');
             }
-            else if(response.name.toLowerCase().indexOf("esamir") > -1){
+            else if(response.name.toLowerCase().indexOf("esamir") > -1 && typeof(terObj.Esamir) !== 'undefined'){
                 let EsamirTotal = terObj.Esamir.vs + terObj.Esamir.nc + terObj.Esamir.tr;
                 let vsPc = (terObj.Esamir.vs/EsamirTotal)*100;
                 vsPc = Number.parseFloat(vsPc).toPrecision(3);
@@ -167,9 +167,9 @@ alertEvent = async function(payload, environment, pgClient, discordClient){
                 ncPc = Number.parseFloat(ncPc).toPrecision(3);
                 let trPc = (terObj.Esamir.tr/EsamirTotal)*100;
                 trPc = Number.parseFloat(trPc).toPrecision(3);
-                sendEmbed.addField('Territory', 'VS: '+vsPc+'% ('+terObj.Esamir.vs+') | NC: '+ncPc+'% ('+terObj.Esamir.nc+') | TR: '+trPc+'% ('+terObj.Esamir.tr+')');
+                sendEmbed.addField('Territory % (Bases owned)', 'VS: '+vsPc+'% ('+terObj.Esamir.vs+') | NC: '+ncPc+'% ('+terObj.Esamir.nc+') | TR: '+trPc+'% ('+terObj.Esamir.tr+')');
             }
-            else if(response.name.toLowerCase().indexOf("amerish") > -1){
+            else if(response.name.toLowerCase().indexOf("amerish") > -1 && typeof(terObj.Amerish) !== 'undefined'){
                 let AmerishTotal = terObj.Amerish.vs + terObj.Amerish.nc + terObj.Amerish.tr;
                 let vsPc = (terObj.Amerish.vs/AmerishTotal)*100;
                 vsPc = Number.parseFloat(vsPc).toPrecision(3);
@@ -177,9 +177,9 @@ alertEvent = async function(payload, environment, pgClient, discordClient){
                 ncPc = Number.parseFloat(ncPc).toPrecision(3);
                 let trPc = (terObj.Amerish.tr/AmerishTotal)*100;
                 trPc = Number.parseFloat(trPc).toPrecision(3);
-                sendEmbed.addField('Territory', 'VS: '+vsPc+'% ('+terObj.Amerish.vs+') | NC: '+ncPc+'% ('+terObj.Amerish.nc+') | TR: '+trPc+'% ('+terObj.Amerish.tr+')');
+                sendEmbed.addField('Territory % (Bases owned)', 'VS: '+vsPc+'% ('+terObj.Amerish.vs+') | NC: '+ncPc+'% ('+terObj.Amerish.nc+') | TR: '+trPc+'% ('+terObj.Amerish.tr+')');
             }
-            else if(response.name.toLowerCase().indexOf("hossin") > -1){
+            else if(response.name.toLowerCase().indexOf("hossin") > -1 && typeof(terObj.Hossin) !== 'undefined'){
                 let HossinTotal = terObj.Hossin.vs + terObj.Hossin.nc + terObj.Hossin.tr;
                 let vsPc = (terObj.Hossin.vs/HossinTotal)*100;
                 vsPc = Number.parseFloat(vsPc).toPrecision(3);
@@ -187,7 +187,7 @@ alertEvent = async function(payload, environment, pgClient, discordClient){
                 ncPc = Number.parseFloat(ncPc).toPrecision(3);
                 let trPc = (terObj.Hossin.tr/HossinTotal)*100;
                 trPc = Number.parseFloat(trPc).toPrecision(3);
-                sendEmbed.addField('Territory', 'VS: '+vsPc+'% ('+terObj.Hossin.vs+') | NC: '+ncPc+'% ('+terObj.Hossin.nc+') | TR: '+trPc+'% ('+terObj.Hossin.tr+')');
+                sendEmbed.addField('Territory % (Bases owned)', 'VS: '+vsPc+'% ('+terObj.Hossin.vs+') | NC: '+ncPc+'% ('+terObj.Hossin.nc+') | TR: '+trPc+'% ('+terObj.Hossin.tr+')');
             }
             let rows = await pgClient.query(queryText);
             for (let row of rows.rows){
