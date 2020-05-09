@@ -7,15 +7,20 @@ var got = require('got');
 var basicInfo = async function(cName, platform){
     // Main function for character lookup.  Pulls most stats and calls other functions for medals/top weapon info
     let uri = 'https://census.daybreakgames.com/s:'+process.env.serviceID+'/get/'+platform+'/character?name.first_lower='+cName+'&c:resolve=outfit_member_extended,online_status,world,stat_history,weapon_stat_by_faction&c:join=title';
-    let response = await got(uri).json();
-    if(response.error != undefined){
+    let response =  "";
+    try{
+       response = await got(uri).json(); 
+    }
+    catch(err){
+        if(err.message.indexOf('404') > -1){
+            return new Promise(function(resolve, reject){
+                reject("API Unreachable");
+            })
+        }
+    }
+    if(typeof(response.error) !== 'undefined'){
         return new Promise(function(resolve, reject){
             reject(response.error);
-        })
-    }
-    if(response.statusCode == 404){
-        return new Promise(function(resolve, reject){
-            reject("API Unreachable");
         })
     }
     if(typeof(response.character_list) === 'undefined'){
