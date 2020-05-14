@@ -30,9 +30,6 @@ catch(e){
 
 // commands
 var char = require('./character.js');
-var outfit = require('./outfit.js');
-var ps4usOutfit = require('./PS4US/outfit.js');
-var ps4euOutfit = require('./PS4EU/outfit.js');
 var online = require('./online.js');
 var ps4usOnline = require('./PS4US/online.js');
 var ps4euOnline = require('./PS4EU/online.js');
@@ -43,6 +40,7 @@ var prePrestige = require('./prePrestige.js');
 var initialize = require('./initializeSQL.js');
 var territory = require('./territory.js');
 var messageHandler = require('./messageHandler.js');
+var outfit = require('./outfit.js');
 
 //Online components
 if(runningOnline){
@@ -145,7 +143,7 @@ client.on('message', message => {
 		}
 	}
 	if (message.content.substring(0,17).toLowerCase() == '!ps4eu character '){
-		chars = message.content.substring(17).toLowerCase().split(" ");
+		let chars = message.content.substring(17).toLowerCase().split(" ");
 		for(x in chars){
 			if(chars[x] != ""){
 				char.character(chars[x], 'ps2ps4eu:v2')
@@ -154,37 +152,46 @@ client.on('message', message => {
 			}
 		}
 	}
-	if (message.content.substring(0,7).toLowerCase() == '!outfit'){
-		//look up outfit
-		var oName = message.content.substring(8).toLowerCase();
-		if (oName.length > 4){
-			messageHandler.send(message.channel, 'Outfit tag too long', 'Outfit tag too long');
-		}
-		else{
-			//calls outfit.js
-			outfit.outfitLookup(oName, message.channel);
-		}
-	}
-	if (message.content.substring(0,13).toLowerCase() == '!ps4us outfit'){
-		//look up outfit
-		var oName = message.content.substring(14).toLowerCase();
-		if (oName.length > 4){
-			messageHandler.send(message.channel, 'Outfit tag too long', 'Outfit tag too long');
-		}
-		else{
-			//calls outfit.js
-			ps4usOutfit.outfitLookup(oName, message.channel);
+	if (message.content.substring(0,8).toLowerCase() == '!outfit '){
+		let tags = message.content.substring(8).toLowerCase().split(" ");
+		for(x in tags){
+			if(tags[x] != ""){
+				if(tags[x].length > 4){
+					messageHandler.send(message.channel, tags[x]+" is longer than 4 letters, please enter a tag.", "PC tag too long");
+					continue;
+				}
+				outfit.outfit(tags[x], 'ps2:v2')
+					.then(res => messageHandler.send(message.channel, res, "PC Outfit"))
+					.catch(err => messageHandler.handleError(message.channel, err, "PC Outfit"))
+			}
 		}
 	}
-	if (message.content.substring(0,13).toLowerCase() == '!ps4eu outfit'){
-		//look up outfit
-		var oName = message.content.substring(14).toLowerCase();
-		if (oName.length > 4){
-			messageHandler.send(message.channel, 'Outfit tag too long', 'Outfit tag too long');
+	if (message.content.substring(0,14).toLowerCase() == '!ps4us outfit '){
+		let tags = message.content.substring(14).toLowerCase().split(" ");
+		for(x in tags){
+			if(tags[x] != ""){
+				if(tags[x].length > 4){
+					messageHandler.send(message.channel, tags[x]+" is longer than 4 letters, please enter a tag.", "PC tag too long");
+					continue;
+				}
+				outfit.outfit(tags[x], 'ps2ps4us:v2')
+					.then(res => messageHandler.send(message.channel, res, "PC Outfit"))
+					.catch(err => messageHandler.handleError(message.channel, err, "PC Outfit"))
+			}
 		}
-		else{
-			//calls outfit.js
-			ps4euOutfit.outfitLookup(oName, message.channel);
+	}
+	if (message.content.substring(0,14).toLowerCase() == '!ps4eu outfit '){
+		let tags = message.content.substring(14).toLowerCase().split(" ");
+		for(x in tags){
+			if(tags[x] != ""){
+				if(tags[x].length > 4){
+					messageHandler.send(message.channel, tags[x]+" is longer than 4 letters, please enter a tag.", "PC tag too long");
+					continue;
+				}
+				outfit.outfit(tags[x], 'ps2ps4eu:v2')
+					.then(res => messageHandler.send(message.channel, res, "PC Outfit"))
+					.catch(err => messageHandler.handleError(message.channel, err, "PC Outfit"))
+			}
 		}
 	}
 	if (message.content.substring(0,7).toLowerCase() == '!online'){
