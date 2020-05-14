@@ -35,54 +35,52 @@ Any support, including just a few kind words, is greatly appreciated!
 
 ## Commands
 
-> !help
+### <> = optional, [] = required
 
-Returns a list of commands.
+#### !help
 
-> !about
+Returns a list of commands and relevant links.
 
-Returns a link to this GitHub repository.
-
-> !invite
-
-Returns a link to invite the bot to a server.
-
-> !<ps4us/ps4eu> character [character]
+#### !<ps4us/ps4eu> character [character]
 
 Returns the details (BR, Score, Server, Outfit, etc.) of the specified character.  Supports multiple characters per query.
 
-> !<ps4us/ps4eu> outfit [tag]
+#### !<ps4us/ps4eu> outfit [tag]
 
-Returns the details (Name, owner, faction, server, number of members, etc.) of the specified outfit tag.
+Returns the details (Name, owner, faction, server, member count, etc.) of the specified outfit tag.  Supports multiple tags per query.
 
-> !<ps4us/ps4eu> online [tag]
+#### !<ps4us/ps4eu> online [tag]
 
 Returns the list of all online members for the specified outfit tag.  Supports multiple tags per query.
 
-> !subscribe alerts [server]
+#### !subscribe alerts [server]
 
 Subscribes the channel to notifications of alerts starting on the specified servers.  Supports multiple servers per query.  Supports all platforms without prefixes.
 
-> !unsubscribe alerts [server]
+#### !unsubscribe alerts [server]
 
 Unsubscribes the channel from the above notifications.  Supports multiple servers per query.  Supports all platforms without prefixes.
 
-> !<ps4us/ps4eu> subscribe activity [outfit]
+#### !<ps4us/ps4eu> subscribe activity [outfit]
 
 Subscribes the channel to notifications of logins and logouts of members in the specified outfit tag.  Supports multiple tags per query.
 
-> !<ps4us/ps4eu> unsubscribe activity [outfit]
+#### !<ps4us/ps4eu> unsubscribe activity [outfit]
 
 Unsubscribes the channel from the above notifications.  Supports multiple tags per query.
 
-> !population [server]
+#### !unsubscribe all
+
+Unsubscribes the channel from all outfit activity and server alert notifications.
+
+#### !population [server]
 
 Returns the population per faction of the specified server.  Supports multiple servers per query.  Supports all platforms without prefixes
 
-> !territory [server]
+#### !territory [server]
 
 Returns the territory control of each continent on the specified server.  Supports multiple servers per query.  Supports all platforms without prefixes
 
-> !asp [name]
+#### !asp [name]
 
 Returns the BR a character reached before joining ASP.  Only supported on PC, does not work with NSO.

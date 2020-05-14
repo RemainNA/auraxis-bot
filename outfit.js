@@ -1,149 +1,172 @@
-// This file implements a function that returns the basic information of a given outfit
-
-// Import the discord.js module
 const Discord = require('discord.js');
+var got = require('got');
 
-// Import request for API access
-var request = require('request');
-
-// import async
-var async = require('async');
-
-var q = async.queue(function(task, callback) {
-	oTag = task.tag;
-	channel = task.inChannel;
-	uri = 'http://census.daybreakgames.com/s:'+process.env.serviceID+'/get/ps2:v2/outfit?alias_lower='+oTag+'&c:resolve=member_character_name,member_online_status&c:join=character^on:leader_character_id^to:character_id';
+var basicInfo = async function(oTag, platform){
+	let uri = 'http://census.daybreakgames.com/s:'+process.env.serviceID+'/get/'+platform+'/outfit?alias_lower='+oTag+'&c:resolve=member_online_status&c:join=character^on:leader_character_id^to:character_id&c:join=character^on:members.character_id^to:character_id^hide:certs&c:join=characters_world^on:leader_character_id^to:character_id';
+	let response = "";
 	try{
-		request(uri, function (error, response, body) {
-			data = JSON.parse(body);
-			if (data.outfit_list == null || data.returned == 0){
-				channel.send("["+oTag+"] not found").then(function(result) {
-					
-				}, function(err) {
-					console.log("Insufficient permissions on !outfit tag not found");
-					console.log(channel.guild.name);
-				});
-				callback();
-			}
-			else{
-				resOut = data.outfit_list[0];
-				//create new discord rich embed object
-				sendEmbed = new Discord.RichEmbed();
-				sendEmbed.setTitle(resOut.name);
-				sendEmbed.setDescription(resOut.alias); //include outfit tag
-				sendEmbed.setURL('https://ps2.fisu.pw/outfit/?name='+oTag);
-				sendEmbed.addField('Member count', resOut.member_count, true);
-				memOn = 0; //members online
-				if(resOut.members[0].online_status != "service_unavailable"){
-					for (x in resOut.members){
-						//iterate through members, count online
-						if(resOut.members[x].online_status >= 1){
-							memOn = memOn + 1;
-						}
-					}
-					sendEmbed.addField('Online', memOn, true);
-				}
-				else{
-					//indicate if unable to get online member info
-					sendEmbed.addField('Online', 'Service unavailable',true);
-				}
-				
-				try{
-					//get info from outfit owner
-					uri = 'https://census.daybreakgames.com/s:'+process.env.serviceID+'/get/ps2:v2/character/'+resOut.leader_character_id+'?c:resolve=world'
-					options = {uri: uri, sendEmbed: sendEmbed, channel: channel};
-					request(options, function(error, respose, body) {
-						data2 = JSON.parse(body);
-						if (data2.character_list[0] == null){
-							//send rich embed if unable to pull outfit owner info
-							channel.send(sendEmbed).then(function(result){
-								
-							}, function(err){
-								console.log("Insufficient permissions on !outfit no owner");
-								console.log(channel.guild.name);
-							});
-							callback();
-						}
-						else {
-							resChar = data2.character_list[0];
-							switch (resChar.world_id) //server
-							{
-								case "1":
-									sendEmbed.addField('Server', 'Connery', true);
-									break;
-								case "10":
-									sendEmbed.addField('Server', 'Miller', true);
-									break;
-								case "13":
-									sendEmbed.addField('Server', 'Cobalt', true);
-									break;
-								case "17":
-									sendEmbed.addField('Server', 'Emerald', true);
-									break;
-								case "19":
-									sendEmbed.addField('Server', 'Jaeger', true);
-									break;
-								case "40":
-									sendEmbed.addField('Server', 'SolTech', true);
-							}
-							//change rich embed color based on faction
-							if (resChar.faction_id == "1") //vs
-							{
-								sendEmbed.addField('Faction', 'VS', true);
-								sendEmbed.setColor('PURPLE');
-							}
-							else if (resChar.faction_id == "2") //nc
-							{
-								sendEmbed.addField('Faction', 'NC', true);
-								sendEmbed.setColor('BLUE');
-							}
-							else if (resChar.faction_id == "3") //tr
-							{
-								sendEmbed.addField('Faction', 'TR', true);
-								sendEmbed.setColor('RED');
-							}
-							else //NSO
-							{
-								sendEmbed.addField('Faction', 'NSO', true);
-								sendEmbed.setColor('GREY');
-							}
-							sendEmbed.addField('Owner', resChar.name.first, true);
-							channel.send(sendEmbed).then(function(result){
-								
-							}, function(err){
-								console.log("Insufficient permissions on !outfit with owner");
-								console.log(channel.guild.name);
-							});
-							callback();
-						}
-					})
-				}
-				catch(e){
-					channel.send(sendEmbed).then(function(result){
-						
-					}, function(err){
-						console.log("Insufficient permissions on !outfit on catch");
-						console.log(channel.guild.name);
-					});
-					callback();
-				}
-			}
-		});
+		response = await got(uri).json(); 
 	}
-	catch(e){
-		console.log('pos 5')
-		callback();
+	catch(err){
+		if(err.message.indexOf('404') > -1){
+			return new Promise(function(resolve, reject){
+				reject("API Unreachable");
+			})
+		}
 	}
-		
-});
+	if(typeof(response.error) !== 'undefined'){
+		if(response.error == 'service_unavailable'){
+			return new Promise(function(resolve, reject){
+				reject("Census API currently unavailable");
+			})
+		}
+		return new Promise(function(resolve, reject){
+			reject(response.error);
+		})
+	}
+	if(typeof(response.outfit_list) === 'undefined'){
+		return new Promise(function(resolve, reject){
+			reject("API Error");
+		})
+	}
+	if(typeof(response.outfit_list[0]) === 'undefined'){
+		return new Promise(function(resolve, reject){
+			reject(oTag+" not found");
+		})
+	}
+	let data = response.outfit_list[0];
+	let resObj = {
+		name: data.name,
+		alias: data.alias,
+		faction: data.leader_character_id_join_character.faction_id,
+		owner: data.leader_character_id_join_character.name.first,
+		memberCount: data.member_count,
+		worldId: data.leader_character_id_join_characters_world.world_id,
+		onlineDay: 0,
+		onlineWeek: 0,
+		onlineMonth: 0
+	}
 
-q.drain = function(){
-	console.log('done');
-};
+	onlineServiceAvailable = true;
+	if(data.members[0].online_status == "service_unavailable"){
+		resObj["onlineMembers"] = "Online member count unavailable";
+		onlineServiceAvailable = false;
+	}
+	else{
+		resObj["onlineMembers"] = 0;
+	}
+	
+	now = Math.round(Date.now() / 1000); //Current Unix epoch
+
+	for(i in data.members){
+		if(data.members[i].online_status > 0 && onlineServiceAvailable){
+			resObj["onlineMembers"] += 1;
+			resObj["onlineDay"] += 1;
+			resObj["onlineWeek"] += 1;
+			resObj["onlineMonth"] += 1;
+		}
+		else if(typeof(data.members[i].members_character_id_join_character) === 'undefined'){
+			continue;
+		}
+		else if(now - data.members[i].members_character_id_join_character.times.last_login <= 86400){
+			resObj["onlineDay"] += 1;
+			resObj["onlineWeek"] += 1;
+			resObj["onlineMonth"] += 1;
+		}
+		else if(now - data.members[i].members_character_id_join_character.times.last_login <= 604800){
+			resObj["onlineWeek"] += 1;
+			resObj["onlineMonth"] += 1;
+		}
+		else if(now - data.members[i].members_character_id_join_character.times.last_login <= 2592000){
+			resObj["onlineMonth"] += 1;
+		}
+	}
+
+	return new Promise(function(resolve, reject){
+		resolve(resObj);
+	})
+}
+
 module.exports = {
-	outfitLookup: function (oTag, channel) {
-		q.push({tag: oTag, inChannel: channel}, function(err) {
-			console.log(oTag);
-		});
+	outfit: async function(oTag, platform){
+		try{
+			oInfo = await basicInfo(oTag, platform);
+		}
+		catch(error){
+			return new Promise(function(resolve, reject){
+				reject(error);
+			})
+		}
+
+		let resEmbed = new Discord.RichEmbed();
+
+		resEmbed.setTitle(oInfo.name);
+		resEmbed.setDescription(oInfo.alias);
+		if(platform == 'ps2:v2'){
+			resEmbed.setURL('http://ps2.fisu.pw/outfit/?name='+oInfo.alias);
+		}
+		else if(platform == 'ps2ps4us:v2'){
+			resEmbed.setURL('http://ps4us.ps2.fisu.pw/outfit/?name='+oInfo.alias);
+		}
+		else if(platform == 'ps2ps4eu:v2'){
+			resEmbed.setURL('http://ps4eu.ps2.fisu.pw/outfit/?name='+oInfo.alias);
+		}
+		resEmbed.addField("Members", oInfo.memberCount, true);
+		resEmbed.addBlankField(true);
+		let dayPc = Number.parseFloat((oInfo.onlineDay/oInfo.memberCount)*100).toPrecision(3);
+		let weekPc = Number.parseFloat((oInfo.onlineWeek/oInfo.memberCount)*100).toPrecision(3);
+		let monthPc = Number.parseFloat((oInfo.onlineMonth/oInfo.memberCount)*100).toPrecision(3);
+		resEmbed.addField("Online", oInfo.onlineMembers, true);
+		resEmbed.addField("Last day", oInfo.onlineDay+" ("+dayPc+"%)", true);
+		resEmbed.addField("Last week", oInfo.onlineWeek+" ("+weekPc+"%)", true);
+		resEmbed.addField("Last month", oInfo.onlineMonth+" ("+monthPc+"%)", true);
+		switch (oInfo.worldId){
+			case "1":
+				resEmbed.addField('Server', 'Connery', true);
+				break;
+			case "10":
+				resEmbed.addField('Server', 'Miller', true);
+				break;
+			case "13":
+				resEmbed.addField('Server', 'Cobalt', true);
+				break;
+			case "17":
+				resEmbed.addField('Server', 'Emerald', true);
+				break;
+			case "19":
+				resEmbed.addField('Server', 'Jaeger', true);
+				break;
+			case "40":
+				resEmbed.addField('Server', 'SolTech', true);
+				break;
+			case "1000":
+				resEmbed.addField('Server', 'Genudine', true);
+				break;
+			case "2000":
+				resEmbed.addField('Server', 'Ceres', true);
+		}
+
+		switch (oInfo.faction){
+			case "1":
+				resEmbed.addField('Faction', 'VS', true);
+				resEmbed.setColor('PURPLE');
+				break;
+			case "2":
+				resEmbed.addField('Faction', 'NC', true);
+				resEmbed.setColor('BLUE');
+				break;
+			case "3":
+				resEmbed.addField('Faction', 'TR', true);
+				resEmbed.setColor('RED');
+				break;
+			default:
+				resEmbed.addField('Faction', 'NSO', true);
+				resEmbed.setColor('GREY');
+		}
+
+		resEmbed.addField("Owner", oInfo.owner, true);
+		return new Promise(function(resolve, reject){
+            resolve(resEmbed);
+        })
 	}
 }
