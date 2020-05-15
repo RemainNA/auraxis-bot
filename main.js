@@ -3,12 +3,6 @@
 // Import the discord.js module
 const Discord = require('discord.js');
 
-// Import request for API access
-var request = require('request');
-
-// import async
-var async = require('async');
-
 //PostgreSQL connection
 const { Client } = require('pg');
 
