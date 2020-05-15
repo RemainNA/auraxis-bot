@@ -117,7 +117,7 @@ client.on('message', message => {
 		messageHandler.send(message.channel, helpEmbed, 'help');
 	}
 	if (message.content.substring(0,11).toLowerCase() == '!character '){
-		chars = message.content.substring(11).toLowerCase().split(" ");
+		let chars = message.content.substring(11).toLowerCase().split(" ");
 		for(x in chars){
 			if(chars[x] != ""){
 				char.character(chars[x], 'ps2:v2')
@@ -127,7 +127,7 @@ client.on('message', message => {
 		}
 	}
 	if (message.content.substring(0,17).toLowerCase() == '!ps4us character '){
-		chars = message.content.substring(17).toLowerCase().split(" ");
+		let chars = message.content.substring(17).toLowerCase().split(" ");
 		for(x in chars){
 			if(chars[x] != ""){
 				char.character(chars[x], 'ps2ps4us:v2')
@@ -220,7 +220,7 @@ client.on('message', message => {
 		
 	}
 	if (message.content.substring(0,11).toLowerCase() == '!territory '){
-		servers = message.content.substring(11).toLowerCase().split(" ");
+		let servers = message.content.substring(11).toLowerCase().split(" ");
 		for(x in servers){
 			if(servers[x] != ""){
 				territory.territory(servers[x])
@@ -230,7 +230,7 @@ client.on('message', message => {
 		}
 	}
 	if (message.content.substring(0,20).toLowerCase() == '!subscribe activity ' && runningOnline){
-		outfits = message.content.substring(20).toLowerCase().split(" ");
+		let outfits = message.content.substring(20).toLowerCase().split(" ");
 		for(x in outfits){
 			if(outfits[x] != ""){
 				subscription.subscribeActivity(SQLclient, message.channel.id, outfits[x], 'ps2:v2')
@@ -240,7 +240,7 @@ client.on('message', message => {
 		}
 	}
 	if (message.content.substring(0,22).toLowerCase() == '!unsubscribe activity ' && runningOnline){
-		outfits = message.content.substring(22).toLowerCase().split(" ");
+		let outfits = message.content.substring(22).toLowerCase().split(" ");
 		for(x in outfits){
 			if(outfits[x] != ""){
 				subscription.unsubscribeActivity(SQLclient, message.channel.id, outfits[x], 'ps2:v2')
@@ -250,7 +250,7 @@ client.on('message', message => {
 		}
 	}
 	if (message.content.substring(0,26).toLowerCase() == '!ps4us subscribe activity ' && runningOnline){
-		outfits = message.content.substring(26).toLowerCase().split(" ");
+		let outfits = message.content.substring(26).toLowerCase().split(" ");
 		for(x in outfits){
 			if(outfits[x] != ""){
 				subscription.subscribeActivity(SQLclient, message.channel.id, outfits[x], 'ps2ps4us:v2')
@@ -260,7 +260,7 @@ client.on('message', message => {
 		}
 	}
 	if (message.content.substring(0,28).toLowerCase() == '!ps4us unsubscribe activity ' && runningOnline){
-		outfits = message.content.substring(28).toLowerCase().split(" ");
+		let outfits = message.content.substring(28).toLowerCase().split(" ");
 		for(x in outfits){
 			if(outfits[x] != ""){
 				subscription.unsubscribeActivity(SQLclient, message.channel.id, outfits[x], 'ps2ps4us:v2')
@@ -270,7 +270,7 @@ client.on('message', message => {
 		}
 	}
 	if (message.content.substring(0,26).toLowerCase() == '!ps4eu subscribe activity ' && runningOnline){
-		outfits = message.content.substring(26).toLowerCase().split(" ");
+		let outfits = message.content.substring(26).toLowerCase().split(" ");
 		for(x in outfits){
 			if(outfits[x] != ""){
 				subscription.subscribeActivity(SQLclient, message.channel.id, outfits[x], 'ps2ps4eu:v2')
@@ -280,7 +280,7 @@ client.on('message', message => {
 		}
 	}
 	if (message.content.substring(0,28).toLowerCase() == '!ps4eu unsubscribe activity ' && runningOnline){
-		outfits = message.content.substring(28).toLowerCase().split(" ");
+		let outfits = message.content.substring(28).toLowerCase().split(" ");
 		for(x in outfits){
 			if(outfits[x] != ""){
 				subscription.unsubscribeActivity(SQLclient, message.channel.id, outfits[x], 'ps2ps4eu:v2')
@@ -290,7 +290,7 @@ client.on('message', message => {
 		}
 	}
 	if (message.content.substring(0,18).toLowerCase() == '!subscribe alerts ' && runningOnline){
-		servers = message.content.substring(18).toLowerCase().split(" ");
+		let servers = message.content.substring(18).toLowerCase().split(" ");
 		for(x in servers){
 			if(servers[x] != ""){
 				subscription.subscribeAlert(SQLclient, message.channel.id, servers[x])
@@ -300,7 +300,7 @@ client.on('message', message => {
 		}
 	}
 	if (message.content.substring(0,20).toLowerCase() == '!unsubscribe alerts ' && runningOnline){
-		servers = message.content.substring(20).toLowerCase().split(" ");
+		let servers = message.content.substring(20).toLowerCase().split(" ");
 		for(x in servers){
 			if(servers[x] != ""){
 				subscription.unsubscribeAlert(SQLclient, message.channel.id, servers[x])
