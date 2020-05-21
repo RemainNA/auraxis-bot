@@ -195,8 +195,8 @@ client.on('message', message => {
 					continue;
 				}
 				online.online(tags[x], 'ps2:v2')
-					.then(res => messageHandler.send(message.channel, res, "PC Outfit"))
-					.catch(err => messageHandler.handleError(message.channel, err, "PC Outfit"))
+					.then(res => messageHandler.send(message.channel, res, "PC Online"))
+					.catch(err => messageHandler.handleError(message.channel, err, "PC Online"))
 			}
 		}
 	}
@@ -209,8 +209,8 @@ client.on('message', message => {
 					continue;
 				}
 				online.online(tags[x], 'ps2ps4us:v2')
-					.then(res => messageHandler.send(message.channel, res, "PC Outfit"))
-					.catch(err => messageHandler.handleError(message.channel, err, "PC Outfit"))
+					.then(res => messageHandler.send(message.channel, res, "PS4US Online"))
+					.catch(err => messageHandler.handleError(message.channel, err, "PS4US Online"))
 			}
 		}
 	}
@@ -223,8 +223,8 @@ client.on('message', message => {
 					continue;
 				}
 				online.online(tags[x], 'ps2ps4eu:v2')
-					.then(res => messageHandler.send(message.channel, res, "PC Outfit"))
-					.catch(err => messageHandler.handleError(message.channel, err, "PC Outfit"))
+					.then(res => messageHandler.send(message.channel, res, "PS4EU Online"))
+					.catch(err => messageHandler.handleError(message.channel, err, "PS4EU Online"))
 			}
 		}
 	}
