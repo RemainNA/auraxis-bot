@@ -1,113 +1,118 @@
-// This file implements a function that returns the online members in a specified outfit
-
-// Import the discord.js module
 const Discord = require('discord.js');
+var got = require('got');
 
-// Import request for API access
-var request = require('request');
-
-// import async
-var async = require('async');
-
-var q = async.queue(function(task, callback) {
-	oTag = task.tag;
-	channel = task.inChannel;
-
-	uri = 'http://census.daybreakgames.com/s:'+process.env.serviceID+'/get/ps2:v2/outfit?alias_lower='+oTag+'&c:resolve=member_character_name,member_online_status&c:join=character^on:leader_character_id^to:character_id';
+var onlineInfo = async function(oTag, platform){
+	let uri = 'http://census.daybreakgames.com/s:'+process.env.serviceID+'/get/'+platform+'/outfit?alias_lower='+oTag+'&c:resolve=member_online_status,rank,member_character_name&c:join=character^on:leader_character_id^to:character_id&c:join=characters_world^on:leader_character_id^to:character_id';
+	let response = "";
 	try{
-		request(uri, function (error, response, body) {
-			data = JSON.parse(body);
-			if (data.outfit_list == null || data.returned == 0){
-				channel.send("["+oTag+"] not found").then(function(result){
-					
-				}, function(err) {
-					console.log("Insufficient permissions on !online not found");
-					console.log(channel.guild.name);
-				});
-				callback();
-			}
-			else{
-				resOut = data.outfit_list[0];
-				var onArray = [];
-				if(resOut.members[0].online_status != "service_unavailable"){
-					for (x in resOut.members){
-						//Iterate through member list, record names of those online
-						if (resOut.members[x].online_status >= 1){
-							onArray.push(resOut.members[x].name.first);
-						}	
-					}
-					if(onArray.length == 0){
-						//send big red x if nobody is online
-						onArray.push(':x:');
-					}
-					onArray.sort(); //sort alphabetically
-					sendEmbed = new Discord.RichEmbed(); //create Discord rich embed to send
-					sendEmbed.setTitle(resOut.name);
-					sendEmbed.setDescription(resOut.alias);
-					sendEmbed.addField('Online', onArray);
-				}
-				else{
-					//When the API itself is out, send message indicating that
-					sendEmbed = new Discord.RichEmbed();
-					sendEmbed.setTitle(resOut.name);
-					sendEmbed.setDescription(resOut.alias);
-					sendEmbed.addField('Error', "Online status service unavailable");
-				}
-				
-				//color rich embed based on outfit faction
-				if (resOut.leader_character_id_join_character.faction_id == "1") //vs
-				{
-					sendEmbed.setColor('PURPLE');
-				}
-				else if (resOut.leader_character_id_join_character.faction_id == "2") //nc
-				{
-					sendEmbed.setColor('BLUE');
-				}
-				else if (resOut.leader_character_id_join_character.faction_id == "3")//tr
-				{
-					sendEmbed.setColor('RED');
-				}
-				else //nso
-				{
-					sendEmbed.setColor('GREY');
-				}
-				channel.send(sendEmbed).then(function(result){
-					
-				}, function(err) {
-					console.log("Insufficient permissions on !online");
-					console.log(channel.guild.name);
-				});
-				callback();
-			}
+		response = await got(uri).json(); 
+	}
+	catch(err){
+		if(err.message.indexOf('404') > -1){
+			return new Promise(function(resolve, reject){
+				reject("API Unreachable");
+			})
+		}
+	}
+	if(typeof(response.error) !== 'undefined'){
+		if(response.error == 'service_unavailable'){
+			return new Promise(function(resolve, reject){
+				reject("Census API currently unavailable");
+			})
+		}
+		return new Promise(function(resolve, reject){
+			reject(response.error);
 		})
 	}
-	catch(e){
-		channel.send('An error occured').then(function(result){
-			
-		}, function(err) {
-			console.log("Insufficient permissions on !online error");
-			console.log(channel.guild.name);
-		});
-		callback();
+	if(typeof(response.outfit_list) === 'undefined'){
+		return new Promise(function(resolve, reject){
+			reject("API Error");
+		})
 	}
-
-})
-
-
-
-q.drain = function() {
-	console.log('done');
+	if(typeof(response.outfit_list[0]) === 'undefined'){
+		return new Promise(function(resolve, reject){
+			reject(oTag+" not found");
+		})
+	}
+	let data = response.outfit_list[0];
+	let resObj = {
+		name: data.name,
+		alias: data.alias,
+		faction: data.leader_character_id_join_character.faction_id,
+		owner: data.leader_character_id_join_character.name.first,
+		memberCount: data.member_count,
+		onlineCount: 0
+	}
+	if(data.members[0].online_status == "service_unavailable"){
+		resObj.onlineCount = "Online member count unavailable";
+		onlineServiceAvailable = false;
+	}
+	else{
+		onlineMembers = [];
+		for(i in data.members){
+			if(data.members[i].online_status > 0){
+				resObj.onlineCount += 1;
+				onlineMembers.push(data.members[i].name.first);
+			}
+		}
+		if(onlineMembers.length == 0){
+			onlineMembers.push(':x:');
+		}
+		onlineMembers.sort(function (a, b) {return a.toLowerCase().localeCompare(b.toLowerCase());});  //This sorts ignoring case: https://stackoverflow.com/questions/8996963/how-to-perform-case-insensitive-sorting-in-javascript#9645447
+		resObj.onlineMembers = onlineMembers;
+	}
+	return new Promise(function(resolve, reject){
+		resolve(resObj);
+	})
 }
 
 module.exports = {
-	outfitLookup: function (oTag, channel) {
-		tags = oTag.split(" ");
-		for (x in tags){
-			if(tags[x] != ""){
-				console.log(tags[x]+" online");
-				q.push({tag: tags[x], inChannel: channel}, function (err) {
-				});
-			}
+	online: async function(oTag, platform){
+		try{
+			oInfo = await onlineInfo(oTag, platform);
 		}
+		catch(error){
+			return new Promise(function(resolve, reject){
+				reject(error);
+			})
+		}
+
+		let resEmbed = new Discord.RichEmbed();
+
+		resEmbed.setTitle(oInfo.name);
+		resEmbed.setDescription(oInfo.alias);
+		resEmbed.setTimestamp();
+		if(platform == 'ps2:v2'){
+			resEmbed.setURL('http://ps2.fisu.pw/outfit/?name='+oInfo.alias);
+		}
+		else if(platform == 'ps2ps4us:v2'){
+			resEmbed.setURL('http://ps4us.ps2.fisu.pw/outfit/?name='+oInfo.alias);
+		}
+		else if(platform == 'ps2ps4eu:v2'){
+			resEmbed.setURL('http://ps4eu.ps2.fisu.pw/outfit/?name='+oInfo.alias);
+		}
+		if(oInfo.onlineCount == "Online member count unavailable"){
+			resEmbed.addField(oInfo.onlineCount, "", true);
+			return new Promise(function(resolve, reject){
+				resolve(resEmbed);
+			})
+		}
+		switch (oInfo.faction){
+			case "1":
+				resEmbed.setColor('PURPLE');
+				break;
+			case "2":
+				resEmbed.setColor('BLUE');
+				break;
+			case "3":
+				resEmbed.setColor('RED');
+				break;
+			default:
+				resEmbed.setColor('GREY');
+		}
+		resEmbed.addField("Online "+oInfo.onlineCount+"/"+oInfo.memberCount, oInfo.onlineMembers, true);
+		return new Promise(function(resolve, reject){
+			resolve(resEmbed);
+		})
 	}
 }
