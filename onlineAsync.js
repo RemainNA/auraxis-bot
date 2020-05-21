@@ -97,6 +97,19 @@ module.exports = {
 				resolve(resEmbed);
 			})
 		}
+		switch (oInfo.faction){
+			case "1":
+				resEmbed.setColor('PURPLE');
+				break;
+			case "2":
+				resEmbed.setColor('BLUE');
+				break;
+			case "3":
+				resEmbed.setColor('RED');
+				break;
+			default:
+				resEmbed.setColor('GREY');
+		}
 		resEmbed.addField("Online "+oInfo.onlineCount+"/"+oInfo.memberCount, oInfo.onlineMembers, true);
 		return new Promise(function(resolve, reject){
 			resolve(resEmbed);
