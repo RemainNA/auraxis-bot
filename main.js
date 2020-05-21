@@ -24,7 +24,7 @@ catch(e){
 
 // commands
 var char = require('./character.js');
-var online = require('./onlineAsync.js');
+var online = require('./online.js');
 var listener = require('./unifiedWSListener.js');
 var subscription = require('./subscriptions.js');
 var population = require('./serverPopulation.js');
