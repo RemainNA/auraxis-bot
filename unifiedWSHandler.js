@@ -199,19 +199,23 @@ var objectEquality = function(a, b){
     if(typeof(a.character_id) !== 'undefined' && typeof(b.character_id) !== 'undefined'){
         return a.character_id == b.character_id && a.event_name == b.event_name;
     }
-    else if(typeof(a.event_name) !== undefined && typeof(b.event_name) !== undefined){
+    else if(typeof(a.event_name) !== 'undefined' && typeof(b.event_name) !== 'undefined'){
         return a.metagame_event_id == b.metagame_event_id && a.world_id == b.world_id;
     }
     return false
 }
 
-lastMessage = {}
+queue = ["","","","",""]
 module.exports = {
     router: async function(payload, environment, pgClient, discordClient){
-        if(objectEquality(lastMessage, payload)){
-            return
+        for(let message of queue){
+            if(objectEquality(message, payload)){
+                return;
+            }
         }
-        lastMessage = payload;
+        queue.push(payload);
+        queue.shift();
+
         if(payload.character_id != null){
             logEvent(payload, environment, pgClient, discordClient)
                 .catch(error => {
