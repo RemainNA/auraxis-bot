@@ -151,81 +151,27 @@ module.exports = {
         let terObj = await this.territoryInfo(server);
         let resEmbed = new Discord.RichEmbed();
         resEmbed.setTitle(printableName(server)+" territory");
-        let IndarTotal = terObj.Indar.vs + terObj.Indar.nc + terObj.Indar.tr;
-        let vsPc = (terObj.Indar.vs/IndarTotal)*100;
-        vsPc = Number.parseFloat(vsPc).toPrecision(3);
-        let ncPc = (terObj.Indar.nc/IndarTotal)*100;
-        ncPc = Number.parseFloat(ncPc).toPrecision(3);
-        let trPc = (terObj.Indar.tr/IndarTotal)*100;
-        trPc = Number.parseFloat(trPc).toPrecision(3);
-        if(vsPc == 100){
-            resEmbed.addField('Indar', 'Owned by the VS');
-        }
-        else if(ncPc == 100){
-            resEmbed.addField('Indar', 'Owned by the NC');
-        }
-        else if(trPc == 100){
-            resEmbed.addField('Indar', 'Owned by the TR');
-        }
-        else{
-            resEmbed.addField('Indar', 'VS: '+vsPc+'% ('+terObj.Indar.vs+') | NC: '+ncPc+'% ('+terObj.Indar.nc+') | TR: '+trPc+'% ('+terObj.Indar.tr+')');
-        }
-        let HossinTotal = terObj.Hossin.vs + terObj.Hossin.nc + terObj.Hossin.tr;
-        vsPc = (terObj.Hossin.vs/HossinTotal)*100;
-        vsPc = Number.parseFloat(vsPc).toPrecision(3);
-        ncPc = (terObj.Hossin.nc/HossinTotal)*100;
-        ncPc = Number.parseFloat(ncPc).toPrecision(3);
-        trPc = (terObj.Hossin.tr/HossinTotal)*100;
-        trPc = Number.parseFloat(trPc).toPrecision(3);
-        if(vsPc == 100){
-            resEmbed.addField('Hossin', 'Owned by the VS');
-        }
-        else if(ncPc == 100){
-            resEmbed.addField('Hossin', 'Owned by the NC');
-        }
-        else if(trPc == 100){
-            resEmbed.addField('Hossin', 'Owned by the TR');
-        }
-        else{
-            resEmbed.addField('Hossin', 'VS: '+vsPc+'% ('+terObj.Hossin.vs+') | NC: '+ncPc+'% ('+terObj.Hossin.nc+') | TR: '+trPc+'% ('+terObj.Hossin.tr+')');
-        }
-        let AmerishTotal = terObj.Amerish.vs + terObj.Amerish.nc + terObj.Amerish.tr;
-        vsPc = (terObj.Amerish.vs/AmerishTotal)*100;
-        vsPc = Number.parseFloat(vsPc).toPrecision(3);
-        ncPc = (terObj.Amerish.nc/AmerishTotal)*100;
-        ncPc = Number.parseFloat(ncPc).toPrecision(3);
-        trPc = (terObj.Amerish.tr/AmerishTotal)*100;
-        trPc = Number.parseFloat(trPc).toPrecision(3);
-        if(vsPc == 100){
-            resEmbed.addField('Amerish', 'Owned by the VS');
-        }
-        else if(ncPc == 100){
-            resEmbed.addField('Amerish', 'Owned by the NC');
-        }
-        else if(trPc == 100){
-            resEmbed.addField('Amerish', 'Owned by the TR');
-        }
-        else{
-            resEmbed.addField('Amerish', 'VS: '+vsPc+'% ('+terObj.Amerish.vs+') | NC: '+ncPc+'% ('+terObj.Amerish.nc+') | TR: '+trPc+'% ('+terObj.Amerish.tr+')');
-        }
-        let EsamirTotal = terObj.Esamir.vs + terObj.Esamir.nc + terObj.Esamir.tr;
-        vsPc = (terObj.Esamir.vs/EsamirTotal)*100;
-        vsPc = Number.parseFloat(vsPc).toPrecision(3);
-        ncPc = (terObj.Esamir.nc/EsamirTotal)*100;
-        ncPc = Number.parseFloat(ncPc).toPrecision(3);
-        trPc = (terObj.Esamir.tr/EsamirTotal)*100;
-        trPc = Number.parseFloat(trPc).toPrecision(3);
-        if(vsPc == 100){
-            resEmbed.addField('Esamir', 'Owned by the VS');
-        }
-        else if(ncPc == 100){
-            resEmbed.addField('Esamir', 'Owned by the NC');
-        }
-        else if(trPc == 100){
-            resEmbed.addField('Esamir', 'Owned by the TR');
-        }
-        else{
-            resEmbed.addField('Esamir', 'VS: '+vsPc+'% ('+terObj.Esamir.vs+') | NC: '+ncPc+'% ('+terObj.Esamir.nc+') | TR: '+trPc+'% ('+terObj.Esamir.tr+')');
+        let continents = ["Indar", "Hossin", "Amerish", "Esamir"];
+        for(let continent of continents){
+            let Total = terObj[continent].vs + terObj[continent].nc + terObj[continent].tr;
+            let vsPc = (terObj[continent].vs/Total)*100;
+            vsPc = Number.parseFloat(vsPc).toPrecision(3);
+            let ncPc = (terObj[continent].nc/Total)*100;
+            ncPc = Number.parseFloat(ncPc).toPrecision(3);
+            let trPc = (terObj[continent].tr/Total)*100;
+            trPc = Number.parseFloat(trPc).toPrecision(3);
+            if(vsPc == 100){
+                resEmbed.addField(continent, 'Owned by the VS');
+            }
+            else if(ncPc == 100){
+                resEmbed.addField(continent, 'Owned by the NC');
+            }
+            else if(trPc == 100){
+                resEmbed.addField(continent, 'Owned by the TR');
+            }
+            else{
+                resEmbed.addField(continent, 'VS: '+vsPc+'% ('+terObj[continent].vs+') | NC: '+ncPc+'% ('+terObj[continent].nc+') | TR: '+trPc+'% ('+terObj[continent].tr+')');
+            }
         }
         return new Promise(function(resolve, reject){
             resolve(resEmbed);
