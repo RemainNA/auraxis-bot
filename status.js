@@ -3,22 +3,23 @@
 const Discord = require('discord.js');
 var got = require('got');
 
-var info = async function(){
-	let pcUri = 'http://census.daybreakgames.com/s:'+process.env.serviceID+'/get/ps2:v2/world?c:limit=10&c:lang=en'
-	let usUri = 'http://census.daybreakgames.com/s:'+process.env.serviceID+'/get/ps2ps4us:v2/world?c:limit=10&c:lang=en'
-	let euUri = 'http://census.daybreakgames.com/s:'+process.env.serviceID+'/get/ps2ps4eu:v2/world?c:limit=10&c:lang=en'
-	let status = {
-		'Connery': 'Unknown',
-		'Miller': 'Unknown',
-		'Cobalt': 'Unknown',
-		'Emerald': 'Unknown',
-		'SolTech': 'Unknown',
-		'Jaeger': 'Unknown',
-		'Genudine': 'Unknown',
-		'Ceres': 'Unknown'
+var info = async function(environment, status=false){
+	let uri = 'http://census.daybreakgames.com/s:'+process.env.serviceID+'/get/'+environment+'/world?c:limit=10&c:lang=en'
+	if(typeof(status) !== 'object'){
+		status = {
+			'Connery': 'Unknown',
+			'Miller': 'Unknown',
+			'Cobalt': 'Unknown',
+			'Emerald': 'Unknown',
+			'SolTech': 'Unknown',
+			'Jaeger': 'Unknown',
+			'Genudine': 'Unknown',
+			'Ceres': 'Unknown'
+		}
 	}
+
 	try{
-		response = await got(pcUri).json(); 
+		response = await got(uri).json(); 
 	}
 	catch(err){
 		if(err.message.indexOf('404') > -1){
@@ -52,76 +53,6 @@ var info = async function(){
 		status[world.name.en] = world.state;
 	}
 
-	try{
-		response = await got(usUri).json(); 
-	}
-	catch(err){
-		if(err.message.indexOf('404') > -1){
-			return new Promise(function(resolve, reject){
-				reject("API Unreachable");
-			})
-		}
-	}
-	if(typeof(response.error) !== 'undefined'){
-        if(response.error == 'service_unavailable'){
-            return new Promise(function(resolve, reject){
-                reject("Census API currently unavailable");
-            })
-        }
-        return new Promise(function(resolve, reject){
-            reject(response.error);
-        })
-    }
-    if(typeof(response.world_list) === 'undefined'){
-        return new Promise(function(resolve, reject){
-            reject("API Error");
-        })
-	}
-	
-	data = response.world_list;
-	for(let world of data){
-		if(typeof(status[world.name.en]) === 'undefined'){
-			continue;
-			// This pretty much just serves to ignore Briggs
-		}
-		status[world.name.en] = world.state;
-	}
-
-	try{
-		response = await got(euUri).json(); 
-	}
-	catch(err){
-		if(err.message.indexOf('404') > -1){
-			return new Promise(function(resolve, reject){
-				reject("API Unreachable");
-			})
-		}
-	}
-	if(typeof(response.error) !== 'undefined'){
-        if(response.error == 'service_unavailable'){
-            return new Promise(function(resolve, reject){
-                reject("Census API currently unavailable");
-            })
-        }
-        return new Promise(function(resolve, reject){
-            reject(response.error);
-        })
-    }
-    if(typeof(response.world_list) === 'undefined'){
-        return new Promise(function(resolve, reject){
-            reject("API Error");
-        })
-	}
-	
-	data = response.world_list;
-	for(let world of data){
-		if(typeof(status[world.name.en]) === 'undefined'){
-			continue;
-			// This pretty much just serves to ignore Briggs
-		}
-		status[world.name.en] = world.state;
-	}
-
 	return new Promise(function(resolve, reject){
 		resolve(status);
 	})
@@ -129,13 +60,28 @@ var info = async function(){
 
 module.exports = {
 	servers: async function(){
-		let status = {}
+		let status = false
+		let errors = 0;
 		try{
-			status = await info();
+			status = await info('ps2:v2');
 		}
 		catch(err){
+			errors += 1;
+		}
+		try{
+			status = await info('ps2ps4us:v2',status);}
+		catch(err){
+			errors += 1;
+		}
+		try{
+			status = await info('ps2ps4eu:v2', status);
+		}
+		catch(err){
+			errors += 1;
+		}
+		if(errors == 3){
 			return new Promise(function(resolve, reject){
-				reject(err);
+				reject("An error occurred while retrieving server status");
 			})
 		}
 		let resEmbed = new Discord.RichEmbed();
