@@ -7,6 +7,7 @@ var got = require('got');
 var basicInfo = async function(cName, platform){
     // Main function for character lookup.  Pulls most stats and calls other functions for medals/top weapon info
     let uri = 'https://census.daybreakgames.com/s:'+process.env.serviceID+'/get/'+platform+'/character?name.first_lower='+cName+'&c:resolve=outfit_member_extended,online_status,world,stat_history,weapon_stat_by_faction&c:join=title';
+    ////https://census.daybreakgames.com/s:example/get/ps2:v2/character?name.first_lower=remainna&c:resolve=profile,outfit_member_extended,online_status,world,stat_history,weapon_stat_by_faction&c:join=title,characters_stat^list:1
     let response =  "";
     try{
        response = await got(uri).json(); 
@@ -239,6 +240,7 @@ module.exports = {
         resEmbed.addField('Playtime', hours+' hours, '+minutesPlayed+' minutes', true);
         if(cInfo.stat_history){
             resEmbed.addField('KD', Number.parseFloat(cInfo.kills/cInfo.deaths).toPrecision(3), true);
+            resEmbed.addField('KPM', Number.parseFloat(cInfo.kills/cInfo.playTime).toPrecision(3), true);
         }
         if (cInfo.online == "service_unavailable"){
             resEmbed.addField('Online', 'Service unavailable', true);
