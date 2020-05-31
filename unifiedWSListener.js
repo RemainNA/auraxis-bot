@@ -16,7 +16,6 @@ module.exports = {
             return;
         }
         running = true;
-        lastMessage = "";
         pcLogin = '{"service":"event","action":"subscribe","worlds":["1","10","13","17","19","40"],"eventNames":["PlayerLogin","PlayerLogout"]}';
         pcAlerts = '{"service":"event","action":"subscribe","worlds":["1","10","13","17","19","40"],"eventNames":["MetagameEvent"]}';
         usLogin = '{"service":"event","action":"subscribe","worlds":["1000"],"eventNames":["PlayerLogin","PlayerLogout"]}';
@@ -40,9 +39,8 @@ module.exports = {
 
         pcClient.on('message', function incoming(data){
             let parsed = JSON.parse(data);
-			if(parsed.payload != null && parsed.payload != lastMessage){
+			if(parsed.payload != null){
                 handler.router(parsed.payload, "ps2:v2", pgClient, discordClient);
-                lastMessage = parsed.payload;
 			}
         })
 
@@ -59,9 +57,8 @@ module.exports = {
 
         usClient.on('message', function incoming(data){
             let parsed = JSON.parse(data);
-			if(parsed.payload != null && parsed.payload != lastMessage){
+			if(parsed.payload != null){
                 handler.router(parsed.payload, "ps2ps4us:v2", pgClient, discordClient);
-                lastMessage = parsed.payload;
 			}
         })
 
@@ -78,9 +75,8 @@ module.exports = {
 
         euClient.on('message', function incoming(data){
             let parsed = JSON.parse(data);
-			if(parsed.payload != null && parsed.payload != lastMessage){
+			if(parsed.payload != null){
                 handler.router(parsed.payload, "ps2ps4eu:v2", pgClient, discordClient);
-                lastMessage = parsed.payload;
 			}
         })
 
