@@ -6,7 +6,7 @@ var got = require('got');
 
 var basicInfo = async function(cName, platform){
     // Main function for character lookup.  Pulls most stats and calls other functions for medals/top weapon info
-    let uri = 'https://census.daybreakgames.com/s:'+process.env.serviceID+'/get/'+platform+'/character?name.first_lower='+cName+'&c:resolve=outfit_member_extended,online_status,world,stat_history,weapon_stat_by_faction&c:join=title';
+    let uri = 'https://census.daybreakgames.com/s:'+process.env.serviceID+'/get/'+platform+'/character?name.first_lower='+cName+'&c:resolve=outfit_member_extended,online_status,world,stat_history,weapon_stat_by_faction&c:join=title,characters_stat^list:1';
     let response =  "";
     try{
        response = await got(uri).json(); 
@@ -108,6 +108,18 @@ var basicInfo = async function(cName, platform){
             resObj.deaths = data.stats.stat_history[2].all_time;
         }
         
+    }
+    if(typeof(data.character_id_join_characters_stat) !== 'undefined'){
+        let topClass = 0;
+        let topTime = 0;
+        for(let stat of data.character_id_join_characters_stat){
+            if(stat.stat_name == "play_time" && parseInt(stat.value_forever) > topTime){
+                topTime = stat.value_forever;
+                topClass = stat.profile_id;
+            }
+        }
+        resObj.topClass = topClass;
+        resObj.topTime = topTime;
     }
     return new Promise(function(resolve, reject){
         resolve(resObj);
@@ -290,6 +302,35 @@ module.exports = {
                 resEmbed.addField('Auraxium medals', cInfo.auraxCount, true);
             }
         }
+
+        // Top class
+        if(typeof(cInfo.topClass) !== 'undefined'){
+            let classHours = Math.floor(cInfo.topTime/60/60);
+            let classMinutes = cInfo.topTime/60 - classHours*60;
+            let className = " ";
+            switch(cInfo.topClass){
+                case "1":
+                    className = "Infiltrator"
+                    break;
+                case "3":
+                    className = "Light Assault"
+                    break;
+                case "4":
+                    className = "Medic"
+                    break;
+                case "5":
+                    className = "Engineer"
+                    break;
+                case "6":
+                    className = "Heavy Assault"
+                    break;
+                case "7":
+                    className = "MAX"
+                    break;
+            }
+            resEmbed.addField("Most played class (time)", className+" ("+classHours+"h "+parseInt(classMinutes)+"m)", true);
+        }
+
         return new Promise(function(resolve, reject){
             resolve(resEmbed);
         })
