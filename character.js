@@ -7,7 +7,6 @@ var got = require('got');
 var basicInfo = async function(cName, platform){
     // Main function for character lookup.  Pulls most stats and calls other functions for medals/top weapon info
     let uri = 'https://census.daybreakgames.com/s:'+process.env.serviceID+'/get/'+platform+'/character?name.first_lower='+cName+'&c:resolve=outfit_member_extended,online_status,world,stat_history,weapon_stat_by_faction&c:join=title';
-    ////https://census.daybreakgames.com/s:example/get/ps2:v2/character?name.first_lower=remainna&c:resolve=profile,outfit_member_extended,online_status,world,stat_history,weapon_stat_by_faction&c:join=title,characters_stat^list:1
     let response =  "";
     try{
        response = await got(uri).json(); 
