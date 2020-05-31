@@ -33,6 +33,7 @@ var initialize = require('./initializeSQL.js');
 var territory = require('./territory.js');
 var messageHandler = require('./messageHandler.js');
 var outfit = require('./outfit.js');
+var status = require('./status.js');
 
 //Online components
 if(runningOnline){
@@ -88,6 +89,7 @@ var listOfCommands = [
 "!unsubscribe all",
 "!population [server]",
 "!territory [server]",
+"!status",
 "!asp [name]"
 ]
 
@@ -250,6 +252,11 @@ client.on('message', message => {
 					.catch(err => messageHandler.handleError(message.channel, err, "Territory"))
 			}
 		}
+	}
+	if (message.content.toLowerCase() == '!status') {
+		status.servers()
+			.then(res => messageHandler.send(message.channel, res, "Server status"))
+			.catch(err => messageHandler.handleError(message.channel, err, "Server status"))
 	}
 	if (message.content.substring(0,20).toLowerCase() == '!subscribe activity ' && runningOnline){
 		let outfits = message.content.substring(20).toLowerCase().split(" ");

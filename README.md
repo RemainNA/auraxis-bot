@@ -81,6 +81,10 @@ Returns the population per faction of the specified server.  Supports multiple s
 
 Returns the territory control of each continent on the specified server.  Supports multiple servers per query.  Supports all platforms without prefixes
 
+#### !status
+
+Return the current status of all servers as reported by the Census API.  Takes no parameters.
+
 #### !asp [name]
 
 Returns the BR a character reached before joining ASP.  Only supported on PC, does not work with NSO.
