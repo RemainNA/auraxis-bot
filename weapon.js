@@ -59,18 +59,36 @@ module.exports = {
 		resEmbed.setDescription(wInfo.description);
 		resEmbed.setThumbnail('http://census.daybreakgames.com/files/ps2/images/static/'+wInfo.image_id+'.png');
 		resEmbed.setFooter("ID: "+wInfo.id+" | Command currently in Beta");
-		if(typeof(wInfo.fireRate) !== 'undefined'){
-			if(wInfo.fireRate != 0){
-				resEmbed.addField("Fire Rate", 60*(1000/wInfo.fireRate), true);
-			}
-			resEmbed.addField("Reload", wInfo.reload/1000, true);
-			resEmbed.addField("Clip", wInfo.clip, true);
-			resEmbed.addField("Capacity", wInfo.ammo, true);
+		
+		if(typeof(wInfo.category) !== 'undefined'){
+			resEmbed.addField("Category", wInfo.category, true);
 		}
 
-		if(typeof(wInfo.damage) !== 'undefined'){
+		if(typeof(wInfo.fireRate) !== 'undefined'){
+			if(wInfo.fireRate != 0){
+				resEmbed.addField("Fire Rate", (60*(1000/wInfo.fireRate)).toPrecision(3), true);
+			}
+			resEmbed.addField("Clip", wInfo.clip, true);
+			resEmbed.addField("Capacity", wInfo.ammo, true);
+			if(typeof(wInfo.chamber) === 'undefined'){
+				resEmbed.addField("Reload", wInfo.reload/1000, true);
+			}
+		}
+
+		if(typeof(wInfo.damage) !== 'undefined' && typeof(wInfo.maxDamage) == 'undefined'){
 			resEmbed.addField("Damage", wInfo.damage, true);
 			// resEmbed.addField("Min Damage", wInfo.minDamage, true);
+		}
+
+		if(typeof(wInfo.maxDamage) !== 'undefined'){
+			resEmbed.addField("Short Reload", wInfo.reload/1000+"s", true);
+			resEmbed.addField("Long Reload", (wInfo.reload/1000+wInfo.chamber/1000).toPrecision(3)+"s", true);
+			resEmbed.addField("Max Damage", wInfo.maxDamage+" @ "+wInfo.maxDamageRange+"m", true);
+			resEmbed.addField("Min Damage", wInfo.minDamage+" @ "+wInfo.minDamageRange+"m", true);
+			if(wInfo.pellets != "1"){
+				resEmbed.addField("Pellets", wInfo.pellets, true);
+			}
+			resEmbed.addField("Muzzle Velocity", wInfo.speed, true);
 		}
 
 		if(typeof(wInfo.directDamage) !== 'undefined'){
