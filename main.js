@@ -34,6 +34,7 @@ var territory = require('./territory.js');
 var messageHandler = require('./messageHandler.js');
 var outfit = require('./outfit.js');
 var status = require('./status.js');
+var weapon = require('./weapon.js');
 
 //Online components
 if(runningOnline){
@@ -90,6 +91,7 @@ var listOfCommands = [
 "!population [server]",
 "!territory [server]",
 "!status",
+"!weapon [weapon name]",
 "!asp [name]"
 ]
 
@@ -257,6 +259,11 @@ client.on('message', message => {
 		status.servers()
 			.then(res => messageHandler.send(message.channel, res, "Server status"))
 			.catch(err => messageHandler.handleError(message.channel, err, "Server status"))
+	}
+	if (message.content.substring(0,8).toLowerCase() == '!weapon ') {
+		weapon.lookup(message.content.substring(8))
+			.then(res => messageHandler.send(message.channel, res, "Weapon"))
+			.catch(err => messageHandler.handleError(message.channel, err, "Weapon"))
 	}
 	if (message.content.substring(0,20).toLowerCase() == '!subscribe activity ' && runningOnline){
 		let outfits = message.content.substring(20).toLowerCase().split(" ");
