@@ -2,6 +2,7 @@
 // All three platforms are supported, but must be specified in the "platform" parameter
 
 const Discord = require('discord.js');
+var weapons = require('./weapons.json');
 var got = require('got');
 
 var basicInfo = async function(cName, platform){
@@ -128,6 +129,11 @@ var basicInfo = async function(cName, platform){
 
 var getWeaponName = async function(ID, platform){
     // Returns the name of the weapon ID specified.  If the Census API is unreachable it will fall back to the fisu api
+    if(typeof(weapons[ID]) !== 'undefined'){
+        return new Promise(function(resolve, reject){
+            resolve(weapons[ID].name);
+        })
+    }
     let URI = 'https://census.daybreakgames.com/s:'+process.env.serviceID+'/get/'+platform+'/item/'+ID;
     let response = await got(URI).json();
     if(response.returned==1){
