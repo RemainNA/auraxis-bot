@@ -88,14 +88,19 @@ module.exports = {
 		}
 
 		if(typeof(wInfo.maxDamage) !== 'undefined'){
-			resEmbed.addField("Short Reload", wInfo.reload/1000+"s", true);
-			resEmbed.addField("Long Reload", (wInfo.reload/1000+wInfo.chamber/1000).toPrecision(3)+"s", true);
+			if(typeof(wInfo.chamber) !== 'undefined'){
+				resEmbed.addField("Short Reload", wInfo.reload/1000+"s", true);
+				resEmbed.addField("Long Reload", (wInfo.reload/1000+wInfo.chamber/1000).toPrecision(3)+"s", true);
+			}
+			else{
+				resEmbed.addField("Reload", wInfo.reload/1000+"s", true);
+			}
 			resEmbed.addField("Max Dmg", wInfo.maxDamage+" @ "+wInfo.maxDamageRange+"m", true);
 			resEmbed.addField("Min Dmg", wInfo.minDamage+" @ "+wInfo.minDamageRange+"m", true);
 			if(wInfo.pellets != "1"){
 				resEmbed.addField("Pellets", wInfo.pellets, true);
 			}
-			resEmbed.addField("Muzzle Vel", wInfo.speed+"m/s", true);
+			resEmbed.addField("Muzzle Vel", wInfo.speed+" m/s", true);
 		}
 
 		if(typeof(wInfo.directDamage) !== 'undefined'){
@@ -109,7 +114,7 @@ module.exports = {
 		let adsCOFMin = ["?","?","?","?","?","?"];
 		let adsCOFMax = ["?","?","?","?","?","?"];
 
-		if(typeof(wInfo.hipCofRecoil) !== 'undefined'){
+		if(typeof(wInfo.verticalRecoil) !== 'undefined'){
 			if(typeof(wInfo.adsCofRecoil) !== 'undefined'){
 				resEmbed.addField("Bloom (hip/ADS)", wInfo.hipCofRecoil+"/"+wInfo.adsCofRecoil, true);
 			}
