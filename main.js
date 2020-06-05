@@ -35,6 +35,7 @@ var messageHandler = require('./messageHandler.js');
 var outfit = require('./outfit.js');
 var status = require('./status.js');
 var weapon = require('./weapon.js');
+var implant = require('./implant.js');
 
 //Online components
 if(runningOnline){
@@ -92,6 +93,7 @@ var listOfCommands = [
 "!territory [server]",
 "!status",
 "!weapon [weapon name]",
+"!implant [implant name]",
 "!asp [name]"
 ]
 
@@ -267,6 +269,11 @@ client.on('message', message => {
 		weapon.lookup(message.content.substring(8))
 			.then(res => messageHandler.send(message.channel, res, "Weapon"))
 			.catch(err => messageHandler.handleError(message.channel, err, "Weapon"))
+	}
+	if (message.content.substring(0,9).toLowerCase() == '!implant ') {
+		implant.lookup(message.content.substring(9))
+			.then(res => messageHandler.send(message.channel, res, "Implant"))
+			.catch(err => messageHandler.handleError(message.channel, err, "Implant"))
 	}
 	if (message.content.substring(0,20).toLowerCase() == '!subscribe activity ' && runningOnline){
 		let outfits = message.content.substring(20).toLowerCase().split(" ");
