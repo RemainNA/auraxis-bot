@@ -13,6 +13,10 @@ function CoFUpdated(CoF){
 	return false;
 }
 
+function standingOnly(CoF){
+	return CoF[0] != "?" && CoF[1] == "?" && CoF[2] == "?" && CoF[3] == "?" && CoF[4] == "?" && CoF[5] == "?";
+}
+
 var weaponInfo = async function(name){
 	//Check if ID matches
 	if(typeof(weaponsJSON[name]) !== 'undefined'){
@@ -75,14 +79,43 @@ module.exports = {
 			if(wInfo.fireRate != 0 && wInfo.clip != 1){
 				resEmbed.addField("Fire Rate", (60*(1000/wInfo.fireRate)).toPrecision(3), true);
 			}
+		}
+		if(typeof(wInfo.heatCapacity) !== 'undefined'){
+			resEmbed.addField("Heat Capacity", wInfo.heatCapacity, true);
+			resEmbed.addField("Heat Per Shot", wInfo.heatPerShot, true);
+			resEmbed.addField("Heat Bleed Off", wInfo.heatBleedOff+"/s", true);
+			resEmbed.addField("Recovery Delay", wInfo.heatRecoveryDelay/1000+" s \n "+(Number(wInfo.overheatPenalty)+Number(wInfo.heatRecoveryDelay))/1000+" s Overheated", true);
+		}
+		else if (typeof(wInfo.chamber) === 'undefined'){
 			if(typeof(wInfo.clip) !== 'undefined' && wInfo.clip != 1){
 				resEmbed.addField("Clip", wInfo.clip, true);
 			}
 			if(typeof(wInfo.ammo) !== 'undefined' && wInfo.ammo != 1){
 				resEmbed.addField("Capacity", wInfo.ammo, true);
 			}
-			if(typeof(wInfo.chamber) === 'undefined' && typeof(wInfo.reload) !== 'undefined' && wInfo.reload != 0){
+			if(typeof(wInfo.reload) !== 'undefined' && wInfo.reload != 0){
 				resEmbed.addField("Reload", wInfo.reload/1000+"s", true);
+			}
+		}
+		else{
+			if(typeof(wInfo.chamber) !== 'undefined'){
+				resEmbed.addField("Reload", (wInfo.reload/1000).toPrecision(3)+" s Short\n "+(wInfo.reload/1000+wInfo.chamber/1000).toPrecision(3)+" s Long", true);
+			}
+			else if(typeof(wInfo.reload) !== 'undefined' && wInfo.reload != 0){
+				resEmbed.addField("Reload", wInfo.reload/1000+"s", true);
+			}
+		}
+
+		
+
+		if(typeof(wInfo.maxDamage) !== 'undefined'){	
+			resEmbed.addField("Damage", wInfo.maxDamage+" @ "+wInfo.maxDamageRange+"m \n "+wInfo.minDamage+" @ "+wInfo.minDamageRange+"m", true);
+			if(wInfo.pellets > 1){
+				resEmbed.addField("Pellets", wInfo.pellets, true);
+				resEmbed.addField("Pellet Spread", wInfo.pelletSpread, true);
+			}
+			if(typeof(wInfo.speed) !== 'undefined'){
+				resEmbed.addField("Muzzle Vel", wInfo.speed+" m/s", true);
 			}
 		}
 
@@ -90,25 +123,7 @@ module.exports = {
 			resEmbed.addField("Damage", wInfo.damage, true);
 		}
 
-		if(typeof(wInfo.maxDamage) !== 'undefined'){
-			if(typeof(wInfo.chamber) !== 'undefined'){
-				resEmbed.addField("Short Reload", wInfo.reload/1000+"s", true);
-				resEmbed.addField("Long Reload", (wInfo.reload/1000+wInfo.chamber/1000).toPrecision(3)+"s", true);
-			}
-			else if(typeof(wInfo.reload) !== 'undefined' && wInfo.reload != 0){
-				resEmbed.addField("Reload", wInfo.reload/1000+"s", true);
-			}
-			resEmbed.addField("Max Dmg", wInfo.maxDamage+" @ "+wInfo.maxDamageRange+"m", true);
-			resEmbed.addField("Min Dmg", wInfo.minDamage+" @ "+wInfo.minDamageRange+"m", true);
-			if(wInfo.pellets > 1){
-				resEmbed.addField("Pellets", wInfo.pellets, true);
-			}
-			if(typeof(wInfo.speed) !== 'undefined'){
-				resEmbed.addField("Muzzle Vel", wInfo.speed+" m/s", true);
-			}
-		}
-
-		if(typeof(wInfo.directDamage) !== 'undefined'){
+		if(typeof(wInfo.directDamage) !== 'undefined' && wInfo.directDamage != wInfo.damage){ //checking for damage equality is pretty much just ruling out the Tomoe
 			resEmbed.addField("Direct Damage", wInfo.directDamage, true);
 			if(typeof(wInfo.indirectDamage) !== 'undefined' && wInfo.indirectDamage != 0){
 				resEmbed.addField("Indirect Damage", wInfo.indirectDamage, true);
@@ -120,19 +135,23 @@ module.exports = {
 		let adsCOFMin = ["?","?","?","?","?","?"];
 		let adsCOFMax = ["?","?","?","?","?","?"];
 
+		//Checking for vertical recoil here and below keeps things like med kits from displaying irrelevant stats
+		if(typeof(wInfo.adsCofRecoil) !== 'undefined' && typeof(wInfo.hipCofRecoil) !== 'undefined' && typeof(wInfo.verticalRecoil) !== 'undefined'){ 
+			resEmbed.addField("Bloom (hip/ADS)", wInfo.hipCofRecoil+"/"+wInfo.adsCofRecoil, true);
+		}
+		else if(typeof(wInfo.hipCofRecoil) !== 'undefined' && typeof(wInfo.verticalRecoil) !== 'undefined'){
+			resEmbed.addField("Bloom (hip)", wInfo.hipCofRecoil, true);
+		}
+		wInfo.verticalRecoil && resEmbed.addField("Vertical Recoil", wInfo.verticalRecoil, true);
+		wInfo.recoilAngleMin && wInfo.recoilAngleMax && resEmbed.addField("Recoil Angle (min/max)", wInfo.recoilAngleMin+"/"+wInfo.recoilAngleMax, true);
+		wInfo.recoilHorizontalMin && wInfo.recoilHorizontalMax && resEmbed.addField("Horizontal Recoil (min/max)", wInfo.recoilHorizontalMin+"/"+wInfo.recoilHorizontalMax, true);
+		wInfo.recoilHorizontalTolerance && resEmbed.addField("Horizontal Tolerance", wInfo.recoilHorizontalTolerance, true);
+		wInfo.firstShotMultiplier && resEmbed.addField("First Shot Multiplier", wInfo.firstShotMultiplier+"x", true);
+		wInfo.fireModes && resEmbed.addField("Fire modes", wInfo.fireModes, true);
+		wInfo.headshotMultiplier && resEmbed.addField("Headshot Multiplier", Number(wInfo.headshotMultiplier)+1+"x", true);
+		wInfo.defZoom && wInfo.defZoom != 1 && resEmbed.addField("Iron Sights Zoom", wInfo.defZoom+"x", true);
+
 		if(typeof(wInfo.verticalRecoil) !== 'undefined'){
-			if(typeof(wInfo.adsCofRecoil) !== 'undefined'){
-				resEmbed.addField("Bloom (hip/ADS)", wInfo.hipCofRecoil+"/"+wInfo.adsCofRecoil, true);
-			}
-			else{
-				resEmbed.addField("Bloom (hip)", wInfo.hipCofRecoil, true);
-			}
-			resEmbed.addField("Vertical Recoil", wInfo.verticalRecoil, true);
-			resEmbed.addField("Recoil Angle (min/max)", wInfo.recoilAngleMin+"/"+wInfo.recoilAngleMax, true);
-			resEmbed.addField("Horizontal Recoil (min/max)", wInfo.recoilHorizontalMin+"/"+wInfo.recoilHorizontalMax, true);
-			resEmbed.addField("Horizontal Tolerance", wInfo.recoilHorizontalTolerance, true);
-			resEmbed.addField("First Shot Multiplier", wInfo.firstShotMultiplier+"x", true);
-			resEmbed.addField("Headshot Multiplier", Number(wInfo.headshotMultiplier)+1+"x", true);
 			if(typeof(wInfo.standingCofMin) !== 'undefined'){
 				hipCOFMin[0] = wInfo.standingCofMin;
 				hipCOFMax[0] = wInfo.standingCofMax;
@@ -158,7 +177,7 @@ module.exports = {
 				hipCOFMax[5] = wInfo.crouchWalkingCofMax;
 			}
 		}
-
+			
 		if(typeof(wInfo.adsMoveSpeed) !== 'undefined'){
 			resEmbed.addField("ADS Move Speed", wInfo.adsMoveSpeed, true);
 			if(typeof(wInfo.standingCofMinADS) !== 'undefined'){
@@ -188,19 +207,39 @@ module.exports = {
 		}
 
 		if(CoFUpdated(hipCOFMin) || CoFUpdated(adsCOFMin)){
-			resEmbed.addField("CoF", "*CoF shown Stand/Crouch/Walk/Sprint/Fall/Crouch Walk*");
+			if(standingOnly(hipCOFMin) || standingOnly(adsCOFMin)){
+				resEmbed.addBlankField();
+			}
+			else{
+				resEmbed.addField("-------------------", "*CoF shown Stand/Crouch/Walk/Sprint/Fall/Crouch Walk*");
+			}
 		}
 
 		if(CoFUpdated(hipCOFMin)){
-			resEmbed.addField("Hipfire CoF Min", hipCOFMin[0]+"/"+hipCOFMin[1]+"/"+hipCOFMin[2]+"/"+hipCOFMin[3]+"/"+hipCOFMin[4]+"/"+hipCOFMin[5], true);
-			resEmbed.addField("Hipfire CoF Max", hipCOFMax[0]+"/"+hipCOFMax[1]+"/"+hipCOFMax[2]+"/"+hipCOFMax[3]+"/"+hipCOFMax[4]+"/"+hipCOFMax[5], true);
-			resEmbed.addBlankField(true);
+			if(standingOnly(hipCOFMin)){
+				resEmbed.addField("Hipfire CoF Min", hipCOFMin[0], true);
+				resEmbed.addField("Hipfire CoF Max", hipCOFMax[0], true);
+				resEmbed.addBlankField(true);
+			}
+			else{
+				resEmbed.addField("Hipfire CoF Min", hipCOFMin[0]+"/"+hipCOFMin[1]+"/"+hipCOFMin[2]+"/"+hipCOFMin[3]+"/"+hipCOFMin[4]+"/"+hipCOFMin[5], true);
+				resEmbed.addField("Hipfire CoF Max", hipCOFMax[0]+"/"+hipCOFMax[1]+"/"+hipCOFMax[2]+"/"+hipCOFMax[3]+"/"+hipCOFMax[4]+"/"+hipCOFMax[5], true);
+				resEmbed.addBlankField(true);
+			}
 		}
 
 		if(CoFUpdated(adsCOFMin)){
-			resEmbed.addField("ADS CoF Min", adsCOFMin[0]+"/"+adsCOFMin[1]+"/"+adsCOFMin[2]+"/"+adsCOFMin[3]+"/"+adsCOFMin[4]+"/"+adsCOFMin[5], true);
-			resEmbed.addField("ADS CoF Max", adsCOFMax[0]+"/"+adsCOFMax[1]+"/"+adsCOFMax[2]+"/"+adsCOFMax[3]+"/"+adsCOFMax[4]+"/"+adsCOFMax[5], true);
-			resEmbed.addBlankField(true);
+			if(standingOnly(adsCOFMin)){
+				resEmbed.addField("ADS CoF Min", adsCOFMin[0], true);
+				resEmbed.addField("ADS CoF Max", adsCOFMax[0], true);
+				resEmbed.addBlankField(true);
+			}
+			else{
+				resEmbed.addField("ADS CoF Min", adsCOFMin[0]+"/"+adsCOFMin[1]+"/"+adsCOFMin[2]+"/"+adsCOFMin[3]+"/"+adsCOFMin[4]+"/"+adsCOFMin[5], true);
+				resEmbed.addField("ADS CoF Max", adsCOFMax[0]+"/"+adsCOFMax[1]+"/"+adsCOFMax[2]+"/"+adsCOFMax[3]+"/"+adsCOFMax[4]+"/"+adsCOFMax[5], true);
+				resEmbed.addBlankField(true);
+			}
+			
 		}
 
 		resEmbed.setDescription(wInfo.description);
