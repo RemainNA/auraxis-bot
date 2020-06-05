@@ -104,6 +104,9 @@ var links = [
 
 // Create an event listener for messages
 client.on('message', message => {
+	if(message.author == client.user){
+		return;
+	}
 	if (message.content.toLowerCase() == '!ping') {
 		// ping function to check if bot is up
 		messageHandler.send(message.channel, "Bot's ping to Discord is "+client.ping+'ms', 'ping');
