@@ -27,7 +27,7 @@ var char = require('./character.js');
 var online = require('./online.js');
 var listener = require('./unifiedWSListener.js');
 var subscription = require('./subscriptions.js');
-var population = require('./serverPopulation.js');
+var population = require('./population.js');
 var prePrestige = require('./prePrestige.js');
 var initialize = require('./initializeSQL.js');
 var territory = require('./territory.js');
@@ -37,25 +37,6 @@ var status = require('./status.js');
 var weapon = require('./weapon.js');
 var implant = require('./implant.js');
 
-//Online components
-if(runningOnline){
-	SQLclient = new Client({
-	connectionString: process.env.DATABASE_URL,
-	ssl: true,
-	});
-
-	SQLclient.connect();
-
-	SQLclient.query("SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_TYPE='BASE TABLE'", (err, res) => {
-	if (err) throw err;
-	for (let row of res.rows) {
-		//console.log(JSON.stringify(row));
-	}
-	});
-
-	initialize.start(SQLclient);
-}
-
 const client = new Discord.Client();
 
 // https://discordapp.com/developers/applications/me
@@ -64,9 +45,9 @@ const token = process.env.token;
 client.on('ready', () => {
 	console.log('Running on '+client.guilds.size+' servers!');
 	if(runningOnline){
-		const SQLclient = new Client({
+		SQLclient = new Client({
 			connectionString: process.env.DATABASE_URL,
-			ssl: true,
+			ssl: true
 		});
 
 		SQLclient.connect();
@@ -237,11 +218,16 @@ client.on('message', message => {
 			}
 		}
 	}
-	if (message.content.substring(0,11).toLowerCase() == '!population'){
+	if (message.content.substring(0,12).toLowerCase() == '!population '){
 		//server population
-		var servers = message.content.substring(12);
-		//calls serverPopulation.js
-		population.check(servers, message.channel);
+		let servers = message.content.substring(12).toLowerCase().split(" ");
+		for(x in servers){
+			if(servers[x] != ""){
+				population.lookup(servers[x], SQLclient)
+					.then(res => messageHandler.send(message.channel, res, "Population"))
+					.catch(err => messageHandler.handleError(message.channel, err, "Population"))
+			}
+		}
 	}
 	if (message.content.substring(0,4).toLowerCase() == '!asp'){
 		//BR before beginning ASP
