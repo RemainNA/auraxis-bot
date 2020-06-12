@@ -174,5 +174,22 @@ module.exports = {
 			}
 		    
 		});
+
+		// Population table
+		SQLclient.query("SELECT * FROM population;", (err, res) => {
+		    if (err){
+				console.log(err);
+				console.log("Creating population table");
+				SQLclient.query("CREATE TABLE population (id bigint PRIMARY KEY, world smallint, faction smallint, continent smallint);", (err, res) => {
+					if (err){
+						console.log(err);
+					}
+					else{
+						console.log(res);
+					}
+				});
+			}
+		    
+		});
 	}
 }

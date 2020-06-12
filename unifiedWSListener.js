@@ -2,6 +2,7 @@
 
 var WebSocket = require('ws');
 const Discord = require('discord.js');
+const population = require('./validatePopulation.js');
 
 const { Client } = require('pg');
 
@@ -14,6 +15,7 @@ var euRunning = false;
 var backoff = 1000;
 
 function listen(pgClient, discordClient){
+    population.validate(pgClient); //Account for any logout events missed while the listener was offline
     pcLogin = '{"service":"event","action":"subscribe","worlds":["1","10","13","17","19","40"],"eventNames":["PlayerLogin","PlayerLogout"]}';
     pcAlerts = '{"service":"event","action":"subscribe","worlds":["1","10","13","17","19","40"],"eventNames":["MetagameEvent"]}';
     usLogin = '{"service":"event","action":"subscribe","worlds":["1000"],"eventNames":["PlayerLogin","PlayerLogout"]}';

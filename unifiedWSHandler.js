@@ -1,10 +1,30 @@
 // This file implements functions which parse messages from the Stream API and send messages to the appropriate channels based on subscription status.
+// Login and logout events are also tracked for use in population queries
 
 var got = require('got');
 const Discord = require('discord.js');
 const { Client } = require('pg');
 var messageHandler = require('./messageHandler.js');
 var territory = require('./territory.js');
+
+recordLogin = async function(payload, faction, pgClient){
+    pgClient.query("INSERT INTO population (id, world, faction, continent) \
+    VALUES ($1, $2, $3, $4)", [payload.character_id, payload.world_id, faction, null])
+        .catch(error => {
+            if(typeof(error) == "string"){
+                console.log(error);
+            }
+        });
+}
+
+recordLogout = async function(payload, pgClient){
+    pgClient.query("DELETE FROM population WHERE id = $1", [payload.character_id])
+        .catch(error => {
+            if(typeof(error) == "string"){
+                console.log(error);
+            }
+        });
+}
 
 environmentToTable = function(environment){
     if(environment == "ps2:v2"){
@@ -28,6 +48,12 @@ logEvent = async function(payload, environment, pgClient, discordClient){
     }
     let table = environmentToTable(environment); //helper function used for scope management
     let playerEvent = payload.event_name.substring(6);
+    if(payload.event_name == "PlayerLogin"){
+        recordLogin(payload, response.character_list[0].faction_id, pgClient);
+    }
+    else{
+        recordLogout(payload, pgClient);
+    }
     if(response.character_list[0].outfit_member != null){
         let char = response.character_list[0];
         try{
@@ -62,7 +88,7 @@ logEvent = async function(payload, environment, pgClient, discordClient){
                 //in case channel is deleted or otherwise inaccessible
                 else{
                     removeQueryText = "DELETE FROM "+table+" WHERE id=$1 AND channel=$2;";
-                    SQLclient.query(removeQueryText, [char.outfit_member.outfit_id, row.channel], (err, res) => {
+                    pgClient.query(removeQueryText, [char.outfit_member.outfit_id, row.channel], (err, res) => {
                         if (err){
                             console.log("2"+err);
                         } 
