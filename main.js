@@ -36,11 +36,14 @@ var outfit = require('./outfit.js');
 var status = require('./status.js');
 var weapon = require('./weapon.js');
 var implant = require('./implant.js');
+var validate = require('./validatePopulation.js');
 
 const client = new Discord.Client();
 
 // https://discordapp.com/developers/applications/me
 const token = process.env.token;
+
+firstRun = true;
 
 client.on('ready', () => {
 	console.log('Running on '+client.guilds.size+' servers!');
@@ -54,6 +57,12 @@ client.on('ready', () => {
 
 		initialize.start(SQLclient);
 		listener.start(SQLclient, client);
+		if(firstRun){
+			validate.validate(SQLclient);
+			setInterval(function () { 
+				validate.validate(SQLclient);
+			}, 10800000); //Run validate every 3 hours
+		}
 	}
 
 	client.user.setActivity('!help')
