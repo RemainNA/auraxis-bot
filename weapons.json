@@ -5895,6 +5895,7 @@
         "ammo": "500",
         "category": "Flash Primary Weapon",
         "clip": "100",
+        "defZoom": "1",
         "description": "The M12 Kobalt is a 50 cal machine gun that is effective against infantry targets. All factions can use this weapon.",
         "fireModes": [
             "Auto"
@@ -5910,6 +5911,7 @@
         "recoilAngleMax": "0.3",
         "recoilAngleMin": "-3",
         "reload": "2500",
+        "speed": "650",
         "standingCofMax": "0.5",
         "standingCofMaxADS": "0.5",
         "standingCofMin": "0.2",
@@ -6320,6 +6322,7 @@
         "ammo": "500",
         "category": "Flash Primary Weapon",
         "clip": "100",
+        "defZoom": "1",
         "description": "The M12 Kobalt is a 50 cal machine gun that is effective against infantry targets. All factions can use this weapon.",
         "fireModes": [
             "Auto"
@@ -6335,6 +6338,7 @@
         "recoilAngleMax": "0.3",
         "recoilAngleMin": "-3",
         "reload": "2500",
+        "speed": "650",
         "standingCofMax": "0.5",
         "standingCofMaxADS": "0.5",
         "standingCofMin": "0.2",
@@ -6346,6 +6350,7 @@
         "ammo": "500",
         "category": "Flash Primary Weapon",
         "clip": "100",
+        "defZoom": "1",
         "description": "The M12 Kobalt is a 50 cal machine gun that is effective against infantry targets. All factions can use this weapon.",
         "fireModes": [
             "Auto"
@@ -6361,6 +6366,7 @@
         "recoilAngleMax": "0.3",
         "recoilAngleMin": "-3",
         "reload": "2500",
+        "speed": "650",
         "standingCofMax": "0.5",
         "standingCofMaxADS": "0.5",
         "standingCofMin": "0.2",
@@ -6452,6 +6458,7 @@
         "category": "Flash Primary Weapon",
         "clip": "8",
         "damage": "175",
+        "defZoom": "1",
         "description": "The Fury launches 40mm grenades that are effective against infantry and light armor.  It is also capable of light damage against heavy armor.  All factions can use this weapon.",
         "directDamage": "175",
         "fireModes": [
@@ -6462,6 +6469,7 @@
         "indirectDamage": "200",
         "name": "M40 Fury-F",
         "reload": "2500",
+        "speed": "125",
         "standingCofMax": "0.5",
         "standingCofMin": "0.5"
     },
@@ -6470,6 +6478,7 @@
         "category": "Flash Primary Weapon",
         "clip": "8",
         "damage": "175",
+        "defZoom": "1",
         "description": "The Fury launches 40mm grenades that are effective against infantry and light armor.  It is also capable of light damage against heavy armor.  All factions can use this weapon.",
         "directDamage": "175",
         "fireModes": [
@@ -6480,6 +6489,7 @@
         "indirectDamage": "200",
         "name": "M40 Fury-F",
         "reload": "2500",
+        "speed": "125",
         "standingCofMax": "0.5",
         "standingCofMin": "0.5"
     },
@@ -6488,6 +6498,7 @@
         "category": "Flash Primary Weapon",
         "clip": "8",
         "damage": "175",
+        "defZoom": "1",
         "description": "The Fury launches 40mm grenades that are effective against infantry and light armor.  It is also capable of light damage against heavy armor.  All factions can use this weapon.",
         "directDamage": "175",
         "fireModes": [
@@ -6498,6 +6509,7 @@
         "indirectDamage": "200",
         "name": "M40 Fury-F",
         "reload": "2500",
+        "speed": "125",
         "standingCofMax": "0.5",
         "standingCofMin": "0.5"
     },
@@ -7336,6 +7348,7 @@
         "ammo": "750",
         "category": "Sunderer Front Gunner",
         "clip": "100",
+        "defZoom": "1",
         "description": "The M12 Kobalt is a .50 cal machine gun that is effective against infantry targets. All factions can use this weapon.",
         "fireModes": [
             "Auto"
@@ -7351,6 +7364,7 @@
         "recoilAngleMax": "0.3",
         "recoilAngleMin": "-3",
         "reload": "2500",
+        "speed": "650",
         "standingCofMax": "0.5",
         "standingCofMaxADS": "0.5",
         "standingCofMin": "0.2",
@@ -7533,6 +7547,7 @@
         "ammo": "750",
         "category": "Sunderer Front Gunner",
         "clip": "100",
+        "defZoom": "1",
         "description": "The M12 Kobalt is a .50 cal machine gun that is effective against infantry targets. All factions can use this weapon.",
         "fireModes": [
             "Auto"
@@ -7548,6 +7563,7 @@
         "recoilAngleMax": "0.3",
         "recoilAngleMin": "-3",
         "reload": "2500",
+        "speed": "650",
         "standingCofMax": "0.5",
         "standingCofMaxADS": "0.5",
         "standingCofMin": "0.2",
@@ -7559,6 +7575,7 @@
         "ammo": "750",
         "category": "Sunderer Front Gunner",
         "clip": "100",
+        "defZoom": "1",
         "description": "The M12 Kobalt is a .50 cal machine gun that is effective against infantry targets. All factions can use this weapon.",
         "fireModes": [
             "Auto"
@@ -7574,6 +7591,7 @@
         "recoilAngleMax": "0.3",
         "recoilAngleMin": "-3",
         "reload": "2500",
+        "speed": "650",
         "standingCofMax": "0.5",
         "standingCofMaxADS": "0.5",
         "standingCofMin": "0.2",
@@ -7666,6 +7684,7 @@
         "ammo": "750",
         "category": "Sunderer Rear Gunner",
         "clip": "100",
+        "defZoom": "1",
         "description": "The M12 Kobalt is a .50 cal machine gun that is effective against infantry targets. All factions can use this weapon.",
         "fireModes": [
             "Auto"
@@ -7681,6 +7700,7 @@
         "recoilAngleMax": "0.3",
         "recoilAngleMin": "-3",
         "reload": "2500",
+        "speed": "650",
         "standingCofMax": "0.5",
         "standingCofMaxADS": "0.5",
         "standingCofMin": "0.2",
@@ -7692,6 +7712,7 @@
         "ammo": "750",
         "category": "Sunderer Rear Gunner",
         "clip": "100",
+        "defZoom": "1",
         "description": "The M12 Kobalt is a .50 cal machine gun that is effective against infantry targets. All factions can use this weapon.",
         "fireModes": [
             "Auto"
@@ -7707,6 +7728,7 @@
         "recoilAngleMax": "0.3",
         "recoilAngleMin": "-3",
         "reload": "2500",
+        "speed": "650",
         "standingCofMax": "0.5",
         "standingCofMaxADS": "0.5",
         "standingCofMin": "0.2",
@@ -7718,6 +7740,7 @@
         "ammo": "750",
         "category": "Sunderer Rear Gunner",
         "clip": "100",
+        "defZoom": "1",
         "description": "The M12 Kobalt is a .50 cal machine gun that is effective against infantry targets. All factions can use this weapon.",
         "fireModes": [
             "Auto"
@@ -7733,6 +7756,7 @@
         "recoilAngleMax": "0.3",
         "recoilAngleMin": "-3",
         "reload": "2500",
+        "speed": "650",
         "standingCofMax": "0.5",
         "standingCofMaxADS": "0.5",
         "standingCofMin": "0.2",
@@ -7826,6 +7850,7 @@
         "category": "Sunderer Front Gunner",
         "clip": "4",
         "damage": "400",
+        "defZoom": "1",
         "description": "The M60 Bulldog fires high explosive 60mm rounds with a large blast radius effective against infantry.  Direct hits provides some damage to armor. All factions can use this weapon.",
         "directDamage": "400",
         "fireModes": [
@@ -7837,6 +7862,7 @@
         "indirectDamage": "500",
         "name": "M60-G Bulldog",
         "reload": "4000",
+        "speed": "100",
         "standingCofMax": "0",
         "standingCofMaxADS": "0",
         "standingCofMin": "0",
@@ -7849,6 +7875,7 @@
         "category": "Sunderer Front Gunner",
         "clip": "4",
         "damage": "400",
+        "defZoom": "1",
         "description": "The M60 Bulldog fires high explosive 60mm rounds with a large blast radius effective against infantry.  Direct hits provides some damage to armor. All factions can use this weapon.",
         "directDamage": "400",
         "fireModes": [
@@ -7860,6 +7887,7 @@
         "indirectDamage": "500",
         "name": "M60-G Bulldog",
         "reload": "4000",
+        "speed": "100",
         "standingCofMax": "0",
         "standingCofMaxADS": "0",
         "standingCofMin": "0",
@@ -7872,6 +7900,7 @@
         "category": "Sunderer Front Gunner",
         "clip": "4",
         "damage": "400",
+        "defZoom": "1",
         "description": "The M60 Bulldog fires high explosive 60mm rounds with a large blast radius effective against infantry.  Direct hits provides some damage to armor. All factions can use this weapon.",
         "directDamage": "400",
         "fireModes": [
@@ -7883,6 +7912,7 @@
         "indirectDamage": "500",
         "name": "M60-G Bulldog",
         "reload": "4000",
+        "speed": "100",
         "standingCofMax": "0",
         "standingCofMaxADS": "0",
         "standingCofMin": "0",
@@ -7895,6 +7925,7 @@
         "category": "Sunderer Rear Gunner",
         "clip": "4",
         "damage": "400",
+        "defZoom": "1",
         "description": "The M60 Bulldog fires high explosive 60mm rounds with a large blast radius effective against infantry.  Direct hits provides some damage to armor. All factions can use this weapon.",
         "directDamage": "400",
         "fireModes": [
@@ -7906,6 +7937,7 @@
         "indirectDamage": "500",
         "name": "M60-G Bulldog",
         "reload": "4000",
+        "speed": "100",
         "standingCofMax": "0",
         "standingCofMaxADS": "0",
         "standingCofMin": "0",
@@ -7918,6 +7950,7 @@
         "category": "Sunderer Rear Gunner",
         "clip": "4",
         "damage": "400",
+        "defZoom": "1",
         "description": "The M60 Bulldog fires high explosive 60mm rounds with a large blast radius effective against infantry.  Direct hits provides some damage to armor. All factions can use this weapon.",
         "directDamage": "400",
         "fireModes": [
@@ -7929,6 +7962,7 @@
         "indirectDamage": "500",
         "name": "M60-G Bulldog",
         "reload": "4000",
+        "speed": "100",
         "standingCofMax": "0",
         "standingCofMaxADS": "0",
         "standingCofMin": "0",
@@ -7941,6 +7975,7 @@
         "category": "Sunderer Rear Gunner",
         "clip": "4",
         "damage": "400",
+        "defZoom": "1",
         "description": "The M60 Bulldog fires high explosive 60mm rounds with a large blast radius effective against infantry.  Direct hits provides some damage to armor. All factions can use this weapon.",
         "directDamage": "400",
         "fireModes": [
@@ -7952,6 +7987,7 @@
         "indirectDamage": "500",
         "name": "M60-G Bulldog",
         "reload": "4000",
+        "speed": "100",
         "standingCofMax": "0",
         "standingCofMaxADS": "0",
         "standingCofMin": "0",
@@ -8010,6 +8046,7 @@
         "category": "Sunderer Front Gunner",
         "clip": "8",
         "damage": "125",
+        "defZoom": "1",
         "description": "The Fury launches 40mm grenades that are effective against infantry and light armor.  It is also capable of light damage against heavy armor.  All factions can use this weapon.",
         "directDamage": "125",
         "fireModes": [
@@ -8020,6 +8057,7 @@
         "indirectDamage": "150",
         "name": "M40 Fury",
         "reload": "2500",
+        "speed": "125",
         "standingCofMax": "0.5",
         "standingCofMin": "0.5"
     },
@@ -8028,6 +8066,7 @@
         "category": "Sunderer Front Gunner",
         "clip": "8",
         "damage": "125",
+        "defZoom": "1",
         "description": "The Fury launches 40mm grenades that are effective against infantry and light armor.  It is also capable of light damage against heavy armor.  All factions can use this weapon.",
         "directDamage": "125",
         "fireModes": [
@@ -8038,6 +8077,7 @@
         "indirectDamage": "150",
         "name": "M40 Fury",
         "reload": "2500",
+        "speed": "125",
         "standingCofMax": "0.5",
         "standingCofMin": "0.5"
     },
@@ -8046,6 +8086,7 @@
         "category": "Sunderer Front Gunner",
         "clip": "8",
         "damage": "125",
+        "defZoom": "1",
         "description": "The Fury launches 40mm grenades that are effective against infantry and light armor.  It is also capable of light damage against heavy armor.  All factions can use this weapon.",
         "directDamage": "125",
         "fireModes": [
@@ -8056,6 +8097,7 @@
         "indirectDamage": "150",
         "name": "M40 Fury",
         "reload": "2500",
+        "speed": "125",
         "standingCofMax": "0.5",
         "standingCofMin": "0.5"
     },
@@ -8064,6 +8106,7 @@
         "category": "Sunderer Rear Gunner",
         "clip": "8",
         "damage": "125",
+        "defZoom": "1",
         "description": "The Fury launches 40mm grenades that are effective against infantry and light armor.  It is also capable of light damage against heavy armor.  All factions can use this weapon.",
         "directDamage": "125",
         "fireModes": [
@@ -8074,6 +8117,7 @@
         "indirectDamage": "150",
         "name": "M40 Fury",
         "reload": "2500",
+        "speed": "125",
         "standingCofMax": "0.5",
         "standingCofMin": "0.5"
     },
@@ -8082,6 +8126,7 @@
         "category": "Sunderer Rear Gunner",
         "clip": "8",
         "damage": "125",
+        "defZoom": "1",
         "description": "The Fury launches 40mm grenades that are effective against infantry and light armor.  It is also capable of light damage against heavy armor.  All factions can use this weapon.",
         "directDamage": "125",
         "fireModes": [
@@ -8092,6 +8137,7 @@
         "indirectDamage": "150",
         "name": "M40 Fury",
         "reload": "2500",
+        "speed": "125",
         "standingCofMax": "0.5",
         "standingCofMin": "0.5"
     },
@@ -8100,6 +8146,7 @@
         "category": "Sunderer Rear Gunner",
         "clip": "8",
         "damage": "125",
+        "defZoom": "1",
         "description": "The Fury launches 40mm grenades that are effective against infantry and light armor.  It is also capable of light damage against heavy armor.  All factions can use this weapon.",
         "directDamage": "125",
         "fireModes": [
@@ -8110,6 +8157,7 @@
         "indirectDamage": "150",
         "name": "M40 Fury",
         "reload": "2500",
+        "speed": "125",
         "standingCofMax": "0.5",
         "standingCofMin": "0.5"
     },
@@ -8403,6 +8451,7 @@
         "ammo": "1125",
         "category": "Sunderer Front Gunner",
         "clip": "75",
+        "defZoom": "1",
         "description": "The G30 Walker is a heavy machine gun with a high elevation range and soft point ammunition designed to be more effective against aircraft. All factions can use this weapon.",
         "fireModes": [
             "Auto"
@@ -8415,6 +8464,7 @@
         "minDamageRange": "400",
         "name": "G30 Walker",
         "reload": "2000",
+        "speed": "1000",
         "standingCofMax": "0.65",
         "standingCofMin": "0.65"
     },
@@ -8422,6 +8472,7 @@
         "ammo": "1125",
         "category": "Sunderer Front Gunner",
         "clip": "75",
+        "defZoom": "1",
         "description": "The G30 Walker is a heavy machine gun with a high elevation range and soft point ammunition designed to be more effective against aircraft. All factions can use this weapon.",
         "fireModes": [
             "Auto"
@@ -8434,6 +8485,7 @@
         "minDamageRange": "400",
         "name": "G30 Walker",
         "reload": "2000",
+        "speed": "1000",
         "standingCofMax": "0.65",
         "standingCofMin": "0.65"
     },
@@ -8441,6 +8493,7 @@
         "ammo": "1125",
         "category": "Sunderer Front Gunner",
         "clip": "75",
+        "defZoom": "1",
         "description": "The G30 Walker is a heavy machine gun with a high elevation range and soft point ammunition designed to be more effective against aircraft. All factions can use this weapon.",
         "fireModes": [
             "Auto"
@@ -8453,6 +8506,7 @@
         "minDamageRange": "400",
         "name": "G30 Walker",
         "reload": "2000",
+        "speed": "1000",
         "standingCofMax": "0.65",
         "standingCofMin": "0.65"
     },
@@ -8460,6 +8514,7 @@
         "ammo": "1125",
         "category": "Sunderer Rear Gunner",
         "clip": "75",
+        "defZoom": "1",
         "description": "The G30 Walker is a heavy machine gun with a high elevation range and soft point ammunition designed to be more effective against aircraft. All factions can use this weapon.",
         "fireModes": [
             "Auto"
@@ -8472,6 +8527,7 @@
         "minDamageRange": "400",
         "name": "G30 Walker",
         "reload": "2000",
+        "speed": "1000",
         "standingCofMax": "0.65",
         "standingCofMin": "0.65"
     },
@@ -8479,6 +8535,7 @@
         "ammo": "1125",
         "category": "Sunderer Rear Gunner",
         "clip": "75",
+        "defZoom": "1",
         "description": "The G30 Walker is a heavy machine gun with a high elevation range and soft point ammunition designed to be more effective against aircraft. All factions can use this weapon.",
         "fireModes": [
             "Auto"
@@ -8491,6 +8548,7 @@
         "minDamageRange": "400",
         "name": "G30 Walker",
         "reload": "2000",
+        "speed": "1000",
         "standingCofMax": "0.65",
         "standingCofMin": "0.65"
     },
@@ -8498,6 +8556,7 @@
         "ammo": "1125",
         "category": "Sunderer Rear Gunner",
         "clip": "75",
+        "defZoom": "1",
         "description": "The G30 Walker is a heavy machine gun with a high elevation range and soft point ammunition designed to be more effective against aircraft. All factions can use this weapon.",
         "fireModes": [
             "Auto"
@@ -8510,6 +8569,7 @@
         "minDamageRange": "400",
         "name": "G30 Walker",
         "reload": "2000",
+        "speed": "1000",
         "standingCofMax": "0.65",
         "standingCofMin": "0.65"
     },
@@ -8712,6 +8772,7 @@
         "category": "Lightning Primary Weapon ",
         "clip": "6",
         "damage": "250",
+        "defZoom": "1",
         "description": "The C75 is able to rapid fire six 75mm HEAT shells.  The damage potential is great when all shells hit their target, but the cannon is unstable when firing at the maximum rate. All factions can use this weapon.",
         "directDamage": "250",
         "fireModes": [
@@ -8725,6 +8786,7 @@
         "recoilAngleMax": "3",
         "recoilAngleMin": "-3",
         "reload": "4500",
+        "speed": "200",
         "standingCofMax": "1.5",
         "standingCofMaxADS": "1.5",
         "standingCofMin": "0",
@@ -8737,6 +8799,7 @@
         "category": "Lightning Primary Weapon ",
         "clip": "6",
         "damage": "250",
+        "defZoom": "1",
         "description": "The C75 is able to rapid fire six 75mm HEAT shells.  The damage potential is great when all shells hit their target, but the cannon is unstable when firing at the maximum rate. All factions can use this weapon.",
         "directDamage": "250",
         "fireModes": [
@@ -8750,6 +8813,7 @@
         "recoilAngleMax": "3",
         "recoilAngleMin": "-3",
         "reload": "4500",
+        "speed": "200",
         "standingCofMax": "1.5",
         "standingCofMaxADS": "1.5",
         "standingCofMin": "0",
@@ -8762,6 +8826,7 @@
         "category": "Lightning Primary Weapon ",
         "clip": "6",
         "damage": "250",
+        "defZoom": "1",
         "description": "The C75 is able to rapid fire six 75mm HEAT shells.  The damage potential is great when all shells hit their target, but the cannon is unstable when firing at the maximum rate. All factions can use this weapon.",
         "directDamage": "250",
         "fireModes": [
@@ -8775,6 +8840,7 @@
         "recoilAngleMax": "3",
         "recoilAngleMin": "-3",
         "reload": "4500",
+        "speed": "200",
         "standingCofMax": "1.5",
         "standingCofMaxADS": "1.5",
         "standingCofMin": "0",
@@ -8783,6 +8849,7 @@
     "3103": {
         "category": "Lightning Primary Weapon ",
         "damage": "700",
+        "defZoom": "1",
         "description": "The Python AP is loaded with fast-moving armor-piercing rounds that are strong against armored targets, but have little explosive yield. All factions can use this weapon.",
         "directDamage": "700",
         "fireModes": [
@@ -8794,12 +8861,14 @@
         "recoilAngleMax": "0",
         "recoilAngleMin": "0",
         "reload": "3000",
+        "speed": "250",
         "standingCofMax": "0",
         "standingCofMin": "0"
     },
     "3104": {
         "category": "Lightning Primary Weapon ",
         "damage": "700",
+        "defZoom": "1",
         "description": "The Python AP is loaded with fast-moving armor-piercing rounds that are strong against armored targets, but have little explosive yield. All factions can use this weapon.",
         "directDamage": "700",
         "fireModes": [
@@ -8811,12 +8880,14 @@
         "recoilAngleMax": "0",
         "recoilAngleMin": "0",
         "reload": "3000",
+        "speed": "250",
         "standingCofMax": "0",
         "standingCofMin": "0"
     },
     "3105": {
         "category": "Lightning Primary Weapon ",
         "damage": "700",
+        "defZoom": "1",
         "description": "The Python AP is loaded with fast-moving armor-piercing rounds that are strong against armored targets, but have little explosive yield. All factions can use this weapon.",
         "directDamage": "700",
         "fireModes": [
@@ -8828,6 +8899,7 @@
         "recoilAngleMax": "0",
         "recoilAngleMin": "0",
         "reload": "3000",
+        "speed": "250",
         "standingCofMax": "0",
         "standingCofMin": "0"
     },
@@ -8835,6 +8907,7 @@
         "ammo": "1050",
         "category": "Lightning Primary Weapon ",
         "clip": "70",
+        "defZoom": "1",
         "description": "The Skyguard fires 40mm flak rounds that are highly effective against enemy aircraft. All factions can use this weapon.",
         "fireModes": [
             "Auto"
@@ -8849,6 +8922,7 @@
         "recoilAngleMax": "50",
         "recoilAngleMin": "35",
         "reload": "3000",
+        "speed": "400",
         "standingCofMax": "1.5",
         "standingCofMin": "1.5"
     },
@@ -8856,6 +8930,7 @@
         "ammo": "1050",
         "category": "Lightning Primary Weapon ",
         "clip": "70",
+        "defZoom": "1",
         "description": "The Skyguard fires 40mm flak rounds that are highly effective against enemy aircraft. All factions can use this weapon.",
         "fireModes": [
             "Auto"
@@ -8870,6 +8945,7 @@
         "recoilAngleMax": "50",
         "recoilAngleMin": "35",
         "reload": "3000",
+        "speed": "400",
         "standingCofMax": "1.5",
         "standingCofMin": "1.5"
     },
@@ -8877,6 +8953,7 @@
         "ammo": "1050",
         "category": "Lightning Primary Weapon ",
         "clip": "70",
+        "defZoom": "1",
         "description": "The Skyguard fires 40mm flak rounds that are highly effective against enemy aircraft. All factions can use this weapon.",
         "fireModes": [
             "Auto"
@@ -8891,12 +8968,14 @@
         "recoilAngleMax": "50",
         "recoilAngleMin": "35",
         "reload": "3000",
+        "speed": "400",
         "standingCofMax": "1.5",
         "standingCofMin": "1.5"
     },
     "3153": {
         "category": "Lightning Primary Weapon ",
         "damage": "600",
+        "defZoom": "1",
         "description": "The Python HESH carries high-explosive squash head rounds that are less effective against armor, and more lethal against enemy infantry. All factions can use this weapon.",
         "directDamage": "600",
         "fireModes": [
@@ -8908,12 +8987,14 @@
         "recoilAngleMax": "0",
         "recoilAngleMin": "0",
         "reload": "3250",
+        "speed": "200",
         "standingCofMax": "0",
         "standingCofMin": "0"
     },
     "3154": {
         "category": "Lightning Primary Weapon ",
         "damage": "600",
+        "defZoom": "1",
         "description": "The Python HESH carries high-explosive squash head rounds that are less effective against armor, and more lethal against enemy infantry. All factions can use this weapon.",
         "directDamage": "600",
         "fireModes": [
@@ -8925,12 +9006,14 @@
         "recoilAngleMax": "0",
         "recoilAngleMin": "0",
         "reload": "3250",
+        "speed": "200",
         "standingCofMax": "0",
         "standingCofMin": "0"
     },
     "3155": {
         "category": "Lightning Primary Weapon ",
         "damage": "600",
+        "defZoom": "1",
         "description": "The Python HESH carries high-explosive squash head rounds that are less effective against armor, and more lethal against enemy infantry. All factions can use this weapon.",
         "directDamage": "600",
         "fireModes": [
@@ -8942,12 +9025,14 @@
         "recoilAngleMax": "0",
         "recoilAngleMin": "0",
         "reload": "3250",
+        "speed": "200",
         "standingCofMax": "0",
         "standingCofMin": "0"
     },
     "3156": {
         "category": "Lightning Primary Weapon ",
         "damage": "525",
+        "defZoom": "1",
         "description": "The Python HEAT carries quick-reloading high-explosive anti-tank rounds that have balanced effectiveness against armor and infantry. All factions can use this weapon.",
         "directDamage": "525",
         "fireModes": [
@@ -8959,12 +9044,14 @@
         "recoilAngleMax": "0",
         "recoilAngleMin": "0",
         "reload": "2000",
+        "speed": "200",
         "standingCofMax": "0",
         "standingCofMin": "0"
     },
     "3157": {
         "category": "Lightning Primary Weapon ",
         "damage": "525",
+        "defZoom": "1",
         "description": "The Python HEAT carries quick-reloading high-explosive anti-tank rounds that have balanced effectiveness against armor and infantry. All factions can use this weapon.",
         "directDamage": "525",
         "fireModes": [
@@ -8976,12 +9063,14 @@
         "recoilAngleMax": "0",
         "recoilAngleMin": "0",
         "reload": "2000",
+        "speed": "200",
         "standingCofMax": "0",
         "standingCofMin": "0"
     },
     "3158": {
         "category": "Lightning Primary Weapon ",
         "damage": "525",
+        "defZoom": "1",
         "description": "The Python HEAT carries quick-reloading high-explosive anti-tank rounds that have balanced effectiveness against armor and infantry. All factions can use this weapon.",
         "directDamage": "525",
         "fireModes": [
@@ -8993,6 +9082,7 @@
         "recoilAngleMax": "0",
         "recoilAngleMin": "0",
         "reload": "2000",
+        "speed": "200",
         "standingCofMax": "0",
         "standingCofMin": "0"
     },
@@ -9373,6 +9463,7 @@
         "ammo": "500",
         "category": "Magrider Gunner Weapon",
         "clip": "100",
+        "defZoom": "1",
         "description": "The Magrider M12 Kobalt is a .50 cal machine gun that is effective against infantry targets. VS use only.",
         "fireModes": [
             "Auto"
@@ -9388,6 +9479,7 @@
         "recoilAngleMax": "0.3",
         "recoilAngleMin": "-3",
         "reload": "2500",
+        "speed": "650",
         "standingCofMax": "0.5",
         "standingCofMaxADS": "0.5",
         "standingCofMin": "0.2",
@@ -9424,6 +9516,7 @@
         "ammo": "1125",
         "category": "Magrider Gunner Weapon",
         "clip": "75",
+        "defZoom": "1",
         "description": "The G30 Walker is a heavy machine gun with a high elevation range and soft point ammunition designed to be more effective against aircraft. VS use only.",
         "fireModes": [
             "Auto"
@@ -9436,6 +9529,7 @@
         "minDamageRange": "400",
         "name": "G30 Walker",
         "reload": "2000",
+        "speed": "1000",
         "standingCofMax": "0.65",
         "standingCofMin": "0.65"
     },
@@ -9781,6 +9875,7 @@
         "category": "Vanguard Primary Weapon",
         "clip": "1",
         "damage": "600",
+        "defZoom": "1",
         "description": "The Titan-150 HEAT is loaded with high-explosive anti-tank rounds that reload quickly and have balanced effectiveness against enemy armor and personnel. NC use only.",
         "directDamage": "600",
         "fireModes": [
@@ -9794,6 +9889,7 @@
         "recoilAngleMax": "0",
         "recoilAngleMin": "0",
         "reload": "2500",
+        "speed": "225",
         "standingCofMax": "0",
         "standingCofMaxADS": "0",
         "standingCofMin": "0",
@@ -9805,6 +9901,7 @@
         "ammo": "500",
         "category": "Vanguard Gunner Weapon",
         "clip": "100",
+        "defZoom": "1",
         "description": "The Vanguard M12 Kobalt is a .50 cal machine gun that is effective against infantry targets. NC use only.",
         "fireModes": [
             "Auto"
@@ -9820,6 +9917,7 @@
         "recoilAngleMax": "0.3",
         "recoilAngleMin": "-3",
         "reload": "2500",
+        "speed": "650",
         "standingCofMax": "0.5",
         "standingCofMaxADS": "0.5",
         "standingCofMin": "0.2",
@@ -9856,6 +9954,7 @@
         "ammo": "1125",
         "category": "Vanguard Gunner Weapon",
         "clip": "75",
+        "defZoom": "1",
         "description": "The G30 Walker is a heavy machine gun with a high elevation range and soft point ammunition designed to be more effective against aircraft. NC use only.",
         "fireModes": [
             "Auto"
@@ -9868,6 +9967,7 @@
         "minDamageRange": "400",
         "name": "G30 Walker",
         "reload": "2000",
+        "speed": "1000",
         "standingCofMax": "0.65",
         "standingCofMin": "0.65"
     },
@@ -9876,6 +9976,7 @@
         "category": "Vanguard Gunner Weapon",
         "clip": "8",
         "damage": "325",
+        "defZoom": "1",
         "description": "The Enforcer ML85 fires magnetically propelled HEAT darts, suited for sustained damage in mid-range combat scenarios. NC use only.",
         "directDamage": "325",
         "fireModes": [
@@ -9886,6 +9987,7 @@
         "indirectDamage": "175",
         "name": "Enforcer ML85",
         "reload": "4000",
+        "speed": "200",
         "standingCofMax": "0",
         "standingCofMin": "0"
     },
@@ -9979,6 +10081,7 @@
         "category": "Vanguard Primary Weapon",
         "clip": "1",
         "damage": "850",
+        "defZoom": "1",
         "description": "The Titan-150 AP is loaded with fast moving armor piercing rounds that are stronger against armored targets but inflict almost no explosive damage. NC use only.",
         "directDamage": "850",
         "fireModes": [
@@ -9990,6 +10093,7 @@
         "indirectDamage": "500",
         "name": "Titan-150 AP",
         "reload": "3750",
+        "speed": "275",
         "standingCofMax": "0",
         "standingCofMaxADS": "0",
         "standingCofMin": "0",
@@ -10002,6 +10106,7 @@
         "category": "Vanguard Primary Weapon",
         "clip": "1",
         "damage": "750",
+        "defZoom": "1",
         "description": "The Titan-150 HESH is loaded with high-explosive squash head rounds that sacrifice some effectiveness against armor for increased lethality to enemy personnel. NC use only.",
         "directDamage": "750",
         "fireModes": [
@@ -10013,6 +10118,7 @@
         "indirectDamage": "850",
         "name": "Titan-150 HESH",
         "reload": "4000",
+        "speed": "225",
         "standingCofMax": "0",
         "standingCofMaxADS": "0",
         "standingCofMin": "0",
@@ -10025,6 +10131,7 @@
         "category": "Vanguard Primary Weapon",
         "clip": "1",
         "damage": "600",
+        "defZoom": "1",
         "description": "The Titan-150-R HEAT is loaded with high-explosive anti-tank rounds that reload quickly and have balanced effectiveness against enemy armor and personnel. NC use only.",
         "directDamage": "600",
         "fireModes": [
@@ -10038,6 +10145,7 @@
         "recoilAngleMax": "0",
         "recoilAngleMin": "0",
         "reload": "2500",
+        "speed": "225",
         "standingCofMax": "0",
         "standingCofMaxADS": "0",
         "standingCofMin": "0",
@@ -10501,6 +10609,7 @@
         "ammo": "500",
         "category": "Prowler Gunner Weapon",
         "clip": "100",
+        "defZoom": "1",
         "description": "The Prowler M12 Kobalt is a .50 cal machine gun that is effective against infantry targets. TR use only.",
         "fireModes": [
             "Auto"
@@ -10516,6 +10625,7 @@
         "recoilAngleMax": "0.3",
         "recoilAngleMin": "-3",
         "reload": "2500",
+        "speed": "650",
         "standingCofMax": "0.5",
         "standingCofMaxADS": "0.5",
         "standingCofMin": "0.2",
@@ -10552,6 +10662,7 @@
         "ammo": "1125",
         "category": "Prowler Gunner Weapon",
         "clip": "75",
+        "defZoom": "1",
         "description": "The G30 Walker is a heavy machine gun with a high elevation range and soft point ammunition designed to be more effective against aircraft.  TR use only.",
         "fireModes": [
             "Auto"
@@ -10564,6 +10675,7 @@
         "minDamageRange": "400",
         "name": "G30 Walker",
         "reload": "2000",
+        "speed": "1000",
         "standingCofMax": "0.65",
         "standingCofMin": "0.65"
     },
@@ -10574,6 +10686,7 @@
         "category": "Prowler Gunner Weapon",
         "clip": "10",
         "damage": "75",
+        "defZoom": "1",
         "description": "The P525 Marauder fires 40mm high explosive grenades that are effective against infantry and light armor. TR use only.",
         "directDamage": "75",
         "fireModes": [
@@ -10585,6 +10698,7 @@
         "indirectDamage": "334",
         "name": "P525 Marauder",
         "reload": "3000",
+        "speed": "175",
         "standingCofMax": "1",
         "standingCofMaxADS": "1",
         "standingCofMin": "0.25",
@@ -11082,7 +11196,7 @@
         "maxDamageRange": "100",
         "minDamage": "112",
         "minDamageRange": "200",
-        "name": "Maelstrom Turbo Laser",
+        "name": "V26 Maelstrom Turbo Laser",
         "pellets": "1",
         "reload": "1800",
         "speed": "650",
@@ -11198,6 +11312,7 @@
         "category": "Scythe Nose Cannon",
         "clip": "110",
         "damage": "160",
+        "defZoom": "1",
         "description": "The Antares LC's large magazine and steady damage allows pilots to maintain a constant stream of anti-aircraft fire from a safe distance. VS use only.",
         "directDamage": "160",
         "fireModes": [
@@ -11207,7 +11322,9 @@
         "hipCofRecoil": "0",
         "image_id": "13335",
         "name": "Antares LC",
+        "pelletSpread": "0",
         "reload": "2350",
+        "speed": "770",
         "standingCofMax": "0.5",
         "standingCofMaxADS": "0.5",
         "standingCofMin": "0.5",
@@ -11573,6 +11690,7 @@
         "category": "Reaver Nose Cannon",
         "clip": "95",
         "damage": "175",
+        "defZoom": "1",
         "description": "The M20 Kestrel couples a large magazine size with no damage falloff, allowing it to perform well against enemy aircraft at long range. NC use only.",
         "directDamage": "175",
         "fireModes": [
@@ -11582,7 +11700,9 @@
         "hipCofRecoil": "0",
         "image_id": "13329",
         "name": "M20 Kestrel",
+        "pelletSpread": "0",
         "reload": "2600",
+        "speed": "770",
         "standingCofMax": "0.5",
         "standingCofMaxADS": "0.5",
         "standingCofMin": "0.5",
@@ -12011,6 +12131,7 @@
         "recoilHorizontalMin": "0.2",
         "recoilHorizontalTolerance": "0.2",
         "reload": "3000",
+        "speed": "10",
         "standingCofMax": "0",
         "standingCofMin": "0",
         "verticalRecoil": "2"
@@ -12060,6 +12181,7 @@
         "recoilHorizontalMin": "0.2",
         "recoilHorizontalTolerance": "0.2",
         "reload": "3000",
+        "speed": "10",
         "standingCofMax": "0",
         "standingCofMin": "0",
         "verticalRecoil": "2"
@@ -12087,6 +12209,7 @@
         "recoilHorizontalMin": "0.2",
         "recoilHorizontalTolerance": "0.2",
         "reload": "3000",
+        "speed": "10",
         "standingCofMax": "0",
         "standingCofMin": "0",
         "verticalRecoil": "2"
@@ -12114,6 +12237,7 @@
         "recoilHorizontalMin": "0.2",
         "recoilHorizontalTolerance": "0.2",
         "reload": "3000",
+        "speed": "10",
         "standingCofMax": "0",
         "standingCofMin": "0",
         "verticalRecoil": "2"
@@ -12125,6 +12249,7 @@
         "category": "Mosquito Nose Cannon",
         "clip": "150",
         "damage": "150",
+        "defZoom": "1",
         "description": "The M18 Locust incorporates a large magazine and steady damage over distance, allowing it to engage enemy aircraft from beyond their reach. TR use only.",
         "directDamage": "150",
         "fireModes": [
@@ -12134,7 +12259,9 @@
         "hipCofRecoil": "0",
         "image_id": "13332",
         "name": "M18 Locust",
+        "pelletSpread": "0",
         "reload": "3000",
+        "speed": "770",
         "standingCofMax": "0.5",
         "standingCofMaxADS": "0.5",
         "standingCofMin": "0.5",
@@ -12322,7 +12449,7 @@
         "runningCofMaxADS": "2",
         "runningCofMin": "2.25",
         "runningCofMinADS": "0.55",
-        "speed": "375",
+        "speed": "150",
         "sprintingCofMax": "7",
         "sprintingCofMaxADS": "2",
         "sprintingCofMin": "5",
@@ -12404,6 +12531,7 @@
         "category": "Liberator Nose Cannon",
         "clip": "50",
         "damage": "300",
+        "defZoom": "1",
         "description": "The L-30R Vektor is accurate but slow firing and can pierce all types of armor. All factions can use this weapon.",
         "directDamage": "300",
         "fireModes": [
@@ -12413,6 +12541,7 @@
         "image_id": "2024",
         "name": "L-30R Vektor",
         "reload": "4000",
+        "speed": "750",
         "standingCofMax": "0.3",
         "standingCofMin": "0.3"
     },
@@ -12421,6 +12550,7 @@
         "category": "Liberator Nose Cannon",
         "clip": "50",
         "damage": "300",
+        "defZoom": "1",
         "description": "The L-30R Vektor is accurate but slow firing and can pierce all types of armor. All factions can use this weapon.",
         "directDamage": "300",
         "fireModes": [
@@ -12430,6 +12560,7 @@
         "image_id": "2024",
         "name": "L-30R Vektor",
         "reload": "4000",
+        "speed": "750",
         "standingCofMax": "0.3",
         "standingCofMin": "0.3"
     },
@@ -12438,6 +12569,7 @@
         "category": "Liberator Nose Cannon",
         "clip": "50",
         "damage": "300",
+        "defZoom": "1",
         "description": "The L-30R Vektor is accurate but slow firing and can pierce all types of armor. All factions can use this weapon.",
         "directDamage": "300",
         "fireModes": [
@@ -12447,6 +12579,7 @@
         "image_id": "2024",
         "name": "L-30R Vektor",
         "reload": "4000",
+        "speed": "750",
         "standingCofMax": "0.3",
         "standingCofMin": "0.3"
     },
@@ -12538,6 +12671,7 @@
         "ammo": "1125",
         "category": "Liberator Tail Weapon",
         "clip": "75",
+        "defZoom": "1",
         "description": "The A30 Walker is a heavy machine gun with soft point ammunition designed to be more effective against enemy aircraft. All factions can use this weapon.",
         "fireModes": [
             "Auto"
@@ -12550,6 +12684,7 @@
         "minDamageRange": "400",
         "name": "A30 Walker",
         "reload": "2000",
+        "speed": "850",
         "standingCofMax": "0.65",
         "standingCofMin": "0.65"
     },
@@ -12557,6 +12692,7 @@
         "ammo": "1125",
         "category": "Liberator Tail Weapon",
         "clip": "75",
+        "defZoom": "1",
         "description": "The A30 Walker is a heavy machine gun with soft point ammunition designed to be more effective against enemy aircraft. All factions can use this weapon.",
         "fireModes": [
             "Auto"
@@ -12569,6 +12705,7 @@
         "minDamageRange": "400",
         "name": "A30 Walker",
         "reload": "2000",
+        "speed": "1000",
         "standingCofMax": "0.65",
         "standingCofMin": "0.65"
     },
@@ -12576,6 +12713,7 @@
         "ammo": "1125",
         "category": "Liberator Tail Weapon",
         "clip": "75",
+        "defZoom": "1",
         "description": "The A30 Walker is a heavy machine gun with soft point ammunition designed to be more effective against enemy aircraft. All factions can use this weapon.",
         "fireModes": [
             "Auto"
@@ -12588,6 +12726,7 @@
         "minDamageRange": "400",
         "name": "A30 Walker",
         "reload": "2000",
+        "speed": "850",
         "standingCofMax": "0.65",
         "standingCofMin": "0.65"
     },
@@ -12664,6 +12803,7 @@
         "ammo": "400",
         "category": "Liberator Nose Cannon",
         "clip": "50",
+        "defZoom": "1",
         "description": "The L-24R Spur is equipped with specialized optics that allow the pilot to adjust the weapons aim rather than being fixed forward.<font color=\"#dc9c36\"><br> <br>Optics for this weapon are engaged with Weapon Optic function or Cockpit Mouse Freelook hotkeys.</font>",
         "fireModes": [
             "Auto"
@@ -12676,6 +12816,7 @@
         "minDamageRange": "200",
         "name": "L-24R Spur",
         "reload": "4000",
+        "speed": "750",
         "standingCofMax": "0.3",
         "standingCofMin": "0.3"
     },
@@ -12683,6 +12824,7 @@
         "ammo": "400",
         "category": "Liberator Nose Cannon",
         "clip": "50",
+        "defZoom": "1",
         "description": "The L-24R Spur is equipped with specialized optics that allow the pilot to adjust the weapons aim rather than being fixed forward.<font color=\"#dc9c36\"><br> <br>Optics for this weapon are engaged with Weapon Optic function or Cockpit Mouse Freelook hotkeys.</font>",
         "fireModes": [
             "Auto"
@@ -12695,6 +12837,7 @@
         "minDamageRange": "200",
         "name": "L-24R Spur",
         "reload": "4000",
+        "speed": "750",
         "standingCofMax": "0.3",
         "standingCofMin": "0.3"
     },
@@ -12702,6 +12845,7 @@
         "ammo": "400",
         "category": "Liberator Nose Cannon",
         "clip": "50",
+        "defZoom": "1",
         "description": "The L-24R Spur is equipped with specialized optics that allow the pilot to adjust the weapons aim rather than being fixed forward.<font color=\"#dc9c36\"><br> <br>Optics for this weapon are engaged with Weapon Optic function or Cockpit Mouse Freelook hotkeys.</font>",
         "fireModes": [
             "Auto"
@@ -12714,6 +12858,7 @@
         "minDamageRange": "200",
         "name": "L-24R Spur",
         "reload": "4000",
+        "speed": "750",
         "standingCofMax": "0.3",
         "standingCofMin": "0.3"
     },
@@ -12724,6 +12869,7 @@
         "category": "Liberator Tail Weapon",
         "clip": "6",
         "damage": "400",
+        "defZoom": "1",
         "description": "The M60 Bulldog fires high explosive 60mm rounds with a large blast radius effective against infantry.  Direct hits provides some damage to armor. All factions can use this weapon.",
         "directDamage": "400",
         "fireModes": [
@@ -12735,6 +12881,7 @@
         "indirectDamage": "500",
         "name": "M60-A Bulldog",
         "reload": "4000",
+        "speed": "200",
         "standingCofMax": "0",
         "standingCofMaxADS": "0",
         "standingCofMin": "0",
@@ -12747,6 +12894,7 @@
         "category": "Liberator Tail Weapon",
         "clip": "6",
         "damage": "400",
+        "defZoom": "1",
         "description": "The M60 Bulldog fires high explosive 60mm rounds with a large blast radius effective against infantry.  Direct hits provides some damage to armor. All factions can use this weapon.",
         "directDamage": "400",
         "fireModes": [
@@ -12758,6 +12906,7 @@
         "indirectDamage": "500",
         "name": "M60-A Bulldog",
         "reload": "4000",
+        "speed": "200",
         "standingCofMax": "0",
         "standingCofMaxADS": "0",
         "standingCofMin": "0",
@@ -12770,6 +12919,7 @@
         "category": "Liberator Tail Weapon",
         "clip": "6",
         "damage": "400",
+        "defZoom": "1",
         "description": "The M60 Bulldog fires high explosive 60mm rounds with a large blast radius effective against infantry.  Direct hits provides some damage to armor. All factions can use this weapon.",
         "directDamage": "400",
         "fireModes": [
@@ -12781,6 +12931,7 @@
         "indirectDamage": "500",
         "name": "M60-A Bulldog",
         "reload": "4000",
+        "speed": "200",
         "standingCofMax": "0",
         "standingCofMaxADS": "0",
         "standingCofMin": "0",
@@ -12791,6 +12942,7 @@
         "category": "Liberator Belly Weapon",
         "clip": "1",
         "damage": "1500",
+        "defZoom": "1",
         "description": "The C150 Dalton fires 150mm Armor Piercing Anti-Tank rounds that inflict massive damage in a single shot. All factions can use this weapon.",
         "directDamage": "1500",
         "fireModes": [
@@ -12801,6 +12953,7 @@
         "indirectDamage": "500",
         "name": "C150 Dalton",
         "reload": "3250",
+        "speed": "250",
         "standingCofMax": "0.25",
         "standingCofMin": "0.25"
     },
@@ -12809,6 +12962,7 @@
         "category": "Liberator Belly Weapon",
         "clip": "1",
         "damage": "1500",
+        "defZoom": "1",
         "description": "The C150 Dalton fires 150mm Armor Piercing Anti-Tank rounds that inflict massive damage in a single shot. All factions can use this weapon.",
         "directDamage": "1500",
         "fireModes": [
@@ -12819,6 +12973,7 @@
         "indirectDamage": "500",
         "name": "C150 Dalton",
         "reload": "3250",
+        "speed": "250",
         "standingCofMax": "0.25",
         "standingCofMin": "0.25"
     },
@@ -12827,6 +12982,7 @@
         "category": "Liberator Belly Weapon",
         "clip": "1",
         "damage": "1500",
+        "defZoom": "1",
         "description": "The C150 Dalton fires 150mm Armor Piercing Anti-Tank rounds that inflict massive damage in a single shot. All factions can use this weapon.",
         "directDamage": "1500",
         "fireModes": [
@@ -12837,6 +12993,7 @@
         "indirectDamage": "500",
         "name": "C150 Dalton",
         "reload": "3250",
+        "speed": "250",
         "standingCofMax": "0.25",
         "standingCofMin": "0.25"
     },
@@ -12847,6 +13004,7 @@
         "category": "Liberator Belly Weapon",
         "clip": "6",
         "damage": "500",
+        "defZoom": "1",
         "description": "The L105 Zephyr fires a salvo of 105mm high-explosive rounds which are effective against both armor and personnel. All factions can use this weapon.",
         "directDamage": "500",
         "fireModes": [
@@ -12858,6 +13016,7 @@
         "indirectDamage": "250",
         "name": "L105 Zephyr",
         "reload": "4000",
+        "speed": "250",
         "standingCofMax": "0.5",
         "standingCofMaxADS": "0.5",
         "standingCofMin": "0.25",
@@ -12870,6 +13029,7 @@
         "category": "Liberator Belly Weapon",
         "clip": "6",
         "damage": "500",
+        "defZoom": "1",
         "description": "The L105 Zephyr fires a salvo of 105mm high-explosive rounds which are effective against both armor and personnel. All factions can use this weapon.",
         "directDamage": "500",
         "fireModes": [
@@ -12881,6 +13041,7 @@
         "indirectDamage": "250",
         "name": "L105 Zephyr",
         "reload": "4000",
+        "speed": "250",
         "standingCofMax": "0.5",
         "standingCofMaxADS": "0.5",
         "standingCofMin": "0.25",
@@ -12893,6 +13054,7 @@
         "category": "Liberator Belly Weapon",
         "clip": "6",
         "damage": "500",
+        "defZoom": "1",
         "description": "The L105 Zephyr fires a salvo of 105mm high-explosive rounds which are effective against both armor and personnel. All factions can use this weapon.",
         "directDamage": "500",
         "fireModes": [
@@ -12904,6 +13066,7 @@
         "indirectDamage": "250",
         "name": "L105 Zephyr",
         "reload": "4000",
+        "speed": "250",
         "standingCofMax": "0.5",
         "standingCofMaxADS": "0.5",
         "standingCofMin": "0.25",
@@ -12916,6 +13079,7 @@
         "category": "Liberator Belly Weapon",
         "clip": "6",
         "damage": "500",
+        "defZoom": "1",
         "description": "The L105 Zephyr PX fires a salvo of 105mm high-explosive rounds which are effective against both armor and personnel. All factions can use this weapon.",
         "directDamage": "500",
         "fireModes": [
@@ -12927,6 +13091,7 @@
         "indirectDamage": "250",
         "name": "L105 Zephyr PX",
         "reload": "4000",
+        "speed": "250",
         "standingCofMax": "0.5",
         "standingCofMaxADS": "0.5",
         "standingCofMin": "0.25",
@@ -12939,6 +13104,7 @@
         "category": "Liberator Belly Weapon",
         "clip": "6",
         "damage": "500",
+        "defZoom": "1",
         "description": "The L105 Zephyr PX fires a salvo of 105mm high-explosive rounds which are effective against both armor and personnel. All factions can use this weapon.",
         "directDamage": "500",
         "fireModes": [
@@ -12950,6 +13116,7 @@
         "indirectDamage": "250",
         "name": "L105 Zephyr PX",
         "reload": "4000",
+        "speed": "250",
         "standingCofMax": "0.5",
         "standingCofMaxADS": "0.5",
         "standingCofMin": "0.25",
@@ -12962,6 +13129,7 @@
         "category": "Liberator Belly Weapon",
         "clip": "6",
         "damage": "500",
+        "defZoom": "1",
         "description": "The L105 Zephyr PX fires a salvo of 105mm high-explosive rounds which are effective against both armor and personnel. All factions can use this weapon.",
         "directDamage": "500",
         "fireModes": [
@@ -12973,6 +13141,7 @@
         "indirectDamage": "250",
         "name": "L105 Zephyr PX",
         "reload": "4000",
+        "speed": "250",
         "standingCofMax": "0.5",
         "standingCofMaxADS": "0.5",
         "standingCofMin": "0.25",
@@ -12985,6 +13154,7 @@
         "category": "Liberator Belly Weapon",
         "clip": "10",
         "damage": "225",
+        "defZoom": "1",
         "description": "The Duster is equipped with dual 75mm cannons that are able to quickly unload its ten round magazine. Each shot decreases accuracy unless given time to recover; this allows the D-75 to feather accurate shots or bombard a wider area by unloading.",
         "directDamage": "225",
         "fireModes": [
@@ -12996,6 +13166,7 @@
         "indirectDamage": "350",
         "name": "Dual-75 Duster",
         "reload": "4000",
+        "speed": "100",
         "standingCofMax": "3.5",
         "standingCofMaxADS": "3.5",
         "standingCofMin": "1.5",
@@ -13008,6 +13179,7 @@
         "category": "Liberator Belly Weapon",
         "clip": "10",
         "damage": "225",
+        "defZoom": "1",
         "description": "The Duster is equipped with dual 75mm cannons that are able to quickly unload its ten round magazine. Each shot decreases accuracy unless given time to recover; this allows the D-75 to feather accurate shots or bombard a wider area by unloading.",
         "directDamage": "225",
         "fireModes": [
@@ -13019,6 +13191,7 @@
         "indirectDamage": "350",
         "name": "Dual-75 Duster",
         "reload": "4000",
+        "speed": "100",
         "standingCofMax": "3.5",
         "standingCofMaxADS": "3.5",
         "standingCofMin": "1.5",
@@ -13031,6 +13204,7 @@
         "category": "Liberator Belly Weapon",
         "clip": "10",
         "damage": "225",
+        "defZoom": "1",
         "description": "The Duster is equipped with dual 75mm cannons that are able to quickly unload its ten round magazine. Each shot decreases accuracy unless given time to recover; this allows the D-75 to feather accurate shots or bombard a wider area by unloading.",
         "directDamage": "225",
         "fireModes": [
@@ -13042,6 +13216,7 @@
         "indirectDamage": "350",
         "name": "Dual-75 Duster",
         "reload": "4000",
+        "speed": "100",
         "standingCofMax": "3.5",
         "standingCofMaxADS": "3.5",
         "standingCofMin": "1.5",
@@ -13052,6 +13227,7 @@
         "category": "Liberator Tail Weapon",
         "clip": "8",
         "damage": "75",
+        "defZoom": "1",
         "description": "The Hyena fires short range anti-aircraft missiles that are dumb-fired, but will lock-on to enemy aircraft in close proximity. This weapon specializes in combating mobile enemy fighters.",
         "directDamage": "75",
         "fireModes": [
@@ -13062,6 +13238,7 @@
         "indirectDamage": "150",
         "name": "Hyena Missile Launcher",
         "reload": "3000",
+        "speed": "50",
         "standingCofMax": "1",
         "standingCofMin": "1"
     },
@@ -13070,6 +13247,7 @@
         "category": "Liberator Tail Weapon",
         "clip": "8",
         "damage": "75",
+        "defZoom": "1",
         "description": "The Hyena fires short range anti-aircraft missiles that are dumb-fired, but will lock-on to enemy aircraft in close proximity. This weapon specializes in combating mobile enemy fighters.",
         "directDamage": "75",
         "fireModes": [
@@ -13080,6 +13258,7 @@
         "indirectDamage": "150",
         "name": "Hyena Missile Launcher",
         "reload": "3000",
+        "speed": "50",
         "standingCofMax": "1",
         "standingCofMin": "1"
     },
@@ -13088,6 +13267,7 @@
         "category": "Liberator Tail Weapon",
         "clip": "8",
         "damage": "75",
+        "defZoom": "1",
         "description": "The Hyena fires short range anti-aircraft missiles that are dumb-fired, but will lock-on to enemy aircraft in close proximity. This weapon specializes in combating mobile enemy fighters.",
         "directDamage": "75",
         "fireModes": [
@@ -13098,6 +13278,7 @@
         "indirectDamage": "150",
         "name": "Hyena Missile Launcher",
         "reload": "3000",
+        "speed": "50",
         "standingCofMax": "1",
         "standingCofMin": "1"
     },
@@ -13325,6 +13506,7 @@
         "adsCofRecoil": "0.25",
         "adsMoveSpeed": "1",
         "category": "Vehicle Weapons",
+        "defZoom": "2",
         "description": "The Xiphos Anti-Personnel Phalanx Turret sprays 20mm rounds with its twin rotary guns that are damaging to infantry and light armor.",
         "fireModes": [
             "Auto"
@@ -13342,6 +13524,7 @@
         "name": "Xiphos Anti-Personnel Phalanx Turret",
         "overheatPenalty": "2000",
         "reload": "0",
+        "speed": "600",
         "standingCofMax": "0.75",
         "standingCofMaxADS": "0.75",
         "standingCofMin": "0.75",
@@ -13395,6 +13578,7 @@
         "ammo": "1125",
         "category": "Galaxy Top Weapon",
         "clip": "75",
+        "defZoom": "1",
         "description": "The A30 Walker is a heavy machine gun with soft point ammunition designed to be more effective against enemy aircraft. All factions can use this weapon.",
         "fireModes": [
             "Auto"
@@ -13407,6 +13591,7 @@
         "minDamageRange": "400",
         "name": "A30 Walker",
         "reload": "2000",
+        "speed": "850",
         "standingCofMax": "0.65",
         "standingCofMin": "0.65"
     },
@@ -13414,6 +13599,7 @@
         "ammo": "1125",
         "category": "Galaxy Tail Weapon",
         "clip": "75",
+        "defZoom": "1",
         "description": "The A30 Walker is a heavy machine gun with soft point ammunition designed to be more effective against enemy aircraft. All factions can use this weapon.",
         "fireModes": [
             "Auto"
@@ -13426,6 +13612,7 @@
         "minDamageRange": "400",
         "name": "A30 Walker",
         "reload": "2000",
+        "speed": "850",
         "standingCofMax": "0.65",
         "standingCofMin": "0.65"
     },
@@ -13436,6 +13623,7 @@
         "category": "Galaxy Left Weapon",
         "clip": "4",
         "damage": "400",
+        "defZoom": "1",
         "description": "The M60 Bulldog fires high explosive 60mm rounds with a large blast radius effective against infantry.  Direct hits provides some damage to armor. All factions can use this weapon.",
         "directDamage": "400",
         "fireModes": [
@@ -13447,6 +13635,7 @@
         "indirectDamage": "500",
         "name": "M60-A Bulldog",
         "reload": "4000",
+        "speed": "200",
         "standingCofMax": "0",
         "standingCofMaxADS": "0",
         "standingCofMin": "0",
@@ -13459,6 +13648,7 @@
         "category": "Galaxy Right Weapon",
         "clip": "4",
         "damage": "400",
+        "defZoom": "1",
         "description": "The M60 Bulldog fires high explosive 60mm rounds with a large blast radius effective against infantry.  Direct hits provides some damage to armor. All factions can use this weapon.",
         "directDamage": "400",
         "fireModes": [
@@ -13470,6 +13660,7 @@
         "indirectDamage": "500",
         "name": "M60-A Bulldog",
         "reload": "4000",
+        "speed": "200",
         "standingCofMax": "0",
         "standingCofMaxADS": "0",
         "standingCofMin": "0",
@@ -13479,6 +13670,7 @@
         "ammo": "1125",
         "category": "Galaxy Top Weapon",
         "clip": "75",
+        "defZoom": "1",
         "description": "The A30 Walker is a heavy machine gun with soft point ammunition designed to be more effective against enemy aircraft. All factions can use this weapon.",
         "fireModes": [
             "Auto"
@@ -13491,6 +13683,7 @@
         "minDamageRange": "400",
         "name": "A30 Walker",
         "reload": "2000",
+        "speed": "1000",
         "standingCofMax": "0.65",
         "standingCofMin": "0.65"
     },
@@ -13498,6 +13691,7 @@
         "ammo": "1125",
         "category": "Galaxy Tail Weapon",
         "clip": "75",
+        "defZoom": "1",
         "description": "The A30 Walker is a heavy machine gun with soft point ammunition designed to be more effective against enemy aircraft. All factions can use this weapon.",
         "fireModes": [
             "Auto"
@@ -13510,6 +13704,7 @@
         "minDamageRange": "400",
         "name": "A30 Walker",
         "reload": "2000",
+        "speed": "1000",
         "standingCofMax": "0.65",
         "standingCofMin": "0.65"
     },
@@ -13520,6 +13715,7 @@
         "category": "Galaxy Left Weapon",
         "clip": "4",
         "damage": "400",
+        "defZoom": "1",
         "description": "The M60 Bulldog fires high explosive 60mm rounds with a large blast radius effective against infantry.  Direct hits provides some damage to armor. All factions can use this weapon.",
         "directDamage": "400",
         "fireModes": [
@@ -13531,6 +13727,7 @@
         "indirectDamage": "500",
         "name": "M60-A Bulldog",
         "reload": "4000",
+        "speed": "200",
         "standingCofMax": "0",
         "standingCofMaxADS": "0",
         "standingCofMin": "0",
@@ -13543,6 +13740,7 @@
         "category": "Galaxy Right Weapon",
         "clip": "4",
         "damage": "400",
+        "defZoom": "1",
         "description": "The M60 Bulldog fires high explosive 60mm rounds with a large blast radius effective against infantry.  Direct hits provides some damage to armor. All factions can use this weapon.",
         "directDamage": "400",
         "fireModes": [
@@ -13554,6 +13752,7 @@
         "indirectDamage": "500",
         "name": "M60-A Bulldog",
         "reload": "4000",
+        "speed": "200",
         "standingCofMax": "0",
         "standingCofMaxADS": "0",
         "standingCofMin": "0",
@@ -13563,6 +13762,7 @@
         "adsCofRecoil": "0.25",
         "adsMoveSpeed": "1",
         "category": "Vehicle Weapons",
+        "defZoom": "2",
         "description": "The Xiphos Anti-Personnel Phalanx Turret sprays 20mm rounds with its twin rotary guns that are damaging to infantry and light armor.",
         "fireModes": [
             "Auto"
@@ -13580,6 +13780,7 @@
         "name": "Xiphos Anti-Personnel Phalanx Turret",
         "overheatPenalty": "2000",
         "reload": "0",
+        "speed": "600",
         "standingCofMax": "0.75",
         "standingCofMaxADS": "0.75",
         "standingCofMin": "0.75",
@@ -13589,6 +13790,7 @@
         "ammo": "1125",
         "category": "Galaxy Top Weapon",
         "clip": "75",
+        "defZoom": "1",
         "description": "The A30 Walker is a heavy machine gun with soft point ammunition designed to be more effective against enemy aircraft. All factions can use this weapon.",
         "fireModes": [
             "Auto"
@@ -13601,6 +13803,7 @@
         "minDamageRange": "400",
         "name": "A30 Walker",
         "reload": "2000",
+        "speed": "850",
         "standingCofMax": "0.65",
         "standingCofMin": "0.65"
     },
@@ -13608,6 +13811,7 @@
         "ammo": "1125",
         "category": "Galaxy Tail Weapon",
         "clip": "75",
+        "defZoom": "1",
         "description": "The A30 Walker is a heavy machine gun with soft point ammunition designed to be more effective against enemy aircraft. All factions can use this weapon.",
         "fireModes": [
             "Auto"
@@ -13620,6 +13824,7 @@
         "minDamageRange": "400",
         "name": "A30 Walker",
         "reload": "2000",
+        "speed": "850",
         "standingCofMax": "0.65",
         "standingCofMin": "0.65"
     },
@@ -13630,6 +13835,7 @@
         "category": "Galaxy Left Weapon",
         "clip": "4",
         "damage": "400",
+        "defZoom": "1",
         "description": "The M60 Bulldog fires high explosive 60mm rounds with a large blast radius effective against infantry.  Direct hits provides some damage to armor. All factions can use this weapon.",
         "directDamage": "400",
         "fireModes": [
@@ -13641,6 +13847,7 @@
         "indirectDamage": "500",
         "name": "M60-A Bulldog",
         "reload": "4000",
+        "speed": "200",
         "standingCofMax": "0",
         "standingCofMaxADS": "0",
         "standingCofMin": "0",
@@ -13653,6 +13860,7 @@
         "category": "Galaxy Right Weapon",
         "clip": "4",
         "damage": "400",
+        "defZoom": "1",
         "description": "The M60 Bulldog fires high explosive 60mm rounds with a large blast radius effective against infantry.  Direct hits provides some damage to armor. All factions can use this weapon.",
         "directDamage": "400",
         "fireModes": [
@@ -13664,6 +13872,7 @@
         "indirectDamage": "500",
         "name": "M60-A Bulldog",
         "reload": "4000",
+        "speed": "200",
         "standingCofMax": "0",
         "standingCofMaxADS": "0",
         "standingCofMin": "0",
@@ -13673,6 +13882,7 @@
         "adsCofRecoil": "0.25",
         "adsMoveSpeed": "1",
         "category": "Vehicle Weapons",
+        "defZoom": "2",
         "description": "The Xiphos Anti-Personnel Phalanx Turret sprays 20mm rounds with its twin rotary guns that are damaging to infantry and light armor.",
         "fireModes": [
             "Auto"
@@ -13690,6 +13900,7 @@
         "name": "Xiphos Anti-Personnel Phalanx Turret",
         "overheatPenalty": "2000",
         "reload": "0",
+        "speed": "600",
         "standingCofMax": "0.75",
         "standingCofMaxADS": "0.75",
         "standingCofMin": "0.75",
@@ -13699,6 +13910,7 @@
         "adsCofRecoil": "0.12",
         "adsMoveSpeed": "1",
         "category": "Infantry Weapons",
+        "defZoom": "1.35",
         "description": "MANA (Manned Aggressor Neutralizing Assault) Anti-Personnel turret is deployed by engineers and is effective against soft and medium armored targets.",
         "fireModes": [
             "Auto"
@@ -13716,6 +13928,7 @@
         "name": "MANA Anti-Personnel Turret",
         "overheatPenalty": "1000",
         "reload": "3000",
+        "speed": "600",
         "standingCofMax": "0.75",
         "standingCofMaxADS": "0.75",
         "standingCofMin": "0.1",
@@ -13725,6 +13938,7 @@
         "adsCofRecoil": "0.12",
         "adsMoveSpeed": "1",
         "category": "Infantry Weapons",
+        "defZoom": "1.35",
         "description": "MANA (Manned Aggressor Neutralizing Assault) Anti-Personnel turret is deployed by engineers and is effective against soft and medium armored targets.",
         "fireModes": [
             "Auto"
@@ -13744,6 +13958,7 @@
         "recoilAngleMax": "0",
         "recoilAngleMin": "0",
         "reload": "3000",
+        "speed": "600",
         "standingCofMax": "0.75",
         "standingCofMaxADS": "0.75",
         "standingCofMin": "0.1",
@@ -13753,6 +13968,7 @@
         "adsCofRecoil": "0.12",
         "adsMoveSpeed": "1",
         "category": "Infantry Weapons",
+        "defZoom": "1.35",
         "description": "MANA (Manned Aggressor Neutralizing Assault) Anti-Personnel turret is deployed by engineers and is effective against soft and medium armored targets.",
         "fireModes": [
             "Auto"
@@ -13772,6 +13988,7 @@
         "recoilAngleMax": "0",
         "recoilAngleMin": "0",
         "reload": "3000",
+        "speed": "600",
         "standingCofMax": "0.75",
         "standingCofMaxADS": "0.75",
         "standingCofMin": "0.1",
@@ -13781,6 +13998,7 @@
         "adsCofRecoil": "0.12",
         "adsMoveSpeed": "1",
         "category": "Infantry Weapons",
+        "defZoom": "1.35",
         "description": "MANA (Manned Aggressor Neutralizing Assault) Anti-Personnel turret is deployed by engineers and is effective against soft and medium armored targets.",
         "fireModes": [
             "Auto"
@@ -13800,6 +14018,7 @@
         "recoilAngleMax": "0",
         "recoilAngleMin": "0",
         "reload": "3000",
+        "speed": "600",
         "standingCofMax": "0.75",
         "standingCofMaxADS": "0.75",
         "standingCofMin": "0.1",
@@ -14076,6 +14295,7 @@
         "adsCofRecoil": "0",
         "adsMoveSpeed": "1",
         "category": "Vehicle Weapons",
+        "defZoom": "1.75",
         "description": "The Spear Anti-Vehicle Phalanx Turret is capable of rapidly firing 120mm AP tank rounds capable of damaging heavily armored targets.",
         "fireModes": [
             "Auto"
@@ -14093,6 +14313,7 @@
         "name": "Spear Anti-Vehicle Phalanx Turret",
         "overheatPenalty": "2000",
         "reload": "0",
+        "speed": "250",
         "standingCofMax": "0",
         "standingCofMaxADS": "0",
         "standingCofMin": "0",
@@ -14102,6 +14323,7 @@
         "adsCofRecoil": "0",
         "adsMoveSpeed": "1",
         "category": "Vehicle Weapons",
+        "defZoom": "1.75",
         "description": "The Spear Anti-Vehicle Phalanx Turret is capable of rapidly firing 120mm AP tank rounds capable of damaging heavily armored targets.",
         "fireModes": [
             "Auto"
@@ -14119,6 +14341,7 @@
         "name": "Spear Anti-Vehicle Phalanx Turret",
         "overheatPenalty": "2000",
         "reload": "0",
+        "speed": "250",
         "standingCofMax": "0",
         "standingCofMaxADS": "0",
         "standingCofMin": "0",
@@ -14128,6 +14351,7 @@
         "adsCofRecoil": "0",
         "adsMoveSpeed": "1",
         "category": "Vehicle Weapons",
+        "defZoom": "1.75",
         "description": "The Spear Anti-Vehicle Phalanx Turret is capable of rapidly firing 120mm AP tank rounds capable of damaging heavily armored targets.",
         "fireModes": [
             "Auto"
@@ -14145,6 +14369,7 @@
         "name": "Spear Anti-Vehicle Phalanx Turret",
         "overheatPenalty": "2000",
         "reload": "0",
+        "speed": "250",
         "standingCofMax": "0",
         "standingCofMaxADS": "0",
         "standingCofMin": "0",
@@ -15417,6 +15642,7 @@
         "category": "Galaxy Top Weapon",
         "clip": "8",
         "damage": "75",
+        "defZoom": "1",
         "description": "The Hyena fires short range anti-aircraft missiles that are dumb-fired, but will lock-on to enemy aircraft in close proximity. This weapon specializes in combating mobile enemy fighters.",
         "directDamage": "75",
         "fireModes": [
@@ -15427,6 +15653,7 @@
         "indirectDamage": "150",
         "name": "Hyena Missile Launcher",
         "reload": "3000",
+        "speed": "50",
         "standingCofMax": "1",
         "standingCofMin": "1"
     },
@@ -15435,6 +15662,7 @@
         "category": "Galaxy Top Weapon",
         "clip": "8",
         "damage": "75",
+        "defZoom": "1",
         "description": "The Hyena fires short range anti-aircraft missiles that are dumb-fired, but will lock-on to enemy aircraft in close proximity. This weapon specializes in combating mobile enemy fighters.",
         "directDamage": "75",
         "fireModes": [
@@ -15445,6 +15673,7 @@
         "indirectDamage": "150",
         "name": "Hyena Missile Launcher",
         "reload": "3000",
+        "speed": "50",
         "standingCofMax": "1",
         "standingCofMin": "1"
     },
@@ -15453,6 +15682,7 @@
         "category": "Galaxy Top Weapon",
         "clip": "8",
         "damage": "75",
+        "defZoom": "1",
         "description": "The Hyena fires short range anti-aircraft missiles that are dumb-fired, but will lock-on to enemy aircraft in close proximity. This weapon specializes in combating mobile enemy fighters.",
         "directDamage": "75",
         "fireModes": [
@@ -15463,6 +15693,7 @@
         "indirectDamage": "150",
         "name": "Hyena Missile Launcher",
         "reload": "3000",
+        "speed": "50",
         "standingCofMax": "1",
         "standingCofMin": "1"
     },
@@ -15471,6 +15702,7 @@
         "category": "Galaxy Right Weapon",
         "clip": "10",
         "damage": "100",
+        "defZoom": "1",
         "description": "The Pelter Rocket Pod launches a barrage of unguided anti-armor rockets which have little explosive yield. All factions can use this weapon.",
         "directDamage": "100",
         "fireModes": [
@@ -15481,6 +15713,7 @@
         "indirectDamage": "150",
         "name": "Pelter Rocket Pod",
         "reload": "3500",
+        "speed": "250",
         "standingCofMax": "0.7",
         "standingCofMin": "0.7"
     },
@@ -15489,6 +15722,7 @@
         "category": "Galaxy Right Weapon",
         "clip": "10",
         "damage": "100",
+        "defZoom": "1",
         "description": "The Pelter Rocket Pod launches a barrage of unguided anti-armor rockets which have little explosive yield. All factions can use this weapon.",
         "directDamage": "100",
         "fireModes": [
@@ -15499,6 +15733,7 @@
         "indirectDamage": "150",
         "name": "Pelter Rocket Pod",
         "reload": "3500",
+        "speed": "250",
         "standingCofMax": "0.7",
         "standingCofMin": "0.7"
     },
@@ -15507,6 +15742,7 @@
         "category": "Galaxy Right Weapon",
         "clip": "10",
         "damage": "100",
+        "defZoom": "1",
         "description": "The Pelter Rocket Pod launches a barrage of unguided anti-armor rockets which have little explosive yield. All factions can use this weapon.",
         "directDamage": "100",
         "fireModes": [
@@ -15517,6 +15753,7 @@
         "indirectDamage": "150",
         "name": "Pelter Rocket Pod",
         "reload": "3500",
+        "speed": "250",
         "standingCofMax": "0.7",
         "standingCofMin": "0.7"
     },
@@ -15525,6 +15762,7 @@
         "category": "Galaxy Left Weapon",
         "clip": "10",
         "damage": "100",
+        "defZoom": "1",
         "description": "The Pelter Rocket Pod launches a barrage of unguided anti-armor rockets which have little explosive yield. All factions can use this weapon.",
         "directDamage": "100",
         "fireModes": [
@@ -15535,6 +15773,7 @@
         "indirectDamage": "150",
         "name": "Pelter Rocket Pod",
         "reload": "3500",
+        "speed": "250",
         "standingCofMax": "0.7",
         "standingCofMin": "0.7"
     },
@@ -15543,6 +15782,7 @@
         "category": "Galaxy Left Weapon",
         "clip": "10",
         "damage": "100",
+        "defZoom": "1",
         "description": "The Pelter Rocket Pod launches a barrage of unguided anti-armor rockets which have little explosive yield. All factions can use this weapon.",
         "directDamage": "100",
         "fireModes": [
@@ -15553,12 +15793,14 @@
         "indirectDamage": "150",
         "name": "Pelter Rocket Pod",
         "reload": "3500",
+        "speed": "250",
         "standingCofMax": "0.7",
         "standingCofMin": "0.7"
     },
     "6003410": {
         "category": "Galaxy Left Weapon",
         "damage": "100",
+        "defZoom": "1",
         "description": "The Pelter Rocket Pod launches a barrage of unguided anti-armor rockets which have little explosive yield. All factions can use this weapon.",
         "fireModes": [
             "Auto"
@@ -15566,6 +15808,7 @@
         "image_id": "79720",
         "name": "Pelter Rocket Pod",
         "reload": "3500",
+        "speed": "250",
         "standingCofMax": "0.7",
         "standingCofMin": "0.7"
     },
@@ -15593,20 +15836,22 @@
         "adsCofRecoil": "0.1",
         "adsMoveSpeed": "1",
         "ammo": "50",
-        "category": "Weapon",
+        "category": "Colossus Primary Weapon",
         "clip": "1",
-        "damage": "500",
-        "description": "Mammoth Cannon Description",
-        "directDamage": "500",
+        "damage": "750",
+        "defZoom": "2",
+        "description": "The Mammoth fires heavy tank rounds that can be enhanced with the MAD device. When the vehicle deploys, the cannon will transform into the Skylance anti-air turret which fires piercing blasts able to strike multiple targets.",
+        "directDamage": "750",
         "fireModes": [
             "Semi-Auto"
         ],
         "fireRate": "0",
         "hipCofRecoil": "0.1",
-        "image_id": "319",
+        "image_id": "92775",
         "indirectDamage": "500",
         "name": "Mammoth Cannon",
         "reload": "3500",
+        "speed": "150",
         "standingCofMax": "0.2",
         "standingCofMaxADS": "0.2",
         "standingCofMin": "0",
@@ -16084,8 +16329,10 @@
     "6003752": {
         "adsCofRecoil": "0.06",
         "adsMoveSpeed": "0.75",
+        "ammo": "300",
         "category": "Carbine",
         "chamber": "450",
+        "clip": "30",
         "crouchWalkingCofMax": "7",
         "crouchWalkingCofMaxADS": "3",
         "crouchWalkingCofMin": "0",
@@ -16103,9 +16350,10 @@
         "fireModes": [
             "Auto"
         ],
+        "fireRate": "100",
         "firstShotMultiplier": "1.4",
         "headshotMultiplier": "1",
-        "hipCofRecoil": "0.24",
+        "hipCofRecoil": "0.12",
         "image_id": "88171",
         "maxDamage": "143",
         "maxDamageRange": "10",
@@ -17011,6 +17259,7 @@
         "crouchingCofMaxADS": "2",
         "crouchingCofMin": "1",
         "crouchingCofMinADS": "0.1",
+        "damage": "112",
         "defZoom": "1",
         "description": "The NC05 Jackhammer's stopping power and sustained fire capabilities make it a frightening weapon in close quarters combat. It features a unique burst fire mode that doubles its rate of fire. NC use only.",
         "directDamage": "112",
@@ -17027,10 +17276,6 @@
         "headshotMultiplier": "0.5",
         "hipCofRecoil": "0",
         "image_id": "88577",
-        "maxDamage": "112",
-        "maxDamageRange": "10",
-        "minDamage": "70",
-        "minDamageRange": "30",
         "name": "NC05-P Jackhammer",
         "pelletSpread": "2.5",
         "pellets": "5",
@@ -17755,6 +18000,7 @@
         "crouchingCofMin": "1",
         "crouchingCofMinADS": "0.8",
         "damage": "250",
+        "defZoom": "1.35",
         "description": "Designed to combat the Indar heat, the Soldier Soaker was an inconvenient, yet familiar way to cool off soldiers in need. <font color=\"#dc9c36\"><br><br>Limited event item.</font>",
         "directDamage": "250",
         "fallingCofMax": "7",
@@ -17772,6 +18018,8 @@
         "hipCofRecoil": "0.15",
         "image_id": "89280",
         "name": "Soldier Soaker",
+        "pelletSpread": "0",
+        "pellets": "1",
         "recoilAngleMax": "0",
         "recoilAngleMin": "0",
         "recoilHorizontalMax": "0.225",
@@ -17781,6 +18029,7 @@
         "runningCofMaxADS": "3",
         "runningCofMin": "2",
         "runningCofMinADS": "0.8",
+        "speed": "100",
         "sprintingCofMax": "7",
         "sprintingCofMaxADS": "3",
         "sprintingCofMin": "5",
@@ -17889,6 +18138,7 @@
         "category": "Flash Primary Weapon",
         "clip": "6",
         "damage": "175",
+        "defZoom": "1",
         "description": "The Starfall fires a quick 3 round plasma barrage, meant to strike at unsuspecting vehicles with lighting speed. VS use only.",
         "directDamage": "175",
         "fireModes": [
@@ -17899,6 +18149,7 @@
         "indirectDamage": "100",
         "name": "V30-F Starfall",
         "reload": "3000",
+        "speed": "100",
         "standingCofMax": "0.5",
         "standingCofMin": "0.5"
     },
@@ -17907,6 +18158,7 @@
         "adsMoveSpeed": "1",
         "category": "Flash Primary Weapon",
         "damage": "300",
+        "defZoom": "1",
         "description": "The Buzzard converts the flash into a makeshift artillery platform, using heavy high explosive shells with a large blast radius. NC use only.",
         "fireModes": [
             "Auto"
@@ -17915,6 +18167,7 @@
         "image_id": "89247",
         "name": "LA7 Buzzard",
         "reload": "2500",
+        "speed": "120",
         "standingCofMax": "0.5",
         "standingCofMaxADS": "0.5",
         "standingCofMin": "0",
@@ -17925,6 +18178,7 @@
         "category": "Flash Primary Weapon",
         "clip": "30",
         "damage": "30",
+        "defZoom": "1",
         "description": "The Pillager lays down a field of flames which ignite infantry caught within. TR use only.",
         "directDamage": "30",
         "fireModes": [
@@ -17935,6 +18189,7 @@
         "indirectDamage": "50",
         "name": "M4-F Pillager",
         "reload": "1500",
+        "speed": "75",
         "standingCofMax": "0.25",
         "standingCofMin": "0.25"
     },
@@ -18084,6 +18339,8 @@
         "indirectDamage": "25",
         "name": "Ectoblaster",
         "overheatPenalty": "750",
+        "pelletSpread": "0",
+        "pellets": "1",
         "recoilAngleMax": "10",
         "recoilAngleMin": "10",
         "recoilHorizontalMax": "0.2",
@@ -18091,6 +18348,7 @@
         "recoilHorizontalTolerance": "0.75",
         "runningCofMax": "1.75",
         "runningCofMin": "1.75",
+        "speed": "150",
         "sprintingCofMax": "5",
         "sprintingCofMin": "5",
         "standingCofMax": "1.5",
@@ -18213,6 +18471,7 @@
     "6005068": {
         "category": "Lightning Primary Weapon ",
         "damage": "700",
+        "defZoom": "1",
         "description": "The Python AP is loaded with fast-moving armor-piercing rounds that are strong against armored targets, but have little explosive yield. All factions can use this weapon.",
         "fireModes": [
             "Semi-Auto"
@@ -18222,12 +18481,14 @@
         "recoilAngleMax": "0",
         "recoilAngleMin": "0",
         "reload": "3000",
+        "speed": "250",
         "standingCofMax": "0",
         "standingCofMin": "0"
     },
     "6005069": {
         "category": "Lightning Primary Weapon ",
         "damage": "700",
+        "defZoom": "1",
         "description": "The Python AP is loaded with fast-moving armor-piercing rounds that are strong against armored targets, but have little explosive yield. All factions can use this weapon.",
         "fireModes": [
             "Semi-Auto"
@@ -18237,12 +18498,14 @@
         "recoilAngleMax": "0",
         "recoilAngleMin": "0",
         "reload": "3000",
+        "speed": "250",
         "standingCofMax": "0",
         "standingCofMin": "0"
     },
     "6005070": {
         "category": "Lightning Primary Weapon ",
         "damage": "700",
+        "defZoom": "1",
         "description": "The Python AP is loaded with fast-moving armor-piercing rounds that are strong against armored targets, but have little explosive yield. All factions can use this weapon.",
         "fireModes": [
             "Semi-Auto"
@@ -18252,6 +18515,7 @@
         "recoilAngleMax": "0",
         "recoilAngleMin": "0",
         "reload": "3000",
+        "speed": "250",
         "standingCofMax": "0",
         "standingCofMin": "0"
     },
@@ -18343,6 +18607,7 @@
     "6005167": {
         "category": "Flash Primary Weapon",
         "damage": "175",
+        "defZoom": "1",
         "description": "The Fury launches 40mm grenades that are effective against infantry and light armor.  It is also capable of light damage against heavy armor.  All factions can use this weapon.",
         "fireModes": [
             "Auto"
@@ -18350,6 +18615,7 @@
         "image_id": "2045",
         "name": "M40 Fury-F",
         "reload": "2500",
+        "speed": "125",
         "standingCofMax": "0.5",
         "standingCofMin": "0.5"
     },
@@ -18357,6 +18623,7 @@
         "adsCofRecoil": "0.1",
         "adsMoveSpeed": "1",
         "category": "Flash Primary Weapon",
+        "defZoom": "1",
         "description": "The M12 Kobalt is a 50 cal machine gun that is effective against infantry targets. All factions can use this weapon.",
         "fireModes": [
             "Auto"
@@ -18371,6 +18638,7 @@
         "recoilAngleMax": "0.3",
         "recoilAngleMin": "-3",
         "reload": "2500",
+        "speed": "650",
         "standingCofMax": "0.5",
         "standingCofMaxADS": "0.5",
         "standingCofMin": "0.2",
@@ -18529,7 +18797,7 @@
         "fallingCofMin": "0.5",
         "fallingCofMinADS": "0.5",
         "fireModes": [
-            "Auto"
+            "Semi-Auto"
         ],
         "fireRate": "450",
         "firstShotMultiplier": "3",
@@ -18964,6 +19232,7 @@
     },
     "6005233": {
         "category": "Sunderer Front Gunner",
+        "defZoom": "1",
         "description": "The G30 Walker is a heavy machine gun with a high elevation range and soft point ammunition designed to be more effective against aircraft. All factions can use this weapon.",
         "fireModes": [
             "Auto"
@@ -18975,11 +19244,13 @@
         "minDamageRange": "400",
         "name": "G30 Walker",
         "reload": "2000",
+        "speed": "1000",
         "standingCofMax": "0.65",
         "standingCofMin": "0.65"
     },
     "6005234": {
         "category": "Sunderer Rear Gunner",
+        "defZoom": "1",
         "description": "The G30 Walker is a heavy machine gun with a high elevation range and soft point ammunition designed to be more effective against aircraft. All factions can use this weapon.",
         "fireModes": [
             "Auto"
@@ -18991,6 +19262,7 @@
         "minDamageRange": "400",
         "name": "G30 Walker",
         "reload": "2000",
+        "speed": "1000",
         "standingCofMax": "0.65",
         "standingCofMin": "0.65"
     },
@@ -19055,6 +19327,7 @@
     "6005237": {
         "category": "Sunderer Front Gunner",
         "damage": "125",
+        "defZoom": "1",
         "description": "The Fury launches 40mm grenades that are effective against infantry and light armor.  It is also capable of light damage against heavy armor.  All factions can use this weapon.",
         "fireModes": [
             "Auto"
@@ -19062,12 +19335,14 @@
         "image_id": "1532",
         "name": "M40 Fury",
         "reload": "2500",
+        "speed": "125",
         "standingCofMax": "0.5",
         "standingCofMin": "0.5"
     },
     "6005238": {
         "category": "Sunderer Rear Gunner",
         "damage": "125",
+        "defZoom": "1",
         "description": "The Fury launches 40mm grenades that are effective against infantry and light armor.  It is also capable of light damage against heavy armor.  All factions can use this weapon.",
         "fireModes": [
             "Auto"
@@ -19075,6 +19350,7 @@
         "image_id": "1532",
         "name": "M40 Fury",
         "reload": "2500",
+        "speed": "125",
         "standingCofMax": "0.5",
         "standingCofMin": "0.5"
     },
@@ -19082,6 +19358,7 @@
         "adsCofRecoil": "0.1",
         "adsMoveSpeed": "1",
         "category": "Sunderer Front Gunner",
+        "defZoom": "1",
         "description": "The M12 Kobalt is a .50 cal machine gun that is effective against infantry targets. All factions can use this weapon.",
         "fireModes": [
             "Auto"
@@ -19096,6 +19373,7 @@
         "recoilAngleMax": "0.3",
         "recoilAngleMin": "-3",
         "reload": "2500",
+        "speed": "650",
         "standingCofMax": "0.5",
         "standingCofMaxADS": "0.5",
         "standingCofMin": "0.2",
@@ -19105,6 +19383,7 @@
         "adsCofRecoil": "0.1",
         "adsMoveSpeed": "1",
         "category": "Sunderer Rear Gunner",
+        "defZoom": "1",
         "description": "The M12 Kobalt is a .50 cal machine gun that is effective against infantry targets. All factions can use this weapon.",
         "fireModes": [
             "Auto"
@@ -19119,6 +19398,7 @@
         "recoilAngleMax": "0.3",
         "recoilAngleMin": "-3",
         "reload": "2500",
+        "speed": "650",
         "standingCofMax": "0.5",
         "standingCofMaxADS": "0.5",
         "standingCofMin": "0.2",
@@ -19129,6 +19409,7 @@
         "adsMoveSpeed": "1",
         "category": "Sunderer Front Gunner",
         "damage": "400",
+        "defZoom": "1",
         "description": "The M60 Bulldog fires high explosive 60mm rounds with a large blast radius effective against infantry.  Direct hits provides some damage to armor. All factions can use this weapon.",
         "fireModes": [
             "Auto"
@@ -19137,6 +19418,7 @@
         "image_id": "1535",
         "name": "M60-G Bulldog",
         "reload": "4000",
+        "speed": "100",
         "standingCofMax": "0",
         "standingCofMaxADS": "0",
         "standingCofMin": "0",
@@ -19147,6 +19429,7 @@
         "adsMoveSpeed": "1",
         "category": "Sunderer Rear Gunner",
         "damage": "400",
+        "defZoom": "1",
         "description": "The M60 Bulldog fires high explosive 60mm rounds with a large blast radius effective against infantry.  Direct hits provides some damage to armor. All factions can use this weapon.",
         "fireModes": [
             "Auto"
@@ -19155,6 +19438,7 @@
         "image_id": "1535",
         "name": "M60-G Bulldog",
         "reload": "4000",
+        "speed": "100",
         "standingCofMax": "0",
         "standingCofMaxADS": "0",
         "standingCofMin": "0",
@@ -19199,6 +19483,7 @@
     "6005299": {
         "category": "Lightning Primary Weapon ",
         "damage": "700",
+        "defZoom": "1",
         "description": "The Python AP is loaded with fast-moving armor-piercing rounds that are strong against armored targets, but have little explosive yield. All factions can use this weapon.",
         "fireModes": [
             "Semi-Auto"
@@ -19208,12 +19493,14 @@
         "recoilAngleMax": "0",
         "recoilAngleMin": "0",
         "reload": "3000",
+        "speed": "250",
         "standingCofMax": "0",
         "standingCofMin": "0"
     },
     "6005300": {
         "category": "Lightning Primary Weapon ",
         "damage": "525",
+        "defZoom": "1",
         "description": "The Python HEAT carries quick-reloading high-explosive anti-tank rounds that have balanced effectiveness against armor and infantry. All factions can use this weapon.",
         "fireModes": [
             "Semi-Auto"
@@ -19223,12 +19510,14 @@
         "recoilAngleMax": "0",
         "recoilAngleMin": "0",
         "reload": "2000",
+        "speed": "200",
         "standingCofMax": "0",
         "standingCofMin": "0"
     },
     "6005301": {
         "category": "Lightning Primary Weapon ",
         "damage": "600",
+        "defZoom": "1",
         "description": "The Python HESH carries high-explosive squash head rounds that are less effective against armor, and more lethal against enemy infantry. All factions can use this weapon.",
         "fireModes": [
             "Semi-Auto"
@@ -19238,6 +19527,7 @@
         "recoilAngleMax": "0",
         "recoilAngleMin": "0",
         "reload": "3250",
+        "speed": "200",
         "standingCofMax": "0",
         "standingCofMin": "0"
     },
@@ -19246,6 +19536,7 @@
         "adsMoveSpeed": "1",
         "category": "Lightning Primary Weapon ",
         "damage": "250",
+        "defZoom": "1",
         "description": "The C75 is able to rapid fire six 75mm HEAT shells.  The damage potential is great when all shells hit their target, but the cannon is unstable when firing at the maximum rate. All factions can use this weapon.",
         "fireModes": [
             "Auto"
@@ -19256,6 +19547,7 @@
         "recoilAngleMax": "3",
         "recoilAngleMin": "-3",
         "reload": "4500",
+        "speed": "200",
         "standingCofMax": "1.5",
         "standingCofMaxADS": "1.5",
         "standingCofMin": "0",
@@ -19263,6 +19555,7 @@
     },
     "6005303": {
         "category": "Lightning Primary Weapon ",
+        "defZoom": "1",
         "description": "The Skyguard fires 40mm flak rounds that are highly effective against enemy aircraft. All factions can use this weapon.",
         "fireModes": [
             "Auto"
@@ -19276,6 +19569,7 @@
         "recoilAngleMax": "50",
         "recoilAngleMin": "35",
         "reload": "3000",
+        "speed": "400",
         "standingCofMax": "1.5",
         "standingCofMin": "1.5"
     },
@@ -19771,6 +20065,7 @@
     },
     "6005380": {
         "category": "Harasser Top Gunner",
+        "defZoom": "1",
         "description": "The G30 Walker is a heavy machine gun with a high elevation range and soft point ammunition designed to be more effective against aircraft. All factions can use this weapon.",
         "fireModes": [
             "Auto"
@@ -19782,6 +20077,7 @@
         "minDamageRange": "400",
         "name": "G30 Walker",
         "reload": "2000",
+        "speed": "1000",
         "standingCofMax": "0.65",
         "standingCofMin": "0.65"
     },
@@ -19814,6 +20110,7 @@
     "6005382": {
         "category": "Harasser Top Gunner",
         "damage": "175",
+        "defZoom": "1",
         "description": "The Fury launches 40mm grenades that are effective against infantry and light armor.  It is also capable of light damage against heavy armor.  All factions can use this weapon.",
         "fireModes": [
             "Auto"
@@ -19821,6 +20118,7 @@
         "image_id": "1532",
         "name": "M40 Fury-H",
         "reload": "2500",
+        "speed": "125",
         "standingCofMax": "0.5",
         "standingCofMin": "0.5"
     },
@@ -19828,6 +20126,7 @@
         "adsCofRecoil": "0.1",
         "adsMoveSpeed": "1",
         "category": "Harasser Top Gunner",
+        "defZoom": "1",
         "description": "The M12 Kobalt is a .50 cal machine gun that is effective against infantry targets. All factions can use this weapon.",
         "fireModes": [
             "Auto"
@@ -19842,6 +20141,7 @@
         "recoilAngleMax": "0.3",
         "recoilAngleMin": "-3",
         "reload": "2500",
+        "speed": "650",
         "standingCofMax": "0.5",
         "standingCofMaxADS": "0.5",
         "standingCofMin": "0.2",
@@ -19852,6 +20152,7 @@
         "adsMoveSpeed": "1",
         "category": "Harasser Top Gunner",
         "damage": "400",
+        "defZoom": "1",
         "description": "The M60 Bulldog fires high explosive 60mm rounds with a large blast radius effective against infantry.  Direct hits provides some damage to armor. All factions can use this weapon.",
         "fireModes": [
             "Auto"
@@ -19860,6 +20161,7 @@
         "image_id": "1535",
         "name": "M60-G Bulldog-H",
         "reload": "4000",
+        "speed": "100",
         "standingCofMax": "0",
         "standingCofMaxADS": "0",
         "standingCofMin": "0",
@@ -19881,6 +20183,7 @@
         "adsCofRecoil": "0.12",
         "adsMoveSpeed": "1",
         "category": "Infantry Weapons",
+        "defZoom": "1.35",
         "description": "MANA (Manned Aggressor Neutralizing Assault) Anti-Personnel turret is deployed by engineers and is effective against soft and medium armored targets.",
         "fireModes": [
             "Auto"
@@ -19900,6 +20203,7 @@
         "recoilAngleMax": "0",
         "recoilAngleMin": "0",
         "reload": "3000",
+        "speed": "600",
         "standingCofMax": "0.75",
         "standingCofMaxADS": "0.75",
         "standingCofMin": "0.1",
@@ -19940,6 +20244,7 @@
         "recoilHorizontalMin": "0.2",
         "recoilHorizontalTolerance": "0.2",
         "reload": "3000",
+        "speed": "10",
         "standingCofMax": "0",
         "standingCofMin": "0",
         "verticalRecoil": "2"
@@ -19969,6 +20274,7 @@
         "minDamage": "50",
         "minDamageRange": "50",
         "name": "Spitfire Auto-Turret",
+        "speed": "425",
         "standingCofMax": "0.15",
         "standingCofMin": "0.15"
     },
@@ -19998,6 +20304,7 @@
     },
     "6005429": {
         "category": "ANT Top Turret",
+        "defZoom": "1",
         "description": "The G30 Walker is a heavy machine gun with a high elevation range and soft point ammunition designed to be more effective against aircraft. All factions can use this weapon.",
         "fireModes": [
             "Auto"
@@ -20009,6 +20316,7 @@
         "minDamageRange": "400",
         "name": "G30 Walker",
         "reload": "2000",
+        "speed": "1000",
         "standingCofMax": "0.65",
         "standingCofMin": "0.65"
     },
@@ -20041,6 +20349,7 @@
     "6005431": {
         "category": "ANT Top Turret",
         "damage": "125",
+        "defZoom": "1",
         "description": "The Fury launches 40mm grenades that are effective against infantry and light armor.  It is also capable of light damage against heavy armor.  All factions can use this weapon.",
         "fireModes": [
             "Auto"
@@ -20048,6 +20357,7 @@
         "image_id": "1532",
         "name": "M40 Fury",
         "reload": "2500",
+        "speed": "125",
         "standingCofMax": "0.5",
         "standingCofMin": "0.5"
     },
@@ -20055,6 +20365,7 @@
         "adsCofRecoil": "0.1",
         "adsMoveSpeed": "1",
         "category": "ANT Top Turret",
+        "defZoom": "1",
         "description": "The M12 Kobalt is a .50 cal machine gun that is effective against infantry targets. All factions can use this weapon.",
         "fireModes": [
             "Auto"
@@ -20069,6 +20380,7 @@
         "recoilAngleMax": "0.3",
         "recoilAngleMin": "-3",
         "reload": "2500",
+        "speed": "650",
         "standingCofMax": "0.5",
         "standingCofMaxADS": "0.5",
         "standingCofMin": "0.2",
@@ -20079,6 +20391,7 @@
         "adsMoveSpeed": "1",
         "category": "ANT Top Turret",
         "damage": "400",
+        "defZoom": "1",
         "description": "The M60 Bulldog fires high explosive 60mm rounds with a large blast radius effective against infantry.  Direct hits provides some damage to armor. All factions can use this weapon.",
         "fireModes": [
             "Auto"
@@ -20087,6 +20400,7 @@
         "image_id": "1535",
         "name": "M60-G Bulldog",
         "reload": "4000",
+        "speed": "100",
         "standingCofMax": "0",
         "standingCofMaxADS": "0",
         "standingCofMin": "0",
@@ -20166,7 +20480,7 @@
         "ammo": "1",
         "category": "Knife",
         "clip": "1",
-        "damage": "1050",
+        "damage": "500",
         "defZoom": "1",
         "description": "Although slower than the TR standard issue Chainblade, when wielded this knife can be activated, increasing its damage output. TR use only.",
         "directDamage": "500",
@@ -20190,7 +20504,7 @@
         "ammo": "1",
         "category": "Knife",
         "clip": "1",
-        "damage": "1050",
+        "damage": "500",
         "defZoom": "1",
         "description": "Although slower than the NC standard issue Mag-Cutter, when wielded, this knife can be activated, increasing its damage output. NC use only.",
         "directDamage": "500",
@@ -20213,6 +20527,7 @@
     "6005454": {
         "category": "Liberator Nose Cannon",
         "damage": "300",
+        "defZoom": "1",
         "description": "The L-30R Vektor is accurate but slow firing and can pierce all types of armor. All factions can use this weapon.",
         "fireModes": [
             "Auto"
@@ -20220,11 +20535,13 @@
         "image_id": "2024",
         "name": "L-30R Vektor",
         "reload": "4000",
+        "speed": "750",
         "standingCofMax": "0.3",
         "standingCofMin": "0.3"
     },
     "6005455": {
         "category": "Liberator Nose Cannon",
+        "defZoom": "1",
         "description": "The L-24R Spur is equipped with specialized optics that allow the pilot to adjust the weapons aim rather than being fixed forward.<font color=\"#dc9c36\"><br> <br>Optics for this weapon are engaged with Weapon Optic function or Cockpit Mouse Freelook hotkeys.</font>",
         "fireModes": [
             "Auto"
@@ -20236,12 +20553,14 @@
         "minDamageRange": "200",
         "name": "L-24R Spur",
         "reload": "4000",
+        "speed": "750",
         "standingCofMax": "0.3",
         "standingCofMin": "0.3"
     },
     "6005456": {
         "category": "Liberator Tail Weapon",
         "damage": "75",
+        "defZoom": "1",
         "description": "The Hyena fires short range anti-aircraft missiles that are dumb-fired, but will lock-on to enemy aircraft in close proximity. This weapon specializes in combating mobile enemy fighters.",
         "fireModes": [
             "Heat Seeking"
@@ -20249,6 +20568,7 @@
         "image_id": "87285",
         "name": "Hyena Missile Launcher",
         "reload": "3000",
+        "speed": "50",
         "standingCofMax": "1",
         "standingCofMin": "1"
     },
@@ -20273,6 +20593,7 @@
     },
     "6005459": {
         "category": "Liberator Tail Weapon",
+        "defZoom": "1",
         "description": "The A30 Walker is a heavy machine gun with soft point ammunition designed to be more effective against enemy aircraft. All factions can use this weapon.",
         "fireModes": [
             "Auto"
@@ -20284,6 +20605,7 @@
         "minDamageRange": "400",
         "name": "A30 Walker",
         "reload": "2000",
+        "speed": "850",
         "standingCofMax": "0.65",
         "standingCofMin": "0.65"
     },
@@ -20292,6 +20614,7 @@
         "adsMoveSpeed": "1",
         "category": "Liberator Tail Weapon",
         "damage": "400",
+        "defZoom": "1",
         "description": "The M60 Bulldog fires high explosive 60mm rounds with a large blast radius effective against infantry.  Direct hits provides some damage to armor. All factions can use this weapon.",
         "fireModes": [
             "Auto"
@@ -20300,6 +20623,7 @@
         "image_id": "1985",
         "name": "M60-A Bulldog",
         "reload": "4000",
+        "speed": "200",
         "standingCofMax": "0",
         "standingCofMaxADS": "0",
         "standingCofMin": "0",
@@ -20330,6 +20654,7 @@
         "adsMoveSpeed": "1",
         "category": "Liberator Belly Weapon",
         "damage": "225",
+        "defZoom": "1",
         "description": "The Duster is equipped with dual 75mm cannons that are able to quickly unload its ten round magazine. Each shot decreases accuracy unless given time to recover; this allows the D-75 to feather accurate shots or bombard a wider area by unloading.",
         "fireModes": [
             "Semi-Auto"
@@ -20338,6 +20663,7 @@
         "image_id": "13841",
         "name": "Dual-75 Duster",
         "reload": "4000",
+        "speed": "100",
         "standingCofMax": "3.5",
         "standingCofMaxADS": "3.5",
         "standingCofMin": "1.5",
@@ -20371,6 +20697,7 @@
     "6005464": {
         "category": "Liberator Belly Weapon",
         "damage": "1500",
+        "defZoom": "1",
         "description": "The C150 Dalton fires 150mm Armor Piercing Anti-Tank rounds that inflict massive damage in a single shot. All factions can use this weapon.",
         "fireModes": [
             "Semi-Auto"
@@ -20378,6 +20705,7 @@
         "image_id": "2021",
         "name": "C150 Dalton",
         "reload": "3250",
+        "speed": "250",
         "standingCofMax": "0.25",
         "standingCofMin": "0.25"
     },
@@ -20386,6 +20714,7 @@
         "adsMoveSpeed": "1",
         "category": "Liberator Belly Weapon",
         "damage": "500",
+        "defZoom": "1",
         "description": "The L105 Zephyr fires a salvo of 105mm high-explosive rounds which are effective against both armor and personnel. All factions can use this weapon.",
         "fireModes": [
             "Auto"
@@ -20394,6 +20723,7 @@
         "image_id": "4398",
         "name": "L105 Zephyr",
         "reload": "4000",
+        "speed": "250",
         "standingCofMax": "0.5",
         "standingCofMaxADS": "0.5",
         "standingCofMin": "0.25",
@@ -20497,6 +20827,7 @@
     },
     "6005479": {
         "category": "Galaxy Tail Weapon",
+        "defZoom": "1",
         "description": "The A30 Walker is a heavy machine gun with soft point ammunition designed to be more effective against enemy aircraft. All factions can use this weapon.",
         "fireModes": [
             "Auto"
@@ -20508,11 +20839,13 @@
         "minDamageRange": "400",
         "name": "A30 Walker",
         "reload": "2000",
+        "speed": "1000",
         "standingCofMax": "0.65",
         "standingCofMin": "0.65"
     },
     "6005480": {
         "category": "Galaxy Top Weapon",
+        "defZoom": "1",
         "description": "The A30 Walker is a heavy machine gun with soft point ammunition designed to be more effective against enemy aircraft. All factions can use this weapon.",
         "fireModes": [
             "Auto"
@@ -20524,6 +20857,7 @@
         "minDamageRange": "400",
         "name": "A30 Walker",
         "reload": "2000",
+        "speed": "1000",
         "standingCofMax": "0.65",
         "standingCofMin": "0.65"
     },
@@ -20532,6 +20866,7 @@
         "adsMoveSpeed": "1",
         "category": "Galaxy Left Weapon",
         "damage": "400",
+        "defZoom": "1",
         "description": "The M60 Bulldog fires high explosive 60mm rounds with a large blast radius effective against infantry.  Direct hits provides some damage to armor. All factions can use this weapon.",
         "fireModes": [
             "Auto"
@@ -20540,6 +20875,7 @@
         "image_id": "1985",
         "name": "M60-A Bulldog",
         "reload": "4000",
+        "speed": "200",
         "standingCofMax": "0",
         "standingCofMaxADS": "0",
         "standingCofMin": "0",
@@ -20550,6 +20886,7 @@
         "adsMoveSpeed": "1",
         "category": "Galaxy Right Weapon",
         "damage": "400",
+        "defZoom": "1",
         "description": "The M60 Bulldog fires high explosive 60mm rounds with a large blast radius effective against infantry.  Direct hits provides some damage to armor. All factions can use this weapon.",
         "fireModes": [
             "Auto"
@@ -20558,6 +20895,7 @@
         "image_id": "1985",
         "name": "M60-A Bulldog",
         "reload": "4000",
+        "speed": "200",
         "standingCofMax": "0",
         "standingCofMaxADS": "0",
         "standingCofMin": "0",
@@ -20566,6 +20904,7 @@
     "6005487": {
         "category": "Galaxy Left Weapon",
         "damage": "100",
+        "defZoom": "1",
         "description": "The Pelter Rocket Pod launches a barrage of unguided anti-armor rockets which have little explosive yield. All factions can use this weapon.",
         "fireModes": [
             "Auto"
@@ -20573,12 +20912,14 @@
         "image_id": "79720",
         "name": "Pelter Rocket Pod",
         "reload": "3500",
+        "speed": "250",
         "standingCofMax": "0.7",
         "standingCofMin": "0.7"
     },
     "6005488": {
         "category": "Galaxy Right Weapon",
         "damage": "100",
+        "defZoom": "1",
         "description": "The Pelter Rocket Pod launches a barrage of unguided anti-armor rockets which have little explosive yield. All factions can use this weapon.",
         "fireModes": [
             "Auto"
@@ -20586,12 +20927,14 @@
         "image_id": "79720",
         "name": "Pelter Rocket Pod",
         "reload": "3500",
+        "speed": "250",
         "standingCofMax": "0.7",
         "standingCofMin": "0.7"
     },
     "6005490": {
         "category": "Galaxy Top Weapon",
         "damage": "75",
+        "defZoom": "1",
         "description": "The Hyena fires short range anti-aircraft missiles that are dumb-fired, but will lock-on to enemy aircraft in close proximity. This weapon specializes in combating mobile enemy fighters.",
         "fireModes": [
             "Heat Seeking"
@@ -20599,11 +20942,13 @@
         "image_id": "87285",
         "name": "Hyena Missile Launcher",
         "reload": "3000",
+        "speed": "50",
         "standingCofMax": "1",
         "standingCofMin": "1"
     },
     "6005494": {
         "category": "Valkyrie Nose Gunner",
+        "defZoom": "1",
         "description": "The M20 Wyvern has superior RPM and faster reload compared to other M20 heavy machine guns but at the cost of a smaller magazine. Like other M20 HMGs, its 20mm rounds are capable of damaging all targets. All factions can use this weapon.",
         "fireModes": [
             "Auto"
@@ -20615,11 +20960,13 @@
         "minDamageRange": "150",
         "name": "M20 Wyvern",
         "reload": "2250",
+        "speed": "550",
         "standingCofMax": "0.5",
         "standingCofMin": "0.5"
     },
     "6005495": {
         "category": "Valkyrie Nose Gunner",
+        "defZoom": "1",
         "description": "The CAS 14-E is designed to provide close air support using its 14mm explosive rounds and high magazine capacity to effectively eliminate hostile personnel. All factions can use this weapon.",
         "fireModes": [
             "Auto"
@@ -20631,11 +20978,13 @@
         "minDamageRange": "200",
         "name": "CAS 14-E",
         "reload": "2000",
+        "speed": "500",
         "standingCofMax": "1",
         "standingCofMin": "1"
     },
     "6005496": {
         "category": "Valkyrie Nose Gunner",
+        "defZoom": "1",
         "description": "The Hellion G20 chain gun fires special armor piercing 20mm rounds that are effective against vehicles at close range. It takes 1.5 seconds for the G20 to spool up and reach full firing speed. All factions can use this weapon.",
         "fireModes": [
             "Auto"
@@ -20647,12 +20996,14 @@
         "minDamageRange": "100",
         "name": "Hellion G20",
         "reload": "3500",
+        "speed": "300",
         "standingCofMax": "10",
         "standingCofMin": "1"
     },
     "6005497": {
         "category": "Valkyrie Nose Gunner",
         "damage": "125",
+        "defZoom": "1",
         "description": "The Pelter Rocket Pod launches a barrage of unguided anti-armor rockets which have little explosive yield. All factions can use this weapon.",
         "fireModes": [
             "Auto"
@@ -20660,19 +21011,22 @@
         "image_id": "79720",
         "name": "Pelter Rocket Pod",
         "reload": "3500",
+        "speed": "250",
         "standingCofMax": "0.7",
         "standingCofMin": "0.7"
     },
     "6005498": {
         "category": "Valkyrie Nose Gunner",
         "damage": "575",
+        "defZoom": "1",
         "description": "The VLG fires a laser guided missile that seeks toward the gunner's crosshairs. The missile is effective against armor on direct hits and produces a moderate blast. Missile will detonate after traveling 400 meters. All factions can use this weapon.",
         "fireModes": [
             "Laser Guided"
         ],
         "image_id": "79709",
         "name": "VLG Missile Launcher",
-        "reload": "2200"
+        "reload": "2200",
+        "speed": "50"
     },
     "6005515": {
         "category": "Infantry Abilities",
@@ -20785,6 +21139,7 @@
         "minDamageRange": "150",
         "name": "WLT-Weaver Mining Turret",
         "reload": "2250",
+        "speed": "550",
         "standingCofMax": "0.5",
         "standingCofMaxADS": "7",
         "standingCofMin": "0.5",
@@ -20808,6 +21163,7 @@
         "minDamageRange": "150",
         "name": "WLT-Weaver Mining Turret",
         "reload": "2250",
+        "speed": "550",
         "standingCofMax": "0.5",
         "standingCofMaxADS": "7",
         "standingCofMin": "0.5",
@@ -20831,6 +21187,7 @@
         "minDamageRange": "150",
         "name": "WLT-Weaver Mining Turret",
         "reload": "2250",
+        "speed": "550",
         "standingCofMax": "0.5",
         "standingCofMaxADS": "7",
         "standingCofMin": "0.5",
@@ -20841,6 +21198,7 @@
         "category": "Reaver Wing Mount",
         "clip": "20",
         "damage": "125",
+        "defZoom": "2",
         "description": "Pummeler Rocket Pods are equipped with small, anti-vehicle rockets that are fired from fixed-wing mounts, resulting an accurate volley with minimal deviation.",
         "directDamage": "125",
         "fireModes": [
@@ -20851,6 +21209,7 @@
         "indirectDamage": "150",
         "name": "Pummeler Rocket Pods",
         "reload": "3500",
+        "speed": "250",
         "standingCofMax": "0.7",
         "standingCofMin": "0.7"
     },
@@ -20859,6 +21218,7 @@
         "category": "Reaver Wing Mount",
         "clip": "20",
         "damage": "125",
+        "defZoom": "2",
         "description": "Pummeler Rocket Pods are equipped with small, anti-vehicle rockets that are fired from fixed-wing mounts, resulting an accurate volley with minimal deviation.",
         "directDamage": "125",
         "fireModes": [
@@ -20869,6 +21229,7 @@
         "indirectDamage": "150",
         "name": "Pummeler Rocket Pods",
         "reload": "3500",
+        "speed": "250",
         "standingCofMax": "0.7",
         "standingCofMin": "0.7"
     },
@@ -20877,6 +21238,7 @@
         "category": "Reaver Wing Mount",
         "clip": "20",
         "damage": "125",
+        "defZoom": "2",
         "description": "Pummeler Rocket Pods are equipped with small, anti-vehicle rockets that are fired from fixed-wing mounts, resulting an accurate volley with minimal deviation.",
         "directDamage": "125",
         "fireModes": [
@@ -20887,6 +21249,7 @@
         "indirectDamage": "150",
         "name": "Pummeler Rocket Pods",
         "reload": "3500",
+        "speed": "250",
         "standingCofMax": "0.7",
         "standingCofMin": "0.7"
     },
@@ -22023,6 +22386,7 @@
         "category": "Reaver Wing Mount",
         "clip": "20",
         "damage": "125",
+        "defZoom": "2",
         "description": "Pummeler Rocket Pods are equipped with small, anti-vehicle rockets that are fired from fixed-wing mounts, resulting an accurate volley with minimal deviation.",
         "directDamage": "125",
         "fireModes": [
@@ -22033,6 +22397,7 @@
         "indirectDamage": "150",
         "name": "Pummeler Rocket Pods",
         "reload": "3500",
+        "speed": "250",
         "standingCofMax": "0.7",
         "standingCofMin": "0.7"
     },
@@ -22041,6 +22406,7 @@
         "category": "Reaver Wing Mount",
         "clip": "20",
         "damage": "125",
+        "defZoom": "2",
         "description": "Pummeler Rocket Pods are equipped with small, anti-vehicle rockets that are fired from fixed-wing mounts, resulting an accurate volley with minimal deviation.",
         "directDamage": "125",
         "fireModes": [
@@ -22051,6 +22417,7 @@
         "indirectDamage": "150",
         "name": "Pummeler Rocket Pods",
         "reload": "3500",
+        "speed": "250",
         "standingCofMax": "0.7",
         "standingCofMin": "0.7"
     },
@@ -22059,6 +22426,7 @@
         "category": "Reaver Wing Mount",
         "clip": "20",
         "damage": "125",
+        "defZoom": "2",
         "description": "Pummeler Rocket Pods are equipped with small, anti-vehicle rockets that are fired from fixed-wing mounts, resulting an accurate volley with minimal deviation.",
         "directDamage": "125",
         "fireModes": [
@@ -22069,6 +22437,7 @@
         "indirectDamage": "150",
         "name": "Pummeler Rocket Pods",
         "reload": "3500",
+        "speed": "250",
         "standingCofMax": "0.7",
         "standingCofMin": "0.7"
     },
@@ -22315,6 +22684,7 @@
         "minDamageRange": "150",
         "name": "WLT-Weaver Mining Turret",
         "reload": "2250",
+        "speed": "550",
         "standingCofMax": "0.5",
         "standingCofMaxADS": "7",
         "standingCofMin": "0.5",
@@ -22325,6 +22695,7 @@
         "category": "Reaver Wing Mount",
         "clip": "20",
         "damage": "125",
+        "defZoom": "2",
         "description": "Pummeler Rocket Pods are equipped with small, anti-vehicle rockets that are fired from fixed-wing mounts, resulting an accurate volley with minimal deviation.",
         "directDamage": "125",
         "fireModes": [
@@ -22335,6 +22706,7 @@
         "indirectDamage": "150",
         "name": "Pummeler Rocket Pods",
         "reload": "3500",
+        "speed": "250",
         "standingCofMax": "0.7",
         "standingCofMin": "0.7"
     },
@@ -22343,6 +22715,7 @@
         "category": "Reaver Wing Mount",
         "clip": "20",
         "damage": "125",
+        "defZoom": "2",
         "description": "Pummeler Rocket Pods are equipped with small, anti-vehicle rockets that are fired from fixed-wing mounts, resulting an accurate volley with minimal deviation.",
         "directDamage": "125",
         "fireModes": [
@@ -22353,6 +22726,7 @@
         "indirectDamage": "150",
         "name": "Pummeler Rocket Pods",
         "reload": "3500",
+        "speed": "250",
         "standingCofMax": "0.7",
         "standingCofMin": "0.7"
     },
@@ -22430,7 +22804,7 @@
         "crouchingCofMinADS": "0.15",
         "damage": "250",
         "defZoom": "1.25",
-        "description": "The Thumper heavy grenade launcher comes equipped with anti-infantry fragmentation rounds, and has access to multiple specialized munitions. All factions can use this weapon.",
+        "description": "The Thumper heavy grenade launcher comes equipped with an anti-infantry fragmentation payload, and has access to multiple specialized munitions. All factions can use this weapon.",
         "directDamage": "250",
         "fallingCofMax": "7",
         "fallingCofMaxADS": "7",
@@ -23474,12 +23848,12 @@
         ],
         "fireRate": "333",
         "firstShotMultiplier": "1",
-        "headshotMultiplier": "4",
+        "headshotMultiplier": "2.5",
         "hipCofRecoil": "1",
         "image_id": "86961",
-        "maxDamage": "225",
+        "maxDamage": "325",
         "maxDamageRange": "10",
-        "minDamage": "175",
+        "minDamage": "250",
         "minDamageRange": "350",
         "name": "NSX \"Ivory\" Daimyo",
         "pelletSpread": "0",
@@ -23869,12 +24243,12 @@
         ],
         "fireRate": "333",
         "firstShotMultiplier": "1",
-        "headshotMultiplier": "4",
+        "headshotMultiplier": "2.5",
         "hipCofRecoil": "1",
         "image_id": "92316",
-        "maxDamage": "225",
+        "maxDamage": "325",
         "maxDamageRange": "10",
-        "minDamage": "175",
+        "minDamage": "250",
         "minDamageRange": "350",
         "name": "NSX \"Networked\" Daimyo",
         "pelletSpread": "0",
@@ -23960,6 +24334,7 @@
     "6008684": {
         "category": "Lightning Primary Weapon ",
         "damage": "700",
+        "defZoom": "1",
         "description": "The Python AP is loaded with fast-moving armor-piercing rounds that are strong against armored targets, but have little explosive yield. All factions can use this weapon.",
         "directDamage": "700",
         "fireModes": [
@@ -23971,6 +24346,7 @@
         "recoilAngleMax": "0",
         "recoilAngleMin": "0",
         "reload": "3000",
+        "speed": "250",
         "standingCofMax": "0",
         "standingCofMin": "0"
     },
@@ -24067,20 +24443,22 @@
         "adsCofRecoil": "0.1",
         "adsMoveSpeed": "1",
         "ammo": "50",
-        "category": "Weapon",
+        "category": "Colossus Primary Weapon",
         "clip": "1",
-        "damage": "500",
-        "description": "Mammoth Cannon Description",
-        "directDamage": "500",
+        "damage": "750",
+        "defZoom": "2",
+        "description": "The Mammoth fires heavy tank rounds that can be enhanced with the MAD device. When the vehicle deploys, the cannon will transform into the Skylance anti-air turret which fires piercing blasts able to strike multiple targets.",
+        "directDamage": "750",
         "fireModes": [
             "Semi-Auto"
         ],
         "fireRate": "0",
         "hipCofRecoil": "0.1",
-        "image_id": "319",
+        "image_id": "92775",
         "indirectDamage": "500",
         "name": "Mammoth Cannon",
         "reload": "3500",
+        "speed": "150",
         "standingCofMax": "0.2",
         "standingCofMaxADS": "0.2",
         "standingCofMin": "0",
@@ -24090,20 +24468,22 @@
         "adsCofRecoil": "0.1",
         "adsMoveSpeed": "1",
         "ammo": "50",
-        "category": "Weapon",
+        "category": "Colossus Primary Weapon",
         "clip": "1",
-        "damage": "500",
-        "description": "Mammoth Cannon Description",
-        "directDamage": "500",
+        "damage": "750",
+        "defZoom": "2",
+        "description": "The Mammoth fires heavy tank rounds that can be enhanced with the MAD device. When the vehicle deploys, the cannon will transform into the Skylance anti-air turret which fires piercing blasts able to strike multiple targets.",
+        "directDamage": "750",
         "fireModes": [
             "Semi-Auto"
         ],
         "fireRate": "0",
         "hipCofRecoil": "0.1",
-        "image_id": "319",
+        "image_id": "92775",
         "indirectDamage": "500",
         "name": "Mammoth Cannon",
         "reload": "3500",
+        "speed": "150",
         "standingCofMax": "0.2",
         "standingCofMaxADS": "0.2",
         "standingCofMin": "0",
@@ -24113,106 +24493,108 @@
         "adsCofRecoil": "0.1",
         "adsMoveSpeed": "1",
         "ammo": "50",
-        "category": "Weapon",
+        "category": "Colossus Primary Weapon",
         "clip": "1",
-        "damage": "500",
-        "description": "Mammoth Cannon Description",
-        "directDamage": "500",
+        "damage": "750",
+        "defZoom": "2",
+        "description": "The Mammoth fires heavy tank rounds that can be enhanced with the MAD device. When the vehicle deploys, the cannon will transform into the Skylance anti-air turret which fires piercing blasts able to strike multiple targets.",
+        "directDamage": "750",
         "fireModes": [
             "Semi-Auto"
         ],
         "fireRate": "0",
         "hipCofRecoil": "0.1",
-        "image_id": "319",
+        "image_id": "92775",
         "indirectDamage": "500",
         "name": "Mammoth Cannon",
         "reload": "3500",
+        "speed": "150",
         "standingCofMax": "0.2",
         "standingCofMaxADS": "0.2",
         "standingCofMin": "0",
         "standingCofMinADS": "0"
     },
     "6008749": {
-        "ammo": "300",
-        "category": "Vanguard Gunner Weapon",
+        "ammo": "750",
+        "category": "Colossus Front Right Weapon",
         "clip": "50",
-        "description": "The Basilisk is a 20mm heavy machine gun that effectively damages all targets, especially at close range. NC use only.",
+        "defZoom": "1.25",
+        "description": "The miniaturized Gecko 20mm is a heavy machine gun capable of fending off any assailant.",
         "fireModes": [
             "Auto"
         ],
-        "fireRate": "100",
-        "heatPerShot": "11",
-        "heatRecoveryDelay": "1000",
-        "image_id": "1529",
-        "maxDamage": "150",
-        "maxDamageRange": "100",
-        "minDamage": "125",
-        "minDamageRange": "500",
-        "name": "M20 Basilisk",
-        "reload": "2000",
+        "fireRate": "125",
+        "image_id": "92795",
+        "maxDamage": "200",
+        "maxDamageRange": "10",
+        "minDamage": "147",
+        "minDamageRange": "100",
+        "name": "M20 Gecko",
+        "reload": "2500",
+        "speed": "400",
         "standingCofMax": "0.5",
         "standingCofMin": "0.5"
     },
     "6008750": {
-        "ammo": "300",
-        "category": "Vanguard Gunner Weapon",
+        "ammo": "750",
+        "category": "Colossus Front Left Weapon",
         "clip": "50",
-        "description": "The Basilisk is a 20mm heavy machine gun that effectively damages all targets, especially at close range. NC use only.",
+        "defZoom": "1.25",
+        "description": "The miniaturized Gecko 20mm is a heavy machine gun capable of fending off any assailant.",
         "fireModes": [
             "Auto"
         ],
-        "fireRate": "100",
-        "heatPerShot": "11",
-        "heatRecoveryDelay": "1000",
-        "image_id": "1529",
-        "maxDamage": "150",
-        "maxDamageRange": "100",
-        "minDamage": "125",
-        "minDamageRange": "500",
-        "name": "M20 Basilisk",
-        "reload": "2000",
+        "fireRate": "125",
+        "image_id": "92795",
+        "maxDamage": "200",
+        "maxDamageRange": "10",
+        "minDamage": "147",
+        "minDamageRange": "100",
+        "name": "M20 Gecko",
+        "reload": "2500",
+        "speed": "400",
         "standingCofMax": "0.5",
         "standingCofMin": "0.5"
     },
     "6008751": {
-        "ammo": "300",
-        "category": "Vanguard Gunner Weapon",
+        "ammo": "750",
+        "category": "Colossus Rear Right Weapon",
         "clip": "50",
-        "description": "The Basilisk is a 20mm heavy machine gun that effectively damages all targets, especially at close range. NC use only.",
+        "defZoom": "1.25",
+        "description": "The miniaturized Gecko 20mm is a heavy machine gun capable of fending off any assailant.",
         "fireModes": [
             "Auto"
         ],
-        "fireRate": "100",
-        "heatPerShot": "11",
-        "heatRecoveryDelay": "1000",
-        "image_id": "1529",
-        "maxDamage": "150",
-        "maxDamageRange": "100",
-        "minDamage": "125",
-        "minDamageRange": "500",
-        "name": "M20 Basilisk",
-        "reload": "2000",
+        "fireRate": "125",
+        "image_id": "92795",
+        "maxDamage": "200",
+        "maxDamageRange": "10",
+        "minDamage": "147",
+        "minDamageRange": "100",
+        "name": "M20 Gecko",
+        "reload": "2500",
+        "speed": "400",
         "standingCofMax": "0.5",
         "standingCofMin": "0.5"
     },
     "6008752": {
-        "ammo": "300",
-        "category": "Vanguard Gunner Weapon",
+        "ammo": "750",
+        "category": "Colossus Rear Left Weapon",
         "clip": "50",
-        "description": "The Basilisk is a 20mm heavy machine gun that effectively damages all targets, especially at close range. NC use only.",
+        "defZoom": "1.25",
+        "description": "The miniaturized Gecko 20mm is a heavy machine gun capable of fending off any assailant.",
         "fireModes": [
             "Auto"
         ],
-        "fireRate": "100",
-        "heatPerShot": "11",
-        "heatRecoveryDelay": "1000",
-        "image_id": "1529",
-        "maxDamage": "150",
-        "maxDamageRange": "100",
-        "minDamage": "125",
-        "minDamageRange": "500",
-        "name": "M20 Basilisk",
-        "reload": "2000",
+        "fireRate": "125",
+        "image_id": "92795",
+        "maxDamage": "200",
+        "maxDamageRange": "10",
+        "minDamage": "147",
+        "minDamageRange": "100",
+        "name": "M20 Gecko",
+        "reload": "2500",
+        "speed": "400",
         "standingCofMax": "0.5",
         "standingCofMin": "0.5"
     },
@@ -24220,6 +24602,7 @@
         "ammo": "10",
         "category": "Bastion Point Defense",
         "clip": "10",
+        "defZoom": "1.5",
         "description": "Manned bastion point defense weapons intended to defend the bastion from aircraft.",
         "fireModes": [
             "Auto"
@@ -24237,11 +24620,13 @@
         "name": "Bastion CDWS",
         "overheatPenalty": "1000",
         "reload": "2000",
+        "speed": "1000",
         "standingCofMax": "0.5",
         "standingCofMin": "0.5"
     },
     "6008903": {
         "category": "Bastion Point Defense",
+        "defZoom": "1.5",
         "description": "Manned bastion point defense weapons intended to defend the bastion from aircraft.",
         "fireModes": [
             "Auto"
@@ -24258,11 +24643,13 @@
         "name": "Bastion CIWS",
         "overheatPenalty": "1000",
         "reload": "2000",
+        "speed": "1000",
         "standingCofMax": "0.5",
         "standingCofMin": "0.5"
     },
     "6008904": {
         "category": "Bastion Point Defense",
+        "defZoom": "1.5",
         "description": "Manned bastion point defense weapons intended to defend the bastion from aircraft.",
         "fireModes": [
             "Auto"
@@ -24279,11 +24666,13 @@
         "name": "Bastion CIWS",
         "overheatPenalty": "1000",
         "reload": "2000",
+        "speed": "1000",
         "standingCofMax": "0.5",
         "standingCofMin": "0.5"
     },
     "6008905": {
         "category": "Bastion Point Defense",
+        "defZoom": "1.5",
         "description": "Manned bastion point defense weapons intended to defend the bastion from aircraft.",
         "fireModes": [
             "Auto"
@@ -24300,6 +24689,7 @@
         "name": "Bastion CIWS",
         "overheatPenalty": "1000",
         "reload": "2000",
+        "speed": "1000",
         "standingCofMax": "0.5",
         "standingCofMin": "0.5"
     },
@@ -24316,10 +24706,11 @@
         "heatCapacity": "800",
         "heatPerShot": "800",
         "heatRecoveryDelay": "1000",
-        "image_id": "2021",
+        "image_id": "92775",
         "indirectDamage": "1000",
         "name": "Mauler Cannon",
         "overheatPenalty": "1000",
+        "speed": "250",
         "standingCofMax": "0",
         "standingCofMin": "0"
     },
@@ -24336,10 +24727,11 @@
         "heatCapacity": "800",
         "heatPerShot": "800",
         "heatRecoveryDelay": "1000",
-        "image_id": "2021",
+        "image_id": "92775",
         "indirectDamage": "1000",
         "name": "Mauler Cannon",
         "overheatPenalty": "1000",
+        "speed": "250",
         "standingCofMax": "0",
         "standingCofMin": "0"
     },
@@ -24356,10 +24748,11 @@
         "heatCapacity": "800",
         "heatPerShot": "800",
         "heatRecoveryDelay": "1000",
-        "image_id": "2021",
+        "image_id": "92775",
         "indirectDamage": "1000",
         "name": "Mauler Cannon",
         "overheatPenalty": "1000",
+        "speed": "250",
         "standingCofMax": "0",
         "standingCofMin": "0"
     },
@@ -24376,10 +24769,11 @@
         "heatCapacity": "800",
         "heatPerShot": "800",
         "heatRecoveryDelay": "1000",
-        "image_id": "2021",
+        "image_id": "92775",
         "indirectDamage": "1000",
         "name": "Mauler Cannon",
         "overheatPenalty": "1000",
+        "speed": "250",
         "standingCofMax": "0",
         "standingCofMin": "0"
     },
@@ -24390,6 +24784,7 @@
         "category": "Bastion Weapon System",
         "clip": "10",
         "damage": "500",
+        "defZoom": "5",
         "description": "The bastion battery is manned and launches dumb-fire missiles.",
         "directDamage": "500",
         "fireModes": [
@@ -24413,6 +24808,7 @@
         "recoilHorizontalMin": "0.2",
         "recoilHorizontalTolerance": "0.2",
         "reload": "3000",
+        "speed": "250",
         "standingCofMax": "2",
         "standingCofMaxADS": "2",
         "standingCofMin": "0",
@@ -24426,6 +24822,7 @@
         "category": "Bastion Weapon System",
         "clip": "10",
         "damage": "500",
+        "defZoom": "5",
         "description": "The bastion battery is manned and launches dumb-fire missiles.",
         "directDamage": "500",
         "fireModes": [
@@ -24449,6 +24846,7 @@
         "recoilHorizontalMin": "0.2",
         "recoilHorizontalTolerance": "0.2",
         "reload": "3000",
+        "speed": "250",
         "standingCofMax": "2",
         "standingCofMaxADS": "2",
         "standingCofMin": "0",
@@ -24457,6 +24855,7 @@
     },
     "6008928": {
         "category": "Bastion Point Defense",
+        "defZoom": "1.5",
         "description": "Manned bastion point defense weapons intended to defend the bastion from aircraft.",
         "fireModes": [
             "Auto"
@@ -24473,6 +24872,7 @@
         "name": "Bastion CIWS",
         "overheatPenalty": "1000",
         "reload": "2000",
+        "speed": "1000",
         "standingCofMax": "0.5",
         "standingCofMin": "0.5"
     },
@@ -24483,6 +24883,7 @@
         "category": "Bastion Weapon System",
         "clip": "10",
         "damage": "500",
+        "defZoom": "5",
         "description": "The bastion battery is manned and launches dumb-fire missiles.",
         "directDamage": "500",
         "fireModes": [
@@ -24506,6 +24907,7 @@
         "recoilHorizontalMin": "0.2",
         "recoilHorizontalTolerance": "0.2",
         "reload": "3000",
+        "speed": "250",
         "standingCofMax": "2",
         "standingCofMaxADS": "2",
         "standingCofMin": "0",
@@ -24519,6 +24921,7 @@
         "category": "Bastion Weapon System",
         "clip": "10",
         "damage": "500",
+        "defZoom": "5",
         "description": "The bastion battery is manned and launches dumb-fire missiles.",
         "directDamage": "500",
         "fireModes": [
@@ -24542,6 +24945,7 @@
         "recoilHorizontalMin": "0.2",
         "recoilHorizontalTolerance": "0.2",
         "reload": "3000",
+        "speed": "250",
         "standingCofMax": "2",
         "standingCofMaxADS": "2",
         "standingCofMin": "0",
@@ -24571,10 +24975,11 @@
         "heatCapacity": "800",
         "heatPerShot": "800",
         "heatRecoveryDelay": "1000",
-        "image_id": "2021",
+        "image_id": "92775",
         "indirectDamage": "1000",
         "name": "Mauler Cannon",
         "overheatPenalty": "1000",
+        "speed": "250",
         "standingCofMax": "0",
         "standingCofMin": "0"
     },
@@ -24591,10 +24996,11 @@
         "heatCapacity": "800",
         "heatPerShot": "800",
         "heatRecoveryDelay": "1000",
-        "image_id": "2021",
+        "image_id": "92775",
         "indirectDamage": "1000",
         "name": "Mauler Cannon",
         "overheatPenalty": "1000",
+        "speed": "250",
         "standingCofMax": "0",
         "standingCofMin": "0"
     },
@@ -24611,10 +25017,11 @@
         "heatCapacity": "800",
         "heatPerShot": "800",
         "heatRecoveryDelay": "1000",
-        "image_id": "2021",
+        "image_id": "92775",
         "indirectDamage": "1000",
         "name": "Mauler Cannon",
         "overheatPenalty": "1000",
+        "speed": "250",
         "standingCofMax": "0",
         "standingCofMin": "0"
     },
@@ -24631,10 +25038,11 @@
         "heatCapacity": "800",
         "heatPerShot": "800",
         "heatRecoveryDelay": "1000",
-        "image_id": "2021",
+        "image_id": "92775",
         "indirectDamage": "1000",
         "name": "Mauler Cannon",
         "overheatPenalty": "1000",
+        "speed": "250",
         "standingCofMax": "0",
         "standingCofMin": "0"
     },
@@ -24651,10 +25059,11 @@
         "heatCapacity": "800",
         "heatPerShot": "800",
         "heatRecoveryDelay": "1000",
-        "image_id": "2021",
+        "image_id": "92775",
         "indirectDamage": "1000",
         "name": "Mauler Cannon",
         "overheatPenalty": "1000",
+        "speed": "250",
         "standingCofMax": "0",
         "standingCofMin": "0"
     },
@@ -24671,10 +25080,11 @@
         "heatCapacity": "800",
         "heatPerShot": "800",
         "heatRecoveryDelay": "1000",
-        "image_id": "2021",
+        "image_id": "92775",
         "indirectDamage": "1000",
         "name": "Mauler Cannon",
         "overheatPenalty": "1000",
+        "speed": "250",
         "standingCofMax": "0",
         "standingCofMin": "0"
     },
@@ -24691,10 +25101,11 @@
         "heatCapacity": "800",
         "heatPerShot": "800",
         "heatRecoveryDelay": "1000",
-        "image_id": "2021",
+        "image_id": "92775",
         "indirectDamage": "1000",
         "name": "Mauler Cannon",
         "overheatPenalty": "1000",
+        "speed": "250",
         "standingCofMax": "0",
         "standingCofMin": "0"
     },
@@ -24711,16 +25122,17 @@
         "heatCapacity": "800",
         "heatPerShot": "800",
         "heatRecoveryDelay": "1000",
-        "image_id": "2021",
+        "image_id": "92775",
         "indirectDamage": "1000",
         "name": "Mauler Cannon",
         "overheatPenalty": "1000",
+        "speed": "250",
         "standingCofMax": "0",
         "standingCofMin": "0"
     },
     "6009009": {
         "category": "Infantry Abilities",
-        "description": "<font color=\"#dc9c36\">Single use consumable. Carry up to 2 on the field between resupplies. 40 max.</font><br>The Flash XS-1 is a lightly armored, single-passenger vehicle designed for rapid deployment anywhere on the battlefield.",
+        "description": "Deploys the lightly armored Flash XS-1, a single-passenger vehicle designed for rapid deployment anywhere on the battlefield.",
         "fireModes": [
             "Deployable"
         ],
@@ -24732,6 +25144,7 @@
     },
     "6009015": {
         "category": "Bastion Point Defense",
+        "defZoom": "1.5",
         "description": "Manned bastion point defense weapons intended to defend the bastion from aircraft.",
         "fireModes": [
             "Auto"
@@ -24748,11 +25161,13 @@
         "name": "Bastion CIWS",
         "overheatPenalty": "1000",
         "reload": "2000",
+        "speed": "1000",
         "standingCofMax": "0.5",
         "standingCofMin": "0.5"
     },
     "6009016": {
         "category": "Bastion Point Defense",
+        "defZoom": "1.5",
         "description": "Manned bastion point defense weapons intended to defend the bastion from aircraft.",
         "fireModes": [
             "Auto"
@@ -24769,11 +25184,13 @@
         "name": "Bastion CIWS",
         "overheatPenalty": "1000",
         "reload": "2000",
+        "speed": "1000",
         "standingCofMax": "0.5",
         "standingCofMin": "0.5"
     },
     "6009017": {
         "category": "Bastion Point Defense",
+        "defZoom": "1.5",
         "description": "Manned bastion point defense weapons intended to defend the bastion from aircraft.",
         "fireModes": [
             "Auto"
@@ -24790,11 +25207,13 @@
         "name": "Bastion CIWS",
         "overheatPenalty": "1000",
         "reload": "2000",
+        "speed": "1000",
         "standingCofMax": "0.5",
         "standingCofMin": "0.5"
     },
     "6009018": {
         "category": "Bastion Point Defense",
+        "defZoom": "1.5",
         "description": "Manned bastion point defense weapons intended to defend the bastion from aircraft.",
         "fireModes": [
             "Auto"
@@ -24811,11 +25230,13 @@
         "name": "Bastion CIWS",
         "overheatPenalty": "1000",
         "reload": "2000",
+        "speed": "1000",
         "standingCofMax": "0.5",
         "standingCofMin": "0.5"
     },
     "6009019": {
         "category": "Bastion Point Defense",
+        "defZoom": "1.5",
         "description": "Manned bastion point defense weapons intended to defend the bastion from aircraft.",
         "fireModes": [
             "Auto"
@@ -24832,11 +25253,13 @@
         "name": "Bastion CIWS",
         "overheatPenalty": "1000",
         "reload": "2000",
+        "speed": "1000",
         "standingCofMax": "0.5",
         "standingCofMin": "0.5"
     },
     "6009020": {
         "category": "Bastion Point Defense",
+        "defZoom": "1.5",
         "description": "Manned bastion point defense weapons intended to defend the bastion from aircraft.",
         "fireModes": [
             "Auto"
@@ -24853,11 +25276,13 @@
         "name": "Bastion CIWS",
         "overheatPenalty": "1000",
         "reload": "2000",
+        "speed": "1000",
         "standingCofMax": "0.5",
         "standingCofMin": "0.5"
     },
     "6009021": {
         "category": "Bastion Point Defense",
+        "defZoom": "1.5",
         "description": "Manned bastion point defense weapons intended to defend the bastion from aircraft.",
         "fireModes": [
             "Auto"
@@ -24874,11 +25299,13 @@
         "name": "Bastion CIWS",
         "overheatPenalty": "1000",
         "reload": "2000",
+        "speed": "1000",
         "standingCofMax": "0.5",
         "standingCofMin": "0.5"
     },
     "6009022": {
         "category": "Bastion Point Defense",
+        "defZoom": "1.5",
         "description": "Manned bastion point defense weapons intended to defend the bastion from aircraft.",
         "fireModes": [
             "Auto"
@@ -24895,6 +25322,7 @@
         "name": "Bastion CIWS",
         "overheatPenalty": "1000",
         "reload": "2000",
+        "speed": "1000",
         "standingCofMax": "0.5",
         "standingCofMin": "0.5"
     },
@@ -24902,6 +25330,7 @@
         "ammo": "10",
         "category": "Bastion Point Defense",
         "clip": "10",
+        "defZoom": "1.5",
         "description": "Manned bastion point defense weapons intended to defend the bastion from aircraft.",
         "fireModes": [
             "Auto"
@@ -24919,6 +25348,7 @@
         "name": "Bastion CDWS",
         "overheatPenalty": "1000",
         "reload": "2000",
+        "speed": "1000",
         "standingCofMax": "0.5",
         "standingCofMin": "0.5"
     },
@@ -24926,6 +25356,7 @@
         "ammo": "10",
         "category": "Bastion Point Defense",
         "clip": "10",
+        "defZoom": "1.5",
         "description": "Manned bastion point defense weapons intended to defend the bastion from aircraft.",
         "fireModes": [
             "Auto"
@@ -24943,6 +25374,7 @@
         "name": "Bastion CDWS",
         "overheatPenalty": "1000",
         "reload": "2000",
+        "speed": "1000",
         "standingCofMax": "0.5",
         "standingCofMin": "0.5"
     },
@@ -25021,6 +25453,7 @@
         "category": "Bastion Weapon System",
         "clip": "10",
         "damage": "500",
+        "defZoom": "5",
         "description": "The bastion battery is manned and launches dumb-fire missiles.",
         "directDamage": "500",
         "fireModes": [
@@ -25044,6 +25477,7 @@
         "recoilHorizontalMin": "0.2",
         "recoilHorizontalTolerance": "0.2",
         "reload": "3000",
+        "speed": "250",
         "standingCofMax": "2",
         "standingCofMaxADS": "2",
         "standingCofMin": "0",
@@ -25057,6 +25491,7 @@
         "category": "Bastion Weapon System",
         "clip": "10",
         "damage": "500",
+        "defZoom": "5",
         "description": "The bastion battery is manned and launches dumb-fire missiles.",
         "directDamage": "500",
         "fireModes": [
@@ -25080,6 +25515,7 @@
         "recoilHorizontalMin": "0.2",
         "recoilHorizontalTolerance": "0.2",
         "reload": "3000",
+        "speed": "250",
         "standingCofMax": "2",
         "standingCofMaxADS": "2",
         "standingCofMin": "0",
@@ -25093,6 +25529,7 @@
         "category": "Bastion Weapon System",
         "clip": "10",
         "damage": "500",
+        "defZoom": "5",
         "description": "The bastion battery is manned and launches dumb-fire missiles.",
         "directDamage": "500",
         "fireModes": [
@@ -25116,6 +25553,7 @@
         "recoilHorizontalMin": "0.2",
         "recoilHorizontalTolerance": "0.2",
         "reload": "3000",
+        "speed": "250",
         "standingCofMax": "2",
         "standingCofMaxADS": "2",
         "standingCofMin": "0",
@@ -25129,6 +25567,7 @@
         "category": "Bastion Weapon System",
         "clip": "10",
         "damage": "500",
+        "defZoom": "5",
         "description": "The bastion battery is manned and launches dumb-fire missiles.",
         "directDamage": "500",
         "fireModes": [
@@ -25152,6 +25591,7 @@
         "recoilHorizontalMin": "0.2",
         "recoilHorizontalTolerance": "0.2",
         "reload": "3000",
+        "speed": "250",
         "standingCofMax": "2",
         "standingCofMaxADS": "2",
         "standingCofMin": "0",
@@ -25165,6 +25605,7 @@
         "category": "Bastion Weapon System",
         "clip": "10",
         "damage": "500",
+        "defZoom": "5",
         "description": "The bastion battery is manned and launches dumb-fire missiles.",
         "directDamage": "500",
         "fireModes": [
@@ -25188,6 +25629,7 @@
         "recoilHorizontalMin": "0.2",
         "recoilHorizontalTolerance": "0.2",
         "reload": "3000",
+        "speed": "250",
         "standingCofMax": "2",
         "standingCofMaxADS": "2",
         "standingCofMin": "0",
@@ -25201,6 +25643,7 @@
         "category": "Bastion Weapon System",
         "clip": "10",
         "damage": "500",
+        "defZoom": "5",
         "description": "The bastion battery is manned and launches dumb-fire missiles.",
         "directDamage": "500",
         "fireModes": [
@@ -25224,6 +25667,7 @@
         "recoilHorizontalMin": "0.2",
         "recoilHorizontalTolerance": "0.2",
         "reload": "3000",
+        "speed": "250",
         "standingCofMax": "2",
         "standingCofMaxADS": "2",
         "standingCofMin": "0",
@@ -25237,6 +25681,7 @@
         "category": "Bastion Weapon System",
         "clip": "10",
         "damage": "500",
+        "defZoom": "5",
         "description": "The bastion battery is manned and launches dumb-fire missiles.",
         "directDamage": "500",
         "fireModes": [
@@ -25260,6 +25705,7 @@
         "recoilHorizontalMin": "0.2",
         "recoilHorizontalTolerance": "0.2",
         "reload": "3000",
+        "speed": "250",
         "standingCofMax": "2",
         "standingCofMaxADS": "2",
         "standingCofMin": "0",
@@ -25273,6 +25719,7 @@
         "category": "Bastion Weapon System",
         "clip": "10",
         "damage": "500",
+        "defZoom": "5",
         "description": "The bastion battery is manned and launches dumb-fire missiles.",
         "directDamage": "500",
         "fireModes": [
@@ -25296,6 +25743,7 @@
         "recoilHorizontalMin": "0.2",
         "recoilHorizontalTolerance": "0.2",
         "reload": "3000",
+        "speed": "250",
         "standingCofMax": "2",
         "standingCofMaxADS": "2",
         "standingCofMin": "0",
@@ -25316,13 +25764,13 @@
     },
     "6009058": {
         "category": "Infantry Abilities",
-        "description": "Deployable turret identical to an engineer Spitfire Auto-Turret. Only one Aux Spitfire can be active at a time. An engineer can place their standard spitfire and one Aux Spitfire at the same time.",
+        "description": "Deploys a dampening field that reduces common explosive damage by 50% for allied infantry and MAX units within range. Only one Ordnance Dampener can be active at a time.",
         "fireModes": [
-            "Auto"
+            "Deployable"
         ],
         "hipCofRecoil": "0",
-        "image_id": "92730",
-        "name": "Aux Spitfire",
+        "image_id": "92798",
+        "name": "Ordnance Dampener",
         "standingCofMax": "0",
         "standingCofMin": "0"
     },
@@ -25364,7 +25812,7 @@
     },
     "6009093": {
         "category": "Infantry Abilities",
-        "description": "This single-use Infradine injector will, after a few seconds, allow the soldier to view heat signatures as if they were using an infrared scope. <font color=\"#dc9c36\">Lasts up to 20 seconds.</font>",
+        "description": "This single-use Infradine injector will, allow the soldier to view heat signatures as if they were using an infrared scope. <font color=\"#dc9c36\">Lasts up to 30 seconds.</font>",
         "fireModes": [
             "Injector"
         ],
@@ -25378,7 +25826,7 @@
         "adsCofRecoil": "0.3",
         "adsMoveSpeed": "0.75",
         "ammo": "80",
-        "category": "Scout Rifle",
+        "category": "Battle Rifle",
         "chamber": "900",
         "clip": "10",
         "crouchWalkingCofMax": "7",
@@ -25404,8 +25852,8 @@
         "hipCofRecoil": "0.6",
         "image_id": "92736",
         "maxDamage": "280",
-        "maxDamageRange": "75",
-        "minDamage": "250",
+        "maxDamageRange": "15",
+        "minDamage": "225",
         "minDamageRange": "150",
         "name": "NS-30 Tranquility",
         "pelletSpread": "0",
@@ -25582,6 +26030,7 @@
         "ammo": "500",
         "category": "Harasser Top Gunner",
         "clip": "100",
+        "defZoom": "1",
         "description": "The M12 Kobalt is a .50 cal machine gun that is effective against infantry targets. All factions can use this weapon.",
         "fireModes": [
             "Auto"
@@ -25597,6 +26046,7 @@
         "recoilAngleMax": "0.3",
         "recoilAngleMin": "-3",
         "reload": "2500",
+        "speed": "650",
         "standingCofMax": "0.5",
         "standingCofMaxADS": "0.5",
         "standingCofMin": "0.2",
@@ -25608,6 +26058,7 @@
         "ammo": "500",
         "category": "Harasser Top Gunner",
         "clip": "100",
+        "defZoom": "1",
         "description": "The M12 Kobalt is a .50 cal machine gun that is effective against infantry targets. All factions can use this weapon.",
         "fireModes": [
             "Auto"
@@ -25623,6 +26074,7 @@
         "recoilAngleMax": "0.3",
         "recoilAngleMin": "-3",
         "reload": "2500",
+        "speed": "650",
         "standingCofMax": "0.5",
         "standingCofMaxADS": "0.5",
         "standingCofMin": "0.2",
@@ -25634,6 +26086,7 @@
         "ammo": "500",
         "category": "Harasser Top Gunner",
         "clip": "100",
+        "defZoom": "1",
         "description": "The M12 Kobalt is a .50 cal machine gun that is effective against infantry targets. All factions can use this weapon.",
         "fireModes": [
             "Auto"
@@ -25649,6 +26102,7 @@
         "recoilAngleMax": "0.3",
         "recoilAngleMin": "-3",
         "reload": "2500",
+        "speed": "650",
         "standingCofMax": "0.5",
         "standingCofMaxADS": "0.5",
         "standingCofMin": "0.2",
@@ -25739,6 +26193,7 @@
         "ammo": "1125",
         "category": "Harasser Top Gunner",
         "clip": "75",
+        "defZoom": "1",
         "description": "The G30 Walker is a heavy machine gun with a high elevation range and soft point ammunition designed to be more effective against aircraft. All factions can use this weapon.",
         "fireModes": [
             "Auto"
@@ -25751,6 +26206,7 @@
         "minDamageRange": "400",
         "name": "G30 Walker",
         "reload": "2000",
+        "speed": "1000",
         "standingCofMax": "0.65",
         "standingCofMin": "0.65"
     },
@@ -25758,6 +26214,7 @@
         "ammo": "1125",
         "category": "Harasser Top Gunner",
         "clip": "75",
+        "defZoom": "1",
         "description": "The G30 Walker is a heavy machine gun with a high elevation range and soft point ammunition designed to be more effective against aircraft. All factions can use this weapon.",
         "fireModes": [
             "Auto"
@@ -25770,6 +26227,7 @@
         "minDamageRange": "400",
         "name": "G30 Walker",
         "reload": "2000",
+        "speed": "1000",
         "standingCofMax": "0.65",
         "standingCofMin": "0.65"
     },
@@ -25777,6 +26235,7 @@
         "ammo": "1125",
         "category": "Harasser Top Gunner",
         "clip": "75",
+        "defZoom": "1",
         "description": "The G30 Walker is a heavy machine gun with a high elevation range and soft point ammunition designed to be more effective against aircraft. All factions can use this weapon.",
         "fireModes": [
             "Auto"
@@ -25789,6 +26248,7 @@
         "minDamageRange": "400",
         "name": "G30 Walker",
         "reload": "2000",
+        "speed": "1000",
         "standingCofMax": "0.65",
         "standingCofMin": "0.65"
     },
@@ -25886,6 +26346,7 @@
         "category": "Harasser Top Gunner",
         "clip": "5",
         "damage": "400",
+        "defZoom": "1",
         "description": "The M60 Bulldog fires high explosive 60mm rounds with a large blast radius effective against infantry.  Direct hits provides some damage to armor. All factions can use this weapon.",
         "directDamage": "400",
         "fireModes": [
@@ -25897,6 +26358,7 @@
         "indirectDamage": "500",
         "name": "M60-G Bulldog-H",
         "reload": "4000",
+        "speed": "100",
         "standingCofMax": "0",
         "standingCofMaxADS": "0",
         "standingCofMin": "0",
@@ -25909,6 +26371,7 @@
         "category": "Harasser Top Gunner",
         "clip": "5",
         "damage": "400",
+        "defZoom": "1",
         "description": "The M60 Bulldog fires high explosive 60mm rounds with a large blast radius effective against infantry.  Direct hits provides some damage to armor. All factions can use this weapon.",
         "directDamage": "400",
         "fireModes": [
@@ -25920,6 +26383,7 @@
         "indirectDamage": "500",
         "name": "M60-G Bulldog-H",
         "reload": "4000",
+        "speed": "100",
         "standingCofMax": "0",
         "standingCofMaxADS": "0",
         "standingCofMin": "0",
@@ -25932,6 +26396,7 @@
         "category": "Harasser Top Gunner",
         "clip": "5",
         "damage": "400",
+        "defZoom": "1",
         "description": "The M60 Bulldog fires high explosive 60mm rounds with a large blast radius effective against infantry.  Direct hits provides some damage to armor. All factions can use this weapon.",
         "directDamage": "400",
         "fireModes": [
@@ -25943,6 +26408,7 @@
         "indirectDamage": "500",
         "name": "M60-G Bulldog-H",
         "reload": "4000",
+        "speed": "100",
         "standingCofMax": "0",
         "standingCofMaxADS": "0",
         "standingCofMin": "0",
@@ -25953,6 +26419,7 @@
         "category": "Harasser Top Gunner",
         "clip": "8",
         "damage": "175",
+        "defZoom": "1",
         "description": "The Fury launches 40mm grenades that are effective against infantry and light armor.  It is also capable of light damage against heavy armor.  All factions can use this weapon.",
         "directDamage": "175",
         "fireModes": [
@@ -25963,6 +26430,7 @@
         "indirectDamage": "200",
         "name": "M40 Fury-H",
         "reload": "2500",
+        "speed": "125",
         "standingCofMax": "0.5",
         "standingCofMin": "0.5"
     },
@@ -25971,6 +26439,7 @@
         "category": "Harasser Top Gunner",
         "clip": "8",
         "damage": "175",
+        "defZoom": "1",
         "description": "The Fury launches 40mm grenades that are effective against infantry and light armor.  It is also capable of light damage against heavy armor.  All factions can use this weapon.",
         "directDamage": "175",
         "fireModes": [
@@ -25981,6 +26450,7 @@
         "indirectDamage": "200",
         "name": "M40 Fury-H",
         "reload": "2500",
+        "speed": "125",
         "standingCofMax": "0.5",
         "standingCofMin": "0.5"
     },
@@ -25989,6 +26459,7 @@
         "category": "Harasser Top Gunner",
         "clip": "8",
         "damage": "175",
+        "defZoom": "1",
         "description": "The Fury launches 40mm grenades that are effective against infantry and light armor.  It is also capable of light damage against heavy armor.  All factions can use this weapon.",
         "directDamage": "175",
         "fireModes": [
@@ -25999,6 +26470,7 @@
         "indirectDamage": "200",
         "name": "M40 Fury-H",
         "reload": "2500",
+        "speed": "125",
         "standingCofMax": "0.5",
         "standingCofMin": "0.5"
     },
@@ -26114,6 +26586,7 @@
         "category": "Harasser Top Gunner",
         "clip": "10",
         "damage": "75",
+        "defZoom": "1",
         "description": "The P525 Marauder-H fires 40mm high explosive grenades that are effective against infantry and light armor. TR use only.",
         "directDamage": "75",
         "fireModes": [
@@ -26125,6 +26598,7 @@
         "indirectDamage": "334",
         "name": "P525 Marauder-H",
         "reload": "3000",
+        "speed": "150",
         "standingCofMax": "1",
         "standingCofMaxADS": "1",
         "standingCofMin": "0.25",
@@ -26135,6 +26609,7 @@
         "category": "Harasser Top Gunner",
         "clip": "7",
         "damage": "325",
+        "defZoom": "1",
         "description": "The Enforcer ML85 fires magnetically propelled HEAT darts, suited for sustained damage in mid-range combat scenarios. NC use only.",
         "directDamage": "325",
         "fireModes": [
@@ -26145,6 +26620,7 @@
         "indirectDamage": "175",
         "name": "Enforcer ML65-H",
         "reload": "4000",
+        "speed": "200",
         "standingCofMax": "0",
         "standingCofMin": "0"
     },
@@ -26247,6 +26723,7 @@
         "ammo": "300",
         "category": "Valkyrie Nose Gunner",
         "clip": "30",
+        "defZoom": "1",
         "description": "The M20 Wyvern has superior RPM and faster reload compared to other M20 heavy machine guns but at the cost of a smaller magazine. Like other M20 HMGs, its 20mm rounds are capable of damaging all targets. All factions can use this weapon.",
         "fireModes": [
             "Auto"
@@ -26259,6 +26736,7 @@
         "minDamageRange": "150",
         "name": "M20 Wyvern",
         "reload": "2250",
+        "speed": "550",
         "standingCofMax": "0.5",
         "standingCofMin": "0.5"
     },
@@ -26266,6 +26744,7 @@
         "ammo": "300",
         "category": "Valkyrie Nose Gunner",
         "clip": "30",
+        "defZoom": "1",
         "description": "The M20 Wyvern has superior RPM and faster reload compared to other M20 heavy machine guns but at the cost of a smaller magazine. Like other M20 HMGs, its 20mm rounds are capable of damaging all targets. All factions can use this weapon.",
         "fireModes": [
             "Auto"
@@ -26278,6 +26757,7 @@
         "minDamageRange": "150",
         "name": "M20 Wyvern",
         "reload": "2250",
+        "speed": "750",
         "standingCofMax": "0.5",
         "standingCofMin": "0.5"
     },
@@ -26285,6 +26765,7 @@
         "ammo": "300",
         "category": "Valkyrie Nose Gunner",
         "clip": "30",
+        "defZoom": "1",
         "description": "The M20 Wyvern has superior RPM and faster reload compared to other M20 heavy machine guns but at the cost of a smaller magazine. Like other M20 HMGs, its 20mm rounds are capable of damaging all targets. All factions can use this weapon.",
         "fireModes": [
             "Auto"
@@ -26297,6 +26778,7 @@
         "minDamageRange": "150",
         "name": "M20 Wyvern",
         "reload": "2250",
+        "speed": "550",
         "standingCofMax": "0.5",
         "standingCofMin": "0.5"
     },
@@ -26304,6 +26786,7 @@
         "ammo": "480",
         "category": "Valkyrie Nose Gunner",
         "clip": "60",
+        "defZoom": "1",
         "description": "The CAS 14-E is designed to provide close air support using its 14mm explosive rounds and high magazine capacity to effectively eliminate hostile personnel. All factions can use this weapon.",
         "fireModes": [
             "Auto"
@@ -26316,6 +26799,7 @@
         "minDamageRange": "200",
         "name": "CAS 14-E",
         "reload": "2000",
+        "speed": "500",
         "standingCofMax": "1",
         "standingCofMin": "1"
     },
@@ -26323,6 +26807,7 @@
         "ammo": "480",
         "category": "Valkyrie Nose Gunner",
         "clip": "60",
+        "defZoom": "1",
         "description": "The CAS 14-E is designed to provide close air support using its 14mm explosive rounds and high magazine capacity to effectively eliminate hostile personnel. All factions can use this weapon.",
         "fireModes": [
             "Auto"
@@ -26335,6 +26820,7 @@
         "minDamageRange": "200",
         "name": "CAS 14-E",
         "reload": "2000",
+        "speed": "500",
         "standingCofMax": "1",
         "standingCofMin": "1"
     },
@@ -26342,6 +26828,7 @@
         "ammo": "480",
         "category": "Valkyrie Nose Gunner",
         "clip": "60",
+        "defZoom": "1",
         "description": "The CAS 14-E is designed to provide close air support using its 14mm explosive rounds and high magazine capacity to effectively eliminate hostile personnel. All factions can use this weapon.",
         "fireModes": [
             "Auto"
@@ -26354,6 +26841,7 @@
         "minDamageRange": "200",
         "name": "CAS 14-E",
         "reload": "2000",
+        "speed": "500",
         "standingCofMax": "1",
         "standingCofMin": "1"
     },
@@ -26361,6 +26849,7 @@
         "ammo": "450",
         "category": "Valkyrie Nose Gunner",
         "clip": "60",
+        "defZoom": "1",
         "description": "The Hellion G20 chain gun fires special armor piercing 20mm rounds that are effective against vehicles at close range. It takes 1.5 seconds for the G20 to spool up and reach full firing speed. All factions can use this weapon.",
         "fireModes": [
             "Auto"
@@ -26373,6 +26862,7 @@
         "minDamageRange": "100",
         "name": "Hellion G20",
         "reload": "3500",
+        "speed": "300",
         "standingCofMax": "10",
         "standingCofMin": "1"
     },
@@ -26380,6 +26870,7 @@
         "ammo": "450",
         "category": "Valkyrie Nose Gunner",
         "clip": "60",
+        "defZoom": "1",
         "description": "The Hellion G20 chain gun fires special armor piercing 20mm rounds that are effective against vehicles at close range. It takes 1.5 seconds for the G20 to spool up and reach full firing speed. All factions can use this weapon.",
         "fireModes": [
             "Auto"
@@ -26392,6 +26883,7 @@
         "minDamageRange": "100",
         "name": "Hellion G20",
         "reload": "3500",
+        "speed": "300",
         "standingCofMax": "10",
         "standingCofMin": "1"
     },
@@ -26399,6 +26891,7 @@
         "ammo": "450",
         "category": "Valkyrie Nose Gunner",
         "clip": "60",
+        "defZoom": "1",
         "description": "The Hellion G20 chain gun fires special armor piercing 20mm rounds that are effective against vehicles at close range. It takes 1.5 seconds for the G20 to spool up and reach full firing speed. All factions can use this weapon.",
         "fireModes": [
             "Auto"
@@ -26411,6 +26904,7 @@
         "minDamageRange": "100",
         "name": "Hellion G20",
         "reload": "3500",
+        "speed": "300",
         "standingCofMax": "10",
         "standingCofMin": "1"
     },
@@ -26419,6 +26913,7 @@
         "category": "Valkyrie Nose Gunner",
         "clip": "10",
         "damage": "125",
+        "defZoom": "1",
         "description": "The Pelter Rocket Pod launches a barrage of unguided anti-armor rockets which have little explosive yield. All factions can use this weapon.",
         "directDamage": "125",
         "fireModes": [
@@ -26429,6 +26924,7 @@
         "indirectDamage": "150",
         "name": "Pelter Rocket Pod",
         "reload": "3500",
+        "speed": "250",
         "standingCofMax": "0.7",
         "standingCofMin": "0.7"
     },
@@ -26437,6 +26933,7 @@
         "category": "Valkyrie Nose Gunner",
         "clip": "10",
         "damage": "125",
+        "defZoom": "1",
         "description": "The Pelter Rocket Pod launches a barrage of unguided anti-armor rockets which have little explosive yield. All factions can use this weapon.",
         "directDamage": "125",
         "fireModes": [
@@ -26447,6 +26944,7 @@
         "indirectDamage": "150",
         "name": "Pelter Rocket Pod",
         "reload": "3500",
+        "speed": "250",
         "standingCofMax": "0.7",
         "standingCofMin": "0.7"
     },
@@ -26455,6 +26953,7 @@
         "category": "Valkyrie Nose Gunner",
         "clip": "10",
         "damage": "125",
+        "defZoom": "1",
         "description": "The Pelter Rocket Pod launches a barrage of unguided anti-armor rockets which have little explosive yield. All factions can use this weapon.",
         "directDamage": "125",
         "fireModes": [
@@ -26465,6 +26964,7 @@
         "indirectDamage": "150",
         "name": "Pelter Rocket Pod",
         "reload": "3500",
+        "speed": "250",
         "standingCofMax": "0.7",
         "standingCofMin": "0.7"
     },
@@ -26473,6 +26973,7 @@
         "category": "Valkyrie Nose Gunner",
         "clip": "1",
         "damage": "575",
+        "defZoom": "1",
         "description": "The VLG fires a laser guided missile that seeks toward the gunner's crosshairs. The missile is effective against armor on direct hits and produces a moderate blast. Missile will detonate after traveling 400 meters. All factions can use this weapon.",
         "directDamage": "575",
         "fireModes": [
@@ -26482,13 +26983,15 @@
         "image_id": "79709",
         "indirectDamage": "450",
         "name": "VLG Missile Launcher",
-        "reload": "2200"
+        "reload": "2200",
+        "speed": "50"
     },
     "6563": {
         "ammo": "30",
         "category": "Valkyrie Nose Gunner",
         "clip": "1",
         "damage": "575",
+        "defZoom": "1",
         "description": "The VLG fires a laser guided missile that seeks toward the gunner's crosshairs. The missile is effective against armor on direct hits and produces a moderate blast. Missile will detonate after traveling 400 meters. All factions can use this weapon.",
         "directDamage": "575",
         "fireModes": [
@@ -26498,13 +27001,15 @@
         "image_id": "79709",
         "indirectDamage": "450",
         "name": "VLG Missile Launcher",
-        "reload": "2200"
+        "reload": "2200",
+        "speed": "50"
     },
     "6564": {
         "ammo": "30",
         "category": "Valkyrie Nose Gunner",
         "clip": "1",
         "damage": "575",
+        "defZoom": "1",
         "description": "The VLG fires a laser guided missile that seeks toward the gunner's crosshairs. The missile is effective against armor on direct hits and produces a moderate blast. Missile will detonate after traveling 400 meters. All factions can use this weapon.",
         "directDamage": "575",
         "fireModes": [
@@ -26514,7 +27019,8 @@
         "image_id": "79709",
         "indirectDamage": "450",
         "name": "VLG Missile Launcher",
-        "reload": "2200"
+        "reload": "2200",
+        "speed": "50"
     },
     "69999": {
         "adsCofRecoil": "0.05",
@@ -26551,7 +27057,6 @@
         "minDamage": "125",
         "minDamageRange": "65",
         "name": "NS-11P",
-        "pelletSpread": "0",
         "pellets": "1",
         "recoilAngleMax": "-17",
         "recoilAngleMin": "-20",
@@ -26588,6 +27093,7 @@
     },
     "700": {
         "category": "Vehicle Weapons",
+        "defZoom": "1.5",
         "description": "The Aspis Phalanx Turret rapidly fires 20mm shells that create a burst of flak when within proximity of hostile aircraft.",
         "fireModes": [
             "Auto"
@@ -26604,11 +27110,13 @@
         "name": "Aspis Anti-Aircraft Phalanx Turret ",
         "overheatPenalty": "1000",
         "reload": "0",
+        "speed": "375",
         "standingCofMax": "1.25",
         "standingCofMin": "1.25"
     },
     "701": {
         "category": "Vehicle Weapons",
+        "defZoom": "1.5",
         "description": "The Aspis Phalanx Turret rapidly fires 20mm shells that create a burst of flak when within proximity of hostile aircraft.",
         "fireModes": [
             "Auto"
@@ -26625,11 +27133,13 @@
         "name": "Aspis Anti-Aircraft Phalanx Turret ",
         "overheatPenalty": "1000",
         "reload": "0",
+        "speed": "375",
         "standingCofMax": "1.25",
         "standingCofMin": "1.25"
     },
     "702": {
         "category": "Vehicle Weapons",
+        "defZoom": "1.5",
         "description": "The Aspis Phalanx Turret rapidly fires 20mm shells that create a burst of flak when within proximity of hostile aircraft.",
         "fireModes": [
             "Auto"
@@ -26646,6 +27156,7 @@
         "name": "Aspis Anti-Aircraft Phalanx Turret ",
         "overheatPenalty": "1000",
         "reload": "0",
+        "speed": "375",
         "standingCofMax": "1.25",
         "standingCofMin": "1.25"
     },
@@ -26653,6 +27164,7 @@
         "adsCofRecoil": "0",
         "adsMoveSpeed": "1",
         "category": "Vehicle Weapons",
+        "defZoom": "1.75",
         "description": "The Spear Anti-Vehicle Phalanx Turret is capable of rapidly firing 120mm AP tank rounds capable of damaging heavily armored targets.",
         "fireModes": [
             "Auto"
@@ -26670,6 +27182,7 @@
         "name": "Spear Anti-Vehicle Phalanx Turret",
         "overheatPenalty": "2000",
         "reload": "0",
+        "speed": "250",
         "standingCofMax": "0",
         "standingCofMaxADS": "0",
         "standingCofMin": "0",
@@ -26679,6 +27192,7 @@
         "adsCofRecoil": "0",
         "adsMoveSpeed": "1",
         "category": "Vehicle Weapons",
+        "defZoom": "1.75",
         "description": "The Spear Anti-Vehicle Phalanx Turret is capable of rapidly firing 120mm AP tank rounds capable of damaging heavily armored targets.",
         "fireModes": [
             "Auto"
@@ -26696,6 +27210,7 @@
         "name": "Spear Anti-Vehicle Phalanx Turret",
         "overheatPenalty": "2000",
         "reload": "0",
+        "speed": "250",
         "standingCofMax": "0",
         "standingCofMaxADS": "0",
         "standingCofMin": "0",
@@ -26705,6 +27220,7 @@
         "adsCofRecoil": "0",
         "adsMoveSpeed": "1",
         "category": "Vehicle Weapons",
+        "defZoom": "1.75",
         "description": "The Spear Anti-Vehicle Phalanx Turret is capable of rapidly firing 120mm AP tank rounds capable of damaging heavily armored targets.",
         "fireModes": [
             "Auto"
@@ -26722,6 +27238,7 @@
         "name": "Spear Anti-Vehicle Phalanx Turret",
         "overheatPenalty": "2000",
         "reload": "0",
+        "speed": "250",
         "standingCofMax": "0",
         "standingCofMaxADS": "0",
         "standingCofMin": "0",
@@ -26762,7 +27279,6 @@
         "minDamage": "125",
         "minDamageRange": "65",
         "name": "NS-11A",
-        "pelletSpread": "0",
         "pellets": "1",
         "recoilAngleMax": "-17",
         "recoilAngleMin": "-20",
@@ -28984,7 +29500,7 @@
         "runningCofMaxADS": "3",
         "runningCofMin": "4.5",
         "runningCofMinADS": "0.4",
-        "speed": "550",
+        "speed": "600",
         "sprintingCofMax": "7",
         "sprintingCofMaxADS": "3",
         "sprintingCofMin": "7",
@@ -29057,6 +29573,7 @@
         "adsCofRecoil": "0.25",
         "adsMoveSpeed": "1",
         "category": "Vehicle Weapons",
+        "defZoom": "2",
         "description": "The Xiphos Anti-Personnel Phalanx Turret sprays 20mm rounds with its twin rotary guns that are damaging to infantry and light armor.",
         "fireModes": [
             "Auto"
@@ -29074,6 +29591,7 @@
         "name": "Xiphos Anti-Personnel Phalanx Turret",
         "overheatPenalty": "2000",
         "reload": "0",
+        "speed": "600",
         "standingCofMax": "0.75",
         "standingCofMaxADS": "0.75",
         "standingCofMin": "0.75",
@@ -29084,6 +29602,7 @@
         "adsMoveSpeed": "1",
         "category": "Vehicle Weapons",
         "damage": "75",
+        "defZoom": "1",
         "description": "The Xiphos Anti-Personnel Phalanx Turret sprays 20mm rounds with its twin rotary guns that are damaging to infantry and light armor.",
         "fireModes": [
             "Auto"
@@ -29092,6 +29611,7 @@
         "image_id": "880",
         "name": "Xiphos Anti-Personnel Phalanx Turret",
         "reload": "3000",
+        "speed": "175",
         "standingCofMax": "1",
         "standingCofMaxADS": "1",
         "standingCofMin": "0.25",
@@ -29322,7 +29842,7 @@
         "runningCofMaxADS": "3",
         "runningCofMin": "4.25",
         "runningCofMinADS": "0.35",
-        "speed": "600",
+        "speed": "550",
         "sprintingCofMax": "7",
         "sprintingCofMaxADS": "3",
         "sprintingCofMin": "7",
@@ -29396,6 +29916,7 @@
         "adsMoveSpeed": "1",
         "category": "Vehicle Weapons",
         "damage": "850",
+        "defZoom": "1",
         "description": "The Xiphos Anti-Personnel Phalanx Turret sprays 20mm rounds with its twin rotary guns that are damaging to infantry and light armor.",
         "fireModes": [
             "Semi-Auto"
@@ -29404,6 +29925,7 @@
         "image_id": "880",
         "name": "Xiphos Anti-Personnel Phalanx Turret",
         "reload": "3750",
+        "speed": "275",
         "standingCofMax": "0",
         "standingCofMaxADS": "0",
         "standingCofMin": "0",
@@ -29411,6 +29933,7 @@
     },
     "727": {
         "category": "Vehicle Weapons",
+        "defZoom": "1.5",
         "description": "The Aspis Phalanx Turret rapidly fires 20mm shells that create a burst of flak when within proximity of hostile aircraft.",
         "fireModes": [
             "Auto"
@@ -29427,6 +29950,7 @@
         "name": "Aspis Anti-Aircraft Phalanx Turret ",
         "overheatPenalty": "1000",
         "reload": "0",
+        "speed": "375",
         "standingCofMax": "1.25",
         "standingCofMin": "1.25"
     },
@@ -29785,6 +30309,7 @@
         "adsCofRecoil": "0",
         "adsMoveSpeed": "1",
         "category": "Vehicle Weapons",
+        "defZoom": "1.75",
         "description": "The Spear Anti-Vehicle Phalanx Turret is capable of rapidly firing 120mm AP tank rounds capable of damaging heavily armored targets.",
         "fireModes": [
             "Auto"
@@ -29802,6 +30327,7 @@
         "name": "Spear Anti-Vehicle Phalanx Turret",
         "overheatPenalty": "2000",
         "reload": "0",
+        "speed": "250",
         "standingCofMax": "0",
         "standingCofMaxADS": "0",
         "standingCofMin": "0",
@@ -29955,10 +30481,10 @@
         "heatRecoveryDelay": "700",
         "hipCofRecoil": "0.8",
         "image_id": "13758",
-        "maxDamage": "400",
+        "maxDamage": "550",
         "maxDamageRange": "10",
-        "minDamage": "334",
-        "minDamageRange": "85",
+        "minDamage": "400",
+        "minDamageRange": "400",
         "name": "Phaseshift VX-S",
         "overheatPenalty": "1000",
         "pelletSpread": "0",
@@ -33191,6 +33717,7 @@
         "minDamage": "112",
         "minDamageRange": "60",
         "name": "NS-11CB",
+        "pelletSpread": "0",
         "pellets": "1",
         "recoilAngleMax": "-17",
         "recoilAngleMin": "-20",
@@ -33881,6 +34408,7 @@
         "minDamage": "50",
         "minDamageRange": "50",
         "name": "Spitfire Auto-Turret",
+        "speed": "425",
         "standingCofMax": "0.15",
         "standingCofMin": "0.15"
     },
@@ -33921,6 +34449,7 @@
         "minDamage": "50",
         "minDamageRange": "50",
         "name": "Spitfire Auto-Turret",
+        "speed": "425",
         "standingCofMax": "0.15",
         "standingCofMin": "0.15"
     },
@@ -33937,6 +34466,7 @@
         "minDamage": "50",
         "minDamageRange": "50",
         "name": "Spitfire Auto-Turret",
+        "speed": "425",
         "standingCofMax": "0.15",
         "standingCofMin": "0.15"
     },
@@ -34094,7 +34624,7 @@
         "fallingCofMin": "0.5",
         "fallingCofMinADS": "0.5",
         "fireModes": [
-            "Auto"
+            "Semi-Auto"
         ],
         "fireRate": "450",
         "firstShotMultiplier": "3",
@@ -34406,6 +34936,7 @@
         "category": "Vanguard Gunner Weapon",
         "clip": "40",
         "damage": "90",
+        "defZoom": "1",
         "description": "Affectionately referred to as \"The Boombox\" by many NC soldiers, the Mjolnir's burst fire explosive rounds excel against armored targets in close quarters engagements.",
         "directDamage": "90",
         "fireModes": [
@@ -34417,6 +34948,7 @@
         "indirectDamage": "125",
         "name": "M96 Mjolnir",
         "reload": "3000",
+        "speed": "200",
         "standingCofMax": "1.2",
         "standingCofMaxADS": "1.2",
         "standingCofMin": "0.9",
@@ -34429,6 +34961,7 @@
         "category": "Harasser Top Gunner",
         "clip": "40",
         "damage": "90",
+        "defZoom": "1",
         "description": "Affectionately referred to as \"The Boombox\" by many NC soldiers, the Mjolnir's burst fire explosive rounds excel against armored targets in close quarters engagements.",
         "directDamage": "90",
         "fireModes": [
@@ -34440,6 +34973,7 @@
         "indirectDamage": "125",
         "name": "M96 Mjolnir-H",
         "reload": "3000",
+        "speed": "200",
         "standingCofMax": "1.5",
         "standingCofMaxADS": "1.5",
         "standingCofMin": "0.9",
@@ -34644,7 +35178,7 @@
         "runningCofMaxADS": "3",
         "runningCofMin": "5",
         "runningCofMinADS": "1",
-        "speed": "150",
+        "speed": "50",
         "sprintingCofMax": "7",
         "sprintingCofMaxADS": "3",
         "sprintingCofMin": "7",
@@ -34834,7 +35368,8 @@
         "maxDamageRange": "10",
         "minDamage": "167",
         "minDamageRange": "60",
-        "name": "AV SpitFire Turret"
+        "name": "AV SpitFire Turret",
+        "speed": "425"
     },
     "803027": {
         "category": "Infantry Abilities",
@@ -34860,7 +35395,8 @@
         "maxDamageRange": "10",
         "minDamage": "167",
         "minDamageRange": "60",
-        "name": "AV SpitFire Turret"
+        "name": "AV SpitFire Turret",
+        "speed": "425"
     },
     "803029": {
         "category": "Infantry Abilities",
@@ -34886,7 +35422,8 @@
         "maxDamageRange": "10",
         "minDamage": "167",
         "minDamageRange": "60",
-        "name": "AV SpitFire Turret"
+        "name": "AV SpitFire Turret",
+        "speed": "500"
     },
     "803031": {
         "category": "Infantry Abilities",
@@ -34909,7 +35446,8 @@
         ],
         "hipCofRecoil": "0",
         "image_id": "82148",
-        "name": "AA SpitFire Turret"
+        "name": "AA SpitFire Turret",
+        "speed": "1"
     },
     "803033": {
         "category": "Infantry Abilities",
@@ -34932,7 +35470,8 @@
         ],
         "hipCofRecoil": "0",
         "image_id": "82148",
-        "name": "AA SpitFire Turret"
+        "name": "AA SpitFire Turret",
+        "speed": "1"
     },
     "803035": {
         "category": "Infantry Abilities",
@@ -34955,7 +35494,8 @@
         ],
         "hipCofRecoil": "0",
         "image_id": "82148",
-        "name": "AA SpitFire Turret"
+        "name": "AA SpitFire Turret",
+        "speed": "1"
     },
     "803423": {
         "category": "ANT Harvesting Tool",
@@ -35033,6 +35573,7 @@
         "adsCofRecoil": "0",
         "adsMoveSpeed": "1",
         "category": "Vehicle Weapons",
+        "defZoom": "1.75",
         "description": "The Spear Anti-Vehicle Phalanx Tower is capable of rapidly firing 120mm AP tank rounds capable of damaging heavily armored targets.",
         "fireModes": [
             "Auto"
@@ -35050,6 +35591,7 @@
         "name": "Spear Anti-Vehicle Phalanx Tower",
         "overheatPenalty": "2000",
         "reload": "0",
+        "speed": "250",
         "standingCofMax": "0",
         "standingCofMaxADS": "0",
         "standingCofMin": "0",
@@ -35059,6 +35601,7 @@
         "adsCofRecoil": "0",
         "adsMoveSpeed": "1",
         "category": "Vehicle Weapons",
+        "defZoom": "1.75",
         "description": "The Spear Anti-Vehicle Phalanx Tower is capable of rapidly firing 120mm AP tank rounds capable of damaging heavily armored targets.",
         "fireModes": [
             "Auto"
@@ -35076,6 +35619,7 @@
         "name": "Spear Anti-Vehicle Phalanx Tower",
         "overheatPenalty": "2000",
         "reload": "0",
+        "speed": "250",
         "standingCofMax": "0",
         "standingCofMaxADS": "0",
         "standingCofMin": "0",
@@ -35085,6 +35629,7 @@
         "adsCofRecoil": "0",
         "adsMoveSpeed": "1",
         "category": "Vehicle Weapons",
+        "defZoom": "1.75",
         "description": "The Spear Anti-Vehicle Phalanx Tower is capable of rapidly firing 120mm AP tank rounds capable of damaging heavily armored targets.",
         "fireModes": [
             "Auto"
@@ -35102,6 +35647,7 @@
         "name": "Spear Anti-Vehicle Phalanx Tower",
         "overheatPenalty": "2000",
         "reload": "0",
+        "speed": "250",
         "standingCofMax": "0",
         "standingCofMaxADS": "0",
         "standingCofMin": "0",
@@ -35111,6 +35657,7 @@
         "adsCofRecoil": "0",
         "adsMoveSpeed": "1",
         "category": "Vehicle Weapons",
+        "defZoom": "1.75",
         "description": "The Spear Anti-Vehicle Phalanx Tower is capable of rapidly firing 120mm AP tank rounds capable of damaging heavily armored targets.",
         "fireModes": [
             "Auto"
@@ -35128,6 +35675,7 @@
         "name": "Spear Anti-Vehicle Phalanx Tower",
         "overheatPenalty": "2000",
         "reload": "0",
+        "speed": "250",
         "standingCofMax": "0",
         "standingCofMaxADS": "0",
         "standingCofMin": "0",
@@ -35175,6 +35723,7 @@
         "ammo": "750",
         "category": "ANT Top Turret",
         "clip": "100",
+        "defZoom": "1",
         "description": "The M12 Kobalt is a .50 cal machine gun that is effective against infantry targets. All factions can use this weapon.",
         "fireModes": [
             "Auto"
@@ -35190,6 +35739,7 @@
         "recoilAngleMax": "0.3",
         "recoilAngleMin": "-3",
         "reload": "2500",
+        "speed": "650",
         "standingCofMax": "0.5",
         "standingCofMaxADS": "0.5",
         "standingCofMin": "0.2",
@@ -35199,6 +35749,7 @@
         "adsCofRecoil": "0.1",
         "adsMoveSpeed": "1",
         "category": "ANT Top Turret",
+        "defZoom": "1",
         "description": "The M12 Kobalt is a .50 cal machine gun that is effective against infantry targets. All factions can use this weapon.",
         "fireModes": [
             "Auto"
@@ -35213,6 +35764,7 @@
         "recoilAngleMax": "0.3",
         "recoilAngleMin": "-3",
         "reload": "2500",
+        "speed": "650",
         "standingCofMax": "0.5",
         "standingCofMaxADS": "0.5",
         "standingCofMin": "0.2",
@@ -35222,6 +35774,7 @@
         "adsCofRecoil": "0.1",
         "adsMoveSpeed": "1",
         "category": "ANT Top Turret",
+        "defZoom": "1",
         "description": "The M12 Kobalt is a .50 cal machine gun that is effective against infantry targets. All factions can use this weapon.",
         "fireModes": [
             "Auto"
@@ -35236,6 +35789,7 @@
         "recoilAngleMax": "0.3",
         "recoilAngleMin": "-3",
         "reload": "2500",
+        "speed": "650",
         "standingCofMax": "0.5",
         "standingCofMaxADS": "0.5",
         "standingCofMin": "0.2",
@@ -35243,6 +35797,7 @@
     },
     "803485": {
         "category": "ANT Top Turret",
+        "defZoom": "1",
         "description": "The G30 Walker is a heavy machine gun with a high elevation range and soft point ammunition designed to be more effective against aircraft. All factions can use this weapon.",
         "fireModes": [
             "Auto"
@@ -35254,11 +35809,13 @@
         "minDamageRange": "400",
         "name": "G30 Walker",
         "reload": "2000",
+        "speed": "1000",
         "standingCofMax": "0.65",
         "standingCofMin": "0.65"
     },
     "803486": {
         "category": "ANT Top Turret",
+        "defZoom": "1",
         "description": "The G30 Walker is a heavy machine gun with a high elevation range and soft point ammunition designed to be more effective against aircraft. All factions can use this weapon.",
         "fireModes": [
             "Auto"
@@ -35270,11 +35827,13 @@
         "minDamageRange": "400",
         "name": "G30 Walker",
         "reload": "2000",
+        "speed": "1000",
         "standingCofMax": "0.65",
         "standingCofMin": "0.65"
     },
     "803487": {
         "category": "ANT Top Turret",
+        "defZoom": "1",
         "description": "The G30 Walker is a heavy machine gun with a high elevation range and soft point ammunition designed to be more effective against aircraft. All factions can use this weapon.",
         "fireModes": [
             "Auto"
@@ -35286,6 +35845,7 @@
         "minDamageRange": "400",
         "name": "G30 Walker",
         "reload": "2000",
+        "speed": "1000",
         "standingCofMax": "0.65",
         "standingCofMin": "0.65"
     },
@@ -35370,6 +35930,7 @@
     "803491": {
         "category": "ANT Top Turret",
         "damage": "125",
+        "defZoom": "1",
         "description": "The Fury launches 40mm grenades that are effective against infantry and light armor.  It is also capable of light damage against heavy armor.  All factions can use this weapon.",
         "fireModes": [
             "Auto"
@@ -35377,12 +35938,14 @@
         "image_id": "1532",
         "name": "M40 Fury",
         "reload": "2500",
+        "speed": "125",
         "standingCofMax": "0.5",
         "standingCofMin": "0.5"
     },
     "803492": {
         "category": "ANT Top Turret",
         "damage": "125",
+        "defZoom": "1",
         "description": "The Fury launches 40mm grenades that are effective against infantry and light armor.  It is also capable of light damage against heavy armor.  All factions can use this weapon.",
         "fireModes": [
             "Auto"
@@ -35390,12 +35953,14 @@
         "image_id": "1532",
         "name": "M40 Fury",
         "reload": "2500",
+        "speed": "125",
         "standingCofMax": "0.5",
         "standingCofMin": "0.5"
     },
     "803493": {
         "category": "ANT Top Turret",
         "damage": "125",
+        "defZoom": "1",
         "description": "The Fury launches 40mm grenades that are effective against infantry and light armor.  It is also capable of light damage against heavy armor.  All factions can use this weapon.",
         "fireModes": [
             "Auto"
@@ -35403,6 +35968,7 @@
         "image_id": "1532",
         "name": "M40 Fury",
         "reload": "2500",
+        "speed": "125",
         "standingCofMax": "0.5",
         "standingCofMin": "0.5"
     },
@@ -35411,6 +35977,7 @@
         "adsMoveSpeed": "1",
         "category": "ANT Top Turret",
         "damage": "400",
+        "defZoom": "1",
         "description": "The M60 Bulldog fires high explosive 60mm rounds with a large blast radius effective against infantry.  Direct hits provides some damage to armor. All factions can use this weapon.",
         "fireModes": [
             "Auto"
@@ -35419,6 +35986,7 @@
         "image_id": "1535",
         "name": "M60-G Bulldog",
         "reload": "4000",
+        "speed": "100",
         "standingCofMax": "0",
         "standingCofMaxADS": "0",
         "standingCofMin": "0",
@@ -35429,6 +35997,7 @@
         "adsMoveSpeed": "1",
         "category": "ANT Top Turret",
         "damage": "400",
+        "defZoom": "1",
         "description": "The M60 Bulldog fires high explosive 60mm rounds with a large blast radius effective against infantry.  Direct hits provides some damage to armor. All factions can use this weapon.",
         "fireModes": [
             "Auto"
@@ -35437,6 +36006,7 @@
         "image_id": "1535",
         "name": "M60-G Bulldog",
         "reload": "4000",
+        "speed": "100",
         "standingCofMax": "0",
         "standingCofMaxADS": "0",
         "standingCofMin": "0",
@@ -35447,6 +36017,7 @@
         "adsMoveSpeed": "1",
         "category": "ANT Top Turret",
         "damage": "400",
+        "defZoom": "1",
         "description": "The M60 Bulldog fires high explosive 60mm rounds with a large blast radius effective against infantry.  Direct hits provides some damage to armor. All factions can use this weapon.",
         "fireModes": [
             "Auto"
@@ -35455,6 +36026,7 @@
         "image_id": "1535",
         "name": "M60-G Bulldog",
         "reload": "4000",
+        "speed": "100",
         "standingCofMax": "0",
         "standingCofMaxADS": "0",
         "standingCofMin": "0",
@@ -35667,6 +36239,7 @@
     },
     "803594": {
         "category": "Vehicle Weapons",
+        "defZoom": "1.5",
         "description": "The Hoplon Phalanx Tower rapidly fires high velocity anti-aircraft rounds that are effective against lightly armored targets.",
         "fireModes": [
             "Auto"
@@ -35683,11 +36256,13 @@
         "name": "Hoplon Anti-Aircraft Phalanx Tower",
         "overheatPenalty": "1000",
         "reload": "0",
+        "speed": "1000",
         "standingCofMax": "0.5",
         "standingCofMin": "0.5"
     },
     "803595": {
         "category": "Vehicle Weapons",
+        "defZoom": "1.5",
         "description": "The Hoplon Phalanx Tower rapidly fires high velocity anti-aircraft rounds that are effective against lightly armored targets.",
         "fireModes": [
             "Auto"
@@ -35704,11 +36279,13 @@
         "name": "Hoplon Anti-Aircraft Phalanx Tower",
         "overheatPenalty": "1000",
         "reload": "0",
+        "speed": "1000",
         "standingCofMax": "0.5",
         "standingCofMin": "0.5"
     },
     "803596": {
         "category": "Vehicle Weapons",
+        "defZoom": "1.5",
         "description": "The Hoplon Phalanx Tower rapidly fires high velocity anti-aircraft rounds that are effective against lightly armored targets.",
         "fireModes": [
             "Auto"
@@ -35725,11 +36302,13 @@
         "name": "Hoplon Anti-Aircraft Phalanx Tower",
         "overheatPenalty": "1000",
         "reload": "0",
+        "speed": "1000",
         "standingCofMax": "0.5",
         "standingCofMin": "0.5"
     },
     "803597": {
         "category": "Vehicle Weapons",
+        "defZoom": "1.5",
         "description": "The Hoplon Phalanx Tower rapidly fires high velocity anti-aircraft rounds that are effective against lightly armored targets.",
         "fireModes": [
             "Auto"
@@ -35746,6 +36325,7 @@
         "name": "Hoplon Anti-Aircraft Phalanx Tower",
         "overheatPenalty": "1000",
         "reload": "0",
+        "speed": "1000",
         "standingCofMax": "0.5",
         "standingCofMin": "0.5"
     },
@@ -35753,6 +36333,7 @@
         "adsCofRecoil": "0",
         "adsMoveSpeed": "1",
         "category": "Vehicle Weapons",
+        "defZoom": "2",
         "description": "The Xiphos Anti-Personnel Phalanx Tower sprays 20mm rounds with its twin rotary guns that are damaging to infantry and light armor.",
         "fireModes": [
             "Auto"
@@ -35770,6 +36351,7 @@
         "name": "Xiphos Anti-Personnel Phalanx Tower",
         "overheatPenalty": "2000",
         "reload": "0",
+        "speed": "600",
         "standingCofMax": "2",
         "standingCofMaxADS": "2",
         "standingCofMin": "1.1",
@@ -35779,6 +36361,7 @@
         "adsCofRecoil": "0",
         "adsMoveSpeed": "1",
         "category": "Vehicle Weapons",
+        "defZoom": "2",
         "description": "The Xiphos Anti-Personnel Phalanx Tower sprays 20mm rounds with its twin rotary guns that are damaging to infantry and light armor.",
         "fireModes": [
             "Auto"
@@ -35796,6 +36379,7 @@
         "name": "Xiphos Anti-Personnel Phalanx Tower",
         "overheatPenalty": "2000",
         "reload": "0",
+        "speed": "600",
         "standingCofMax": "2",
         "standingCofMaxADS": "2",
         "standingCofMin": "1.1",
@@ -35805,6 +36389,7 @@
         "adsCofRecoil": "0",
         "adsMoveSpeed": "1",
         "category": "Vehicle Weapons",
+        "defZoom": "2",
         "description": "The Xiphos Anti-Personnel Phalanx Tower sprays 20mm rounds with its twin rotary guns that are damaging to infantry and light armor.",
         "fireModes": [
             "Auto"
@@ -35822,6 +36407,7 @@
         "name": "Xiphos Anti-Personnel Phalanx Tower",
         "overheatPenalty": "2000",
         "reload": "0",
+        "speed": "600",
         "standingCofMax": "2",
         "standingCofMaxADS": "2",
         "standingCofMin": "1.1",
@@ -35831,6 +36417,7 @@
         "adsCofRecoil": "0",
         "adsMoveSpeed": "1",
         "category": "Vehicle Weapons",
+        "defZoom": "2",
         "description": "The Xiphos Anti-Personnel Phalanx Tower sprays 20mm rounds with its twin rotary guns that are damaging to infantry and light armor.",
         "fireModes": [
             "Auto"
@@ -35848,6 +36435,7 @@
         "name": "Xiphos Anti-Personnel Phalanx Tower",
         "overheatPenalty": "2000",
         "reload": "0",
+        "speed": "600",
         "standingCofMax": "2",
         "standingCofMaxADS": "2",
         "standingCofMin": "1.1",
@@ -37915,7 +38503,7 @@
         "fireRate": "100",
         "firstShotMultiplier": "1.4",
         "headshotMultiplier": "1",
-        "hipCofRecoil": "0.24",
+        "hipCofRecoil": "0.12",
         "image_id": "86946",
         "maxDamage": "143",
         "maxDamageRange": "10",
@@ -38140,12 +38728,12 @@
         ],
         "fireRate": "333",
         "firstShotMultiplier": "1",
-        "headshotMultiplier": "4",
+        "headshotMultiplier": "2.5",
         "hipCofRecoil": "1",
         "image_id": "86961",
-        "maxDamage": "225",
+        "maxDamage": "325",
         "maxDamageRange": "10",
-        "minDamage": "175",
+        "minDamage": "250",
         "minDamageRange": "350",
         "name": "NSX Daimyo",
         "pelletSpread": "0",
@@ -39514,6 +40102,9 @@
         "minDamage": "143",
         "minDamageRange": "50",
         "name": "NSX Amaterasu",
+        "pelletSpread": "0",
+        "pellets": "1",
+        "speed": "30",
         "standingCofMax": "0",
         "standingCofMin": "0"
     },
@@ -39864,7 +40455,7 @@
         "fallingCofMin": "0.5",
         "fallingCofMinADS": "0.5",
         "fireModes": [
-            "Auto"
+            "Semi-Auto"
         ],
         "fireRate": "450",
         "firstShotMultiplier": "3",
@@ -39917,7 +40508,7 @@
         "fallingCofMin": "0.5",
         "fallingCofMinADS": "0.5",
         "fireModes": [
-            "Auto"
+            "Semi-Auto"
         ],
         "fireRate": "450",
         "firstShotMultiplier": "3",
