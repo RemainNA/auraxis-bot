@@ -174,26 +174,36 @@ alertEvent = async function(payload, environment, pgClient, discordClient){
                 sendEmbed.setColor('RED');
             }
             sendEmbed.addField('Server', server, true);
-            let terObj = await territory.territoryInfo(server);
+            let terObj = "";
+            try{
+                terObj = await territory.territoryInfo(server);
+            }
+            catch{
+                
+            }
             let continent = ""
             let showTerritory = false
-            if(response.name.toLowerCase().indexOf("indar") > -1 && typeof(terObj.Indar) !== 'undefined'){
+            if(response.name.toLowerCase().indexOf("indar") > -1){
                 continent = "Indar";
                 showTerritory = true;
             }
-            else if(response.name.toLowerCase().indexOf("esamir") > -1 && typeof(terObj.Indar) !== 'undefined'){
+            else if(response.name.toLowerCase().indexOf("esamir") > -1){
                 continent = "Esamir";
                 showTerritory = true;
             }
-            else if(response.name.toLowerCase().indexOf("amerish") > -1 && typeof(terObj.Indar) !== 'undefined'){
+            else if(response.name.toLowerCase().indexOf("amerish") > -1){
                 continent = "Amerish";
                 showTerritory = true;
             }
-            else if(response.name.toLowerCase().indexOf("hossin") > -1 && typeof(terObj.Indar) !== 'undefined'){
+            else if(response.name.toLowerCase().indexOf("hossin") > -1){
                 continent = "Hossin";
                 showTerritory = true;
             }
-            if(showTerritory){
+            else if(response.name.toLowerCase().indexOf("koltyr") > -1){
+                continent = "Koltyr";
+                showTerritory = true;
+            }
+            if(showTerritory && terObj != "" && continent != "Koltyr"){
                 let Total = terObj[continent].vs + terObj[continent].nc + terObj[continent].tr;
                 let vsPc = (terObj[continent].vs/Total)*100;
                 vsPc = Number.parseFloat(vsPc).toPrecision(3);
@@ -202,6 +212,12 @@ alertEvent = async function(payload, environment, pgClient, discordClient){
                 let trPc = (terObj[continent].tr/Total)*100;
                 trPc = Number.parseFloat(trPc).toPrecision(3);
                 sendEmbed.addField('Territory % (Bases owned)', 'VS: '+vsPc+'% ('+terObj[continent].vs+') | NC: '+ncPc+'% ('+terObj[continent].nc+') | TR: '+trPc+'% ('+terObj[continent].tr+')');
+            }
+            else if(showTerritory){
+                let vsPc = Number.parseFloat(payload.faction_vs).toPrecision(3);
+                let ncPc = Number.parseFloat(payload.faction_nc).toPrecision(3);
+                let trPc = Number.parseFloat(payload.faction_tr).toPrecision(3);
+                sendEmbed.addField('Territory %', 'VS: '+vsPc+"% | "+'NC: '+ncPc+"% | "+'TR: '+trPc+"%")
             }
             let rows = await pgClient.query(queryText);
             for (let row of rows.rows){
