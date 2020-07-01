@@ -25,6 +25,11 @@ var basicInfo = async function(cName, platform){
                 reject("Census API currently unavailable");
             })
         }
+        if(typeof(response.error) === 'string'){
+            return new Promise(function(resolve, reject){
+                reject("Census API error: "+response.error);
+            })
+        }
         return new Promise(function(resolve, reject){
             reject(response.error);
         })

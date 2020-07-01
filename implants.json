@@ -136,11 +136,11 @@
         "image": "87717"
     },
     "Failsafe": {
-        "1": "When your shield is broken, you gain 10% of your maximum ability energy. This action can only occur once every 20 seconds.",
-        "2": "When your shield is broken, you gain 12% of your maximum ability energy. This action can only occur once every 20 seconds.",
-        "3": "When your shield is broken, you gain 15% of your maximum ability energy. This action can only occur once every 20 seconds.",
-        "4": "When your shield is broken, you gain 20% of your maximum ability energy. This action can only occur once every 20 seconds.",
-        "5": "When your shield is broken, you gain 20% of your maximum ability energy. This action can only occur once every 20 seconds. Additionally, whenever Failsafe is on cooldown, receiving melee damage will shock the attacker for 150 non-lethal damage.",
+        "1": "When your shield is broken, you gain 10% of your maximum ability energy. This action can only occur once every 12 seconds.",
+        "2": "When your shield is broken, you gain 12% of your maximum ability energy. This action can only occur once every 12 seconds.",
+        "3": "When your shield is broken, you gain 15% of your maximum ability energy. This action can only occur once every 12 seconds.",
+        "4": "When your shield is broken, you gain 20% of your maximum ability energy. This action can only occur once every 12 seconds.",
+        "5": "When your shield is broken, you gain 20% of your maximum ability energy. This action can only occur once every 12 seconds. Additionally, whenever Failsafe is on cooldown, receiving melee damage will shock the attacker for 150 non-lethal damage.",
         "image": "89444"
     },
     "Firewall": {
@@ -280,7 +280,7 @@
         "2": "Upon being revived, you become cloaked for the next 2.25 seconds. Firing your weapon will remove this effect.",
         "3": "Upon being revived, you become cloaked for the next 2.5 seconds. Firing your weapon will remove this effect.",
         "4": "Upon being revived, you become cloaked for the next 3 seconds. Firing your weapon will remove this effect.",
-        "5": "Upon being revived, you become cloaked for the next 3 seconds, and allies within 3 meters become cloaked as well. Firing your weapon will remove this effect.",
+        "5": "Upon being revived or when reviving another player, you or your target become cloaked for the next 3 seconds. Firing your weapon will remove this effect.",
         "image": "91998"
     },
     "Robotics Technician": {
@@ -332,11 +332,11 @@
         "image": "89302"
     },
     "Survivalist": {
-        "1": "Your shield recharge delay is passively reduced by 0.5 seconds. In addition, whenever your shield breaks, your sprint speed is increased by 20% for 3 seconds. <font color=\"#dc9c36\">12 second cooldown after triggering.</font>",
-        "2": "Your shield recharge delay is passively reduced by 0.6 seconds. In addition, whenever your shield breaks, your sprint speed is increased by 20% for 3.5 seconds. <font color=\"#dc9c36\">12 second cooldown after triggering.</font>",
-        "3": "Your shield recharge delay is passively reduced by 0.75 seconds. In addition, whenever your shield breaks, your sprint speed is increased by 20% for 4.5 seconds. <font color=\"#dc9c36\">12 second cooldown after triggering.</font>",
-        "4": "Your shield recharge delay is passively reduced by 1 second. In addition, whenever your shield breaks, your sprint speed is increased by 20% for 6 seconds. <font color=\"#dc9c36\">12 second cooldown after triggering.</font>",
-        "5": "Your shield recharge delay is passively reduced by 1 second. In addition, whenever your shield breaks, your sprint speed is increased by 20% for 6 seconds and your reload speed is increased by 15% for the same duration. <font color=\"#dc9c36\">12 second cooldown after triggering.</font>",
+        "1": "Reduces your passive shield recharge delay by 0.5 seconds, and whenever your shield breaks, your sprint speed is increased by 20% for 3 seconds. Taking damage will remove the added sprint speed. <font color=\"#dc9c36\">12 second cooldown after triggering.</font>",
+        "2": "Reduces your passive shield recharge delay by 0.6 seconds, and whenever your shield breaks, your sprint speed is increased by 20% for 3.5 seconds. Taking damage will remove the added sprint speed. <font color=\"#dc9c36\">12 second cooldown after triggering.</font>",
+        "3": "Reduces your passive shield recharge delay by 0.75 seconds, and whenever your shield breaks, your sprint speed is increased by 20% for 4.5 seconds. Taking damage will remove the added sprint speed. <font color=\"#dc9c36\">12 second cooldown after triggering.</font>",
+        "4": "Reduces your passive shield recharge delay by 1 second, and whenever your shield breaks, your sprint speed is increased by 20% for 6 seconds. Taking damage will remove the added sprint speed. <font color=\"#dc9c36\">12 second cooldown after triggering.</font>",
+        "5": "Reduces your passive shield recharge delay by 1 second, and whenever your shield breaks, your sprint speed is increased by 20% for 6 seconds and you heal for 150 health over the same duration. Taking damage will remove the added sprint speed. <font color=\"#dc9c36\">12 second cooldown after triggering.</font>",
         "image": "88247"
     },
     "Sweeper HUD": {
