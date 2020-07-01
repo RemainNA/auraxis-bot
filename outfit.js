@@ -41,10 +41,13 @@ var basicInfo = async function(oTag, platform){
 		faction: data.leader_character_id_join_character.faction_id,
 		owner: data.leader_character_id_join_character.name.first,
 		memberCount: data.member_count,
-		worldId: data.leader_character_id_join_characters_world.world_id,
+		worldId: -1,
 		onlineDay: 0,
 		onlineWeek: 0,
 		onlineMonth: 0
+	}
+	if(typeof(data.leader_character_id_join_characters_world) !== 'undefined'){
+		resObj.worldId = data.leader_character_id_join_characters_world.world_id;
 	}
 
 	onlineServiceAvailable = true;
