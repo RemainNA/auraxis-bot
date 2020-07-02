@@ -295,8 +295,14 @@ module.exports = {
 
         // Outfit info
         if(cInfo.inOutfit){
-            if(cInfo.outfitAlias != ""){
-                resEmbed.addField('Outfit', '['+cInfo.outfitAlias+']'+' '+cInfo.outfitName, true);
+            if(cInfo.outfitAlias != "" && platform == 'ps2:v2'){
+                resEmbed.addField('Outfit', '[['+cInfo.outfitAlias+']](https://ps2.fisu.pw/outfit/?name='+cInfo.outfitAlias+') '+cInfo.outfitName, true);
+            }
+            else if(cInfo.outfitAlias != "" && platform == 'ps2ps4us:v2'){
+                resEmbed.addField('Outfit', '[['+cInfo.outfitAlias+']](https://ps4us.ps2.fisu.pw/outfit/?name='+cInfo.outfitAlias+') '+cInfo.outfitName, true);
+            }
+            else if(cInfo.outfitAlias != "" && platform == 'ps2ps4eu:v2'){
+                resEmbed.addField('Outfit', '[['+cInfo.outfitAlias+']](https://ps4eu.ps2.fisu.pw/outfit/?name='+cInfo.outfitAlias+') '+cInfo.outfitName, true);
             }
             else{
                 resEmbed.addField('Outfit', cInfo.outfitName, true);
