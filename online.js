@@ -45,8 +45,6 @@ var onlineInfo = async function(oTag, platform){
 	let resObj = {
 		name: data.name,
 		alias: data.alias,
-		faction: data.leader_character_id_join_character.faction_id,
-		owner: data.leader_character_id_join_character.name.first,
 		memberCount: data.member_count,
 		onlineCount: 0
 	}
@@ -55,6 +53,14 @@ var onlineInfo = async function(oTag, platform){
 		return new Promise(function(resolve, reject){
 			resolve(resObj);
 		})
+	}
+	if(typeof(data.members[0].name) === 'undefined'){
+		return new Promise(function(resolve, reject){
+			reject("API error: names not returned")
+		})
+	}
+	if(typeof(data.leader_character_id_join_character) !== 'undefined'){
+		resObj.faction = data.leader_character_id_join_character.faction_id;
 	}
 	let pcModifier = 0;
 	let rankNames = ["","","","","","","",""];
