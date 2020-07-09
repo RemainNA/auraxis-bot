@@ -34,6 +34,13 @@ var onlineInfo = async function(oTag, platform){
 			reject(oTag+" not found");
 		})
 	}
+	let urlBase = 'https://ps2.fisu.pw/player/?name=';
+	if(platform == 'ps2ps4us:v2'){
+		urlBase = 'https://ps4us.ps2.fisu.pw/player/?name=';
+	}
+	else if(platform == 'ps2ps4eu:v2'){
+		urlBase = 'https://ps4eu.ps2.fisu.pw/player/?name=';
+	}
 	let data = response.outfit_list[0];
 	let resObj = {
 		name: data.name,
@@ -49,18 +56,29 @@ var onlineInfo = async function(oTag, platform){
 			resolve(resObj);
 		})
 	}
-	onlineMembers = [];
+	let pcModifier = 0;
+	let rankNames = ["","","","","","","",""];
+	let onlineMembers = [[],[],[],[],[],[],[],[]];
+	if(typeof(data.ranks) !== 'undefined'){
+		pcModifier = 1;
+		for(let rank of data.ranks){
+			rankNames[Number.parseInt(rank.ordinal)-pcModifier] = rank.name;
+		}
+	}
 	for(i in data.members){
 		if(data.members[i].online_status > 0){
 			resObj.onlineCount += 1;
-			onlineMembers.push(data.members[i].name.first);
+			onlineMembers[Number.parseInt(data.members[i].rank_ordinal)-pcModifier].push("["+data.members[i].name.first+"]("+urlBase+data.members[i].name.first+")");
+		}
+		if(pcModifier == 0 && rankNames[Number.parseInt(data.members[i].rank_ordinal)] == ""){
+			rankNames[Number.parseInt(data.members[i].rank_ordinal)] = data.members[i].rank;
 		}
 	}
-	if(onlineMembers.length == 0){
-		onlineMembers.push(':x:');
+	for(i in onlineMembers){
+		onlineMembers[i].sort(function (a, b) {return a.toLowerCase().localeCompare(b.toLowerCase());});  //This sorts ignoring case: https://stackoverflow.com/questions/8996963/how-to-perform-case-insensitive-sorting-in-javascript#9645447
 	}
-	onlineMembers.sort(function (a, b) {return a.toLowerCase().localeCompare(b.toLowerCase());});  //This sorts ignoring case: https://stackoverflow.com/questions/8996963/how-to-perform-case-insensitive-sorting-in-javascript#9645447
 	resObj.onlineMembers = onlineMembers;
+	resObj.rankNames = rankNames;
 	return new Promise(function(resolve, reject){
 		resolve(resObj);
 	})
@@ -80,7 +98,7 @@ module.exports = {
 		let resEmbed = new Discord.RichEmbed();
 
 		resEmbed.setTitle(oInfo.name);
-		resEmbed.setDescription(oInfo.alias);
+		resEmbed.setDescription(oInfo.alias+"\n"+oInfo.onlineCount+"/"+oInfo.memberCount+" online");
 		resEmbed.setTimestamp();
 		if(platform == 'ps2:v2'){
 			resEmbed.setURL('http://ps2.fisu.pw/outfit/?name='+oInfo.alias);
@@ -110,7 +128,18 @@ module.exports = {
 			default:
 				resEmbed.setColor('GREY');
 		}
-		resEmbed.addField("Online "+oInfo.onlineCount+"/"+oInfo.memberCount, oInfo.onlineMembers, true);
+		for(let i = 0; i < 8; i++){
+			if(oInfo.onlineMembers[i].length > 0){
+				anyOn = true;
+				try{
+					resEmbed.addField(oInfo.rankNames[i], oInfo.onlineMembers[i], true);
+				}
+				catch{
+					resEmbed.addField(oInfo.rankNames[i], "Too many to display", true);
+				}
+				
+			}
+		}
 		return new Promise(function(resolve, reject){
 			resolve(resEmbed);
 		})
