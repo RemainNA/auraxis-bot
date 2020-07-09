@@ -166,8 +166,15 @@ module.exports = {
 				resEmbed.addField('Faction', 'NSO', true);
 				resEmbed.setColor('GREY');
 		}
-
-		resEmbed.addField("Owner", oInfo.owner, true);
+		if(platform == "ps2:v2"){
+			resEmbed.addField("Owner", "["+oInfo.owner+"]("+"https://ps2.fisu.pw/player/?name="+oInfo.owner+")", true);
+		}
+		else if(platform == "ps2ps4us:v2"){
+			resEmbed.addField("Owner", "["+oInfo.owner+"]("+"https://ps4us.ps2.fisu.pw/player/?name="+oInfo.owner+")", true);
+		}
+		else if(platform == "ps2ps4eu:v2"){
+			resEmbed.addField("Owner", "["+oInfo.owner+"]("+"https://ps4eu.ps2.fisu.pw/player/?name="+oInfo.owner+")", true);
+		}
 		return new Promise(function(resolve, reject){
             resolve(resEmbed);
         })
