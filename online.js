@@ -45,22 +45,22 @@ var onlineInfo = async function(oTag, platform){
 	}
 	if(data.members[0].online_status == "service_unavailable"){
 		resObj.onlineCount = "Online member count unavailable";
-		onlineServiceAvailable = false;
+		return new Promise(function(resolve, reject){
+			resolve(resObj);
+		})
 	}
-	else{
-		onlineMembers = [];
-		for(i in data.members){
-			if(data.members[i].online_status > 0){
-				resObj.onlineCount += 1;
-				onlineMembers.push(data.members[i].name.first);
-			}
+	onlineMembers = [];
+	for(i in data.members){
+		if(data.members[i].online_status > 0){
+			resObj.onlineCount += 1;
+			onlineMembers.push(data.members[i].name.first);
 		}
-		if(onlineMembers.length == 0){
-			onlineMembers.push(':x:');
-		}
-		onlineMembers.sort(function (a, b) {return a.toLowerCase().localeCompare(b.toLowerCase());});  //This sorts ignoring case: https://stackoverflow.com/questions/8996963/how-to-perform-case-insensitive-sorting-in-javascript#9645447
-		resObj.onlineMembers = onlineMembers;
 	}
+	if(onlineMembers.length == 0){
+		onlineMembers.push(':x:');
+	}
+	onlineMembers.sort(function (a, b) {return a.toLowerCase().localeCompare(b.toLowerCase());});  //This sorts ignoring case: https://stackoverflow.com/questions/8996963/how-to-perform-case-insensitive-sorting-in-javascript#9645447
+	resObj.onlineMembers = onlineMembers;
 	return new Promise(function(resolve, reject){
 		resolve(resObj);
 	})
