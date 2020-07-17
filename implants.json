@@ -143,6 +143,14 @@
         "5": "When your shield is broken, you gain 20% of your maximum ability energy. This action can only occur once every 12 seconds. Additionally, whenever Failsafe is on cooldown, receiving melee damage will shock the attacker for 150 non-lethal damage.",
         "image": "89444"
     },
+    "Firestorm": {
+        "1": "Killing an enemy increases rate of fire by 8% on the currently equipped weapon for 1.5 seconds.",
+        "2": "Killing an enemy increases rate of fire by 8% on the currently equipped weapon for 1.75 seconds.",
+        "3": "Killing an enemy increases rate of fire by 8% on the currently equipped weapon for 2.25 seconds.",
+        "4": "Killing an enemy increases rate of fire by 8% on the currently equipped weapon for 3 seconds.",
+        "5": "Killing an enemy increases rate of fire by 8% on the currently equipped weapon for 3 seconds, and a headshot kill will increase this duration to 5 seconds.",
+        "image": "88274"
+    },
     "Firewall": {
         "desc": "Interacting with allied base turrets or spitfire turrets embed them with firewalls which must be disarmed by enemy infiltrators before hacking. Firewalls last 360 seconds and grant turrets an additional 25% maximum health. <font color=\"#dc9c36\">Infiltrator only.</font>",
         "image": "89037"
