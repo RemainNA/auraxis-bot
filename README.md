@@ -93,6 +93,6 @@ Currently in beta.  Returns information on a given weapon.  Accepts weapon IDs, 
 
 Returns information on given implant.  Accepts exact or partial names.  Only supports one implant per query.
 
-#### !asp [name]
+#### !<ps4us/ps4eu> asp [name]
 
-Returns the BR a character reached before joining ASP.  Only supported on PC, does not work with NSO.
+Returns the BR a character reached before joining ASP.  Supports multiple characters per query.  Untested on PS4.  Does not work with NSO.

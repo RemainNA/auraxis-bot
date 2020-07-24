@@ -28,7 +28,7 @@ var online = require('./online.js');
 var listener = require('./unifiedWSListener.js');
 var subscription = require('./subscriptions.js');
 var population = require('./population.js');
-var prePrestige = require('./prePrestige.js');
+var asp = require('./preASP.js');
 var initialize = require('./initializeSQL.js');
 var territory = require('./territory.js');
 var messageHandler = require('./messageHandler.js');
@@ -84,7 +84,7 @@ var listOfCommands = [
 "!status",
 "!weapon [weapon name]",
 "!implant [implant name]",
-"!asp [name]"
+"!<ps4us/ps4eu> asp [name]"
 ]
 
 var links = [
@@ -238,12 +238,35 @@ client.on('message', message => {
 			}
 		}
 	}
-	if (message.content.substring(0,4).toLowerCase() == '!asp'){
-		//BR before beginning ASP
-		var characterName = message.content.substring(5).toLowerCase();
-		//calls prePrestige.js
-		prePrestige.lookup(characterName, message);
-		
+	if (message.content.substring(0,5).toLowerCase() == '!asp '){
+		let chars = message.content.substring(5).toLowerCase().split(" ");
+		for(x in chars){
+			if(chars[x] != ""){
+				asp.originalBR(chars[x], "ps2:v2")
+					.then(res => messageHandler.send(message.channel, res, "PC ASP"))
+					.catch(err => messageHandler.handleError(message.channel, err, "PC ASP"))
+			}
+		}
+	}
+	if (message.content.substring(0,11).toLowerCase() == '!ps4us asp '){
+		let chars = message.content.substring(11).toLowerCase().split(" ");
+		for(x in chars){
+			if(chars[x] != ""){
+				asp.originalBR(chars[x], "ps2ps4us:v2")
+					.then(res => messageHandler.send(message.channel, res, "PC ASP"))
+					.catch(err => messageHandler.handleError(message.channel, err, "PC ASP"))
+			}
+		}
+	}
+	if (message.content.substring(0,11).toLowerCase() == '!ps4eu asp '){
+		let chars = message.content.substring(11).toLowerCase().split(" ");
+		for(x in chars){
+			if(chars[x] != ""){
+				asp.originalBR(chars[x], "ps2ps4eu:v2")
+					.then(res => messageHandler.send(message.channel, res, "PC ASP"))
+					.catch(err => messageHandler.handleError(message.channel, err, "PC ASP"))
+			}
+		}
 	}
 	if (message.content.substring(0,11).toLowerCase() == '!territory '){
 		let servers = message.content.substring(11).toLowerCase().split(" ");
