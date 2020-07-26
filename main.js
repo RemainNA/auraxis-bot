@@ -78,6 +78,8 @@ var listOfCommands = [
 "!unsubscribe alerts [server]",
 "!<ps4us/ps4eu> subscribe activity [tag]",
 "!<ps4us/ps4eu> unsubscribe activity [tag]",
+"!<ps4us/ps4eu> subscribe captures [tag]",
+"!<ps4us/ps4eu> unsubscribe captures [tag]",
 "!unsubscribe all",
 "!population [server]",
 "!territory [server]",
@@ -350,6 +352,66 @@ client.on('message', message => {
 				subscription.unsubscribeActivity(SQLclient, message.channel.id, outfits[x], 'ps2ps4eu:v2')
 					.then(res => messageHandler.send(message.channel, res, "PS4EU Unsubscribe activity"))
 					.catch(err => messageHandler.handleError(message.channel, err, "PS4EU Unsubscribe activity"))
+			}
+		}
+	}
+	if (message.content.substring(0,20).toLowerCase() == '!subscribe captures ' && runningOnline){
+		let outfits = message.content.substring(20).toLowerCase().split(" ");
+		for(x in outfits){
+			if(outfits[x] != ""){
+				subscription.subscribeCaptures(SQLclient, message.channel.id, outfits[x], 'ps2:v2')
+					.then(res => messageHandler.send(message.channel, res, "Subscribe captures"))
+					.catch(err => messageHandler.handleError(message.channel, err, "Subscribe captures"))
+			}
+		}
+	}
+	if (message.content.substring(0,22).toLowerCase() == '!unsubscribe captures ' && runningOnline){
+		let outfits = message.content.substring(22).toLowerCase().split(" ");
+		for(x in outfits){
+			if(outfits[x] != ""){
+				subscription.unsubscribeCaptures(SQLclient, message.channel.id, outfits[x], 'ps2:v2')
+					.then(res => messageHandler.send(message.channel, res, "Unsubscribe captures"))
+					.catch(err => messageHandler.handleError(message.channel, err, "Unsubscribe captures"))
+			}
+		}
+	}
+	if (message.content.substring(0,26).toLowerCase() == '!ps4us subscribe captures ' && runningOnline){
+		let outfits = message.content.substring(26).toLowerCase().split(" ");
+		for(x in outfits){
+			if(outfits[x] != ""){
+				subscription.subscribeCaptures(SQLclient, message.channel.id, outfits[x], 'ps2ps4us:v2')
+					.then(res => messageHandler.send(message.channel, res, "Subscribe captures"))
+					.catch(err => messageHandler.handleError(message.channel, err, "Subscribe captures"))
+			}
+		}
+	}
+	if (message.content.substring(0,28).toLowerCase() == '!ps4us unsubscribe captures ' && runningOnline){
+		let outfits = message.content.substring(28).toLowerCase().split(" ");
+		for(x in outfits){
+			if(outfits[x] != ""){
+				subscription.unsubscribeCaptures(SQLclient, message.channel.id, outfits[x], 'ps2ps4us:v2')
+					.then(res => messageHandler.send(message.channel, res, "Unsubscribe captures"))
+					.catch(err => messageHandler.handleError(message.channel, err, "Unsubscribe captures"))
+			}
+		}
+	}
+	if (message.content.substring(0,26).toLowerCase() == '!ps4eu subscribe captures ' && runningOnline){
+		let outfits = message.content.substring(26).toLowerCase().split(" ");
+		for(x in outfits){
+			if(outfits[x] != ""){
+				subscription.subscribeCaptures(SQLclient, message.channel.id, outfits[x], 'ps2ps4eu:v2')
+					.then(res => messageHandler.send(message.channel, res, "Subscribe captures"))
+					.catch(err => messageHandler.handleError(message.channel, err, "Subscribe captures"))
+			}
+		}
+	}
+	if (message.content.substring(0,28).toLowerCase() == '!ps4eu unsubscribe captures ' && runningOnline){
+		let outfits = message.content.substring(28).toLowerCase().split(" ");
+		for(x in outfits){
+			if(outfits[x] != ""){
+				subscription.unsubscribeCaptures(SQLclient, message.channel.id, outfits[x], 'ps2ps4eu:v2')
+					.then(res => messageHandler.send(message.channel, res, "Unsubscribe captures"))
+					.catch(err => messageHandler.handleError(message.channel, err, "Unsubscribe captures"))
 			}
 		}
 	}

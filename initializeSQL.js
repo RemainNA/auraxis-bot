@@ -191,5 +191,54 @@ module.exports = {
 			}
 		    
 		});
+
+		// Outfit Captures tables
+		SQLclient.query("SELECT * FROM outfitcaptures;", (err, res) => {
+		    if (err){
+				console.log(err);
+				console.log("Creating outfit captures table");
+				SQLclient.query("CREATE TABLE outfitcaptures (id bigint, alias TEXT, channel TEXT, name TEXT);", (err, res) => {
+					if (err){
+						console.log(err);
+					}
+					else{
+						console.log(res);
+					}
+				});
+			}
+		    
+		});
+
+		SQLclient.query("SELECT * FROM ps4usoutfitcaptures;", (err, res) => {
+		    if (err){
+				console.log(err);
+				console.log("Creating outfit captures table");
+				SQLclient.query("CREATE TABLE ps4usoutfitcaptures (id bigint, alias TEXT, channel TEXT, name TEXT);", (err, res) => {
+					if (err){
+						console.log(err);
+					}
+					else{
+						console.log(res);
+					}
+				});
+			}
+		    
+		});
+
+		SQLclient.query("SELECT * FROM ps4euoutfitcaptures;", (err, res) => {
+		    if (err){
+				console.log(err);
+				console.log("Creating outfit captures table");
+				SQLclient.query("CREATE TABLE ps4euoutfitcaptures (id bigint, alias TEXT, channel TEXT, name TEXT);", (err, res) => {
+					if (err){
+						console.log(err);
+					}
+					else{
+						console.log(res);
+					}
+				});
+			}
+		    
+		});
 	}
 }

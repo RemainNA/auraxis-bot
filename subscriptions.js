@@ -51,7 +51,8 @@ outfitInfo = async function(tag, environment){
         let resObj = {
             ID: data.outfit_id,
             faction: data.leader_character_id_join_character.faction_id,
-            alias: data.alias
+            alias: data.alias,
+            name: data.name
         }
         return new Promise(function(resolve, reject){
             resolve(resObj);
@@ -302,6 +303,111 @@ module.exports = {
         }
     },
 
+    subscribeCaptures: async function(pgClient, channel, tag, environment){
+        let outfit = await outfitInfo(tag, environment);
+        if(environment == "ps2:v2"){
+            let count = await pgClient.query('SELECT COUNT(channel) FROM outfitcaptures WHERE id=$1 AND channel=$2', [outfit.ID, channel]);
+            if (count.rows[0].count == 0){
+                if(outfit.faction == "1"){
+                    color = 'PURPLE';
+                }
+                else if(outfit.faction == "2"){
+                    color = 'BLUE';
+                }
+                else if(outfit.faction == "3"){
+                    color = 'RED';
+                }
+                else{
+                    color = 'GREY';
+                }
+                try{
+                    await pgClient.query("INSERT INTO outfitcaptures (id, alias, channel, name) VALUES ($1, $2, $3, $4)", [outfit.ID, outfit.alias, channel, outfit.name]);
+                    return new Promise(function(resolve, reject){
+                        resolve("Subscribed to "+outfit.alias+" base captures");
+                    })
+                }
+                catch(error){
+                    console.log(error);
+                    return new Promise(function(resolve, reject){
+                        reject(error);
+                    })
+                }
+            }
+            else{
+                return new Promise(function(resolve, reject){
+                    reject("Already subscribed to "+outfit.alias+" base captures");
+                })
+            }
+        }
+    },
+
+    unsubscribeCaptures: async function(pgClient, channel, tag, environment){
+        let outfit = await outfitInfo(tag, environment);
+        if(environment == "ps2:v2"){
+            let count = await pgClient.query('SELECT COUNT(channel) FROM outfitcaptures WHERE id=$1 AND channel=$2', [outfit.ID, channel]);
+            if(count.rows[0].count == 0){
+                return new Promise(function(resolve, reject){ 
+                    reject("Not subscribed to "+outfit.alias+" captures");
+                })
+            }
+            else{
+                try{
+                    pgClient.query('DELETE FROM outfitcaptures WHERE channel=$1 AND id=$2', [channel, outfit.ID]);
+                }
+                catch(error){
+                    return new Promise(function(resolve, reject){ 
+                        reject(error);
+                    })
+                }
+                return new Promise(function(resolve, reject){ 
+                    resolve("Unsubscribed from "+outfit.alias+" captures");
+                })
+            }
+        }
+        if(environment == "ps2ps4us:v2"){
+            let count = await pgClient.query('SELECT COUNT(channel) FROM ps4usoutfitcaptures WHERE id=$1 AND channel=$2', [outfit.ID, channel]);
+            if(count.rows[0].count == 0){
+                return new Promise(function(resolve, reject){ 
+                    reject("Not subscribed to "+outfit.alias+" captures");
+                })
+            }
+            else{
+                try{
+                    pgClient.query('DELETE FROM pa4usoutfitcaptures WHERE channel=$1 AND id=$2', [channel, outfit.ID]);
+                }
+                catch(error){
+                    return new Promise(function(resolve, reject){ 
+                        reject(error);
+                    })
+                }
+                return new Promise(function(resolve, reject){ 
+                    resolve("Unsubscribed from "+outfit.alias+" captures");
+                })
+            }
+        }
+        if(environment == "ps2ps4eu:v2"){
+            let count = await pgClient.query('SELECT COUNT(channel) FROM ps4euoutfitcaptures WHERE id=$1 AND channel=$2', [outfit.ID, channel]);
+            if(count.rows[0].count == 0){
+                return new Promise(function(resolve, reject){ 
+                    reject("Not subscribed to "+outfit.alias+" captures");
+                })
+            }
+            else{
+                try{
+                    pgClient.query('DELETE FROM ps4euoutfitcaptures WHERE channel=$1 AND id=$2', [channel, outfit.ID]);
+                }
+                catch(error){
+                    return new Promise(function(resolve, reject){ 
+                        reject(error);
+                    })
+                }
+                return new Promise(function(resolve, reject){ 
+                    resolve("Unsubscribed from "+outfit.alias+" captures");
+                })
+            }
+        }
+    },
+
     unsubscribeAll: async function(pgClient, channelId){
         let commands = [
             "DELETE FROM connery WHERE channel = $1",
@@ -314,6 +420,9 @@ module.exports = {
             "DELETE FROM outfit WHERE channel = $1",
             "DELETE FROM ps4usoutfit WHERE channel = $1",
             "DELETE FROM ps4euoutfit WHERE channel = $1",
+            "DELETE FROM outfitcaptures WHERE channel =$1",
+            "DELETE FROM ps4usoutfitcaptures WHERE channel =$1",
+            "DELETE FROM ps4euoutfitcaptures WHERE channel =$1"
         ]
 
         for(i in commands){

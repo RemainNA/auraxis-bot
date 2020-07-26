@@ -1,0 +1,1657 @@
+{
+    "118000": {
+        "continent": "2",
+        "name": "Zurvan",
+        "type": "Amp Station"
+    },
+    "118010": {
+        "continent": "2",
+        "name": "Zurvan Pump Station",
+        "type": "Small Outpost"
+    },
+    "118020": {
+        "continent": "2",
+        "name": "Zurvan Storage Yard",
+        "type": "Small Outpost"
+    },
+    "118030": {
+        "continent": "2",
+        "name": "Zurvan Network Complex",
+        "type": "Small Outpost"
+    },
+    "120000": {
+        "continent": "2",
+        "name": "Indar Western Warpgate",
+        "type": "Warpgate"
+    },
+    "200000": {
+        "continent": "6",
+        "name": "Amerish Western Warpgate",
+        "type": "Warpgate"
+    },
+    "201": {
+        "continent": "2",
+        "name": "Indar Waste Treatment",
+        "type": "Small Outpost"
+    },
+    "201000": {
+        "continent": "6",
+        "name": "Amerish Eastern Warpgate",
+        "type": "Warpgate"
+    },
+    "202": {
+        "continent": "2",
+        "name": "NS Salvage Yard",
+        "type": "Small Outpost"
+    },
+    "203": {
+        "continent": "2",
+        "name": "Saurva Overflow Depot",
+        "type": "Small Outpost"
+    },
+    "203000": {
+        "continent": "6",
+        "name": "Amerish Southern Warpgate",
+        "type": "Warpgate"
+    },
+    "204": {
+        "continent": "2",
+        "name": "Helios Solar, Inc.",
+        "type": "Small Outpost"
+    },
+    "204000": {
+        "continent": "6",
+        "name": "Kwahtee",
+        "type": "Amp Station"
+    },
+    "204001": {
+        "continent": "6",
+        "name": "Kwahtee West Pass",
+        "type": "Small Outpost"
+    },
+    "204002": {
+        "continent": "6",
+        "name": "Kwahtee Fortress",
+        "type": "Small Outpost"
+    },
+    "204003": {
+        "continent": "6",
+        "name": "Kwahtee Mountain Complex",
+        "type": "Small Outpost"
+    },
+    "205": {
+        "continent": "2",
+        "name": "Alkali Shipping",
+        "type": "Small Outpost"
+    },
+    "205000": {
+        "continent": "6",
+        "name": "Ikanam",
+        "type": "Bio Lab"
+    },
+    "205001": {
+        "continent": "6",
+        "name": "Ikanam Motor Pool",
+        "type": "Small Outpost"
+    },
+    "205002": {
+        "continent": "6",
+        "name": "Ikanam Garrison",
+        "type": "Small Outpost"
+    },
+    "205003": {
+        "continent": "6",
+        "name": "Ikanam Triage Station",
+        "type": "Small Outpost"
+    },
+    "206": {
+        "continent": "2",
+        "name": "CoraMed Labs",
+        "type": "Small Outpost"
+    },
+    "206000": {
+        "continent": "6",
+        "name": "Heyoka",
+        "type": "Tech Plant"
+    },
+    "206001": {
+        "continent": "6",
+        "name": "Heyoka Armory",
+        "type": "Small Outpost"
+    },
+    "206002": {
+        "continent": "6",
+        "name": "Heyoka Chemical Lab",
+        "type": "Small Outpost"
+    },
+    "207": {
+        "continent": "2",
+        "name": "Benson Construction",
+        "type": "Small Outpost"
+    },
+    "207000": {
+        "continent": "6",
+        "name": "Sungrey",
+        "type": "Amp Station"
+    },
+    "207001": {
+        "continent": "6",
+        "name": "Sungrey West Gate",
+        "type": "Small Outpost"
+    },
+    "207002": {
+        "continent": "6",
+        "name": "Sungrey Power Hub",
+        "type": "Small Outpost"
+    },
+    "207003": {
+        "continent": "6",
+        "name": "Sungrey Overwatch",
+        "type": "Small Outpost"
+    },
+    "208": {
+        "continent": "2",
+        "name": "Alkali Mining Supply",
+        "type": "Small Outpost"
+    },
+    "208000": {
+        "continent": "6",
+        "name": "Mekala",
+        "type": "Tech Plant"
+    },
+    "208001": {
+        "continent": "6",
+        "name": "Mekala Cart Mining",
+        "type": "Small Outpost"
+    },
+    "208002": {
+        "continent": "6",
+        "name": "Mekala's Auxiliary Compound",
+        "type": "Small Outpost"
+    },
+    "209": {
+        "continent": "2",
+        "name": "Crater Firing Range",
+        "type": "Small Outpost"
+    },
+    "209000": {
+        "continent": "6",
+        "name": "Onatha",
+        "type": "Bio Lab"
+    },
+    "209001": {
+        "continent": "6",
+        "name": "Onatha North Gate",
+        "type": "Small Outpost"
+    },
+    "209002": {
+        "continent": "6",
+        "name": "East Onatha Comm. Array",
+        "type": "Small Outpost"
+    },
+    "209003": {
+        "continent": "6",
+        "name": "Onatha Southwest Gate",
+        "type": "Small Outpost"
+    },
+    "210": {
+        "continent": "2",
+        "name": "Alkali Storage",
+        "type": "Small Outpost"
+    },
+    "210000": {
+        "continent": "6",
+        "name": "Wokuk",
+        "type": "Amp Station"
+    },
+    "210001": {
+        "continent": "6",
+        "name": "Wokuk Ecological Preserve",
+        "type": "Small Outpost"
+    },
+    "210002": {
+        "continent": "6",
+        "name": "Wokuk Shipping Dock",
+        "type": "Small Outpost"
+    },
+    "210003": {
+        "continent": "6",
+        "name": "Wokuk Watchtower",
+        "type": "Small Outpost"
+    },
+    "211": {
+        "continent": "2",
+        "name": "Briggs Laboratories",
+        "type": "Small Outpost"
+    },
+    "211000": {
+        "continent": "6",
+        "name": "Tumas",
+        "type": "Tech Plant"
+    },
+    "211001": {
+        "continent": "6",
+        "name": "Tumas Skylance Battery",
+        "type": "Small Outpost"
+    },
+    "211002": {
+        "continent": "6",
+        "name": "Tumas Cargo Facility",
+        "type": "Small Outpost"
+    },
+    "212": {
+        "continent": "2",
+        "name": "NS Refinery",
+        "type": "Small Outpost"
+    },
+    "212000": {
+        "continent": "6",
+        "name": "Xelas",
+        "type": "Bio Lab"
+    },
+    "212001": {
+        "continent": "6",
+        "name": "Xelas West Air Dock",
+        "type": "Small Outpost"
+    },
+    "212002": {
+        "continent": "6",
+        "name": "Xelas North Gate",
+        "type": "Small Outpost"
+    },
+    "212003": {
+        "continent": "6",
+        "name": "Xelas South Bridge",
+        "type": "Small Outpost"
+    },
+    "213": {
+        "continent": "2",
+        "name": "Howling Pass Checkpoint",
+        "type": "Large Outpost"
+    },
+    "213000": {
+        "continent": "6",
+        "name": "LithCorp Secure Mine",
+        "type": "Large Outpost"
+    },
+    "214": {
+        "continent": "2",
+        "name": "Indar Comm. Array",
+        "type": "Small Outpost"
+    },
+    "214000": {
+        "continent": "6",
+        "name": "The NC Arsenal",
+        "type": "Large Outpost"
+    },
+    "215": {
+        "continent": "2",
+        "name": "Quartz Ridge Camp",
+        "type": "Large Outpost"
+    },
+    "215000": {
+        "continent": "6",
+        "name": "Crux Mining Operation",
+        "type": "Large Outpost"
+    },
+    "216": {
+        "continent": "2",
+        "name": "West Highlands Checkpoint",
+        "type": "Small Outpost"
+    },
+    "216000": {
+        "continent": "6",
+        "name": "Crux Headquarters",
+        "type": "Large Outpost"
+    },
+    "217": {
+        "continent": "2",
+        "name": "Seabed Listening Post",
+        "type": "Small Outpost"
+    },
+    "217000": {
+        "continent": "6",
+        "name": "The Bastion",
+        "type": "Large Outpost"
+    },
+    "218": {
+        "continent": "2",
+        "name": "Ti Alloys, Inc.",
+        "type": "Small Outpost"
+    },
+    "218000": {
+        "continent": "6",
+        "name": "Auraxis Firearms Corp.",
+        "type": "Large Outpost"
+    },
+    "219": {
+        "continent": "2",
+        "name": "Ceres Hydroponics",
+        "type": "Small Outpost"
+    },
+    "219000": {
+        "continent": "6",
+        "name": "Splitpeak Pass",
+        "type": "Large Outpost"
+    },
+    "220": {
+        "continent": "2",
+        "name": "Galaxy Solar Plant",
+        "type": "Small Outpost"
+    },
+    "220000": {
+        "continent": "6",
+        "name": "West Pass Watchtower",
+        "type": "Large Outpost"
+    },
+    "221": {
+        "continent": "2",
+        "name": "The Palisade",
+        "type": "Small Outpost"
+    },
+    "221000": {
+        "continent": "6",
+        "name": "Granite Valley Garrison",
+        "type": "Large Outpost"
+    },
+    "222": {
+        "continent": "2",
+        "name": "East Canyon Checkpoint",
+        "type": "Small Outpost"
+    },
+    "222000": {
+        "continent": "6",
+        "name": "Stoneridge Reserve",
+        "type": "Small Outpost"
+    },
+    "222010": {
+        "continent": "6",
+        "name": "North Grove Post",
+        "type": "Small Outpost"
+    },
+    "222020": {
+        "continent": "6",
+        "name": "Jagged Lance Mine",
+        "type": "Small Outpost"
+    },
+    "222030": {
+        "continent": "6",
+        "name": "Hidden Ridge Mining",
+        "type": "Small Outpost"
+    },
+    "222040": {
+        "continent": "6",
+        "name": "SolTech Charging Station",
+        "type": "Small Outpost"
+    },
+    "222050": {
+        "continent": "6",
+        "name": "Deserted Mineshaft",
+        "type": "Small Outpost"
+    },
+    "222060": {
+        "continent": "6",
+        "name": "AuraxiCom Network Hub",
+        "type": "Small Outpost"
+    },
+    "222080": {
+        "continent": "6",
+        "name": "Genudine Physics Lab",
+        "type": "Small Outpost"
+    },
+    "222090": {
+        "continent": "6",
+        "name": "Cobalt Communications",
+        "type": "Small Outpost"
+    },
+    "222100": {
+        "continent": "6",
+        "name": "West Foothills Airdock",
+        "type": "Small Outpost"
+    },
+    "222110": {
+        "continent": "6",
+        "name": "DeepCore Geolab",
+        "type": "Small Outpost"
+    },
+    "222120": {
+        "continent": "6",
+        "name": "Blackshard Tungsten Mine",
+        "type": "Small Outpost"
+    },
+    "222130": {
+        "continent": "6",
+        "name": "Shadespire Farms",
+        "type": "Small Outpost"
+    },
+    "222150": {
+        "continent": "6",
+        "name": "Rockslide Outlook",
+        "type": "Small Outpost"
+    },
+    "222160": {
+        "continent": "6",
+        "name": "East Hills Checkpoint",
+        "type": "Small Outpost"
+    },
+    "222170": {
+        "continent": "6",
+        "name": "Silver Valley Arsenal",
+        "type": "Small Outpost"
+    },
+    "222180": {
+        "continent": "6",
+        "name": "Chimney Rock Depot",
+        "type": "Small Outpost"
+    },
+    "222190": {
+        "continent": "6",
+        "name": "AuraxiCom Substation",
+        "type": "Small Outpost"
+    },
+    "222220": {
+        "continent": "6",
+        "name": "Torremar Storage Yard",
+        "type": "Small Outpost"
+    },
+    "222230": {
+        "continent": "6",
+        "name": "Highroads Station",
+        "type": "Small Outpost"
+    },
+    "222240": {
+        "continent": "6",
+        "name": "Aramax Chemical Co.",
+        "type": "Small Outpost"
+    },
+    "222250": {
+        "continent": "6",
+        "name": "The Auraxian Cryobank",
+        "type": "Small Outpost"
+    },
+    "222270": {
+        "continent": "6",
+        "name": "Raven Landing",
+        "type": "Small Outpost"
+    },
+    "222280": {
+        "continent": "6",
+        "name": "The Ascent",
+        "type": "Large Outpost"
+    },
+    "222290": {
+        "continent": "6",
+        "name": "SolTech Gorge",
+        "type": "Small Outpost"
+    },
+    "222300": {
+        "continent": "6",
+        "name": "LithCorp Fortress",
+        "type": "Small Outpost"
+    },
+    "222310": {
+        "continent": "6",
+        "name": "Moss Ravine",
+        "type": "Small Outpost"
+    },
+    "222320": {
+        "continent": "6",
+        "name": "The Auger",
+        "type": "Small Outpost"
+    },
+    "222330": {
+        "continent": "6",
+        "name": "Shrouded Skyway",
+        "type": "Small Outpost"
+    },
+    "222340": {
+        "continent": "6",
+        "name": "The Scarfield Reliquary",
+        "type": "Small Outpost"
+    },
+    "222350": {
+        "continent": "6",
+        "name": "LithCorp Central",
+        "type": "Small Outpost"
+    },
+    "222360": {
+        "continent": "6",
+        "name": "Eastshore Training Camp",
+        "type": "Small Outpost"
+    },
+    "222380": {
+        "continent": "6",
+        "name": "Barrik Electrical Station",
+        "type": "Small Outpost"
+    },
+    "223": {
+        "continent": "2",
+        "name": "Abandoned NS Offices",
+        "type": "Small Outpost"
+    },
+    "224": {
+        "continent": "2",
+        "name": "NS Material Storage",
+        "type": "Small Outpost"
+    },
+    "225": {
+        "continent": "2",
+        "name": "Sandstone Gulch Mining",
+        "type": "Small Outpost"
+    },
+    "226": {
+        "continent": "2",
+        "name": "NS Secure Data Lab",
+        "type": "Small Outpost"
+    },
+    "227": {
+        "continent": "2",
+        "name": "Highlands Solar Station",
+        "type": "Small Outpost"
+    },
+    "228": {
+        "continent": "2",
+        "name": "Ayani Labs",
+        "type": "Small Outpost"
+    },
+    "229": {
+        "continent": "2",
+        "name": "Snake Ravine Lookout",
+        "type": "Small Outpost"
+    },
+    "230": {
+        "continent": "2",
+        "name": "XenoTech Labs",
+        "type": "Small Outpost"
+    },
+    "230000": {
+        "continent": "8",
+        "name": "Palos Solar Array",
+        "type": "Small Outpost"
+    },
+    "231": {
+        "continent": "2",
+        "name": "Broken Arch Road",
+        "type": "Small Outpost"
+    },
+    "231000": {
+        "continent": "8",
+        "name": "Crystal Ridge Comm Array",
+        "type": "Small Outpost"
+    },
+    "232": {
+        "continent": "2",
+        "name": "Gravel Pass",
+        "type": "Small Outpost"
+    },
+    "232000": {
+        "continent": "8",
+        "name": "Haven Outpost",
+        "type": "Small Outpost"
+    },
+    "233000": {
+        "continent": "8",
+        "name": "Aurora Materials Lab",
+        "type": "Small Outpost"
+    },
+    "234000": {
+        "continent": "8",
+        "name": "Apex Genetics",
+        "type": "Small Outpost"
+    },
+    "235": {
+        "continent": "2",
+        "name": "Rust Mesa Lookout",
+        "type": "Small Outpost"
+    },
+    "235000": {
+        "continent": "8",
+        "name": "Stillwater Watch",
+        "type": "Small Outpost"
+    },
+    "236": {
+        "continent": "2",
+        "name": "The Old Stockpile",
+        "type": "Small Outpost"
+    },
+    "236000": {
+        "continent": "8",
+        "name": "Grey Heron Shipping",
+        "type": "Small Outpost"
+    },
+    "237": {
+        "continent": "2",
+        "name": "Ceres Biotech",
+        "type": "Small Outpost"
+    },
+    "237000": {
+        "continent": "8",
+        "name": "The Traverse",
+        "type": "Small Outpost"
+    },
+    "238000": {
+        "continent": "8",
+        "name": "The Bulwark",
+        "type": "Small Outpost"
+    },
+    "239": {
+        "continent": "2",
+        "name": "Highlands Substation",
+        "type": "Small Outpost"
+    },
+    "239000": {
+        "continent": "8",
+        "name": "Pale Canyon Chemical",
+        "type": "Small Outpost"
+    },
+    "240000": {
+        "continent": "8",
+        "name": "Old Shore Checkpoint",
+        "type": "Small Outpost"
+    },
+    "241": {
+        "continent": "2",
+        "name": "NS Research Labs",
+        "type": "Small Outpost"
+    },
+    "241000": {
+        "continent": "8",
+        "name": "Everett Supply Co.",
+        "type": "Small Outpost"
+    },
+    "242": {
+        "continent": "2",
+        "name": "Scarred Mesa Skydock",
+        "type": "Small Outpost"
+    },
+    "242000": {
+        "continent": "8",
+        "name": "Geological Survey Camp",
+        "type": "Small Outpost"
+    },
+    "243": {
+        "continent": "2",
+        "name": "Red Ridge Communications",
+        "type": "Small Outpost"
+    },
+    "243000": {
+        "continent": "8",
+        "name": "Elli Forest Pass",
+        "type": "Small Outpost"
+    },
+    "244000": {
+        "continent": "8",
+        "name": "Frostfall Overlook",
+        "type": "Small Outpost"
+    },
+    "244100": {
+        "continent": "8",
+        "name": "Echo Valley Substation",
+        "type": "Small Outpost"
+    },
+    "244200": {
+        "continent": "8",
+        "name": "Bridge-ward",
+        "type": "Small Outpost"
+    },
+    "244300": {
+        "continent": "8",
+        "name": "Frostbite Harbor",
+        "type": "Small Outpost"
+    },
+    "244500": {
+        "continent": "8",
+        "name": "Jaeger's Fist",
+        "type": "Small Outpost"
+    },
+    "244600": {
+        "continent": "8",
+        "name": "Two Stone Beach",
+        "type": "Small Outpost"
+    },
+    "244610": {
+        "continent": "8",
+        "name": "Rime Analytics",
+        "type": "Small Outpost"
+    },
+    "244620": {
+        "continent": "8",
+        "name": "The Rink",
+        "type": "Small Outpost"
+    },
+    "245000": {
+        "continent": "8",
+        "name": "Snowshear Watchtower",
+        "type": "Large Outpost"
+    },
+    "246": {
+        "continent": "2",
+        "name": "Copper Ravine Station",
+        "type": "Small Outpost"
+    },
+    "246000": {
+        "continent": "8",
+        "name": "Mattherson's Triumph",
+        "type": "Large Outpost"
+    },
+    "247": {
+        "continent": "2",
+        "name": "Old Auraxium Mines",
+        "type": "Small Outpost"
+    },
+    "247000": {
+        "continent": "8",
+        "name": "Northpoint Station",
+        "type": "Large Outpost"
+    },
+    "248": {
+        "continent": "2",
+        "name": "Valley Storage Yard",
+        "type": "Small Outpost"
+    },
+    "248000": {
+        "continent": "8",
+        "name": "Saerro Listening Post",
+        "type": "Large Outpost"
+    },
+    "249000": {
+        "continent": "8",
+        "name": "Waterson's Redemption",
+        "type": "Large Outpost"
+    },
+    "250": {
+        "continent": "2",
+        "name": "Blackshard Iridium Mine",
+        "type": "Small Outpost"
+    },
+    "250000": {
+        "continent": "8",
+        "name": "Jaeger's Crossing",
+        "type": "Large Outpost"
+    },
+    "251000": {
+        "continent": "8",
+        "name": "Andvari",
+        "type": "Bio Lab"
+    },
+    "251010": {
+        "continent": "8",
+        "name": "Andvari Barracks",
+        "type": "Small Outpost"
+    },
+    "251020": {
+        "continent": "8",
+        "name": "Andvari Frozen Reservoir",
+        "type": "Small Outpost"
+    },
+    "251030": {
+        "continent": "8",
+        "name": "Andvari South Bank",
+        "type": "Small Outpost"
+    },
+    "252": {
+        "continent": "2",
+        "name": "Ceres Farms",
+        "type": "Small Outpost"
+    },
+    "252000": {
+        "continent": "8",
+        "name": "Elli",
+        "type": "Amp Station"
+    },
+    "252010": {
+        "continent": "8",
+        "name": "Elli Tower",
+        "type": "Small Outpost"
+    },
+    "252020": {
+        "continent": "8",
+        "name": "Elli Barracks Complex",
+        "type": "Small Outpost"
+    },
+    "253000": {
+        "continent": "8",
+        "name": "Freyr",
+        "type": "Amp Station"
+    },
+    "253010": {
+        "continent": "8",
+        "name": "Freyr Northern Barracks",
+        "type": "Small Outpost"
+    },
+    "253020": {
+        "continent": "8",
+        "name": "Freyr Geothermal Plant",
+        "type": "Small Outpost"
+    },
+    "253030": {
+        "continent": "8",
+        "name": "Freyr Network Compound",
+        "type": "Small Outpost"
+    },
+    "253040": {
+        "continent": "8",
+        "name": "Freyr Substation",
+        "type": "Small Outpost"
+    },
+    "254000": {
+        "continent": "8",
+        "name": "Eisa",
+        "type": "Tech Plant"
+    },
+    "254010": {
+        "continent": "8",
+        "name": "Eisa Mountain Pass",
+        "type": "Small Outpost"
+    },
+    "254020": {
+        "continent": "8",
+        "name": "Eisa Southern Camp",
+        "type": "Small Outpost"
+    },
+    "254030": {
+        "continent": "8",
+        "name": "Eisa Mining Operation",
+        "type": "Small Outpost"
+    },
+    "255000": {
+        "continent": "8",
+        "name": "Mani",
+        "type": "Bio Lab"
+    },
+    "255010": {
+        "continent": "8",
+        "name": "Mani Tower",
+        "type": "Small Outpost"
+    },
+    "255020": {
+        "continent": "8",
+        "name": "Mani Fortress",
+        "type": "Small Outpost"
+    },
+    "255030": {
+        "continent": "8",
+        "name": "Mani Lake Satellite",
+        "type": "Small Outpost"
+    },
+    "256000": {
+        "continent": "8",
+        "name": "Nott",
+        "type": "Amp Station"
+    },
+    "256010": {
+        "continent": "8",
+        "name": "Nott Substation",
+        "type": "Small Outpost"
+    },
+    "256020": {
+        "continent": "8",
+        "name": "Nott Research Camp",
+        "type": "Small Outpost"
+    },
+    "256030": {
+        "continent": "8",
+        "name": "Nott Communications",
+        "type": "Small Outpost"
+    },
+    "257000": {
+        "continent": "8",
+        "name": "Ymir",
+        "type": "Bio Lab"
+    },
+    "257010": {
+        "continent": "8",
+        "name": "Ymir Mine Watch",
+        "type": "Small Outpost"
+    },
+    "257020": {
+        "continent": "8",
+        "name": "Ymir Eastern Way Station",
+        "type": "Small Outpost"
+    },
+    "257030": {
+        "continent": "8",
+        "name": "Ymir Southern Reach",
+        "type": "Small Outpost"
+    },
+    "258000": {
+        "continent": "8",
+        "name": "Esamir North Western Warpgate",
+        "type": "Warpgate"
+    },
+    "259000": {
+        "continent": "8",
+        "name": "Esamir Southern Warpgate",
+        "type": "Warpgate"
+    },
+    "260000": {
+        "continent": "8",
+        "name": "Esamir Eastern Warpgate",
+        "type": "Warpgate"
+    },
+    "260004": {
+        "continent": "6",
+        "name": "Amerish ARX Reserve",
+        "type": "Small Outpost"
+    },
+    "260010": {
+        "continent": "8",
+        "name": "Terran BL-4 Crash Site",
+        "type": "Large Outpost"
+    },
+    "261000": {
+        "continent": "4",
+        "name": "Sharpe's Run",
+        "type": "Small Outpost"
+    },
+    "262000": {
+        "continent": "4",
+        "name": "Edgewater Overlook",
+        "type": "Small Outpost"
+    },
+    "263000": {
+        "continent": "4",
+        "name": "Last Hold",
+        "type": "Small Outpost"
+    },
+    "264000": {
+        "continent": "4",
+        "name": "Wainwright Armory",
+        "type": "Small Outpost"
+    },
+    "265000": {
+        "continent": "4",
+        "name": "The Offal Pit",
+        "type": "Small Outpost"
+    },
+    "266000": {
+        "continent": "4",
+        "name": "Kessel's Crossing",
+        "type": "Small Outpost"
+    },
+    "267000": {
+        "continent": "4",
+        "name": "Hossin BioChem, Inc.",
+        "type": "Small Outpost"
+    },
+    "268000": {
+        "continent": "4",
+        "name": "VEX BioLogics",
+        "type": "Small Outpost"
+    },
+    "269000": {
+        "continent": "4",
+        "name": "Bunker J993",
+        "type": "Small Outpost"
+    },
+    "270000": {
+        "continent": "4",
+        "name": "Fallbridge Chemical",
+        "type": "Small Outpost"
+    },
+    "271000": {
+        "continent": "4",
+        "name": "Halcyon Watch",
+        "type": "Small Outpost"
+    },
+    "272000": {
+        "continent": "4",
+        "name": "Bridgewater Shipping Yard",
+        "type": "Small Outpost"
+    },
+    "273000": {
+        "continent": "4",
+        "name": "OMR Terraforming",
+        "type": "Small Outpost"
+    },
+    "274000": {
+        "continent": "4",
+        "name": "Iron Quay",
+        "type": "Small Outpost"
+    },
+    "275000": {
+        "continent": "4",
+        "name": "Broken Vale Garrison",
+        "type": "Small Outpost"
+    },
+    "276000": {
+        "continent": "4",
+        "name": "Woodman ASE Labs",
+        "type": "Small Outpost"
+    },
+    "277000": {
+        "continent": "4",
+        "name": "Johari Cove",
+        "type": "Small Outpost"
+    },
+    "278000": {
+        "continent": "4",
+        "name": "Roothouse Distillery",
+        "type": "Small Outpost"
+    },
+    "279000": {
+        "continent": "4",
+        "name": "Hunter's Blind",
+        "type": "Small Outpost"
+    },
+    "280000": {
+        "continent": "4",
+        "name": "Gourney Dam",
+        "type": "Small Outpost"
+    },
+    "281000": {
+        "continent": "4",
+        "name": "SRP Hydroponics, Inc.",
+        "type": "Small Outpost"
+    },
+    "282000": {
+        "continent": "4",
+        "name": "The Ziggurat",
+        "type": "Small Outpost"
+    },
+    "283000": {
+        "continent": "4",
+        "name": "Nettlemire Gardens",
+        "type": "Small Outpost"
+    },
+    "284000": {
+        "continent": "4",
+        "name": "Whispering Pass",
+        "type": "Small Outpost"
+    },
+    "285000": {
+        "continent": "4",
+        "name": "SRP Nanite Relay Station",
+        "type": "Small Outpost"
+    },
+    "286000": {
+        "continent": "4",
+        "name": "Four Fingers",
+        "type": "Small Outpost"
+    },
+    "287000": {
+        "continent": "4",
+        "name": "Kestral Watch",
+        "type": "Small Outpost"
+    },
+    "287010": {
+        "continent": "4",
+        "name": "Construction Site Alpha",
+        "type": "Small Outpost"
+    },
+    "287020": {
+        "continent": "4",
+        "name": "Construction Site Beta",
+        "type": "Small Outpost"
+    },
+    "287030": {
+        "continent": "4",
+        "name": "Construction Site Gamma",
+        "type": "Small Outpost"
+    },
+    "287040": {
+        "continent": "4",
+        "name": "Takkon Storage",
+        "type": "Small Outpost"
+    },
+    "287050": {
+        "continent": "4",
+        "name": "Construction Site Zeta",
+        "type": "Small Outpost"
+    },
+    "287060": {
+        "continent": "4",
+        "name": "Eastern Substation",
+        "type": "Small Outpost"
+    },
+    "287070": {
+        "continent": "4",
+        "name": "Fort Liberty",
+        "type": "Small Outpost"
+    },
+    "287080": {
+        "continent": "4",
+        "name": "Construction Site Epsilon",
+        "type": "Small Outpost"
+    },
+    "287090": {
+        "continent": "4",
+        "name": "Mossridge Command Center",
+        "type": "Small Outpost"
+    },
+    "287100": {
+        "continent": "4",
+        "name": "Construction Site Omega",
+        "type": "Small Outpost"
+    },
+    "287110": {
+        "continent": "4",
+        "name": "Outpost Lambda",
+        "type": "Small Outpost"
+    },
+    "287120": {
+        "continent": "4",
+        "name": "Construction Site Sigma",
+        "type": "Small Outpost"
+    },
+    "289000": {
+        "continent": "4",
+        "name": "Genudine Holographics",
+        "type": "Large Outpost"
+    },
+    "290000": {
+        "continent": "4",
+        "name": "Fort Drexler",
+        "type": "Large Outpost"
+    },
+    "291000": {
+        "continent": "4",
+        "name": "Cairn Station",
+        "type": "Large Outpost"
+    },
+    "292000": {
+        "continent": "4",
+        "name": "Southgate Checkpoint",
+        "type": "Large Outpost"
+    },
+    "293000": {
+        "continent": "4",
+        "name": "Genesis Terraforming Plant",
+        "type": "Large Outpost"
+    },
+    "294000": {
+        "continent": "4",
+        "name": "Bravata PMC Compound",
+        "type": "Large Outpost"
+    },
+    "295000": {
+        "continent": "4",
+        "name": "Matsuda Genetics",
+        "type": "Large Outpost"
+    },
+    "296000": {
+        "continent": "4",
+        "name": "Hayd Skydock",
+        "type": "Large Outpost"
+    },
+    "297000": {
+        "continent": "4",
+        "name": "Hatcher Airstation",
+        "type": "Large Outpost"
+    },
+    "298000": {
+        "continent": "4",
+        "name": "Nason's Defiance",
+        "type": "Large Outpost"
+    },
+    "299000": {
+        "continent": "4",
+        "name": "Naum",
+        "type": "Amp Station"
+    },
+    "299010": {
+        "continent": "4",
+        "name": "Naum Ravine Overpass",
+        "type": "Small Outpost"
+    },
+    "299020": {
+        "continent": "4",
+        "name": "Naum Marsh Compound",
+        "type": "Small Outpost"
+    },
+    "299030": {
+        "continent": "4",
+        "name": "Naum Forward Barracks",
+        "type": "Small Outpost"
+    },
+    "300000": {
+        "continent": "4",
+        "name": "Hurakan",
+        "type": "Amp Station"
+    },
+    "300010": {
+        "continent": "4",
+        "name": "Hurakan Secure Storage",
+        "type": "Small Outpost"
+    },
+    "300020": {
+        "continent": "4",
+        "name": "Hurakan Western Pass",
+        "type": "Small Outpost"
+    },
+    "300030": {
+        "continent": "4",
+        "name": "Hurakan Southern Depot",
+        "type": "Small Outpost"
+    },
+    "301000": {
+        "continent": "4",
+        "name": "Ixtab",
+        "type": "Amp Station"
+    },
+    "301010": {
+        "continent": "4",
+        "name": "Ixtab Power Regulation",
+        "type": "Small Outpost"
+    },
+    "301020": {
+        "continent": "4",
+        "name": "Ixtab Water Purification",
+        "type": "Small Outpost"
+    },
+    "301030": {
+        "continent": "4",
+        "name": "Ixtab Southern Pass",
+        "type": "Small Outpost"
+    },
+    "302000": {
+        "continent": "4",
+        "name": "Acan",
+        "type": "Bio Lab"
+    },
+    "302010": {
+        "continent": "4",
+        "name": "East Acan Storage Depot",
+        "type": "Small Outpost"
+    },
+    "302020": {
+        "continent": "4",
+        "name": "Acan Data Hub",
+        "type": "Small Outpost"
+    },
+    "302030": {
+        "continent": "4",
+        "name": "Acan Southern Labs",
+        "type": "Small Outpost"
+    },
+    "303000": {
+        "continent": "4",
+        "name": "Bitol",
+        "type": "Bio Lab"
+    },
+    "303010": {
+        "continent": "4",
+        "name": "Bitol Stockpile",
+        "type": "Small Outpost"
+    },
+    "303020": {
+        "continent": "4",
+        "name": "Bitol Northern Outpost",
+        "type": "Small Outpost"
+    },
+    "303030": {
+        "continent": "4",
+        "name": "Bitol Eastern Depot",
+        "type": "Small Outpost"
+    },
+    "304000": {
+        "continent": "4",
+        "name": "Zotz",
+        "type": "Bio Lab"
+    },
+    "304010": {
+        "continent": "4",
+        "name": "Zotz North Garden",
+        "type": "Small Outpost"
+    },
+    "304020": {
+        "continent": "4",
+        "name": "Zotz Arboretum",
+        "type": "Small Outpost"
+    },
+    "304030": {
+        "continent": "4",
+        "name": "Zotz Agriculture Lab",
+        "type": "Small Outpost"
+    },
+    "305000": {
+        "continent": "4",
+        "name": "Ghanan",
+        "type": "Tech Plant"
+    },
+    "305010": {
+        "continent": "4",
+        "name": "Ghanan Southern Crossing",
+        "type": "Small Outpost"
+    },
+    "305020": {
+        "continent": "4",
+        "name": "Ghanan Research Labs",
+        "type": "Small Outpost"
+    },
+    "305030": {
+        "continent": "4",
+        "name": "Ghanan Eastern Gatehouse",
+        "type": "Small Outpost"
+    },
+    "306000": {
+        "continent": "4",
+        "name": "Mulac",
+        "type": "Tech Plant"
+    },
+    "306010": {
+        "continent": "4",
+        "name": "Mulac Pass",
+        "type": "Small Outpost"
+    },
+    "306020": {
+        "continent": "4",
+        "name": "Mulac Foundry",
+        "type": "Small Outpost"
+    },
+    "306030": {
+        "continent": "4",
+        "name": "Mulac Purification Site",
+        "type": "Small Outpost"
+    },
+    "307000": {
+        "continent": "4",
+        "name": "Chac",
+        "type": "Tech Plant"
+    },
+    "307010": {
+        "continent": "4",
+        "name": "Chac Fusion Lab",
+        "type": "Small Outpost"
+    },
+    "307020": {
+        "continent": "4",
+        "name": "Chac Water Purification",
+        "type": "Small Outpost"
+    },
+    "307030": {
+        "continent": "4",
+        "name": "Chac Intel Hub",
+        "type": "Small Outpost"
+    },
+    "308000": {
+        "continent": "4",
+        "name": "Hossin Western Warpgate",
+        "type": "Warpgate"
+    },
+    "309000": {
+        "continent": "4",
+        "name": "Hossin Eastern Warpgate",
+        "type": "Warpgate"
+    },
+    "310000": {
+        "continent": "4",
+        "name": "Hossin Southern Warpgate",
+        "type": "Warpgate"
+    },
+    "310005": {
+        "continent": "8",
+        "name": "East River Sky Station",
+        "type": "Small Outpost"
+    },
+    "3201": {
+        "continent": "2",
+        "name": "Dahaka",
+        "type": "Amp Station"
+    },
+    "3210": {
+        "continent": "2",
+        "name": "Dahaka Uplink Hub",
+        "type": "Small Outpost"
+    },
+    "3220": {
+        "continent": "2",
+        "name": "Dahaka Pump Station",
+        "type": "Small Outpost"
+    },
+    "3230": {
+        "continent": "2",
+        "name": "Dahaka Southern Post",
+        "type": "Small Outpost"
+    },
+    "3400": {
+        "continent": "2",
+        "name": "Peris",
+        "type": "Amp Station"
+    },
+    "3410": {
+        "continent": "2",
+        "name": "Peris Barracks",
+        "type": "Small Outpost"
+    },
+    "3420": {
+        "continent": "2",
+        "name": "Peris Field Tower",
+        "type": "Small Outpost"
+    },
+    "3430": {
+        "continent": "2",
+        "name": "Peris Eastern Grove",
+        "type": "Small Outpost"
+    },
+    "3601": {
+        "continent": "2",
+        "name": "Rashnu",
+        "type": "Bio Lab"
+    },
+    "3610": {
+        "continent": "2",
+        "name": "Rashnu Cavern",
+        "type": "Small Outpost"
+    },
+    "3620": {
+        "continent": "2",
+        "name": "Rashnu Watchtower",
+        "type": "Small Outpost"
+    },
+    "3630": {
+        "continent": "2",
+        "name": "Rashnu Southern Pass",
+        "type": "Small Outpost"
+    },
+    "3801": {
+        "continent": "2",
+        "name": "Saurva",
+        "type": "Bio Lab"
+    },
+    "3810": {
+        "continent": "2",
+        "name": "Saurva Data Storage",
+        "type": "Small Outpost"
+    },
+    "3820": {
+        "continent": "2",
+        "name": "Saurva South Fortress",
+        "type": "Small Outpost"
+    },
+    "4001": {
+        "continent": "2",
+        "name": "Allatum",
+        "type": "Bio Lab"
+    },
+    "400128": {
+        "continent": "6",
+        "name": "Solus Nature Annex",
+        "type": "Construction Outpost"
+    },
+    "400129": {
+        "continent": "6",
+        "name": "Cobalt Geological Outpost",
+        "type": "Construction Outpost"
+    },
+    "400130": {
+        "continent": "2",
+        "name": "Berjess Overlook",
+        "type": "Construction Outpost"
+    },
+    "400131": {
+        "continent": "2",
+        "name": "Sunken Relay Station",
+        "type": "Construction Outpost"
+    },
+    "400132": {
+        "continent": "2",
+        "name": "Lowland Trading Post",
+        "type": "Construction Outpost"
+    },
+    "400133": {
+        "continent": "8",
+        "name": "BL-4 Recovery Point",
+        "type": "Construction Outpost"
+    },
+    "400134": {
+        "continent": "8",
+        "name": "Tapp Waystation",
+        "type": "Construction Outpost"
+    },
+    "400135": {
+        "continent": "8",
+        "name": "Untapped Reservoir",
+        "type": "Construction Outpost"
+    },
+    "4010": {
+        "continent": "2",
+        "name": "Allatum Research Lab",
+        "type": "Small Outpost"
+    },
+    "4020": {
+        "continent": "2",
+        "name": "Allatum Broadcast Hub",
+        "type": "Small Outpost"
+    },
+    "4030": {
+        "continent": "2",
+        "name": "Allatum Botany Wing",
+        "type": "Small Outpost"
+    },
+    "4401": {
+        "continent": "2",
+        "name": "Mao",
+        "type": "Tech Plant"
+    },
+    "4410": {
+        "continent": "2",
+        "name": "Mao Southwest Gate",
+        "type": "Small Outpost"
+    },
+    "4420": {
+        "continent": "2",
+        "name": "Mao Watchtower",
+        "type": "Small Outpost"
+    },
+    "4430": {
+        "continent": "2",
+        "name": "Mao Southeast Gate",
+        "type": "Small Outpost"
+    },
+    "4801": {
+        "continent": "2",
+        "name": "Indar Eastern Warpgate",
+        "type": "Warpgate"
+    },
+    "5100": {
+        "continent": "2",
+        "name": "Indar Excavation Site",
+        "type": "Large Outpost"
+    },
+    "5200": {
+        "continent": "2",
+        "name": "J908 Impact Site",
+        "type": "Large Outpost"
+    },
+    "5300": {
+        "continent": "2",
+        "name": "Camp Connery",
+        "type": "Large Outpost"
+    },
+    "5500": {
+        "continent": "2",
+        "name": "Camp Waterson",
+        "type": "Large Outpost"
+    },
+    "5700": {
+        "continent": "2",
+        "name": "Regent Rock Garrison",
+        "type": "Large Outpost"
+    },
+    "5800": {
+        "continent": "2",
+        "name": "Vanu Archives",
+        "type": "Large Outpost"
+    },
+    "5900": {
+        "continent": "2",
+        "name": "Crimson Bluff Tower",
+        "type": "Large Outpost"
+    },
+    "6000": {
+        "continent": "2",
+        "name": "Indar Bay Point",
+        "type": "Large Outpost"
+    },
+    "6100": {
+        "continent": "2",
+        "name": "Crossroads Watchtower",
+        "type": "Large Outpost"
+    },
+    "6200": {
+        "continent": "2",
+        "name": "The Crown",
+        "type": "Large Outpost"
+    },
+    "6300": {
+        "continent": "2",
+        "name": "Arroyo Torre Station",
+        "type": "Large Outpost"
+    },
+    "6400": {
+        "continent": "2",
+        "name": "Feldspar Canyon Base",
+        "type": "Large Outpost"
+    },
+    "6500": {
+        "continent": "2",
+        "name": "The Stronghold",
+        "type": "Small Outpost"
+    },
+    "7000": {
+        "continent": "2",
+        "name": "Tawrich",
+        "type": "Tech Plant"
+    },
+    "7010": {
+        "continent": "2",
+        "name": "Tawrich Depot",
+        "type": "Small Outpost"
+    },
+    "7020": {
+        "continent": "2",
+        "name": "Tawrich Tower",
+        "type": "Small Outpost"
+    },
+    "7030": {
+        "continent": "2",
+        "name": "Tawrich Recycling",
+        "type": "Small Outpost"
+    },
+    "7500": {
+        "continent": "2",
+        "name": "Hvar",
+        "type": "Tech Plant"
+    },
+    "7510": {
+        "continent": "2",
+        "name": "Hvar Western Post",
+        "type": "Small Outpost"
+    },
+    "7520": {
+        "continent": "2",
+        "name": "Hvar Databank",
+        "type": "Small Outpost"
+    },
+    "7530": {
+        "continent": "2",
+        "name": "Hvar Physics Lab",
+        "type": "Small Outpost"
+    },
+    "7801": {
+        "continent": "2",
+        "name": "Indar Northern Warpgate",
+        "type": "Warpgate"
+    }
+}

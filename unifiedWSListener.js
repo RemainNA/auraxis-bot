@@ -17,11 +17,11 @@ var backoff = 1000;
 function listen(pgClient, discordClient){
     population.validate(pgClient); //Account for any logout events missed while the listener was offline
     pcLogin = '{"service":"event","action":"subscribe","worlds":["1","10","13","17","19","40"],"eventNames":["PlayerLogin","PlayerLogout"]}';
-    pcAlerts = '{"service":"event","action":"subscribe","worlds":["1","10","13","17","19","40"],"eventNames":["MetagameEvent"]}';
+    pcAlerts = '{"service":"event","action":"subscribe","worlds":["1","10","13","17","19","40"],"eventNames":["MetagameEvent","FacilityControl"]}';
     usLogin = '{"service":"event","action":"subscribe","worlds":["1000"],"eventNames":["PlayerLogin","PlayerLogout"]}';
-    usAlerts = '{"service":"event","action":"subscribe","worlds":["1000"],"eventNames":["MetagameEvent"]}';
+    usAlerts = '{"service":"event","action":"subscribe","worlds":["1000"],"eventNames":["MetagameEvent","FacilityControl"]}';
     euLogin = '{"service":"event","action":"subscribe","worlds":["2000"],"eventNames":["PlayerLogin","PlayerLogout"]}';
-    euAlerts = '{"service":"event","action":"subscribe","worlds":["2000"],"eventNames":["MetagameEvent"]}';
+    euAlerts = '{"service":"event","action":"subscribe","worlds":["2000"],"eventNames":["MetagameEvent","FacilityControl"]}';
     pcURI = 'wss://push.planetside2.com/streaming?environment=ps2&service-id=s:'+process.env.serviceID;
     usURI = 'wss://push.planetside2.com/streaming?environment=ps2ps4us&service-id=s:'+process.env.serviceID;
     euURI = 'wss://push.planetside2.com/streaming?environment=ps2ps4eu&service-id=s:'+process.env.serviceID;

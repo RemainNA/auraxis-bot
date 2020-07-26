@@ -237,14 +237,120 @@ alertEvent = async function(payload, environment, pgClient, discordClient){
     }
 }
 
+baseEvent = async function(payload, environment, pgClient, discordClient){
+    if(payload.new_faction_id == payload.old_faction_id){
+        return; //Ignore defended bases
+    }
+    //check if outfit is in db, construct and send info w/ facility id
+    let queryText = "SELECT * FROM outfitcaptures WHERE id=$1";
+    if(environment == "ps2ps4us:v2"){
+        queryText = "SELECT * FROM ps4usoutfitcaptures WHERE id=$1";
+    }
+    else if(environment == "ps2ps4eu:v2"){
+        queryText = "SELECT * FROM ps4euoutfitcaptures WHERE id=$1";
+    }
+    let queryValues = [payload.outfit_id];
+    try{
+        let result = await pgClient.query(queryText, queryValues);
+        if(result.rowCount > 0){
+            let sendEmbed = new Discord.RichEmbed();
+            let base = await baseInfo(payload.facility_id, environment);
+            sendEmbed.setTitle("["+result.rows[0].alias+"] "+result.rows[0].name+' captured '+base.name);
+            sendEmbed.setTimestamp();
+            if(payload.new_faction_id == "1"){ //Color cannot be dependent on outfit due to NSO outfits
+                sendEmbed.setColor("PURPLE");
+            }
+            else if(payload.new_faction_id == "2"){
+                sendEmbed.setColor("BLUE");
+            }
+            else if(payload.new_faction_id == "3"){
+                sendEmbed.setColor("RED");
+            }
+            if(payload.zone_id == "2"){
+                sendEmbed.addField("Continent", "Indar", true);
+            }
+            else if(payload.zone_id == "4"){
+                sendEmbed.addField("Continent", "Hossin", true);
+            }
+            else if(payload.zone_id == "6"){
+                sendEmbed.addField("Continent", "Amerish", true);
+            }
+            else if(payload.zone_id == "8"){
+                sendEmbed.addField("Continent", "Esamir", true);
+            }
+            sendEmbed.addField("Facility Type", base.type, true);
+            if(payload.old_faction_id == "1"){ //Color cannot be dependent on outfit due to NSO outfits
+                sendEmbed.addField("Captured From", "VS", true);
+            }
+            else if(payload.old_faction_id == "2"){
+                sendEmbed.addField("Captured From", "NC", true);
+            }
+            else if(payload.old_faction_id == "3"){
+                sendEmbed.addField("Captured From", "TR", true);
+            }
+            for (let row of result.rows){
+                let resChann = discordClient.channels.get(row.channel);
+                if(resChann != undefined){
+                    messageHandler.send(resChann, sendEmbed, "Facility capture");
+                }
+            }
+        }
+    }
+    catch(error){
+        return new Promise(function(resolve, reject){
+            reject(error);
+        })
+    }
+}
+
 var objectEquality = function(a, b){
     if(typeof(a.character_id) !== 'undefined' && typeof(b.character_id) !== 'undefined'){
         return a.character_id == b.character_id && a.event_name == b.event_name;
     }
-    else if(typeof(a.event_name) !== 'undefined' && typeof(b.event_name) !== 'undefined'){
+    else if(typeof(a.metagame_event_id) !== 'undefined' && typeof(b.metagame_event_id) !== 'undefined'){
         return a.metagame_event_id == b.metagame_event_id && a.world_id == b.world_id;
     }
+    else if(typeof(a.facility_id) !== 'undefined' && typeof(b.facility_id) !== 'undefined'){
+        return a.facility_id == b.facility_id && a.world_id == b.world_id && a.duration_held == b.duration_held;
+    }
     return false
+}
+
+var baseInfo = async function(facilityID, environment){
+    var bases = require('./bases.json');
+    if(typeof(bases[facilityID]) !== 'undefined'){
+        return new Promise(function(resolve, reject){
+            resolve(bases[facilityID]);
+        })
+    }
+    else{ //backup web request
+        let uri = 'http://census.daybreakgames.com/s:'+process.env.serviceID+'/get/'+environment+'/map_region?facility_id='+facilityID;
+        let response = await got(uri).json();
+        if(typeof(response.error) !== 'undefined'){
+            return new Promise(function(resolve, reject){
+                reject(response.error);
+            })
+        }
+        if(response.statusCode == 404){
+            return new Promise(function(resolve, reject){
+                reject("API Unreachable");
+            })
+        }
+        if(typeof(response.map_region_list) === 'undefined'){
+            return new Promise(function(resolve, reject){
+                reject("API response improperly formatted");
+            })
+        }
+        let resObj = {
+            "continent": response.map_region_list[0].zone_id,
+            "name": response.map_region_list[0].facility_name,
+            "type": response.map_region_list[0].facility_type
+        }
+        return new Promise(function(resolve, reject){
+            resolve(resObj);
+        })
+    }
+    
 }
 
 queue = ["","","","",""]
@@ -268,6 +374,10 @@ module.exports = {
         }
         else if(payload.metagame_event_state_name != null){
             alertEvent(payload, environment, pgClient, discordClient)
+                .catch(error => console.log(error));
+        }
+        else if(payload.duration_held != null){
+            baseEvent(payload, environment, pgClient, discordClient)
                 .catch(error => console.log(error));
         }
     }
