@@ -52,12 +52,21 @@ var basicInfo = async function(cName, platform){
             reject("Character has not yet unlocked ASP");
         })
 	}
+	let br100Decal = false;
 	let decals = []; //count br 101-120 decals
 	for (x in data.items){
 		if (Number(data.items[x].item_id) >= 803931 && Number(data.items[x].item_id) <= 803950){
 			//record br 101-120 decals
 			decals.push(Number(data.items[x].item_id));
 		}
+		if(Number(data.items[x].item_id) == 70738 || Number(data.items[x].item_id) == 70737 || Number(data.items[x].item_id) == 70736){
+			br100Decal = true;
+		}
+	}
+	if(!br100Decal){
+		return new Promise(function(resolve, reject){
+            reject("Character has not yet unlocked ASP");
+        })
 	}
 	let preBR = 100;
 	if(decals.length != 0){
