@@ -308,20 +308,52 @@ module.exports = {
         if(environment == "ps2:v2"){
             let count = await pgClient.query('SELECT COUNT(channel) FROM outfitcaptures WHERE id=$1 AND channel=$2', [outfit.ID, channel]);
             if (count.rows[0].count == 0){
-                if(outfit.faction == "1"){
-                    color = 'PURPLE';
-                }
-                else if(outfit.faction == "2"){
-                    color = 'BLUE';
-                }
-                else if(outfit.faction == "3"){
-                    color = 'RED';
-                }
-                else{
-                    color = 'GREY';
-                }
                 try{
                     await pgClient.query("INSERT INTO outfitcaptures (id, alias, channel, name) VALUES ($1, $2, $3, $4)", [outfit.ID, outfit.alias, channel, outfit.name]);
+                    return new Promise(function(resolve, reject){
+                        resolve("Subscribed to "+outfit.alias+" base captures");
+                    })
+                }
+                catch(error){
+                    console.log(error);
+                    return new Promise(function(resolve, reject){
+                        reject(error);
+                    })
+                }
+            }
+            else{
+                return new Promise(function(resolve, reject){
+                    reject("Already subscribed to "+outfit.alias+" base captures");
+                })
+            }
+        }
+        else if(environment == "ps2ps4us:v2"){
+            let count = await pgClient.query('SELECT COUNT(channel) FROM ps4usoutfitcaptures WHERE id=$1 AND channel=$2', [outfit.ID, channel]);
+            if (count.rows[0].count == 0){
+                try{
+                    await pgClient.query("INSERT INTO ps4usoutfitcaptures (id, alias, channel, name) VALUES ($1, $2, $3, $4)", [outfit.ID, outfit.alias, channel, outfit.name]);
+                    return new Promise(function(resolve, reject){
+                        resolve("Subscribed to "+outfit.alias+" base captures");
+                    })
+                }
+                catch(error){
+                    console.log(error);
+                    return new Promise(function(resolve, reject){
+                        reject(error);
+                    })
+                }
+            }
+            else{
+                return new Promise(function(resolve, reject){
+                    reject("Already subscribed to "+outfit.alias+" base captures");
+                })
+            }
+        }
+        else if(environment == "ps2ps4eu:v2"){
+            let count = await pgClient.query('SELECT COUNT(channel) FROM ps4euoutfitcaptures WHERE id=$1 AND channel=$2', [outfit.ID, channel]);
+            if (count.rows[0].count == 0){
+                try{
+                    await pgClient.query("INSERT INTO ps4euoutfitcaptures (id, alias, channel, name) VALUES ($1, $2, $3, $4)", [outfit.ID, outfit.alias, channel, outfit.name]);
                     return new Promise(function(resolve, reject){
                         resolve("Subscribed to "+outfit.alias+" base captures");
                     })
