@@ -49,23 +49,23 @@ var basicInfo = async function(cName, platform){
 	}
 	if(data.prestige_level == "0"){
 		return new Promise(function(resolve, reject){
-            reject("Character has not yet unlocked ASP");
+            reject(cName+" has not yet unlocked ASP");
         })
 	}
-	let br100Decal = false;
+	let aspTitle = false;
 	let decals = []; //count br 101-120 decals
 	for (x in data.items){
 		if (Number(data.items[x].item_id) >= 803931 && Number(data.items[x].item_id) <= 803950){
 			//record br 101-120 decals
 			decals.push(Number(data.items[x].item_id));
 		}
-		if(Number(data.items[x].item_id) == 70738 || Number(data.items[x].item_id) == 70737 || Number(data.items[x].item_id) == 70736){
-			br100Decal = true;
+		if(Number(data.items[x].item_id) == 6004399){
+			aspTitle = true;
 		}
 	}
-	if(!br100Decal){
+	if(!aspTitle){
 		return new Promise(function(resolve, reject){
-            reject("Character has not yet unlocked ASP");
+            reject(cName+" has not yet unlocked ASP");
         })
 	}
 	let preBR = 100;
