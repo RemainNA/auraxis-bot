@@ -1,15 +1,13 @@
 {
-  "name": "Auraxis_Bot",
+  "name": "auraxis_bot",
   "version": "2.0.0",
   "description": "Bot for Planetside info",
   "main": "main.js",
-  "author": "Ultimastorm",
+  "author": "RemainNA",
   "dependencies": {
-    "async": "^2.6.3",
     "discord.js": "^11.6.4",
     "got": "^10.7.0",
     "pg": "^7.18.2",
-    "request": "^2.88.2",
-    "ws": "^7.2.5"
+    "ws": "^7.3.1"
   }
 }
