@@ -2,7 +2,7 @@
 
 var WebSocket = require('ws');
 const Discord = require('discord.js');
-const population = require('./validatePopulation.js');
+var population = require('./validatePopulation.js');
 
 const { Client } = require('pg');
 
