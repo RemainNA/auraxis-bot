@@ -405,7 +405,7 @@ module.exports = {
             }
             else{
                 try{
-                    pgClient.query('DELETE FROM pa4usoutfitcaptures WHERE channel=$1 AND id=$2', [channel, outfit.ID]);
+                    pgClient.query('DELETE FROM ps4usoutfitcaptures WHERE channel=$1 AND id=$2', [channel, outfit.ID]);
                 }
                 catch(error){
                     return new Promise(function(resolve, reject){ 
