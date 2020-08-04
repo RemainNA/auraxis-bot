@@ -385,15 +385,16 @@ module.exports = {
             else{
                 try{
                     pgClient.query('DELETE FROM outfitcaptures WHERE channel=$1 AND id=$2', [channel, outfit.ID]);
+                    return new Promise(function(resolve, reject){ 
+                        resolve("Unsubscribed from "+outfit.alias+" captures");
+                    })
                 }
                 catch(error){
                     return new Promise(function(resolve, reject){ 
                         reject(error);
                     })
                 }
-                return new Promise(function(resolve, reject){ 
-                    resolve("Unsubscribed from "+outfit.alias+" captures");
-                })
+                
             }
         }
         if(environment == "ps2ps4us:v2"){
@@ -406,15 +407,16 @@ module.exports = {
             else{
                 try{
                     pgClient.query('DELETE FROM ps4usoutfitcaptures WHERE channel=$1 AND id=$2', [channel, outfit.ID]);
+                    return new Promise(function(resolve, reject){ 
+                        resolve("Unsubscribed from "+outfit.alias+" captures");
+                    })
                 }
                 catch(error){
                     return new Promise(function(resolve, reject){ 
                         reject(error);
                     })
                 }
-                return new Promise(function(resolve, reject){ 
-                    resolve("Unsubscribed from "+outfit.alias+" captures");
-                })
+                
             }
         }
         if(environment == "ps2ps4eu:v2"){
@@ -427,15 +429,16 @@ module.exports = {
             else{
                 try{
                     pgClient.query('DELETE FROM ps4euoutfitcaptures WHERE channel=$1 AND id=$2', [channel, outfit.ID]);
+                    return new Promise(function(resolve, reject){ 
+                        resolve("Unsubscribed from "+outfit.alias+" captures");
+                    })
                 }
                 catch(error){
                     return new Promise(function(resolve, reject){ 
                         reject(error);
                     })
                 }
-                return new Promise(function(resolve, reject){ 
-                    resolve("Unsubscribed from "+outfit.alias+" captures");
-                })
+                
             }
         }
     },
