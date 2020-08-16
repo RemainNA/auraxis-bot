@@ -144,11 +144,11 @@
         "image": "89444"
     },
     "Firestorm": {
-        "1": "Killing an enemy increases rate of fire by 8% on the currently equipped weapon for 1.5 seconds.",
-        "2": "Killing an enemy increases rate of fire by 8% on the currently equipped weapon for 1.75 seconds.",
-        "3": "Killing an enemy increases rate of fire by 8% on the currently equipped weapon for 2.25 seconds.",
-        "4": "Killing an enemy increases rate of fire by 8% on the currently equipped weapon for 3 seconds.",
-        "5": "Killing an enemy increases rate of fire by 8% on the currently equipped weapon for 3 seconds, and a headshot kill will increase this duration to 5 seconds.",
+        "1": "Killing an enemy increases rate of fire by 8% for 1.5 seconds. While this effect is active, your recoil and cone of fire bloom suffer significantly.",
+        "2": "Killing an enemy increases rate of fire by 8% for 1.75 seconds. While this effect is active, your recoil and cone of fire bloom suffer significantly.",
+        "3": "Killing an enemy increases rate of fire by 8% for 2.25 seconds. While this effect is active, your recoil and cone of fire bloom suffer significantly.",
+        "4": "Killing an enemy increases rate of fire by 8% for 3 seconds. While this effect is active, your recoil and cone of fire bloom suffer significantly.",
+        "5": "Killing an enemy increases rate of fire by 8% for 3 seconds, and a headshot kill will increase this duration to 5 seconds. While this effect is active, your recoil and cone of fire bloom suffer significantly.",
         "image": "88274"
     },
     "Firewall": {
