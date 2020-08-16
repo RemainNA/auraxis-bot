@@ -1052,6 +1052,7 @@
             "Semi-Auto"
         ],
         "fireRate": "267",
+        "headshotMultiplier": "0.5",
         "hipCofRecoil": "0",
         "image_id": "5886",
         "maxDamage": "100",
@@ -1061,6 +1062,7 @@
         "name": "Mauler S6",
         "pelletSpread": "3",
         "pellets": "6",
+        "recoilHorizontalTolerance": "1.5",
         "reload": "2100",
         "runningCofMax": "7",
         "runningCofMaxADS": "2",
@@ -1074,7 +1076,8 @@
         "standingCofMax": "7",
         "standingCofMaxADS": "2",
         "standingCofMin": "1.5",
-        "standingCofMinADS": "0.1"
+        "standingCofMinADS": "0.1",
+        "verticalRecoil": "2.8"
     },
     "129": {
         "adsCofRecoil": "0",
@@ -1282,6 +1285,7 @@
             "Auto"
         ],
         "fireRate": "150",
+        "headshotMultiplier": "1",
         "hipCofRecoil": "0.05",
         "image_id": "1596",
         "maxDamage": "143",
@@ -1300,7 +1304,8 @@
         "sprintingCofMax": "5",
         "sprintingCofMin": "5",
         "standingCofMax": "3",
-        "standingCofMin": "1.75"
+        "standingCofMin": "1.75",
+        "verticalRecoil": "0.2"
     },
     "15001": {
         "ammo": "48",
@@ -1320,6 +1325,7 @@
             "Auto"
         ],
         "fireRate": "750",
+        "headshotMultiplier": "0",
         "hipCofRecoil": "0",
         "image_id": "1599",
         "indirectDamage": "100",
@@ -1335,7 +1341,8 @@
         "sprintingCofMax": "5",
         "sprintingCofMin": "5",
         "standingCofMax": "0.1",
-        "standingCofMin": "0.1"
+        "standingCofMin": "0.1",
+        "verticalRecoil": "0.4"
     },
     "15004": {
         "ammo": "196",
@@ -1353,6 +1360,7 @@
             "Auto"
         ],
         "fireRate": "273",
+        "headshotMultiplier": "1",
         "hipCofRecoil": "0",
         "image_id": "1626",
         "maxDamage": "100",
@@ -1362,6 +1370,7 @@
         "name": "NS-10 Burster",
         "pelletSpread": "0",
         "pellets": "1",
+        "recoilHorizontalTolerance": "0.3",
         "reload": "3000",
         "runningCofMax": "2",
         "runningCofMin": "2",
@@ -1369,7 +1378,8 @@
         "sprintingCofMax": "5",
         "sprintingCofMin": "5",
         "standingCofMax": "2",
-        "standingCofMin": "2"
+        "standingCofMin": "2",
+        "verticalRecoil": "0.2"
     },
     "15012": {
         "ammo": "480",
@@ -1387,6 +1397,7 @@
             "Auto"
         ],
         "fireRate": "150",
+        "headshotMultiplier": "1",
         "hipCofRecoil": "0.05",
         "image_id": "1596",
         "maxDamage": "143",
@@ -1405,7 +1416,8 @@
         "sprintingCofMax": "5",
         "sprintingCofMin": "5",
         "standingCofMax": "3",
-        "standingCofMin": "1.75"
+        "standingCofMin": "1.75",
+        "verticalRecoil": "0.2"
     },
     "15013": {
         "ammo": "48",
@@ -1425,6 +1437,7 @@
             "Auto"
         ],
         "fireRate": "750",
+        "headshotMultiplier": "0",
         "hipCofRecoil": "0",
         "image_id": "1599",
         "indirectDamage": "100",
@@ -1440,7 +1453,8 @@
         "sprintingCofMax": "5",
         "sprintingCofMin": "5",
         "standingCofMax": "0.1",
-        "standingCofMin": "0.1"
+        "standingCofMin": "0.1",
+        "verticalRecoil": "0.4"
     },
     "15016": {
         "ammo": "196",
@@ -1458,6 +1472,7 @@
             "Auto"
         ],
         "fireRate": "273",
+        "headshotMultiplier": "1",
         "hipCofRecoil": "0",
         "image_id": "1626",
         "maxDamage": "100",
@@ -1467,6 +1482,7 @@
         "name": "NS-10 Burster",
         "pelletSpread": "0",
         "pellets": "1",
+        "recoilHorizontalTolerance": "0.3",
         "reload": "3000",
         "runningCofMax": "2",
         "runningCofMin": "2",
@@ -1474,7 +1490,8 @@
         "sprintingCofMax": "5",
         "sprintingCofMin": "5",
         "standingCofMax": "2",
-        "standingCofMin": "2"
+        "standingCofMin": "2",
+        "verticalRecoil": "0.2"
     },
     "15024": {
         "ammo": "480",
@@ -1492,6 +1509,7 @@
             "Auto"
         ],
         "fireRate": "122",
+        "headshotMultiplier": "1",
         "hipCofRecoil": "0.05",
         "image_id": "83273",
         "maxDamage": "125",
@@ -1510,7 +1528,8 @@
         "sprintingCofMax": "5",
         "sprintingCofMin": "5",
         "standingCofMax": "3",
-        "standingCofMin": "2"
+        "standingCofMin": "2",
+        "verticalRecoil": "0.2"
     },
     "15025": {
         "ammo": "800",
@@ -1528,6 +1547,7 @@
             "Auto"
         ],
         "fireRate": "150",
+        "headshotMultiplier": "1",
         "hipCofRecoil": "0.05",
         "image_id": "83267",
         "maxDamage": "143",
@@ -1546,7 +1566,8 @@
         "sprintingCofMax": "5",
         "sprintingCofMin": "5",
         "standingCofMax": "3",
-        "standingCofMin": "2"
+        "standingCofMin": "2",
+        "verticalRecoil": "0.2"
     },
     "15030": {
         "ammo": "400",
@@ -1564,6 +1585,7 @@
             "Auto"
         ],
         "fireRate": "141",
+        "headshotMultiplier": "1",
         "hipCofRecoil": "0.05",
         "image_id": "83285",
         "maxDamage": "125",
@@ -1582,7 +1604,8 @@
         "sprintingCofMax": "5",
         "sprintingCofMin": "5",
         "standingCofMax": "3",
-        "standingCofMin": "1.25"
+        "standingCofMin": "1.25",
+        "verticalRecoil": "0.2"
     },
     "153": {
         "category": "Infantry Abilities",
@@ -1623,6 +1646,7 @@
             "Semi-Auto"
         ],
         "fireRate": "500",
+        "headshotMultiplier": "0.5",
         "hipCofRecoil": "0.5",
         "image_id": "1587",
         "maxDamage": "125",
@@ -1641,7 +1665,8 @@
         "sprintingCofMax": "5",
         "sprintingCofMin": "5",
         "standingCofMax": "1",
-        "standingCofMin": "0"
+        "standingCofMin": "0",
+        "verticalRecoil": "0.2"
     },
     "16001": {
         "ammo": "24",
@@ -1661,6 +1686,7 @@
             "Auto"
         ],
         "fireRate": "200",
+        "headshotMultiplier": "0",
         "hipCofRecoil": "0",
         "image_id": "1590",
         "indirectDamage": "200",
@@ -1676,7 +1702,8 @@
         "sprintingCofMax": "5",
         "sprintingCofMin": "5",
         "standingCofMax": "0.1",
-        "standingCofMin": "0.1"
+        "standingCofMin": "0.1",
+        "verticalRecoil": "0.4"
     },
     "16004": {
         "ammo": "196",
@@ -1694,6 +1721,7 @@
             "Auto"
         ],
         "fireRate": "273",
+        "headshotMultiplier": "1",
         "hipCofRecoil": "0",
         "image_id": "1626",
         "maxDamage": "100",
@@ -1703,6 +1731,7 @@
         "name": "NS-10 Burster",
         "pelletSpread": "0",
         "pellets": "1",
+        "recoilHorizontalTolerance": "0.3",
         "reload": "3000",
         "runningCofMax": "2",
         "runningCofMin": "2",
@@ -1710,7 +1739,8 @@
         "sprintingCofMax": "5",
         "sprintingCofMin": "5",
         "standingCofMax": "2",
-        "standingCofMin": "2"
+        "standingCofMin": "2",
+        "verticalRecoil": "0.2"
     },
     "16012": {
         "ammo": "81",
@@ -1727,6 +1757,7 @@
             "Semi-Auto"
         ],
         "fireRate": "500",
+        "headshotMultiplier": "0.5",
         "hipCofRecoil": "0.5",
         "image_id": "1587",
         "maxDamage": "125",
@@ -1745,7 +1776,8 @@
         "sprintingCofMax": "5",
         "sprintingCofMin": "5",
         "standingCofMax": "1",
-        "standingCofMin": "0"
+        "standingCofMin": "0",
+        "verticalRecoil": "0.2"
     },
     "16013": {
         "ammo": "24",
@@ -1765,6 +1797,7 @@
             "Auto"
         ],
         "fireRate": "200",
+        "headshotMultiplier": "0",
         "hipCofRecoil": "0",
         "image_id": "1590",
         "indirectDamage": "200",
@@ -1780,7 +1813,8 @@
         "sprintingCofMax": "5",
         "sprintingCofMin": "5",
         "standingCofMax": "0.1",
-        "standingCofMin": "0.1"
+        "standingCofMin": "0.1",
+        "verticalRecoil": "0.4"
     },
     "16016": {
         "ammo": "196",
@@ -1798,6 +1832,7 @@
             "Auto"
         ],
         "fireRate": "273",
+        "headshotMultiplier": "1",
         "hipCofRecoil": "0",
         "image_id": "1626",
         "maxDamage": "100",
@@ -1807,6 +1842,7 @@
         "name": "NS-10 Burster",
         "pelletSpread": "0",
         "pellets": "1",
+        "recoilHorizontalTolerance": "0.3",
         "reload": "3000",
         "runningCofMax": "2",
         "runningCofMin": "2",
@@ -1814,7 +1850,8 @@
         "sprintingCofMax": "5",
         "sprintingCofMin": "5",
         "standingCofMax": "2",
-        "standingCofMin": "2"
+        "standingCofMin": "2",
+        "verticalRecoil": "0.2"
     },
     "16024": {
         "ammo": "96",
@@ -1831,6 +1868,7 @@
             "Semi-Auto"
         ],
         "fireRate": "333",
+        "headshotMultiplier": "0.5",
         "hipCofRecoil": "0.5",
         "image_id": "83261",
         "maxDamage": "100",
@@ -1849,7 +1887,8 @@
         "sprintingCofMax": "5",
         "sprintingCofMin": "5",
         "standingCofMax": "1",
-        "standingCofMin": "0"
+        "standingCofMin": "0",
+        "verticalRecoil": "0.2"
     },
     "16025": {
         "ammo": "81",
@@ -1866,6 +1905,7 @@
             "Auto"
         ],
         "fireRate": "287",
+        "headshotMultiplier": "0.5",
         "hipCofRecoil": "0.5",
         "image_id": "83252",
         "maxDamage": "75",
@@ -1884,7 +1924,8 @@
         "sprintingCofMax": "5",
         "sprintingCofMin": "5",
         "standingCofMax": "1",
-        "standingCofMin": "0"
+        "standingCofMin": "0",
+        "verticalRecoil": "0.2"
     },
     "16026": {
         "ammo": "126",
@@ -1901,6 +1942,7 @@
             "Auto"
         ],
         "fireRate": "500",
+        "headshotMultiplier": "0.5",
         "hipCofRecoil": "0.5",
         "image_id": "83255",
         "maxDamage": "50",
@@ -1919,7 +1961,8 @@
         "sprintingCofMax": "5",
         "sprintingCofMin": "5",
         "standingCofMax": "1",
-        "standingCofMin": "0"
+        "standingCofMin": "0",
+        "verticalRecoil": "0.2"
     },
     "16028": {
         "ammo": "70",
@@ -2725,6 +2768,7 @@
             "Auto"
         ],
         "fireRate": "178",
+        "headshotMultiplier": "1",
         "hipCofRecoil": "0.06",
         "image_id": "1608",
         "maxDamage": "167",
@@ -2743,7 +2787,8 @@
         "sprintingCofMax": "5",
         "sprintingCofMin": "5",
         "standingCofMax": "3",
-        "standingCofMin": "1.5"
+        "standingCofMin": "1.5",
+        "verticalRecoil": "0.2"
     },
     "17001": {
         "ammo": "44",
@@ -2763,6 +2808,7 @@
             "Auto"
         ],
         "fireRate": "545",
+        "headshotMultiplier": "0",
         "hipCofRecoil": "0",
         "image_id": "1611",
         "indirectDamage": "100",
@@ -2778,7 +2824,8 @@
         "sprintingCofMax": "5",
         "sprintingCofMin": "5",
         "standingCofMax": "0.2",
-        "standingCofMin": "0.2"
+        "standingCofMin": "0.2",
+        "verticalRecoil": "0.4"
     },
     "17004": {
         "ammo": "196",
@@ -2796,6 +2843,7 @@
             "Auto"
         ],
         "fireRate": "273",
+        "headshotMultiplier": "1",
         "hipCofRecoil": "0",
         "image_id": "1626",
         "maxDamage": "100",
@@ -2805,6 +2853,7 @@
         "name": "NS-10 Burster",
         "pelletSpread": "0",
         "pellets": "1",
+        "recoilHorizontalTolerance": "0.3",
         "reload": "3000",
         "runningCofMax": "2",
         "runningCofMin": "2",
@@ -2812,7 +2861,8 @@
         "sprintingCofMax": "5",
         "sprintingCofMin": "5",
         "standingCofMax": "2",
-        "standingCofMin": "2"
+        "standingCofMin": "2",
+        "verticalRecoil": "0.2"
     },
     "17012": {
         "ammo": "400",
@@ -2830,6 +2880,7 @@
             "Auto"
         ],
         "fireRate": "178",
+        "headshotMultiplier": "1",
         "hipCofRecoil": "0.06",
         "image_id": "1608",
         "maxDamage": "167",
@@ -2848,7 +2899,8 @@
         "sprintingCofMax": "5",
         "sprintingCofMin": "5",
         "standingCofMax": "3",
-        "standingCofMin": "1.5"
+        "standingCofMin": "1.5",
+        "verticalRecoil": "0.2"
     },
     "17013": {
         "ammo": "44",
@@ -2868,6 +2920,7 @@
             "Auto"
         ],
         "fireRate": "545",
+        "headshotMultiplier": "0",
         "hipCofRecoil": "0",
         "image_id": "1611",
         "indirectDamage": "100",
@@ -2883,7 +2936,8 @@
         "sprintingCofMax": "5",
         "sprintingCofMin": "5",
         "standingCofMax": "0.2",
-        "standingCofMin": "0.2"
+        "standingCofMin": "0.2",
+        "verticalRecoil": "0.4"
     },
     "17016": {
         "ammo": "196",
@@ -2901,6 +2955,7 @@
             "Auto"
         ],
         "fireRate": "273",
+        "headshotMultiplier": "1",
         "hipCofRecoil": "0",
         "image_id": "1626",
         "maxDamage": "100",
@@ -2910,6 +2965,7 @@
         "name": "NS-10 Burster",
         "pelletSpread": "0",
         "pellets": "1",
+        "recoilHorizontalTolerance": "0.3",
         "reload": "3000",
         "runningCofMax": "2",
         "runningCofMin": "2",
@@ -2917,7 +2973,8 @@
         "sprintingCofMax": "5",
         "sprintingCofMin": "5",
         "standingCofMax": "2",
-        "standingCofMin": "2"
+        "standingCofMin": "2",
+        "verticalRecoil": "0.2"
     },
     "17024": {
         "ammo": "400",
@@ -2935,6 +2992,7 @@
             "Auto"
         ],
         "fireRate": "141",
+        "headshotMultiplier": "1",
         "hipCofRecoil": "0.05",
         "image_id": "83300",
         "maxDamage": "143",
@@ -2953,7 +3011,8 @@
         "sprintingCofMax": "5",
         "sprintingCofMin": "5",
         "standingCofMax": "3",
-        "standingCofMin": "2"
+        "standingCofMin": "2",
+        "verticalRecoil": "0.2"
     },
     "17025": {
         "ammo": "600",
@@ -2971,6 +3030,7 @@
             "Auto"
         ],
         "fireRate": "178",
+        "headshotMultiplier": "0.2",
         "hipCofRecoil": "0.06",
         "image_id": "83297",
         "maxDamage": "143",
@@ -2989,7 +3049,8 @@
         "sprintingCofMax": "5",
         "sprintingCofMin": "5",
         "standingCofMax": "3",
-        "standingCofMin": "2.15"
+        "standingCofMin": "2.15",
+        "verticalRecoil": "0.2"
     },
     "17030": {
         "ammo": "320",
@@ -3007,6 +3068,7 @@
             "Auto"
         ],
         "fireRate": "164",
+        "headshotMultiplier": "1",
         "hipCofRecoil": "0.06",
         "image_id": "83291",
         "maxDamage": "143",
@@ -3025,7 +3087,8 @@
         "sprintingCofMax": "5",
         "sprintingCofMin": "5",
         "standingCofMax": "3",
-        "standingCofMin": "1.15"
+        "standingCofMin": "1.15",
+        "verticalRecoil": "0.2"
     },
     "1849": {
         "adsCofRecoil": "0",
@@ -3157,6 +3220,7 @@
         "crouchingCofMaxADS": "3",
         "crouchingCofMin": "3.25",
         "crouchingCofMinADS": "0",
+        "damage": "125",
         "defZoom": "1",
         "description": "Co-developed with Genudine's Offense Development team, the NC6A GODSAW incorporates an alternate firing mode which allows the weapon to pierce heavy armor in exchange for reduced infantry damage.",
         "fallingCofMax": "7",
@@ -4196,7 +4260,8 @@
         "standingCofMax": "7",
         "standingCofMaxADS": "3",
         "standingCofMin": "3.5",
-        "standingCofMinADS": "0.1"
+        "standingCofMinADS": "0.1",
+        "verticalRecoil": "0"
     },
     "1969": {
         "adsCofRecoil": "1",
@@ -5901,6 +5966,7 @@
             "Auto"
         ],
         "fireRate": "109",
+        "headshotMultiplier": "1",
         "hipCofRecoil": "0.1",
         "image_id": "2048",
         "maxDamage": "200",
@@ -5915,7 +5981,8 @@
         "standingCofMax": "0.5",
         "standingCofMaxADS": "0.5",
         "standingCofMin": "0.2",
-        "standingCofMinADS": "0.2"
+        "standingCofMinADS": "0.2",
+        "verticalRecoil": "0.3"
     },
     "25000": {
         "adsCofRecoil": "1",
@@ -6328,6 +6395,7 @@
             "Auto"
         ],
         "fireRate": "109",
+        "headshotMultiplier": "1",
         "hipCofRecoil": "0.1",
         "image_id": "2048",
         "maxDamage": "200",
@@ -6342,7 +6410,8 @@
         "standingCofMax": "0.5",
         "standingCofMaxADS": "0.5",
         "standingCofMin": "0.2",
-        "standingCofMinADS": "0.2"
+        "standingCofMinADS": "0.2",
+        "verticalRecoil": "0.3"
     },
     "2502": {
         "adsCofRecoil": "0.1",
@@ -6356,6 +6425,7 @@
             "Auto"
         ],
         "fireRate": "109",
+        "headshotMultiplier": "1",
         "hipCofRecoil": "0.1",
         "image_id": "2048",
         "maxDamage": "200",
@@ -6370,7 +6440,8 @@
         "standingCofMax": "0.5",
         "standingCofMaxADS": "0.5",
         "standingCofMin": "0.2",
-        "standingCofMinADS": "0.2"
+        "standingCofMinADS": "0.2",
+        "verticalRecoil": "0.3"
     },
     "2507": {
         "adsCofRecoil": "0.1",
@@ -6471,7 +6542,8 @@
         "reload": "2500",
         "speed": "125",
         "standingCofMax": "0.5",
-        "standingCofMin": "0.5"
+        "standingCofMin": "0.5",
+        "verticalRecoil": "0"
     },
     "2511": {
         "ammo": "48",
@@ -6491,7 +6563,8 @@
         "reload": "2500",
         "speed": "125",
         "standingCofMax": "0.5",
-        "standingCofMin": "0.5"
+        "standingCofMin": "0.5",
+        "verticalRecoil": "0"
     },
     "2512": {
         "ammo": "48",
@@ -6511,7 +6584,8 @@
         "reload": "2500",
         "speed": "125",
         "standingCofMax": "0.5",
-        "standingCofMin": "0.5"
+        "standingCofMin": "0.5",
+        "verticalRecoil": "0"
     },
     "26000": {
         "adsCofRecoil": "1",
@@ -7069,6 +7143,7 @@
             "Heat Seeking"
         ],
         "fireRate": "400",
+        "headshotMultiplier": "0",
         "hipCofRecoil": "0.1",
         "image_id": "12490",
         "indirectDamage": "100",
@@ -7090,7 +7165,8 @@
         "standingCofMax": "7",
         "standingCofMaxADS": "0.75",
         "standingCofMin": "2.5",
-        "standingCofMinADS": "0.1"
+        "standingCofMinADS": "0.1",
+        "verticalRecoil": "0"
     },
     "268": {
         "adsCofRecoil": "0.5",
@@ -7354,6 +7430,7 @@
             "Auto"
         ],
         "fireRate": "109",
+        "headshotMultiplier": "1",
         "hipCofRecoil": "0.1",
         "image_id": "1982",
         "maxDamage": "200",
@@ -7368,7 +7445,8 @@
         "standingCofMax": "0.5",
         "standingCofMaxADS": "0.5",
         "standingCofMin": "0.2",
-        "standingCofMinADS": "0.2"
+        "standingCofMinADS": "0.2",
+        "verticalRecoil": "0.3"
     },
     "28000": {
         "adsCofRecoil": "0.05",
@@ -7553,6 +7631,7 @@
             "Auto"
         ],
         "fireRate": "109",
+        "headshotMultiplier": "1",
         "hipCofRecoil": "0.1",
         "image_id": "1982",
         "maxDamage": "200",
@@ -7567,7 +7646,8 @@
         "standingCofMax": "0.5",
         "standingCofMaxADS": "0.5",
         "standingCofMin": "0.2",
-        "standingCofMinADS": "0.2"
+        "standingCofMinADS": "0.2",
+        "verticalRecoil": "0.3"
     },
     "2802": {
         "adsCofRecoil": "0.1",
@@ -7581,6 +7661,7 @@
             "Auto"
         ],
         "fireRate": "109",
+        "headshotMultiplier": "1",
         "hipCofRecoil": "0.1",
         "image_id": "1982",
         "maxDamage": "200",
@@ -7595,7 +7676,8 @@
         "standingCofMax": "0.5",
         "standingCofMaxADS": "0.5",
         "standingCofMin": "0.2",
-        "standingCofMinADS": "0.2"
+        "standingCofMinADS": "0.2",
+        "verticalRecoil": "0.3"
     },
     "2803": {
         "adsCofRecoil": "0.1",
@@ -7690,6 +7772,7 @@
             "Auto"
         ],
         "fireRate": "109",
+        "headshotMultiplier": "1",
         "hipCofRecoil": "0.1",
         "image_id": "1982",
         "maxDamage": "200",
@@ -7704,7 +7787,8 @@
         "standingCofMax": "0.5",
         "standingCofMaxADS": "0.5",
         "standingCofMin": "0.2",
-        "standingCofMinADS": "0.2"
+        "standingCofMinADS": "0.2",
+        "verticalRecoil": "0.3"
     },
     "2807": {
         "adsCofRecoil": "0.1",
@@ -7718,6 +7802,7 @@
             "Auto"
         ],
         "fireRate": "109",
+        "headshotMultiplier": "1",
         "hipCofRecoil": "0.1",
         "image_id": "1982",
         "maxDamage": "200",
@@ -7732,7 +7817,8 @@
         "standingCofMax": "0.5",
         "standingCofMaxADS": "0.5",
         "standingCofMin": "0.2",
-        "standingCofMinADS": "0.2"
+        "standingCofMinADS": "0.2",
+        "verticalRecoil": "0.3"
     },
     "2808": {
         "adsCofRecoil": "0.1",
@@ -7746,6 +7832,7 @@
             "Auto"
         ],
         "fireRate": "109",
+        "headshotMultiplier": "1",
         "hipCofRecoil": "0.1",
         "image_id": "1982",
         "maxDamage": "200",
@@ -7760,7 +7847,8 @@
         "standingCofMax": "0.5",
         "standingCofMaxADS": "0.5",
         "standingCofMin": "0.2",
-        "standingCofMinADS": "0.2"
+        "standingCofMinADS": "0.2",
+        "verticalRecoil": "0.3"
     },
     "2809": {
         "adsCofRecoil": "0.1",
@@ -7866,7 +7954,8 @@
         "standingCofMax": "0",
         "standingCofMaxADS": "0",
         "standingCofMin": "0",
-        "standingCofMinADS": "0"
+        "standingCofMinADS": "0",
+        "verticalRecoil": "2"
     },
     "2833": {
         "adsCofRecoil": "0",
@@ -7891,7 +7980,8 @@
         "standingCofMax": "0",
         "standingCofMaxADS": "0",
         "standingCofMin": "0",
-        "standingCofMinADS": "0"
+        "standingCofMinADS": "0",
+        "verticalRecoil": "2"
     },
     "2834": {
         "adsCofRecoil": "0",
@@ -7916,7 +8006,8 @@
         "standingCofMax": "0",
         "standingCofMaxADS": "0",
         "standingCofMin": "0",
-        "standingCofMinADS": "0"
+        "standingCofMinADS": "0",
+        "verticalRecoil": "2"
     },
     "2835": {
         "adsCofRecoil": "0",
@@ -7941,7 +8032,8 @@
         "standingCofMax": "0",
         "standingCofMaxADS": "0",
         "standingCofMin": "0",
-        "standingCofMinADS": "0"
+        "standingCofMinADS": "0",
+        "verticalRecoil": "2"
     },
     "2836": {
         "adsCofRecoil": "0",
@@ -7966,7 +8058,8 @@
         "standingCofMax": "0",
         "standingCofMaxADS": "0",
         "standingCofMin": "0",
-        "standingCofMinADS": "0"
+        "standingCofMinADS": "0",
+        "verticalRecoil": "2"
     },
     "2837": {
         "adsCofRecoil": "0",
@@ -7991,7 +8084,8 @@
         "standingCofMax": "0",
         "standingCofMaxADS": "0",
         "standingCofMin": "0",
-        "standingCofMinADS": "0"
+        "standingCofMinADS": "0",
+        "verticalRecoil": "2"
     },
     "285": {
         "ammo": "1",
@@ -8059,7 +8153,8 @@
         "reload": "2500",
         "speed": "125",
         "standingCofMax": "0.5",
-        "standingCofMin": "0.5"
+        "standingCofMin": "0.5",
+        "verticalRecoil": "0"
     },
     "2875": {
         "ammo": "160",
@@ -8079,7 +8174,8 @@
         "reload": "2500",
         "speed": "125",
         "standingCofMax": "0.5",
-        "standingCofMin": "0.5"
+        "standingCofMin": "0.5",
+        "verticalRecoil": "0"
     },
     "2876": {
         "ammo": "160",
@@ -8099,7 +8195,8 @@
         "reload": "2500",
         "speed": "125",
         "standingCofMax": "0.5",
-        "standingCofMin": "0.5"
+        "standingCofMin": "0.5",
+        "verticalRecoil": "0"
     },
     "2877": {
         "ammo": "160",
@@ -8119,7 +8216,8 @@
         "reload": "2500",
         "speed": "125",
         "standingCofMax": "0.5",
-        "standingCofMin": "0.5"
+        "standingCofMin": "0.5",
+        "verticalRecoil": "0"
     },
     "2878": {
         "ammo": "160",
@@ -8139,7 +8237,8 @@
         "reload": "2500",
         "speed": "125",
         "standingCofMax": "0.5",
-        "standingCofMin": "0.5"
+        "standingCofMin": "0.5",
+        "verticalRecoil": "0"
     },
     "2879": {
         "ammo": "160",
@@ -8159,7 +8258,8 @@
         "reload": "2500",
         "speed": "125",
         "standingCofMax": "0.5",
-        "standingCofMin": "0.5"
+        "standingCofMin": "0.5",
+        "verticalRecoil": "0"
     },
     "29000": {
         "adsCofRecoil": "0.05",
@@ -8585,6 +8685,7 @@
             "Auto"
         ],
         "fireRate": "182",
+        "headshotMultiplier": "1",
         "hipCofRecoil": "0.2",
         "image_id": "7920",
         "maxDamage": "100",
@@ -8600,7 +8701,8 @@
         "standingCofMax": "1.5",
         "standingCofMaxADS": "1.5",
         "standingCofMin": "1.5",
-        "standingCofMinADS": "1.5"
+        "standingCofMinADS": "1.5",
+        "verticalRecoil": "0.2"
     },
     "3087": {
         "adsCofRecoil": "0.2",
@@ -8614,6 +8716,7 @@
             "Auto"
         ],
         "fireRate": "182",
+        "headshotMultiplier": "1",
         "hipCofRecoil": "0.2",
         "image_id": "7920",
         "maxDamage": "100",
@@ -8629,7 +8732,8 @@
         "standingCofMax": "1.5",
         "standingCofMaxADS": "1.5",
         "standingCofMin": "1.5",
-        "standingCofMinADS": "1.5"
+        "standingCofMinADS": "1.5",
+        "verticalRecoil": "0.2"
     },
     "3088": {
         "adsCofRecoil": "0.2",
@@ -8643,6 +8747,7 @@
             "Auto"
         ],
         "fireRate": "182",
+        "headshotMultiplier": "1",
         "hipCofRecoil": "0.2",
         "image_id": "7920",
         "maxDamage": "100",
@@ -8658,7 +8763,8 @@
         "standingCofMax": "1.5",
         "standingCofMaxADS": "1.5",
         "standingCofMin": "1.5",
-        "standingCofMinADS": "1.5"
+        "standingCofMinADS": "1.5",
+        "verticalRecoil": "0.2"
     },
     "3089": {
         "adsCofRecoil": "0.2",
@@ -8672,6 +8778,7 @@
             "Auto"
         ],
         "fireRate": "182",
+        "headshotMultiplier": "1",
         "hipCofRecoil": "0.2",
         "image_id": "7920",
         "maxDamage": "100",
@@ -8687,7 +8794,8 @@
         "standingCofMax": "1.5",
         "standingCofMaxADS": "1.5",
         "standingCofMin": "1.5",
-        "standingCofMinADS": "1.5"
+        "standingCofMinADS": "1.5",
+        "verticalRecoil": "0.2"
     },
     "309": {
         "adsCofRecoil": "1.2",
@@ -8697,6 +8805,7 @@
         "fireModes": [
             "Single Shot"
         ],
+        "headshotMultiplier": "0",
         "hipCofRecoil": "1.2",
         "image_id": "3713",
         "name": "Recon Detection Device 1",
@@ -8705,7 +8814,8 @@
         "standingCofMax": "0",
         "standingCofMaxADS": "0",
         "standingCofMin": "0",
-        "standingCofMinADS": "0"
+        "standingCofMinADS": "0",
+        "verticalRecoil": "1.5"
     },
     "3090": {
         "adsCofRecoil": "0.2",
@@ -8719,6 +8829,7 @@
             "Auto"
         ],
         "fireRate": "182",
+        "headshotMultiplier": "1",
         "hipCofRecoil": "0.2",
         "image_id": "7920",
         "maxDamage": "100",
@@ -8734,7 +8845,8 @@
         "standingCofMax": "1.5",
         "standingCofMaxADS": "1.5",
         "standingCofMin": "1.5",
-        "standingCofMinADS": "1.5"
+        "standingCofMinADS": "1.5",
+        "verticalRecoil": "0.2"
     },
     "3091": {
         "adsCofRecoil": "0.2",
@@ -8748,6 +8860,7 @@
             "Auto"
         ],
         "fireRate": "182",
+        "headshotMultiplier": "1",
         "hipCofRecoil": "0.2",
         "image_id": "7920",
         "maxDamage": "100",
@@ -8763,7 +8876,8 @@
         "standingCofMax": "1.5",
         "standingCofMaxADS": "1.5",
         "standingCofMin": "1.5",
-        "standingCofMinADS": "1.5"
+        "standingCofMinADS": "1.5",
+        "verticalRecoil": "0.2"
     },
     "3100": {
         "adsCofRecoil": "0.5",
@@ -8790,7 +8904,8 @@
         "standingCofMax": "1.5",
         "standingCofMaxADS": "1.5",
         "standingCofMin": "0",
-        "standingCofMinADS": "0"
+        "standingCofMinADS": "0",
+        "verticalRecoil": "2.5"
     },
     "3101": {
         "adsCofRecoil": "0.5",
@@ -8817,7 +8932,8 @@
         "standingCofMax": "1.5",
         "standingCofMaxADS": "1.5",
         "standingCofMin": "0",
-        "standingCofMinADS": "0"
+        "standingCofMinADS": "0",
+        "verticalRecoil": "2.5"
     },
     "3102": {
         "adsCofRecoil": "0.5",
@@ -8833,6 +8949,7 @@
             "Auto"
         ],
         "fireRate": "250",
+        "headshotMultiplier": "0",
         "hipCofRecoil": "0.5",
         "image_id": "871",
         "indirectDamage": "250",
@@ -8844,7 +8961,8 @@
         "standingCofMax": "1.5",
         "standingCofMaxADS": "1.5",
         "standingCofMin": "0",
-        "standingCofMinADS": "0"
+        "standingCofMinADS": "0",
+        "verticalRecoil": "2.5"
     },
     "3103": {
         "category": "Lightning Primary Weapon ",
@@ -8863,7 +8981,8 @@
         "reload": "3000",
         "speed": "250",
         "standingCofMax": "0",
-        "standingCofMin": "0"
+        "standingCofMin": "0",
+        "verticalRecoil": "3"
     },
     "3104": {
         "category": "Lightning Primary Weapon ",
@@ -8882,7 +9001,8 @@
         "reload": "3000",
         "speed": "250",
         "standingCofMax": "0",
-        "standingCofMin": "0"
+        "standingCofMin": "0",
+        "verticalRecoil": "3"
     },
     "3105": {
         "category": "Lightning Primary Weapon ",
@@ -8901,7 +9021,8 @@
         "reload": "3000",
         "speed": "250",
         "standingCofMax": "0",
-        "standingCofMin": "0"
+        "standingCofMin": "0",
+        "verticalRecoil": "3"
     },
     "3106": {
         "ammo": "1050",
@@ -8924,7 +9045,8 @@
         "reload": "3000",
         "speed": "400",
         "standingCofMax": "1.5",
-        "standingCofMin": "1.5"
+        "standingCofMin": "1.5",
+        "verticalRecoil": "1.25"
     },
     "3107": {
         "ammo": "1050",
@@ -8947,7 +9069,8 @@
         "reload": "3000",
         "speed": "400",
         "standingCofMax": "1.5",
-        "standingCofMin": "1.5"
+        "standingCofMin": "1.5",
+        "verticalRecoil": "1.25"
     },
     "3108": {
         "ammo": "1050",
@@ -8970,7 +9093,8 @@
         "reload": "3000",
         "speed": "400",
         "standingCofMax": "1.5",
-        "standingCofMin": "1.5"
+        "standingCofMin": "1.5",
+        "verticalRecoil": "1.25"
     },
     "3153": {
         "category": "Lightning Primary Weapon ",
@@ -8989,7 +9113,8 @@
         "reload": "3250",
         "speed": "200",
         "standingCofMax": "0",
-        "standingCofMin": "0"
+        "standingCofMin": "0",
+        "verticalRecoil": "3"
     },
     "3154": {
         "category": "Lightning Primary Weapon ",
@@ -9008,7 +9133,8 @@
         "reload": "3250",
         "speed": "200",
         "standingCofMax": "0",
-        "standingCofMin": "0"
+        "standingCofMin": "0",
+        "verticalRecoil": "3"
     },
     "3155": {
         "category": "Lightning Primary Weapon ",
@@ -9027,7 +9153,8 @@
         "reload": "3250",
         "speed": "200",
         "standingCofMax": "0",
-        "standingCofMin": "0"
+        "standingCofMin": "0",
+        "verticalRecoil": "3"
     },
     "3156": {
         "category": "Lightning Primary Weapon ",
@@ -9046,7 +9173,8 @@
         "reload": "2000",
         "speed": "200",
         "standingCofMax": "0",
-        "standingCofMin": "0"
+        "standingCofMin": "0",
+        "verticalRecoil": "3"
     },
     "3157": {
         "category": "Lightning Primary Weapon ",
@@ -9065,7 +9193,8 @@
         "reload": "2000",
         "speed": "200",
         "standingCofMax": "0",
-        "standingCofMin": "0"
+        "standingCofMin": "0",
+        "verticalRecoil": "3"
     },
     "3158": {
         "category": "Lightning Primary Weapon ",
@@ -9084,7 +9213,8 @@
         "reload": "2000",
         "speed": "200",
         "standingCofMax": "0",
-        "standingCofMin": "0"
+        "standingCofMin": "0",
+        "verticalRecoil": "3"
     },
     "316": {
         "adsCofRecoil": "0.05",
@@ -9336,6 +9466,7 @@
             "Heat Seeking"
         ],
         "fireRate": "400",
+        "headshotMultiplier": "0",
         "hipCofRecoil": "0.1",
         "image_id": "8110",
         "indirectDamage": "100",
@@ -9357,7 +9488,8 @@
         "standingCofMax": "7",
         "standingCofMaxADS": "0.75",
         "standingCofMin": "2.5",
-        "standingCofMinADS": "0.1"
+        "standingCofMinADS": "0.1",
+        "verticalRecoil": "0"
     },
     "34003": {
         "adsCofRecoil": "2",
@@ -9385,6 +9517,7 @@
             "Lock-on"
         ],
         "fireRate": "300",
+        "headshotMultiplier": "0",
         "hipCofRecoil": "2",
         "image_id": "1644",
         "indirectDamage": "250",
@@ -9406,7 +9539,8 @@
         "standingCofMax": "7",
         "standingCofMaxADS": "3",
         "standingCofMin": "5",
-        "standingCofMinADS": "0.1"
+        "standingCofMinADS": "0.1",
+        "verticalRecoil": "0"
     },
     "34004": {
         "adsCofRecoil": "2",
@@ -9434,6 +9568,7 @@
             "Lock-on"
         ],
         "fireRate": "300",
+        "headshotMultiplier": "0",
         "hipCofRecoil": "2",
         "image_id": "1644",
         "indirectDamage": "400",
@@ -9455,7 +9590,8 @@
         "standingCofMax": "7",
         "standingCofMaxADS": "3",
         "standingCofMin": "5",
-        "standingCofMinADS": "0.1"
+        "standingCofMinADS": "0.1",
+        "verticalRecoil": "0"
     },
     "3401": {
         "adsCofRecoil": "0.1",
@@ -9469,6 +9605,7 @@
             "Auto"
         ],
         "fireRate": "109",
+        "headshotMultiplier": "1",
         "hipCofRecoil": "0.1",
         "image_id": "1982",
         "maxDamage": "200",
@@ -9483,7 +9620,8 @@
         "standingCofMax": "0.5",
         "standingCofMaxADS": "0.5",
         "standingCofMin": "0.2",
-        "standingCofMinADS": "0.2"
+        "standingCofMinADS": "0.2",
+        "verticalRecoil": "0.3"
     },
     "3402": {
         "adsCofRecoil": "0.1",
@@ -9572,6 +9710,7 @@
             "Auto"
         ],
         "fireRate": "182",
+        "headshotMultiplier": "1",
         "hipCofRecoil": "0.2",
         "image_id": "7920",
         "maxDamage": "100",
@@ -9587,7 +9726,8 @@
         "standingCofMax": "1.5",
         "standingCofMaxADS": "1.5",
         "standingCofMin": "1.5",
-        "standingCofMinADS": "1.5"
+        "standingCofMinADS": "1.5",
+        "verticalRecoil": "0.2"
     },
     "3427": {
         "adsCofRecoil": "1",
@@ -9665,7 +9805,8 @@
         "standingCofMax": "1",
         "standingCofMaxADS": "1",
         "standingCofMin": "0",
-        "standingCofMinADS": "0"
+        "standingCofMinADS": "0",
+        "verticalRecoil": "1"
     },
     "3460": {
         "adsCofRecoil": "1",
@@ -9893,7 +10034,8 @@
         "standingCofMax": "0",
         "standingCofMaxADS": "0",
         "standingCofMin": "0",
-        "standingCofMinADS": "0"
+        "standingCofMinADS": "0",
+        "verticalRecoil": "2"
     },
     "3701": {
         "adsCofRecoil": "0.1",
@@ -9907,6 +10049,7 @@
             "Auto"
         ],
         "fireRate": "109",
+        "headshotMultiplier": "1",
         "hipCofRecoil": "0.1",
         "image_id": "1982",
         "maxDamage": "200",
@@ -9921,7 +10064,8 @@
         "standingCofMax": "0.5",
         "standingCofMaxADS": "0.5",
         "standingCofMin": "0.2",
-        "standingCofMinADS": "0.2"
+        "standingCofMinADS": "0.2",
+        "verticalRecoil": "0.3"
     },
     "3702": {
         "adsCofRecoil": "0.1",
@@ -10031,6 +10175,7 @@
             "Auto"
         ],
         "fireRate": "182",
+        "headshotMultiplier": "1",
         "hipCofRecoil": "0.2",
         "image_id": "7920",
         "maxDamage": "100",
@@ -10046,7 +10191,8 @@
         "standingCofMax": "1.5",
         "standingCofMaxADS": "1.5",
         "standingCofMin": "1.5",
-        "standingCofMinADS": "1.5"
+        "standingCofMinADS": "1.5",
+        "verticalRecoil": "0.2"
     },
     "3709": {
         "adsCofRecoil": "0",
@@ -10097,7 +10243,8 @@
         "standingCofMax": "0",
         "standingCofMaxADS": "0",
         "standingCofMin": "0",
-        "standingCofMinADS": "0"
+        "standingCofMinADS": "0",
+        "verticalRecoil": "2"
     },
     "3731": {
         "adsCofRecoil": "0",
@@ -10122,7 +10269,8 @@
         "standingCofMax": "0",
         "standingCofMaxADS": "0",
         "standingCofMin": "0",
-        "standingCofMinADS": "0"
+        "standingCofMinADS": "0",
+        "verticalRecoil": "2"
     },
     "3756": {
         "adsCofRecoil": "0",
@@ -10149,7 +10297,8 @@
         "standingCofMax": "0",
         "standingCofMaxADS": "0",
         "standingCofMin": "0",
-        "standingCofMinADS": "0"
+        "standingCofMinADS": "0",
+        "verticalRecoil": "2"
     },
     "376": {
         "category": "Infantry Abilities",
@@ -10430,7 +10579,8 @@
         "standingCofMax": "0",
         "standingCofMaxADS": "0",
         "standingCofMin": "0",
-        "standingCofMinADS": "0"
+        "standingCofMinADS": "0",
+        "verticalRecoil": "1"
     },
     "40000": {
         "adsCofRecoil": "0",
@@ -10615,6 +10765,7 @@
             "Auto"
         ],
         "fireRate": "109",
+        "headshotMultiplier": "1",
         "hipCofRecoil": "0.1",
         "image_id": "1982",
         "maxDamage": "200",
@@ -10629,7 +10780,8 @@
         "standingCofMax": "0.5",
         "standingCofMaxADS": "0.5",
         "standingCofMin": "0.2",
-        "standingCofMinADS": "0.2"
+        "standingCofMinADS": "0.2",
+        "verticalRecoil": "0.3"
     },
     "4002": {
         "adsCofRecoil": "0.1",
@@ -10702,7 +10854,8 @@
         "standingCofMax": "1",
         "standingCofMaxADS": "1",
         "standingCofMin": "0.25",
-        "standingCofMinADS": "0.25"
+        "standingCofMinADS": "0.25",
+        "verticalRecoil": "2"
     },
     "4008": {
         "adsCofRecoil": "0",
@@ -10730,7 +10883,8 @@
         "standingCofMax": "0",
         "standingCofMaxADS": "0",
         "standingCofMin": "0",
-        "standingCofMinADS": "0"
+        "standingCofMinADS": "0",
+        "verticalRecoil": "1"
     },
     "4009": {
         "adsCofRecoil": "0",
@@ -10756,7 +10910,8 @@
         "standingCofMax": "0",
         "standingCofMaxADS": "0",
         "standingCofMin": "0",
-        "standingCofMinADS": "0"
+        "standingCofMinADS": "0",
+        "verticalRecoil": "1"
     },
     "4010": {
         "adsCofRecoil": "0.2",
@@ -10770,6 +10925,7 @@
             "Auto"
         ],
         "fireRate": "182",
+        "headshotMultiplier": "1",
         "hipCofRecoil": "0.2",
         "image_id": "7920",
         "maxDamage": "100",
@@ -10785,7 +10941,8 @@
         "standingCofMax": "1.5",
         "standingCofMaxADS": "1.5",
         "standingCofMin": "1.5",
-        "standingCofMinADS": "1.5"
+        "standingCofMinADS": "1.5",
+        "verticalRecoil": "0.2"
     },
     "4015": {
         "adsCofRecoil": "0",
@@ -10839,7 +10996,8 @@
         "standingCofMax": "0",
         "standingCofMaxADS": "0",
         "standingCofMin": "0",
-        "standingCofMinADS": "0"
+        "standingCofMinADS": "0",
+        "verticalRecoil": "1"
     },
     "4029": {
         "adsCofRecoil": "0.01",
@@ -11619,6 +11777,7 @@
         "fireModes": [
             "Single Shot"
         ],
+        "headshotMultiplier": "0",
         "hipCofRecoil": "1.2",
         "image_id": "3713",
         "name": "Recon Detection Device 1",
@@ -11627,7 +11786,8 @@
         "standingCofMax": "0",
         "standingCofMaxADS": "0",
         "standingCofMin": "0",
-        "standingCofMinADS": "0"
+        "standingCofMinADS": "0",
+        "verticalRecoil": "1.5"
     },
     "472": {
         "adsCofRecoil": "1.2",
@@ -11637,6 +11797,7 @@
         "fireModes": [
             "Single Shot"
         ],
+        "headshotMultiplier": "0",
         "hipCofRecoil": "1.2",
         "image_id": "3713",
         "name": "Recon Detection Device 1",
@@ -11645,7 +11806,8 @@
         "standingCofMax": "0",
         "standingCofMaxADS": "0",
         "standingCofMin": "0",
-        "standingCofMinADS": "0"
+        "standingCofMinADS": "0",
+        "verticalRecoil": "1.5"
     },
     "473": {
         "adsCofRecoil": "1.2",
@@ -11655,6 +11817,7 @@
         "fireModes": [
             "Single Shot"
         ],
+        "headshotMultiplier": "0",
         "hipCofRecoil": "1.2",
         "image_id": "3713",
         "name": "Recon Detection Device 2",
@@ -11663,7 +11826,8 @@
         "standingCofMax": "0",
         "standingCofMaxADS": "0",
         "standingCofMin": "0",
-        "standingCofMinADS": "0"
+        "standingCofMinADS": "0",
+        "verticalRecoil": "1.5"
     },
     "474": {
         "adsCofRecoil": "1.2",
@@ -11673,6 +11837,7 @@
         "fireModes": [
             "Single Shot"
         ],
+        "headshotMultiplier": "0",
         "hipCofRecoil": "1.2",
         "image_id": "3713",
         "name": "Recon Detection Device 3",
@@ -11681,7 +11846,8 @@
         "standingCofMax": "0",
         "standingCofMaxADS": "0",
         "standingCofMin": "0",
-        "standingCofMinADS": "0"
+        "standingCofMinADS": "0",
+        "verticalRecoil": "1.5"
     },
     "4745": {
         "adsCofRecoil": "0",
@@ -11758,6 +11924,7 @@
         "fireModes": [
             "Single Shot"
         ],
+        "headshotMultiplier": "0",
         "hipCofRecoil": "1.2",
         "image_id": "3713",
         "name": "Recon Detection Device 4",
@@ -11766,7 +11933,8 @@
         "standingCofMax": "0",
         "standingCofMaxADS": "0",
         "standingCofMin": "0",
-        "standingCofMinADS": "0"
+        "standingCofMinADS": "0",
+        "verticalRecoil": "1.5"
     },
     "476": {
         "adsCofRecoil": "1.2",
@@ -11776,6 +11944,7 @@
         "fireModes": [
             "Single Shot"
         ],
+        "headshotMultiplier": "0",
         "hipCofRecoil": "1.2",
         "image_id": "3713",
         "name": "Recon Detection Device 5",
@@ -11784,7 +11953,8 @@
         "standingCofMax": "0",
         "standingCofMaxADS": "0",
         "standingCofMin": "0",
-        "standingCofMinADS": "0"
+        "standingCofMinADS": "0",
+        "verticalRecoil": "1.5"
     },
     "477": {
         "adsCofRecoil": "1.2",
@@ -11794,6 +11964,7 @@
         "fireModes": [
             "Single Shot"
         ],
+        "headshotMultiplier": "0",
         "hipCofRecoil": "1.2",
         "image_id": "3713",
         "name": "Recon Detection Device 2",
@@ -11802,7 +11973,8 @@
         "standingCofMax": "0",
         "standingCofMaxADS": "0",
         "standingCofMin": "0",
-        "standingCofMinADS": "0"
+        "standingCofMinADS": "0",
+        "verticalRecoil": "1.5"
     },
     "478": {
         "adsCofRecoil": "1.2",
@@ -11812,6 +11984,7 @@
         "fireModes": [
             "Single Shot"
         ],
+        "headshotMultiplier": "0",
         "hipCofRecoil": "1.2",
         "image_id": "3713",
         "name": "Recon Detection Device 3",
@@ -11820,7 +11993,8 @@
         "standingCofMax": "0",
         "standingCofMaxADS": "0",
         "standingCofMin": "0",
-        "standingCofMinADS": "0"
+        "standingCofMinADS": "0",
+        "verticalRecoil": "1.5"
     },
     "479": {
         "adsCofRecoil": "1.2",
@@ -11830,6 +12004,7 @@
         "fireModes": [
             "Single Shot"
         ],
+        "headshotMultiplier": "0",
         "hipCofRecoil": "1.2",
         "image_id": "3713",
         "name": "Recon Detection Device 4",
@@ -11838,7 +12013,8 @@
         "standingCofMax": "0",
         "standingCofMaxADS": "0",
         "standingCofMin": "0",
-        "standingCofMinADS": "0"
+        "standingCofMinADS": "0",
+        "verticalRecoil": "1.5"
     },
     "480": {
         "adsCofRecoil": "1.2",
@@ -11848,6 +12024,7 @@
         "fireModes": [
             "Single Shot"
         ],
+        "headshotMultiplier": "0",
         "hipCofRecoil": "1.2",
         "image_id": "3713",
         "name": "Recon Detection Device 5",
@@ -11856,7 +12033,8 @@
         "standingCofMax": "0",
         "standingCofMaxADS": "0",
         "standingCofMin": "0",
-        "standingCofMinADS": "0"
+        "standingCofMinADS": "0",
+        "verticalRecoil": "1.5"
     },
     "481": {
         "adsCofRecoil": "1.2",
@@ -11866,6 +12044,7 @@
         "fireModes": [
             "Single Shot"
         ],
+        "headshotMultiplier": "0",
         "hipCofRecoil": "1.2",
         "image_id": "3713",
         "name": "Recon Detection Device 2",
@@ -11874,7 +12053,8 @@
         "standingCofMax": "0",
         "standingCofMaxADS": "0",
         "standingCofMin": "0",
-        "standingCofMinADS": "0"
+        "standingCofMinADS": "0",
+        "verticalRecoil": "1.5"
     },
     "482": {
         "adsCofRecoil": "1.2",
@@ -11884,6 +12064,7 @@
         "fireModes": [
             "Single Shot"
         ],
+        "headshotMultiplier": "0",
         "hipCofRecoil": "1.2",
         "image_id": "3713",
         "name": "Recon Detection Device 3",
@@ -11892,7 +12073,8 @@
         "standingCofMax": "0",
         "standingCofMaxADS": "0",
         "standingCofMin": "0",
-        "standingCofMinADS": "0"
+        "standingCofMinADS": "0",
+        "verticalRecoil": "1.5"
     },
     "483": {
         "adsCofRecoil": "1.2",
@@ -11902,6 +12084,7 @@
         "fireModes": [
             "Single Shot"
         ],
+        "headshotMultiplier": "0",
         "hipCofRecoil": "1.2",
         "image_id": "3713",
         "name": "Recon Detection Device 4",
@@ -11910,7 +12093,8 @@
         "standingCofMax": "0",
         "standingCofMaxADS": "0",
         "standingCofMin": "0",
-        "standingCofMinADS": "0"
+        "standingCofMinADS": "0",
+        "verticalRecoil": "1.5"
     },
     "484": {
         "adsCofRecoil": "1.2",
@@ -11920,6 +12104,7 @@
         "fireModes": [
             "Single Shot"
         ],
+        "headshotMultiplier": "0",
         "hipCofRecoil": "1.2",
         "image_id": "3713",
         "name": "Recon Detection Device 5",
@@ -11928,7 +12113,8 @@
         "standingCofMax": "0",
         "standingCofMaxADS": "0",
         "standingCofMin": "0",
-        "standingCofMinADS": "0"
+        "standingCofMinADS": "0",
+        "verticalRecoil": "1.5"
     },
     "485": {
         "adsCofRecoil": "1.2",
@@ -11938,6 +12124,7 @@
         "fireModes": [
             "Single Shot"
         ],
+        "headshotMultiplier": "0",
         "hipCofRecoil": "1.2",
         "image_id": "3713",
         "name": "Recon Detection Device 6",
@@ -11946,7 +12133,8 @@
         "standingCofMax": "0",
         "standingCofMaxADS": "0",
         "standingCofMin": "0",
-        "standingCofMinADS": "0"
+        "standingCofMinADS": "0",
+        "verticalRecoil": "1.5"
     },
     "486": {
         "adsCofRecoil": "1.2",
@@ -11956,6 +12144,7 @@
         "fireModes": [
             "Single Shot"
         ],
+        "headshotMultiplier": "0",
         "hipCofRecoil": "1.2",
         "image_id": "3713",
         "name": "Recon Detection Device 6",
@@ -11964,7 +12153,8 @@
         "standingCofMax": "0",
         "standingCofMaxADS": "0",
         "standingCofMin": "0",
-        "standingCofMinADS": "0"
+        "standingCofMinADS": "0",
+        "verticalRecoil": "1.5"
     },
     "487": {
         "adsCofRecoil": "1.2",
@@ -11974,6 +12164,7 @@
         "fireModes": [
             "Single Shot"
         ],
+        "headshotMultiplier": "0",
         "hipCofRecoil": "1.2",
         "image_id": "3713",
         "name": "Recon Detection Device 6",
@@ -11982,7 +12173,8 @@
         "standingCofMax": "0",
         "standingCofMaxADS": "0",
         "standingCofMin": "0",
-        "standingCofMinADS": "0"
+        "standingCofMinADS": "0",
+        "verticalRecoil": "1.5"
     },
     "4900": {
         "ammo": "900",
@@ -12609,7 +12801,8 @@
         "standingCofMax": "0.2",
         "standingCofMaxADS": "0.2",
         "standingCofMin": "0.2",
-        "standingCofMinADS": "0.2"
+        "standingCofMinADS": "0.2",
+        "verticalRecoil": "2.5"
     },
     "5210": {
         "adsCofRecoil": "0.1",
@@ -12637,7 +12830,8 @@
         "standingCofMax": "0.2",
         "standingCofMaxADS": "0.2",
         "standingCofMin": "0.2",
-        "standingCofMinADS": "0.2"
+        "standingCofMinADS": "0.2",
+        "verticalRecoil": "2.5"
     },
     "5211": {
         "adsCofRecoil": "0.1",
@@ -12665,7 +12859,8 @@
         "standingCofMax": "0.2",
         "standingCofMaxADS": "0.2",
         "standingCofMin": "0.2",
-        "standingCofMinADS": "0.2"
+        "standingCofMinADS": "0.2",
+        "verticalRecoil": "2.5"
     },
     "5212": {
         "ammo": "1125",
@@ -12885,7 +13080,8 @@
         "standingCofMax": "0",
         "standingCofMaxADS": "0",
         "standingCofMin": "0",
-        "standingCofMinADS": "0"
+        "standingCofMinADS": "0",
+        "verticalRecoil": "2"
     },
     "5222": {
         "adsCofRecoil": "0",
@@ -12910,7 +13106,8 @@
         "standingCofMax": "0",
         "standingCofMaxADS": "0",
         "standingCofMin": "0",
-        "standingCofMinADS": "0"
+        "standingCofMinADS": "0",
+        "verticalRecoil": "2"
     },
     "5223": {
         "adsCofRecoil": "0",
@@ -12935,7 +13132,8 @@
         "standingCofMax": "0",
         "standingCofMaxADS": "0",
         "standingCofMin": "0",
-        "standingCofMinADS": "0"
+        "standingCofMinADS": "0",
+        "verticalRecoil": "2"
     },
     "5224": {
         "ammo": "50",
@@ -13639,7 +13837,8 @@
         "standingCofMax": "0",
         "standingCofMaxADS": "0",
         "standingCofMin": "0",
-        "standingCofMinADS": "0"
+        "standingCofMinADS": "0",
+        "verticalRecoil": "2"
     },
     "5515": {
         "adsCofRecoil": "0",
@@ -13664,7 +13863,8 @@
         "standingCofMax": "0",
         "standingCofMaxADS": "0",
         "standingCofMin": "0",
-        "standingCofMinADS": "0"
+        "standingCofMinADS": "0",
+        "verticalRecoil": "2"
     },
     "5516": {
         "ammo": "1125",
@@ -13731,7 +13931,8 @@
         "standingCofMax": "0",
         "standingCofMaxADS": "0",
         "standingCofMin": "0",
-        "standingCofMinADS": "0"
+        "standingCofMinADS": "0",
+        "verticalRecoil": "2"
     },
     "5519": {
         "adsCofRecoil": "0",
@@ -13756,7 +13957,8 @@
         "standingCofMax": "0",
         "standingCofMaxADS": "0",
         "standingCofMin": "0",
-        "standingCofMinADS": "0"
+        "standingCofMinADS": "0",
+        "verticalRecoil": "2"
     },
     "552": {
         "adsCofRecoil": "0.25",
@@ -13851,7 +14053,8 @@
         "standingCofMax": "0",
         "standingCofMaxADS": "0",
         "standingCofMin": "0",
-        "standingCofMinADS": "0"
+        "standingCofMinADS": "0",
+        "verticalRecoil": "2"
     },
     "5523": {
         "adsCofRecoil": "0",
@@ -13876,7 +14079,8 @@
         "standingCofMax": "0",
         "standingCofMaxADS": "0",
         "standingCofMin": "0",
-        "standingCofMinADS": "0"
+        "standingCofMinADS": "0",
+        "verticalRecoil": "2"
     },
     "553": {
         "adsCofRecoil": "0.25",
@@ -13943,6 +14147,7 @@
         "fireModes": [
             "Auto"
         ],
+        "headshotMultiplier": "1",
         "heatBleedOff": "265",
         "heatCapacity": "800",
         "heatPerShot": "11",
@@ -13962,7 +14167,8 @@
         "standingCofMax": "0.75",
         "standingCofMaxADS": "0.75",
         "standingCofMin": "0.1",
-        "standingCofMinADS": "0.1"
+        "standingCofMinADS": "0.1",
+        "verticalRecoil": "0"
     },
     "556": {
         "adsCofRecoil": "0.12",
@@ -13973,6 +14179,7 @@
         "fireModes": [
             "Auto"
         ],
+        "headshotMultiplier": "1",
         "heatBleedOff": "265",
         "heatCapacity": "800",
         "heatPerShot": "11",
@@ -13992,7 +14199,8 @@
         "standingCofMax": "0.75",
         "standingCofMaxADS": "0.75",
         "standingCofMin": "0.1",
-        "standingCofMinADS": "0.1"
+        "standingCofMinADS": "0.1",
+        "verticalRecoil": "0"
     },
     "557": {
         "adsCofRecoil": "0.12",
@@ -14003,6 +14211,7 @@
         "fireModes": [
             "Auto"
         ],
+        "headshotMultiplier": "1",
         "heatBleedOff": "265",
         "heatCapacity": "800",
         "heatPerShot": "11",
@@ -14022,7 +14231,8 @@
         "standingCofMax": "0.75",
         "standingCofMaxADS": "0.75",
         "standingCofMin": "0.1",
-        "standingCofMinADS": "0.1"
+        "standingCofMinADS": "0.1",
+        "verticalRecoil": "0"
     },
     "6002141": {
         "category": "ANT Harvesting Tool",
@@ -14657,6 +14867,7 @@
         "fireModes": [
             "Single Shot"
         ],
+        "headshotMultiplier": "0",
         "hipCofRecoil": "1.2",
         "image_id": "86724",
         "name": "IPC Targeting Dart",
@@ -14665,7 +14876,8 @@
         "standingCofMax": "0",
         "standingCofMaxADS": "0",
         "standingCofMin": "0",
-        "standingCofMinADS": "0"
+        "standingCofMinADS": "0",
+        "verticalRecoil": "1.5"
     },
     "6002554": {
         "adsCofRecoil": "0",
@@ -14687,6 +14899,7 @@
         "fireModes": [
             "Single Shot"
         ],
+        "headshotMultiplier": "0",
         "hipCofRecoil": "0",
         "image_id": "86743",
         "name": "Orbital Strike Target Designator",
@@ -14703,7 +14916,8 @@
         "standingCofMax": "4",
         "standingCofMaxADS": "3",
         "standingCofMin": "4",
-        "standingCofMinADS": "0.3"
+        "standingCofMinADS": "0.3",
+        "verticalRecoil": "0"
     },
     "6002637": {
         "adsCofRecoil": "0.5",
@@ -14742,7 +14956,7 @@
         "runningCofMaxADS": "3",
         "runningCofMin": "5",
         "runningCofMinADS": "1",
-        "speed": "50",
+        "speed": "150",
         "sprintingCofMax": "7",
         "sprintingCofMaxADS": "3",
         "sprintingCofMin": "7",
@@ -15855,7 +16069,8 @@
         "standingCofMax": "0.2",
         "standingCofMaxADS": "0.2",
         "standingCofMin": "0",
-        "standingCofMinADS": "0"
+        "standingCofMinADS": "0",
+        "verticalRecoil": "2"
     },
     "6003551": {
         "category": "Infantry Abilities",
@@ -15968,11 +16183,13 @@
             "Auto"
         ],
         "fireRate": "200",
+        "headshotMultiplier": "1",
         "hipCofRecoil": "0.05",
         "image_id": "88088",
         "name": "NS-20 \"Heatwave\" Gorgon",
         "pelletSpread": "0",
         "pellets": "1",
+        "recoilHorizontalTolerance": "0.3",
         "reload": "3400",
         "runningCofMax": "3",
         "runningCofMin": "2.25",
@@ -15980,7 +16197,8 @@
         "sprintingCofMax": "5",
         "sprintingCofMin": "5",
         "standingCofMax": "2.25",
-        "standingCofMin": "1.75"
+        "standingCofMin": "1.75",
+        "verticalRecoil": "0.2"
     },
     "6003600": {
         "ammo": "400",
@@ -16000,11 +16218,13 @@
             "Auto"
         ],
         "fireRate": "200",
+        "headshotMultiplier": "1",
         "hipCofRecoil": "0.05",
         "image_id": "88088",
         "name": "NS-20 \"Heatwave\" Gorgon",
         "pelletSpread": "0",
         "pellets": "1",
+        "recoilHorizontalTolerance": "0.3",
         "reload": "3400",
         "runningCofMax": "3",
         "runningCofMin": "2.25",
@@ -16012,7 +16232,8 @@
         "sprintingCofMax": "5",
         "sprintingCofMin": "5",
         "standingCofMax": "2.25",
-        "standingCofMin": "1.75"
+        "standingCofMin": "1.75",
+        "verticalRecoil": "0.2"
     },
     "6003601": {
         "ammo": "400",
@@ -16032,11 +16253,13 @@
             "Auto"
         ],
         "fireRate": "200",
+        "headshotMultiplier": "1",
         "hipCofRecoil": "0.05",
         "image_id": "88088",
         "name": "NS-20 \"Heatwave\" Gorgon",
         "pelletSpread": "0",
         "pellets": "1",
+        "recoilHorizontalTolerance": "0.3",
         "reload": "3400",
         "runningCofMax": "3",
         "runningCofMin": "2.25",
@@ -16044,7 +16267,8 @@
         "sprintingCofMax": "5",
         "sprintingCofMin": "5",
         "standingCofMax": "2.25",
-        "standingCofMin": "1.75"
+        "standingCofMin": "1.75",
+        "verticalRecoil": "0.2"
     },
     "6003602": {
         "ammo": "400",
@@ -16064,11 +16288,13 @@
             "Auto"
         ],
         "fireRate": "200",
+        "headshotMultiplier": "1",
         "hipCofRecoil": "0.05",
         "image_id": "88088",
         "name": "NS-20 \"Heatwave\" Gorgon",
         "pelletSpread": "0",
         "pellets": "1",
+        "recoilHorizontalTolerance": "0.3",
         "reload": "3400",
         "runningCofMax": "3",
         "runningCofMin": "2.25",
@@ -16076,7 +16302,8 @@
         "sprintingCofMax": "5",
         "sprintingCofMin": "5",
         "standingCofMax": "2.25",
-        "standingCofMin": "1.75"
+        "standingCofMin": "1.75",
+        "verticalRecoil": "0.2"
     },
     "6003603": {
         "ammo": "400",
@@ -16096,11 +16323,13 @@
             "Auto"
         ],
         "fireRate": "200",
+        "headshotMultiplier": "1",
         "hipCofRecoil": "0.05",
         "image_id": "88088",
         "name": "NS-20 \"Heatwave\" Gorgon",
         "pelletSpread": "0",
         "pellets": "1",
+        "recoilHorizontalTolerance": "0.3",
         "reload": "3400",
         "runningCofMax": "3",
         "runningCofMin": "2.25",
@@ -16108,7 +16337,8 @@
         "sprintingCofMax": "5",
         "sprintingCofMin": "5",
         "standingCofMax": "2.25",
-        "standingCofMin": "1.75"
+        "standingCofMin": "1.75",
+        "verticalRecoil": "0.2"
     },
     "6003604": {
         "ammo": "400",
@@ -16128,11 +16358,13 @@
             "Auto"
         ],
         "fireRate": "200",
+        "headshotMultiplier": "1",
         "hipCofRecoil": "0.05",
         "image_id": "88088",
         "name": "NS-20 \"Heatwave\" Gorgon",
         "pelletSpread": "0",
         "pellets": "1",
+        "recoilHorizontalTolerance": "0.3",
         "reload": "3400",
         "runningCofMax": "3",
         "runningCofMin": "2.25",
@@ -16140,7 +16372,8 @@
         "sprintingCofMax": "5",
         "sprintingCofMin": "5",
         "standingCofMax": "2.25",
-        "standingCofMin": "1.75"
+        "standingCofMin": "1.75",
+        "verticalRecoil": "0.2"
     },
     "6003611": {
         "adsCofRecoil": "2",
@@ -17258,7 +17491,6 @@
         "crouchingCofMaxADS": "2",
         "crouchingCofMin": "1",
         "crouchingCofMinADS": "0.1",
-        "damage": "112",
         "defZoom": "1",
         "description": "The NC05 Jackhammer's stopping power and sustained fire capabilities make it a frightening weapon in close quarters combat. It features a unique burst fire mode that doubles its rate of fire. NC use only.",
         "directDamage": "112",
@@ -17275,6 +17507,10 @@
         "headshotMultiplier": "0.5",
         "hipCofRecoil": "0",
         "image_id": "88577",
+        "maxDamage": "112",
+        "maxDamageRange": "10",
+        "minDamage": "70",
+        "minDamageRange": "30",
         "name": "NC05-P Jackhammer",
         "pelletSpread": "2.5",
         "pellets": "5",
@@ -17516,11 +17752,13 @@
             "Auto"
         ],
         "fireRate": "300",
+        "headshotMultiplier": "1",
         "hipCofRecoil": "0.24",
         "image_id": "89152",
         "name": "MG-HBR1 Dragoon",
         "pelletSpread": "0",
         "pellets": "1",
+        "recoilHorizontalTolerance": "0.1",
         "reload": "2000",
         "runningCofMax": "7",
         "runningCofMaxADS": "0.2",
@@ -17534,7 +17772,8 @@
         "standingCofMax": "7",
         "standingCofMaxADS": "0.15",
         "standingCofMin": "4",
-        "standingCofMinADS": "0"
+        "standingCofMinADS": "0",
+        "verticalRecoil": "0.8"
     },
     "6004218": {
         "adsCofRecoil": "0.05",
@@ -17636,6 +17875,7 @@
         "fireModes": [
             "Single Shot"
         ],
+        "headshotMultiplier": "0",
         "heatBleedOff": "15000",
         "heatCapacity": "15000",
         "heatPerShot": "15000",
@@ -17646,7 +17886,8 @@
         "recoilAngleMax": "0",
         "recoilAngleMin": "0",
         "standingCofMax": "0",
-        "standingCofMin": "0"
+        "standingCofMin": "0",
+        "verticalRecoil": "1.5"
     },
     "6004294": {
         "adsCofRecoil": "1",
@@ -18150,7 +18391,8 @@
         "reload": "3000",
         "speed": "100",
         "standingCofMax": "0.5",
-        "standingCofMin": "0.5"
+        "standingCofMin": "0.5",
+        "verticalRecoil": "0"
     },
     "6004753": {
         "adsCofRecoil": "0.25",
@@ -18170,7 +18412,8 @@
         "standingCofMax": "0.5",
         "standingCofMaxADS": "0.5",
         "standingCofMin": "0",
-        "standingCofMinADS": "0"
+        "standingCofMinADS": "0",
+        "verticalRecoil": "0"
     },
     "6004754": {
         "ammo": "300",
@@ -18190,7 +18433,8 @@
         "reload": "1500",
         "speed": "75",
         "standingCofMax": "0.25",
-        "standingCofMin": "0.25"
+        "standingCofMin": "0.25",
+        "verticalRecoil": "0"
     },
     "6004825": {
         "category": "Knife",
@@ -18380,6 +18624,7 @@
         ],
         "fireRate": "109",
         "firstShotMultiplier": "2.5",
+        "headshotMultiplier": "1",
         "heatPerShot": "0",
         "hipCofRecoil": "0.12",
         "image_id": "88417",
@@ -18407,7 +18652,8 @@
         "standingCofMax": "7",
         "standingCofMaxADS": "3",
         "standingCofMin": "1.75",
-        "standingCofMinADS": "0.03"
+        "standingCofMinADS": "0.03",
+        "verticalRecoil": "0.32"
     },
     "6005055": {
         "adsCofRecoil": "0.05",
@@ -18482,7 +18728,8 @@
         "reload": "3000",
         "speed": "250",
         "standingCofMax": "0",
-        "standingCofMin": "0"
+        "standingCofMin": "0",
+        "verticalRecoil": "3"
     },
     "6005069": {
         "category": "Lightning Primary Weapon ",
@@ -18499,7 +18746,8 @@
         "reload": "3000",
         "speed": "250",
         "standingCofMax": "0",
-        "standingCofMin": "0"
+        "standingCofMin": "0",
+        "verticalRecoil": "3"
     },
     "6005070": {
         "category": "Lightning Primary Weapon ",
@@ -18516,7 +18764,8 @@
         "reload": "3000",
         "speed": "250",
         "standingCofMax": "0",
-        "standingCofMin": "0"
+        "standingCofMin": "0",
+        "verticalRecoil": "3"
     },
     "6005110": {
         "adsCofRecoil": "0",
@@ -18616,7 +18865,8 @@
         "reload": "2500",
         "speed": "125",
         "standingCofMax": "0.5",
-        "standingCofMin": "0.5"
+        "standingCofMin": "0.5",
+        "verticalRecoil": "0"
     },
     "6005168": {
         "adsCofRecoil": "0.1",
@@ -18627,6 +18877,7 @@
         "fireModes": [
             "Auto"
         ],
+        "headshotMultiplier": "1",
         "hipCofRecoil": "0.1",
         "image_id": "2048",
         "maxDamage": "200",
@@ -18641,7 +18892,8 @@
         "standingCofMax": "0.5",
         "standingCofMaxADS": "0.5",
         "standingCofMin": "0.2",
-        "standingCofMinADS": "0.2"
+        "standingCofMinADS": "0.2",
+        "verticalRecoil": "0.3"
     },
     "6005169": {
         "adsCofRecoil": "1.2",
@@ -18651,6 +18903,7 @@
         "fireModes": [
             "Single Shot"
         ],
+        "headshotMultiplier": "0",
         "hipCofRecoil": "1.2",
         "image_id": "3713",
         "name": "Recon Detection Device 1",
@@ -18659,7 +18912,8 @@
         "standingCofMax": "0",
         "standingCofMaxADS": "0",
         "standingCofMin": "0",
-        "standingCofMinADS": "0"
+        "standingCofMinADS": "0",
+        "verticalRecoil": "1.5"
     },
     "6005170": {
         "adsCofRecoil": "1.2",
@@ -18669,6 +18923,7 @@
         "fireModes": [
             "Single Shot"
         ],
+        "headshotMultiplier": "0",
         "hipCofRecoil": "1.2",
         "image_id": "3713",
         "name": "Recon Detection Device 2",
@@ -18677,7 +18932,8 @@
         "standingCofMax": "0",
         "standingCofMaxADS": "0",
         "standingCofMin": "0",
-        "standingCofMinADS": "0"
+        "standingCofMinADS": "0",
+        "verticalRecoil": "1.5"
     },
     "6005171": {
         "adsCofRecoil": "1.2",
@@ -18687,6 +18943,7 @@
         "fireModes": [
             "Single Shot"
         ],
+        "headshotMultiplier": "0",
         "hipCofRecoil": "1.2",
         "image_id": "3713",
         "name": "Recon Detection Device 3",
@@ -18695,7 +18952,8 @@
         "standingCofMax": "0",
         "standingCofMaxADS": "0",
         "standingCofMin": "0",
-        "standingCofMinADS": "0"
+        "standingCofMinADS": "0",
+        "verticalRecoil": "1.5"
     },
     "6005172": {
         "adsCofRecoil": "1.2",
@@ -18705,6 +18963,7 @@
         "fireModes": [
             "Single Shot"
         ],
+        "headshotMultiplier": "0",
         "hipCofRecoil": "1.2",
         "image_id": "3713",
         "name": "Recon Detection Device 4",
@@ -18713,7 +18972,8 @@
         "standingCofMax": "0",
         "standingCofMaxADS": "0",
         "standingCofMin": "0",
-        "standingCofMinADS": "0"
+        "standingCofMinADS": "0",
+        "verticalRecoil": "1.5"
     },
     "6005173": {
         "adsCofRecoil": "1.2",
@@ -18723,6 +18983,7 @@
         "fireModes": [
             "Single Shot"
         ],
+        "headshotMultiplier": "0",
         "hipCofRecoil": "1.2",
         "image_id": "3713",
         "name": "Recon Detection Device 5",
@@ -18731,7 +18992,8 @@
         "standingCofMax": "0",
         "standingCofMaxADS": "0",
         "standingCofMin": "0",
-        "standingCofMinADS": "0"
+        "standingCofMinADS": "0",
+        "verticalRecoil": "1.5"
     },
     "6005174": {
         "adsCofRecoil": "1.2",
@@ -18741,6 +19003,7 @@
         "fireModes": [
             "Single Shot"
         ],
+        "headshotMultiplier": "0",
         "hipCofRecoil": "1.2",
         "image_id": "3713",
         "name": "Recon Detection Device 6",
@@ -18749,7 +19012,8 @@
         "standingCofMax": "0",
         "standingCofMaxADS": "0",
         "standingCofMin": "0",
-        "standingCofMinADS": "0"
+        "standingCofMinADS": "0",
+        "verticalRecoil": "1.5"
     },
     "6005182": {
         "category": "Grenade",
@@ -19277,6 +19541,7 @@
             "Auto"
         ],
         "fireRate": "182",
+        "headshotMultiplier": "1",
         "hipCofRecoil": "0.2",
         "image_id": "7920",
         "maxDamage": "100",
@@ -19292,7 +19557,8 @@
         "standingCofMax": "1.5",
         "standingCofMaxADS": "1.5",
         "standingCofMin": "1.5",
-        "standingCofMinADS": "1.5"
+        "standingCofMinADS": "1.5",
+        "verticalRecoil": "0.2"
     },
     "6005236": {
         "adsCofRecoil": "0.2",
@@ -19306,6 +19572,7 @@
             "Auto"
         ],
         "fireRate": "182",
+        "headshotMultiplier": "1",
         "hipCofRecoil": "0.2",
         "image_id": "7920",
         "maxDamage": "100",
@@ -19321,7 +19588,8 @@
         "standingCofMax": "1.5",
         "standingCofMaxADS": "1.5",
         "standingCofMin": "1.5",
-        "standingCofMinADS": "1.5"
+        "standingCofMinADS": "1.5",
+        "verticalRecoil": "0.2"
     },
     "6005237": {
         "category": "Sunderer Front Gunner",
@@ -19336,7 +19604,8 @@
         "reload": "2500",
         "speed": "125",
         "standingCofMax": "0.5",
-        "standingCofMin": "0.5"
+        "standingCofMin": "0.5",
+        "verticalRecoil": "0"
     },
     "6005238": {
         "category": "Sunderer Rear Gunner",
@@ -19351,7 +19620,8 @@
         "reload": "2500",
         "speed": "125",
         "standingCofMax": "0.5",
-        "standingCofMin": "0.5"
+        "standingCofMin": "0.5",
+        "verticalRecoil": "0"
     },
     "6005239": {
         "adsCofRecoil": "0.1",
@@ -19362,6 +19632,7 @@
         "fireModes": [
             "Auto"
         ],
+        "headshotMultiplier": "1",
         "hipCofRecoil": "0.1",
         "image_id": "1982",
         "maxDamage": "200",
@@ -19376,7 +19647,8 @@
         "standingCofMax": "0.5",
         "standingCofMaxADS": "0.5",
         "standingCofMin": "0.2",
-        "standingCofMinADS": "0.2"
+        "standingCofMinADS": "0.2",
+        "verticalRecoil": "0.3"
     },
     "6005240": {
         "adsCofRecoil": "0.1",
@@ -19387,6 +19659,7 @@
         "fireModes": [
             "Auto"
         ],
+        "headshotMultiplier": "1",
         "hipCofRecoil": "0.1",
         "image_id": "1982",
         "maxDamage": "200",
@@ -19401,7 +19674,8 @@
         "standingCofMax": "0.5",
         "standingCofMaxADS": "0.5",
         "standingCofMin": "0.2",
-        "standingCofMinADS": "0.2"
+        "standingCofMinADS": "0.2",
+        "verticalRecoil": "0.3"
     },
     "6005241": {
         "adsCofRecoil": "0",
@@ -19421,7 +19695,8 @@
         "standingCofMax": "0",
         "standingCofMaxADS": "0",
         "standingCofMin": "0",
-        "standingCofMinADS": "0"
+        "standingCofMinADS": "0",
+        "verticalRecoil": "2"
     },
     "6005242": {
         "adsCofRecoil": "0",
@@ -19441,7 +19716,8 @@
         "standingCofMax": "0",
         "standingCofMaxADS": "0",
         "standingCofMin": "0",
-        "standingCofMinADS": "0"
+        "standingCofMinADS": "0",
+        "verticalRecoil": "2"
     },
     "6005243": {
         "category": "Explosive",
@@ -19494,7 +19770,8 @@
         "reload": "3000",
         "speed": "250",
         "standingCofMax": "0",
-        "standingCofMin": "0"
+        "standingCofMin": "0",
+        "verticalRecoil": "3"
     },
     "6005300": {
         "category": "Lightning Primary Weapon ",
@@ -19511,7 +19788,8 @@
         "reload": "2000",
         "speed": "200",
         "standingCofMax": "0",
-        "standingCofMin": "0"
+        "standingCofMin": "0",
+        "verticalRecoil": "3"
     },
     "6005301": {
         "category": "Lightning Primary Weapon ",
@@ -19528,7 +19806,8 @@
         "reload": "3250",
         "speed": "200",
         "standingCofMax": "0",
-        "standingCofMin": "0"
+        "standingCofMin": "0",
+        "verticalRecoil": "3"
     },
     "6005302": {
         "adsCofRecoil": "0.5",
@@ -19550,7 +19829,8 @@
         "standingCofMax": "1.5",
         "standingCofMaxADS": "1.5",
         "standingCofMin": "0",
-        "standingCofMinADS": "0"
+        "standingCofMinADS": "0",
+        "verticalRecoil": "2.5"
     },
     "6005303": {
         "category": "Lightning Primary Weapon ",
@@ -19570,7 +19850,8 @@
         "reload": "3000",
         "speed": "400",
         "standingCofMax": "1.5",
-        "standingCofMin": "1.5"
+        "standingCofMin": "1.5",
+        "verticalRecoil": "1.25"
     },
     "6005304": {
         "category": "Grenade",
@@ -20089,6 +20370,7 @@
         "fireModes": [
             "Auto"
         ],
+        "headshotMultiplier": "1",
         "hipCofRecoil": "0.2",
         "image_id": "7920",
         "maxDamage": "100",
@@ -20104,7 +20386,8 @@
         "standingCofMax": "1.5",
         "standingCofMaxADS": "1.5",
         "standingCofMin": "1.5",
-        "standingCofMinADS": "1.5"
+        "standingCofMinADS": "1.5",
+        "verticalRecoil": "0.2"
     },
     "6005382": {
         "category": "Harasser Top Gunner",
@@ -20119,7 +20402,8 @@
         "reload": "2500",
         "speed": "125",
         "standingCofMax": "0.5",
-        "standingCofMin": "0.5"
+        "standingCofMin": "0.5",
+        "verticalRecoil": "0"
     },
     "6005383": {
         "adsCofRecoil": "0.1",
@@ -20130,6 +20414,7 @@
         "fireModes": [
             "Auto"
         ],
+        "headshotMultiplier": "1",
         "hipCofRecoil": "0.1",
         "image_id": "1982",
         "maxDamage": "200",
@@ -20144,7 +20429,8 @@
         "standingCofMax": "0.5",
         "standingCofMaxADS": "0.5",
         "standingCofMin": "0.2",
-        "standingCofMinADS": "0.2"
+        "standingCofMinADS": "0.2",
+        "verticalRecoil": "0.3"
     },
     "6005384": {
         "adsCofRecoil": "0",
@@ -20164,7 +20450,8 @@
         "standingCofMax": "0",
         "standingCofMaxADS": "0",
         "standingCofMin": "0",
-        "standingCofMinADS": "0"
+        "standingCofMinADS": "0",
+        "verticalRecoil": "2"
     },
     "6005422": {
         "category": "Explosive",
@@ -20187,6 +20474,7 @@
         "fireModes": [
             "Auto"
         ],
+        "headshotMultiplier": "1",
         "heatBleedOff": "265",
         "heatCapacity": "800",
         "heatPerShot": "11",
@@ -20206,7 +20494,8 @@
         "standingCofMax": "0.75",
         "standingCofMaxADS": "0.75",
         "standingCofMin": "0.1",
-        "standingCofMinADS": "0.1"
+        "standingCofMinADS": "0.1",
+        "verticalRecoil": "0"
     },
     "6005424": {
         "category": "Infantry Abilities",
@@ -20328,6 +20617,7 @@
         "fireModes": [
             "Auto"
         ],
+        "headshotMultiplier": "1",
         "hipCofRecoil": "0.2",
         "image_id": "7920",
         "maxDamage": "100",
@@ -20343,7 +20633,8 @@
         "standingCofMax": "1.5",
         "standingCofMaxADS": "1.5",
         "standingCofMin": "1.5",
-        "standingCofMinADS": "1.5"
+        "standingCofMinADS": "1.5",
+        "verticalRecoil": "0.2"
     },
     "6005431": {
         "category": "ANT Top Turret",
@@ -20358,7 +20649,8 @@
         "reload": "2500",
         "speed": "125",
         "standingCofMax": "0.5",
-        "standingCofMin": "0.5"
+        "standingCofMin": "0.5",
+        "verticalRecoil": "0"
     },
     "6005432": {
         "adsCofRecoil": "0.1",
@@ -20369,6 +20661,7 @@
         "fireModes": [
             "Auto"
         ],
+        "headshotMultiplier": "1",
         "hipCofRecoil": "0.1",
         "image_id": "1982",
         "maxDamage": "200",
@@ -20383,7 +20676,8 @@
         "standingCofMax": "0.5",
         "standingCofMaxADS": "0.5",
         "standingCofMin": "0.2",
-        "standingCofMinADS": "0.2"
+        "standingCofMinADS": "0.2",
+        "verticalRecoil": "0.3"
     },
     "6005433": {
         "adsCofRecoil": "0",
@@ -20403,7 +20697,8 @@
         "standingCofMax": "0",
         "standingCofMaxADS": "0",
         "standingCofMin": "0",
-        "standingCofMinADS": "0"
+        "standingCofMinADS": "0",
+        "verticalRecoil": "2"
     },
     "6005434": {
         "category": "ANT Top Turret",
@@ -20479,7 +20774,7 @@
         "ammo": "1",
         "category": "Knife",
         "clip": "1",
-        "damage": "500",
+        "damage": "1050",
         "defZoom": "1",
         "description": "Although slower than the TR standard issue Chainblade, when wielded this knife can be activated, increasing its damage output. TR use only.",
         "directDamage": "500",
@@ -20503,7 +20798,7 @@
         "ammo": "1",
         "category": "Knife",
         "clip": "1",
-        "damage": "1050",
+        "damage": "500",
         "defZoom": "1",
         "description": "Although slower than the NC standard issue Mag-Cutter, when wielded, this knife can be activated, increasing its damage output. NC use only.",
         "directDamage": "500",
@@ -20626,7 +20921,8 @@
         "standingCofMax": "0",
         "standingCofMaxADS": "0",
         "standingCofMin": "0",
-        "standingCofMinADS": "0"
+        "standingCofMinADS": "0",
+        "verticalRecoil": "2"
     },
     "6005461": {
         "category": "Liberator Nose Cannon",
@@ -20691,7 +20987,8 @@
         "standingCofMax": "0.2",
         "standingCofMaxADS": "0.2",
         "standingCofMin": "0.2",
-        "standingCofMinADS": "0.2"
+        "standingCofMinADS": "0.2",
+        "verticalRecoil": "2.5"
     },
     "6005464": {
         "category": "Liberator Belly Weapon",
@@ -20878,7 +21175,8 @@
         "standingCofMax": "0",
         "standingCofMaxADS": "0",
         "standingCofMin": "0",
-        "standingCofMinADS": "0"
+        "standingCofMinADS": "0",
+        "verticalRecoil": "2"
     },
     "6005486": {
         "adsCofRecoil": "0",
@@ -20898,7 +21196,8 @@
         "standingCofMax": "0",
         "standingCofMaxADS": "0",
         "standingCofMin": "0",
-        "standingCofMinADS": "0"
+        "standingCofMinADS": "0",
+        "verticalRecoil": "2"
     },
     "6005487": {
         "category": "Galaxy Left Weapon",
@@ -21810,7 +22109,8 @@
         "standingCofMax": "7",
         "standingCofMaxADS": "3",
         "standingCofMin": "0.5",
-        "standingCofMinADS": "0.1"
+        "standingCofMinADS": "0.1",
+        "verticalRecoil": "0.33"
     },
     "6005967": {
         "adsCofRecoil": "0.06",
@@ -22580,6 +22880,7 @@
         ],
         "fireRate": "200",
         "firstShotMultiplier": "2.5",
+        "headshotMultiplier": "1",
         "hipCofRecoil": "0.1",
         "image_id": "88375",
         "maxDamage": "167",
@@ -22606,7 +22907,8 @@
         "standingCofMax": "7",
         "standingCofMaxADS": "3",
         "standingCofMin": "2",
-        "standingCofMinADS": "0.03"
+        "standingCofMinADS": "0.03",
+        "verticalRecoil": "0.3"
     },
     "6006239": {
         "adsCofRecoil": "0.07",
@@ -24347,7 +24649,8 @@
         "reload": "3000",
         "speed": "250",
         "standingCofMax": "0",
-        "standingCofMin": "0"
+        "standingCofMin": "0",
+        "verticalRecoil": "3"
     },
     "6008686": {
         "adsCofRecoil": "1",
@@ -24461,7 +24764,8 @@
         "standingCofMax": "0.2",
         "standingCofMaxADS": "0.2",
         "standingCofMin": "0",
-        "standingCofMinADS": "0"
+        "standingCofMinADS": "0",
+        "verticalRecoil": "2"
     },
     "6008735": {
         "adsCofRecoil": "0.1",
@@ -24486,7 +24790,8 @@
         "standingCofMax": "0.2",
         "standingCofMaxADS": "0.2",
         "standingCofMin": "0",
-        "standingCofMinADS": "0"
+        "standingCofMinADS": "0",
+        "verticalRecoil": "2"
     },
     "6008736": {
         "adsCofRecoil": "0.1",
@@ -24511,7 +24816,8 @@
         "standingCofMax": "0.2",
         "standingCofMaxADS": "0.2",
         "standingCofMin": "0",
-        "standingCofMinADS": "0"
+        "standingCofMinADS": "0",
+        "verticalRecoil": "2"
     },
     "6008749": {
         "ammo": "750",
@@ -26088,6 +26394,7 @@
         "fireModes": [
             "Auto"
         ],
+        "headshotMultiplier": "1",
         "hipCofRecoil": "0.12",
         "image_id": "92783",
         "maxDamage": "167",
@@ -26102,7 +26409,8 @@
         "standingCofMax": "0.75",
         "standingCofMaxADS": "0.75",
         "standingCofMin": "0.3",
-        "standingCofMinADS": "0.3"
+        "standingCofMinADS": "0.3",
+        "verticalRecoil": "0.3"
     },
     "6009235": {
         "adsCofRecoil": "0.12",
@@ -26113,6 +26421,7 @@
         "fireModes": [
             "Auto"
         ],
+        "headshotMultiplier": "1",
         "hipCofRecoil": "0.12",
         "image_id": "92783",
         "maxDamage": "167",
@@ -26127,7 +26436,8 @@
         "standingCofMax": "0.75",
         "standingCofMaxADS": "0.75",
         "standingCofMin": "0.3",
-        "standingCofMinADS": "0.3"
+        "standingCofMinADS": "0.3",
+        "verticalRecoil": "0.3"
     },
     "6009236": {
         "adsCofRecoil": "0.12",
@@ -26138,6 +26448,7 @@
         "fireModes": [
             "Auto"
         ],
+        "headshotMultiplier": "1",
         "hipCofRecoil": "0.12",
         "image_id": "92783",
         "maxDamage": "167",
@@ -26152,7 +26463,8 @@
         "standingCofMax": "0.75",
         "standingCofMaxADS": "0.75",
         "standingCofMin": "0.3",
-        "standingCofMinADS": "0.3"
+        "standingCofMinADS": "0.3",
+        "verticalRecoil": "0.3"
     },
     "6009237": {
         "adsCofRecoil": "0.12",
@@ -26163,6 +26475,7 @@
         "fireModes": [
             "Auto"
         ],
+        "headshotMultiplier": "1",
         "hipCofRecoil": "0.12",
         "image_id": "92783",
         "maxDamage": "167",
@@ -26177,7 +26490,8 @@
         "standingCofMax": "0.75",
         "standingCofMaxADS": "0.75",
         "standingCofMin": "0.3",
-        "standingCofMinADS": "0.3"
+        "standingCofMinADS": "0.3",
+        "verticalRecoil": "0.3"
     },
     "6009238": {
         "adsCofRecoil": "0.12",
@@ -26188,6 +26502,7 @@
         "fireModes": [
             "Auto"
         ],
+        "headshotMultiplier": "1",
         "hipCofRecoil": "0.12",
         "image_id": "92783",
         "maxDamage": "167",
@@ -26202,7 +26517,8 @@
         "standingCofMax": "0.75",
         "standingCofMaxADS": "0.75",
         "standingCofMin": "0.3",
-        "standingCofMinADS": "0.3"
+        "standingCofMinADS": "0.3",
+        "verticalRecoil": "0.3"
     },
     "6009239": {
         "adsCofRecoil": "0.12",
@@ -26213,6 +26529,7 @@
         "fireModes": [
             "Auto"
         ],
+        "headshotMultiplier": "1",
         "hipCofRecoil": "0.12",
         "image_id": "92783",
         "maxDamage": "167",
@@ -26227,7 +26544,8 @@
         "standingCofMax": "0.75",
         "standingCofMaxADS": "0.75",
         "standingCofMin": "0.3",
-        "standingCofMinADS": "0.3"
+        "standingCofMinADS": "0.3",
+        "verticalRecoil": "0.3"
     },
     "6009240": {
         "adsCofRecoil": "0.12",
@@ -26238,6 +26556,7 @@
         "fireModes": [
             "Auto"
         ],
+        "headshotMultiplier": "1",
         "hipCofRecoil": "0.12",
         "image_id": "92783",
         "maxDamage": "167",
@@ -26252,7 +26571,8 @@
         "standingCofMax": "0.75",
         "standingCofMaxADS": "0.75",
         "standingCofMin": "0.3",
-        "standingCofMinADS": "0.3"
+        "standingCofMinADS": "0.3",
+        "verticalRecoil": "0.3"
     },
     "6009241": {
         "adsCofRecoil": "0.12",
@@ -26263,6 +26583,7 @@
         "fireModes": [
             "Auto"
         ],
+        "headshotMultiplier": "1",
         "hipCofRecoil": "0.12",
         "image_id": "92783",
         "maxDamage": "167",
@@ -26277,7 +26598,8 @@
         "standingCofMax": "0.75",
         "standingCofMaxADS": "0.75",
         "standingCofMin": "0.3",
-        "standingCofMinADS": "0.3"
+        "standingCofMinADS": "0.3",
+        "verticalRecoil": "0.3"
     },
     "6009242": {
         "adsCofRecoil": "0.12",
@@ -26288,6 +26610,7 @@
         "fireModes": [
             "Auto"
         ],
+        "headshotMultiplier": "1",
         "hipCofRecoil": "0.12",
         "image_id": "92783",
         "maxDamage": "167",
@@ -26302,7 +26625,8 @@
         "standingCofMax": "0.75",
         "standingCofMaxADS": "0.75",
         "standingCofMin": "0.3",
-        "standingCofMinADS": "0.3"
+        "standingCofMinADS": "0.3",
+        "verticalRecoil": "0.3"
     },
     "6009243": {
         "adsCofRecoil": "0.12",
@@ -26313,6 +26637,7 @@
         "fireModes": [
             "Auto"
         ],
+        "headshotMultiplier": "1",
         "hipCofRecoil": "0.12",
         "image_id": "92783",
         "maxDamage": "167",
@@ -26327,7 +26652,8 @@
         "standingCofMax": "0.75",
         "standingCofMaxADS": "0.75",
         "standingCofMin": "0.3",
-        "standingCofMinADS": "0.3"
+        "standingCofMinADS": "0.3",
+        "verticalRecoil": "0.3"
     },
     "6009244": {
         "adsCofRecoil": "0.12",
@@ -26338,6 +26664,7 @@
         "fireModes": [
             "Auto"
         ],
+        "headshotMultiplier": "1",
         "hipCofRecoil": "0.12",
         "image_id": "92783",
         "maxDamage": "167",
@@ -26352,7 +26679,8 @@
         "standingCofMax": "0.75",
         "standingCofMaxADS": "0.75",
         "standingCofMin": "0.3",
-        "standingCofMinADS": "0.3"
+        "standingCofMinADS": "0.3",
+        "verticalRecoil": "0.3"
     },
     "6009245": {
         "adsCofRecoil": "0.12",
@@ -26363,6 +26691,7 @@
         "fireModes": [
             "Auto"
         ],
+        "headshotMultiplier": "1",
         "hipCofRecoil": "0.12",
         "image_id": "92783",
         "maxDamage": "167",
@@ -26377,7 +26706,8 @@
         "standingCofMax": "0.75",
         "standingCofMaxADS": "0.75",
         "standingCofMin": "0.3",
-        "standingCofMinADS": "0.3"
+        "standingCofMinADS": "0.3",
+        "verticalRecoil": "0.3"
     },
     "6009246": {
         "category": "Colossus Front Right Weapon",
@@ -26460,6 +26790,7 @@
         "fireModes": [
             "Auto"
         ],
+        "headshotMultiplier": "1",
         "hipCofRecoil": "0.12",
         "image_id": "92783",
         "maxDamage": "167",
@@ -26474,7 +26805,8 @@
         "standingCofMax": "0.75",
         "standingCofMaxADS": "0.75",
         "standingCofMin": "0.3",
-        "standingCofMinADS": "0.3"
+        "standingCofMinADS": "0.3",
+        "verticalRecoil": "0.3"
     },
     "6009251": {
         "adsCofRecoil": "0.12",
@@ -26485,6 +26817,7 @@
         "fireModes": [
             "Auto"
         ],
+        "headshotMultiplier": "1",
         "hipCofRecoil": "0.12",
         "image_id": "92783",
         "maxDamage": "167",
@@ -26499,7 +26832,8 @@
         "standingCofMax": "0.75",
         "standingCofMaxADS": "0.75",
         "standingCofMin": "0.3",
-        "standingCofMinADS": "0.3"
+        "standingCofMinADS": "0.3",
+        "verticalRecoil": "0.3"
     },
     "6009252": {
         "adsCofRecoil": "0.12",
@@ -26510,6 +26844,7 @@
         "fireModes": [
             "Auto"
         ],
+        "headshotMultiplier": "1",
         "hipCofRecoil": "0.12",
         "image_id": "92783",
         "maxDamage": "167",
@@ -26524,7 +26859,8 @@
         "standingCofMax": "0.75",
         "standingCofMaxADS": "0.75",
         "standingCofMin": "0.3",
-        "standingCofMinADS": "0.3"
+        "standingCofMinADS": "0.3",
+        "verticalRecoil": "0.3"
     },
     "6009253": {
         "adsCofRecoil": "0.12",
@@ -26535,6 +26871,7 @@
         "fireModes": [
             "Auto"
         ],
+        "headshotMultiplier": "1",
         "hipCofRecoil": "0.12",
         "image_id": "92783",
         "maxDamage": "167",
@@ -26549,7 +26886,8 @@
         "standingCofMax": "0.75",
         "standingCofMaxADS": "0.75",
         "standingCofMin": "0.3",
-        "standingCofMinADS": "0.3"
+        "standingCofMinADS": "0.3",
+        "verticalRecoil": "0.3"
     },
     "6009254": {
         "adsCofRecoil": "0",
@@ -26569,7 +26907,8 @@
         "standingCofMax": "0",
         "standingCofMaxADS": "0",
         "standingCofMin": "0",
-        "standingCofMinADS": "0"
+        "standingCofMinADS": "0",
+        "verticalRecoil": "2"
     },
     "6009255": {
         "adsCofRecoil": "0",
@@ -26589,7 +26928,8 @@
         "standingCofMax": "0",
         "standingCofMaxADS": "0",
         "standingCofMin": "0",
-        "standingCofMinADS": "0"
+        "standingCofMinADS": "0",
+        "verticalRecoil": "2"
     },
     "6009256": {
         "adsCofRecoil": "0",
@@ -26609,7 +26949,8 @@
         "standingCofMax": "0",
         "standingCofMaxADS": "0",
         "standingCofMin": "0",
-        "standingCofMinADS": "0"
+        "standingCofMinADS": "0",
+        "verticalRecoil": "2"
     },
     "6009257": {
         "adsCofRecoil": "0",
@@ -26629,7 +26970,8 @@
         "standingCofMax": "0",
         "standingCofMaxADS": "0",
         "standingCofMin": "0",
-        "standingCofMinADS": "0"
+        "standingCofMinADS": "0",
+        "verticalRecoil": "2"
     },
     "6009258": {
         "adsCofRecoil": "0",
@@ -26649,7 +26991,8 @@
         "standingCofMax": "0",
         "standingCofMaxADS": "0",
         "standingCofMin": "0",
-        "standingCofMinADS": "0"
+        "standingCofMinADS": "0",
+        "verticalRecoil": "2"
     },
     "6009259": {
         "adsCofRecoil": "0",
@@ -26669,7 +27012,8 @@
         "standingCofMax": "0",
         "standingCofMaxADS": "0",
         "standingCofMin": "0",
-        "standingCofMinADS": "0"
+        "standingCofMinADS": "0",
+        "verticalRecoil": "2"
     },
     "6009260": {
         "adsCofRecoil": "0",
@@ -26689,7 +27033,8 @@
         "standingCofMax": "0",
         "standingCofMaxADS": "0",
         "standingCofMin": "0",
-        "standingCofMinADS": "0"
+        "standingCofMinADS": "0",
+        "verticalRecoil": "2"
     },
     "6009261": {
         "adsCofRecoil": "0",
@@ -26709,7 +27054,8 @@
         "standingCofMax": "0",
         "standingCofMaxADS": "0",
         "standingCofMin": "0",
-        "standingCofMinADS": "0"
+        "standingCofMinADS": "0",
+        "verticalRecoil": "2"
     },
     "6009262": {
         "adsCofRecoil": "0",
@@ -26729,7 +27075,8 @@
         "standingCofMax": "0",
         "standingCofMaxADS": "0",
         "standingCofMin": "0",
-        "standingCofMinADS": "0"
+        "standingCofMinADS": "0",
+        "verticalRecoil": "2"
     },
     "6009263": {
         "adsCofRecoil": "0",
@@ -26749,7 +27096,8 @@
         "standingCofMax": "0",
         "standingCofMaxADS": "0",
         "standingCofMin": "0",
-        "standingCofMinADS": "0"
+        "standingCofMinADS": "0",
+        "verticalRecoil": "2"
     },
     "6009264": {
         "adsCofRecoil": "0",
@@ -26769,7 +27117,8 @@
         "standingCofMax": "0",
         "standingCofMaxADS": "0",
         "standingCofMin": "0",
-        "standingCofMinADS": "0"
+        "standingCofMinADS": "0",
+        "verticalRecoil": "2"
     },
     "6009265": {
         "adsCofRecoil": "0",
@@ -26789,7 +27138,8 @@
         "standingCofMax": "0",
         "standingCofMaxADS": "0",
         "standingCofMin": "0",
-        "standingCofMinADS": "0"
+        "standingCofMinADS": "0",
+        "verticalRecoil": "2"
     },
     "6009266": {
         "adsCofRecoil": "0",
@@ -26809,7 +27159,8 @@
         "standingCofMax": "0",
         "standingCofMaxADS": "0",
         "standingCofMin": "0",
-        "standingCofMinADS": "0"
+        "standingCofMinADS": "0",
+        "verticalRecoil": "2"
     },
     "6009267": {
         "adsCofRecoil": "0",
@@ -26829,7 +27180,8 @@
         "standingCofMax": "0",
         "standingCofMaxADS": "0",
         "standingCofMin": "0",
-        "standingCofMinADS": "0"
+        "standingCofMinADS": "0",
+        "verticalRecoil": "2"
     },
     "6009268": {
         "adsCofRecoil": "0",
@@ -26849,7 +27201,8 @@
         "standingCofMax": "0",
         "standingCofMaxADS": "0",
         "standingCofMin": "0",
-        "standingCofMinADS": "0"
+        "standingCofMinADS": "0",
+        "verticalRecoil": "2"
     },
     "6009269": {
         "adsCofRecoil": "0",
@@ -26869,7 +27222,8 @@
         "standingCofMax": "0",
         "standingCofMaxADS": "0",
         "standingCofMin": "0",
-        "standingCofMinADS": "0"
+        "standingCofMinADS": "0",
+        "verticalRecoil": "2"
     },
     "6009270": {
         "adsCofRecoil": "0.67",
@@ -26891,7 +27245,8 @@
         "standingCofMax": "1.5",
         "standingCofMaxADS": "1.5",
         "standingCofMin": "0",
-        "standingCofMinADS": "0"
+        "standingCofMinADS": "0",
+        "verticalRecoil": "2.5"
     },
     "6009271": {
         "adsCofRecoil": "0.67",
@@ -26913,7 +27268,8 @@
         "standingCofMax": "1.5",
         "standingCofMaxADS": "1.5",
         "standingCofMin": "0",
-        "standingCofMinADS": "0"
+        "standingCofMinADS": "0",
+        "verticalRecoil": "2.5"
     },
     "6009272": {
         "category": "Colossus Rear Right Weapon",
@@ -26965,7 +27321,8 @@
         "standingCofMax": "1.5",
         "standingCofMaxADS": "1.5",
         "standingCofMin": "0",
-        "standingCofMinADS": "0"
+        "standingCofMinADS": "0",
+        "verticalRecoil": "2.5"
     },
     "6009275": {
         "adsCofRecoil": "0.67",
@@ -26987,7 +27344,8 @@
         "standingCofMax": "1.5",
         "standingCofMaxADS": "1.5",
         "standingCofMin": "0",
-        "standingCofMinADS": "0"
+        "standingCofMinADS": "0",
+        "verticalRecoil": "2.5"
     },
     "6009276": {
         "category": "Colossus Rear Right Weapon",
@@ -27039,7 +27397,8 @@
         "standingCofMax": "1.5",
         "standingCofMaxADS": "1.5",
         "standingCofMin": "0",
-        "standingCofMinADS": "0"
+        "standingCofMinADS": "0",
+        "verticalRecoil": "2.5"
     },
     "6009279": {
         "adsCofRecoil": "0.67",
@@ -27061,7 +27420,8 @@
         "standingCofMax": "1.5",
         "standingCofMaxADS": "1.5",
         "standingCofMin": "0",
-        "standingCofMinADS": "0"
+        "standingCofMinADS": "0",
+        "verticalRecoil": "2.5"
     },
     "6009280": {
         "category": "Colossus Rear Right Weapon",
@@ -27113,7 +27473,8 @@
         "standingCofMax": "1.5",
         "standingCofMaxADS": "1.5",
         "standingCofMin": "0",
-        "standingCofMinADS": "0"
+        "standingCofMinADS": "0",
+        "verticalRecoil": "2.5"
     },
     "6009283": {
         "adsCofRecoil": "0.67",
@@ -27135,7 +27496,8 @@
         "standingCofMax": "1.5",
         "standingCofMaxADS": "1.5",
         "standingCofMin": "0",
-        "standingCofMinADS": "0"
+        "standingCofMinADS": "0",
+        "verticalRecoil": "2.5"
     },
     "6009284": {
         "category": "Colossus Rear Right Weapon",
@@ -27394,6 +27756,7 @@
             "Auto"
         ],
         "fireRate": "109",
+        "headshotMultiplier": "1",
         "hipCofRecoil": "0.1",
         "image_id": "1982",
         "maxDamage": "200",
@@ -27408,7 +27771,8 @@
         "standingCofMax": "0.5",
         "standingCofMaxADS": "0.5",
         "standingCofMin": "0.2",
-        "standingCofMinADS": "0.2"
+        "standingCofMinADS": "0.2",
+        "verticalRecoil": "0.3"
     },
     "6101": {
         "adsCofRecoil": "0.1",
@@ -27422,6 +27786,7 @@
             "Auto"
         ],
         "fireRate": "109",
+        "headshotMultiplier": "1",
         "hipCofRecoil": "0.1",
         "image_id": "1982",
         "maxDamage": "200",
@@ -27436,7 +27801,8 @@
         "standingCofMax": "0.5",
         "standingCofMaxADS": "0.5",
         "standingCofMin": "0.2",
-        "standingCofMinADS": "0.2"
+        "standingCofMinADS": "0.2",
+        "verticalRecoil": "0.3"
     },
     "6102": {
         "adsCofRecoil": "0.1",
@@ -27450,6 +27816,7 @@
             "Auto"
         ],
         "fireRate": "109",
+        "headshotMultiplier": "1",
         "hipCofRecoil": "0.1",
         "image_id": "1982",
         "maxDamage": "200",
@@ -27464,7 +27831,8 @@
         "standingCofMax": "0.5",
         "standingCofMaxADS": "0.5",
         "standingCofMin": "0.2",
-        "standingCofMinADS": "0.2"
+        "standingCofMinADS": "0.2",
+        "verticalRecoil": "0.3"
     },
     "6103": {
         "adsCofRecoil": "0.1",
@@ -27622,6 +27990,7 @@
             "Auto"
         ],
         "fireRate": "182",
+        "headshotMultiplier": "1",
         "hipCofRecoil": "0.2",
         "image_id": "7920",
         "maxDamage": "100",
@@ -27637,7 +28006,8 @@
         "standingCofMax": "1.5",
         "standingCofMaxADS": "1.5",
         "standingCofMin": "1.5",
-        "standingCofMinADS": "1.5"
+        "standingCofMinADS": "1.5",
+        "verticalRecoil": "0.2"
     },
     "6110": {
         "adsCofRecoil": "0.2",
@@ -27651,6 +28021,7 @@
             "Auto"
         ],
         "fireRate": "182",
+        "headshotMultiplier": "1",
         "hipCofRecoil": "0.2",
         "image_id": "7920",
         "maxDamage": "100",
@@ -27666,7 +28037,8 @@
         "standingCofMax": "1.5",
         "standingCofMaxADS": "1.5",
         "standingCofMin": "1.5",
-        "standingCofMinADS": "1.5"
+        "standingCofMinADS": "1.5",
+        "verticalRecoil": "0.2"
     },
     "6111": {
         "adsCofRecoil": "0.2",
@@ -27680,6 +28052,7 @@
             "Auto"
         ],
         "fireRate": "182",
+        "headshotMultiplier": "1",
         "hipCofRecoil": "0.2",
         "image_id": "7920",
         "maxDamage": "100",
@@ -27695,7 +28068,8 @@
         "standingCofMax": "1.5",
         "standingCofMaxADS": "1.5",
         "standingCofMin": "1.5",
-        "standingCofMinADS": "1.5"
+        "standingCofMinADS": "1.5",
+        "verticalRecoil": "0.2"
     },
     "6112": {
         "adsCofRecoil": "0",
@@ -27720,7 +28094,8 @@
         "standingCofMax": "0",
         "standingCofMaxADS": "0",
         "standingCofMin": "0",
-        "standingCofMinADS": "0"
+        "standingCofMinADS": "0",
+        "verticalRecoil": "2"
     },
     "6113": {
         "adsCofRecoil": "0",
@@ -27745,7 +28120,8 @@
         "standingCofMax": "0",
         "standingCofMaxADS": "0",
         "standingCofMin": "0",
-        "standingCofMinADS": "0"
+        "standingCofMinADS": "0",
+        "verticalRecoil": "2"
     },
     "6114": {
         "adsCofRecoil": "0",
@@ -27770,7 +28146,8 @@
         "standingCofMax": "0",
         "standingCofMaxADS": "0",
         "standingCofMin": "0",
-        "standingCofMinADS": "0"
+        "standingCofMinADS": "0",
+        "verticalRecoil": "2"
     },
     "6115": {
         "ammo": "120",
@@ -27790,7 +28167,8 @@
         "reload": "2500",
         "speed": "125",
         "standingCofMax": "0.5",
-        "standingCofMin": "0.5"
+        "standingCofMin": "0.5",
+        "verticalRecoil": "0"
     },
     "6116": {
         "ammo": "120",
@@ -27810,7 +28188,8 @@
         "reload": "2500",
         "speed": "125",
         "standingCofMax": "0.5",
-        "standingCofMin": "0.5"
+        "standingCofMin": "0.5",
+        "verticalRecoil": "0"
     },
     "6117": {
         "ammo": "120",
@@ -27830,7 +28209,8 @@
         "reload": "2500",
         "speed": "125",
         "standingCofMax": "0.5",
-        "standingCofMin": "0.5"
+        "standingCofMin": "0.5",
+        "verticalRecoil": "0"
     },
     "6118": {
         "adsCofRecoil": "0",
@@ -27960,7 +28340,8 @@
         "standingCofMax": "1",
         "standingCofMaxADS": "1",
         "standingCofMin": "0.25",
-        "standingCofMinADS": "0.25"
+        "standingCofMinADS": "0.25",
+        "verticalRecoil": "2"
     },
     "6123": {
         "ammo": "77",
@@ -28063,7 +28444,8 @@
         "standingCofMax": "1.5",
         "standingCofMaxADS": "1.5",
         "standingCofMin": "0",
-        "standingCofMinADS": "0"
+        "standingCofMinADS": "0",
+        "verticalRecoil": "1"
     },
     "650": {
         "category": "Explosive",
@@ -28415,6 +28797,7 @@
         "minDamage": "125",
         "minDamageRange": "65",
         "name": "NS-11P",
+        "pelletSpread": "0",
         "pellets": "1",
         "recoilAngleMax": "-17",
         "recoilAngleMin": "-20",
@@ -30798,7 +31181,7 @@
         "runningCofMaxADS": "3",
         "runningCofMin": "4.25",
         "runningCofMinADS": "0.4",
-        "speed": "600",
+        "speed": "550",
         "sprintingCofMax": "7",
         "sprintingCofMaxADS": "3",
         "sprintingCofMin": "7",
@@ -30858,7 +31241,7 @@
         "runningCofMaxADS": "3",
         "runningCofMin": "4.5",
         "runningCofMinADS": "0.4",
-        "speed": "600",
+        "speed": "550",
         "sprintingCofMax": "7",
         "sprintingCofMaxADS": "3",
         "sprintingCofMin": "7",
@@ -30973,7 +31356,8 @@
         "standingCofMax": "1",
         "standingCofMaxADS": "1",
         "standingCofMin": "0.25",
-        "standingCofMinADS": "0.25"
+        "standingCofMinADS": "0.25",
+        "verticalRecoil": "2"
     },
     "7253": {
         "adsCofRecoil": "0.05",
@@ -31140,7 +31524,7 @@
         "runningCofMaxADS": "3",
         "runningCofMin": "4.5",
         "runningCofMinADS": "0.4",
-        "speed": "550",
+        "speed": "600",
         "sprintingCofMax": "7",
         "sprintingCofMaxADS": "3",
         "sprintingCofMin": "7",
@@ -31200,7 +31584,7 @@
         "runningCofMaxADS": "3",
         "runningCofMin": "4.25",
         "runningCofMinADS": "0.35",
-        "speed": "550",
+        "speed": "600",
         "sprintingCofMax": "7",
         "sprintingCofMaxADS": "3",
         "sprintingCofMin": "7",
@@ -31287,7 +31671,8 @@
         "standingCofMax": "0",
         "standingCofMaxADS": "0",
         "standingCofMin": "0",
-        "standingCofMinADS": "0"
+        "standingCofMinADS": "0",
+        "verticalRecoil": "2"
     },
     "727": {
         "category": "Vehicle Weapons",
@@ -33113,7 +33498,6 @@
         "minDamage": "112",
         "minDamageRange": "60",
         "name": "NS-11C",
-        "pelletSpread": "0",
         "pellets": "1",
         "recoilAngleMax": "-17",
         "recoilAngleMin": "-20",
@@ -33208,6 +33592,7 @@
             "Semi-Auto"
         ],
         "fireRate": "333",
+        "headshotMultiplier": "0.5",
         "hipCofRecoil": "0.5",
         "image_id": "83258",
         "maxDamage": "100",
@@ -33226,7 +33611,8 @@
         "sprintingCofMax": "5",
         "sprintingCofMin": "5",
         "standingCofMax": "1",
-        "standingCofMin": "0"
+        "standingCofMin": "0",
+        "verticalRecoil": "0.2"
     },
     "7506": {
         "ammo": "81",
@@ -33243,6 +33629,7 @@
             "Auto"
         ],
         "fireRate": "287",
+        "headshotMultiplier": "0.5",
         "hipCofRecoil": "0.5",
         "image_id": "83252",
         "maxDamage": "75",
@@ -33261,7 +33648,8 @@
         "sprintingCofMax": "5",
         "sprintingCofMin": "5",
         "standingCofMax": "1",
-        "standingCofMin": "0"
+        "standingCofMin": "0",
+        "verticalRecoil": "0.2"
     },
     "75063": {
         "adsCofRecoil": "0.2",
@@ -33335,6 +33723,7 @@
             "Auto"
         ],
         "fireRate": "500",
+        "headshotMultiplier": "0.5",
         "hipCofRecoil": "0.5",
         "image_id": "83255",
         "maxDamage": "50",
@@ -33353,7 +33742,8 @@
         "sprintingCofMax": "5",
         "sprintingCofMin": "5",
         "standingCofMax": "1",
-        "standingCofMin": "0"
+        "standingCofMin": "0",
+        "verticalRecoil": "0.2"
     },
     "75071": {
         "adsCofRecoil": "0.2",
@@ -33485,6 +33875,7 @@
             "Auto"
         ],
         "fireRate": "122",
+        "headshotMultiplier": "1",
         "hipCofRecoil": "0.05",
         "image_id": "83270",
         "maxDamage": "125",
@@ -33503,7 +33894,8 @@
         "sprintingCofMax": "5",
         "sprintingCofMin": "5",
         "standingCofMax": "3",
-        "standingCofMin": "2"
+        "standingCofMin": "2",
+        "verticalRecoil": "0.2"
     },
     "7513": {
         "ammo": "800",
@@ -33521,6 +33913,7 @@
             "Auto"
         ],
         "fireRate": "150",
+        "headshotMultiplier": "1",
         "hipCofRecoil": "0.05",
         "image_id": "83264",
         "maxDamage": "143",
@@ -33539,7 +33932,8 @@
         "sprintingCofMax": "5",
         "sprintingCofMin": "5",
         "standingCofMax": "3",
-        "standingCofMin": "2"
+        "standingCofMin": "2",
+        "verticalRecoil": "0.2"
     },
     "75170": {
         "adsCofRecoil": "0.2",
@@ -33785,6 +34179,7 @@
             "Auto"
         ],
         "fireRate": "141",
+        "headshotMultiplier": "1",
         "hipCofRecoil": "0.05",
         "image_id": "83282",
         "maxDamage": "125",
@@ -33803,7 +34198,8 @@
         "sprintingCofMax": "5",
         "sprintingCofMin": "5",
         "standingCofMax": "3",
-        "standingCofMin": "1.25"
+        "standingCofMin": "1.25",
+        "verticalRecoil": "0.2"
     },
     "7519": {
         "ammo": "400",
@@ -33821,6 +34217,7 @@
             "Auto"
         ],
         "fireRate": "141",
+        "headshotMultiplier": "1",
         "hipCofRecoil": "0.05",
         "image_id": "83303",
         "maxDamage": "143",
@@ -33839,7 +34236,8 @@
         "sprintingCofMax": "5",
         "sprintingCofMin": "5",
         "standingCofMax": "3",
-        "standingCofMin": "2"
+        "standingCofMin": "2",
+        "verticalRecoil": "0.2"
     },
     "7520": {
         "ammo": "600",
@@ -33857,6 +34255,7 @@
             "Auto"
         ],
         "fireRate": "178",
+        "headshotMultiplier": "0.2",
         "hipCofRecoil": "0.06",
         "image_id": "83294",
         "maxDamage": "143",
@@ -33875,7 +34274,8 @@
         "sprintingCofMax": "5",
         "sprintingCofMin": "5",
         "standingCofMax": "3",
-        "standingCofMin": "2.15"
+        "standingCofMin": "2.15",
+        "verticalRecoil": "0.2"
     },
     "75234": {
         "adsCofRecoil": "0.05",
@@ -33951,6 +34351,7 @@
             "Auto"
         ],
         "fireRate": "164",
+        "headshotMultiplier": "1",
         "hipCofRecoil": "0.06",
         "image_id": "83288",
         "maxDamage": "143",
@@ -33969,7 +34370,8 @@
         "sprintingCofMax": "5",
         "sprintingCofMin": "5",
         "standingCofMax": "3",
-        "standingCofMin": "1.15"
+        "standingCofMin": "1.15",
+        "verticalRecoil": "0.2"
     },
     "75268": {
         "adsCofRecoil": "0.2",
@@ -35019,6 +35421,7 @@
         "minDamage": "125",
         "minDamageRange": "65",
         "name": "NS-11AB",
+        "pelletSpread": "0",
         "pellets": "1",
         "recoilAngleMax": "-17",
         "recoilAngleMin": "-20",
@@ -35190,7 +35593,6 @@
         "minDamage": "112",
         "minDamageRange": "60",
         "name": "NS-11CG",
-        "pelletSpread": "0",
         "pellets": "1",
         "recoilAngleMax": "-17",
         "recoilAngleMin": "-20",
@@ -36204,7 +36606,8 @@
         "standingCofMax": "0.25",
         "standingCofMaxADS": "0.25",
         "standingCofMin": "0.15",
-        "standingCofMinADS": "0.15"
+        "standingCofMinADS": "0.15",
+        "verticalRecoil": "2"
     },
     "802875": {
         "adsCofRecoil": "0.05",
@@ -36230,7 +36633,8 @@
         "standingCofMax": "0.35",
         "standingCofMaxADS": "0.35",
         "standingCofMin": "0.2",
-        "standingCofMinADS": "0.2"
+        "standingCofMinADS": "0.2",
+        "verticalRecoil": "2"
     },
     "802897": {
         "adsCofRecoil": "0.05",
@@ -36535,7 +36939,7 @@
         "runningCofMaxADS": "3",
         "runningCofMin": "5",
         "runningCofMinADS": "1",
-        "speed": "150",
+        "speed": "50",
         "sprintingCofMax": "7",
         "sprintingCofMaxADS": "3",
         "sprintingCofMin": "7",
@@ -37086,6 +37490,7 @@
             "Auto"
         ],
         "fireRate": "109",
+        "headshotMultiplier": "1",
         "hipCofRecoil": "0.1",
         "image_id": "1982",
         "maxDamage": "200",
@@ -37100,7 +37505,8 @@
         "standingCofMax": "0.5",
         "standingCofMaxADS": "0.5",
         "standingCofMin": "0.2",
-        "standingCofMinADS": "0.2"
+        "standingCofMinADS": "0.2",
+        "verticalRecoil": "0.3"
     },
     "803483": {
         "adsCofRecoil": "0.1",
@@ -37111,6 +37517,7 @@
         "fireModes": [
             "Auto"
         ],
+        "headshotMultiplier": "1",
         "hipCofRecoil": "0.1",
         "image_id": "1982",
         "maxDamage": "200",
@@ -37125,7 +37532,8 @@
         "standingCofMax": "0.5",
         "standingCofMaxADS": "0.5",
         "standingCofMin": "0.2",
-        "standingCofMinADS": "0.2"
+        "standingCofMinADS": "0.2",
+        "verticalRecoil": "0.3"
     },
     "803484": {
         "adsCofRecoil": "0.1",
@@ -37136,6 +37544,7 @@
         "fireModes": [
             "Auto"
         ],
+        "headshotMultiplier": "1",
         "hipCofRecoil": "0.1",
         "image_id": "1982",
         "maxDamage": "200",
@@ -37150,7 +37559,8 @@
         "standingCofMax": "0.5",
         "standingCofMaxADS": "0.5",
         "standingCofMin": "0.2",
-        "standingCofMinADS": "0.2"
+        "standingCofMinADS": "0.2",
+        "verticalRecoil": "0.3"
     },
     "803485": {
         "category": "ANT Top Turret",
@@ -37215,6 +37625,7 @@
         "fireModes": [
             "Auto"
         ],
+        "headshotMultiplier": "1",
         "hipCofRecoil": "0.2",
         "image_id": "7920",
         "maxDamage": "100",
@@ -37230,7 +37641,8 @@
         "standingCofMax": "1.5",
         "standingCofMaxADS": "1.5",
         "standingCofMin": "1.5",
-        "standingCofMinADS": "1.5"
+        "standingCofMinADS": "1.5",
+        "verticalRecoil": "0.2"
     },
     "803489": {
         "adsCofRecoil": "0.2",
@@ -37241,6 +37653,7 @@
         "fireModes": [
             "Auto"
         ],
+        "headshotMultiplier": "1",
         "hipCofRecoil": "0.2",
         "image_id": "7920",
         "maxDamage": "100",
@@ -37256,7 +37669,8 @@
         "standingCofMax": "1.5",
         "standingCofMaxADS": "1.5",
         "standingCofMin": "1.5",
-        "standingCofMinADS": "1.5"
+        "standingCofMinADS": "1.5",
+        "verticalRecoil": "0.2"
     },
     "803490": {
         "adsCofRecoil": "0.2",
@@ -37267,6 +37681,7 @@
         "fireModes": [
             "Auto"
         ],
+        "headshotMultiplier": "1",
         "hipCofRecoil": "0.2",
         "image_id": "7920",
         "maxDamage": "100",
@@ -37282,7 +37697,8 @@
         "standingCofMax": "1.5",
         "standingCofMaxADS": "1.5",
         "standingCofMin": "1.5",
-        "standingCofMinADS": "1.5"
+        "standingCofMinADS": "1.5",
+        "verticalRecoil": "0.2"
     },
     "803491": {
         "category": "ANT Top Turret",
@@ -37297,7 +37713,8 @@
         "reload": "2500",
         "speed": "125",
         "standingCofMax": "0.5",
-        "standingCofMin": "0.5"
+        "standingCofMin": "0.5",
+        "verticalRecoil": "0"
     },
     "803492": {
         "category": "ANT Top Turret",
@@ -37312,7 +37729,8 @@
         "reload": "2500",
         "speed": "125",
         "standingCofMax": "0.5",
-        "standingCofMin": "0.5"
+        "standingCofMin": "0.5",
+        "verticalRecoil": "0"
     },
     "803493": {
         "category": "ANT Top Turret",
@@ -37327,7 +37745,8 @@
         "reload": "2500",
         "speed": "125",
         "standingCofMax": "0.5",
-        "standingCofMin": "0.5"
+        "standingCofMin": "0.5",
+        "verticalRecoil": "0"
     },
     "803494": {
         "adsCofRecoil": "0",
@@ -37347,7 +37766,8 @@
         "standingCofMax": "0",
         "standingCofMaxADS": "0",
         "standingCofMin": "0",
-        "standingCofMinADS": "0"
+        "standingCofMinADS": "0",
+        "verticalRecoil": "2"
     },
     "803495": {
         "adsCofRecoil": "0",
@@ -37367,7 +37787,8 @@
         "standingCofMax": "0",
         "standingCofMaxADS": "0",
         "standingCofMin": "0",
-        "standingCofMinADS": "0"
+        "standingCofMinADS": "0",
+        "verticalRecoil": "2"
     },
     "803496": {
         "adsCofRecoil": "0",
@@ -37387,7 +37808,8 @@
         "standingCofMax": "0",
         "standingCofMaxADS": "0",
         "standingCofMin": "0",
-        "standingCofMinADS": "0"
+        "standingCofMinADS": "0",
+        "verticalRecoil": "2"
     },
     "803497": {
         "category": "ANT Top Turret",
@@ -38068,6 +38490,7 @@
         "crouchingCofMaxADS": "2",
         "crouchingCofMin": "1",
         "crouchingCofMinADS": "0.1",
+        "damage": "112",
         "defZoom": "1",
         "description": "The NC05 Jackhammer's stopping power and sustained fire capabilities make it a frightening weapon in close quarters combat. It features a unique burst fire mode that doubles its rate of fire. NC use only.",
         "directDamage": "112",
@@ -38084,10 +38507,6 @@
         "headshotMultiplier": "0.5",
         "hipCofRecoil": "0",
         "image_id": "84814",
-        "maxDamage": "112",
-        "maxDamageRange": "10",
-        "minDamage": "70",
-        "minDamageRange": "30",
         "name": "NC05 Jackhammer AE",
         "pelletSpread": "2.5",
         "pellets": "5",
@@ -39831,7 +40250,8 @@
         "standingCofMax": "7",
         "standingCofMaxADS": "3",
         "standingCofMin": "0.5",
-        "standingCofMinADS": "0.1"
+        "standingCofMinADS": "0.1",
+        "verticalRecoil": "0.33"
     },
     "804243": {
         "adsCofRecoil": "0.06",
@@ -40443,11 +40863,13 @@
             "Auto"
         ],
         "fireRate": "200",
+        "headshotMultiplier": "1",
         "hipCofRecoil": "0.05",
         "image_id": "85918",
         "name": "NS-20 Gorgon",
         "pelletSpread": "0",
         "pellets": "1",
+        "recoilHorizontalTolerance": "0.3",
         "reload": "3400",
         "runningCofMax": "3",
         "runningCofMin": "2.25",
@@ -40455,7 +40877,8 @@
         "sprintingCofMax": "5",
         "sprintingCofMin": "5",
         "standingCofMax": "2.25",
-        "standingCofMin": "1.75"
+        "standingCofMin": "1.75",
+        "verticalRecoil": "0.2"
     },
     "804653": {
         "ammo": "400",
@@ -40475,11 +40898,13 @@
             "Auto"
         ],
         "fireRate": "200",
+        "headshotMultiplier": "1",
         "hipCofRecoil": "0.05",
         "image_id": "85918",
         "name": "NS-20 Gorgon",
         "pelletSpread": "0",
         "pellets": "1",
+        "recoilHorizontalTolerance": "0.3",
         "reload": "3400",
         "runningCofMax": "3",
         "runningCofMin": "2.25",
@@ -40487,7 +40912,8 @@
         "sprintingCofMax": "5",
         "sprintingCofMin": "5",
         "standingCofMax": "2.25",
-        "standingCofMin": "1.75"
+        "standingCofMin": "1.75",
+        "verticalRecoil": "0.2"
     },
     "804654": {
         "ammo": "400",
@@ -40507,11 +40933,13 @@
             "Auto"
         ],
         "fireRate": "200",
+        "headshotMultiplier": "1",
         "hipCofRecoil": "0.05",
         "image_id": "85918",
         "name": "NS-20 Gorgon",
         "pelletSpread": "0",
         "pellets": "1",
+        "recoilHorizontalTolerance": "0.3",
         "reload": "3400",
         "runningCofMax": "3",
         "runningCofMin": "2.25",
@@ -40519,7 +40947,8 @@
         "sprintingCofMax": "5",
         "sprintingCofMin": "5",
         "standingCofMax": "2.25",
-        "standingCofMin": "1.75"
+        "standingCofMin": "1.75",
+        "verticalRecoil": "0.2"
     },
     "804655": {
         "ammo": "400",
@@ -40539,11 +40968,13 @@
             "Auto"
         ],
         "fireRate": "200",
+        "headshotMultiplier": "1",
         "hipCofRecoil": "0.05",
         "image_id": "85918",
         "name": "NS-20 Gorgon",
         "pelletSpread": "0",
         "pellets": "1",
+        "recoilHorizontalTolerance": "0.3",
         "reload": "3400",
         "runningCofMax": "3",
         "runningCofMin": "2.25",
@@ -40551,7 +40982,8 @@
         "sprintingCofMax": "5",
         "sprintingCofMin": "5",
         "standingCofMax": "2.25",
-        "standingCofMin": "1.75"
+        "standingCofMin": "1.75",
+        "verticalRecoil": "0.2"
     },
     "804656": {
         "ammo": "400",
@@ -40571,11 +41003,13 @@
             "Auto"
         ],
         "fireRate": "200",
+        "headshotMultiplier": "1",
         "hipCofRecoil": "0.05",
         "image_id": "85918",
         "name": "NS-20 Gorgon",
         "pelletSpread": "0",
         "pellets": "1",
+        "recoilHorizontalTolerance": "0.3",
         "reload": "3400",
         "runningCofMax": "3",
         "runningCofMin": "2.25",
@@ -40583,7 +41017,8 @@
         "sprintingCofMax": "5",
         "sprintingCofMin": "5",
         "standingCofMax": "2.25",
-        "standingCofMin": "1.75"
+        "standingCofMin": "1.75",
+        "verticalRecoil": "0.2"
     },
     "804657": {
         "ammo": "400",
@@ -40603,11 +41038,13 @@
             "Auto"
         ],
         "fireRate": "200",
+        "headshotMultiplier": "1",
         "hipCofRecoil": "0.05",
         "image_id": "85918",
         "name": "NS-20 Gorgon",
         "pelletSpread": "0",
         "pellets": "1",
+        "recoilHorizontalTolerance": "0.3",
         "reload": "3400",
         "runningCofMax": "3",
         "runningCofMin": "2.25",
@@ -40615,7 +41052,8 @@
         "sprintingCofMax": "5",
         "sprintingCofMin": "5",
         "standingCofMax": "2.25",
-        "standingCofMin": "1.75"
+        "standingCofMin": "1.75",
+        "verticalRecoil": "0.2"
     },
     "804702": {
         "category": "Infantry Abilities",
@@ -40671,11 +41109,13 @@
             "Auto"
         ],
         "fireRate": "200",
+        "headshotMultiplier": "1",
         "hipCofRecoil": "0.05",
         "image_id": "85912",
         "name": "NS-20B Gorgon",
         "pelletSpread": "0",
         "pellets": "1",
+        "recoilHorizontalTolerance": "0.3",
         "reload": "3400",
         "runningCofMax": "3",
         "runningCofMin": "2.25",
@@ -40683,7 +41123,8 @@
         "sprintingCofMax": "5",
         "sprintingCofMin": "5",
         "standingCofMax": "2.25",
-        "standingCofMin": "1.75"
+        "standingCofMin": "1.75",
+        "verticalRecoil": "0.2"
     },
     "804718": {
         "ammo": "400",
@@ -40703,11 +41144,13 @@
             "Auto"
         ],
         "fireRate": "200",
+        "headshotMultiplier": "1",
         "hipCofRecoil": "0.05",
         "image_id": "85912",
         "name": "NS-20B Gorgon",
         "pelletSpread": "0",
         "pellets": "1",
+        "recoilHorizontalTolerance": "0.3",
         "reload": "3400",
         "runningCofMax": "3",
         "runningCofMin": "2.25",
@@ -40715,7 +41158,8 @@
         "sprintingCofMax": "5",
         "sprintingCofMin": "5",
         "standingCofMax": "2.25",
-        "standingCofMin": "1.75"
+        "standingCofMin": "1.75",
+        "verticalRecoil": "0.2"
     },
     "804719": {
         "ammo": "400",
@@ -40735,11 +41179,13 @@
             "Auto"
         ],
         "fireRate": "200",
+        "headshotMultiplier": "1",
         "hipCofRecoil": "0.05",
         "image_id": "85912",
         "name": "NS-20B Gorgon",
         "pelletSpread": "0",
         "pellets": "1",
+        "recoilHorizontalTolerance": "0.3",
         "reload": "3400",
         "runningCofMax": "3",
         "runningCofMin": "2.25",
@@ -40747,7 +41193,8 @@
         "sprintingCofMax": "5",
         "sprintingCofMin": "5",
         "standingCofMax": "2.25",
-        "standingCofMin": "1.75"
+        "standingCofMin": "1.75",
+        "verticalRecoil": "0.2"
     },
     "804720": {
         "ammo": "400",
@@ -40767,11 +41214,13 @@
             "Auto"
         ],
         "fireRate": "200",
+        "headshotMultiplier": "1",
         "hipCofRecoil": "0.05",
         "image_id": "85912",
         "name": "NS-20B Gorgon",
         "pelletSpread": "0",
         "pellets": "1",
+        "recoilHorizontalTolerance": "0.3",
         "reload": "3400",
         "runningCofMax": "3",
         "runningCofMin": "2.25",
@@ -40779,7 +41228,8 @@
         "sprintingCofMax": "5",
         "sprintingCofMin": "5",
         "standingCofMax": "2.25",
-        "standingCofMin": "1.75"
+        "standingCofMin": "1.75",
+        "verticalRecoil": "0.2"
     },
     "804721": {
         "ammo": "400",
@@ -40799,11 +41249,13 @@
             "Auto"
         ],
         "fireRate": "200",
+        "headshotMultiplier": "1",
         "hipCofRecoil": "0.05",
         "image_id": "85912",
         "name": "NS-20B Gorgon",
         "pelletSpread": "0",
         "pellets": "1",
+        "recoilHorizontalTolerance": "0.3",
         "reload": "3400",
         "runningCofMax": "3",
         "runningCofMin": "2.25",
@@ -40811,7 +41263,8 @@
         "sprintingCofMax": "5",
         "sprintingCofMin": "5",
         "standingCofMax": "2.25",
-        "standingCofMin": "1.75"
+        "standingCofMin": "1.75",
+        "verticalRecoil": "0.2"
     },
     "804722": {
         "ammo": "400",
@@ -40831,11 +41284,13 @@
             "Auto"
         ],
         "fireRate": "200",
+        "headshotMultiplier": "1",
         "hipCofRecoil": "0.05",
         "image_id": "85912",
         "name": "NS-20B Gorgon",
         "pelletSpread": "0",
         "pellets": "1",
+        "recoilHorizontalTolerance": "0.3",
         "reload": "3400",
         "runningCofMax": "3",
         "runningCofMin": "2.25",
@@ -40843,7 +41298,8 @@
         "sprintingCofMax": "5",
         "sprintingCofMin": "5",
         "standingCofMax": "2.25",
-        "standingCofMin": "1.75"
+        "standingCofMin": "1.75",
+        "verticalRecoil": "0.2"
     },
     "804723": {
         "ammo": "400",
@@ -40863,11 +41319,13 @@
             "Auto"
         ],
         "fireRate": "200",
+        "headshotMultiplier": "1",
         "hipCofRecoil": "0.05",
         "image_id": "85915",
         "name": "NS-20G Gorgon",
         "pelletSpread": "0",
         "pellets": "1",
+        "recoilHorizontalTolerance": "0.3",
         "reload": "3400",
         "runningCofMax": "3",
         "runningCofMin": "2.25",
@@ -40875,7 +41333,8 @@
         "sprintingCofMax": "5",
         "sprintingCofMin": "5",
         "standingCofMax": "2.25",
-        "standingCofMin": "1.75"
+        "standingCofMin": "1.75",
+        "verticalRecoil": "0.2"
     },
     "804724": {
         "ammo": "400",
@@ -40895,11 +41354,13 @@
             "Auto"
         ],
         "fireRate": "200",
+        "headshotMultiplier": "1",
         "hipCofRecoil": "0.05",
         "image_id": "85915",
         "name": "NS-20G Gorgon",
         "pelletSpread": "0",
         "pellets": "1",
+        "recoilHorizontalTolerance": "0.3",
         "reload": "3400",
         "runningCofMax": "3",
         "runningCofMin": "2.25",
@@ -40907,7 +41368,8 @@
         "sprintingCofMax": "5",
         "sprintingCofMin": "5",
         "standingCofMax": "2.25",
-        "standingCofMin": "1.75"
+        "standingCofMin": "1.75",
+        "verticalRecoil": "0.2"
     },
     "804725": {
         "ammo": "400",
@@ -40927,11 +41389,13 @@
             "Auto"
         ],
         "fireRate": "200",
+        "headshotMultiplier": "1",
         "hipCofRecoil": "0.05",
         "image_id": "85915",
         "name": "NS-20G Gorgon",
         "pelletSpread": "0",
         "pellets": "1",
+        "recoilHorizontalTolerance": "0.3",
         "reload": "3400",
         "runningCofMax": "3",
         "runningCofMin": "2.25",
@@ -40939,7 +41403,8 @@
         "sprintingCofMax": "5",
         "sprintingCofMin": "5",
         "standingCofMax": "2.25",
-        "standingCofMin": "1.75"
+        "standingCofMin": "1.75",
+        "verticalRecoil": "0.2"
     },
     "804726": {
         "ammo": "400",
@@ -40959,11 +41424,13 @@
             "Auto"
         ],
         "fireRate": "200",
+        "headshotMultiplier": "1",
         "hipCofRecoil": "0.05",
         "image_id": "85915",
         "name": "NS-20G Gorgon",
         "pelletSpread": "0",
         "pellets": "1",
+        "recoilHorizontalTolerance": "0.3",
         "reload": "3400",
         "runningCofMax": "3",
         "runningCofMin": "2.25",
@@ -40971,7 +41438,8 @@
         "sprintingCofMax": "5",
         "sprintingCofMin": "5",
         "standingCofMax": "2.25",
-        "standingCofMin": "1.75"
+        "standingCofMin": "1.75",
+        "verticalRecoil": "0.2"
     },
     "804727": {
         "ammo": "400",
@@ -40991,11 +41459,13 @@
             "Auto"
         ],
         "fireRate": "200",
+        "headshotMultiplier": "1",
         "hipCofRecoil": "0.05",
         "image_id": "85915",
         "name": "NS-20G Gorgon",
         "pelletSpread": "0",
         "pellets": "1",
+        "recoilHorizontalTolerance": "0.3",
         "reload": "3400",
         "runningCofMax": "3",
         "runningCofMin": "2.25",
@@ -41003,7 +41473,8 @@
         "sprintingCofMax": "5",
         "sprintingCofMin": "5",
         "standingCofMax": "2.25",
-        "standingCofMin": "1.75"
+        "standingCofMin": "1.75",
+        "verticalRecoil": "0.2"
     },
     "804728": {
         "ammo": "400",
@@ -41023,11 +41494,13 @@
             "Auto"
         ],
         "fireRate": "200",
+        "headshotMultiplier": "1",
         "hipCofRecoil": "0.05",
         "image_id": "85915",
         "name": "NS-20G Gorgon",
         "pelletSpread": "0",
         "pellets": "1",
+        "recoilHorizontalTolerance": "0.3",
         "reload": "3400",
         "runningCofMax": "3",
         "runningCofMin": "2.25",
@@ -41035,7 +41508,8 @@
         "sprintingCofMax": "5",
         "sprintingCofMin": "5",
         "standingCofMax": "2.25",
-        "standingCofMin": "1.75"
+        "standingCofMin": "1.75",
+        "verticalRecoil": "0.2"
     },
     "804741": {
         "ammo": "196",
@@ -41053,6 +41527,7 @@
             "Auto"
         ],
         "fireRate": "273",
+        "headshotMultiplier": "1",
         "hipCofRecoil": "0",
         "image_id": "85949",
         "maxDamage": "100",
@@ -41062,6 +41537,7 @@
         "name": "NS-10B Burster",
         "pelletSpread": "0",
         "pellets": "1",
+        "recoilHorizontalTolerance": "0.3",
         "reload": "3000",
         "runningCofMax": "2",
         "runningCofMin": "2",
@@ -41069,7 +41545,8 @@
         "sprintingCofMax": "5",
         "sprintingCofMin": "5",
         "standingCofMax": "2",
-        "standingCofMin": "2"
+        "standingCofMin": "2",
+        "verticalRecoil": "0.2"
     },
     "804742": {
         "ammo": "196",
@@ -41087,6 +41564,7 @@
             "Auto"
         ],
         "fireRate": "273",
+        "headshotMultiplier": "1",
         "hipCofRecoil": "0",
         "image_id": "85949",
         "maxDamage": "100",
@@ -41096,6 +41574,7 @@
         "name": "NS-10B Burster",
         "pelletSpread": "0",
         "pellets": "1",
+        "recoilHorizontalTolerance": "0.3",
         "reload": "3000",
         "runningCofMax": "2",
         "runningCofMin": "2",
@@ -41103,7 +41582,8 @@
         "sprintingCofMax": "5",
         "sprintingCofMin": "5",
         "standingCofMax": "2",
-        "standingCofMin": "2"
+        "standingCofMin": "2",
+        "verticalRecoil": "0.2"
     },
     "804743": {
         "ammo": "196",
@@ -41121,6 +41601,7 @@
             "Auto"
         ],
         "fireRate": "273",
+        "headshotMultiplier": "1",
         "hipCofRecoil": "0",
         "image_id": "85949",
         "maxDamage": "100",
@@ -41130,6 +41611,7 @@
         "name": "NS-10B Burster",
         "pelletSpread": "0",
         "pellets": "1",
+        "recoilHorizontalTolerance": "0.3",
         "reload": "3000",
         "runningCofMax": "2",
         "runningCofMin": "2",
@@ -41137,7 +41619,8 @@
         "sprintingCofMax": "5",
         "sprintingCofMin": "5",
         "standingCofMax": "2",
-        "standingCofMin": "2"
+        "standingCofMin": "2",
+        "verticalRecoil": "0.2"
     },
     "804744": {
         "ammo": "196",
@@ -41155,6 +41638,7 @@
             "Auto"
         ],
         "fireRate": "273",
+        "headshotMultiplier": "1",
         "hipCofRecoil": "0",
         "image_id": "85949",
         "maxDamage": "100",
@@ -41164,6 +41648,7 @@
         "name": "NS-10B Burster",
         "pelletSpread": "0",
         "pellets": "1",
+        "recoilHorizontalTolerance": "0.3",
         "reload": "3000",
         "runningCofMax": "2",
         "runningCofMin": "2",
@@ -41171,7 +41656,8 @@
         "sprintingCofMax": "5",
         "sprintingCofMin": "5",
         "standingCofMax": "2",
-        "standingCofMin": "2"
+        "standingCofMin": "2",
+        "verticalRecoil": "0.2"
     },
     "804745": {
         "ammo": "196",
@@ -41189,6 +41675,7 @@
             "Auto"
         ],
         "fireRate": "273",
+        "headshotMultiplier": "1",
         "hipCofRecoil": "0",
         "image_id": "85949",
         "maxDamage": "100",
@@ -41198,6 +41685,7 @@
         "name": "NS-10B Burster",
         "pelletSpread": "0",
         "pellets": "1",
+        "recoilHorizontalTolerance": "0.3",
         "reload": "3000",
         "runningCofMax": "2",
         "runningCofMin": "2",
@@ -41205,7 +41693,8 @@
         "sprintingCofMax": "5",
         "sprintingCofMin": "5",
         "standingCofMax": "2",
-        "standingCofMin": "2"
+        "standingCofMin": "2",
+        "verticalRecoil": "0.2"
     },
     "804746": {
         "ammo": "196",
@@ -41223,6 +41712,7 @@
             "Auto"
         ],
         "fireRate": "273",
+        "headshotMultiplier": "1",
         "hipCofRecoil": "0",
         "image_id": "85949",
         "maxDamage": "100",
@@ -41232,6 +41722,7 @@
         "name": "NS-10B Burster",
         "pelletSpread": "0",
         "pellets": "1",
+        "recoilHorizontalTolerance": "0.3",
         "reload": "3000",
         "runningCofMax": "2",
         "runningCofMin": "2",
@@ -41239,7 +41730,8 @@
         "sprintingCofMax": "5",
         "sprintingCofMin": "5",
         "standingCofMax": "2",
-        "standingCofMin": "2"
+        "standingCofMin": "2",
+        "verticalRecoil": "0.2"
     },
     "804747": {
         "ammo": "196",
@@ -41257,6 +41749,7 @@
             "Auto"
         ],
         "fireRate": "273",
+        "headshotMultiplier": "1",
         "hipCofRecoil": "0",
         "image_id": "85952",
         "maxDamage": "100",
@@ -41266,6 +41759,7 @@
         "name": "NS-10G Burster",
         "pelletSpread": "0",
         "pellets": "1",
+        "recoilHorizontalTolerance": "0.3",
         "reload": "3000",
         "runningCofMax": "2",
         "runningCofMin": "2",
@@ -41273,7 +41767,8 @@
         "sprintingCofMax": "5",
         "sprintingCofMin": "5",
         "standingCofMax": "2",
-        "standingCofMin": "2"
+        "standingCofMin": "2",
+        "verticalRecoil": "0.2"
     },
     "804748": {
         "ammo": "196",
@@ -41291,6 +41786,7 @@
             "Auto"
         ],
         "fireRate": "273",
+        "headshotMultiplier": "1",
         "hipCofRecoil": "0",
         "image_id": "85952",
         "maxDamage": "100",
@@ -41300,6 +41796,7 @@
         "name": "NS-10G Burster",
         "pelletSpread": "0",
         "pellets": "1",
+        "recoilHorizontalTolerance": "0.3",
         "reload": "3000",
         "runningCofMax": "2",
         "runningCofMin": "2",
@@ -41307,7 +41804,8 @@
         "sprintingCofMax": "5",
         "sprintingCofMin": "5",
         "standingCofMax": "2",
-        "standingCofMin": "2"
+        "standingCofMin": "2",
+        "verticalRecoil": "0.2"
     },
     "804749": {
         "ammo": "196",
@@ -41325,6 +41823,7 @@
             "Auto"
         ],
         "fireRate": "273",
+        "headshotMultiplier": "1",
         "hipCofRecoil": "0",
         "image_id": "85952",
         "maxDamage": "100",
@@ -41334,6 +41833,7 @@
         "name": "NS-10G Burster",
         "pelletSpread": "0",
         "pellets": "1",
+        "recoilHorizontalTolerance": "0.3",
         "reload": "3000",
         "runningCofMax": "2",
         "runningCofMin": "2",
@@ -41341,7 +41841,8 @@
         "sprintingCofMax": "5",
         "sprintingCofMin": "5",
         "standingCofMax": "2",
-        "standingCofMin": "2"
+        "standingCofMin": "2",
+        "verticalRecoil": "0.2"
     },
     "804750": {
         "ammo": "196",
@@ -41359,6 +41860,7 @@
             "Auto"
         ],
         "fireRate": "273",
+        "headshotMultiplier": "1",
         "hipCofRecoil": "0",
         "image_id": "85952",
         "maxDamage": "100",
@@ -41368,6 +41870,7 @@
         "name": "NS-10G Burster",
         "pelletSpread": "0",
         "pellets": "1",
+        "recoilHorizontalTolerance": "0.3",
         "reload": "3000",
         "runningCofMax": "2",
         "runningCofMin": "2",
@@ -41375,7 +41878,8 @@
         "sprintingCofMax": "5",
         "sprintingCofMin": "5",
         "standingCofMax": "2",
-        "standingCofMin": "2"
+        "standingCofMin": "2",
+        "verticalRecoil": "0.2"
     },
     "804751": {
         "ammo": "196",
@@ -41393,6 +41897,7 @@
             "Auto"
         ],
         "fireRate": "273",
+        "headshotMultiplier": "1",
         "hipCofRecoil": "0",
         "image_id": "85952",
         "maxDamage": "100",
@@ -41402,6 +41907,7 @@
         "name": "NS-10G Burster",
         "pelletSpread": "0",
         "pellets": "1",
+        "recoilHorizontalTolerance": "0.3",
         "reload": "3000",
         "runningCofMax": "2",
         "runningCofMin": "2",
@@ -41409,7 +41915,8 @@
         "sprintingCofMax": "5",
         "sprintingCofMin": "5",
         "standingCofMax": "2",
-        "standingCofMin": "2"
+        "standingCofMin": "2",
+        "verticalRecoil": "0.2"
     },
     "804752": {
         "ammo": "196",
@@ -41427,6 +41934,7 @@
             "Auto"
         ],
         "fireRate": "273",
+        "headshotMultiplier": "1",
         "hipCofRecoil": "0",
         "image_id": "85952",
         "maxDamage": "100",
@@ -41436,6 +41944,7 @@
         "name": "NS-10G Burster",
         "pelletSpread": "0",
         "pellets": "1",
+        "recoilHorizontalTolerance": "0.3",
         "reload": "3000",
         "runningCofMax": "2",
         "runningCofMin": "2",
@@ -41443,7 +41952,8 @@
         "sprintingCofMax": "5",
         "sprintingCofMin": "5",
         "standingCofMax": "2",
-        "standingCofMin": "2"
+        "standingCofMin": "2",
+        "verticalRecoil": "0.2"
     },
     "804795": {
         "category": "Knife",
@@ -41473,6 +41983,7 @@
         "fireModes": [
             "Single Shot"
         ],
+        "headshotMultiplier": "0",
         "hipCofRecoil": "1.2",
         "image_id": "86194",
         "name": "RD-GG Recon Device 6",
@@ -41481,7 +41992,8 @@
         "standingCofMax": "0",
         "standingCofMaxADS": "0",
         "standingCofMin": "0",
-        "standingCofMinADS": "0"
+        "standingCofMinADS": "0",
+        "verticalRecoil": "1.5"
     },
     "804870": {
         "adsCofRecoil": "1.2",
@@ -41491,6 +42003,7 @@
         "fireModes": [
             "Single Shot"
         ],
+        "headshotMultiplier": "0",
         "hipCofRecoil": "1.2",
         "image_id": "86194",
         "name": "RD-GG Recon Device",
@@ -41499,7 +42012,8 @@
         "standingCofMax": "0",
         "standingCofMaxADS": "0",
         "standingCofMin": "0",
-        "standingCofMinADS": "0"
+        "standingCofMinADS": "0",
+        "verticalRecoil": "1.5"
     },
     "804871": {
         "adsCofRecoil": "1.2",
@@ -41509,6 +42023,7 @@
         "fireModes": [
             "Single Shot"
         ],
+        "headshotMultiplier": "0",
         "hipCofRecoil": "1.2",
         "image_id": "86194",
         "name": "RD-GG Recon Device",
@@ -41517,7 +42032,8 @@
         "standingCofMax": "0",
         "standingCofMaxADS": "0",
         "standingCofMin": "0",
-        "standingCofMinADS": "0"
+        "standingCofMinADS": "0",
+        "verticalRecoil": "1.5"
     },
     "804872": {
         "adsCofRecoil": "1.2",
@@ -41527,6 +42043,7 @@
         "fireModes": [
             "Single Shot"
         ],
+        "headshotMultiplier": "0",
         "hipCofRecoil": "1.2",
         "image_id": "86194",
         "name": "RD-GG Recon Device",
@@ -41535,7 +42052,8 @@
         "standingCofMax": "0",
         "standingCofMaxADS": "0",
         "standingCofMin": "0",
-        "standingCofMinADS": "0"
+        "standingCofMinADS": "0",
+        "verticalRecoil": "1.5"
     },
     "804873": {
         "adsCofRecoil": "1.2",
@@ -41545,6 +42063,7 @@
         "fireModes": [
             "Single Shot"
         ],
+        "headshotMultiplier": "0",
         "hipCofRecoil": "1.2",
         "image_id": "86194",
         "name": "RD-GG Recon Device 2",
@@ -41553,7 +42072,8 @@
         "standingCofMax": "0",
         "standingCofMaxADS": "0",
         "standingCofMin": "0",
-        "standingCofMinADS": "0"
+        "standingCofMinADS": "0",
+        "verticalRecoil": "1.5"
     },
     "804874": {
         "adsCofRecoil": "1.2",
@@ -41563,6 +42083,7 @@
         "fireModes": [
             "Single Shot"
         ],
+        "headshotMultiplier": "0",
         "hipCofRecoil": "1.2",
         "image_id": "86194",
         "name": "RD-GG Recon Device 2",
@@ -41571,7 +42092,8 @@
         "standingCofMax": "0",
         "standingCofMaxADS": "0",
         "standingCofMin": "0",
-        "standingCofMinADS": "0"
+        "standingCofMinADS": "0",
+        "verticalRecoil": "1.5"
     },
     "804875": {
         "adsCofRecoil": "1.2",
@@ -41581,6 +42103,7 @@
         "fireModes": [
             "Single Shot"
         ],
+        "headshotMultiplier": "0",
         "hipCofRecoil": "1.2",
         "image_id": "86194",
         "name": "RD-GG Recon Device 2",
@@ -41589,7 +42112,8 @@
         "standingCofMax": "0",
         "standingCofMaxADS": "0",
         "standingCofMin": "0",
-        "standingCofMinADS": "0"
+        "standingCofMinADS": "0",
+        "verticalRecoil": "1.5"
     },
     "804876": {
         "adsCofRecoil": "1.2",
@@ -41599,6 +42123,7 @@
         "fireModes": [
             "Single Shot"
         ],
+        "headshotMultiplier": "0",
         "hipCofRecoil": "1.2",
         "image_id": "86194",
         "name": "RD-GG Recon Device 3",
@@ -41607,7 +42132,8 @@
         "standingCofMax": "0",
         "standingCofMaxADS": "0",
         "standingCofMin": "0",
-        "standingCofMinADS": "0"
+        "standingCofMinADS": "0",
+        "verticalRecoil": "1.5"
     },
     "804877": {
         "adsCofRecoil": "1.2",
@@ -41617,6 +42143,7 @@
         "fireModes": [
             "Single Shot"
         ],
+        "headshotMultiplier": "0",
         "hipCofRecoil": "1.2",
         "image_id": "86194",
         "name": "RD-GG Recon Device 3",
@@ -41625,7 +42152,8 @@
         "standingCofMax": "0",
         "standingCofMaxADS": "0",
         "standingCofMin": "0",
-        "standingCofMinADS": "0"
+        "standingCofMinADS": "0",
+        "verticalRecoil": "1.5"
     },
     "804878": {
         "adsCofRecoil": "1.2",
@@ -41635,6 +42163,7 @@
         "fireModes": [
             "Single Shot"
         ],
+        "headshotMultiplier": "0",
         "hipCofRecoil": "1.2",
         "image_id": "86194",
         "name": "RD-GG Recon Device 3",
@@ -41643,7 +42172,8 @@
         "standingCofMax": "0",
         "standingCofMaxADS": "0",
         "standingCofMin": "0",
-        "standingCofMinADS": "0"
+        "standingCofMinADS": "0",
+        "verticalRecoil": "1.5"
     },
     "804879": {
         "adsCofRecoil": "1.2",
@@ -41653,6 +42183,7 @@
         "fireModes": [
             "Single Shot"
         ],
+        "headshotMultiplier": "0",
         "hipCofRecoil": "1.2",
         "image_id": "86194",
         "name": "RD-GG Recon Device 4",
@@ -41661,7 +42192,8 @@
         "standingCofMax": "0",
         "standingCofMaxADS": "0",
         "standingCofMin": "0",
-        "standingCofMinADS": "0"
+        "standingCofMinADS": "0",
+        "verticalRecoil": "1.5"
     },
     "804880": {
         "adsCofRecoil": "1.2",
@@ -41671,6 +42203,7 @@
         "fireModes": [
             "Single Shot"
         ],
+        "headshotMultiplier": "0",
         "hipCofRecoil": "1.2",
         "image_id": "86194",
         "name": "RD-GG Recon Device 4",
@@ -41679,7 +42212,8 @@
         "standingCofMax": "0",
         "standingCofMaxADS": "0",
         "standingCofMin": "0",
-        "standingCofMinADS": "0"
+        "standingCofMinADS": "0",
+        "verticalRecoil": "1.5"
     },
     "804881": {
         "adsCofRecoil": "1.2",
@@ -41689,6 +42223,7 @@
         "fireModes": [
             "Single Shot"
         ],
+        "headshotMultiplier": "0",
         "hipCofRecoil": "1.2",
         "image_id": "86194",
         "name": "RD-GG Recon Device 4",
@@ -41697,7 +42232,8 @@
         "standingCofMax": "0",
         "standingCofMaxADS": "0",
         "standingCofMin": "0",
-        "standingCofMinADS": "0"
+        "standingCofMinADS": "0",
+        "verticalRecoil": "1.5"
     },
     "804882": {
         "adsCofRecoil": "1.2",
@@ -41707,6 +42243,7 @@
         "fireModes": [
             "Single Shot"
         ],
+        "headshotMultiplier": "0",
         "hipCofRecoil": "1.2",
         "image_id": "86194",
         "name": "RD-GG Recon Device 5",
@@ -41715,7 +42252,8 @@
         "standingCofMax": "0",
         "standingCofMaxADS": "0",
         "standingCofMin": "0",
-        "standingCofMinADS": "0"
+        "standingCofMinADS": "0",
+        "verticalRecoil": "1.5"
     },
     "804883": {
         "adsCofRecoil": "1.2",
@@ -41725,6 +42263,7 @@
         "fireModes": [
             "Single Shot"
         ],
+        "headshotMultiplier": "0",
         "hipCofRecoil": "1.2",
         "image_id": "86194",
         "name": "RD-GG Recon Device 5",
@@ -41733,7 +42272,8 @@
         "standingCofMax": "0",
         "standingCofMaxADS": "0",
         "standingCofMin": "0",
-        "standingCofMinADS": "0"
+        "standingCofMinADS": "0",
+        "verticalRecoil": "1.5"
     },
     "804884": {
         "adsCofRecoil": "1.2",
@@ -41743,6 +42283,7 @@
         "fireModes": [
             "Single Shot"
         ],
+        "headshotMultiplier": "0",
         "hipCofRecoil": "1.2",
         "image_id": "86194",
         "name": "RD-GG Recon Device 5",
@@ -41751,7 +42292,8 @@
         "standingCofMax": "0",
         "standingCofMaxADS": "0",
         "standingCofMin": "0",
-        "standingCofMinADS": "0"
+        "standingCofMinADS": "0",
+        "verticalRecoil": "1.5"
     },
     "804885": {
         "adsCofRecoil": "1.2",
@@ -41761,6 +42303,7 @@
         "fireModes": [
             "Single Shot"
         ],
+        "headshotMultiplier": "0",
         "hipCofRecoil": "1.2",
         "image_id": "86194",
         "name": "RD-GG Recon Device 6",
@@ -41769,7 +42312,8 @@
         "standingCofMax": "0",
         "standingCofMaxADS": "0",
         "standingCofMin": "0",
-        "standingCofMinADS": "0"
+        "standingCofMinADS": "0",
+        "verticalRecoil": "1.5"
     },
     "804886": {
         "adsCofRecoil": "1.2",
@@ -41779,6 +42323,7 @@
         "fireModes": [
             "Single Shot"
         ],
+        "headshotMultiplier": "0",
         "hipCofRecoil": "1.2",
         "image_id": "86194",
         "name": "RD-GG Recon Device 6",
@@ -41787,7 +42332,8 @@
         "standingCofMax": "0",
         "standingCofMaxADS": "0",
         "standingCofMin": "0",
-        "standingCofMinADS": "0"
+        "standingCofMinADS": "0",
+        "verticalRecoil": "1.5"
     },
     "804939": {
         "adsCofRecoil": "0.75",

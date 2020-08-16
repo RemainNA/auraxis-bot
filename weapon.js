@@ -86,12 +86,12 @@ module.exports = {
 			resEmbed.addField("Heat Bleed Off", wInfo.heatBleedOff+"/s", true);
 			resEmbed.addField("Recovery Delay", wInfo.heatRecoveryDelay/1000+" s \n "+(Number(wInfo.overheatPenalty)+Number(wInfo.heatRecoveryDelay))/1000+" s Overheated", true);
 		}
-		else if (typeof(wInfo.chamber) === 'undefined'){
-			if(typeof(wInfo.clip) !== 'undefined' && wInfo.clip != 1){
-				resEmbed.addField("Clip", wInfo.clip, true);
-			}
+		else if (typeof(wInfo.clip) !== 'undefined' && wInfo.clip != 1){
 			if(typeof(wInfo.ammo) !== 'undefined' && wInfo.ammo != 1){
-				resEmbed.addField("Capacity", wInfo.ammo, true);
+				resEmbed.addField("Ammo", wInfo.clip+" magazine \n"+wInfo.ammo+" capacity", true);
+			}
+			else{
+				resEmbed.addField("Magazine", wInfo.clip, true);
 			}
 			if(typeof(wInfo.reload) !== 'undefined' && wInfo.reload != 0){
 				resEmbed.addField("Reload", wInfo.reload/1000+"s", true);
