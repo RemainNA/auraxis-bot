@@ -336,9 +336,9 @@ var baseInfo = async function(facilityID, environment){
                 reject("API Unreachable");
             })
         }
-        if(typeof(response.map_region_list) === 'undefined'){
+        if(typeof(response.map_region_list) === 'undefined' || typeof(response.map_region_list[0]) === 'undefined'){
             return new Promise(function(resolve, reject){
-                reject("API response improperly formatted");
+                reject("API response improperly formatted, FacilityID: "+facilityID);
             })
         }
         let resObj = {
