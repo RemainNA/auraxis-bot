@@ -119,15 +119,14 @@ module.exports = {
 			}
 		}
 
-		if(typeof(wInfo.damage) !== 'undefined' && typeof(wInfo.maxDamage) == 'undefined'){
-			resEmbed.addField("Damage", wInfo.damage, true);
-		}
-
-		if(typeof(wInfo.directDamage) !== 'undefined' && wInfo.directDamage != wInfo.damage){ //checking for damage equality is pretty much just ruling out the Tomoe
+		if(typeof(wInfo.indirectDamage) !== 'undefined' && wInfo.directDamage !== 'undefined'){ //checking for damage equality is pretty much just ruling out the Tomoe
 			resEmbed.addField("Direct Damage", wInfo.directDamage, true);
-			if(typeof(wInfo.indirectDamage) !== 'undefined' && wInfo.indirectDamage != 0){
+			if(wInfo.indirectDamage != 0){
 				resEmbed.addField("Indirect Damage", wInfo.indirectDamage, true);
 			}
+		}
+		else if(typeof(wInfo.damage) !== 'undefined' && typeof(wInfo.maxDamage) == 'undefined'){
+			resEmbed.addField("Damage", wInfo.damage, true);
 		}
 
 		let hipCOFMin = ["?","?","?","?","?","?"];
