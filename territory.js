@@ -42,6 +42,19 @@ printableName = function(server){
     }
 }
 
+continentBenefit = function(continent){
+    switch (continent){
+        case "Indar":
+            return "Increases heat efficiency of base Phalanx turrets"
+        case "Hossin":
+            return "Vehicle/Aircraft repair at ammo resupply towers/pads"
+        case "Amerish":
+            return "Base generators auto-repair over time"
+        case "Esamir":
+            return "Allied control points increase shield capacity"
+    }
+}
+
 // Zone (continent) IDs
 // Indar: 2
 // Hossin: 4
@@ -161,13 +174,13 @@ module.exports = {
             let trPc = (terObj[continent].tr/Total)*100;
             trPc = Number.parseFloat(trPc).toPrecision(3);
             if(vsPc == 100){
-                resEmbed.addField(continent, 'Owned by the VS');
+                resEmbed.addField(continent, 'Owned by the VS: '+continentBenefit(continent));
             }
             else if(ncPc == 100){
-                resEmbed.addField(continent, 'Owned by the NC');
+                resEmbed.addField(continent, 'Owned by the NC: '+continentBenefit(continent));
             }
             else if(trPc == 100){
-                resEmbed.addField(continent, 'Owned by the TR');
+                resEmbed.addField(continent, 'Owned by the TR: '+continentBenefit(continent));
             }
             else{
                 resEmbed.addField(continent, 'VS: '+vsPc+'% ('+terObj[continent].vs+') | NC: '+ncPc+'% ('+terObj[continent].nc+') | TR: '+trPc+'% ('+terObj[continent].tr+')');
