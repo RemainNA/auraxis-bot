@@ -3,11 +3,12 @@
 
 const Discord = require('discord.js');
 var weapons = require('./weapons.json');
+var vehicles = require('./vehicles.json');
 var got = require('got');
 
 var basicInfo = async function(cName, platform){
     // Main function for character lookup.  Pulls most stats and calls other functions for medals/top weapon info
-    let uri = 'https://census.daybreakgames.com/s:'+process.env.serviceID+'/get/'+platform+'/character?name.first_lower='+cName+'&c:resolve=outfit_member_extended,online_status,world,stat_history,weapon_stat_by_faction&c:join=title,characters_stat^list:1';
+    let uri = 'https://census.daybreakgames.com/s:'+process.env.serviceID+'/get/'+platform+'/character?name.first_lower='+cName+'&c:resolve=outfit_member_extended,online_status,world,stat_history,weapon_stat_by_faction,weapon_stat&c:join=title,characters_stat^list:1';
     let response =  "";
     try{
        response = await got(uri).json(); 
@@ -106,6 +107,19 @@ var basicInfo = async function(cName, platform){
             resObj.topWeaponName = "No kills";
             resObj.auraxCount = 0;
         }
+        // Determine most used vehicle
+        if(typeof(data.stats.weapon_stat) !== 'undefined'){
+            let topVehicleTime = 0;
+            let favoriteVehicle = 0;
+            for(let stat of data.stats.weapon_stat){
+                if(stat.stat_name == "weapon_play_time" && stat.item_id == "0" && stat.value > topVehicleTime){
+                    topVehicleTime = Number.parseInt(stat.value);
+                    favoriteVehicle = stat.vehicle_id;
+                }
+            }
+            resObj.favoriteVehicle = favoriteVehicle;
+            resObj.topVehicleTime = topVehicleTime;
+        }
         // Pull stats for score, spm, and K/D
         if(typeof(data.stats.stat_history) !== 'undefined'){
             resObj.stat_history = true;
@@ -151,6 +165,24 @@ var getWeaponName = async function(ID, platform){
     if(typeof(fisuResponse[ID]) !== 'undefined'){
         return new Promise(function(resolve, reject){
             resolve(fisuResponse[ID].name);
+        })
+    }
+    return new Promise(function(resolve, reject){
+        reject("Not found");
+    })
+}
+
+var getVehicleName = async function(ID, platform){
+    if(typeof(vehicles[ID]) !== 'undefined'){
+        return new Promise(function(resolve, reject){
+            resolve(vehicles[ID].name);
+        })
+    }
+    let URI = 'https://census.daybreakgames.com/s:'+process.env.serviceID+'/get/'+platform+'/vehicle/'+ID;
+    let response = await got(URI).json();
+    if(response.returned==1){
+        return new Promise(function(resolve, reject){
+            resolve(response.vehicle_list[0].name.en);
         })
     }
     return new Promise(function(resolve, reject){
@@ -346,6 +378,14 @@ module.exports = {
                     break;
             }
             resEmbed.addField("Most played class (time)", className+" ("+classHours+"h "+parseInt(classMinutes)+"m)", true);
+        }
+
+        // Favorite vehicle
+        if(typeof(cInfo.favoriteVehicle) !== 'undefined' && cInfo.favoriteVehicle != 0){
+            let vehicleHours = Math.floor(cInfo.topVehicleTime/60/60);
+            let vehicleMinutes = parseInt(cInfo.topVehicleTime/60 - vehicleHours*60);
+            let vehicleName = await getVehicleName(cInfo.favoriteVehicle);
+            resEmbed.addField("Most played vehicle (time)", vehicleName+" ("+vehicleHours+"h "+vehicleMinutes+"m)", true);
         }
 
         return new Promise(function(resolve, reject){
