@@ -123,9 +123,25 @@ var basicInfo = async function(cName, platform){
         // Pull stats for score, spm, and K/D
         if(typeof(data.stats.stat_history) !== 'undefined'){
             resObj.stat_history = true;
-            resObj.score = data.stats.stat_history[8].all_time
-            resObj.kills = data.stats.stat_history[5].all_time;
-            resObj.deaths = data.stats.stat_history[2].all_time;
+            for(let stat of data.stats.stat_history){
+                switch(stat.stat_name){
+                    case "deaths":
+                        resObj.deaths = stat.all_time;
+                        break;
+                    case "facility_capture":
+                        resObj.captures = stat.all_time;
+                        break;
+                    case "facility_defend":
+                        resObj.defends = stat.all_time;
+                        break;
+                    case "kills":
+                        resObj.kills = stat.all_time;
+                        break;
+                    case "score":
+                        resObj.score = stat.all_time;
+                        break;
+                }
+            }
         }
         
     }
