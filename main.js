@@ -24,6 +24,7 @@ catch(e){
 
 // commands
 var char = require('./character.js');
+var stats = require('./stats.js');
 var online = require('./online.js');
 var listener = require('./unifiedWSListener.js');
 var subscription = require('./subscriptions.js');
@@ -72,6 +73,7 @@ var listOfCommands = [
 "!help",
 " ",
 "!<ps4us/ps4eu> character [name]",
+"!<ps4us/ps4eu> stats [name] <weapon name/id>",
 "!<ps4us/ps4eu> outfit [tag]",
 "!<ps4us/ps4eu> online [tag]",
 "!subscribe alerts [server]",
@@ -84,7 +86,7 @@ var listOfCommands = [
 "!population [server]",
 "!territory [server]",
 "!status",
-"!weapon [weapon name]",
+"!weapon [weapon name/id]",
 "!implant [implant name]",
 "!<ps4us/ps4eu> asp [name]"
 ]
@@ -144,6 +146,52 @@ client.on('message', message => {
 					.catch(err => messageHandler.handleError(message.channel, err, "PS4EU Character"))
 			}
 		}
+	}
+	if (message.content.substring(0,7).toLowerCase() == '!stats '){
+		let parts = message.content.toLowerCase().split(" ");
+		let cName = parts[1];
+		let wName = message.content.substring((7+cName.length+1));
+		if(wName == ""){
+			char.character(cName, 'ps2:v2')
+				.then(res => messageHandler.send(message.channel, res, "PC Character by stats"))
+				.catch(err => messageHandler.handleError(message.channel, err, "PC Character by stats"))
+		}
+		else{
+			stats.lookup(cName, wName, 'ps2:v2')
+				.then(res => messageHandler.send(message.channel, res, "PC Stats"))
+				.catch(err => messageHandler.handleError(message.channel, err, "PC Stats"))	
+		}
+	}
+	if (message.content.substring(0,13).toLowerCase() == '!ps4us stats '){
+		let parts = message.content.toLowerCase().split(" ");
+		let cName = parts[2];
+		let wName = message.content.substring((13+cName.length+1));
+		if(wName == ""){
+			char.character(cName, 'ps2ps4us:v2')
+				.then(res => messageHandler.send(message.channel, res, "PS4US Character by stats"))
+				.catch(err => messageHandler.handleError(message.channel, err, "PS4US Character by stats"))
+		}
+		else{
+			stats.lookup(cName, wName, 'ps2ps4us:v2')
+				.then(res => messageHandler.send(message.channel, res, "PS4US Stats"))
+				.catch(err => messageHandler.handleError(message.channel, err, "PS4US Stats"))	
+		}
+	}
+	if (message.content.substring(0,13).toLowerCase() == '!ps4eu stats '){
+		let parts = message.content.toLowerCase().split(" ");
+		let cName = parts[2];
+		let wName = message.content.substring((13+cName.length+1));
+		if(wName == ""){
+			char.character(cName, 'ps2ps4eu:v2')
+				.then(res => messageHandler.send(message.channel, res, "PS4EU Character by stats"))
+				.catch(err => messageHandler.handleError(message.channel, err, "PS4EU Character by stats"))
+		}
+		else{
+			stats.lookup(cName, wName, 'ps2ps4eu:v2')
+				.then(res => messageHandler.send(message.channel, res, "PS4EU Stats"))
+				.catch(err => messageHandler.handleError(message.channel, err, "PS4EU Stats"))	
+		}
+		
 	}
 	if (message.content.substring(0,8).toLowerCase() == '!outfit '){
 		let tags = message.content.substring(8).toLowerCase().split(" ");

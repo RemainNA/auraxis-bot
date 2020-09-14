@@ -45,6 +45,10 @@ Returns a list of commands and relevant links.
 
 Returns the details (BR, Score, Server, Outfit, etc.) of the specified character.  Supports multiple characters per query.
 
+#### !<ps4us/ps4eu> stats [character] \<weapon name/id>
+
+Returns the stats of the specified character with the specified weapon.  If no weapon is entered it will fallback to the information provided by !character.
+
 #### !<ps4us/ps4eu> outfit [tag]
 
 Returns the details (Name, owner, faction, server, member count, etc.) of the specified outfit tag.  Supports multiple tags per query.
@@ -93,7 +97,7 @@ Returns the territory control of each continent on the specified server.  Suppor
 
 Return the current status of all servers as reported by the Census API.  Takes no parameters.
 
-#### !weapon [weapon name]
+#### !weapon [weapon name/id]
 
 Currently in beta.  Returns information on a given weapon.  Accepts weapon IDs, exact names, or partial names.  Only supports one weapon per query.
 
