@@ -162,7 +162,7 @@ module.exports = {
 
     territory: async function(server){
         let terObj = await this.territoryInfo(server);
-        let resEmbed = new Discord.RichEmbed();
+        let resEmbed = new Discord.MessageEmbed();
         resEmbed.setTitle(printableName(server)+" territory");
         let continents = ["Indar", "Hossin", "Amerish", "Esamir"];
         for(let continent of continents){

@@ -65,7 +65,7 @@ logEvent = async function(payload, environment, pgClient, discordClient){
             })
         }
         if (result.rows.length > 0){
-            let sendEmbed = new Discord.RichEmbed();
+            let sendEmbed = new Discord.MessageEmbed();
             sendEmbed.setTitle(result.rows[0].alias+' '+playerEvent);
             sendEmbed.setDescription(char.name.first);
             if (char.faction_id == "1"){ //vs
@@ -81,19 +81,22 @@ logEvent = async function(payload, environment, pgClient, discordClient){
                 sendEmbed.setColor('GREY');
             }
             for (let row of result.rows){
-                let resChann = discordClient.channels.get(row.channel);
-                if(resChann != undefined){
-                    messageHandler.send(resChann, sendEmbed, "Log event");
-                }
+                discordClient.channels.fetch(row.channel)
+                    .then(resChann => {
+                        messageHandler.send(resChann, sendEmbed, "Log event");
+                    })
+                    .catch(error => {
+                        console.log(error);
+                    })
                 //in case channel is deleted or otherwise inaccessible
-                else{
-                    removeQueryText = "DELETE FROM "+table+" WHERE id=$1 AND channel=$2;";
-                    pgClient.query(removeQueryText, [char.outfit_member.outfit_id, row.channel], (err, res) => {
-                        if (err){
-                            console.log("2"+err);
-                        } 
-                    });
-                }
+                // else{
+                //     removeQueryText = "DELETE FROM "+table+" WHERE id=$1 AND channel=$2;";
+                //     pgClient.query(removeQueryText, [char.outfit_member.outfit_id, row.channel], (err, res) => {
+                //         if (err){
+                //             console.log("2"+err);
+                //         } 
+                //     });
+                // }
             }
         }
     }
@@ -160,7 +163,7 @@ alertEvent = async function(payload, environment, pgClient, discordClient){
         let removeQueryText = "DELETE FROM "+server+" WHERE channel=$1";
         let response = await alertInfo(payload, environment);
         if(typeof(response.name) != undefined && response.name){
-            let sendEmbed = new Discord.RichEmbed();
+            let sendEmbed = new Discord.MessageEmbed();
             sendEmbed.setTitle(response.name);
             sendEmbed.setDescription(response.description);
             sendEmbed.setTimestamp();
@@ -221,17 +224,20 @@ alertEvent = async function(payload, environment, pgClient, discordClient){
             }
             let rows = await pgClient.query(queryText);
             for (let row of rows.rows){
-                resChann = discordClient.channels.get(row.channel);
-                if(resChann != undefined){
-                    messageHandler.send(resChann, sendEmbed, "Alert notification");
-                }
-                else{
-                    pgClient.query(removeQueryText, [row.channel], (err, res) => {
-                        if(err){
-                            console.log("3"+err);
-                        }
-                    });
-                }
+                discordClient.channels.fetch(row.channel)
+                    .then(resChann => {
+                        messageHandler.send(resChann, sendEmbed, "Alert notification");
+                    })
+                    .catch(error => {
+                        console.log(error);
+                    })
+                // else{
+                //     pgClient.query(removeQueryText, [row.channel], (err, res) => {
+                //         if(err){
+                //             console.log("3"+err);
+                //         }
+                //     });
+                // }
             }
         }
     }
@@ -253,7 +259,7 @@ baseEvent = async function(payload, environment, pgClient, discordClient){
     try{
         let result = await pgClient.query(queryText, queryValues);
         if(result.rowCount > 0){
-            let sendEmbed = new Discord.RichEmbed();
+            let sendEmbed = new Discord.MessageEmbed();
             let base = await baseInfo(payload.facility_id, environment);
             sendEmbed.setTitle("["+result.rows[0].alias+"] "+result.rows[0].name+' captured '+base.name);
             sendEmbed.setTimestamp();
@@ -289,10 +295,13 @@ baseEvent = async function(payload, environment, pgClient, discordClient){
                 sendEmbed.addField("Captured From", "TR", true);
             }
             for (let row of result.rows){
-                let resChann = discordClient.channels.get(row.channel);
-                if(resChann != undefined){
-                    messageHandler.send(resChann, sendEmbed, "Facility capture");
-                }
+                discordClient.channels.fetch(row.channel)
+                    .then(resChann => {
+                        messageHandler.send(resChann, sendEmbed, "Facility capture");
+                    })
+                    .catch(error => {
+                        console.log(error);
+                    })
             }
         }
     }

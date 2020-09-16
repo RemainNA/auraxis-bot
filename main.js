@@ -47,7 +47,7 @@ const token = process.env.token;
 firstRun = true;
 
 client.on('ready', () => {
-	console.log('Running on '+client.guilds.size+' servers!');
+	console.log('Running on '+client.guilds.cache.size+' servers!');
 	if(runningOnline){
 		SQLclient = new Client({
 			connectionString: process.env.DATABASE_URL,
@@ -105,11 +105,11 @@ client.on('message', message => {
 	}
 	if (message.content.toLowerCase() == '!ping') {
 		// ping function to check if bot is up
-		messageHandler.send(message.channel, "Bot's ping to Discord is "+client.ping+'ms', 'ping');
+		messageHandler.send(message.channel, "Bot's ping to Discord is "+client.ws.ping+'ms', 'ping');
 	}
 	if (message.content.toLowerCase() == '!help' || message.content.toLowerCase() == '!about'){
 		//show list of commands and relevant links
-		let helpEmbed = new Discord.RichEmbed();
+		let helpEmbed = new Discord.MessageEmbed();
 		helpEmbed.setTitle("Auraxis bot");
 		helpEmbed.setColor("BLUE");
 		helpEmbed.addField("Commands", listOfCommands);

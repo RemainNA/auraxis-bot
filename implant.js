@@ -50,7 +50,7 @@ module.exports = {
             })
 		}
 
-		let resEmbed = new Discord.RichEmbed();
+		let resEmbed = new Discord.MessageEmbed();
 		resEmbed.setTitle(iInfo.name);
 		resEmbed.setThumbnail('http://census.daybreakgames.com/files/ps2/images/static/'+iInfo.image+'.png');
 		if(typeof(iInfo.desc) !== 'undefined'){

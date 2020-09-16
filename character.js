@@ -246,7 +246,7 @@ module.exports = {
                 reject(error);
             })
         }
-        let resEmbed = new Discord.RichEmbed();
+        let resEmbed = new Discord.MessageEmbed();
 
         // Username, title, fisu url
         resEmbed.setTitle(cInfo.name);

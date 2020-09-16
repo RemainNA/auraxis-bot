@@ -210,7 +210,7 @@ module.exports = {
 		let wInfo = weaponsJSON[cInfo.weapon];
 		wInfo.id = cInfo.weapon;
 
-		let resEmbed = new Discord.RichEmbed();
+		let resEmbed = new Discord.MessageEmbed();
 		resEmbed.setTitle(cInfo.name);
 		resEmbed.setDescription(wInfo.name);
 		let totalKills = parseInt(cInfo.vsKills)+parseInt(cInfo.ncKills)+parseInt(cInfo.trKills);

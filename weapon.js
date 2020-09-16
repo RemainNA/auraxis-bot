@@ -66,7 +66,7 @@ module.exports = {
             })
 		}
 		
-		let resEmbed = new Discord.RichEmbed();
+		let resEmbed = new Discord.MessageEmbed();
 
 		resEmbed.setTitle(wInfo.name);
 		resEmbed.setThumbnail('http://census.daybreakgames.com/files/ps2/images/static/'+wInfo.image_id+'.png');
@@ -207,7 +207,7 @@ module.exports = {
 
 		if(CoFUpdated(hipCOFMin) || CoFUpdated(adsCOFMin)){
 			if(standingOnly(hipCOFMin) || standingOnly(adsCOFMin)){
-				resEmbed.addBlankField();
+				resEmbed.addField('\u200b', '\u200b', true)
 			}
 			else{
 				resEmbed.addField("-------------------", "*CoF shown Stand/Crouch/Walk/Sprint/Fall/Crouch Walk*");
@@ -218,12 +218,12 @@ module.exports = {
 			if(standingOnly(hipCOFMin)){
 				resEmbed.addField("Hipfire CoF Min", hipCOFMin[0], true);
 				resEmbed.addField("Hipfire CoF Max", hipCOFMax[0], true);
-				resEmbed.addBlankField(true);
+				resEmbed.addField('\u200b', '\u200b', true)
 			}
 			else{
 				resEmbed.addField("Hipfire CoF Min", hipCOFMin[0]+"/"+hipCOFMin[1]+"/"+hipCOFMin[2]+"/"+hipCOFMin[3]+"/"+hipCOFMin[4]+"/"+hipCOFMin[5], true);
 				resEmbed.addField("Hipfire CoF Max", hipCOFMax[0]+"/"+hipCOFMax[1]+"/"+hipCOFMax[2]+"/"+hipCOFMax[3]+"/"+hipCOFMax[4]+"/"+hipCOFMax[5], true);
-				resEmbed.addBlankField(true);
+				resEmbed.addField('\u200b', '\u200b', true)
 			}
 		}
 
@@ -231,12 +231,12 @@ module.exports = {
 			if(standingOnly(adsCOFMin)){
 				resEmbed.addField("ADS CoF Min", adsCOFMin[0], true);
 				resEmbed.addField("ADS CoF Max", adsCOFMax[0], true);
-				resEmbed.addBlankField(true);
+				resEmbed.addField('\u200b', '\u200b', true)
 			}
 			else{
 				resEmbed.addField("ADS CoF Min", adsCOFMin[0]+"/"+adsCOFMin[1]+"/"+adsCOFMin[2]+"/"+adsCOFMin[3]+"/"+adsCOFMin[4]+"/"+adsCOFMin[5], true);
 				resEmbed.addField("ADS CoF Max", adsCOFMax[0]+"/"+adsCOFMax[1]+"/"+adsCOFMax[2]+"/"+adsCOFMax[3]+"/"+adsCOFMax[4]+"/"+adsCOFMax[5], true);
-				resEmbed.addBlankField(true);
+				resEmbed.addField('\u200b', '\u200b', true)
 			}
 			
 		}

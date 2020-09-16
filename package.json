@@ -5,7 +5,7 @@
   "main": "main.js",
   "author": "RemainNA",
   "dependencies": {
-    "discord.js": "^11.6.4",
+    "discord.js": "^12.3.1",
     "got": "^10.7.0",
     "ioredis": "^4.17.3",
     "pg": "^7.18.2",

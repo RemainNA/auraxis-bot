@@ -92,7 +92,7 @@ module.exports = {
 				reject(error);
 			})
 		}
-		let resEmbed = new Discord.RichEmbed();
+		let resEmbed = new Discord.MessageEmbed();
 		if (cInfo.faction == "1"){ //vs
             resEmbed.setColor('PURPLE');
         }

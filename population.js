@@ -121,7 +121,7 @@ module.exports = {
 					reject(err);
 				})
 		}
-		let sendEmbed = new Discord.RichEmbed();
+		let sendEmbed = new Discord.MessageEmbed();
 		let total = Number(res.vs) + Number(res.nc) + Number(res.tr) + Number(res.ns);
 		sendEmbed.setTitle(normalized+" Population - "+total);
 		let vsPc = (res.vs/total)*100;

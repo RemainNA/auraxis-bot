@@ -101,7 +101,7 @@ module.exports = {
 			})
 		}
 
-		let resEmbed = new Discord.RichEmbed();
+		let resEmbed = new Discord.MessageEmbed();
 
 		resEmbed.setTitle(oInfo.name);
 		resEmbed.setDescription(oInfo.alias+"\n"+oInfo.onlineCount+"/"+oInfo.memberCount+" online");

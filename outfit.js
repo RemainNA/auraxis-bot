@@ -101,7 +101,7 @@ module.exports = {
 			})
 		}
 
-		let resEmbed = new Discord.RichEmbed();
+		let resEmbed = new Discord.MessageEmbed();
 
 		resEmbed.setTitle(oInfo.name);
 		resEmbed.setDescription(oInfo.alias);
@@ -115,7 +115,7 @@ module.exports = {
 			resEmbed.setURL('http://ps4eu.ps2.fisu.pw/outfit/?name='+oInfo.alias);
 		}
 		resEmbed.addField("Members", oInfo.memberCount, true);
-		resEmbed.addBlankField(true);
+		resEmbed.addField('\u200b', '\u200b', true)
 		let dayPc = Number.parseFloat((oInfo.onlineDay/oInfo.memberCount)*100).toPrecision(3);
 		let weekPc = Number.parseFloat((oInfo.onlineWeek/oInfo.memberCount)*100).toPrecision(3);
 		let monthPc = Number.parseFloat((oInfo.onlineMonth/oInfo.memberCount)*100).toPrecision(3);

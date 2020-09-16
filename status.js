@@ -84,7 +84,7 @@ module.exports = {
 				reject("An error occurred while retrieving server status");
 			})
 		}
-		let resEmbed = new Discord.RichEmbed();
+		let resEmbed = new Discord.MessageEmbed();
 		resEmbed.setTitle('Server Status');
 		for(i in status){
 			resEmbed.addField(i, status[i], true);
