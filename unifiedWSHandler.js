@@ -5,6 +5,7 @@ var got = require('got');
 const Discord = require('discord.js');
 const { Client } = require('pg');
 var messageHandler = require('./messageHandler.js');
+var subscriptions = require('./subscriptions.js');
 var territory = require('./territory.js');
 
 recordLogin = async function(payload, faction, pgClient){
@@ -83,20 +84,30 @@ logEvent = async function(payload, environment, pgClient, discordClient){
             for (let row of result.rows){
                 discordClient.channels.fetch(row.channel)
                     .then(resChann => {
-                        messageHandler.send(resChann, sendEmbed, "Log event");
+                        if(typeof(resChann.guild) !== 'undefined'){
+                            if(resChann.permissionsFor(resChann.guild.me).has('SEND_MESSAGES')){
+                                messageHandler.send(resChann, sendEmbed, "Log event");
+                            }
+                            else{
+                                subscriptions.unsubscribeAll(pgClient, row.channel);
+                                console.log('Unsubscribed from '+row.channel);
+                            } 
+                        }
+                        else{ // DM
+                            messageHandler.send(resChann, sendEmbed, "Log event");
+                        }                        
                     })
                     .catch(error => {
-                        console.log(error);
+                        if(typeof(error.code) !== 'undefined'){
+                            if(error.code == 10003){ //Unknown channel error, thrown when the channel is deleted
+                                subscriptions.unsubscribeAll(pgClient, row.channel);
+                                console.log('Unsubscribed from '+row.channel);
+                            }
+                        }
+                        else{
+                            console.log(error);
+                        }
                     })
-                //in case channel is deleted or otherwise inaccessible
-                // else{
-                //     removeQueryText = "DELETE FROM "+table+" WHERE id=$1 AND channel=$2;";
-                //     pgClient.query(removeQueryText, [char.outfit_member.outfit_id, row.channel], (err, res) => {
-                //         if (err){
-                //             console.log("2"+err);
-                //         } 
-                //     });
-                // }
             }
         }
     }
@@ -226,18 +237,30 @@ alertEvent = async function(payload, environment, pgClient, discordClient){
             for (let row of rows.rows){
                 discordClient.channels.fetch(row.channel)
                     .then(resChann => {
-                        messageHandler.send(resChann, sendEmbed, "Alert notification");
+                        if(typeof(resChann.guild) !== 'undefined'){
+                            if(resChann.permissionsFor(resChann.guild.me).has('SEND_MESSAGES')){
+                                messageHandler.send(resChann, sendEmbed, "Alert notification");
+                            }
+                            else{
+                                subscriptions.unsubscribeAll(pgClient, row.channel);
+                                console.log('Unsubscribed from '+row.channel);
+                            } 
+                        }
+                        else{ // DM
+                            messageHandler.send(resChann, sendEmbed, "Alert notification");
+                        } 
                     })
                     .catch(error => {
-                        console.log(error);
+                        if(typeof(error.code) !== 'undefined'){
+                            if(error.code == 10003){ //Unknown channel error, thrown when the channel is deleted
+                                subscriptions.unsubscribeAll(pgClient, row.channel);
+                                console.log('Unsubscribed from '+row.channel);
+                            }
+                        }
+                        else{
+                            console.log(error);
+                        }
                     })
-                // else{
-                //     pgClient.query(removeQueryText, [row.channel], (err, res) => {
-                //         if(err){
-                //             console.log("3"+err);
-                //         }
-                //     });
-                // }
             }
         }
     }
@@ -296,12 +319,31 @@ baseEvent = async function(payload, environment, pgClient, discordClient){
             }
             for (let row of result.rows){
                 discordClient.channels.fetch(row.channel)
-                    .then(resChann => {
-                        messageHandler.send(resChann, sendEmbed, "Facility capture");
-                    })
-                    .catch(error => {
+                .then(resChann => {
+                    if(typeof(resChann.guild) !== 'undefined'){
+                        if(resChann.permissionsFor(resChann.guild.me).has('SEND_MESSAGES')){
+                            messageHandler.send(resChann, sendEmbed, "Base capture event");
+                        }
+                        else{
+                            subscriptions.unsubscribeAll(pgClient, row.channel);
+                            console.log('Unsubscribed from '+row.channel);
+                        } 
+                    }
+                    else{ // DM
+                        messageHandler.send(resChann, sendEmbed, "Base capture event");
+                    }                        
+                })
+                .catch(error => {
+                    if(typeof(error.code) !== 'undefined'){
+                        if(error.code == 10003){ //Unknown channel error, thrown when the channel is deleted
+                            subscriptions.unsubscribeAll(pgClient, row.channel);
+                            console.log('Unsubscribed from '+row.channel);
+                        }
+                    }
+                    else{
                         console.log(error);
-                    })
+                    }
+                })
             }
         }
     }
