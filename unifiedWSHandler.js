@@ -85,7 +85,7 @@ logEvent = async function(payload, environment, pgClient, discordClient){
                 discordClient.channels.fetch(row.channel)
                     .then(resChann => {
                         if(typeof(resChann.guild) !== 'undefined'){
-                            if(resChann.permissionsFor(resChann.guild.me).has('SEND_MESSAGES')){
+                            if(resChann.permissionsFor(resChann.guild.me).has(['SEND_MESSAGES','VIEW_CHANNEL'])){
                                 messageHandler.send(resChann, sendEmbed, "Log event");
                             }
                             else{
@@ -238,7 +238,7 @@ alertEvent = async function(payload, environment, pgClient, discordClient){
                 discordClient.channels.fetch(row.channel)
                     .then(resChann => {
                         if(typeof(resChann.guild) !== 'undefined'){
-                            if(resChann.permissionsFor(resChann.guild.me).has('SEND_MESSAGES')){
+                            if(resChann.permissionsFor(resChann.guild.me).has(['SEND_MESSAGES','VIEW_CHANNEL'])){
                                 messageHandler.send(resChann, sendEmbed, "Alert notification");
                             }
                             else{
@@ -321,7 +321,7 @@ baseEvent = async function(payload, environment, pgClient, discordClient){
                 discordClient.channels.fetch(row.channel)
                 .then(resChann => {
                     if(typeof(resChann.guild) !== 'undefined'){
-                        if(resChann.permissionsFor(resChann.guild.me).has('SEND_MESSAGES')){
+                        if(resChann.permissionsFor(resChann.guild.me).has(['SEND_MESSAGES','VIEW_CHANNEL'])){
                             messageHandler.send(resChann, sendEmbed, "Base capture event");
                         }
                         else{
