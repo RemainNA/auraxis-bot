@@ -85,7 +85,7 @@ logEvent = async function(payload, environment, pgClient, discordClient){
                 discordClient.channels.fetch(row.channel)
                     .then(resChann => {
                         if(typeof(resChann.guild) !== 'undefined'){
-                            if(resChann.permissionsFor(resChann.guild.me).has(['SEND_MESSAGES','VIEW_CHANNEL'])){
+                            if(resChann.permissionsFor(resChann.guild.me).has(['SEND_MESSAGES','VIEW_CHANNEL', 'EMBED_LINKS'])){
                                 messageHandler.send(resChann, sendEmbed, "Log event");
                             }
                             else{
@@ -238,7 +238,7 @@ alertEvent = async function(payload, environment, pgClient, discordClient){
                 discordClient.channels.fetch(row.channel)
                     .then(resChann => {
                         if(typeof(resChann.guild) !== 'undefined'){
-                            if(resChann.permissionsFor(resChann.guild.me).has(['SEND_MESSAGES','VIEW_CHANNEL'])){
+                            if(resChann.permissionsFor(resChann.guild.me).has(['SEND_MESSAGES','VIEW_CHANNEL', 'EMBED_LINKS'])){
                                 messageHandler.send(resChann, sendEmbed, "Alert notification");
                             }
                             else{
@@ -308,7 +308,7 @@ baseEvent = async function(payload, environment, pgClient, discordClient){
                 sendEmbed.addField("Continent", "Esamir", true);
             }
             sendEmbed.addField("Facility Type", base.type, true);
-            if(payload.old_faction_id == "1"){ //Color cannot be dependent on outfit due to NSO outfits
+            if(payload.old_faction_id == "1"){
                 sendEmbed.addField("Captured From", "VS", true);
             }
             else if(payload.old_faction_id == "2"){
@@ -321,7 +321,7 @@ baseEvent = async function(payload, environment, pgClient, discordClient){
                 discordClient.channels.fetch(row.channel)
                 .then(resChann => {
                     if(typeof(resChann.guild) !== 'undefined'){
-                        if(resChann.permissionsFor(resChann.guild.me).has(['SEND_MESSAGES','VIEW_CHANNEL'])){
+                        if(resChann.permissionsFor(resChann.guild.me).has(['SEND_MESSAGES','VIEW_CHANNEL','EMBED_LINKS'])){
                             messageHandler.send(resChann, sendEmbed, "Base capture event");
                         }
                         else{

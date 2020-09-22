@@ -115,14 +115,14 @@ client.on('message', message => {
 		helpEmbed.addField("Commands", listOfCommands);
 		helpEmbed.addField("Links", links);
 		helpEmbed.setFooter("<> = Optional, [] = Required");
-		messageHandler.send(message.channel, helpEmbed, 'help');
+		messageHandler.send(message.channel, helpEmbed, 'help', true);
 	}
 	if (message.content.substring(0,11).toLowerCase() == '!character '){
 		let chars = message.content.substring(11).toLowerCase().split(" ");
 		for(x in chars){
 			if(chars[x] != ""){
 				char.character(chars[x], 'ps2:v2')
-					.then(res => messageHandler.send(message.channel, res, "PC Character"))
+					.then(res => messageHandler.send(message.channel, res, "PC Character", true))
 					.catch(err => messageHandler.handleError(message.channel, err, "PC Character"))
 			}
 		}
@@ -132,7 +132,7 @@ client.on('message', message => {
 		for(x in chars){
 			if(chars[x] != ""){
 				char.character(chars[x], 'ps2ps4us:v2')
-					.then(res => messageHandler.send(message.channel, res, "PS4US Character"))
+					.then(res => messageHandler.send(message.channel, res, "PS4US Character", true))
 					.catch(err => messageHandler.handleError(message.channel, err, "PS4US Character"))
 			}
 		}
@@ -142,7 +142,7 @@ client.on('message', message => {
 		for(x in chars){
 			if(chars[x] != ""){
 				char.character(chars[x], 'ps2ps4eu:v2')
-					.then(res => messageHandler.send(message.channel, res, "PS4EU Character"))
+					.then(res => messageHandler.send(message.channel, res, "PS4EU Character", true))
 					.catch(err => messageHandler.handleError(message.channel, err, "PS4EU Character"))
 			}
 		}
@@ -153,12 +153,12 @@ client.on('message', message => {
 		let wName = message.content.substring((7+cName.length+1));
 		if(wName == ""){
 			char.character(cName, 'ps2:v2')
-				.then(res => messageHandler.send(message.channel, res, "PC Character by stats"))
+				.then(res => messageHandler.send(message.channel, res, "PC Character by stats", true))
 				.catch(err => messageHandler.handleError(message.channel, err, "PC Character by stats"))
 		}
 		else{
 			stats.lookup(cName, wName, 'ps2:v2')
-				.then(res => messageHandler.send(message.channel, res, "PC Stats"))
+				.then(res => messageHandler.send(message.channel, res, "PC Stats", true))
 				.catch(err => messageHandler.handleError(message.channel, err, "PC Stats"))	
 		}
 	}
@@ -168,12 +168,12 @@ client.on('message', message => {
 		let wName = message.content.substring((13+cName.length+1));
 		if(wName == ""){
 			char.character(cName, 'ps2ps4us:v2')
-				.then(res => messageHandler.send(message.channel, res, "PS4US Character by stats"))
+				.then(res => messageHandler.send(message.channel, res, "PS4US Character by stats", true))
 				.catch(err => messageHandler.handleError(message.channel, err, "PS4US Character by stats"))
 		}
 		else{
 			stats.lookup(cName, wName, 'ps2ps4us:v2')
-				.then(res => messageHandler.send(message.channel, res, "PS4US Stats"))
+				.then(res => messageHandler.send(message.channel, res, "PS4US Stats", true))
 				.catch(err => messageHandler.handleError(message.channel, err, "PS4US Stats"))	
 		}
 	}
@@ -183,12 +183,12 @@ client.on('message', message => {
 		let wName = message.content.substring((13+cName.length+1));
 		if(wName == ""){
 			char.character(cName, 'ps2ps4eu:v2')
-				.then(res => messageHandler.send(message.channel, res, "PS4EU Character by stats"))
+				.then(res => messageHandler.send(message.channel, res, "PS4EU Character by stats", true))
 				.catch(err => messageHandler.handleError(message.channel, err, "PS4EU Character by stats"))
 		}
 		else{
 			stats.lookup(cName, wName, 'ps2ps4eu:v2')
-				.then(res => messageHandler.send(message.channel, res, "PS4EU Stats"))
+				.then(res => messageHandler.send(message.channel, res, "PS4EU Stats", true))
 				.catch(err => messageHandler.handleError(message.channel, err, "PS4EU Stats"))	
 		}
 		
@@ -202,7 +202,7 @@ client.on('message', message => {
 					continue;
 				}
 				outfit.outfit(tags[x], 'ps2:v2')
-					.then(res => messageHandler.send(message.channel, res, "PC Outfit"))
+					.then(res => messageHandler.send(message.channel, res, "PC Outfit", true))
 					.catch(err => messageHandler.handleError(message.channel, err, "PC Outfit"))
 			}
 		}
@@ -212,12 +212,12 @@ client.on('message', message => {
 		for(x in tags){
 			if(tags[x] != ""){
 				if(tags[x].length > 4){
-					messageHandler.send(message.channel, tags[x]+" is longer than 4 letters, please enter a tag.", "PC tag too long");
+					messageHandler.send(message.channel, tags[x]+" is longer than 4 letters, please enter a tag.", "PS4US tag too long");
 					continue;
 				}
 				outfit.outfit(tags[x], 'ps2ps4us:v2')
-					.then(res => messageHandler.send(message.channel, res, "PC Outfit"))
-					.catch(err => messageHandler.handleError(message.channel, err, "PC Outfit"))
+					.then(res => messageHandler.send(message.channel, res, "PS4US Outfit", true))
+					.catch(err => messageHandler.handleError(message.channel, err, "PS4US Outfit"))
 			}
 		}
 	}
@@ -226,12 +226,12 @@ client.on('message', message => {
 		for(x in tags){
 			if(tags[x] != ""){
 				if(tags[x].length > 4){
-					messageHandler.send(message.channel, tags[x]+" is longer than 4 letters, please enter a tag.", "PC tag too long");
+					messageHandler.send(message.channel, tags[x]+" is longer than 4 letters, please enter a tag.", "PS4EU tag too long");
 					continue;
 				}
 				outfit.outfit(tags[x], 'ps2ps4eu:v2')
-					.then(res => messageHandler.send(message.channel, res, "PC Outfit"))
-					.catch(err => messageHandler.handleError(message.channel, err, "PC Outfit"))
+					.then(res => messageHandler.send(message.channel, res, "PS4EU Outfit", true))
+					.catch(err => messageHandler.handleError(message.channel, err, "PS4EU Outfit"))
 			}
 		}
 	}
@@ -244,7 +244,7 @@ client.on('message', message => {
 					continue;
 				}
 				online.online(tags[x], 'ps2:v2')
-					.then(res => messageHandler.send(message.channel, res, "PC Online"))
+					.then(res => messageHandler.send(message.channel, res, "PC Online", true))
 					.catch(err => messageHandler.handleError(message.channel, err, "PC Online"))
 			}
 		}
@@ -258,7 +258,7 @@ client.on('message', message => {
 					continue;
 				}
 				online.online(tags[x], 'ps2ps4us:v2')
-					.then(res => messageHandler.send(message.channel, res, "PS4US Online"))
+					.then(res => messageHandler.send(message.channel, res, "PS4US Online", true))
 					.catch(err => messageHandler.handleError(message.channel, err, "PS4US Online"))
 			}
 		}
@@ -272,7 +272,7 @@ client.on('message', message => {
 					continue;
 				}
 				online.online(tags[x], 'ps2ps4eu:v2')
-					.then(res => messageHandler.send(message.channel, res, "PS4EU Online"))
+					.then(res => messageHandler.send(message.channel, res, "PS4EU Online", true))
 					.catch(err => messageHandler.handleError(message.channel, err, "PS4EU Online"))
 			}
 		}
@@ -283,7 +283,7 @@ client.on('message', message => {
 		for(x in servers){
 			if(servers[x] != ""){
 				population.lookup(servers[x], SQLclient)
-					.then(res => messageHandler.send(message.channel, res, "Population"))
+					.then(res => messageHandler.send(message.channel, res, "Population", true))
 					.catch(err => messageHandler.handleError(message.channel, err, "Population"))
 			}
 		}
@@ -293,7 +293,7 @@ client.on('message', message => {
 		for(x in chars){
 			if(chars[x] != ""){
 				asp.originalBR(chars[x], "ps2:v2")
-					.then(res => messageHandler.send(message.channel, res, "PC ASP"))
+					.then(res => messageHandler.send(message.channel, res, "PC ASP", true))
 					.catch(err => messageHandler.handleError(message.channel, err, "PC ASP"))
 			}
 		}
@@ -303,7 +303,7 @@ client.on('message', message => {
 		for(x in chars){
 			if(chars[x] != ""){
 				asp.originalBR(chars[x], "ps2ps4us:v2")
-					.then(res => messageHandler.send(message.channel, res, "PC ASP"))
+					.then(res => messageHandler.send(message.channel, res, "PS4US ASP", true))
 					.catch(err => messageHandler.handleError(message.channel, err, "PC ASP"))
 			}
 		}
@@ -313,7 +313,7 @@ client.on('message', message => {
 		for(x in chars){
 			if(chars[x] != ""){
 				asp.originalBR(chars[x], "ps2ps4eu:v2")
-					.then(res => messageHandler.send(message.channel, res, "PC ASP"))
+					.then(res => messageHandler.send(message.channel, res, "PS4EU ASP", true))
 					.catch(err => messageHandler.handleError(message.channel, err, "PC ASP"))
 			}
 		}
@@ -323,24 +323,24 @@ client.on('message', message => {
 		for(x in servers){
 			if(servers[x] != ""){
 				territory.territory(servers[x])
-					.then(res => messageHandler.send(message.channel, res, "Territory"))
+					.then(res => messageHandler.send(message.channel, res, "Territory", true))
 					.catch(err => messageHandler.handleError(message.channel, err, "Territory"))
 			}
 		}
 	}
 	if (message.content.toLowerCase() == '!status') {
 		status.servers()
-			.then(res => messageHandler.send(message.channel, res, "Server status"))
+			.then(res => messageHandler.send(message.channel, res, "Server status", true))
 			.catch(err => messageHandler.handleError(message.channel, err, "Server status"))
 	}
 	if (message.content.substring(0,8).toLowerCase() == '!weapon ') {
 		weapon.lookup(message.content.substring(8))
-			.then(res => messageHandler.send(message.channel, res, "Weapon"))
+			.then(res => messageHandler.send(message.channel, res, "Weapon", true))
 			.catch(err => messageHandler.handleError(message.channel, err, "Weapon"))
 	}
 	if (message.content.substring(0,9).toLowerCase() == '!implant ') {
 		implant.lookup(message.content.substring(9))
-			.then(res => messageHandler.send(message.channel, res, "Implant"))
+			.then(res => messageHandler.send(message.channel, res, "Implant", true))
 			.catch(err => messageHandler.handleError(message.channel, err, "Implant"))
 	}
 	if (message.content.substring(0,20).toLowerCase() == '!subscribe activity ' && runningOnline){
@@ -348,7 +348,7 @@ client.on('message', message => {
 		for(x in outfits){
 			if(outfits[x] != ""){
 				subscription.subscribeActivity(SQLclient, message.channel.id, outfits[x], 'ps2:v2')
-					.then(res => messageHandler.send(message.channel, res, "Subscribe activity"))
+					.then(res => messageHandler.send(message.channel, res, "Subscribe activity", true))
 					.catch(err => messageHandler.handleError(message.channel, err, "Subscribe activity"))
 			}
 		}
@@ -368,7 +368,7 @@ client.on('message', message => {
 		for(x in outfits){
 			if(outfits[x] != ""){
 				subscription.subscribeActivity(SQLclient, message.channel.id, outfits[x], 'ps2ps4us:v2')
-					.then(res => messageHandler.send(message.channel, res, "PS4US Subscribe activity"))
+					.then(res => messageHandler.send(message.channel, res, "PS4US Subscribe activity", true))
 					.catch(err => messageHandler.handleError(message.channel, err, "PS4US Subscribe activity"))
 			}
 		}
@@ -388,7 +388,7 @@ client.on('message', message => {
 		for(x in outfits){
 			if(outfits[x] != ""){
 				subscription.subscribeActivity(SQLclient, message.channel.id, outfits[x], 'ps2ps4eu:v2')
-				.then(res => messageHandler.send(message.channel, res, "PS4EU Subscribe activity"))
+				.then(res => messageHandler.send(message.channel, res, "PS4EU Subscribe activity", true))
 				.catch(err => messageHandler.handleError(message.channel, err, "PS4EU Subscribe Activity"))
 			}
 		}
@@ -408,7 +408,7 @@ client.on('message', message => {
 		for(x in outfits){
 			if(outfits[x] != ""){
 				subscription.subscribeCaptures(SQLclient, message.channel.id, outfits[x], 'ps2:v2')
-					.then(res => messageHandler.send(message.channel, res, "Subscribe captures"))
+					.then(res => messageHandler.send(message.channel, res, "Subscribe captures", true))
 					.catch(err => messageHandler.handleError(message.channel, err, "Subscribe captures"))
 			}
 		}
@@ -428,8 +428,8 @@ client.on('message', message => {
 		for(x in outfits){
 			if(outfits[x] != ""){
 				subscription.subscribeCaptures(SQLclient, message.channel.id, outfits[x], 'ps2ps4us:v2')
-					.then(res => messageHandler.send(message.channel, res, "Subscribe captures"))
-					.catch(err => messageHandler.handleError(message.channel, err, "Subscribe captures"))
+					.then(res => messageHandler.send(message.channel, res, "PS4US Subscribe captures", true))
+					.catch(err => messageHandler.handleError(message.channel, err, "PS4US Subscribe captures"))
 			}
 		}
 	}
@@ -438,8 +438,8 @@ client.on('message', message => {
 		for(x in outfits){
 			if(outfits[x] != ""){
 				subscription.unsubscribeCaptures(SQLclient, message.channel.id, outfits[x], 'ps2ps4us:v2')
-					.then(res => messageHandler.send(message.channel, res, "Unsubscribe captures"))
-					.catch(err => messageHandler.handleError(message.channel, err, "Unsubscribe captures"))
+					.then(res => messageHandler.send(message.channel, res, "PS4US Unsubscribe captures"))
+					.catch(err => messageHandler.handleError(message.channel, err, "PS4US Unsubscribe captures"))
 			}
 		}
 	}
@@ -448,8 +448,8 @@ client.on('message', message => {
 		for(x in outfits){
 			if(outfits[x] != ""){
 				subscription.subscribeCaptures(SQLclient, message.channel.id, outfits[x], 'ps2ps4eu:v2')
-					.then(res => messageHandler.send(message.channel, res, "Subscribe captures"))
-					.catch(err => messageHandler.handleError(message.channel, err, "Subscribe captures"))
+					.then(res => messageHandler.send(message.channel, res, "PS4EU Subscribe captures", true))
+					.catch(err => messageHandler.handleError(message.channel, err, "PS4EU Subscribe captures"))
 			}
 		}
 	}
@@ -458,8 +458,8 @@ client.on('message', message => {
 		for(x in outfits){
 			if(outfits[x] != ""){
 				subscription.unsubscribeCaptures(SQLclient, message.channel.id, outfits[x], 'ps2ps4eu:v2')
-					.then(res => messageHandler.send(message.channel, res, "Unsubscribe captures"))
-					.catch(err => messageHandler.handleError(message.channel, err, "Unsubscribe captures"))
+					.then(res => messageHandler.send(message.channel, res, "PS4EU Unsubscribe captures"))
+					.catch(err => messageHandler.handleError(message.channel, err, "PS4EU Unsubscribe captures"))
 			}
 		}
 	}
@@ -468,7 +468,7 @@ client.on('message', message => {
 		for(x in servers){
 			if(servers[x] != ""){
 				subscription.subscribeAlert(SQLclient, message.channel.id, servers[x])
-					.then(res => messageHandler.send(message.channel, res, "Subscribe alerts"))
+					.then(res => messageHandler.send(message.channel, res, "Subscribe alerts", true))
 					.catch(err => messageHandler.handleError(message.channel, err, "Subscribe alerts"))
 			}
 		}
