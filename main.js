@@ -107,7 +107,7 @@ client.on('message', message => {
 		// ping function to check if bot is up
 		messageHandler.send(message.channel, "Bot's ping to Discord is "+client.ws.ping+'ms', 'ping');
 	}
-	if (message.content.toLowerCase() == '!help' || message.content.toLowerCase() == '!about'){
+	else if (message.content.toLowerCase() == '!help' || message.content.toLowerCase() == '!about'){
 		//show list of commands and relevant links
 		let helpEmbed = new Discord.MessageEmbed();
 		helpEmbed.setTitle("Auraxis bot");
@@ -117,7 +117,7 @@ client.on('message', message => {
 		helpEmbed.setFooter("<> = Optional, [] = Required");
 		messageHandler.send(message.channel, helpEmbed, 'help', true);
 	}
-	if (message.content.substring(0,11).toLowerCase() == '!character '){
+	else if (message.content.substring(0,11).toLowerCase() == '!character '){
 		let chars = message.content.substring(11).toLowerCase().split(" ");
 		for(x in chars){
 			if(chars[x] != ""){
@@ -127,7 +127,7 @@ client.on('message', message => {
 			}
 		}
 	}
-	if (message.content.substring(0,17).toLowerCase() == '!ps4us character '){
+	else if (message.content.substring(0,17).toLowerCase() == '!ps4us character '){
 		let chars = message.content.substring(17).toLowerCase().split(" ");
 		for(x in chars){
 			if(chars[x] != ""){
@@ -137,7 +137,7 @@ client.on('message', message => {
 			}
 		}
 	}
-	if (message.content.substring(0,17).toLowerCase() == '!ps4eu character '){
+	else if (message.content.substring(0,17).toLowerCase() == '!ps4eu character '){
 		let chars = message.content.substring(17).toLowerCase().split(" ");
 		for(x in chars){
 			if(chars[x] != ""){
@@ -147,7 +147,7 @@ client.on('message', message => {
 			}
 		}
 	}
-	if (message.content.substring(0,7).toLowerCase() == '!stats '){
+	else if (message.content.substring(0,7).toLowerCase() == '!stats '){
 		let parts = message.content.toLowerCase().split(" ");
 		let cName = parts[1];
 		let wName = message.content.substring((7+cName.length+1));
@@ -162,7 +162,7 @@ client.on('message', message => {
 				.catch(err => messageHandler.handleError(message.channel, err, "PC Stats"))	
 		}
 	}
-	if (message.content.substring(0,13).toLowerCase() == '!ps4us stats '){
+	else if (message.content.substring(0,13).toLowerCase() == '!ps4us stats '){
 		let parts = message.content.toLowerCase().split(" ");
 		let cName = parts[2];
 		let wName = message.content.substring((13+cName.length+1));
@@ -177,7 +177,7 @@ client.on('message', message => {
 				.catch(err => messageHandler.handleError(message.channel, err, "PS4US Stats"))	
 		}
 	}
-	if (message.content.substring(0,13).toLowerCase() == '!ps4eu stats '){
+	else if (message.content.substring(0,13).toLowerCase() == '!ps4eu stats '){
 		let parts = message.content.toLowerCase().split(" ");
 		let cName = parts[2];
 		let wName = message.content.substring((13+cName.length+1));
@@ -193,7 +193,7 @@ client.on('message', message => {
 		}
 		
 	}
-	if (message.content.substring(0,8).toLowerCase() == '!outfit '){
+	else if (message.content.substring(0,8).toLowerCase() == '!outfit '){
 		let tags = message.content.substring(8).toLowerCase().split(" ");
 		for(x in tags){
 			if(tags[x] != ""){
@@ -207,7 +207,7 @@ client.on('message', message => {
 			}
 		}
 	}
-	if (message.content.substring(0,14).toLowerCase() == '!ps4us outfit '){
+	else if (message.content.substring(0,14).toLowerCase() == '!ps4us outfit '){
 		let tags = message.content.substring(14).toLowerCase().split(" ");
 		for(x in tags){
 			if(tags[x] != ""){
@@ -221,7 +221,7 @@ client.on('message', message => {
 			}
 		}
 	}
-	if (message.content.substring(0,14).toLowerCase() == '!ps4eu outfit '){
+	else if (message.content.substring(0,14).toLowerCase() == '!ps4eu outfit '){
 		let tags = message.content.substring(14).toLowerCase().split(" ");
 		for(x in tags){
 			if(tags[x] != ""){
@@ -235,7 +235,7 @@ client.on('message', message => {
 			}
 		}
 	}
-	if (message.content.substring(0,8).toLowerCase() == '!online '){
+	else if (message.content.substring(0,8).toLowerCase() == '!online '){
 		let tags = message.content.substring(8).toLowerCase().split(" ");
 		for(x in tags){
 			if(tags[x] != ""){
@@ -249,7 +249,7 @@ client.on('message', message => {
 			}
 		}
 	}
-	if (message.content.substring(0,14).toLowerCase() == '!ps4us online '){
+	else if (message.content.substring(0,14).toLowerCase() == '!ps4us online '){
 		let tags = message.content.substring(14).toLowerCase().split(" ");
 		for(x in tags){
 			if(tags[x] != ""){
@@ -263,7 +263,7 @@ client.on('message', message => {
 			}
 		}
 	}
-	if (message.content.substring(0,14).toLowerCase() == '!ps4eu online '){
+	else if (message.content.substring(0,14).toLowerCase() == '!ps4eu online '){
 		let tags = message.content.substring(14).toLowerCase().split(" ");
 		for(x in tags){
 			if(tags[x] != ""){
@@ -277,7 +277,7 @@ client.on('message', message => {
 			}
 		}
 	}
-	if (message.content.substring(0,12).toLowerCase() == '!population '){
+	else if (message.content.substring(0,12).toLowerCase() == '!population '){
 		//server population
 		let servers = message.content.substring(12).toLowerCase().split(" ");
 		for(x in servers){
@@ -288,7 +288,7 @@ client.on('message', message => {
 			}
 		}
 	}
-	if (message.content.substring(0,5).toLowerCase() == '!asp '){
+	else if (message.content.substring(0,5).toLowerCase() == '!asp '){
 		let chars = message.content.substring(5).toLowerCase().split(" ");
 		for(x in chars){
 			if(chars[x] != ""){
@@ -298,7 +298,7 @@ client.on('message', message => {
 			}
 		}
 	}
-	if (message.content.substring(0,11).toLowerCase() == '!ps4us asp '){
+	else if (message.content.substring(0,11).toLowerCase() == '!ps4us asp '){
 		let chars = message.content.substring(11).toLowerCase().split(" ");
 		for(x in chars){
 			if(chars[x] != ""){
@@ -308,7 +308,7 @@ client.on('message', message => {
 			}
 		}
 	}
-	if (message.content.substring(0,11).toLowerCase() == '!ps4eu asp '){
+	else if (message.content.substring(0,11).toLowerCase() == '!ps4eu asp '){
 		let chars = message.content.substring(11).toLowerCase().split(" ");
 		for(x in chars){
 			if(chars[x] != ""){
@@ -318,7 +318,7 @@ client.on('message', message => {
 			}
 		}
 	}
-	if (message.content.substring(0,11).toLowerCase() == '!territory '){
+	else if (message.content.substring(0,11).toLowerCase() == '!territory '){
 		let servers = message.content.substring(11).toLowerCase().split(" ");
 		for(x in servers){
 			if(servers[x] != ""){
@@ -328,22 +328,22 @@ client.on('message', message => {
 			}
 		}
 	}
-	if (message.content.toLowerCase() == '!status') {
+	else if (message.content.toLowerCase() == '!status') {
 		status.servers()
 			.then(res => messageHandler.send(message.channel, res, "Server status", true))
 			.catch(err => messageHandler.handleError(message.channel, err, "Server status"))
 	}
-	if (message.content.substring(0,8).toLowerCase() == '!weapon ') {
+	else if (message.content.substring(0,8).toLowerCase() == '!weapon ') {
 		weapon.lookup(message.content.substring(8))
 			.then(res => messageHandler.send(message.channel, res, "Weapon", true))
 			.catch(err => messageHandler.handleError(message.channel, err, "Weapon"))
 	}
-	if (message.content.substring(0,9).toLowerCase() == '!implant ') {
+	else if (message.content.substring(0,9).toLowerCase() == '!implant ') {
 		implant.lookup(message.content.substring(9))
 			.then(res => messageHandler.send(message.channel, res, "Implant", true))
 			.catch(err => messageHandler.handleError(message.channel, err, "Implant"))
 	}
-	if (message.content.substring(0,20).toLowerCase() == '!subscribe activity ' && runningOnline){
+	else if (message.content.substring(0,20).toLowerCase() == '!subscribe activity ' && runningOnline){
 		let outfits = message.content.substring(20).toLowerCase().split(" ");
 		for(x in outfits){
 			if(outfits[x] != ""){
@@ -353,7 +353,7 @@ client.on('message', message => {
 			}
 		}
 	}
-	if (message.content.substring(0,22).toLowerCase() == '!unsubscribe activity ' && runningOnline){
+	else if (message.content.substring(0,22).toLowerCase() == '!unsubscribe activity ' && runningOnline){
 		let outfits = message.content.substring(22).toLowerCase().split(" ");
 		for(x in outfits){
 			if(outfits[x] != ""){
@@ -363,7 +363,7 @@ client.on('message', message => {
 			}
 		}
 	}
-	if (message.content.substring(0,26).toLowerCase() == '!ps4us subscribe activity ' && runningOnline){
+	else if (message.content.substring(0,26).toLowerCase() == '!ps4us subscribe activity ' && runningOnline){
 		let outfits = message.content.substring(26).toLowerCase().split(" ");
 		for(x in outfits){
 			if(outfits[x] != ""){
@@ -373,7 +373,7 @@ client.on('message', message => {
 			}
 		}
 	}
-	if (message.content.substring(0,28).toLowerCase() == '!ps4us unsubscribe activity ' && runningOnline){
+	else if (message.content.substring(0,28).toLowerCase() == '!ps4us unsubscribe activity ' && runningOnline){
 		let outfits = message.content.substring(28).toLowerCase().split(" ");
 		for(x in outfits){
 			if(outfits[x] != ""){
@@ -383,7 +383,7 @@ client.on('message', message => {
 			}
 		}
 	}
-	if (message.content.substring(0,26).toLowerCase() == '!ps4eu subscribe activity ' && runningOnline){
+	else if (message.content.substring(0,26).toLowerCase() == '!ps4eu subscribe activity ' && runningOnline){
 		let outfits = message.content.substring(26).toLowerCase().split(" ");
 		for(x in outfits){
 			if(outfits[x] != ""){
@@ -393,7 +393,7 @@ client.on('message', message => {
 			}
 		}
 	}
-	if (message.content.substring(0,28).toLowerCase() == '!ps4eu unsubscribe activity ' && runningOnline){
+	else if (message.content.substring(0,28).toLowerCase() == '!ps4eu unsubscribe activity ' && runningOnline){
 		let outfits = message.content.substring(28).toLowerCase().split(" ");
 		for(x in outfits){
 			if(outfits[x] != ""){
@@ -403,7 +403,7 @@ client.on('message', message => {
 			}
 		}
 	}
-	if (message.content.substring(0,20).toLowerCase() == '!subscribe captures ' && runningOnline){
+	else if (message.content.substring(0,20).toLowerCase() == '!subscribe captures ' && runningOnline){
 		let outfits = message.content.substring(20).toLowerCase().split(" ");
 		for(x in outfits){
 			if(outfits[x] != ""){
@@ -413,7 +413,7 @@ client.on('message', message => {
 			}
 		}
 	}
-	if (message.content.substring(0,22).toLowerCase() == '!unsubscribe captures ' && runningOnline){
+	else if (message.content.substring(0,22).toLowerCase() == '!unsubscribe captures ' && runningOnline){
 		let outfits = message.content.substring(22).toLowerCase().split(" ");
 		for(x in outfits){
 			if(outfits[x] != ""){
@@ -423,7 +423,7 @@ client.on('message', message => {
 			}
 		}
 	}
-	if (message.content.substring(0,26).toLowerCase() == '!ps4us subscribe captures ' && runningOnline){
+	else if (message.content.substring(0,26).toLowerCase() == '!ps4us subscribe captures ' && runningOnline){
 		let outfits = message.content.substring(26).toLowerCase().split(" ");
 		for(x in outfits){
 			if(outfits[x] != ""){
@@ -433,7 +433,7 @@ client.on('message', message => {
 			}
 		}
 	}
-	if (message.content.substring(0,28).toLowerCase() == '!ps4us unsubscribe captures ' && runningOnline){
+	else if (message.content.substring(0,28).toLowerCase() == '!ps4us unsubscribe captures ' && runningOnline){
 		let outfits = message.content.substring(28).toLowerCase().split(" ");
 		for(x in outfits){
 			if(outfits[x] != ""){
@@ -443,7 +443,7 @@ client.on('message', message => {
 			}
 		}
 	}
-	if (message.content.substring(0,26).toLowerCase() == '!ps4eu subscribe captures ' && runningOnline){
+	else if (message.content.substring(0,26).toLowerCase() == '!ps4eu subscribe captures ' && runningOnline){
 		let outfits = message.content.substring(26).toLowerCase().split(" ");
 		for(x in outfits){
 			if(outfits[x] != ""){
@@ -453,7 +453,7 @@ client.on('message', message => {
 			}
 		}
 	}
-	if (message.content.substring(0,28).toLowerCase() == '!ps4eu unsubscribe captures ' && runningOnline){
+	else if (message.content.substring(0,28).toLowerCase() == '!ps4eu unsubscribe captures ' && runningOnline){
 		let outfits = message.content.substring(28).toLowerCase().split(" ");
 		for(x in outfits){
 			if(outfits[x] != ""){
@@ -463,7 +463,7 @@ client.on('message', message => {
 			}
 		}
 	}
-	if (message.content.substring(0,18).toLowerCase() == '!subscribe alerts ' && runningOnline){
+	else if (message.content.substring(0,18).toLowerCase() == '!subscribe alerts ' && runningOnline){
 		let servers = message.content.substring(18).toLowerCase().split(" ");
 		for(x in servers){
 			if(servers[x] != ""){
@@ -473,7 +473,7 @@ client.on('message', message => {
 			}
 		}
 	}
-	if (message.content.substring(0,20).toLowerCase() == '!unsubscribe alerts ' && runningOnline){
+	else if (message.content.substring(0,20).toLowerCase() == '!unsubscribe alerts ' && runningOnline){
 		let servers = message.content.substring(20).toLowerCase().split(" ");
 		for(x in servers){
 			if(servers[x] != ""){
@@ -483,13 +483,13 @@ client.on('message', message => {
 			}
 		}
 	}
-	if (message.content.toLowerCase() == "!unsubscribe all" && runningOnline){
+	else if (message.content.toLowerCase() == "!unsubscribe all" && runningOnline){
 		subscription.unsubscribeAll(SQLclient, message.channel.id)
 			.then(res => messageHandler.send(message.channel, res, "Unsubscribe all"))
 			.catch(err => messageHandler.handleError(message.channel, err, "Unsubscribe all"))
 
 	}
-	if (message.content.substring(0,1) == '!' && message.content.toLowerCase().indexOf('subscribe') != -1 && !runningOnline){
+	else if (message.content.substring(0,1) == '!' && message.content.toLowerCase().indexOf('subscribe') != -1 && !runningOnline){
 		messageHandler.send(message.channel, 'Subscription functionality currently unavailable', "Subscriptions unabailable");
 	}
 });
