@@ -60,7 +60,7 @@ outfitInfo = async function(tag, environment){
     }
     else{
         return new Promise(function(resolve, reject){
-            reject("Not found");
+            reject(tag+" not found");
         })
     }
 }
