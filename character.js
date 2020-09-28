@@ -72,21 +72,35 @@ var basicInfo = async function(cName, platform){
     }
     if(data.stats != null){
         resObj.stats = true;
-        topID = 0;
-        mostKills = 0;
-        weaponStat = data.stats.weapon_stat_by_faction;
-        //find most used weapon
-        for (x in weaponStat){
-            if (weaponStat[x].stat_name == "weapon_kills" && weaponStat[x].item_id != "0"){
-                itemKills = Number(weaponStat[x].value_vs) + Number(weaponStat[x].value_nc) + Number(weaponStat[x].value_tr);
-                if (itemKills > mostKills){
-                    mostKills = itemKills;
-                    topID = weaponStat[x].item_id;
+        let topID = 0;
+        let mostKills = 0;
+        let infantryKills = 0;
+        let infantryHeadshots = 0;
+
+        // Find most used weapon
+        for (let stat of data.stats.weapon_stat_by_faction){
+            if (stat.stat_name == "weapon_kills"){
+                if(stat.item_id != "0"){
+                   itemKills = Number(stat.value_vs) + Number(stat.value_nc) + Number(stat.value_tr);
+                    if (itemKills > mostKills){
+                        mostKills = itemKills;
+                        topID = stat.item_id;
+                    } 
                 }
+                if(includeInAHR(stat.item_id, stat.vehicle_id)){
+                    infantryKills += Number(stat.value_vs) + Number(stat.value_nc) + Number(stat.value_tr);
+                }
+                
+            }
+            else if(stat.stat_name == "weapon_headshots" && includeInAHR(stat.item_id, stat.vehicle_id)){
+                infantryHeadshots += Number(stat.value_vs) + Number(stat.value_nc) + Number(stat.value_tr);
             }
         }
         resObj.mostKills = mostKills;
         resObj.topWeaponID = topID;
+        resObj.infantryKills = infantryKills;
+        resObj.infantryHeadshots = infantryHeadshots;
+        
         // Find name of most used weapon, calculate number of Auraxium medals
         if(mostKills > 0){
             try{
@@ -111,14 +125,24 @@ var basicInfo = async function(cName, platform){
         if(typeof(data.stats.weapon_stat) !== 'undefined'){
             let topVehicleTime = 0;
             let favoriteVehicle = 0;
+            let infantryShots = 0;
+            let infantryHits = 0;
             for(let stat of data.stats.weapon_stat){
                 if(stat.stat_name == "weapon_play_time" && stat.item_id == "0" && stat.value > topVehicleTime){
                     topVehicleTime = Number.parseInt(stat.value);
                     favoriteVehicle = stat.vehicle_id;
                 }
+                else if(stat.stat_name == "weapon_fire_count" && includeInAHR(stat.item_id, stat.vehicle_id)){
+                    infantryShots += Number.parseInt(stat.value);
+                }
+                else if(stat.stat_name == "weapon_hit_count" && includeInAHR(stat.item_id, stat.vehicle_id)){
+                    infantryHits += Number.parseInt(stat.value);
+                }
             }
             resObj.favoriteVehicle = favoriteVehicle;
             resObj.topVehicleTime = topVehicleTime;
+            resObj.infantryShots = infantryShots;
+            resObj.infantryHits = infantryHits;
         }
         // Pull stats for score, spm, and K/D
         if(typeof(data.stats.stat_history) !== 'undefined'){
@@ -160,6 +184,35 @@ var basicInfo = async function(cName, platform){
     return new Promise(function(resolve, reject){
         resolve(resObj);
     })
+}
+
+var AHRExclude = [
+    "Infantry Abilities",
+    "Knife",
+    "Grenade",
+    "Rocket Launcher",
+    "AA MAX (Right)",
+    "AA MAX (Left)",
+    "AV MAX (Right)",
+    "AV MAX (Left)",
+    "Explosive",
+    "Aerial Combat Weapon"
+]
+
+var includeInAHR = function(ID, vehicleID){
+    if(vehicleID != "0"){
+        return false;
+    }
+    try{
+        let category = weapons[ID].category;
+        if(AHRExclude.includes(category)){
+            return false;
+        }
+    }
+    catch{
+        return false;
+    }
+    return true;
 }
 
 var getWeaponName = async function(ID, platform){
@@ -304,14 +357,26 @@ module.exports = {
                 resEmbed.addField('Server', 'Ceres', true);
         }
 
-        // Playtime, K/D, online status, last login
+        // Playtime
         hours = Math.floor(cInfo.playTime/60);
         minutesPlayed = cInfo.playTime - hours*60;
         resEmbed.addField('Playtime', hours+' hours, '+minutesPlayed+' minutes', true);
+        
+        // KD, KPM
         if(cInfo.stat_history){
             resEmbed.addField('KD', Number.parseFloat(cInfo.kills/cInfo.deaths).toPrecision(3), true);
             resEmbed.addField('KPM', Number.parseFloat(cInfo.kills/cInfo.playTime).toPrecision(3), true);
         }
+
+        // IAHR Score
+        if(typeof(cInfo.infantryHeadshots) !== 'undefined' && typeof(cInfo.infantryHits) !== 'undefined'){
+            let accuracy = cInfo.infantryHits/cInfo.infantryShots;
+            let hsr = cInfo.infantryHeadshots/cInfo.infantryKills;
+            let iahr = accuracy*hsr;
+            resEmbed.addField("IAHR Score", Math.floor(iahr*10000), true);
+        }
+
+        // Online status
         if (cInfo.online == "service_unavailable"){
             resEmbed.addField('Online', 'Service unavailable', true);
         }

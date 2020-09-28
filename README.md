@@ -108,3 +108,21 @@ Returns information on given implant.  Accepts exact or partial names.  Only sup
 #### !<ps4us/ps4eu> asp [name]
 
 Returns the BR a character reached before joining ASP.  Supports multiple characters per query.  Untested on PS4.  Does not work with NSO.
+
+## FAQ
+
+### Why is the bot not posting in my server?
+
+Please make sure you have granted it the "Read Messages" "Send Messages" and "Embed Links" permissions in the channel you are using it in.
+
+### The bot is responding, but I'm not seeing any info
+
+In your client settings, under "Text & Images" make sure "Show website preview info from links pasted into chat" is enabled
+
+### What is IAHR?
+
+IAHR score is "Infantry Accuracy * Headshot Ratio" score.  It is calculated by taking the cumulative accuracy and headshot ratios of all infantry weapons except for abilities, knives, grenades, rocket launchers, MAX AA and AV, explosives, and rocklet rifles, multiplying them together, then multiplying by 10,000.  AHR is the same, but per weapon instead of an aggregate across most infantry weapons.
+
+### Why not use IVI score?
+
+IVI score is not as standard as it seems.  When I attempted to implement it I discovered that different sources listed different IVI scores for the same character, and no standard formula was publicly available.  Because of that I decided it would be best to introduce an obviously distinct metric instead of adding to the confusion.

@@ -219,16 +219,26 @@ module.exports = {
 		let totalVehicleKills = parseInt(cInfo.vsVehicleKills)+parseInt(cInfo.ncVehicleKills)+parseInt(cInfo.trVehicleKills);
 		let hours = Math.floor(cInfo.playTime/60/60);
 		let minutes = Math.floor(cInfo.playTime/60 - hours*60);
+		let accuracy = cInfo.hits/cInfo.fireCount;
+		let hsr = totalHeadshots/totalKills;
+		let ahr = Math.floor(accuracy*hsr*10000);
+		let spm = Number.parseFloat(cInfo.score/(cInfo.playTime/60));
 		resEmbed.addField("Kills", totalKills.toLocaleString(), true);
 		resEmbed.addField("Deaths", parseInt(cInfo.deaths).toLocaleString(), true);
 		resEmbed.addField("KD", Number.parseFloat(totalKills/cInfo.deaths).toPrecision(3), true);
-		resEmbed.addField("Accuracy", Number.parseFloat((cInfo.hits/cInfo.fireCount)*100).toPrecision(3)+"%", true);
-		totalHeadshots && resEmbed.addField("HSR", Number.parseFloat((totalHeadshots/totalKills)*100).toPrecision(3)+"%", true);
+		resEmbed.addField("Accuracy", (accuracy*100).toPrecision(3)+"%", true);
+		totalHeadshots && resEmbed.addField("HSR", (hsr*100).toPrecision(3)+"%", true);
+		ahr && resEmbed.addField("AHR Score", ahr, true);
 		totalVehicleKills && resEmbed.addField("Vehicle Kills", parseInt(totalVehicleKills).toLocaleString(), true);
 		resEmbed.addField("Playtime", hours+" hours, "+minutes+" minutes", true);
 		resEmbed.addField("KPM", Number.parseFloat(totalKills/(cInfo.playTime/60)).toPrecision(3), true);
 		resEmbed.addField("Avg Damage/Kill", Math.floor(totalDamage/totalKills).toLocaleString(), true);
-		resEmbed.addField("Score (SPM)", parseInt(cInfo.score).toLocaleString()+" ("+Number.parseFloat(cInfo.score/(cInfo.playTime/60)).toPrecision(3)+")", true);
+		if(spm > 1000){
+			resEmbed.addField("Score (SPM)", parseInt(cInfo.score).toLocaleString()+" ("+Math.floor(spm)+")", true);
+		}
+		else{
+			resEmbed.addField("Score (SPM)", parseInt(cInfo.score).toLocaleString()+" ("+spm.toPrecision(3)+")", true);
+		}
 		switch(cInfo.faction){
 			case "1":
 				resEmbed.setColor('PURPLE');
