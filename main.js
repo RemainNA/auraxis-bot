@@ -100,7 +100,7 @@ var links = [
 
 // Create an event listener for messages
 client.on('message', message => {
-	if(message.author == client.user){
+	if(message.author == client.user || message.mentions.everyone || message.mentions.roles.size > 0){
 		return;
 	}
 	if (message.content.toLowerCase() == '!ping') {
