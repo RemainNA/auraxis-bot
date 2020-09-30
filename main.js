@@ -100,7 +100,7 @@ var links = [
 
 // Create an event listener for messages
 client.on('message', message => {
-	if(message.author == client.user || message.mentions.everyone || message.mentions.roles.size > 0){
+	if(message.author == client.user){
 		return;
 	}
 	if (message.content.toLowerCase() == '!ping') {
@@ -197,7 +197,7 @@ client.on('message', message => {
 		let tags = message.content.substring(8).toLowerCase().split(" ");
 		for(x in tags){
 			if(tags[x] != ""){
-				if(tags[x].length > 4){
+				if(tags[x].length > 4 && !messageHandler.badQuery(tags[x])){
 					messageHandler.send(message.channel, tags[x]+" is longer than 4 letters, please enter a tag.", "PC tag too long");
 					continue;
 				}
@@ -211,7 +211,7 @@ client.on('message', message => {
 		let tags = message.content.substring(14).toLowerCase().split(" ");
 		for(x in tags){
 			if(tags[x] != ""){
-				if(tags[x].length > 4){
+				if(tags[x].length > 4 && !messageHandler.badQuery(tags[x])){
 					messageHandler.send(message.channel, tags[x]+" is longer than 4 letters, please enter a tag.", "PS4US tag too long");
 					continue;
 				}
@@ -225,7 +225,7 @@ client.on('message', message => {
 		let tags = message.content.substring(14).toLowerCase().split(" ");
 		for(x in tags){
 			if(tags[x] != ""){
-				if(tags[x].length > 4){
+				if(tags[x].length > 4 && !messageHandler.badQuery(tags[x])){
 					messageHandler.send(message.channel, tags[x]+" is longer than 4 letters, please enter a tag.", "PS4EU tag too long");
 					continue;
 				}
@@ -239,7 +239,7 @@ client.on('message', message => {
 		let tags = message.content.substring(8).toLowerCase().split(" ");
 		for(x in tags){
 			if(tags[x] != ""){
-				if(tags[x].length > 4){
+				if(tags[x].length > 4 && !messageHandler.badQuery(tags[x])){
 					messageHandler.send(message.channel, tags[x]+" is longer than 4 letters, please enter a tag.", "PC tag too long");
 					continue;
 				}
@@ -253,7 +253,7 @@ client.on('message', message => {
 		let tags = message.content.substring(14).toLowerCase().split(" ");
 		for(x in tags){
 			if(tags[x] != ""){
-				if(tags[x].length > 4){
+				if(tags[x].length > 4 && !messageHandler.badQuery(tags[x])){
 					messageHandler.send(message.channel, tags[x]+" is longer than 4 letters, please enter a tag.", "PC tag too long");
 					continue;
 				}
@@ -267,7 +267,7 @@ client.on('message', message => {
 		let tags = message.content.substring(14).toLowerCase().split(" ");
 		for(x in tags){
 			if(tags[x] != ""){
-				if(tags[x].length > 4){
+				if(tags[x].length > 4 && !messageHandler.badQuery(tags[x])){
 					messageHandler.send(message.channel, tags[x]+" is longer than 4 letters, please enter a tag.", "PC tag too long");
 					continue;
 				}
