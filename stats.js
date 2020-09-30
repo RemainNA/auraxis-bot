@@ -7,6 +7,9 @@ var messageHandler = require('./messageHandler.js');
 
 var getWeaponId = async function(name, searchSpace, cName=""){
 	//Check if ID matches
+
+	name = name.replace(/[“”]/g, '"');
+
 	if(typeof(weaponsJSON[name]) !== 'undefined' && searchSpace.includes(name)){
 		let returnObj = weaponsJSON[name];
 		returnObj.id = name;

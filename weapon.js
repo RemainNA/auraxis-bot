@@ -19,6 +19,9 @@ function standingOnly(CoF){
 }
 
 var weaponInfo = async function(name){
+
+	name = name.replace(/[“”]/g, '"');
+
 	//Check if ID matches
 	if(typeof(weaponsJSON[name]) !== 'undefined'){
 		let returnObj = weaponsJSON[name];
