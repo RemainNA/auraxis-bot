@@ -78,29 +78,32 @@ var basicInfo = async function(cName, platform){
         let infantryHeadshots = 0;
 
         // Find most used weapon
-        for (let stat of data.stats.weapon_stat_by_faction){
-            if (stat.stat_name == "weapon_kills"){
-                if(stat.item_id != "0"){
-                   itemKills = Number(stat.value_vs) + Number(stat.value_nc) + Number(stat.value_tr);
-                    if (itemKills > mostKills){
-                        mostKills = itemKills;
-                        topID = stat.item_id;
-                    } 
+        if(typeof(data.stats.weapon_stat_by_faction) !== 'undefined'){
+            for (let stat of data.stats.weapon_stat_by_faction){
+                if (stat.stat_name == "weapon_kills"){
+                    if(stat.item_id != "0"){
+                    itemKills = Number(stat.value_vs) + Number(stat.value_nc) + Number(stat.value_tr);
+                        if (itemKills > mostKills){
+                            mostKills = itemKills;
+                            topID = stat.item_id;
+                        } 
+                    }
+                    if(includeInAHR(stat.item_id, stat.vehicle_id)){
+                        infantryKills += Number(stat.value_vs) + Number(stat.value_nc) + Number(stat.value_tr);
+                    }
+                    
                 }
-                if(includeInAHR(stat.item_id, stat.vehicle_id)){
-                    infantryKills += Number(stat.value_vs) + Number(stat.value_nc) + Number(stat.value_tr);
+                else if(stat.stat_name == "weapon_headshots" && includeInAHR(stat.item_id, stat.vehicle_id)){
+                    infantryHeadshots += Number(stat.value_vs) + Number(stat.value_nc) + Number(stat.value_tr);
                 }
-                
-            }
-            else if(stat.stat_name == "weapon_headshots" && includeInAHR(stat.item_id, stat.vehicle_id)){
-                infantryHeadshots += Number(stat.value_vs) + Number(stat.value_nc) + Number(stat.value_tr);
             }
         }
+        
         resObj.mostKills = mostKills;
         resObj.topWeaponID = topID;
         resObj.infantryKills = infantryKills;
         resObj.infantryHeadshots = infantryHeadshots;
-        
+
         // Find name of most used weapon, calculate number of Auraxium medals
         if(mostKills > 0){
             try{
