@@ -5,6 +5,7 @@ const Discord = require('discord.js');
 var weapons = require('./weapons.json');
 var vehicles = require('./vehicles.json');
 var got = require('got');
+var messageHandler = require('./messageHandler.js');
 
 var basicInfo = async function(cName, platform){
     // Main function for character lookup.  Pulls most stats and calls other functions for medals/top weapon info
@@ -294,6 +295,12 @@ var getAuraxiumCount = async function(cName, platform){
 module.exports = {
     character: async function(cName, platform){
         // Calls function to get basic info, extracts info from returned object and constructs the Discord embed to send
+        if(messageHandler.badQuery(cName)){
+			return new Promise(function(resolve, reject){
+                reject("Character search contains disallowed characters");
+            })
+		}
+        
         try{
             cInfo = await basicInfo(cName, platform);
         }

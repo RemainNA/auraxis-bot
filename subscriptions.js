@@ -2,6 +2,7 @@
 
 const { Client } = require('pg');
 var got = require('got');
+var messageHandler = require('./messageHandler.js');
 
 isValid = function(server){
     servers = ['connery', 'miller', 'cobalt', 'emerald', 'soltech', 'genudine', 'ceres', 'jaegar']
@@ -73,6 +74,11 @@ module.exports = {
         //channel is the discord channel ID
         //tag is the outfit tag
         //environment is ps2:v2, ps2ps4us:v2, or ps2ps4eu:v2
+        if(messageHandler.badQuery(tag)){
+			return new Promise(function(resolve, reject){
+                reject("Outfit search contains disallowed characters");
+            })
+		}
         let outfit = await outfitInfo(tag, environment);
         if(environment == "ps2:v2"){
             let count = await pgClient.query('SELECT COUNT(channel) FROM outfit WHERE id=$1 AND channel=$2', [outfit.ID, channel]);
@@ -179,6 +185,11 @@ module.exports = {
     },
 
     unsubscribeActivity: async function(pgClient, channel, tag, environment){
+        if(messageHandler.badQuery(tag)){
+			return new Promise(function(resolve, reject){
+                reject("Outfit search contains disallowed characters");
+            })
+		}
         let outfit = await outfitInfo(tag, environment);
         if(environment == "ps2:v2"){
             let count = await pgClient.query('SELECT COUNT(channel) FROM outfit WHERE id=$1 AND channel=$2', [outfit.ID, channel]);
@@ -246,6 +257,11 @@ module.exports = {
     },
 
     subscribeAlert: async function(pgClient, channel, server){
+        if(messageHandler.badQuery(server)){
+			return new Promise(function(resolve, reject){
+                reject("Server search contains disallowed characters");
+            })
+		}
         if(isValid(server) == false){
             return new Promise(function(resolve, reject){ 
                 reject(server+" not recognized");
@@ -275,6 +291,11 @@ module.exports = {
     },
 
     unsubscribeAlert: async function(pgClient, channel, server){
+        if(messageHandler.badQuery(server)){
+			return new Promise(function(resolve, reject){
+                reject("Server search contains disallowed characters");
+            })
+		}
         if(isValid(server) == false){
             return new Promise(function(resolve, reject){ 
                 reject(server+" not recognized");
@@ -304,6 +325,11 @@ module.exports = {
     },
 
     subscribeCaptures: async function(pgClient, channel, tag, environment){
+        if(messageHandler.badQuery(tag)){
+			return new Promise(function(resolve, reject){
+                reject("Outfit search contains disallowed characters");
+            })
+		}
         let outfit = await outfitInfo(tag, environment);
         if(environment == "ps2:v2"){
             let count = await pgClient.query('SELECT COUNT(channel) FROM outfitcaptures WHERE id=$1 AND channel=$2', [outfit.ID, channel]);
@@ -374,6 +400,11 @@ module.exports = {
     },
 
     unsubscribeCaptures: async function(pgClient, channel, tag, environment){
+        if(messageHandler.badQuery(tag)){
+			return new Promise(function(resolve, reject){
+                reject("Outfit search contains disallowed characters");
+            })
+		}
         let outfit = await outfitInfo(tag, environment);
         if(environment == "ps2:v2"){
             let count = await pgClient.query('SELECT COUNT(channel) FROM outfitcaptures WHERE id=$1 AND channel=$2', [outfit.ID, channel]);

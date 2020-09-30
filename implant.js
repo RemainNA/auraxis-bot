@@ -1,5 +1,6 @@
 const Discord = require('discord.js');
 var implantsJSON = require('./implants.json');
+var messageHandler = require('./messageHandler.js');
 
 var implantInfo = async function(name){
 	//Check if ID matches
@@ -40,6 +41,12 @@ var implantInfo = async function(name){
 
 module.exports = {
 	lookup: async function(name){
+		if(messageHandler.badQuery(name)){
+			return new Promise(function(resolve, reject){
+                reject("Search contains disallowed characters");
+            })
+		}
+		
 		let iInfo = {};
 		try{
             iInfo = await implantInfo(name);

@@ -2,6 +2,8 @@
 
 const Discord = require('discord.js');
 var got = require('got');
+var messageHandler = require('./messageHandler.js');
+
 
 var basicInfo = async function(cName, platform){
 	let uri = 'https://census.daybreakgames.com/s:'+process.env.serviceID+'/get/'+platform+'/character?name.first_lower='+cName+'&c:resolve=item_full&c:lang=en';
@@ -84,6 +86,12 @@ var basicInfo = async function(cName, platform){
 
 module.exports = {
 	originalBR: async function(cName, platform){
+		if(messageHandler.badQuery(cName)){
+			return new Promise(function(resolve, reject){
+                reject("Character search contains disallowed characters");
+            })
+		}
+
 		try{
 			cInfo = await basicInfo(cName, platform);
 		}

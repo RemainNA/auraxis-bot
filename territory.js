@@ -2,6 +2,7 @@
 
 const Discord = require('discord.js');
 var got = require('got');
+var messageHandler = require('./messageHandler.js');
 
 serverToUrl = function(server){
     switch (server.toLowerCase()){
@@ -161,6 +162,12 @@ module.exports = {
     },
 
     territory: async function(server){
+        if(messageHandler.badQuery(server)){
+			return new Promise(function(resolve, reject){
+                reject("Server search contains disallowed characters");
+            })
+        }
+        
         let terObj = await this.territoryInfo(server);
         let resEmbed = new Discord.MessageEmbed();
         resEmbed.setTitle(printableName(server)+" territory");

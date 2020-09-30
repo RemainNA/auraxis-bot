@@ -3,6 +3,7 @@
 const Discord = require('discord.js');
 var weaponsJSON = require('./weapons.json');
 var got = require('got');
+var messageHandler = require('./messageHandler.js');
 
 var getWeaponId = async function(name, searchSpace, cName=""){
 	//Check if ID matches
@@ -197,6 +198,18 @@ var characterInfo = async function(cName, wName, platform){
 
 module.exports = {
 	lookup: async function(cName, wName, platform){
+		if(messageHandler.badQuery(cName)){
+			return new Promise(function(resolve, reject){
+                reject("Character search contains disallowed characters");
+            })
+		}
+
+		if(messageHandler.badQuery(wName)){
+			return new Promise(function(resolve, reject){
+                reject("Weapon search contains disallowed characters");
+            })
+		}
+
 		let cInfo = {};
 		try{
 			cInfo = await characterInfo(cName, wName, platform);

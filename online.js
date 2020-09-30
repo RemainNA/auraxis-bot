@@ -1,5 +1,6 @@
 const Discord = require('discord.js');
 var got = require('got');
+var messageHandler = require('./messageHandler.js');
 
 var onlineInfo = async function(oTag, platform){
 	let uri = 'http://census.daybreakgames.com/s:'+process.env.serviceID+'/get/'+platform+'/outfit?alias_lower='+oTag+'&c:resolve=member_online_status,rank,member_character_name&c:join=character^on:leader_character_id^to:character_id&c:join=characters_world^on:leader_character_id^to:character_id';
@@ -92,6 +93,12 @@ var onlineInfo = async function(oTag, platform){
 
 module.exports = {
 	online: async function(oTag, platform){
+		if(messageHandler.badQuery(oTag)){
+			return new Promise(function(resolve, reject){
+                reject("Outfit search contains disallowed characters");
+            })
+		}
+
 		try{
 			oInfo = await onlineInfo(oTag, platform);
 		}

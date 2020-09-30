@@ -1,6 +1,7 @@
 // This file defines functions for retrieving population by faction for a given server/world
 
 const Discord = require('discord.js');
+var messageHandler = require('./messageHandler.js');
 
 var getPopulation = async function(world, pgClient){
 	let response = []
@@ -105,6 +106,12 @@ function normalize(name){
 
 module.exports = {
 	lookup: async function(server, pgClient){
+		if(messageHandler.badQuery(server)){
+			return new Promise(function(resolve, reject){
+                reject("Server search contains disallowed characters");
+            })
+		}
+
 		let world = nameToWorld(server);
 		let normalized = normalize(server);
 		if(world == null){
