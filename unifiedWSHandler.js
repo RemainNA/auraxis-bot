@@ -41,10 +41,10 @@ environmentToTable = function(environment){
 
 logEvent = async function(payload, environment, pgClient, discordClient){
     let uri = 'https://census.daybreakgames.com/s:'+process.env.serviceID+'/get/'+environment+'/character/'+payload.character_id+'?c:resolve=outfit_member';
-    let response = await got(uri).json();
     if(payload.event_name == "PlayerLogout"){
         recordLogout(payload, pgClient);
     }
+    let response = await got(uri).json();
     if(typeof(response.character_list) === 'undefined'){
         return new Promise(function(resolve, reject){
             reject(null);
