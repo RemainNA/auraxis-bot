@@ -62,7 +62,7 @@ client.on('ready', () => {
 			validate.validate(SQLclient);
 			setInterval(function () { 
 				validate.validate(SQLclient);
-			}, 1800000); //Run validate every 30 minutes
+			}, 3600000); //Run validate every hour
 		}
 	}
 

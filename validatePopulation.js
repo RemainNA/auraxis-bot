@@ -36,7 +36,6 @@ module.exports = {
 			return;
 		}
 		running = true;
-		console.log("start", new Date().toLocaleString());
 		let res = await pgClient.query("SELECT * FROM population;");
 		for(let row of res.rows){
 			let platform = "ps2:v2";
@@ -55,7 +54,6 @@ module.exports = {
 				console.log(err);
 				if(err == "service unavailable"){
 					running = false;
-					console.log("finish, unavailable", new Date().toLocaleString());
 					return;
 				}
 			}}
@@ -69,7 +67,6 @@ module.exports = {
 					})
 			}
 		}
-		console.log("finish", new Date().toLocaleString());
 		running = false;
 	}
 }
