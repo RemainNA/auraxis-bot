@@ -180,6 +180,41 @@
         "description": "Spitfire Auto-Turrets are placed by engineers and automatically engage hostile infantry within 50 meters.",
         "name": "Spitfire Auto-Turret"
     },
+    "2129": {
+        "description": "An experimental recon vehicle with hover capabilities, allowing it to quickly traverse all types of terrain.",
+        "image_id": "92337",
+        "name": "Javelin"
+    },
+    "2130": {
+        "description": "The Sunderer is a large transport capable of holding 12 soldiers.  It can also be outfitted with several support functions such as a mobile respawn station, vehicle repair or vehicle ammo resupply.",
+        "image_id": "4002",
+        "name": "Reclaimed Sunderer"
+    },
+    "2131": {
+        "description": "The Galaxy is an air transport that can be used to hot drop up to 11 soldiers.  It has four weapon mounts that can be used for defense or outfitted into a gunship role.",
+        "image_id": "3978",
+        "name": "Reclaimed Galaxy"
+    },
+    "2132": {
+        "description": "The Valkyrie is a six person aircraft used for close air support and transportation. It is crewed by a pilot and a forward gunner with room for four passengers that are able to use their personal equipment while in flight.",
+        "image_id": "79698",
+        "name": "Reclaimed Valkyrie"
+    },
+    "2133": {
+        "description": "The Magrider is a hover tank used exclusively by the Vanu Sovereignty.  Its hover capabilities allow it ability strafe and climb more types of terrain beyond other tanks.",
+        "image_id": "3987",
+        "name": "Reclaimed Magrider"
+    },
+    "2134": {
+        "description": "The Vanguard is a sturdy tank used exclusively by the New Conglomerate.  The vanguard favors heavier front armor compared to other tanks, but this comes at the cost of speed.",
+        "image_id": "4005",
+        "name": "Reclaimed Vanguard"
+    },
+    "2135": {
+        "description": "The Prowler is a versatile tank used exclusively by the Terran Republic.  It boasts a higher top speed and its twin barrel cannons are capable of inflicting damage quicker than the other tanks.",
+        "image_id": "3993",
+        "name": "Reclaimed Prowler"
+    },
     "3": {
         "description": "The Lightning is a light one man tank.  The Lightning can be outfitted with various types of turrets allowing it to fill anti-air and anti-armor roles.",
         "image_id": "3984",

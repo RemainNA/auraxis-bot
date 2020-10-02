@@ -617,7 +617,7 @@
     "236000": {
         "continent": "8",
         "name": "Grey Heron Shipping",
-        "type": "Small Outpost"
+        "type": "Large Outpost"
     },
     "237": {
         "continent": "2",
@@ -666,7 +666,7 @@
     },
     "242000": {
         "continent": "8",
-        "name": "Geological Survey Camp",
+        "name": "Eastwake Harborage",
         "type": "Small Outpost"
     },
     "243": {
@@ -861,7 +861,7 @@
     },
     "255010": {
         "continent": "8",
-        "name": "Mani Tower",
+        "name": "Mani Processing Plant",
         "type": "Small Outpost"
     },
     "255020": {
@@ -876,8 +876,8 @@
     },
     "256000": {
         "continent": "8",
-        "name": "Nott",
-        "type": "Amp Station"
+        "name": "Nott Communications",
+        "type": "Small Outpost"
     },
     "256010": {
         "continent": "8",
@@ -891,13 +891,13 @@
     },
     "256030": {
         "continent": "8",
-        "name": "Nott Communications",
+        "name": "Genudine Gardens",
         "type": "Small Outpost"
     },
     "257000": {
         "continent": "8",
         "name": "Ymir",
-        "type": "Bio Lab"
+        "type": "Construction Outpost"
     },
     "257010": {
         "continent": "8",
@@ -916,7 +916,7 @@
     },
     "258000": {
         "continent": "8",
-        "name": "Esamir North Western Warpgate",
+        "name": "Esamir Northern Warpgate",
         "type": "Warpgate"
     },
     "259000": {
@@ -1504,6 +1504,31 @@
         "name": "Untapped Reservoir",
         "type": "Construction Outpost"
     },
+    "400311": {
+        "continent": "8",
+        "name": "Andvari Ruins",
+        "type": "Construction Outpost"
+    },
+    "400314": {
+        "continent": "8",
+        "name": "Baldur",
+        "type": "Amp Station"
+    },
+    "400315": {
+        "continent": "8",
+        "name": "Vidar Observation Site",
+        "type": "Construction Outpost"
+    },
+    "400316": {
+        "continent": "8",
+        "name": "Excavion DS-01E",
+        "type": "Large Outpost"
+    },
+    "400317": {
+        "continent": "8",
+        "name": "Jord",
+        "type": "Amp Station"
+    },
     "4010": {
         "continent": "2",
         "name": "Allatum Research Lab",
@@ -1607,7 +1632,7 @@
     "6500": {
         "continent": "2",
         "name": "The Stronghold",
-        "type": "Small Outpost"
+        "type": "Large Outpost"
     },
     "7000": {
         "continent": "2",

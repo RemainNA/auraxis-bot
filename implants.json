@@ -15,6 +15,10 @@
         "5": "Restocks one tick of ammunition for all infantry weapons and the weapons of nearby vehicles you own every 60 seconds.<font color=\"#dc9c36\"> Works in vehicles. MAX units can equip.</font>",
         "image": "87452"
     },
+    "Analysis HUD": {
+        "desc": "While equipped, the player will be able to locate campaign targets from much further away. <font color=\"#dc9c36\">MAX units can equip. Does not work in vehicles. This item expires at the end of the Campaign.</font>",
+        "image": "87795"
+    },
     "Assassin": {
         "1": "Kills from greater than 150 meters will clear spot checks on you, and prevent spotting attempts on you for one second. <font color=\"#dc9c36\">Does not clear spot checks on vehicles.</font>",
         "2": "Kills from greater than 125 meters will clear spot checks on you, and prevent spotting attempts on you for one second. <font color=\"#dc9c36\">Does not clear spot checks on vehicles.</font>",
@@ -156,11 +160,11 @@
         "image": "89037"
     },
     "Fortify": {
-        "1": "Interacting with a control point will increase your maximum shield health by 100 for 15 seconds. <font color=\"#dc9c36\">15 second cooldown on interaction.</font>",
-        "2": "Interacting with a control point will increase your maximum shield health by 120 for 15 seconds. <font color=\"#dc9c36\">15 second cooldown on interaction.</font>",
-        "3": "Interacting with a control point will increase your maximum shield health by 150 for 15 seconds. <font color=\"#dc9c36\">15 second cooldown on interaction.</font>",
-        "4": "Interacting with a control point will increase your maximum shield health by 200 for 15 seconds. <font color=\"#dc9c36\">15 second cooldown on interaction.</font>",
-        "5": "Interacting with a control point will increase your maximum shield health by 200 for 15 seconds. Additionally, your shields regenerate 13.33 health per second for the duration of the buff. <font color=\"#dc9c36\">15 second cooldown on interaction.</font>",
+        "1": "Standing still for 4 seconds provides you with 20% small arms resistance to bodyshots until you start moving. <font color=\"#dc9c36\">Does not stack with Nanoweave Armor. Inactive in vehicles.</font>",
+        "2": "Standing still for 3.5 seconds provides you with 20% small arms resistance to bodyshots until you start moving. <font color=\"#dc9c36\">Does not stack with Nanoweave Armor. Inactive in vehicles.</font>",
+        "3": "Standing still for 2.75 seconds provides you with 20% small arms resistance to bodyshots until you start moving. <font color=\"#dc9c36\">Does not stack with Nanoweave Armor. Inactive in vehicles.</font>",
+        "4": "Standing still for 2 seconds provides you with 20% small arms resistance to bodyshots until you start moving. <font color=\"#dc9c36\">Does not stack with Nanoweave Armor. Inactive in vehicles.</font>",
+        "5": "Standing still for 2 seconds provides you with 20% small arms resistance to bodyshots, and 50% resistance to common explosives until you start moving. <font color=\"#dc9c36\">Does not stack with Nanoweave or Flak Armor. Inactive in vehicles.</font>",
         "image": "88208"
     },
     "Gunslinger": {

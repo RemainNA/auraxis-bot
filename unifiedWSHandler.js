@@ -367,9 +367,23 @@ var objectEquality = function(a, b){
     return false
 }
 
+var ps4WebRequest = function(facilityID, environment){
+    if(environment == 'ps2:v2'){
+        return false; // No need for web requests on PC
+    }
+    var bases = require('./bases.json');
+    if(typeof(bases[facilityID]) === 'undefined'){
+        return true; // If the base cannot be found, make a request
+    }
+    if(bases[facilityID].continent == '8'){
+        return true; //If it is a ps4 base on Esamir, check for correct info
+    }
+    return false; // Else stored info is ok
+}
+
 var baseInfo = async function(facilityID, environment){
     var bases = require('./bases.json');
-    if(typeof(bases[facilityID]) !== 'undefined'){
+    if(typeof(bases[facilityID]) !== 'undefined' && !ps4WebRequest(facilityID, environment)){
         return new Promise(function(resolve, reject){
             resolve(bases[facilityID]);
         })

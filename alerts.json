@@ -1,334 +1,334 @@
 {
-  "1": {
-      "description": "Capture Indar within the time limit",
-      "name": "Feeling the Heat"
-  },
-  "10": {
-      "description": "Capture and hold all 3 Biolabs on Indar",
-      "name": "Dome Domination"
-  },
-  "106": {
-      "description": "Capture bases and kill enemies to earn points.",
-      "name": "Conquest"
-  },
-  "11": {
-      "description": "Capture and hold all 3 Tech Plants on Indar",
-      "name": "Technological Advancement"
-  },
-  "12": {
-      "description": "Capture and hold all 3 Amp Stations on Indar",
-      "name": "Power Rush"
-  },
-  "123": {
-      "description": "Control territory to lock Indar",
-      "name": "Indar Superiority"
-  },
-  "124": {
-      "description": "Control territory to lock Indar",
-      "name": "Indar Enlightenment"
-  },
-  "125": {
-      "description": "Control territory to lock Indar",
-      "name": "Indar Liberation"
-  },
-  "126": {
-      "description": "Control territory to lock Esamir",
-      "name": "Esamir Superiority"
-  },
-  "127": {
-      "description": "Control territory to lock Esamir",
-      "name": "Esamir Enlightenment"
-  },
-  "128": {
-      "description": "Control territory to lock Esamir",
-      "name": "Esamir Liberation"
-  },
-  "129": {
-      "description": "Control territory to lock Hossin",
-      "name": "Hossin Superiority"
-  },
-  "13": {
-      "description": "Capture and hold all 3 Biolabs on Esamir",
-      "name": "Dome Domination"
-  },
-  "130": {
-      "description": "Control territory to lock Hossin",
-      "name": "Hossin Enlightenment"
-  },
-  "131": {
-      "description": "Control territory to lock Hossin",
-      "name": "Hossin Liberation"
-  },
-  "132": {
-      "description": "Control territory to lock Amerish",
-      "name": "Amerish Superiority"
-  },
-  "133": {
-      "description": "Control territory to lock Amerish",
-      "name": "Amerish Enlightenment"
-  },
-  "134": {
-      "description": "Control territory to lock Amerish",
-      "name": "Amerish Liberation"
-  },
-  "14": {
-      "description": "Capture and hold all 3 Amp Stations on Esamir",
-      "name": "Power Rush"
-  },
-  "147": {
-      "description": "Control territory to lock Indar",
-      "name": "Indar Superiority"
-  },
-  "148": {
-      "description": "Control territory to lock Indar",
-      "name": "Indar Enlightenment"
-  },
-  "149": {
-      "description": "Control territory to lock Indar",
-      "name": "Indar Liberation"
-  },
-  "150": {
-      "description": "Control territory to lock Esamir",
-      "name": "Esamir Superiority"
-  },
-  "151": {
-      "description": "Control territory to lock Esamir",
-      "name": "Esamir Enlightenment"
-  },
-  "152": {
-      "description": "Control territory to lock Esamir",
-      "name": "Esamir Liberation"
-  },
-  "153": {
-      "description": "Control territory to lock Hossin",
-      "name": "Hossin Superiority"
-  },
-  "154": {
-      "description": "Control territory to lock Hossin",
-      "name": "Hossin Enlightenment"
-  },
-  "155": {
-      "description": "Control territory to lock Hossin",
-      "name": "Hossin Liberation"
-  },
-  "156": {
-      "description": "Control territory to lock Amerish",
-      "name": "Amerish Superiority"
-  },
-  "157": {
-      "description": "Control territory to lock Amerish",
-      "name": "Amerish Enlightenment"
-  },
-  "158": {
-      "description": "Control territory to lock Amerish",
-      "name": "Amerish Liberation"
-  },
-  "159": {
-      "description": "Additional territories are coming back online.",
-      "name": "Amerish Warpgates Stabilizing"
-  },
-  "16": {
-      "description": "Capture and hold all 3 Biolabs on Hossin",
-      "name": "Dome Domination"
-  },
-  "160": {
-      "description": "Additional territories are coming back online.",
-      "name": "Esamir Warpgates Stabilizing"
-  },
-  "161": {
-      "description": "Additional territories are coming back online.",
-      "name": "Indar Warpgates Stabilizing"
-  },
-  "162": {
-      "description": "Additional territories are coming back online.",
-      "name": "Hossin Warpgates Stabilizing"
-  },
-  "164": {
-      "description": "Capture and hold all 3 Tech Plants on Esamir",
-      "name": "Technological Advancement"
-  },
-  "167": {
-      "description": "Take readings of aerial anomalies",
-      "name": "Aerial Anomalies"
-  },
-  "168": {
-      "description": "Gather Tempest from the meteor site and return it to your Warpgate.",
-      "name": "Eye of the Storm"
-  },
-  "17": {
-      "description": "Capture and hold all 3 Tech Plants on Hossin",
-      "name": "Technological Advancement"
-  },
-  "170": {
-      "description": "A deadly meteor shower is wreaking havoc across the continent.",
-      "name": "The Bending"
-  },
-  "172": {
-      "description": "Take readings of aerial anomalies",
-      "name": "Aerial Anomalies"
-  },
-  "173": {
-      "description": "Take readings of aerial anomalies",
-      "name": "Aerial Anomalies"
-  },
-  "174": {
-      "description": "Take readings of aerial anomalies",
-      "name": "Aerial Anomalies"
-  },
-  "175": {
-      "description": "Take readings of aerial anomalies",
-      "name": "Race for Readings"
-  },
-  "176": {
-      "description": "Control territory to lock Esamir",
-      "name": "Esamir Unstable Meltdown"
-  },
-  "177": {
-      "description": "Control territory to lock Hossin",
-      "name": "Hossin Unstable Meltdown"
-  },
-  "178": {
-      "description": "Control territory to lock Amerish",
-      "name": "Amerish Unstable Meltdown"
-  },
-  "179": {
-      "description": "Control territory to lock Indar",
-      "name": "Indar Unstable Meltdown"
-  },
-  "18": {
-      "description": "Capture and hold all 3 Amp Stations on Hossin",
-      "name": "Power Rush"
-  },
-  "180": {
-      "description": "Capture and hold the most Large Outposts",
-      "name": "Gaining Ground"
-  },
-  "181": {
-      "description": "Capture and hold the most Large Outposts",
-      "name": "Gaining Ground"
-  },
-  "182": {
-      "description": "Capture and hold the most Large Outposts",
-      "name": "Gaining Ground"
-  },
-  "183": {
-      "description": "Capture and hold the most Large Outposts",
-      "name": "Gaining Ground"
-  },
-  "186": {
-      "description": "Control territory to lock Esamir",
-      "name": "Esamir Unstable Meltdown"
-  },
-  "187": {
-      "description": "Control territory to lock Hossin",
-      "name": "Hossin Unstable Meltdown"
-  },
-  "188": {
-      "description": "Control territory to lock Amerish",
-      "name": "Amerish Unstable Meltdown"
-  },
-  "189": {
-      "description": "Control territory to lock Indar",
-      "name": "Indar Unstable Meltdown"
-  },
-  "190": {
-      "description": "Control territory to lock Esamir",
-      "name": "Esamir Unstable Meltdown"
-  },
-  "191": {
-      "description": "Control territory to lock Hossin",
-      "name": "Hossin Unstable Meltdown"
-  },
-  "192": {
-      "description": "Control territory to lock Amerish",
-      "name": "Amerish Unstable Meltdown"
-  },
-  "193": {
-      "description": "Control territory to lock Indar",
-      "name": "Indar Unstable Meltdown"
-  },
-  "194": {
-      "description": "Deposit Cortium into the refinery",
-      "name": "Refine and Refuel"
-  },
-  "195": {
-      "description": "Deposit Cortium into the refinery",
-      "name": "Refine and Refuel"
-  },
-  "196": {
-      "description": "Deposit Cortium into the refinery",
-      "name": "Refine and Refuel"
-  },
-  "197": {
-      "description": "Deposit Cortium into the refinery",
-      "name": "Refine and Refuel"
-  },
-  "198": {
-      "description": "Kill as many enemies as possible",
-      "name": "Maximum Pressure"
-  },
-  "199": {
-      "description": "Kill as many enemies as possible",
-      "name": "Maximum Pressure"
-  },
-  "2": {
-      "description": "Capture Esamir within the time limit",
-      "name": "Cold War"
-  },
-  "200": {
-      "description": "Kill as many enemies as possible",
-      "name": "Maximum Pressure"
-  },
-  "201": {
-      "description": "Kill as many enemies as possible",
-      "name": "Maximum Pressure"
-  },
-  "204": {
-      "description": "Capture Active Vanu Relics",
-      "name": "OUTFIT WARS"
-  },
-  "205": {
-      "description": "Prepare for the Outfit War!",
-      "name": "OUTFIT WARS (pre-match)"
-  },
-  "206": {
-      "description": "Active Relics Changing",
-      "name": "OUTFIT WARS"
-  },
-  "207": {
-      "description": "Earn 750 points or have the most when time expires.",
-      "name": "OUTFIT WARS"
-  },
-  "208": {
-      "description": "Control territory to lock Koltyr",
-      "name": "Koltyr Liberation"
-  },
-  "209": {
-      "description": "Control territory to lock Koltyr",
-      "name": "Koltyr Superiority"
-  },
-  "210": {
-      "description": "Control territory to lock Koltyr",
-      "name": "Koltyr Enlightenment"
-  },
-  "3": {
-      "description": "Capture Amerish within the time limit",
-      "name": "Seeing Green"
-  },
-  "4": {
-      "description": "Capture Hossin within the time limit",
-      "name": "Marsh Madness"
-  },
-  "7": {
-      "description": "Capture and hold all 3 Biolabs on Amerish",
-      "name": "Dome Domination"
-  },
-  "8": {
-      "description": "Capture and hold all 3 Tech Plants on Amerish",
-      "name": "Technological Advancement"
-  },
-  "9": {
-      "description": "Capture and hold all 3 Amp Stations on Amerish",
-      "name": "Power Rush"
-  }
+    "1": {
+        "description": "Capture Indar within the time limit",
+        "name": "Feeling the Heat"
+    },
+    "10": {
+        "description": "Capture and hold all 3 Biolabs on Indar",
+        "name": "Dome Domination"
+    },
+    "106": {
+        "description": "Capture bases and kill enemies to earn points.",
+        "name": "Conquest"
+    },
+    "11": {
+        "description": "Capture and hold all 3 Tech Plants on Indar",
+        "name": "Technological Advancement"
+    },
+    "12": {
+        "description": "Capture and hold all 3 Amp Stations on Indar",
+        "name": "Power Rush"
+    },
+    "123": {
+        "description": "Control territory to lock Indar",
+        "name": "Indar Superiority"
+    },
+    "124": {
+        "description": "Control territory to lock Indar",
+        "name": "Indar Enlightenment"
+    },
+    "125": {
+        "description": "Control territory to lock Indar",
+        "name": "Indar Liberation"
+    },
+    "126": {
+        "description": "Control territory to lock Esamir",
+        "name": "Esamir Superiority"
+    },
+    "127": {
+        "description": "Control territory to lock Esamir",
+        "name": "Esamir Enlightenment"
+    },
+    "128": {
+        "description": "Control territory to lock Esamir",
+        "name": "Esamir Liberation"
+    },
+    "129": {
+        "description": "Control territory to lock Hossin",
+        "name": "Hossin Superiority"
+    },
+    "13": {
+        "description": "Capture and hold all 3 Biolabs on Esamir",
+        "name": "Dome Domination"
+    },
+    "130": {
+        "description": "Control territory to lock Hossin",
+        "name": "Hossin Enlightenment"
+    },
+    "131": {
+        "description": "Control territory to lock Hossin",
+        "name": "Hossin Liberation"
+    },
+    "132": {
+        "description": "Control territory to lock Amerish",
+        "name": "Amerish Superiority"
+    },
+    "133": {
+        "description": "Control territory to lock Amerish",
+        "name": "Amerish Enlightenment"
+    },
+    "134": {
+        "description": "Control territory to lock Amerish",
+        "name": "Amerish Liberation"
+    },
+    "14": {
+        "description": "Capture and hold all 3 Amp Stations on Esamir",
+        "name": "Power Rush"
+    },
+    "147": {
+        "description": "Control territory to lock Indar",
+        "name": "Indar Superiority"
+    },
+    "148": {
+        "description": "Control territory to lock Indar",
+        "name": "Indar Enlightenment"
+    },
+    "149": {
+        "description": "Control territory to lock Indar",
+        "name": "Indar Liberation"
+    },
+    "150": {
+        "description": "Control territory to lock Esamir",
+        "name": "Esamir Superiority"
+    },
+    "151": {
+        "description": "Control territory to lock Esamir",
+        "name": "Esamir Enlightenment"
+    },
+    "152": {
+        "description": "Control territory to lock Esamir",
+        "name": "Esamir Liberation"
+    },
+    "153": {
+        "description": "Control territory to lock Hossin",
+        "name": "Hossin Superiority"
+    },
+    "154": {
+        "description": "Control territory to lock Hossin",
+        "name": "Hossin Enlightenment"
+    },
+    "155": {
+        "description": "Control territory to lock Hossin",
+        "name": "Hossin Liberation"
+    },
+    "156": {
+        "description": "Control territory to lock Amerish",
+        "name": "Amerish Superiority"
+    },
+    "157": {
+        "description": "Control territory to lock Amerish",
+        "name": "Amerish Enlightenment"
+    },
+    "158": {
+        "description": "Control territory to lock Amerish",
+        "name": "Amerish Liberation"
+    },
+    "159": {
+        "description": "Additional territories are coming back online.",
+        "name": "Amerish Warpgates Stabilizing"
+    },
+    "16": {
+        "description": "Capture and hold all 3 Biolabs on Hossin",
+        "name": "Dome Domination"
+    },
+    "160": {
+        "description": "Additional territories are coming back online.",
+        "name": "Esamir Warpgates Stabilizing"
+    },
+    "161": {
+        "description": "Additional territories are coming back online.",
+        "name": "Indar Warpgates Stabilizing"
+    },
+    "162": {
+        "description": "Additional territories are coming back online.",
+        "name": "Hossin Warpgates Stabilizing"
+    },
+    "164": {
+        "description": "Capture and hold all 3 Tech Plants on Esamir",
+        "name": "Technological Advancement"
+    },
+    "167": {
+        "description": "Take readings of aerial anomalies",
+        "name": "Aerial Anomalies"
+    },
+    "168": {
+        "description": "Gather Tempest from the meteor site and return it to your Warpgate.",
+        "name": "Eye of the Storm"
+    },
+    "17": {
+        "description": "Capture and hold all 3 Tech Plants on Hossin",
+        "name": "Technological Advancement"
+    },
+    "170": {
+        "description": "A deadly meteor shower is wreaking havoc across the continent.",
+        "name": "The Bending"
+    },
+    "172": {
+        "description": "Take readings of aerial anomalies",
+        "name": "Aerial Anomalies"
+    },
+    "173": {
+        "description": "Take readings of aerial anomalies",
+        "name": "Aerial Anomalies"
+    },
+    "174": {
+        "description": "Take readings of aerial anomalies",
+        "name": "Aerial Anomalies"
+    },
+    "175": {
+        "description": "Take readings of aerial anomalies",
+        "name": "Race for Readings"
+    },
+    "176": {
+        "description": "Control territory to lock Esamir",
+        "name": "Esamir Unstable Meltdown"
+    },
+    "177": {
+        "description": "Control territory to lock Hossin",
+        "name": "Hossin Unstable Meltdown"
+    },
+    "178": {
+        "description": "Control territory to lock Amerish",
+        "name": "Amerish Unstable Meltdown"
+    },
+    "179": {
+        "description": "Control territory to lock Indar",
+        "name": "Indar Unstable Meltdown"
+    },
+    "18": {
+        "description": "Capture and hold all 3 Amp Stations on Hossin",
+        "name": "Power Rush"
+    },
+    "180": {
+        "description": "Capture and hold the most Large Outposts",
+        "name": "Gaining Ground"
+    },
+    "181": {
+        "description": "Capture and hold the most Large Outposts",
+        "name": "Gaining Ground"
+    },
+    "182": {
+        "description": "Capture and hold the most Large Outposts",
+        "name": "Gaining Ground"
+    },
+    "183": {
+        "description": "Capture and hold the most Large Outposts",
+        "name": "Gaining Ground"
+    },
+    "186": {
+        "description": "Control territory to lock Esamir",
+        "name": "Esamir Unstable Meltdown"
+    },
+    "187": {
+        "description": "Control territory to lock Hossin",
+        "name": "Hossin Unstable Meltdown"
+    },
+    "188": {
+        "description": "Control territory to lock Amerish",
+        "name": "Amerish Unstable Meltdown"
+    },
+    "189": {
+        "description": "Control territory to lock Indar",
+        "name": "Indar Unstable Meltdown"
+    },
+    "190": {
+        "description": "Control territory to lock Esamir",
+        "name": "Esamir Unstable Meltdown"
+    },
+    "191": {
+        "description": "Control territory to lock Hossin",
+        "name": "Hossin Unstable Meltdown"
+    },
+    "192": {
+        "description": "Control territory to lock Amerish",
+        "name": "Amerish Unstable Meltdown"
+    },
+    "193": {
+        "description": "Control territory to lock Indar",
+        "name": "Indar Unstable Meltdown"
+    },
+    "194": {
+        "description": "Deposit Cortium into the refinery",
+        "name": "Refine and Refuel"
+    },
+    "195": {
+        "description": "Deposit Cortium into the refinery",
+        "name": "Refine and Refuel"
+    },
+    "196": {
+        "description": "Deposit Cortium into the refinery",
+        "name": "Refine and Refuel"
+    },
+    "197": {
+        "description": "Deposit Cortium into the refinery",
+        "name": "Refine and Refuel"
+    },
+    "198": {
+        "description": "Kill as many enemies as possible",
+        "name": "Maximum Pressure"
+    },
+    "199": {
+        "description": "Kill as many enemies as possible",
+        "name": "Maximum Pressure"
+    },
+    "2": {
+        "description": "Capture Esamir within the time limit",
+        "name": "Cold War"
+    },
+    "200": {
+        "description": "Kill as many enemies as possible",
+        "name": "Maximum Pressure"
+    },
+    "201": {
+        "description": "Kill as many enemies as possible",
+        "name": "Maximum Pressure"
+    },
+    "204": {
+        "description": "Capture Active Vanu Relics",
+        "name": "OUTFIT WARS"
+    },
+    "205": {
+        "description": "Prepare for the Outfit War!",
+        "name": "OUTFIT WARS (pre-match)"
+    },
+    "206": {
+        "description": "Active Relics Changing",
+        "name": "OUTFIT WARS"
+    },
+    "207": {
+        "description": "Earn 750 points or have the most when time expires.",
+        "name": "OUTFIT WARS"
+    },
+    "208": {
+        "description": "Control territory to lock Koltyr",
+        "name": "Koltyr Liberation"
+    },
+    "209": {
+        "description": "Control territory to lock Koltyr",
+        "name": "Koltyr Superiority"
+    },
+    "210": {
+        "description": "Control territory to lock Koltyr",
+        "name": "Koltyr Enlightenment"
+    },
+    "3": {
+        "description": "Capture Amerish within the time limit",
+        "name": "Seeing Green"
+    },
+    "4": {
+        "description": "Capture Hossin within the time limit",
+        "name": "Marsh Madness"
+    },
+    "7": {
+        "description": "Capture and hold all 3 Biolabs on Amerish",
+        "name": "Dome Domination"
+    },
+    "8": {
+        "description": "Capture and hold all 3 Tech Plants on Amerish",
+        "name": "Technological Advancement"
+    },
+    "9": {
+        "description": "Capture and hold all 3 Amp Stations on Amerish",
+        "name": "Power Rush"
+    }
 }
