@@ -3,21 +3,18 @@
 const Discord = require('discord.js');
 var got = require('got');
 
-var info = async function(environment, status=false){
-	let uri = 'http://census.daybreakgames.com/s:'+process.env.serviceID+'/get/'+environment+'/world?c:limit=10&c:lang=en'
-	if(typeof(status) !== 'object'){
-		status = {
-			'Connery': 'Unknown',
-			'Miller': 'Unknown',
-			'Cobalt': 'Unknown',
-			'Emerald': 'Unknown',
-			'SolTech': 'Unknown',
-			'Jaeger': 'Unknown',
-			'Genudine': 'Unknown',
-			'Ceres': 'Unknown'
-		}
+var info = async function(){
+	let uri = 'http://census.daybreakgames.com/s:'+process.env.serviceID+'/get/global/game_server_status?game_code=ps2&c:limit=100'
+	let status = {
+		'Connery': 'Unknown',
+		'Miller': 'Unknown',
+		'Cobalt': 'Unknown',
+		'Emerald': 'Unknown',
+		'SolTech': 'Unknown',
+		'Jaeger': 'Unknown',
+		'Genudine': 'Unknown',
+		'Ceres': 'Unknown'
 	}
-
 	try{
 		response = await got(uri).json(); 
 	}
@@ -38,19 +35,38 @@ var info = async function(environment, status=false){
             reject(response.error);
         })
     }
-    if(typeof(response.world_list) === 'undefined'){
+    if(typeof(response.game_server_status_list) === 'undefined'){
         return new Promise(function(resolve, reject){
             reject("API Error");
         })
 	}
 	
-	let data = response.world_list;
+	let data = response.game_server_status_list;
 	for(let world of data){
-		if(typeof(status[world.name.en]) === 'undefined'){
-			continue;
-			// This pretty much just serves to ignore Briggs
+		if(world.name.toLowerCase().includes("connery")){
+			status["Connery"] = world.last_reported_state;
 		}
-		status[world.name.en] = world.state;
+		else if(world.name.toLowerCase().includes("miller")){
+			status["Miller"] = world.last_reported_state;
+		}
+		else if(world.name.toLowerCase().includes("cobalt")){
+			status["Cobalt"] = world.last_reported_state;
+		}
+		else if(world.name.toLowerCase().includes("emerald")){
+			status["Emerald"] = world.last_reported_state;
+		}
+		else if(world.name.toLowerCase().includes("soltech")){
+			status["SolTech"] = world.last_reported_state;
+		}
+		else if(world.name.toLowerCase().includes("jaegar")){
+			status["Jaegar"] = world.last_reported_state;
+		}
+		else if(world.name.toLowerCase().includes("genudine")){
+			status["Genudine"] = world.last_reported_state;
+		}
+		else if(world.name.toLowerCase().includes("ceres")){
+			status["Ceres"] = world.last_reported_state;
+		}
 	}
 
 	return new Promise(function(resolve, reject){
@@ -61,27 +77,12 @@ var info = async function(environment, status=false){
 module.exports = {
 	servers: async function(){
 		let status = false
-		let errors = 0;
 		try{
-			status = await info('ps2:v2');
+			status = await info();
 		}
 		catch(err){
-			errors += 1;
-		}
-		try{
-			status = await info('ps2ps4us:v2',status);}
-		catch(err){
-			errors += 1;
-		}
-		try{
-			status = await info('ps2ps4eu:v2', status);
-		}
-		catch(err){
-			errors += 1;
-		}
-		if(errors == 3){
 			return new Promise(function(resolve, reject){
-				reject("An error occurred while retrieving server status");
+				reject(err);
 			})
 		}
 		let resEmbed = new Discord.MessageEmbed();
