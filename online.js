@@ -91,6 +91,14 @@ var onlineInfo = async function(oTag, platform){
 	})
 }
 
+let totalLength = function(arr){
+	let len = 0;
+	for(i in arr){
+		len += arr.length+1;
+	}
+	return len;
+}
+
 module.exports = {
 	online: async function(oTag, platform){
 		if(messageHandler.badQuery(oTag)){
@@ -144,11 +152,11 @@ module.exports = {
 		for(let i = 0; i < 8; i++){
 			if(oInfo.onlineMembers[i].length > 0){
 				anyOn = true;
-				try{
-					resEmbed.addField(oInfo.rankNames[i], oInfo.onlineMembers[i], true);
+				if(totalLength(oInfo.onlineMembers[i]) <= 1024){
+					resEmbed.addField(oInfo.rankNames[i]+" ("+oInfo.onlineMembers[i].length+")", oInfo.onlineMembers[i], true);
 				}
-				catch{
-					resEmbed.addField(oInfo.rankNames[i], "Too many to display", true);
+				else{
+					resEmbed.addField(oInfo.rankNames[i]+" ("+oInfo.onlineMembers[i].length+")", "Too many to display", true);
 				}
 				
 			}
