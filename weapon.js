@@ -104,16 +104,17 @@ module.exports = {
 				resEmbed.addField("Magazine", wInfo.clip, true);
 			}
 			if(typeof(wInfo.reload) !== 'undefined' && wInfo.reload != 0){
-				resEmbed.addField("Reload", wInfo.reload/1000+"s", true);
+				if(typeof(wInfo.chamber) !== 'undefined' && wInfo.chamber != 0){
+					resEmbed.addField("Reload", (wInfo.reload/1000).toPrecision(3)+"s Short\n "+(wInfo.reload/1000+wInfo.chamber/1000).toPrecision(3)+"s Long", true);
+				}
+				else{
+					// Some weapons with magazines don't have long/short reloads, e.g. P2-120 HEAT
+					resEmbed.addField("Reload", wInfo.reload/1000+"s", true);
+				}
 			}
 		}
-		else{
-			if(typeof(wInfo.chamber) !== 'undefined'){
-				resEmbed.addField("Reload", (wInfo.reload/1000).toPrecision(3)+" s Short\n "+(wInfo.reload/1000+wInfo.chamber/1000).toPrecision(3)+" s Long", true);
-			}
-			else if(typeof(wInfo.reload) !== 'undefined' && wInfo.reload != 0){
-				resEmbed.addField("Reload", wInfo.reload/1000+"s", true);
-			}
+		else if(typeof(wInfo.reload) !== 'undefined' && wInfo.reload != 0){
+			resEmbed.addField("Reload", wInfo.reload/1000+"s", true);
 		}
 
 		
@@ -217,7 +218,7 @@ module.exports = {
 
 		if(CoFUpdated(hipCOFMin) || CoFUpdated(adsCOFMin)){
 			if(standingOnly(hipCOFMin) || standingOnly(adsCOFMin)){
-				resEmbed.addField('\u200b', '\u200b', true)
+				resEmbed.addField('\u200b', '\u200b')
 			}
 			else{
 				resEmbed.addField("-------------------", "*CoF shown Stand/Crouch/Walk/Sprint/Fall/Crouch Walk*");
