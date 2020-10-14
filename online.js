@@ -94,7 +94,7 @@ var onlineInfo = async function(oTag, platform){
 let totalLength = function(arr){
 	let len = 0;
 	for(i in arr){
-		len += arr.length+1;
+		len += arr[i].length+1;
 	}
 	return len;
 }
@@ -151,7 +151,6 @@ module.exports = {
 		}
 		for(let i = 0; i < 8; i++){
 			if(oInfo.onlineMembers[i].length > 0){
-				anyOn = true;
 				if(totalLength(oInfo.onlineMembers[i]) <= 1024){
 					resEmbed.addField(oInfo.rankNames[i]+" ("+oInfo.onlineMembers[i].length+")", oInfo.onlineMembers[i], true);
 				}
