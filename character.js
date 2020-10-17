@@ -376,6 +376,7 @@ module.exports = {
         if(cInfo.stat_history){
             resEmbed.addField('KD', Number.parseFloat(cInfo.kills/cInfo.deaths).toPrecision(3), true);
             resEmbed.addField('KPM', Number.parseFloat(cInfo.kills/cInfo.playTime).toPrecision(3), true);
+            cInfo.captures && cInfo.defends && resEmbed.addField('Siege level', Number.parseFloat((cInfo.captures/cInfo.defends)*100).toPrecision(3), true);
         }
 
         // IAHR Score
