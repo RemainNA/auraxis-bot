@@ -27938,6 +27938,28 @@
         "standingCofMax": "0",
         "standingCofMin": "0"
     },
+    "6009583": {
+        "category": "Grenade",
+        "crouchWalkingCofMax": "0.5",
+        "crouchWalkingCofMin": "0.5",
+        "crouchingCofMax": "0.5",
+        "crouchingCofMin": "0.5",
+        "description": "Who knows how these nasty pumpkin-like grenades are made, all we can tell is that they explode into an unholy fire upon detonation. <font color=\"#dc9c36\">Destroying Space Pumpkins and Galact-O-Lanterns will restock these grenades. <br><br>Limited event item.</font>",
+        "fallingCofMax": "7",
+        "fallingCofMin": "7",
+        "fireModes": [
+            "Thrown"
+        ],
+        "hipCofRecoil": "1",
+        "image_id": "88278",
+        "name": "Infernal Grenade",
+        "runningCofMax": "0.5",
+        "runningCofMin": "0.5",
+        "sprintingCofMax": "0.5",
+        "sprintingCofMin": "0.5",
+        "standingCofMax": "0.5",
+        "standingCofMin": "0.5"
+    },
     "6010": {
         "adsCofRecoil": "0",
         "adsMoveSpeed": "1",
