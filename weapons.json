@@ -18571,7 +18571,7 @@
         "heatRecoveryDelay": "750",
         "hipCofRecoil": "0",
         "image_id": "89631",
-        "indirectDamage": "25",
+        "indirectDamage": "125",
         "name": "Ectoblaster",
         "overheatPenalty": "750",
         "pelletSpread": "0",
