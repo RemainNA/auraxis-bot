@@ -32,6 +32,7 @@ var population = require('./population.js');
 var asp = require('./preASP.js');
 var initialize = require('./initializeSQL.js');
 var territory = require('./territory.js');
+var alerts = require('./alerts.js');
 var messageHandler = require('./messageHandler.js');
 var outfit = require('./outfit.js');
 var status = require('./status.js');
@@ -325,6 +326,16 @@ client.on('message', message => {
 				territory.territory(servers[x])
 					.then(res => messageHandler.send(message.channel, res, "Territory", true))
 					.catch(err => messageHandler.handleError(message.channel, err, "Territory"))
+			}
+		}
+	}
+	else if (message.content.substring(0,8).toLowerCase() == '!alerts '){
+		let servers = message.content.substring(8).toLowerCase().split(" ");
+		for(x in servers){
+			if(servers[x] != ""){
+				alerts.activeAlerts(servers[x])
+					.then(res => messageHandler.send(message.channel, res, "Alerts", true))
+					.catch(err => messageHandler.handleError(message.channel, err, "Alerts"))
 			}
 		}
 	}
