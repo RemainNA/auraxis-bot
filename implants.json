@@ -16,7 +16,7 @@
         "image": "87452"
     },
     "Analysis HUD": {
-        "desc": "While equipped, the player will be able to locate campaign targets from much further away. <font color=\"#dc9c36\">MAX units can equip. Does not work in vehicles. This item expires at the end of the Campaign.</font>",
+        "desc": "While equipped, the player will be able to locate campaign targets from much further away. <font color=\"#dc9c36\">MAX units can equip. This item expires at the end of the Campaign.</font>",
         "image": "87795"
     },
     "Assassin": {

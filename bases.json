@@ -39,11 +39,6 @@
         "name": "Amerish Eastern Warpgate",
         "type": "Warpgate"
     },
-    "202": {
-        "continent": "2",
-        "name": "NS Salvage Yard",
-        "type": "Small Outpost"
-    },
     "203": {
         "continent": "2",
         "name": "Saurva Overflow Depot",
@@ -294,11 +289,6 @@
         "name": "Crux Mining Operation",
         "type": "Large Outpost"
     },
-    "216": {
-        "continent": "2",
-        "name": "West Highlands Checkpoint",
-        "type": "Small Outpost"
-    },
     "216000": {
         "continent": "6",
         "name": "Crux Headquarters",
@@ -353,11 +343,6 @@
         "continent": "6",
         "name": "Granite Valley Garrison",
         "type": "Large Outpost"
-    },
-    "222": {
-        "continent": "2",
-        "name": "East Canyon Checkpoint",
-        "type": "Small Outpost"
     },
     "222000": {
         "continent": "6",
@@ -524,19 +509,9 @@
         "name": "Barrik Electrical Station",
         "type": "Small Outpost"
     },
-    "223": {
-        "continent": "2",
-        "name": "Abandoned NS Offices",
-        "type": "Small Outpost"
-    },
     "224": {
         "continent": "2",
         "name": "NS Material Storage",
-        "type": "Small Outpost"
-    },
-    "225": {
-        "continent": "2",
-        "name": "Sandstone Gulch Mining",
         "type": "Small Outpost"
     },
     "226": {
@@ -569,11 +544,6 @@
         "name": "Palos Solar Array",
         "type": "Small Outpost"
     },
-    "231": {
-        "continent": "2",
-        "name": "Broken Arch Road",
-        "type": "Small Outpost"
-    },
     "231000": {
         "continent": "8",
         "name": "Crystal Ridge Comm Array",
@@ -604,11 +574,6 @@
         "name": "Rust Mesa Lookout",
         "type": "Small Outpost"
     },
-    "235000": {
-        "continent": "8",
-        "name": "Stillwater Watch",
-        "type": "Small Outpost"
-    },
     "236": {
         "continent": "2",
         "name": "The Old Stockpile",
@@ -629,11 +594,6 @@
         "name": "The Traverse",
         "type": "Small Outpost"
     },
-    "238000": {
-        "continent": "8",
-        "name": "The Bulwark",
-        "type": "Small Outpost"
-    },
     "239": {
         "continent": "2",
         "name": "Highlands Substation",
@@ -649,16 +609,6 @@
         "name": "Old Shore Checkpoint",
         "type": "Small Outpost"
     },
-    "241": {
-        "continent": "2",
-        "name": "NS Research Labs",
-        "type": "Small Outpost"
-    },
-    "241000": {
-        "continent": "8",
-        "name": "Everett Supply Co.",
-        "type": "Small Outpost"
-    },
     "242": {
         "continent": "2",
         "name": "Scarred Mesa Skydock",
@@ -667,11 +617,6 @@
     "242000": {
         "continent": "8",
         "name": "Eastwake Harborage",
-        "type": "Small Outpost"
-    },
-    "243": {
-        "continent": "2",
-        "name": "Red Ridge Communications",
         "type": "Small Outpost"
     },
     "243000": {
@@ -721,7 +666,7 @@
     },
     "245000": {
         "continent": "8",
-        "name": "Snowshear Watchtower",
+        "name": "Snowshear Fort",
         "type": "Large Outpost"
     },
     "246": {
@@ -739,11 +684,6 @@
         "name": "Old Auraxium Mines",
         "type": "Small Outpost"
     },
-    "247000": {
-        "continent": "8",
-        "name": "Northpoint Station",
-        "type": "Large Outpost"
-    },
     "248": {
         "continent": "2",
         "name": "Valley Storage Yard",
@@ -759,29 +699,9 @@
         "name": "Waterson's Redemption",
         "type": "Large Outpost"
     },
-    "250": {
-        "continent": "2",
-        "name": "Blackshard Iridium Mine",
-        "type": "Small Outpost"
-    },
-    "250000": {
-        "continent": "8",
-        "name": "Jaeger's Crossing",
-        "type": "Large Outpost"
-    },
-    "251000": {
-        "continent": "8",
-        "name": "Andvari",
-        "type": "Bio Lab"
-    },
     "251010": {
         "continent": "8",
         "name": "Andvari Barracks",
-        "type": "Small Outpost"
-    },
-    "251020": {
-        "continent": "8",
-        "name": "Andvari Frozen Reservoir",
         "type": "Small Outpost"
     },
     "251030": {
@@ -794,19 +714,9 @@
         "name": "Ceres Farms",
         "type": "Small Outpost"
     },
-    "252000": {
-        "continent": "8",
-        "name": "Elli",
-        "type": "Amp Station"
-    },
     "252010": {
         "continent": "8",
         "name": "Elli Tower",
-        "type": "Small Outpost"
-    },
-    "252020": {
-        "continent": "8",
-        "name": "Elli Barracks Complex",
         "type": "Small Outpost"
     },
     "253000": {
@@ -814,59 +724,14 @@
         "name": "Freyr",
         "type": "Amp Station"
     },
-    "253010": {
-        "continent": "8",
-        "name": "Freyr Northern Barracks",
-        "type": "Small Outpost"
-    },
-    "253020": {
-        "continent": "8",
-        "name": "Freyr Geothermal Plant",
-        "type": "Small Outpost"
-    },
-    "253030": {
-        "continent": "8",
-        "name": "Freyr Network Compound",
-        "type": "Small Outpost"
-    },
-    "253040": {
-        "continent": "8",
-        "name": "Freyr Substation",
-        "type": "Small Outpost"
-    },
     "254000": {
         "continent": "8",
         "name": "Eisa",
         "type": "Tech Plant"
     },
-    "254010": {
-        "continent": "8",
-        "name": "Eisa Mountain Pass",
-        "type": "Small Outpost"
-    },
-    "254020": {
-        "continent": "8",
-        "name": "Eisa Southern Camp",
-        "type": "Small Outpost"
-    },
-    "254030": {
-        "continent": "8",
-        "name": "Eisa Mining Operation",
-        "type": "Small Outpost"
-    },
-    "255000": {
-        "continent": "8",
-        "name": "Mani",
-        "type": "Bio Lab"
-    },
     "255010": {
         "continent": "8",
         "name": "Mani Processing Plant",
-        "type": "Small Outpost"
-    },
-    "255020": {
-        "continent": "8",
-        "name": "Mani Fortress",
         "type": "Small Outpost"
     },
     "255030": {
@@ -879,16 +744,6 @@
         "name": "Nott Communications",
         "type": "Small Outpost"
     },
-    "256010": {
-        "continent": "8",
-        "name": "Nott Substation",
-        "type": "Small Outpost"
-    },
-    "256020": {
-        "continent": "8",
-        "name": "Nott Research Camp",
-        "type": "Small Outpost"
-    },
     "256030": {
         "continent": "8",
         "name": "Genudine Gardens",
@@ -898,21 +753,6 @@
         "continent": "8",
         "name": "Ymir",
         "type": "Construction Outpost"
-    },
-    "257010": {
-        "continent": "8",
-        "name": "Ymir Mine Watch",
-        "type": "Small Outpost"
-    },
-    "257020": {
-        "continent": "8",
-        "name": "Ymir Eastern Way Station",
-        "type": "Small Outpost"
-    },
-    "257030": {
-        "continent": "8",
-        "name": "Ymir Southern Reach",
-        "type": "Small Outpost"
     },
     "258000": {
         "continent": "8",
@@ -1378,11 +1218,6 @@
         "continent": "4",
         "name": "Hossin Southern Warpgate",
         "type": "Warpgate"
-    },
-    "310005": {
-        "continent": "8",
-        "name": "East River Sky Station",
-        "type": "Small Outpost"
     },
     "3201": {
         "continent": "2",
