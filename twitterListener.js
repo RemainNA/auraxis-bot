@@ -27,8 +27,9 @@ async function getAllRules() {
     }})
 
     if (response.statusCode !== 200) {
-        throw new Error(response.body);
-        return null;
+        return new Promise(function(resolve, reject){
+            reject(response.body);
+        })
     }
 
     return (response.body);
@@ -192,8 +193,8 @@ module.exports = {
 			
 			} 
 			catch (e) {
-				console.error(e);
-				process.exit(-1);
+				console.log("Twitter init issue");
+				console.log(e);
 			}
 
 			firstRun = false;
