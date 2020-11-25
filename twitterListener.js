@@ -114,7 +114,10 @@ function streamConnect(token, SQLclient, discordClient) {
 
 		
     } catch (e) {
-        // Keep alive signal received. Do nothing.
+		// Log errors, ignore heartbeats
+        if(e != '\n'){
+			console.log(data);
+		}
     }
     }).on('error', error => {
         if (error.code === 'ETIMEDOUT') {
@@ -218,6 +221,11 @@ module.exports = {
 				timeout++;
 				this.start(SQLclient, discordClient);
 			},1000 * (2 ** timeout));
+		})
+		process.on('SIGTERM', () => {
+			//Destroy Twitter connection on cycle
+			filteredStream.destroy();
+			process.exit(1);
 		})
 	}
 }
