@@ -1,4 +1,4 @@
-// This file defined several functions used in subscribing or unsubscribing to server alerts and outfit activity
+// This file defines several functions used in subscribing or unsubscribing to server alerts and outfit activity
 
 const { Client } = require('pg');
 var got = require('got');
@@ -66,7 +66,20 @@ outfitInfo = async function(tag, environment){
     }
 }
 
-
+twitterUsers = function(user){
+    switch(user.toLowerCase()){
+        case "remainna":
+            return "Remain_NA-twitter"
+        case "wrel":
+            return "WrelPlays-twitter"
+        case "planetside":
+            return "planetside2-twitter"
+        case "andy":
+            return "AndySites-twitter"
+        default:
+            return false
+    }
+}
 
 module.exports = {
     subscribeActivity: async function(pgClient, channel, tag, environment){
@@ -474,6 +487,74 @@ module.exports = {
         }
     },
 
+    subscribeTwitter: async function(pgClient, channelId, user){
+        if(messageHandler.badQuery(user)){
+			return new Promise(function(resolve, reject){
+                reject("User contains disallowed characters");
+            })
+		}
+        let source = twitterUsers(user);
+        if(!source){
+            return new Promise(function(resolve, reject){
+                reject("User not found");
+            })
+        }
+        let count = await pgClient.query('SELECT COUNT(channel) FROM news WHERE source=$1 AND channel=$2', [source, channelId]);
+        if(count.rows[0].count == 0){
+            try{
+                pgClient.query("INSERT INTO news (channel, source) VALUES ($1, $2);", [channelId, source]);
+            }
+            catch(error){
+                console.log(error);
+                    return new Promise(function(resolve, reject){
+                        reject(error);
+                    })
+            }
+            return new Promise(function(resolve, reject){
+                resolve("Subscribed to "+user+" Twitter");
+            })
+        }
+        else{
+            return new Promise(function(resolve, reject){
+                reject("Already subscribed to "+user+" Twitter");
+            })
+        }
+    },
+
+    unsubscribeTwitter: async function(pgClient, channelId, user){
+        if(messageHandler.badQuery(user)){
+			return new Promise(function(resolve, reject){
+                reject("User contains disallowed characters");
+            })
+		}
+        let source = twitterUsers(user);
+        if(!source){
+            return new Promise(function(resolve, reject){
+                reject("User not found");
+            })
+        }
+        let count = await pgClient.query('SELECT COUNT(channel) FROM news WHERE source=$1 AND channel=$2', [source, channelId]);
+        if(count.rows[0].count > 0){
+            try{
+                pgClient.query("DELETE FROM news WHERE channel= $1 AND source = $2);", [channelId, source]);
+            }
+            catch(error){
+                console.log(error);
+                    return new Promise(function(resolve, reject){
+                        reject(error);
+                    })
+            }
+            return new Promise(function(resolve, reject){
+                resolve("Unsubscribed from "+user+" Twitter");
+            })
+        }
+        else{
+            return new Promise(function(resolve, reject){
+                reject("Not subscribed to "+user+" Twitter");
+            })
+        }
+    },
+
     unsubscribeAll: async function(pgClient, channelId){
         let commands = [
             "DELETE FROM connery WHERE channel = $1",
@@ -486,9 +567,10 @@ module.exports = {
             "DELETE FROM outfit WHERE channel = $1",
             "DELETE FROM ps4usoutfit WHERE channel = $1",
             "DELETE FROM ps4euoutfit WHERE channel = $1",
-            "DELETE FROM outfitcaptures WHERE channel =$1",
-            "DELETE FROM ps4usoutfitcaptures WHERE channel =$1",
-            "DELETE FROM ps4euoutfitcaptures WHERE channel =$1"
+            "DELETE FROM outfitcaptures WHERE channel = $1",
+            "DELETE FROM ps4usoutfitcaptures WHERE channel = $1",
+            "DELETE FROM ps4euoutfitcaptures WHERE channel = $1",
+            "DELETE FROM news WHERE channel = $1",
         ]
 
         for(i in commands){

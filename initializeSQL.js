@@ -240,5 +240,25 @@ module.exports = {
 			}
 		    
 		});
+
+		// News subscriptions
+		SQLclient.query("SELECT * FROM news;", (err, res) => {
+		    if (err){
+				console.log(err);
+				console.log("Creating news table");
+				SQLclient.query("CREATE TABLE news (\
+					id SERIAL PRIMARY KEY, \
+					channel TEXT, \
+					source TEXT\
+					);", (err, res) => {
+					if (err){
+						console.log(err);
+					}
+					else{
+						console.log(res);
+					}
+				});
+			}
+		});
 	}
 }
