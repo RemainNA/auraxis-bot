@@ -114,10 +114,7 @@ function streamConnect(token, SQLclient, discordClient) {
 
 		
     } catch (e) {
-		// Log errors, ignore heartbeats
-        if(e != '\n'){
-			console.log(data);
-		}
+		// Ignore heartbeats
     }
     }).on('error', error => {
         if (error.code === 'ETIMEDOUT') {
