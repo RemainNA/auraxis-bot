@@ -8,6 +8,7 @@ const { Client } = require('pg');
 
 // auth file
 var runningOnline = false; //The assumption is an auth file will be present iff running offline
+var twitterAvail = false;
 try{
 	var auth = require('./auth.json');
 	process.env.serviceID = auth.serviceID;
@@ -16,10 +17,19 @@ try{
 		process.env.DATABASE_URL = auth.DATABASE_URL;
 		runningOnline = true;
 	}
+	if(typeof(auth.twAPIKey) !== 'undefined'){
+		process.env.TWITTER_CONSUMER_KEY = auth.twAPIKey;
+		process.env.TWITTER_CONSUMER_SECRET = auth.twAPISecretKey;
+		process.env.TWITTER_ACCESS_TOKEN_KEY = auth.twAccessToken;
+		process.env.TWITTER_ACCESS_TOKEN_SECRET = auth.twAccessTokenSecret;
+		process.env.TWITTER_BEARER_TOKEN = auth.twBearerToken;
+		twitterAvail = true;
+	}
 }
 catch(e){
 	console.log('No auth file found');
 	runningOnline = true;
+	twitterAvail = true;
 }
 
 // commands
@@ -38,6 +48,7 @@ var status = require('./status.js');
 var weapon = require('./weapon.js');
 var implant = require('./implant.js');
 var validate = require('./validatePopulation.js');
+var twitterListener = require('./twitterListener.js');
 
 const client = new Discord.Client();
 
@@ -65,6 +76,9 @@ client.on('ready', () => {
 			}, 3600000); //Run validate every hour
 		}
 	}
+	if(twitterAvail){
+		twitterListener.start(SQLclient, client);
+	}
 
 	client.user.setActivity('!help')
 });
@@ -82,6 +96,8 @@ var listOfCommands = [
 "!<ps4us/ps4eu> unsubscribe activity [tag]",
 "!<ps4us/ps4eu> subscribe captures [tag]",
 "!<ps4us/ps4eu> unsubscribe captures [tag]",
+"!subscribe twitter [wrel/andy/planetside]",
+"!unsubscribe twitter [wrel/andy/planetside]",
 "!unsubscribe all",
 "!population [server]",
 "!territory [server]",
@@ -480,6 +496,26 @@ client.on('message', message => {
 				subscription.unsubscribeAlert(SQLclient, message.channel.id, servers[x])
 					.then(res => messageHandler.send(message.channel, res, "Unsubscribe alerts"))
 					.catch(err => messageHandler.handleError(message.channel, err, "Unsubscribe alerts"))
+			}
+		}
+	}
+	else if (message.content.substring(0,19).toLowerCase() == '!subscribe twitter ' && runningOnline){
+		let users = message.content.substring(19).toLowerCase().split(" ");
+		for(x in users){
+			if(users[x] != ""){
+				subscription.subscribeTwitter(SQLclient, message.channel.id, users[x])
+					.then(res => messageHandler.send(message.channel, res, "Subscribe twitter", true))
+					.catch(err => messageHandler.handleError(message.channel, err, "Subscribe twitter"))
+			}
+		}
+	}
+	else if (message.content.substring(0,21).toLowerCase() == '!unsubscribe twitter ' && runningOnline){
+		let users = message.content.substring(21).toLowerCase().split(" ");
+		for(x in users){
+			if(users[x] != ""){
+				subscription.unsubscribeAlert(SQLclient, message.channel.id, users[x])
+					.then(res => messageHandler.send(message.channel, res, "Unsubscribe twitter"))
+					.catch(err => messageHandler.handleError(message.channel, err, "Unsubscribe twitter"))
 			}
 		}
 	}
