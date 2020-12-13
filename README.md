@@ -101,6 +101,10 @@ Returns the population per faction of the specified server.  Supports multiple s
 
 Returns the territory control of each continent on the specified server.  Supports multiple servers per query.  Supports all platforms without prefixes
 
+#### !alerts [server]
+
+Returns ongoing alerts for the given server based on information from the ps2alerts api, including time remaining and current territory control.  Supports multiple servers per query.  Currently only supports PC servers.
+
 #### !status
 
 Return the current status of all servers as reported by the Census API.  Takes no parameters.

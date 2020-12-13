@@ -102,6 +102,7 @@ var listOfCommands = [
 "!unsubscribe all",
 "!population [server]",
 "!territory [server]",
+"!alerts [server]",
 "!status",
 "!weapon [weapon name/id]",
 "!implant [implant name]",
