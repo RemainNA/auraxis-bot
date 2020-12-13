@@ -129,53 +129,24 @@ module.exports = {
 				})
 			}
 		}
-		if(alertObj.length == 1){
-			let sendEmbed = new Discord.MessageEmbed();
-			let hoursSinceStart = Math.floor(alertObj[0].timeSinceStart/3600000);
-			let minutesSinceStart = Math.floor(alertObj[0].timeSinceStart/60000) - hoursSinceStart*60;
-			let hoursleft = Math.floor(alertObj[0].timeLeft/3600000);
-			let minutesleft = Math.floor(alertObj[0].timeLeft/60000) - hoursleft*60;
-			sendEmbed.setTitle(alertObj[0].name);
-			sendEmbed.setURL('https://staging.ps2alerts.com/alert/'+alertObj[0].instanceId);
-			sendEmbed.setDescription(alertObj[0].description);
-			sendEmbed.addField("Server", serverIdToName(serverId)); //The conversion is done in reverse for capitalization
+		let sendEmbed = new Discord.MessageEmbed();
+		sendEmbed.setTitle(serverIdToName(serverId)+" alerts");
+		sendEmbed.setFooter("Data from ps2alerts.com");
+		for(x in alertObj){
+			let hoursSinceStart = Math.floor(alertObj[x].timeSinceStart/3600000);
+			let minutesSinceStart = Math.floor(alertObj[x].timeSinceStart/60000) - hoursSinceStart*60;
+			let hoursleft = Math.floor(alertObj[x].timeLeft/3600000);
+			let minutesleft = Math.floor(alertObj[x].timeLeft/60000) - hoursleft*60;
+			sendEmbed.addField(alertObj[x].name, "["+alertObj[x].description+"](https://staging.ps2alerts.com/alert/"+alertObj[x].instanceId+"?utm_source=partner&utm_medium=auraxis-bot&utm_campaign=partners)");
 			sendEmbed.addField("Time since start", hoursSinceStart+"h "+minutesSinceStart+"m", true);
 			sendEmbed.addField("Time left", hoursleft+"h "+minutesleft+"m", true);
-			sendEmbed.addField('Territory %', 'VS: '+alertObj[0].vs+"% | "+'NC: '+alertObj[0].nc+"% | "+'TR: '+alertObj[0].tr+"%");
-			sendEmbed.setFooter("Data from ps2alerts.com");
-			if (alertObj[0].name.includes('Enlightenment')){
-				sendEmbed.setColor('PURPLE');
+			sendEmbed.addField('Territory %', 'VS: '+alertObj[x].vs+"% | "+'NC: '+alertObj[x].nc+"% | "+'TR: '+alertObj[x].tr+"%");
+			if(x != alertObj.length-1){
+				sendEmbed.addField('\u200b', '\u200b');
 			}
-			else if (alertObj[0].name.includes('Liberation')){
-				sendEmbed.setColor('BLUE');
-			}
-			else if (alertObj[0].name.includes('Superiority')){
-				sendEmbed.setColor('RED');
-			}
-			return new Promise(function(resolve, reject){
-				resolve(sendEmbed);
-			})
 		}
-		else{
-			let sendEmbed = new Discord.MessageEmbed();
-			sendEmbed.setTitle(serverIdToName(serverId)+" alerts");
-			sendEmbed.setFooter("Data from ps2alerts.com");
-			for(x in alertObj){
-				let hoursSinceStart = Math.floor(alertObj[x].timeSinceStart/3600000);
-				let minutesSinceStart = Math.floor(alertObj[x].timeSinceStart/60000) - hoursSinceStart*60;
-				let hoursleft = Math.floor(alertObj[x].timeLeft/3600000);
-				let minutesleft = Math.floor(alertObj[x].timeLeft/60000) - hoursleft*60;
-				sendEmbed.addField("["+alertObj[x].name+"](https://ps2alerts.com/alert/"+alertObj[x]+")", alertObj[x].description);
-				sendEmbed.addField("Time since start", hoursSinceStart+"h "+minutesSinceStart+"m", true);
-				sendEmbed.addField("Time left", hoursleft+"h "+minutesleft+"m", true);
-				sendEmbed.addField('Territory %', 'VS: '+alertObj[x].vs+"% | "+'NC: '+alertObj[x].nc+"% | "+'TR: '+alertObj[x].tr+"%");
-				if(x != alertObj.length-1){
-					sendEmbed.addField('\u200b', '\u200b');
-				}
-			}
-			return new Promise(function(resolve, reject){
-				resolve(sendEmbed);
-			})
-		}
+		return new Promise(function(resolve, reject){
+			resolve(sendEmbed);
+		})
 	}
 }
