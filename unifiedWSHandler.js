@@ -113,7 +113,7 @@ logEvent = async function(payload, environment, pgClient, discordClient){
     }
 }
 
-serverIdToName = function(server){
+idToName = function(server){
     switch(server.toLowerCase()){
         case "1":
             return "Connery";
@@ -169,7 +169,7 @@ alertInfo = async function(payload, environment){
 
 alertEvent = async function(payload, environment, pgClient, discordClient){
     if(payload.metagame_event_state_name == "started"){
-        let server = serverIdToName(payload.world_id);
+        let server = idToName(payload.world_id);
         let queryText = "SELECT * FROM "+server;
         let removeQueryText = "DELETE FROM "+server+" WHERE channel=$1";
         let response = await alertInfo(payload, environment);
