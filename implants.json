@@ -24,7 +24,7 @@
         "2": "Kills from greater than 125 meters will clear spot checks on you, and prevent spotting attempts on you for one second. <font color=\"#dc9c36\">Does not clear spot checks on vehicles.</font>",
         "3": "Kills from greater than 100 meters will clear spot checks on you, and prevent spotting attempts on you for one second. <font color=\"#dc9c36\">Does not clear spot checks on vehicles.</font>",
         "4": "Kills from greater than 50 meters will clear spot checks on you, and prevent spotting attempts on you for one second. <font color=\"#dc9c36\">Does not clear spot checks on vehicles.</font>",
-        "5": "Kills from greater than 50 meters, or headshot kills, will clear spot checks on you, and prevent spotting attempts on you for one second. In addition, dealing damage to enemies will now automatically spots them for you and nearby allies. <font color=\"#dc9c36\">Does not clear spot checks on vehicles.</font>",
+        "5": "Kills from greater than 50 meters, or headshot kills, will clear spot checks on you, and prevent spotting attempts on you for one second. In addition, dealing damage to enemies will now automatically spot them for you and nearby allies. <font color=\"#dc9c36\">Does not clear spot checks on vehicles.</font>",
         "image": "87792"
     },
     "Assimilate": {
@@ -276,7 +276,7 @@
         "2": "Regenerates 23 health per second when out of combat for 10 seconds.",
         "3": "Regenerates 28 health per second when out of combat for 10 seconds.",
         "4": "Regenerates 35 health per second when out of combat for 10 seconds.",
-        "5": "Regenerates 35 health per second when out of combat for 10 seconds, and headshot kills restore 50 health immediately.",
+        "5": "Regenerates 35 health per second when out of combat for 10 seconds, and headshot kills regenerate 100 health over 2 seconds.",
         "image": "87476"
     },
     "Response Jacket": {
