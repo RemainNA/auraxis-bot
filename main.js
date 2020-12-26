@@ -300,7 +300,7 @@ client.on('message', message => {
 		let servers = message.content.substring(12).toLowerCase().split(" ");
 		for(x in servers){
 			if(servers[x] != ""){
-				population.lookup(servers[x], SQLclient)
+				population.lookup(servers[x])
 					.then(res => messageHandler.send(message.channel, res, "Population", true))
 					.catch(err => messageHandler.handleError(message.channel, err, "Population"))
 			}
