@@ -1,11 +1,6 @@
 // This file implements a function with three event listeners, one for each platform.  The event listeners pass all messages with payloads on to the handler function.
 
 var WebSocket = require('ws');
-const Discord = require('discord.js');
-var population = require('./validatePopulation.js');
-
-const { Client } = require('pg');
-
 var handler = require('./unifiedWSHandler');
 
 var pcRunning = false;
@@ -15,7 +10,6 @@ var euRunning = false;
 var backoff = 1000;
 
 function listen(pgClient, discordClient){
-    population.validate(pgClient); //Account for any logout events missed while the listener was offline
     pcLogin = '{"service":"event","action":"subscribe","worlds":["1","10","13","17","19","40"],"eventNames":["PlayerLogin","PlayerLogout"]}';
     pcAlerts = '{"service":"event","action":"subscribe","worlds":["1","10","13","17","19","40"],"eventNames":["MetagameEvent","FacilityControl"]}';
     usLogin = '{"service":"event","action":"subscribe","worlds":["1000"],"eventNames":["PlayerLogin","PlayerLogout"]}';
