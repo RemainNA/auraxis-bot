@@ -149,7 +149,7 @@ alertEvent = async function(payload, environment, pgClient, discordClient){
         if(typeof(response.name) != undefined && response.name){
             let sendEmbed = new Discord.MessageEmbed();
             sendEmbed.setTitle(response.name);
-            sendEmbed.setDescription('['+response.description+'](https://staging.ps2alerts.com/alert/'+payload.world_id+'-'+payload.instance_id+"?utm_source=partner&utm_medium=auraxis-bot&utm_campaign=partners)");
+            sendEmbed.setDescription('['+response.description+'](https://staging.ps2alerts.com/alert/'+payload.world_id+'-'+payload.instance_id+"?utm_source=auraxis-bot&utm_medium=discord&utm_campaign=partners)");
             sendEmbed.setTimestamp();
             if (response.name.includes('Enlightenment')){
                 sendEmbed.setColor('PURPLE');

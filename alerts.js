@@ -137,7 +137,7 @@ module.exports = {
 			let minutesSinceStart = Math.floor(alertObj[x].timeSinceStart/60000) - hoursSinceStart*60;
 			let hoursleft = Math.floor(alertObj[x].timeLeft/3600000);
 			let minutesleft = Math.floor(alertObj[x].timeLeft/60000) - hoursleft*60;
-			sendEmbed.addField(alertObj[x].name, "["+alertObj[x].description+"](https://staging.ps2alerts.com/alert/"+alertObj[x].instanceId+"?utm_source=partner&utm_medium=auraxis-bot&utm_campaign=partners)");
+			sendEmbed.addField(alertObj[x].name, "["+alertObj[x].description+"](https://staging.ps2alerts.com/alert/"+alertObj[x].instanceId+"?utm_source=auraxis-bot&utm_medium=discord&utm_campaign=partners)");
 			sendEmbed.addField("Time since start", hoursSinceStart+"h "+minutesSinceStart+"m", true);
 			sendEmbed.addField("Time left", hoursleft+"h "+minutesleft+"m", true);
 			sendEmbed.addField('Territory %', 'VS: '+alertObj[x].vs+"% | "+'NC: '+alertObj[x].nc+"% | "+'TR: '+alertObj[x].tr+"%");
