@@ -79,7 +79,7 @@ module.exports = {
 		let resEmbed = new Discord.MessageEmbed();
 
 		resEmbed.setTitle(wInfo.name);
-		resEmbed.setThumbnail('http://census.daybreakgames.com/files/ps2/images/static/'+wInfo.image_id+'.png');
+		wInfo.image_id != -1 && resEmbed.setThumbnail('http://census.daybreakgames.com/files/ps2/images/static/'+wInfo.image_id+'.png');
 		
 		if(typeof(wInfo.category) !== 'undefined'){
 			resEmbed.addField("Category", wInfo.category, true);

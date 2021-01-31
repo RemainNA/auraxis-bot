@@ -268,7 +268,7 @@ module.exports = {
 			default:
 				resEmbed.setColor('GREY');
 		}
-		resEmbed.setThumbnail('http://census.daybreakgames.com/files/ps2/images/static/'+wInfo.image_id+'.png');
+		wInfo.image_id != -1 && resEmbed.setThumbnail('http://census.daybreakgames.com/files/ps2/images/static/'+wInfo.image_id+'.png');
 		resEmbed.setFooter("Weapon ID: "+wInfo.id);
 
 		return new Promise(function(resolve, reject){
