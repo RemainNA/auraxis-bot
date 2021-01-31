@@ -141,6 +141,33 @@ alertInfo = async function(payload, environment){
     })
 }
 
+const trackedAlerts = [
+    147,
+    148,
+    149,
+    150,
+    151,
+    152,
+    153,
+    154,
+    155,
+    156,
+    157,
+    158,
+    176,
+    177,
+    178,
+    179,
+    186,
+    187,
+    188,
+    189,
+    190,
+    191,
+    192,
+    193,
+];
+
 alertEvent = async function(payload, environment, pgClient, discordClient){
     if(payload.metagame_event_state_name == "started"){
         let server = idToName(payload.world_id);
@@ -149,7 +176,12 @@ alertEvent = async function(payload, environment, pgClient, discordClient){
         if(typeof(response.name) != undefined && response.name){
             let sendEmbed = new Discord.MessageEmbed();
             sendEmbed.setTitle(response.name);
-            sendEmbed.setDescription('['+response.description+'](https://ps2alerts.com/alert/'+payload.world_id+'-'+payload.instance_id+"?utm_source=auraxis-bot&utm_medium=discord&utm_campaign=partners)");
+            if(trackedAlerts.indexOf(Number(payload.metagame_event_id)) == -1){
+                sendEmbed.setDescription(response.description);
+            }
+            else{
+                sendEmbed.setDescription('['+response.description+'](https://ps2alerts.com/alert/'+payload.world_id+'-'+payload.instance_id+"?utm_source=auraxis-bot&utm_medium=discord&utm_campaign=partners)");
+            }
             sendEmbed.setTimestamp();
             if (response.name.includes('Enlightenment')){
                 sendEmbed.setColor('PURPLE');
