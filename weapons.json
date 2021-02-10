@@ -1632,26 +1632,26 @@
         "standingCofMin": "0"
     },
     "16000": {
-        "ammo": "81",
+        "ammo": "90",
         "category": "AI MAX (Left)",
-        "clip": "9",
+        "clip": "10",
         "crouchWalkingCofMax": "1",
         "crouchWalkingCofMin": "0.25",
         "crouchingCofMax": "1",
         "crouchingCofMin": "0",
-        "description": "The arm-mounted NCM1 Scattercannon functions as a semi-automatic shotgun capable of cutting through enemy squads. NC use only.",
+        "description": "The arm-mounted NCM1 Scattercannon functions as an automatic shotgun capable of cutting through enemy squads. NC use only.",
         "fallingCofMax": "7",
         "fallingCofMin": "7",
         "fireModes": [
-            "Semi-Auto"
+            "Auto"
         ],
-        "fireRate": "500",
+        "fireRate": "460",
         "headshotMultiplier": "0.5",
         "hipCofRecoil": "0.5",
         "image_id": "1587",
-        "maxDamage": "125",
+        "maxDamage": "130",
         "maxDamageRange": "8",
-        "minDamage": "35",
+        "minDamage": "50",
         "minDamageRange": "20",
         "name": "NCM1 Scattercannon",
         "pelletSpread": "2",
@@ -1743,26 +1743,26 @@
         "verticalRecoil": "0.2"
     },
     "16012": {
-        "ammo": "81",
+        "ammo": "90",
         "category": "AI MAX (Right)",
-        "clip": "9",
+        "clip": "10",
         "crouchWalkingCofMax": "1",
         "crouchWalkingCofMin": "0.25",
         "crouchingCofMax": "1",
         "crouchingCofMin": "0",
-        "description": "The arm-mounted NCM1 Scattercannon functions as a semi-automatic shotgun capable of cutting through enemy squads. NC use only.",
+        "description": "The arm-mounted NCM1 Scattercannon functions as an automatic shotgun capable of cutting through enemy squads. NC use only.",
         "fallingCofMax": "7",
         "fallingCofMin": "7",
         "fireModes": [
-            "Semi-Auto"
+            "Auto"
         ],
-        "fireRate": "500",
+        "fireRate": "460",
         "headshotMultiplier": "0.5",
         "hipCofRecoil": "0.5",
         "image_id": "1587",
-        "maxDamage": "125",
+        "maxDamage": "130",
         "maxDamageRange": "8",
-        "minDamage": "35",
+        "minDamage": "50",
         "minDamageRange": "20",
         "name": "NCM1 Scattercannon",
         "pelletSpread": "2",
@@ -1854,9 +1854,9 @@
         "verticalRecoil": "0.2"
     },
     "16024": {
-        "ammo": "96",
+        "ammo": "112",
         "category": "AI MAX (Right)",
-        "clip": "12",
+        "clip": "14",
         "crouchWalkingCofMax": "1",
         "crouchWalkingCofMin": "0.25",
         "crouchingCofMax": "1",
@@ -1865,7 +1865,7 @@
         "fallingCofMax": "7",
         "fallingCofMin": "7",
         "fireModes": [
-            "Semi-Auto"
+            "Auto"
         ],
         "fireRate": "333",
         "headshotMultiplier": "0.5",
@@ -1877,7 +1877,7 @@
         "minDamageRange": "50",
         "name": "AF-34 Mattock",
         "pelletSpread": "1.5",
-        "pellets": "3",
+        "pellets": "4",
         "recoilAngleMax": "0.1",
         "recoilAngleMin": "-0.1",
         "reload": "2250",
@@ -1891,9 +1891,9 @@
         "verticalRecoil": "0.2"
     },
     "16025": {
-        "ammo": "81",
+        "ammo": "108",
         "category": "AI MAX (Right)",
-        "clip": "9",
+        "clip": "12",
         "crouchWalkingCofMax": "1",
         "crouchWalkingCofMin": "0.25",
         "crouchingCofMax": "1",
@@ -1904,13 +1904,13 @@
         "fireModes": [
             "Auto"
         ],
-        "fireRate": "287",
+        "fireRate": "275",
         "headshotMultiplier": "0.5",
         "hipCofRecoil": "0.5",
         "image_id": "83252",
         "maxDamage": "75",
         "maxDamageRange": "8",
-        "minDamage": "25",
+        "minDamage": "50",
         "minDamageRange": "15",
         "name": "AF-41 Hacksaw",
         "pelletSpread": "2.5",
@@ -1928,9 +1928,9 @@
         "verticalRecoil": "0.2"
     },
     "16026": {
-        "ammo": "126",
+        "ammo": "154",
         "category": "AI MAX (Right)",
-        "clip": "18",
+        "clip": "22",
         "crouchWalkingCofMax": "1",
         "crouchWalkingCofMin": "0.25",
         "crouchingCofMax": "1",
@@ -1941,13 +1941,13 @@
         "fireModes": [
             "Auto"
         ],
-        "fireRate": "500",
+        "fireRate": "460",
         "headshotMultiplier": "0.5",
         "hipCofRecoil": "0.5",
         "image_id": "83255",
         "maxDamage": "50",
         "maxDamageRange": "8",
-        "minDamage": "20",
+        "minDamage": "35",
         "minDamageRange": "20",
         "name": "AF-23 Grinder",
         "pelletSpread": "3",
@@ -7398,7 +7398,7 @@
         "ammo": "1",
         "category": "Knife",
         "clip": "1",
-        "damage": "500",
+        "damage": "1050",
         "defZoom": "1",
         "description": "Although slower than the NC standard issue Mag-Cutter, when wielded, this knife can be activated, increasing its damage output. NC use only.",
         "directDamage": "500",
@@ -8091,7 +8091,7 @@
         "ammo": "1",
         "category": "Knife",
         "clip": "1",
-        "damage": "500",
+        "damage": "1050",
         "defZoom": "1",
         "description": "Although slower than the TR standard issue Chainblade, when wielded this knife can be activated, increasing its damage output. TR use only.",
         "directDamage": "500",
@@ -14465,6 +14465,32 @@
         "standingCofMax": "0",
         "standingCofMin": "0"
     },
+    "6002396": {
+        "adsCofRecoil": "0.5",
+        "adsMoveSpeed": "1",
+        "category": "Vehicle Weapons",
+        "defZoom": "1",
+        "description": "The Glaive Ionized Particle Cannon is unmanned mid-range artillery that disrupts defensive shield systems but only inflicts minor damage to personnel and equipment due to its lack of conventional payload. The IPC requires AI module support as well as a manually fired targeting dart to acquire a target.",
+        "fireModes": [
+            "Auto"
+        ],
+        "heatBleedOff": "25",
+        "heatCapacity": "80",
+        "hipCofRecoil": "0.5",
+        "image_id": "86709",
+        "maxDamage": "750",
+        "maxDamageRange": "10",
+        "minDamage": "750",
+        "minDamageRange": "20",
+        "name": "Glaive IPC",
+        "overheatPenalty": "2000",
+        "reload": "0",
+        "speed": "180",
+        "standingCofMax": "1.5",
+        "standingCofMaxADS": "1.5",
+        "standingCofMin": "0.5",
+        "standingCofMinADS": "0.5"
+    },
     "6002397": {
         "adsCofRecoil": "0.5",
         "adsMoveSpeed": "1",
@@ -16192,6 +16218,7 @@
         "minDamage": "125",
         "minDamageRange": "65",
         "name": "NS-11A \"Heatwave\"",
+        "pelletSpread": "0",
         "pellets": "1",
         "recoilAngleMax": "-17",
         "recoilAngleMin": "-20",
@@ -19832,7 +19859,7 @@
             "Thrown"
         ],
         "hipCofRecoil": "0",
-        "image_id": "3676",
+        "image_id": "93395",
         "name": "F.U.S.E. (Anti-Infantry)",
         "standingCofMax": "0",
         "standingCofMin": "0"
@@ -20880,7 +20907,7 @@
         "ammo": "1",
         "category": "Knife",
         "clip": "1",
-        "damage": "1050",
+        "damage": "500",
         "defZoom": "1",
         "description": "Although slower than the TR standard issue Chainblade, when wielded this knife can be activated, increasing its damage output. TR use only.",
         "directDamage": "500",
@@ -25413,7 +25440,7 @@
         "description": "<font color=\"#dc9c36\">Single use consumable. Carry up to 2 on the field between resupplies.</font><br>The Flash XS-1 is a lightly armored, single-passenger vehicle designed for rapid deployment anywhere on the battlefield.",
         "fireModes": [],
         "hipCofRecoil": "0",
-        "image_id": "3611",
+        "image_id": "93387",
         "name": "Flash XS-1",
         "standingCofMax": "0",
         "standingCofMin": "0"
@@ -25593,7 +25620,7 @@
             "Deployable"
         ],
         "hipCofRecoil": "0",
-        "image_id": "3611",
+        "image_id": "93387",
         "name": "Flash XS-1",
         "standingCofMax": "0",
         "standingCofMin": "0"
@@ -28126,7 +28153,7 @@
     },
     "6009600": {
         "category": "Knife",
-        "damage": "1050",
+        "damage": "500",
         "defZoom": "1",
         "description": "Originally developed for exploration on Esamir as a companion tool to the NS Icebreaker, the Firebug has recently gained popularity among soldiers looking for a more dramatic option in close-quarters combat.",
         "fireModes": [
@@ -28139,7 +28166,6 @@
         "name": "NS Firebug",
         "pelletSpread": "0",
         "pellets": "1",
-        "reload": "0",
         "speed": "13",
         "standingCofMax": "0",
         "standingCofMin": "0"
@@ -28375,7 +28401,6 @@
         "minDamage": "112",
         "minDamageRange": "60",
         "name": "NS-11 \"Endeavor\" Carbine",
-        "pelletSpread": "0",
         "pellets": "1",
         "recoilAngleMax": "-17",
         "recoilAngleMin": "-20",
@@ -28579,6 +28604,24 @@
         "standingCofMaxADS": "0",
         "standingCofMin": "0",
         "standingCofMinADS": "0"
+    },
+    "6009854": {
+        "category": "Knife",
+        "damage": "450",
+        "description": "This heavy blade is capable of light damage to armor, and represents the trials beyond Auraxis.",
+        "fireModes": [
+            "Quick Melee",
+            "Melee"
+        ],
+        "hipCofRecoil": "0",
+        "image_id": "93400",
+        "name": "Excursion Kukri",
+        "pelletSpread": "0",
+        "pellets": "1",
+        "reload": "0",
+        "speed": "13",
+        "standingCofMax": "0",
+        "standingCofMin": "0"
     },
     "6010": {
         "adsCofRecoil": "0",
@@ -30001,7 +30044,6 @@
         "minDamage": "125",
         "minDamageRange": "65",
         "name": "NS-11A",
-        "pelletSpread": "0",
         "pellets": "1",
         "recoilAngleMax": "-17",
         "recoilAngleMin": "-20",
@@ -32223,7 +32265,7 @@
         "runningCofMaxADS": "3",
         "runningCofMin": "4.5",
         "runningCofMinADS": "0.4",
-        "speed": "550",
+        "speed": "600",
         "sprintingCofMax": "7",
         "sprintingCofMaxADS": "3",
         "sprintingCofMin": "7",
@@ -32506,7 +32548,7 @@
         "runningCofMaxADS": "3",
         "runningCofMin": "4.5",
         "runningCofMinADS": "0.4",
-        "speed": "600",
+        "speed": "550",
         "sprintingCofMax": "7",
         "sprintingCofMaxADS": "3",
         "sprintingCofMin": "7",
@@ -32566,7 +32608,7 @@
         "runningCofMaxADS": "3",
         "runningCofMin": "4.25",
         "runningCofMinADS": "0.35",
-        "speed": "600",
+        "speed": "550",
         "sprintingCofMax": "7",
         "sprintingCofMaxADS": "3",
         "sprintingCofMin": "7",
@@ -34483,6 +34525,7 @@
         "minDamage": "112",
         "minDamageRange": "60",
         "name": "NS-11C",
+        "pelletSpread": "0",
         "pellets": "1",
         "recoilAngleMax": "-17",
         "recoilAngleMin": "-20",
@@ -34563,9 +34606,9 @@
         "verticalRecoil": "0.3"
     },
     "7505": {
-        "ammo": "96",
+        "ammo": "112",
         "category": "AI MAX (Left)",
-        "clip": "12",
+        "clip": "14",
         "crouchWalkingCofMax": "1",
         "crouchWalkingCofMin": "0.25",
         "crouchingCofMax": "1",
@@ -34574,7 +34617,7 @@
         "fallingCofMax": "7",
         "fallingCofMin": "7",
         "fireModes": [
-            "Semi-Auto"
+            "Auto"
         ],
         "fireRate": "333",
         "headshotMultiplier": "0.5",
@@ -34586,7 +34629,7 @@
         "minDamageRange": "50",
         "name": "AF-34 Mattock",
         "pelletSpread": "1.5",
-        "pellets": "3",
+        "pellets": "4",
         "recoilAngleMax": "0.1",
         "recoilAngleMin": "-0.1",
         "reload": "2250",
@@ -34600,9 +34643,9 @@
         "verticalRecoil": "0.2"
     },
     "7506": {
-        "ammo": "81",
+        "ammo": "108",
         "category": "AI MAX (Left)",
-        "clip": "9",
+        "clip": "12",
         "crouchWalkingCofMax": "1",
         "crouchWalkingCofMin": "0.25",
         "crouchingCofMax": "1",
@@ -34613,13 +34656,13 @@
         "fireModes": [
             "Auto"
         ],
-        "fireRate": "287",
+        "fireRate": "275",
         "headshotMultiplier": "0.5",
         "hipCofRecoil": "0.5",
         "image_id": "83252",
         "maxDamage": "75",
         "maxDamageRange": "8",
-        "minDamage": "25",
+        "minDamage": "50",
         "minDamageRange": "15",
         "name": "AF-41 Hacksaw",
         "pelletSpread": "2.5",
@@ -34694,9 +34737,9 @@
         "verticalRecoil": "1.8"
     },
     "7507": {
-        "ammo": "126",
+        "ammo": "154",
         "category": "AI MAX (Left)",
-        "clip": "18",
+        "clip": "22",
         "crouchWalkingCofMax": "1",
         "crouchWalkingCofMin": "0.25",
         "crouchingCofMax": "1",
@@ -34707,13 +34750,13 @@
         "fireModes": [
             "Auto"
         ],
-        "fireRate": "500",
+        "fireRate": "460",
         "headshotMultiplier": "0.5",
         "hipCofRecoil": "0.5",
         "image_id": "83255",
         "maxDamage": "50",
         "maxDamageRange": "8",
-        "minDamage": "20",
+        "minDamage": "35",
         "minDamageRange": "20",
         "name": "AF-23 Grinder",
         "pelletSpread": "3",
@@ -35430,6 +35473,7 @@
         "crouchingCofMaxADS": "2",
         "crouchingCofMin": "1",
         "crouchingCofMinADS": "0.1",
+        "damage": "112",
         "defZoom": "1",
         "description": "The NC05 Jackhammer's stopping power and sustained fire capabilities make it a frightening weapon in close quarters combat. It features a unique burst fire mode that doubles its rate of fire. NC use only.",
         "directDamage": "112",
@@ -36464,6 +36508,7 @@
         "minDamage": "112",
         "minDamageRange": "60",
         "name": "NS-11CB",
+        "pelletSpread": "0",
         "pellets": "1",
         "recoilAngleMax": "-17",
         "recoilAngleMin": "-20",
@@ -36521,6 +36566,7 @@
         "minDamage": "125",
         "minDamageRange": "65",
         "name": "NS-11AG",
+        "pelletSpread": "0",
         "pellets": "1",
         "recoilAngleMax": "-17",
         "recoilAngleMin": "-20",
@@ -36578,6 +36624,7 @@
         "minDamage": "112",
         "minDamageRange": "60",
         "name": "NS-11CG",
+        "pelletSpread": "0",
         "pellets": "1",
         "recoilAngleMax": "-17",
         "recoilAngleMin": "-20",
@@ -37924,7 +37971,7 @@
         "runningCofMaxADS": "3",
         "runningCofMin": "5",
         "runningCofMinADS": "1",
-        "speed": "50",
+        "speed": "150",
         "sprintingCofMax": "7",
         "sprintingCofMaxADS": "3",
         "sprintingCofMin": "7",
@@ -39475,6 +39522,7 @@
         "crouchingCofMaxADS": "2",
         "crouchingCofMin": "1",
         "crouchingCofMinADS": "0.1",
+        "damage": "112",
         "defZoom": "1",
         "description": "The NC05 Jackhammer's stopping power and sustained fire capabilities make it a frightening weapon in close quarters combat. It features a unique burst fire mode that doubles its rate of fire. NC use only.",
         "directDamage": "112",

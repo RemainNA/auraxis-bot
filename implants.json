@@ -160,11 +160,11 @@
         "image": "89037"
     },
     "Fortify": {
-        "1": "Standing still for 4 seconds provides you with 20% small arms resistance to bodyshots until you start moving. <font color=\"#dc9c36\">Does not stack with Nanoweave Armor. Inactive in vehicles.</font>",
-        "2": "Standing still for 3.5 seconds provides you with 20% small arms resistance to bodyshots until you start moving. <font color=\"#dc9c36\">Does not stack with Nanoweave Armor. Inactive in vehicles.</font>",
-        "3": "Standing still for 2.75 seconds provides you with 20% small arms resistance to bodyshots until you start moving. <font color=\"#dc9c36\">Does not stack with Nanoweave Armor. Inactive in vehicles.</font>",
-        "4": "Standing still for 2 seconds provides you with 20% small arms resistance to bodyshots until you start moving. <font color=\"#dc9c36\">Does not stack with Nanoweave Armor. Inactive in vehicles.</font>",
-        "5": "Standing still for 2 seconds provides you with 20% small arms resistance to bodyshots, and 50% resistance to common explosives until you start moving. <font color=\"#dc9c36\">Does not stack with Nanoweave or Flak Armor. Inactive in vehicles.</font>",
+        "1": "Standing still for 1 second provides you with 20% small arms resistance to bodyshots until you start moving again. <font color=\"#dc9c36\">Does not stack with Nanoweave Armor. Inactive in vehicles.</font>",
+        "2": "Standing still for 0.75 seconds provides you with 20% small arms resistance to bodyshots until you start moving again. <font color=\"#dc9c36\">Does not stack with Nanoweave Armor. Inactive in vehicles.</font>",
+        "3": "Standing still for 0.5 seconds provides you with 20% small arms resistance to bodyshots until you start moving again. <font color=\"#dc9c36\">Does not stack with Nanoweave Armor. Inactive in vehicles.</font>",
+        "4": "Standing still for 0.1 second provides you with 20% small arms resistance to bodyshots until you start moving again. <font color=\"#dc9c36\">Does not stack with Nanoweave Armor. Inactive in vehicles.</font>",
+        "5": "Standing still for 0.1 second provides you with 20% small arms resistance to bodyshots, and 50% resistance to common explosives until you start moving again. <font color=\"#dc9c36\">Does not stack with Nanoweave or Flak Armor. Inactive in vehicles.</font>",
         "image": "88208"
     },
     "Gunslinger": {
