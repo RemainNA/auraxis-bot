@@ -63,7 +63,7 @@ client.on('ready', () => {
 			ssl: {rejectUnauthorized: false}
 		});
 
-		SQLclient.connect();
+		connectSql();
 
 		initialize.start(SQLclient);
 		listener.start(SQLclient, client);
@@ -74,6 +74,11 @@ client.on('ready', () => {
 
 	client.user.setActivity('!help')
 });
+
+async function connectSql(){
+	await SQLclient.connect();
+	console.log(SQLclient);
+}
 
 var listOfCommands = [
 "!help",
