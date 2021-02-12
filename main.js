@@ -57,13 +57,13 @@ const token = process.env.token;
 
 client.on('ready', () => {
 	console.log('Running on '+client.guilds.cache.size+' servers!');
-	if(typeof(process.env.DATABASE_URL) !== 'undefined'){
+	if(runningOnline){
 		SQLclient = new pg.Client({
 			connectionString: process.env.DATABASE_URL,
 			ssl: {rejectUnauthorized: false}
 		});
 
-		connectSql();
+		SQLclient.connect();
 
 		initialize.start(SQLclient);
 		listener.start(SQLclient, client);
@@ -74,17 +74,6 @@ client.on('ready', () => {
 
 	client.user.setActivity('!help')
 });
-
-async function connectSql(){
-	console.log("Attempting to connect to Database");
-	try{
-		await SQLclient.connect();
-		console.log(SQLclient);
-	}
-	catch(err){
-		console.log(err);
-	}
-}
 
 var listOfCommands = [
 "!help",
