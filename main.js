@@ -76,6 +76,7 @@ client.on('ready', () => {
 });
 
 async function connectSql(){
+	console.log("Attempting to connect to Database");
 	try{
 		await SQLclient.connect();
 		console.log(SQLclient);
