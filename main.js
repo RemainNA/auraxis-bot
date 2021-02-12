@@ -76,8 +76,13 @@ client.on('ready', () => {
 });
 
 async function connectSql(){
-	await SQLclient.connect();
-	console.log(SQLclient);
+	try{
+		await SQLclient.connect();
+		console.log(SQLclient);
+	}
+	catch(err){
+		console.log(err);
+	}
 }
 
 var listOfCommands = [
