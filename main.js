@@ -4,7 +4,7 @@
 const Discord = require('discord.js');
 
 //PostgreSQL connection
-const { Client } = require('pg');
+const pg = require('pg');
 
 // auth file
 var runningOnline = false; //The assumption is an auth file will be present iff running offline
@@ -58,9 +58,9 @@ const token = process.env.token;
 client.on('ready', () => {
 	console.log('Running on '+client.guilds.cache.size+' servers!');
 	if(runningOnline){
-		SQLclient = new Client({
+		SQLclient = new pg.Client({
 			connectionString: process.env.DATABASE_URL,
-			ssl: true
+			ssl: {rejectUnauthorized: false}
 		});
 
 		SQLclient.connect();
