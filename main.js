@@ -57,7 +57,7 @@ const token = process.env.token;
 
 client.on('ready', () => {
 	console.log('Running on '+client.guilds.cache.size+' servers!');
-	if(runningOnline){
+	if(typeof(process.env.DATABASE_URL) !== 'undefined'){
 		SQLclient = new pg.Client({
 			connectionString: process.env.DATABASE_URL,
 			ssl: {rejectUnauthorized: false}
