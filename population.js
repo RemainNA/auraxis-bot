@@ -80,6 +80,26 @@ function normalize(name){
 	return null
 }
 
+fisuPopulation = function(server){
+    switch (server.toLowerCase()){
+        case "connery":
+            return 'https://ps2.fisu.pw/activity/?world=1';
+        case "miller":
+            return 'https://ps2.fisu.pw/activity/?world=10';
+        case "cobalt":
+            return 'https://ps2.fisu.pw/activity/?world=13';
+        case "emerald":
+            return 'https://ps2.fisu.pw/activity/?world=17';
+        case "soltech":
+            return 'https://ps2.fisu.pw/activity/?world=40';
+        case "genudine":
+            return 'https://ps4us.ps2.fisu.pw/activity/?world=1000';
+        case "ceres":
+            return 'https://ps4eu.ps2.fisu.pw/activity/?world=2000';
+    }
+    return null
+}
+
 module.exports = {
 	lookup: async function(server){
 		if(messageHandler.badQuery(server)){
@@ -120,6 +140,7 @@ module.exports = {
 		sendEmbed.addField('TR', res.tr+" ("+trPc+"%)", true);
 		sendEmbed.addField('NSO', res.ns+" ("+nsPc+"%)", true);
 		sendEmbed.setTimestamp();
+		sendEmbed.setURL(fisuPopulation(server));
 		if(world == 2000){
 			sendEmbed.setFooter('Data from ps4eu.ps2.fisu.pw');
 		}
