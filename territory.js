@@ -24,6 +24,26 @@ serverToUrl = function(server){
     return null
 }
 
+fisuTerritory = function(server){
+    switch (server.toLowerCase()){
+        case "connery":
+            return 'https://ps2.fisu.pw/control/?world=1';
+        case "miller":
+            return 'https://ps2.fisu.pw/control/?world=10';
+        case "cobalt":
+            return 'https://ps2.fisu.pw/control/?world=13';
+        case "emerald":
+            return 'https://ps2.fisu.pw/control/?world=17';
+        case "soltech":
+            return 'https://ps2.fisu.pw/control/?world=40';
+        case "genudine":
+            return 'https://ps4us.ps2.fisu.pw/control/?world=1000';
+        case "ceres":
+            return 'https://ps4eu.ps2.fisu.pw/control/?world=2000';
+    }
+    return null
+}
+
 printableName = function(server){
     switch (server.toLowerCase()){
         case "connery":
@@ -171,6 +191,8 @@ module.exports = {
         let terObj = await this.territoryInfo(server);
         let resEmbed = new Discord.MessageEmbed();
         resEmbed.setTitle(printableName(server)+" territory");
+        resEmbed.setTimestamp();
+        resEmbed.setURL(fisuTerritory(server));
         let continents = ["Indar", "Hossin", "Amerish", "Esamir"];
         for(let continent of continents){
             let Total = terObj[continent].vs + terObj[continent].nc + terObj[continent].tr;
