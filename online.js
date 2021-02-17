@@ -49,6 +49,9 @@ var onlineInfo = async function(oTag, platform){
 		memberCount: data.member_count,
 		onlineCount: 0
 	}
+	if(typeof(data.leader_character_id_join_character) !== 'undefined'){
+		resObj.faction = data.leader_character_id_join_character.faction_id;
+	}
 	if(data.members[0].online_status == "service_unavailable"){
 		resObj.onlineCount = "Online member count unavailable";
 		return new Promise(function(resolve, reject){
@@ -59,9 +62,6 @@ var onlineInfo = async function(oTag, platform){
 		return new Promise(function(resolve, reject){
 			reject("API error: names not returned")
 		})
-	}
-	if(typeof(data.leader_character_id_join_character) !== 'undefined'){
-		resObj.faction = data.leader_character_id_join_character.faction_id;
 	}
 	let pcModifier = 0;
 	let rankNames = ["","","","","","","",""];
@@ -130,12 +130,6 @@ module.exports = {
 		else if(platform == 'ps2ps4eu:v2'){
 			resEmbed.setURL('http://ps4eu.ps2.fisu.pw/outfit/?name='+oInfo.alias);
 		}
-		if(oInfo.onlineCount == "Online member count unavailable"){
-			resEmbed.addField(oInfo.onlineCount, "", true);
-			return new Promise(function(resolve, reject){
-				resolve(resEmbed);
-			})
-		}
 		switch (oInfo.faction){
 			case "1":
 				resEmbed.setColor('PURPLE');
@@ -148,6 +142,13 @@ module.exports = {
 				break;
 			default:
 				resEmbed.setColor('GREY');
+		}
+		if(oInfo.onlineCount == "Online member count unavailable"){
+			resEmbed.addField(oInfo.onlineCount, "-", true);
+			resEmbed.setDescription(oInfo.alias+"\n"+"?/"+oInfo.memberCount+" online");
+			return new Promise(function(resolve, reject){
+				resolve(resEmbed);
+			})
 		}
 		for(let i = 0; i < 8; i++){
 			if(oInfo.onlineMembers[i].length > 0){
