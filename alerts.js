@@ -5,6 +5,14 @@ var alerts = require('./alerts.json');
 var got = require('got');
 var messageHandler = require('./messageHandler.js');
 
+const popLevels = {
+	1: "Dead",
+	2: "Low",
+	3: "Medium",
+	4: "High",
+	5: "Prime"
+}
+
 var alertInfo = async function(server){
 	let uri = 'https://api.ps2alerts.com/instances/active?world='+server;
 	let response = await got(uri).json();
@@ -42,7 +50,8 @@ var alertInfo = async function(server){
 			continent: alert.zone,
 			timeSinceStart: now-start,
 			timeLeft: (start+alert.duration)-now,
-			instanceId: alert.instanceId
+			instanceId: alert.instanceId,
+			bracket: alert.bracket
 		}
 		allAlerts.push(resObj);
 	}
@@ -140,6 +149,7 @@ module.exports = {
 			sendEmbed.addField(alertObj[x].name, "["+alertObj[x].description+"](https://ps2alerts.com/alert/"+alertObj[x].instanceId+"?utm_source=auraxis-bot&utm_medium=discord&utm_campaign=partners)");
 			sendEmbed.addField("Time since start", hoursSinceStart+"h "+minutesSinceStart+"m", true);
 			sendEmbed.addField("Time left", hoursleft+"h "+minutesleft+"m", true);
+			sendEmbed.addField("Activity Level", popLevels[alertObj[x].bracket], true)
 			sendEmbed.addField('Territory %', 'VS: '+alertObj[x].vs+"% | "+'NC: '+alertObj[x].nc+"% | "+'TR: '+alertObj[x].tr+"%");
 			if(x != alertObj.length-1){
 				sendEmbed.addField('\u200b', '\u200b');
