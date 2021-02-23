@@ -219,10 +219,5 @@ module.exports = {
 				this.start(SQLclient, discordClient);
 			},1000 * (2 ** timeout));
 		})
-		process.on('SIGTERM', () => {
-			//Destroy Twitter connection on cycle
-			filteredStream.destroy();
-			process.exit(1);
-		})
 	}
 }
