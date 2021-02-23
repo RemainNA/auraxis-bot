@@ -1,9 +1,8 @@
-// This file implements a function which finds and returns the max BR a character reached before joining ASP
+// This file implements a function which finds and returns the max BR a character reached before joining ASP, and tracks their ASP unlocks and tokens
 
 const Discord = require('discord.js');
-var got = require('got');
-var messageHandler = require('./messageHandler.js');
-
+const got = require('got');
+const messageHandler = require('./messageHandler.js');
 
 var basicInfo = async function(cName, platform){
 	let uri = 'https://census.daybreakgames.com/s:'+process.env.serviceID+'/get/'+platform+'/character?name.first_lower='+cName+'&c:resolve=item_full&c:lang=en';
@@ -54,12 +53,21 @@ var basicInfo = async function(cName, platform){
             reject(cName+" has not yet unlocked ASP");
         })
 	}
+	let br = Number(data.battle_rank.value);
+	let availableTokens = 1+Math.floor(br/25);
 	let aspTitle = false;
 	let decals = []; //count br 101-120 decals
+	let tokens = [];
 	for (x in data.items){
 		if (Number(data.items[x].item_id) >= 803931 && Number(data.items[x].item_id) <= 803950){
 			//record br 101-120 decals
 			decals.push(Number(data.items[x].item_id));
+		}
+		else if(data.items[x].item_type_id == "1" && data.items[x].item_category_id == "133"){
+			//record unlocked ASP items
+			tokens.push(data.items[x].name.en+": "+data.items[x].description.en);
+			tokens.push('----');
+			availableTokens -= 1;
 		}
 		if(Number(data.items[x].item_id) == 6004399){
 			aspTitle = true;
@@ -77,7 +85,9 @@ var basicInfo = async function(cName, platform){
 	let retInfo = {
 		faction: data.faction_id,
 		preBR: preBR,
-		name: data.name.first
+		name: data.name.first,
+		unlocks: tokens,
+		availableTokens: availableTokens
 	}
 	return new Promise(function(resolve, reject){
 		resolve(retInfo);
@@ -91,7 +101,7 @@ module.exports = {
                 reject("Character search contains disallowed characters");
             })
 		}
-
+		let cInfo = {};
 		try{
 			cInfo = await basicInfo(cName, platform);
 		}
@@ -115,6 +125,15 @@ module.exports = {
 		}
 		resEmbed.setTitle(cInfo.name);
 		resEmbed.setDescription("BR pre ASP: "+cInfo.preBR);
+		if(cInfo.unlocks.length == 0){
+			cInfo.unlocks = "None";
+		}
+		else{
+			cInfo.unlocks.pop();
+		}
+		resEmbed.addField("Available Points", cInfo.availableTokens);
+		resEmbed.addField("ASP Skills", cInfo.unlocks);
+		resEmbed.setThumbnail("http://census.daybreakgames.com/files/ps2/images/static/88688.png");
 		return new Promise(function(resolve, reject){
 			resolve(resEmbed);
 		})
