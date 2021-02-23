@@ -563,6 +563,7 @@ module.exports = {
             "DELETE FROM emerald WHERE channel = $1",
             "DELETE FROM soltech WHERE channel = $1",
             "DELETE FROM genudine WHERE channel = $1",
+            "DELETE FROM jaegar WHERE channel = $1",
             "DELETE FROM ceres WHERE channel = $1",
             "DELETE FROM outfit WHERE channel = $1",
             "DELETE FROM ps4usoutfit WHERE channel = $1",
