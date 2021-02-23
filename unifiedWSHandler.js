@@ -5,7 +5,7 @@ const Discord = require('discord.js');
 var messageHandler = require('./messageHandler.js');
 var subscriptions = require('./subscriptions.js');
 var territory = require('./territory.js');
-const { patch } = require('needle');
+var alerts = require('./alerts.json');
 
 environmentToTable = function(environment){
     if(environment == "ps2:v2"){
@@ -109,22 +109,21 @@ idToName = function(server){
 }
 
 alertInfo = async function(payload, environment){
-    let url = 'https://census.daybreakgames.com/s:'+process.env.serviceID+'/get/'+environment+'/metagame_event/'+payload.metagame_event_id;
-    let response = await got(url).json();
-    if(response.returned == 0 || typeof(response.metagame_event_list) === 'undefined' || typeof(response.metagame_event_list[0]) == 'undefined'){
-        var alerts = require('./alerts.json');
-        if(typeof(alerts[payload.metagame_event_id]) === 'undefined'){
-            console.log("Unable to find alert info for id "+payload.metagame_event_id);
-            return new Promise(function(resolve, reject){
-                reject("Alert notification error");
-            })
-        }
+    if(typeof(alerts[payload.metagame_event_id]) !== 'undefined'){
         let resObj = {
             name: alerts[payload.metagame_event_id].name,
             description: alerts[payload.metagame_event_id].description
         }
         return new Promise(function(resolve, reject){
             resolve(resObj);
+        })
+    }
+    let url = 'https://census.daybreakgames.com/s:'+process.env.serviceID+'/get/'+environment+'/metagame_event/'+payload.metagame_event_id;
+    let response = await got(url).json();
+    if(response.returned == 0 || typeof(response.metagame_event_list) === 'undefined' || typeof(response.metagame_event_list[0]) == 'undefined'){
+        console.log("Unable to find alert info for id "+payload.metagame_event_id);
+        return new Promise(function(resolve, reject){
+            reject("Alert notification error");
         })
     }
     if(response.error != undefined){
