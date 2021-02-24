@@ -119,7 +119,7 @@ Returns information on given implant.  Accepts exact or partial names.  Only sup
 
 #### !<ps4us/ps4eu> asp [name]
 
-Returns the BR a character reached before joining ASP.  Supports multiple characters per query.  Untested on PS4.  Does not work with NSO.
+Returns the BR a character reached before joining ASP, as well as their current ASP points and skills.  Supports multiple characters per query.  Does not work with NSO.
 
 ## FAQ
 
