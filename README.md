@@ -113,6 +113,10 @@ Return the current status of all servers as reported by the Census API.  Takes n
 
 Currently in beta.  Returns information on a given weapon.  Accepts weapon IDs, exact names, or partial names.  Only supports one weapon per query.
 
+#### !weaponsearch [name]
+
+Returns a list of weapon names and ids matching the given search term.  Only supports one search term per query.
+
 #### !implant [implant name]
 
 Returns information on given implant.  Accepts exact or partial names.  Only supports one implant per query.

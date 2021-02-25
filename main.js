@@ -47,6 +47,7 @@ var messageHandler = require('./messageHandler.js');
 var outfit = require('./outfit.js');
 var status = require('./status.js');
 var weapon = require('./weapon.js');
+var weaponSearch = require('./weaponSearch.js');
 var implant = require('./implant.js');
 var twitterListener = require('./twitterListener.js');
 
@@ -96,6 +97,7 @@ var listOfCommands = [
 "!alerts [server]",
 "!status",
 "!weapon [weapon name/id]",
+"!weaponSearch [name]",
 "!implant [implant name]",
 "!<ps4us/ps4eu> asp [name]"
 ]
@@ -356,6 +358,11 @@ client.on('message', message => {
 		weapon.lookup(message.content.substring(8))
 			.then(res => messageHandler.send(message.channel, res, "Weapon", true))
 			.catch(err => messageHandler.handleError(message.channel, err, "Weapon"))
+	}
+	else if (message.content.substring(0,14).toLowerCase() == '!weaponsearch ') {
+		weaponSearch.lookup(message.content.substring(14))
+			.then(res => messageHandler.send(message.channel, res, "Weapon search", true))
+			.catch(err => messageHandler.handleError(message.channel, err, "Weapon search"))
 	}
 	else if (message.content.substring(0,9).toLowerCase() == '!implant ') {
 		implant.lookup(message.content.substring(9))
