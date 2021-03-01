@@ -37,8 +37,12 @@ outfitInfo = async function(tag, environment){
     let uri = 'http://census.daybreakgames.com/s:'+process.env.serviceID+'/get/'+environment+'/outfit?alias_lower='+tag.toLowerCase()+'&c:join=character^on:leader_character_id^to:character_id';
     let response = await got(uri).json();
     if(response.error != undefined){
+        if(response.error == "service_unavailable"){
+            return new Promise(function(resolve, reject){
+                reject("Census API currently unavailable");
+            })
+        }
         return new Promise(function(resolve, reject){
-            console.log(error);
             reject(response.error);
         })
     }
