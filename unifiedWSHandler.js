@@ -270,6 +270,23 @@ alertEvent = async function(payload, environment, pgClient, discordClient){
     }
 }
 
+const outfitResources = {
+    "Small Outpost": "5 Auraxium <:Auraxium:818766792376713249>",
+    "Large Outpost": "25 Auraxium <:Auraxium:818766792376713249>",
+    "Construction Outpost": "3 Synthium <:Synthium:818766858865475584>",
+    "Bio Lab": "8 Synthium <:Synthium:818766858865475584>",
+    "Amp Station": "8 Synthium <:Synthium:818766858865475584>",
+    "Tech Plant": "8 Synthium <:Synthium:818766858865475584>",
+    "Central base": "2 Polystellarite <:Polystellarite:818766888238448661>"
+}
+
+const centralBases = [
+    '6200', // The Crown
+    '222280', // The Ascent
+    '254000', // Eisa
+    '298000' // Nason's Defiance
+]
+
 baseEvent = async function(payload, environment, pgClient, discordClient){
     if(payload.new_faction_id == payload.old_faction_id){
         return; //Ignore defended bases
@@ -311,7 +328,18 @@ baseEvent = async function(payload, environment, pgClient, discordClient){
             else if(payload.zone_id == "8"){
                 sendEmbed.addField("Continent", "Esamir", true);
             }
-            sendEmbed.addField("Facility Type", base.type, true);
+            if(centralBases.includes(payload.facility_id)){
+                sendEmbed.addField("Facility Type", base.type+"\n(Central base)", true);
+                sendEmbed.addField("Outfit Resources", "2 Polystellarite <:Polystellarite:818766888238448661>", true);
+            }
+            else if(base.type in outfitResources){
+                sendEmbed.addField("Facility Type", base.type, true);
+                sendEmbed.addField("Outfit Resources", outfitResources[base.type], true);
+            }
+            else{
+                sendEmbed.addField("Facility Type", base.type, true);
+                sendEmbed.addField("Outfit Resources", "Unknown", true);
+            }
             if(payload.old_faction_id == "1"){
                 sendEmbed.addField("Captured From", "VS", true);
             }
