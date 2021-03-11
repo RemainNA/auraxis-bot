@@ -135,10 +135,11 @@ module.exports = {
 		trPc = Number.parseFloat(trPc).toPrecision(3);
 		let nsPc = (res.ns/total)*100;
 		nsPc = Number.parseFloat(nsPc).toPrecision(3);
-		sendEmbed.addField('VS', res.vs+" ("+vsPc+"%)", true);
-		sendEmbed.addField('NC', res.nc+" ("+ncPc+"%)", true);
-		sendEmbed.addField('TR', res.tr+" ("+trPc+"%)", true);
-		sendEmbed.addField('NSO', res.ns+" ("+nsPc+"%)", true);
+		sendEmbed.setDescription(`\
+		\n<:VS:818766983918518272> **VS**: ${res.vs}  |  ${vsPc}%\
+		\n<:NC:818767043138027580> **NC**: ${res.nc}  |  ${ncPc}%\
+		\n<:TR:818988588049629256> **TR**: ${res.tr}  |  ${trPc}%\
+		\n<:NS:818767069176397854> **NSO**: ${res.ns}  |  ${nsPc}%`)
 		sendEmbed.setTimestamp();
 		sendEmbed.setURL(fisuPopulation(server));
 		if(world == 2000){

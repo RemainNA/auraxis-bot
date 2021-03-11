@@ -158,19 +158,19 @@ module.exports = {
 
 		switch (oInfo.faction){
 			case "1":
-				resEmbed.addField('Faction', 'VS', true);
+				resEmbed.addField('Faction', '<:VS:818766983918518272> VS', true);
 				resEmbed.setColor('PURPLE');
 				break;
 			case "2":
-				resEmbed.addField('Faction', 'NC', true);
+				resEmbed.addField('Faction', '<:NC:818767043138027580> NC', true);
 				resEmbed.setColor('BLUE');
 				break;
 			case "3":
-				resEmbed.addField('Faction', 'TR', true);
+				resEmbed.addField('Faction', '<:TR:818988588049629256> TR', true);
 				resEmbed.setColor('RED');
 				break;
 			default:
-				resEmbed.addField('Faction', 'NSO', true);
+				resEmbed.addField('Faction', '<:NS:818767069176397854> NSO', true);
 				resEmbed.setColor('GREY');
 		}
 		if(platform == "ps2:v2"){

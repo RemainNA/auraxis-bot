@@ -203,21 +203,23 @@ module.exports = {
             let trPc = (terObj[continent].tr/Total)*100;
             trPc = Number.parseFloat(trPc).toPrecision(3);
             if(vsPc == 100){
-                resEmbed.addField(continent, 'Owned by the VS: '+continentBenefit(continent));
+                resEmbed.addField(`${continent} <:VS:818766983918518272> `, 'Owned by the VS: '+continentBenefit(continent));
             }
             else if(ncPc == 100){
-                resEmbed.addField(continent, 'Owned by the NC: '+continentBenefit(continent));
+                resEmbed.addField(`${continent} <:NC:818767043138027580> `, 'Owned by the NC: '+continentBenefit(continent));
             }
             else if(trPc == 100){
-                resEmbed.addField(continent, 'Owned by the TR: '+continentBenefit(continent));
+                resEmbed.addField(`${continent} <:TR:818988588049629256> `, 'Owned by the TR: '+continentBenefit(continent));
             }
             else{
-                resEmbed.addField(continent, 'VS: '+vsPc+'% ('+terObj[continent].vs+') | NC: '+ncPc+'% ('+terObj[continent].nc+') | TR: '+trPc+'% ('+terObj[continent].tr+')');
+                resEmbed.addField(continent, `\
+                \n<:VS:818766983918518272> **VS**: ${terObj[continent].vs}  |  ${vsPc}%\
+                \n<:NC:818767043138027580> **NC**: ${terObj[continent].nc}  |  ${ncPc}%\
+                \n<:TR:818988588049629256> **TR**: ${terObj[continent].tr}  |  ${trPc}%`)
             }
         }
         return new Promise(function(resolve, reject){
             resolve(resEmbed);
         })
-    
     }
 }

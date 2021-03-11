@@ -229,13 +229,19 @@ alertEvent = async function(payload, environment, pgClient, discordClient){
                 ncPc = Number.parseFloat(ncPc).toPrecision(3);
                 let trPc = (terObj[continent].tr/Total)*100;
                 trPc = Number.parseFloat(trPc).toPrecision(3);
-                sendEmbed.addField('Territory % (Bases owned)', 'VS: '+vsPc+'% ('+terObj[continent].vs+') | NC: '+ncPc+'% ('+terObj[continent].nc+') | TR: '+trPc+'% ('+terObj[continent].tr+')');
+                sendEmbed.addField('Bases owned | Territory %', `\
+                \n<:VS:818766983918518272> **VS**: ${terObj[continent].vs}  |  ${vsPc}%\
+                \n<:NC:818767043138027580> **NC**: ${terObj[continent].nc}  |  ${ncPc}%\
+                \n<:TR:818988588049629256> **TR**: ${terObj[continent].tr}  |  ${trPc}%`)
             }
             else if(showTerritory){
                 let vsPc = Number.parseFloat(payload.faction_vs).toPrecision(3);
                 let ncPc = Number.parseFloat(payload.faction_nc).toPrecision(3);
                 let trPc = Number.parseFloat(payload.faction_tr).toPrecision(3);
-                sendEmbed.addField('Territory %', 'VS: '+vsPc+"% | "+'NC: '+ncPc+"% | "+'TR: '+trPc+"%")
+                sendEmbed.addField('Territory %', `\
+                \n<:VS:818766983918518272> **VS**: ${vsPc}%\
+                \n<:NC:818767043138027580> **NC**: ${ncPc}%\
+                \n<:TR:818988588049629256> **TR**: ${trPc}%`)
             }
             let rows = await pgClient.query(queryText);
             for (let row of rows.rows){
@@ -341,13 +347,13 @@ baseEvent = async function(payload, environment, pgClient, discordClient){
                 sendEmbed.addField("Outfit Resources", "Unknown", true);
             }
             if(payload.old_faction_id == "1"){
-                sendEmbed.addField("Captured From", "VS", true);
+                sendEmbed.addField("Captured From", "<:VS:818766983918518272> VS", true);
             }
             else if(payload.old_faction_id == "2"){
-                sendEmbed.addField("Captured From", "NC", true);
+                sendEmbed.addField("Captured From", "<:NC:818767043138027580> NC", true);
             }
             else if(payload.old_faction_id == "3"){
-                sendEmbed.addField("Captured From", "TR", true);
+                sendEmbed.addField("Captured From", "<:TR:818988588049629256> TR", true);
             }
             for (let row of result.rows){
                 discordClient.channels.fetch(row.channel)

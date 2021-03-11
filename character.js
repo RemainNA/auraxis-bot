@@ -401,19 +401,19 @@ module.exports = {
 
         // Faction, embed color
         if (cInfo.faction == "1"){ //vs
-            resEmbed.addField('Faction', 'VS', true);
+            resEmbed.addField('Faction', '<:VS:818766983918518272> VS', true);
             resEmbed.setColor('PURPLE');
         }
         else if (cInfo.faction == "2"){ //nc
-            resEmbed.addField('Faction', 'NC', true);
+            resEmbed.addField('Faction', '<:NC:818767043138027580> NC', true);
             resEmbed.setColor('BLUE');
         }
         else if (cInfo.faction == "3"){ //tr
-            resEmbed.addField('Faction', 'TR', true);
+            resEmbed.addField('Faction', '<:TR:818988588049629256> TR', true);
             resEmbed.setColor('RED');
         }
         else{ //NSO
-            resEmbed.addField('Faction', 'NSO', true);
+            resEmbed.addField('Faction', '<:NS:818767069176397854> NSO', true);
             resEmbed.setColor('GREY');
         }
 
