@@ -139,7 +139,7 @@ module.exports = {
 		\n<:VS:818766983918518272> **VS**: ${res.vs}  |  ${vsPc}%\
 		\n<:NC:818767043138027580> **NC**: ${res.nc}  |  ${ncPc}%\
 		\n<:TR:818988588049629256> **TR**: ${res.tr}  |  ${trPc}%\
-		\n<:NS:818767069176397854> **NSO**: ${res.ns}  |  ${nsPc}%`)
+		\n<:NS:819511690726866986> **NSO**: ${res.ns}  |  ${nsPc}%`)
 		sendEmbed.setTimestamp();
 		sendEmbed.setURL(fisuPopulation(server));
 		if(world == 2000){

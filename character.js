@@ -413,7 +413,7 @@ module.exports = {
             resEmbed.setColor('RED');
         }
         else{ //NSO
-            resEmbed.addField('Faction', '<:NS:818767069176397854> NSO', true);
+            resEmbed.addField('Faction', '<:NS:819511690726866986> NSO', true);
             resEmbed.setColor('GREY');
         }
 
