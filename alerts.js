@@ -150,7 +150,10 @@ module.exports = {
 			sendEmbed.addField("Time since start", hoursSinceStart+"h "+minutesSinceStart+"m", true);
 			sendEmbed.addField("Time left", hoursleft+"h "+minutesleft+"m", true);
 			sendEmbed.addField("Activity Level", popLevels[alertObj[x].bracket], true)
-			sendEmbed.addField('Territory %', 'VS: '+alertObj[x].vs+"% | "+'NC: '+alertObj[x].nc+"% | "+'TR: '+alertObj[x].tr+"%");
+			sendEmbed.addField('Territory Control', `\
+			\n<:VS:818766983918518272> **VS**: ${alertObj[x].vs}%\
+			\n<:NC:818767043138027580> **NC**: ${alertObj[x].nc}%\
+			\n<:TR:818988588049629256> **TR**: ${alertObj[x].tr}%`)
 			if(x != alertObj.length-1){
 				sendEmbed.addField('\u200b', '\u200b');
 			}
