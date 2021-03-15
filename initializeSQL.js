@@ -243,5 +243,26 @@ module.exports = {
 				});
 			}
 		});
+
+		// Alert maintenance
+		SQLclient.query("SELECT * FROM alertmaintenance;", (err, res) => {
+		    if (err){
+				console.log(err);
+				console.log("Creating news table");
+				SQLclient.query("CREATE TABLE alertMaintenance (\
+					alertid text NOT NULL, \
+					messageID text PRIMARY KEY NOT NULL, \
+					channelid text NOT NULL,\
+					goneprime boolean DEFAULT FALSE\
+					);", (err, res) => {
+					if (err){
+						console.log(err);
+					}
+					else{
+						console.log(res);
+					}
+				});
+			}
+		});
 	}
 }

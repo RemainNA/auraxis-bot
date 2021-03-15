@@ -23,7 +23,7 @@ try{
 		process.env.TWITTER_ACCESS_TOKEN_KEY = auth.twAccessToken;
 		process.env.TWITTER_ACCESS_TOKEN_SECRET = auth.twAccessTokenSecret;
 		process.env.TWITTER_BEARER_TOKEN = auth.twBearerToken;
-		twitterAvail = true;
+		// twitterAvail = true;
 	}
 }
 catch(e){
@@ -50,6 +50,7 @@ var weapon = require('./weapon.js');
 var weaponSearch = require('./weaponSearch.js');
 var implant = require('./implant.js');
 var twitterListener = require('./twitterListener.js');
+var alertMaintenance = require('./alertMaintenance.js');
 
 const client = new Discord.Client();
 
@@ -72,6 +73,11 @@ client.on('ready', () => {
 	if(twitterAvail){
 		twitterListener.start(SQLclient, client);
 	}
+
+	alertMaintenance.update(SQLclient, client);
+	setInterval(function () { 
+		alertMaintenance.update(SQLclient, client);
+	}, 60000); //Update alerts every minute
 
 	client.user.setActivity('!help')
 });

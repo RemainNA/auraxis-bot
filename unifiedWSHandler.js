@@ -192,6 +192,7 @@ alertEvent = async function(payload, environment, pgClient, discordClient){
                 sendEmbed.setColor('RED');
             }
             sendEmbed.addField('Server', server, true);
+            sendEmbed.addField('Status', "Started", true);
             let terObj = "";
             try{
                 terObj = await territory.territoryInfo(server);
@@ -229,7 +230,7 @@ alertEvent = async function(payload, environment, pgClient, discordClient){
                 ncPc = Number.parseFloat(ncPc).toPrecision(3);
                 let trPc = (terObj[continent].tr/Total)*100;
                 trPc = Number.parseFloat(trPc).toPrecision(3);
-                sendEmbed.addField('Bases owned | Territory %', `\
+                sendEmbed.addField('Territory Control', `\
                 \n<:VS:818766983918518272> **VS**: ${terObj[continent].vs}  |  ${vsPc}%\
                 \n<:NC:818767043138027580> **NC**: ${terObj[continent].nc}  |  ${ncPc}%\
                 \n<:TR:818988588049629256> **TR**: ${terObj[continent].tr}  |  ${trPc}%`)
@@ -238,7 +239,7 @@ alertEvent = async function(payload, environment, pgClient, discordClient){
                 let vsPc = Number.parseFloat(payload.faction_vs).toPrecision(3);
                 let ncPc = Number.parseFloat(payload.faction_nc).toPrecision(3);
                 let trPc = Number.parseFloat(payload.faction_tr).toPrecision(3);
-                sendEmbed.addField('Territory %', `\
+                sendEmbed.addField('Territory Control', `\
                 \n<:VS:818766983918518272> **VS**: ${vsPc}%\
                 \n<:NC:818767043138027580> **NC**: ${ncPc}%\
                 \n<:TR:818988588049629256> **TR**: ${trPc}%`)
@@ -249,7 +250,13 @@ alertEvent = async function(payload, environment, pgClient, discordClient){
                     .then(resChann => {
                         if(typeof(resChann.guild) !== 'undefined'){
                             if(resChann.permissionsFor(resChann.guild.me).has(['SEND_MESSAGES','VIEW_CHANNEL', 'EMBED_LINKS'])){
-                                messageHandler.send(resChann, sendEmbed, "Alert notification");
+                                messageHandler.send(resChann, sendEmbed, "Alert notification")
+                                .then(messageId => {
+                                    if(messageId != -1 && trackedAlerts.indexOf(Number(payload.metagame_event_id)) > -1){
+                                        pgClient.query("INSERT INTO alertMaintenance (alertID, messageID, channelID) VALUES ($1, $2, $3);", [`${payload.world_id}-${payload.instance_id}`, messageId, row.channel])
+                                            .catch(err => {console.log(err);})
+                                    }
+                                })
                             }
                             else{
                                 subscriptions.unsubscribeAll(pgClient, row.channel);
@@ -257,7 +264,13 @@ alertEvent = async function(payload, environment, pgClient, discordClient){
                             } 
                         }
                         else{ // DM
-                            messageHandler.send(resChann, sendEmbed, "Alert notification");
+                            messageHandler.send(resChann, sendEmbed, "Alert notification")
+                            .then(messageId => {
+                                if(messageId != -1 && trackedAlerts.indexOf(Number(payload.metagame_event_id)) > -1){
+                                    pgClient.query("INSERT INTO alertMaintenance (alertID, messageID, channelID) VALUES ($1, $2, $3);", [`${payload.world_id}-${payload.instance_id}`, messageId, row.channel])
+                                        .catch(err => {console.log(err);})
+                                }
+                            })
                         } 
                     })
                     .catch(error => {

@@ -1,7 +1,8 @@
 // This file defines methods for sending messages, and handles errors that occur in that process.
 
 module.exports = {
-    send: function(channel, message, context="default", embed=false){
+    send: async function(channel, message, context="default", embed=false){
+        let res = -1;
         if(embed && channel.type != 'dm' && !channel.permissionsFor(channel.guild.me).has('EMBED_LINKS')){
             channel.send('Please grant the "Embed Links" permission to use this command').then(function(result){
                 //message successfully sent, no action needed.
@@ -16,8 +17,8 @@ module.exports = {
             });
         }
         else{
-            channel.send(message).then(function(result){
-                //message successfully sent, no action needed.
+            await channel.send(message).then(function(result){
+                res = result.id;
             }, function(err){
                 console.log("Error sending message in context: "+context);
                 if(typeof(err.message) !== 'undefined'){
@@ -28,6 +29,9 @@ module.exports = {
                 }
             });
         }
+        return new Promise(function(resolve, reject){
+			resolve(res);
+		})
     },
 
     handleError: function(channel, err, context="default"){
