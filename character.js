@@ -62,6 +62,17 @@ var basicInfo = async function(cName, platform){
         stats: false,
         stat_history: false
     }
+    if(platform != 'ps2:v2' && data.faction_id != 4){
+        try{
+            let manualPrestige = await checkASP(cName, platform);
+            if(manualPrestige){
+                resObj.prestige = 1;
+            }
+        }
+        catch(err){
+            // Fail silently
+        }
+    }
     if(data.title_id_join_title != null){
         resObj.title = data.title_id_join_title.name.en;
     }
@@ -187,6 +198,57 @@ var basicInfo = async function(cName, platform){
     }
     return new Promise(function(resolve, reject){
         resolve(resObj);
+    })
+}
+
+const checkASP = async function(cName, platform){
+    let uri = 'https://census.daybreakgames.com/s:'+process.env.serviceID+'/get/'+platform+'/character?name.first_lower='+cName+'&c:resolve=item_full&c:lang=en';
+    let response = "";
+    try{
+        response = await got(uri).json(); 
+    }
+    catch(err){
+        if(err.message.indexOf('404') > -1){
+            return new Promise(function(resolve, reject){
+                reject("API Unreachable");
+            })
+        }
+    }
+    if(typeof(response.error) !== 'undefined'){
+        if(response.error == 'service_unavailable'){
+            return new Promise(function(resolve, reject){
+                reject("Census API currently unavailable");
+            })
+        }
+        if(typeof(response.error) === 'string'){
+            return new Promise(function(resolve, reject){
+                reject("Census API error: "+response.error);
+            })
+        }
+        return new Promise(function(resolve, reject){
+            reject(response.error);
+        })
+    }
+    if(typeof(response.character_list) === 'undefined'){
+        return new Promise(function(resolve, reject){
+            reject("API Error");
+        })
+    }
+    if(typeof(response.character_list[0]) === 'undefined'){
+        return new Promise(function(resolve, reject){
+            reject(cName+" not found");
+        })
+    }
+    let data = response.character_list[0];
+    let aspTitle = false;
+    for (x in data.items){
+        if(Number(data.items[x].item_id) == 6004399){
+            aspTitle = true;
+            break;
+        }
+    }
+    return new Promise(function(resolve, reject){
+        resolve(aspTitle);
     })
 }
 
