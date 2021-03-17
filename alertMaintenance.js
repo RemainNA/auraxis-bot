@@ -109,6 +109,9 @@ const editMessage = async function(embed, messageId, channelId, discordClient){
 					})
 				})
 			})
+			.catch(err => {
+				// ignore, will be cleaned up on alert end
+			})
 		}
 	})
 	.catch(err => {
@@ -126,6 +129,7 @@ module.exports = {
 				response = await got(uri).json();
 			}
 			catch(err){
+				console.log("Error retrieving alert info from PS2Alerts");
 				console.log(err);
 				continue;
 			}
