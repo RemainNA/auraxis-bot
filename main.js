@@ -82,7 +82,7 @@ client.on('ready', () => {
 	alertMaintenance.update(SQLclient, client);
 	setInterval(function () { 
 		alertMaintenance.update(SQLclient, client);
-	}, 60000); //Update alerts every minute
+	}, 180000); //Update alerts every minute
 
 	client.user.setActivity('!help')
 });
