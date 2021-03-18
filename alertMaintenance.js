@@ -145,13 +145,5 @@ module.exports = {
 			}
 			updateAlert(response, pgClient, discordClient, "timeEnded" in response);
 		}
-	},
-
-	aggressiveDrop: async function(messageid, pgClient){
-		pgClient.query("DELETE FROM alertMaintenance WHERE messageid = $1;", [messageid])
-			.catch(err => {
-				console.log("Error with aggressive drop");
-				console.log(err);
-			})
 	}
 }
