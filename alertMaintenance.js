@@ -136,7 +136,7 @@ module.exports = {
 					pgClient.query("DELETE FROM alertMaintenance WHERE alertID = $1;", [row.alertid]);
 				}
 				else{
-					pgClient.query("UPDATE SET error = true WHERE alertID = $1;", [row.alertid]);
+					pgClient.query("UPDATE alertMaintenance SET error = true WHERE alertID = $1;", [row.alertid]);
 					console.log("Error retrieving alert info from PS2Alerts");
 					console.log(err);
 				}
