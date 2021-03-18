@@ -78,6 +78,9 @@ const updateAlert = async function(info, pgClient, discordClient, isComplete){
 		}
 		else{
 			messageEmbed.addField("Result", winnerFaction[info.result.victor], true);
+			if (!(info.result.victor in winnerFaction)){
+				isComplete = false; //Don't delete from list, retry later when field may be populated
+			}
 		}
 	}
 	
@@ -121,7 +124,7 @@ const editMessage = async function(embed, messageId, channelId, discordClient){
 
 module.exports = {
 	update: async function(pgClient, discordClient){
-		let rows = await pgClient.query("SELECT DISTINCT alertID FROM alertMaintenance");
+		let rows = await pgClient.query("SELECT DISTINCT alertID, error FROM alertMaintenance");
 		for(let row of rows.rows){
 			let uri = `https://api.ps2alerts.com/instances/${row.alertid}`;
 			let response = "";
@@ -129,8 +132,15 @@ module.exports = {
 				response = await got(uri).json();
 			}
 			catch(err){
-				console.log("Error retrieving alert info from PS2Alerts");
-				console.log(err);
+				if(row.error){
+					pgClient.query("DELETE FROM alertMaintenance WHERE alertID = $1;", [row.alertid]);
+				}
+				else{
+					pgClient.query("UPDATE SET error = true WHERE alertID = $1;", [row.alertid]);
+					console.log("Error retrieving alert info from PS2Alerts");
+					console.log(err);
+				}
+				
 				continue;
 			}
 			updateAlert(response, pgClient, discordClient, "timeEnded" in response);
