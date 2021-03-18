@@ -60,6 +60,9 @@ const token = process.env.token;
 client.on('rateLimit', rateInfo => {
 	console.log("RATE LIMIT");
 	console.log(rateInfo);
+	if('path' in rateInfo){
+		alertMaintenance.aggressiveDrop(rateInfo.path.split('/')[-1], SQLclient);
+	}
 })
 
 client.on('ready', () => {
