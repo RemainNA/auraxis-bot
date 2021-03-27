@@ -537,10 +537,10 @@ module.exports = {
                 reject("User not found");
             })
         }
-        let count = await pgClient.query('SELECT COUNT(channel) FROM news WHERE source=$1 AND channel=$2', [source, channelId]);
+        let count = await pgClient.query('SELECT COUNT(channel) FROM news WHERE source=$1 AND channel=$2;', [source, channelId]);
         if(count.rows[0].count > 0){
             try{
-                pgClient.query("DELETE FROM news WHERE channel= $1 AND source = $2);", [channelId, source]);
+                pgClient.query("DELETE FROM news WHERE channel= $1 AND source = $2;", [channelId, source]);
             }
             catch(error){
                 console.log(error);

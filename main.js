@@ -529,7 +529,7 @@ client.on('message', message => {
 		let users = message.content.substring(21).toLowerCase().split(" ");
 		for(x in users){
 			if(users[x] != ""){
-				subscription.unsubscribeAlert(SQLclient, message.channel.id, users[x])
+				subscription.unsubscribeTwitter(SQLclient, message.channel.id, users[x])
 					.then(res => messageHandler.send(message.channel, res, "Unsubscribe twitter"))
 					.catch(err => messageHandler.handleError(message.channel, err, "Unsubscribe twitter"))
 			}
