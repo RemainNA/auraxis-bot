@@ -109,10 +109,10 @@ var listOfCommands = [
 ]
 
 var links = [
-	"[GitHub page](https://github.com/RemainNA/auraxis-bot)",
+	"[GitHub page & FAQ](https://github.com/RemainNA/auraxis-bot)",
 	"[Support server](https://discord.gg/Kf5P6Ut)",
 	"[Invite bot](https://discordapp.com/oauth2/authorize?client_id=437756856774033408&scope=bot&permissions=19456)",
-	"[Support on Ko-fi](https://ko-fi.com/remainna)"
+	"[Donate on Ko-fi](https://ko-fi.com/remainna)"
 ]
 
 // Create an event listener for messages

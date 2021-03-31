@@ -135,6 +135,10 @@ Please make sure you have granted it the "Read Messages" "Send Messages" and "Em
 
 In your client settings, under "Text & Images" make sure "Show website preview info from links pasted into chat" is enabled
 
+### Why am I seeing ":VS:", ":NC:", ":TR:", etc.?
+
+The bot is not allowed to use external emoji in that channel, to fix this grand the Use External Emoji permission to the bot.
+
 ### What is IAHR?
 
 IAHR score is "Infantry Accuracy * Headshot Ratio" score.  It is calculated by taking the cumulative accuracy and headshot ratios of all infantry weapons except for abilities, knives, grenades, rocket launchers, MAX AA and AV, explosives, and rocklet rifles, multiplying them together, then multiplying by 10,000.  AHR is the same, but per weapon instead of an aggregate across most infantry weapons.
