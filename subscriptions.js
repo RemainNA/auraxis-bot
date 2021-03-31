@@ -78,8 +78,6 @@ twitterUsers = function(user){
             return "WrelPlays-twitter"
         case "planetside":
             return "planetside2-twitter"
-        case "andy":
-            return "AndySites-twitter"
         default:
             return false
     }

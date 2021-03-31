@@ -17,7 +17,6 @@ const rules = [
 	{ 'value': 'from:822515900', 'tag': 'Remain_NA' },
 	{ 'value': 'from:829358606', 'tag': 'WrelPlays' },
 	{ 'value': 'from:247430686', 'tag': 'planetside2' },
-	{ 'value': 'from:353166375', 'tag': 'AndySites' },
   ];
 
 async function getAllRules() {

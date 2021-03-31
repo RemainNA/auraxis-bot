@@ -81,11 +81,11 @@ Subscribes the channel to notifications of bases captured by the specified tag. 
 
 Unsubscribes the channel from the above notifications.  Supports multiple tags per query.
 
-#### !subscribe twitter [wrel/andy/planetside]
+#### !subscribe twitter [wrel/planetside]
 
 Subscribes the channel to live Tweet notifications from the specified account.  Supports multiple users per query.
 
-#### !unsubscribe twitter [wrel/andy/planetside]
+#### !unsubscribe twitter [wrel/planetside]
 
 Unsubscribes the channel from the above notifications.  Supports multiple users per query.
 
