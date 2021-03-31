@@ -85,18 +85,20 @@ const updateAlert = async function(info, pgClient, discordClient, isComplete){
 	}
 	
 
-	let rows = await pgClient.query("SELECT messageID, channelID FROM alertMaintenance WHERE alertID = $1;", [info.instanceId]);
-	for(let row of rows.rows){
-		editMessage(messageEmbed, row.messageid, row.channelid, discordClient)
-			.then(function(){
-				if(isComplete){
-					pgClient.query("DELETE FROM alertMaintenance WHERE alertID = $1;", [info.instanceId])
-				}
-			})
-			.catch(err => {
-				console.log(err)
-			})
-	}
+	pgClient.query("SELECT messageID, channelID FROM alertMaintenance WHERE alertID = $1;", [info.instanceId])
+	.then(rows => {
+		for(let row of rows.rows){
+			editMessage(messageEmbed, row.messageid, row.channelid, discordClient)
+				.then(function(){
+					if(isComplete){
+						pgClient.query("DELETE FROM alertMaintenance WHERE alertID = $1;", [info.instanceId])
+					}
+				})
+				.catch(err => {
+					console.log(err)
+				})
+		}	
+	})
 }
 
 const editMessage = async function(embed, messageId, channelId, discordClient){
@@ -124,26 +126,23 @@ const editMessage = async function(embed, messageId, channelId, discordClient){
 
 module.exports = {
 	update: async function(pgClient, discordClient){
-		let rows = await pgClient.query("SELECT DISTINCT alertID, error FROM alertMaintenance");
-		for(let row of rows.rows){
-			let uri = `https://api.ps2alerts.com/instances/${row.alertid}`;
-			let response = "";
-			try{
-				response = await got(uri).json();
+		pgClient.query("SELECT DISTINCT alertID, error FROM alertMaintenance")
+		.then(rows => {
+			for(let row of rows.rows){
+				got(`https://api.ps2alerts.com/instances/${row.alertid}`).json()
+					.then(response => {updateAlert(response, pgClient, discordClient, "timeEnded" in response);})
+					.catch(err =>{
+						if(row.error){
+							pgClient.query("DELETE FROM alertMaintenance WHERE alertID = $1;", [row.alertid]);
+						}
+						else{
+							pgClient.query("UPDATE alertMaintenance SET error = true WHERE alertID = $1;", [row.alertid]);
+							console.log("Error retrieving alert info from PS2Alerts");
+							console.log(err);
+						}
+					})
 			}
-			catch(err){
-				if(row.error){
-					pgClient.query("DELETE FROM alertMaintenance WHERE alertID = $1;", [row.alertid]);
-				}
-				else{
-					pgClient.query("UPDATE alertMaintenance SET error = true WHERE alertID = $1;", [row.alertid]);
-					console.log("Error retrieving alert info from PS2Alerts");
-					console.log(err);
-				}
-				
-				continue;
-			}
-			updateAlert(response, pgClient, discordClient, "timeEnded" in response);
-		}
+		})
+		.catch(err => {})
 	}
 }
