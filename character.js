@@ -438,7 +438,11 @@ module.exports = {
         if(cInfo.stat_history){
             resEmbed.addField('K/D', Number.parseFloat(cInfo.kills/cInfo.deaths).toPrecision(3), true);
             resEmbed.addField('KPM', Number.parseFloat(cInfo.kills/cInfo.playTime).toPrecision(3), true);
-            resEmbed.addField('K-D Diff', `${Number.parseInt(cInfo.kills).toLocaleString()} - ${Number.parseInt(cInfo.deaths).toLocaleString()} = ${(cInfo.kills-cInfo.deaths).toLocaleString()}`, true);
+            let sign = "";
+            if((cInfo.kills-cInfo.deaths) > 0){
+                sign = "+";
+            }
+            resEmbed.addField('K-D Diff', `${Number.parseInt(cInfo.kills).toLocaleString()} - ${Number.parseInt(cInfo.deaths).toLocaleString()} = ${sign}${(cInfo.kills-cInfo.deaths).toLocaleString()}`, true);
         }
 
         // IAHR Score
