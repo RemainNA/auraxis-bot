@@ -1,1 +1,1 @@
-worker: node main.js
+worker: node --max-old-space-size=460 main.js
