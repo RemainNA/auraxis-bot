@@ -31,6 +31,7 @@ logEvent = async function(payload, environment, pgClient, discordClient){
     let playerEvent = payload.event_name.substring(6);
     if(response.character_list[0].outfit_member != null){
         let char = response.character_list[0];
+        let result = "";
         try{
             result = await pgClient.query("SELECT * FROM "+table+" WHERE id=$1;", [char.outfit_member.outfit_id]);
         }
@@ -318,9 +319,8 @@ baseEvent = async function(payload, environment, pgClient, discordClient){
     else if(environment == "ps2ps4eu:v2"){
         queryText = "SELECT * FROM ps4euoutfitcaptures WHERE id=$1";
     }
-    let queryValues = [payload.outfit_id];
     try{
-        let result = await pgClient.query(queryText, queryValues);
+        let result = await pgClient.query(queryText, [payload.outfit_id]);
         if(result.rowCount > 0){
             let sendEmbed = new Discord.MessageEmbed();
             let base = await baseInfo(payload.facility_id, environment);
