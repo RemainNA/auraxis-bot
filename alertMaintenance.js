@@ -126,23 +126,27 @@ const editMessage = async function(embed, messageId, channelId, discordClient){
 
 module.exports = {
 	update: async function(pgClient, discordClient){
-		pgClient.query("SELECT DISTINCT alertID, error FROM alertMaintenance")
-		.then(rows => {
+		try{
+			let rows = await pgClient.query("SELECT DISTINCT alertID, error FROM alertMaintenance")
 			for(let row of rows.rows){
-				got(`https://api.ps2alerts.com/instances/${row.alertid}`).json()
-					.then(response => {updateAlert(response, pgClient, discordClient, "timeEnded" in response);})
-					.catch(err =>{
-						if(row.error){
-							pgClient.query("DELETE FROM alertMaintenance WHERE alertID = $1;", [row.alertid]);
-						}
-						else{
-							pgClient.query("UPDATE alertMaintenance SET error = true WHERE alertID = $1;", [row.alertid]);
-							console.log("Error retrieving alert info from PS2Alerts");
-							console.log(err);
-						}
-					})
+				try{
+					let response = await got(`https://api.ps2alerts.com/instances/${row.alertid}`).json();
+					updateAlert(response, pgClient, discordClient, "timeEnded" in response);
+				}
+				catch(err){
+					if(row.error){
+						pgClient.query("DELETE FROM alertMaintenance WHERE alertID = $1;", [row.alertid]);
+					}
+					else{
+						pgClient.query("UPDATE alertMaintenance SET error = true WHERE alertID = $1;", [row.alertid]);
+						console.log("Error retrieving alert info from PS2Alerts");
+						console.log(err);
+					}
+				}
 			}
-		})
-		.catch(err => {})
+		}
+		catch(err){
+			//ignore
+		}
 	}
 }
