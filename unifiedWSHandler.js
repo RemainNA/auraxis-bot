@@ -31,59 +31,59 @@ logEvent = async function(payload, environment, pgClient, discordClient){
     let playerEvent = payload.event_name.substring(6);
     if(response.character_list[0].outfit_member != null){
         let char = response.character_list[0];
-        pgClient.query("SELECT * FROM "+table+" WHERE id=$1;", [char.outfit_member.outfit_id])
-        .then(result => {
-            if (result.rows.length > 0){
-                let sendEmbed = new Discord.MessageEmbed();
-                sendEmbed.setTitle(result.rows[0].alias+' '+playerEvent);
-                sendEmbed.setDescription(char.name.first);
-                if (char.faction_id == "1"){ //vs
-                    sendEmbed.setColor('PURPLE');
-                }
-                else if (char.faction_id == "2"){ //nc
-                    sendEmbed.setColor('BLUE');
-                }
-                else if (char.faction_id == "3"){ //tr
-                    sendEmbed.setColor('RED');
-                }
-                else{ //nso
-                    sendEmbed.setColor('GREY');
-                }
-                for (let row of result.rows){
-                    discordClient.channels.fetch(row.channel)
-                        .then(resChann => {
-                            if(typeof(resChann.guild) !== 'undefined'){
-                                if(resChann.permissionsFor(resChann.guild.me).has(['SEND_MESSAGES','VIEW_CHANNEL', 'EMBED_LINKS'])){
-                                    messageHandler.send(resChann, sendEmbed, "Log event");
-                                }
-                                else{
-                                    subscriptions.unsubscribeAll(pgClient, row.channel);
-                                    console.log('Unsubscribed from '+row.channel);
-                                } 
-                            }
-                            else{ // DM
+        try{
+            result = await pgClient.query("SELECT * FROM "+table+" WHERE id=$1;", [char.outfit_member.outfit_id]);
+        }
+        catch(error){
+            return new Promise(function(resolve, reject){
+                reject("1"+error);
+            })
+        }
+        if (result.rows.length > 0){
+            let sendEmbed = new Discord.MessageEmbed();
+            sendEmbed.setTitle(result.rows[0].alias+' '+playerEvent);
+            sendEmbed.setDescription(char.name.first);
+            if (char.faction_id == "1"){ //vs
+                sendEmbed.setColor('PURPLE');
+            }
+            else if (char.faction_id == "2"){ //nc
+                sendEmbed.setColor('BLUE');
+            }
+            else if (char.faction_id == "3"){ //tr
+                sendEmbed.setColor('RED');
+            }
+            else{ //nso
+                sendEmbed.setColor('GREY');
+            }
+            for (let row of result.rows){
+                discordClient.channels.fetch(row.channel)
+                    .then(resChann => {
+                        if(typeof(resChann.guild) !== 'undefined'){
+                            if(resChann.permissionsFor(resChann.guild.me).has(['SEND_MESSAGES','VIEW_CHANNEL', 'EMBED_LINKS'])){
                                 messageHandler.send(resChann, sendEmbed, "Log event");
-                            }                        
-                        })
-                        .catch(error => {
-                            if(typeof(error.code) !== 'undefined'){
-                                if(error.code == 10003){ //Unknown channel error, thrown when the channel is deleted
-                                    subscriptions.unsubscribeAll(pgClient, row.channel);
-                                    console.log('Unsubscribed from '+row.channel);
-                                }
                             }
                             else{
-                                console.log(error);
+                                subscriptions.unsubscribeAll(pgClient, row.channel);
+                                console.log('Unsubscribed from '+row.channel);
+                            } 
+                        }
+                        else{ // DM
+                            messageHandler.send(resChann, sendEmbed, "Log event");
+                        }                        
+                    })
+                    .catch(error => {
+                        if(typeof(error.code) !== 'undefined'){
+                            if(error.code == 10003){ //Unknown channel error, thrown when the channel is deleted
+                                subscriptions.unsubscribeAll(pgClient, row.channel);
+                                console.log('Unsubscribed from '+row.channel);
                             }
-                        })
-                }
+                        }
+                        else{
+                            console.log(error);
+                        }
+                    })
             }
-        })
-        .catch(error =>{
-            return new Promise(function(resolve, reject){
-                reject(null);
-            })
-        })
+        }
     }
 }
 
@@ -318,8 +318,9 @@ baseEvent = async function(payload, environment, pgClient, discordClient){
     else if(environment == "ps2ps4eu:v2"){
         queryText = "SELECT * FROM ps4euoutfitcaptures WHERE id=$1";
     }
-    pgClient.query(queryText, [payload.outfit_id])
-    .then(async result => {
+    let queryValues = [payload.outfit_id];
+    try{
+        let result = await pgClient.query(queryText, queryValues);
         if(result.rowCount > 0){
             let sendEmbed = new Discord.MessageEmbed();
             let base = await baseInfo(payload.facility_id, environment);
@@ -396,12 +397,12 @@ baseEvent = async function(payload, environment, pgClient, discordClient){
                 })
             }
         }
-    })
-    .catch(error =>{
+    }
+    catch(error){
         return new Promise(function(resolve, reject){
             reject(error);
         })
-    })
+    }
 }
 
 var objectEquality = function(a, b){
