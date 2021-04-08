@@ -7,7 +7,9 @@ var pcRunning = false;
 var usRunning = false;
 var euRunning = false;
 
-var backoff = 1000;
+var pcTimeout = 0;
+var usTimeout = 0;
+var euTimeout = 0;
 
 function listen(pgClient, discordClient){
     pcLogin = '{"service":"event","action":"subscribe","worlds":["1","10","13","17","19","40"],"eventNames":["PlayerLogin","PlayerLogout"]}';
@@ -47,9 +49,9 @@ function listen(pgClient, discordClient){
         pcClient.on('close', function close(){
             pcRunning = false;
             setTimeout(function() {
+                pcTimeout++;
                 listen(pgClient, discordClient);
-            }, backoff);
-            backoff = backoff * 2;
+            }, 1000 * (2 ** pcTimeout));
         })
     
     }
@@ -81,9 +83,9 @@ function listen(pgClient, discordClient){
         usClient.on('close', function close(){
             usRunning = false;
             setTimeout(function() {
+                usTimeout++;
                 listen(pgClient, discordClient);
-            }, backoff);
-            backoff = backoff * 2;
+            }, 1000 * (2 ** usTimeout));
         })
 
     }
@@ -115,9 +117,9 @@ function listen(pgClient, discordClient){
         euClient.on('close', function close(){
             euRunning = false;
             setTimeout(function() {
+                euTimeout++;
                 listen(pgClient, discordClient);
-            }, backoff);
-            backoff = backoff * 2;
+            }, 1000 * (2 ** euTimeout));
         })
     }
 }
