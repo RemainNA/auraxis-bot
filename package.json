@@ -6,6 +6,7 @@
   "author": "RemainNA",
   "dependencies": {
     "discord.js": "^12.5.2",
+    "dotenv": "^8.2.0",
     "got": "^10.7.0",
     "ioredis": "^4.17.3",
     "needle": "^2.5.2",

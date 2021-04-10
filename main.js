@@ -26,31 +26,16 @@ const implant = require('./implant.js');
 const twitterListener = require('./twitterListener.js');
 const alertMaintenance = require('./alertMaintenance.js');
 
-const auth = require('./auth.json');
+require('dotenv').config();
 
-// auth file
-let runningOnline = false; //The assumption is an auth file will be present iff running offline
+let runningOnline = false;
 let twitterAvail = false;
 
-try{
-	process.env.serviceID = auth.serviceID;
-	process.env.token = auth.token;
-	if(typeof(auth.DATABASE_URL) !== 'undefined'){
-		process.env.DATABASE_URL = auth.DATABASE_URL;
-		runningOnline = true;
-	}
-	if(typeof(auth.twAPIKey) !== 'undefined'){
-		process.env.TWITTER_CONSUMER_KEY = auth.twAPIKey;
-		process.env.TWITTER_CONSUMER_SECRET = auth.twAPISecretKey;
-		process.env.TWITTER_ACCESS_TOKEN_KEY = auth.twAccessToken;
-		process.env.TWITTER_ACCESS_TOKEN_SECRET = auth.twAccessTokenSecret;
-		process.env.TWITTER_BEARER_TOKEN = auth.twBearerToken;
-		// twitterAvail = true;
-	}
-}
-catch(e){
-	console.log('No auth file found');
+if(typeof(process.env.DATABASE_URL) !== 'undefined'){
 	runningOnline = true;
+}
+
+if(typeof(process.env.TWITTER_CONSUMER_KEY) !== 'undefined'){
 	twitterAvail = true;
 }
 

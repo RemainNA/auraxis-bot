@@ -1,5 +1,6 @@
 # Bot token and Daybreak Service ID #
 auth.json
+*.env
 
 # Outline #
 plan.txt
