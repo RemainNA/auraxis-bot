@@ -1,13 +1,15 @@
 // This file implements functions which parse messages from the Stream API and send messages to the appropriate channels based on subscription status.
 
-var got = require('got');
+const got = require('got');
 const Discord = require('discord.js');
-var messageHandler = require('./messageHandler.js');
-var subscriptions = require('./subscriptions.js');
-var territory = require('./territory.js');
-var alerts = require('./alerts.json');
+const messageHandler = require('./messageHandler.js');
+const subscriptions = require('./subscriptions.js');
+const territory = require('./territory.js');
+const alerts = require('./alerts.json');
+const bases = require('./bases.json');
 
-environmentToTable = function(environment){
+
+const environmentToTable = function(environment){
     if(environment == "ps2:v2"){
         return "outfit";
     }
@@ -19,7 +21,7 @@ environmentToTable = function(environment){
     }
 }
 
-logEvent = async function(payload, environment, pgClient, discordClient){
+const logEvent = async function(payload, environment, pgClient, discordClient){
     let uri = 'https://census.daybreakgames.com/s:'+process.env.serviceID+'/get/'+environment+'/character/'+payload.character_id+'?c:resolve=outfit_member';
     let response = await got(uri).json();
     if(typeof(response.character_list) === 'undefined'){
@@ -88,7 +90,7 @@ logEvent = async function(payload, environment, pgClient, discordClient){
     }
 }
 
-idToName = function(server){
+const idToName = function(server){
     switch(server.toLowerCase()){
         case "1":
             return "Connery";
@@ -109,7 +111,7 @@ idToName = function(server){
     }
 }
 
-alertInfo = async function(payload, environment){
+const alertInfo = async function(payload, environment){
     if(typeof(alerts[payload.metagame_event_id]) !== 'undefined'){
         let resObj = {
             name: alerts[payload.metagame_event_id].name,
@@ -168,7 +170,7 @@ const trackedAlerts = [
     193,
 ];
 
-alertEvent = async function(payload, environment, pgClient, discordClient){
+const alertEvent = async function(payload, environment, pgClient, discordClient){
     if(payload.metagame_event_state_name == "started"){
         let server = idToName(payload.world_id);
         let queryText = "SELECT * FROM "+server;
@@ -307,7 +309,7 @@ const centralBases = [
     '298000' // Nason's Defiance
 ]
 
-baseEvent = async function(payload, environment, pgClient, discordClient){
+const baseEvent = async function(payload, environment, pgClient, discordClient){
     if(payload.new_faction_id == payload.old_faction_id){
         return; //Ignore defended bases
     }
@@ -405,7 +407,7 @@ baseEvent = async function(payload, environment, pgClient, discordClient){
     }
 }
 
-var objectEquality = function(a, b){
+const objectEquality = function(a, b){
     if(typeof(a.character_id) !== 'undefined' && typeof(b.character_id) !== 'undefined'){
         return a.character_id == b.character_id && a.event_name == b.event_name;
     }
@@ -418,11 +420,10 @@ var objectEquality = function(a, b){
     return false
 }
 
-var ps4WebRequest = function(facilityID, environment){
+const ps4WebRequest = function(facilityID, environment){
     if(environment == 'ps2:v2'){
         return false; // No need for web requests on PC
     }
-    var bases = require('./bases.json');
     if(typeof(bases[facilityID]) === 'undefined'){
         return true; // If the base cannot be found, make a request
     }
@@ -432,8 +433,7 @@ var ps4WebRequest = function(facilityID, environment){
     return false; // Else stored info is ok
 }
 
-var baseInfo = async function(facilityID, environment){
-    var bases = require('./bases.json');
+const baseInfo = async function(facilityID, environment){
     if(typeof(bases[facilityID]) !== 'undefined' && !ps4WebRequest(facilityID, environment)){
         return new Promise(function(resolve, reject){
             resolve(bases[facilityID]);
@@ -474,7 +474,7 @@ var baseInfo = async function(facilityID, environment){
     
 }
 
-queue = ["","","","",""]
+const queue = ["","","","",""];
 module.exports = {
     router: async function(payload, environment, pgClient, discordClient){
         for(let message of queue){
