@@ -61,7 +61,7 @@ const alertInfo = async function(server){
 	})
 }
 
-serverToId = function(name){
+const serverToId = function(name){
 	switch(name){
 		case "connery":
 			return 1;
@@ -85,7 +85,7 @@ serverToId = function(name){
 	}
 }
 
-serverIdToName = function(server){
+const serverIdToName = function(server){
     switch(server){
         case 1:
             return "Connery";

@@ -80,7 +80,7 @@ function normalize(name){
 	return null
 }
 
-fisuPopulation = function(server){
+const fisuPopulation = function(server){
     switch (server.toLowerCase()){
         case "connery":
             return 'https://ps2.fisu.pw/activity/?world=1';

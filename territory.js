@@ -4,7 +4,7 @@ const Discord = require('discord.js');
 const got = require('got');
 const messageHandler = require('./messageHandler.js');
 
-serverToUrl = function(server){
+const serverToUrl = function(server){
     switch (server.toLowerCase()){
         case "connery":
             return 'https://census.daybreakgames.com/s:'+process.env.serviceID+'/get/ps2:v2/map/?world_id=1&zone_ids=2,4,6,8';
@@ -24,7 +24,7 @@ serverToUrl = function(server){
     return null
 }
 
-fisuTerritory = function(server){
+const fisuTerritory = function(server){
     switch (server.toLowerCase()){
         case "connery":
             return 'https://ps2.fisu.pw/control/?world=1';
@@ -44,7 +44,7 @@ fisuTerritory = function(server){
     return null
 }
 
-printableName = function(server){
+const printableName = function(server){
     switch (server.toLowerCase()){
         case "connery":
             return 'Connery';
@@ -63,7 +63,7 @@ printableName = function(server){
     }
 }
 
-continentBenefit = function(continent){
+const continentBenefit = function(continent){
     switch (continent){
         case "Indar":
             return "Increases heat efficiency of base Phalanx turrets"

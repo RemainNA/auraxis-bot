@@ -3,7 +3,7 @@
 const got = require('got');
 const messageHandler = require('./messageHandler.js');
 
-isValid = function(server){
+const isValid = function(server){
     servers = ['connery', 'miller', 'cobalt', 'emerald', 'soltech', 'genudine', 'ceres', 'jaegar']
     if(servers.indexOf(server.toLowerCase()) > -1){
         return true;
@@ -11,7 +11,7 @@ isValid = function(server){
     return false;
 }
 
-standardizeName = function(server){
+const standardizeName = function(server){
     switch(server.toLowerCase()){
         case "connery":
             return "Connery";
@@ -32,7 +32,7 @@ standardizeName = function(server){
     }
 }
 
-outfitInfo = async function(tag, environment){
+const outfitInfo = async function(tag, environment){
     let uri = 'http://census.daybreakgames.com/s:'+process.env.serviceID+'/get/'+environment+'/outfit?alias_lower='+tag.toLowerCase()+'&c:join=character^on:leader_character_id^to:character_id';
     let response = await got(uri).json();
     if(response.error != undefined){
@@ -69,7 +69,7 @@ outfitInfo = async function(tag, environment){
     }
 }
 
-twitterUsers = function(user){
+const twitterUsers = function(user){
     switch(user.toLowerCase()){
         case "remainna":
             return "Remain_NA-twitter"

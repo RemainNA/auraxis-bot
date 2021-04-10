@@ -91,7 +91,7 @@ const onlineInfo = async function(oTag, platform){
 	})
 }
 
-let totalLength = function(arr){
+const totalLength = function(arr){
 	let len = 0;
 	for(i in arr){
 		len += arr[i].length+1;
