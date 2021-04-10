@@ -1,8 +1,8 @@
 const Discord = require('discord.js');
-var got = require('got');
-var messageHandler = require('./messageHandler.js');
+const got = require('got');
+const messageHandler = require('./messageHandler.js');
 
-var onlineInfo = async function(oTag, platform){
+const onlineInfo = async function(oTag, platform){
 	let uri = 'http://census.daybreakgames.com/s:'+process.env.serviceID+'/get/'+platform+'/outfit?alias_lower='+oTag+'&c:resolve=member_online_status,rank,member_character_name&c:join=character^on:leader_character_id^to:character_id&c:join=characters_world^on:leader_character_id^to:character_id';
 	let response = "";
 	try{

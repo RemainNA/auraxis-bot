@@ -1,16 +1,16 @@
 // This file defines functions which establish a connection to the Twitter API and listen for tweets from certain accounts.
 
 const needle = require('needle');
-var messageHandler = require('./messageHandler.js');
-var subscriptions = require('./subscriptions.js');
+const messageHandler = require('./messageHandler.js');
+const subscriptions = require('./subscriptions.js');
 
 const token = process.env.TWITTER_BEARER_TOKEN;  
 
 const rulesURL = 'https://api.twitter.com/2/tweets/search/stream/rules'
 const streamURL = 'https://api.twitter.com/2/tweets/search/stream?expansions=referenced_tweets.id';
 
-var timeout = 0;
-var firstRun = true;
+let timeout = 0;
+let firstRun = true;
 
 // Edit rules as desired here below
 const rules = [

@@ -1,8 +1,7 @@
 // This file defines several functions used in subscribing or unsubscribing to server alerts and outfit activity
 
-const { Client } = require('pg');
-var got = require('got');
-var messageHandler = require('./messageHandler.js');
+const got = require('got');
+const messageHandler = require('./messageHandler.js');
 
 isValid = function(server){
     servers = ['connery', 'miller', 'cobalt', 'emerald', 'soltech', 'genudine', 'ceres', 'jaegar']

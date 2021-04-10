@@ -1,9 +1,9 @@
 //This file implements functions to look up currently active alerts from the ps2 alerts website
 
 const Discord = require('discord.js');
-var alerts = require('./alerts.json');
-var got = require('got');
-var messageHandler = require('./messageHandler.js');
+const alerts = require('./alerts.json');
+const got = require('got');
+const messageHandler = require('./messageHandler.js');
 
 const popLevels = {
 	1: "Dead",
@@ -13,7 +13,7 @@ const popLevels = {
 	5: "Prime"
 }
 
-var alertInfo = async function(server){
+const alertInfo = async function(server){
 	let uri = 'https://api.ps2alerts.com/instances/active?world='+server;
 	let response = await got(uri).json();
 	if(typeof(response.error) !== 'undefined'){

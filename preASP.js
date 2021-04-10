@@ -4,7 +4,7 @@ const Discord = require('discord.js');
 const got = require('got');
 const messageHandler = require('./messageHandler.js');
 
-var basicInfo = async function(cName, platform){
+const basicInfo = async function(cName, platform){
 	let uri = 'https://census.daybreakgames.com/s:'+process.env.serviceID+'/get/'+platform+'/character?name.first_lower='+cName+'&c:resolve=item_full&c:lang=en';
 	let response = "";
 	try{

@@ -1,8 +1,8 @@
 const Discord = require('discord.js');
-var implantsJSON = require('./implants.json');
-var messageHandler = require('./messageHandler.js');
+const implantsJSON = require('./implants.json');
+const messageHandler = require('./messageHandler.js');
 
-var implantInfo = async function(name){
+const implantInfo = async function(name){
 	//Check if ID matches
 	if(typeof(implantsJSON[name]) !== 'undefined'){
 		let returnObj = implantsJSON[name];

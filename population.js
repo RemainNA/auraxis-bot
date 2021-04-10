@@ -1,9 +1,9 @@
 // This file defines functions for retrieving population by faction for a given server/world
 const Discord = require('discord.js');
-var messageHandler = require('./messageHandler.js');
-var got = require('got')
+const messageHandler = require('./messageHandler.js');
+const got = require('got')
 
-var getPopulation = async function(world){
+const getPopulation = async function(world){
 	let url = '';
 	if(world == 2000){
 		url = 'http://ps4eu.ps2.fisu.pw/api/population/?world=2000';

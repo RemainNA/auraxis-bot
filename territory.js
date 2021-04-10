@@ -1,8 +1,8 @@
 // This file defines functions used in finding and returning the current territory control on a given server, broken up by continent
 
 const Discord = require('discord.js');
-var got = require('got');
-var messageHandler = require('./messageHandler.js');
+const got = require('got');
+const messageHandler = require('./messageHandler.js');
 
 serverToUrl = function(server){
     switch (server.toLowerCase()){

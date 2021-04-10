@@ -2,8 +2,8 @@
 // Currently in beta
 
 const Discord = require('discord.js');
-var weaponsJSON = require('./weapons.json');
-var messageHandler = require('./messageHandler.js');
+const weaponsJSON = require('./weapons.json');
+const messageHandler = require('./messageHandler.js');
 
 function CoFUpdated(CoF){
 	for(let x of CoF){
@@ -18,7 +18,7 @@ function standingOnly(CoF){
 	return CoF[0] != "?" && CoF[1] == "?" && CoF[2] == "?" && CoF[3] == "?" && CoF[4] == "?" && CoF[5] == "?";
 }
 
-var weaponInfo = async function(name){
+const weaponInfo = async function(name){
 
 	name = name.replace(/[“”]/g, '"');
 

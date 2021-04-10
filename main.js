@@ -6,11 +6,33 @@ const Discord = require('discord.js');
 //PostgreSQL connection
 const pg = require('pg');
 
+// commands
+const char = require('./character.js');
+const stats = require('./stats.js');
+const online = require('./online.js');
+const listener = require('./unifiedWSListener.js');
+const subscription = require('./subscriptions.js');
+const population = require('./population.js');
+const asp = require('./preASP.js');
+const initialize = require('./initializeSQL.js');
+const territory = require('./territory.js');
+const alerts = require('./alerts.js');
+const messageHandler = require('./messageHandler.js');
+const outfit = require('./outfit.js');
+const status = require('./status.js');
+const weapon = require('./weapon.js');
+const weaponSearch = require('./weaponSearch.js');
+const implant = require('./implant.js');
+const twitterListener = require('./twitterListener.js');
+const alertMaintenance = require('./alertMaintenance.js');
+
+const auth = require('./auth.json');
+
 // auth file
-var runningOnline = false; //The assumption is an auth file will be present iff running offline
-var twitterAvail = false;
+let runningOnline = false; //The assumption is an auth file will be present iff running offline
+let twitterAvail = false;
+
 try{
-	var auth = require('./auth.json');
 	process.env.serviceID = auth.serviceID;
 	process.env.token = auth.token;
 	if(typeof(auth.DATABASE_URL) !== 'undefined'){
@@ -31,26 +53,6 @@ catch(e){
 	runningOnline = true;
 	twitterAvail = true;
 }
-
-// commands
-var char = require('./character.js');
-var stats = require('./stats.js');
-var online = require('./online.js');
-var listener = require('./unifiedWSListener.js');
-var subscription = require('./subscriptions.js');
-var population = require('./population.js');
-var asp = require('./preASP.js');
-var initialize = require('./initializeSQL.js');
-var territory = require('./territory.js');
-var alerts = require('./alerts.js');
-var messageHandler = require('./messageHandler.js');
-var outfit = require('./outfit.js');
-var status = require('./status.js');
-var weapon = require('./weapon.js');
-var weaponSearch = require('./weaponSearch.js');
-var implant = require('./implant.js');
-var twitterListener = require('./twitterListener.js');
-var alertMaintenance = require('./alertMaintenance.js');
 
 const client = new Discord.Client();
 
@@ -82,7 +84,7 @@ client.on('ready', () => {
 	client.user.setActivity('!help')
 });
 
-var listOfCommands = [
+const listOfCommands = [
 "!help",
 " ",
 "!<ps4us/ps4eu> character [name]",
@@ -108,7 +110,7 @@ var listOfCommands = [
 "!<ps4us/ps4eu> asp [name]"
 ]
 
-var links = [
+const links = [
 	"[GitHub page & FAQ](https://github.com/RemainNA/auraxis-bot)",
 	"[Support server](https://discord.gg/Kf5P6Ut)",
 	"[Invite bot](https://discordapp.com/oauth2/authorize?client_id=437756856774033408&scope=bot&permissions=19456)",

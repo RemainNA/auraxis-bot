@@ -1,8 +1,8 @@
 // This file defines functions to update previously sent alert notifications
 
 const Discord = require('discord.js');
-var got = require('got');
-var alerts = require('./alerts.json');
+const got = require('got');
+const alerts = require('./alerts.json');
 
 const serverIdToName = function(server){
 	switch(server){

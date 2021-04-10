@@ -1,11 +1,11 @@
 // This file implements functions to look up a character's stats with a specific weapon
 
 const Discord = require('discord.js');
-var weaponsJSON = require('./weapons.json');
-var got = require('got');
-var messageHandler = require('./messageHandler.js');
+const weaponsJSON = require('./weapons.json');
+const got = require('got');
+const messageHandler = require('./messageHandler.js');
 
-var getWeaponId = async function(name, searchSpace, cName=""){
+const getWeaponId = async function(name, searchSpace, cName=""){
 	//Check if ID matches
 
 	name = name.replace(/[“”]/g, '"');
@@ -53,7 +53,7 @@ var getWeaponId = async function(name, searchSpace, cName=""){
 	
 }
 
-var characterInfo = async function(cName, wName, platform){
+const characterInfo = async function(cName, wName, platform){
 	let uri = 'https://census.daybreakgames.com/s:'+process.env.serviceID+'/get/'+platform+'/character?name.first_lower='+cName+'&c:resolve=weapon_stat_by_faction,weapon_stat';
 	let response =  "";
     try{

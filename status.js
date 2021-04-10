@@ -1,9 +1,9 @@
 // This file implements functions to look up and report server status
 
 const Discord = require('discord.js');
-var got = require('got');
+const got = require('got');
 
-var info = async function(){
+const info = async function(){
 	let uri = 'http://census.daybreakgames.com/s:'+process.env.serviceID+'/get/global/game_server_status?game_code=ps2&c:limit=100'
 	let status = {
 		'Connery': 'Unknown',
