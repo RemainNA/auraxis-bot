@@ -1,9 +1,9 @@
 // This file implements functions to look up and report server status
 
 const Discord = require('discord.js');
-var got = require('got');
+const got = require('got');
 
-var info = async function(){
+const info = async function(){
 	let uri = 'http://census.daybreakgames.com/s:'+process.env.serviceID+'/get/global/game_server_status?game_code=ps2&c:limit=100'
 	let status = {
 		'Connery': 'Unknown',
@@ -15,30 +15,24 @@ var info = async function(){
 		'Genudine': 'Unknown',
 		'Ceres': 'Unknown'
 	}
+
+	let response = "";
 	try{
 		response = await got(uri).json(); 
 	}
 	catch(err){
 		if(err.message.indexOf('404') > -1){
-			return new Promise(function(resolve, reject){
-				reject("API Unreachable");
-			})
+			throw "API Unreachable";
 		}
 	}
 	if(typeof(response.error) !== 'undefined'){
         if(response.error == 'service_unavailable'){
-            return new Promise(function(resolve, reject){
-                reject("Census API currently unavailable");
-            })
+            throw "Census API currently unavailable";
         }
-        return new Promise(function(resolve, reject){
-            reject(response.error);
-        })
+        throw response.error;
     }
     if(typeof(response.game_server_status_list) === 'undefined'){
-        return new Promise(function(resolve, reject){
-            reject("API Error");
-        })
+        throw "API Error";
 	}
 	
 	let data = response.game_server_status_list;
@@ -69,30 +63,18 @@ var info = async function(){
 		}
 	}
 
-	return new Promise(function(resolve, reject){
-		resolve(status);
-	})
+	return status;
 }
 
 module.exports = {
 	servers: async function(){
-		let status = false
-		try{
-			status = await info();
-		}
-		catch(err){
-			return new Promise(function(resolve, reject){
-				reject(err);
-			})
-		}
+		let status = await info();
 		let resEmbed = new Discord.MessageEmbed();
 		resEmbed.setTitle('Server Status');
-		for(i in status){
+		for(const i in status){
 			resEmbed.addField(i, status[i], true);
 		}
 		resEmbed.setTimestamp();
-		return new Promise(function(resolve, reject){
-			resolve(resEmbed);
-		})
+		return resEmbed;
 	}
 }

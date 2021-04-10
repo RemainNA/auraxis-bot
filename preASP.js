@@ -4,7 +4,7 @@ const Discord = require('discord.js');
 const got = require('got');
 const messageHandler = require('./messageHandler.js');
 
-var basicInfo = async function(cName, platform){
+const basicInfo = async function(cName, platform){
 	let uri = 'https://census.daybreakgames.com/s:'+process.env.serviceID+'/get/'+platform+'/character?name.first_lower='+cName+'&c:resolve=item_full&c:lang=en';
 	let response = "";
 	try{
@@ -12,53 +12,37 @@ var basicInfo = async function(cName, platform){
 	}
 	catch(err){
         if(err.message.indexOf('404') > -1){
-            return new Promise(function(resolve, reject){
-                reject("API Unreachable");
-            })
+            throw "API Unreachable";
         }
     }
     if(typeof(response.error) !== 'undefined'){
         if(response.error == 'service_unavailable'){
-            return new Promise(function(resolve, reject){
-                reject("Census API currently unavailable");
-            })
+            throw "Census API currently unavailable";
         }
         if(typeof(response.error) === 'string'){
-            return new Promise(function(resolve, reject){
-                reject("Census API error: "+response.error);
-            })
+            throw `Census API error: ${response.error}`;
         }
-        return new Promise(function(resolve, reject){
-            reject(response.error);
-        })
+        throw response.error;
     }
     if(typeof(response.character_list) === 'undefined'){
-        return new Promise(function(resolve, reject){
-            reject("API Error");
-        })
+        throw "API Error";
     }
     if(typeof(response.character_list[0]) === 'undefined'){
-        return new Promise(function(resolve, reject){
-            reject(cName+" not found");
-        })
+        throw `${cName} not found`;
 	}
 	let data = response.character_list[0];
 	if(data.faction_id == "4"){
-		return new Promise(function(resolve, reject){
-            reject("NSO not supported");
-        })
+		throw "NSO not supported";
 	}
 	if(data.prestige_level == "0"){
-		return new Promise(function(resolve, reject){
-            reject(cName+" has not yet unlocked ASP");
-        })
+		throw `${cName} has not yet unlocked ASP`;
 	}
 	let br = Number(data.battle_rank.value);
 	let availableTokens = 1+Math.floor(br/25);
 	let aspTitle = false;
 	let decals = []; //count br 101-120 decals
 	let tokens = [];
-	for (x in data.items){
+	for (const x in data.items){
 		if (Number(data.items[x].item_id) >= 803931 && Number(data.items[x].item_id) <= 803950){
 			//record br 101-120 decals
 			decals.push(Number(data.items[x].item_id));
@@ -74,9 +58,7 @@ var basicInfo = async function(cName, platform){
 		}
 	}
 	if(!aspTitle){
-		return new Promise(function(resolve, reject){
-            reject(cName+" has not yet unlocked ASP");
-        })
+		throw `${cName} has not yet unlocked ASP`;
 	}
 	let preBR = 100;
 	if(decals.length != 0){
@@ -89,27 +71,16 @@ var basicInfo = async function(cName, platform){
 		unlocks: tokens,
 		availableTokens: availableTokens
 	}
-	return new Promise(function(resolve, reject){
-		resolve(retInfo);
-	})
+	return retInfo;
 }
 
 module.exports = {
 	originalBR: async function(cName, platform){
 		if(messageHandler.badQuery(cName)){
-			return new Promise(function(resolve, reject){
-                reject("Character search contains disallowed characters");
-            })
+			throw "Character search contains disallowed characters";
 		}
-		let cInfo = {};
-		try{
-			cInfo = await basicInfo(cName, platform);
-		}
-		catch(error){
-			return new Promise(function(resolve, reject){
-				reject(error);
-			})
-		}
+		let cInfo = await basicInfo(cName, platform);
+
 		let resEmbed = new Discord.MessageEmbed();
 		if (cInfo.faction == "1"){ //vs
             resEmbed.setColor('PURPLE');
@@ -134,8 +105,7 @@ module.exports = {
 		resEmbed.addField("Available Points", cInfo.availableTokens);
 		resEmbed.addField("ASP Skills", cInfo.unlocks);
 		resEmbed.setThumbnail("http://census.daybreakgames.com/files/ps2/images/static/88688.png");
-		return new Promise(function(resolve, reject){
-			resolve(resEmbed);
-		})
+
+		return resEmbed;
 	}
 }

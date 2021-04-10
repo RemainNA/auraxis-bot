@@ -1,15 +1,15 @@
 // This file implements a function with three event listeners, one for each platform.  The event listeners pass all messages with payloads on to the handler function.
 
-var WebSocket = require('ws');
-var handler = require('./unifiedWSHandler');
+const WebSocket = require('ws');
+const handler = require('./unifiedWSHandler');
 
-var pcRunning = false;
-var usRunning = false;
-var euRunning = false;
+let pcRunning = false;
+let usRunning = false;
+let euRunning = false;
 
-var pcTimeout = 0;
-var usTimeout = 0;
-var euTimeout = 0;
+let pcTimeout = 0;
+let usTimeout = 0;
+let euTimeout = 0;
 
 function listen(pgClient, discordClient){
     pcLogin = '{"service":"event","action":"subscribe","worlds":["1","10","13","17","19","40"],"eventNames":["PlayerLogin","PlayerLogout"]}';

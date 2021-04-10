@@ -1,8 +1,8 @@
 const Discord = require('discord.js');
-var got = require('got');
-var messageHandler = require('./messageHandler.js');
+const got = require('got');
+const messageHandler = require('./messageHandler.js');
 
-var basicInfo = async function(oTag, platform){
+const basicInfo = async function(oTag, platform){
 	let uri = 'http://census.daybreakgames.com/s:'+process.env.serviceID+'/get/'+platform+'/outfit?alias_lower='+oTag+'&c:resolve=member_online_status&c:join=character^on:leader_character_id^to:character_id&c:join=character^on:members.character_id^to:character_id^hide:certs&c:join=characters_world^on:leader_character_id^to:character_id';
 	let response = "";
 	try{
@@ -10,30 +10,20 @@ var basicInfo = async function(oTag, platform){
 	}
 	catch(err){
 		if(err.message.indexOf('404') > -1){
-			return new Promise(function(resolve, reject){
-				reject("API Unreachable");
-			})
+			throw"API Unreachable";
 		}
 	}
 	if(typeof(response.error) !== 'undefined'){
 		if(response.error == 'service_unavailable'){
-			return new Promise(function(resolve, reject){
-				reject("Census API currently unavailable");
-			})
+			throw "Census API currently unavailable";
 		}
-		return new Promise(function(resolve, reject){
-			reject(response.error);
-		})
+		throw response.error;
 	}
 	if(typeof(response.outfit_list) === 'undefined'){
-		return new Promise(function(resolve, reject){
-			reject("API Error");
-		})
+		throw "API Error";
 	}
 	if(typeof(response.outfit_list[0]) === 'undefined'){
-		return new Promise(function(resolve, reject){
-			reject(oTag+" not found");
-		})
+		throw `${oTag} not found`;
 	}
 	let data = response.outfit_list[0];
 	let resObj = {
@@ -62,7 +52,7 @@ var basicInfo = async function(oTag, platform){
 	
 	now = Math.round(Date.now() / 1000); //Current Unix epoch
 
-	for(i in data.members){
+	for(const i in data.members){
 		if(data.members[i].online_status > 0 && onlineServiceAvailable){
 			resObj["onlineMembers"] += 1;
 			resObj["onlineDay"] += 1;
@@ -86,27 +76,16 @@ var basicInfo = async function(oTag, platform){
 		}
 	}
 
-	return new Promise(function(resolve, reject){
-		resolve(resObj);
-	})
+	return resObj;
 }
 
 module.exports = {
 	outfit: async function(oTag, platform){
 		if(messageHandler.badQuery(oTag)){
-			return new Promise(function(resolve, reject){
-                reject("Outfit search contains disallowed characters");
-            })
+			throw "Outfit search contains disallowed characters";
 		}
 
-		try{
-			oInfo = await basicInfo(oTag, platform);
-		}
-		catch(error){
-			return new Promise(function(resolve, reject){
-				reject(error);
-			})
-		}
+		const oInfo = await basicInfo(oTag, platform);
 
 		let resEmbed = new Discord.MessageEmbed();
 
@@ -182,8 +161,7 @@ module.exports = {
 		else if(platform == "ps2ps4eu:v2"){
 			resEmbed.addField("Owner", "["+oInfo.owner+"]("+"https://ps4eu.ps2.fisu.pw/player/?name="+oInfo.owner+")", true);
 		}
-		return new Promise(function(resolve, reject){
-            resolve(resEmbed);
-        })
+
+		return resEmbed;
 	}
 }

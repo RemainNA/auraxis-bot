@@ -1,9 +1,9 @@
 //This file implements functions to look up currently active alerts from the ps2 alerts website
 
 const Discord = require('discord.js');
-var alerts = require('./alerts.json');
-var got = require('got');
-var messageHandler = require('./messageHandler.js');
+const alerts = require('./alerts.json');
+const got = require('got');
+const messageHandler = require('./messageHandler.js');
 
 const popLevels = {
 	1: "Dead",
@@ -13,31 +13,23 @@ const popLevels = {
 	5: "Prime"
 }
 
-var alertInfo = async function(server){
+const alertInfo = async function(server){
 	let uri = 'https://api.ps2alerts.com/instances/active?world='+server;
 	let response = await got(uri).json();
 	if(typeof(response.error) !== 'undefined'){
-		return new Promise(function(resolve, reject){
-			reject(response.error);
-		})
+		throw response.error;
 	}
 	if(response.statusCode == 404){
-		return new Promise(function(resolve, reject){
-			reject("API Unreachable");
-		})
+		throw "API Unreachable";
 	}
 	if(response.length == 0){
-		return new Promise(function(resolve, reject){
-			reject("No active alerts on "+ serverIdToName(server));
-		})
+		throw `No active alerts on ${serverIdToName(server)}`;
 	}
 	let allAlerts = []
 	for(let alert of response){
 		if(typeof(alerts[alert.censusMetagameEventType]) === 'undefined'){
 			console.log("Unable to find alert info for id "+alert.censusMetagameEventType);
-			return new Promise(function(resolve, reject){
-				reject("Alert lookup error");
-			})
+			throw "Alert lookup error";
 		}
 		let now = Date.now();
 		let start = Date.parse(alert.timeStarted);
@@ -56,12 +48,10 @@ var alertInfo = async function(server){
 		allAlerts.push(resObj);
 	}
 	
-	return new Promise(function(resolve, reject){
-		resolve(allAlerts);
-	})
+	return allAlerts;
 }
 
-serverToId = function(name){
+const serverToId = function(name){
 	switch(name){
 		case "connery":
 			return 1;
@@ -85,7 +75,7 @@ serverToId = function(name){
 	}
 }
 
-serverIdToName = function(server){
+const serverIdToName = function(server){
     switch(server){
         case 1:
             return "Connery";
@@ -109,17 +99,13 @@ serverIdToName = function(server){
 module.exports = {
 	activeAlerts: async function(server){
 		if(messageHandler.badQuery(server)){
-			return new Promise(function(resolve, reject){
-                reject("Server search contains disallowed characters");
-            })
+			throw "Server search contains disallowed characters";
 		}
 
 		let serverId = serverToId(server);
 
 		if(!serverId){
-			return new Promise(function(resolve, reject){
-                reject(server+" not found.");
-            })
+			throw `${server} not found.`;
 		}
 		
 		let alertObj = "";
@@ -128,20 +114,16 @@ module.exports = {
 		}
 		catch(err){
 			if(err == "No active alerts"){
-				return new Promise(function(resolve, reject){
-					reject("No active alerts on "+server);
-				})
+				throw `No active alerts on ${server}`;
 			}
 			else{
-				return new Promise(function(resolve, reject){
-					reject(err);
-				})
+				throw err;
 			}
 		}
 		let sendEmbed = new Discord.MessageEmbed();
 		sendEmbed.setTitle(serverIdToName(serverId)+" alerts");
 		sendEmbed.setFooter("Data from ps2alerts.com");
-		for(x in alertObj){
+		for(const x in alertObj){
 			let hoursSinceStart = Math.floor(alertObj[x].timeSinceStart/3600000);
 			let minutesSinceStart = Math.floor(alertObj[x].timeSinceStart/60000) - hoursSinceStart*60;
 			let hoursleft = Math.floor(alertObj[x].timeLeft/3600000);
@@ -158,8 +140,6 @@ module.exports = {
 				sendEmbed.addField('\u200b', '\u200b');
 			}
 		}
-		return new Promise(function(resolve, reject){
-			resolve(sendEmbed);
-		})
+		return sendEmbed;
 	}
 }

@@ -1,9 +1,9 @@
 // This file defines functions for retrieving population by faction for a given server/world
 const Discord = require('discord.js');
-var messageHandler = require('./messageHandler.js');
-var got = require('got')
+const messageHandler = require('./messageHandler.js');
+const got = require('got')
 
-var getPopulation = async function(world){
+const getPopulation = async function(world){
 	let url = '';
 	if(world == 2000){
 		url = 'http://ps4eu.ps2.fisu.pw/api/population/?world=2000';
@@ -16,14 +16,10 @@ var getPopulation = async function(world){
 	}
 	let response = await got(url).json();
 	if(typeof(response.error) !== 'undefined'){
-		return new Promise(function(resolve, reject){
-			reject(response.error);
-		})
+		throw response.error;
 	}
 	if(response.statusCode == 404){
-		return new Promise(function(resolve, reject){
-			reject("API Unreachable");
-		})
+		throw "API Unreachable"; // TODO: Maybe create an exception instead of a bare string
 	}
 	let resObj = {
 		vs: response.result[0].vs,
@@ -31,9 +27,7 @@ var getPopulation = async function(world){
 		tr: response.result[0].tr,
 		ns: response.result[0].ns
 	}
-	return new Promise(function(resolve, reject){
-		resolve(resObj);
-	})
+	return resObj;
 }
 
 function nameToWorld(name){
@@ -80,7 +74,7 @@ function normalize(name){
 	return null
 }
 
-fisuPopulation = function(server){
+const fisuPopulation = function(server){
     switch (server.toLowerCase()){
         case "connery":
             return 'https://ps2.fisu.pw/activity/?world=1';
@@ -103,27 +97,16 @@ fisuPopulation = function(server){
 module.exports = {
 	lookup: async function(server){
 		if(messageHandler.badQuery(server)){
-			return new Promise(function(resolve, reject){
-                reject("Server search contains disallowed characters");
-            })
+			throw "Server search contains disallowed characters";
 		}
 
 		let world = nameToWorld(server);
 		let normalized = normalize(server);
 		if(world == null){
-			return new Promise(function(resolve, reject){
-				reject(server+" not found.");
-			})
+			throw`${server} not found.`;
 		}
-		let res = {}
-		try{
-			res = await getPopulation(world);
-		}
-		catch(err){
-			return new Promise(function(resolve, reject){
-					reject(err);
-				})
-		}
+		let res = await getPopulation(world);
+
 		let sendEmbed = new Discord.MessageEmbed();
 		let total = Number(res.vs) + Number(res.nc) + Number(res.tr) + Number(res.ns);
 		sendEmbed.setTitle(normalized+" Population - "+total);
@@ -151,8 +134,7 @@ module.exports = {
 		else{
 			sendEmbed.setFooter('Data from ps2.fisu.pw');
 		}
-		return new Promise(function(resolve, reject){
-			resolve(sendEmbed);z
-		})
+
+		return sendEmbed;
 	}
 }

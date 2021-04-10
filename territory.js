@@ -1,10 +1,10 @@
 // This file defines functions used in finding and returning the current territory control on a given server, broken up by continent
 
 const Discord = require('discord.js');
-var got = require('got');
-var messageHandler = require('./messageHandler.js');
+const got = require('got');
+const messageHandler = require('./messageHandler.js');
 
-serverToUrl = function(server){
+const serverToUrl = function(server){
     switch (server.toLowerCase()){
         case "connery":
             return 'https://census.daybreakgames.com/s:'+process.env.serviceID+'/get/ps2:v2/map/?world_id=1&zone_ids=2,4,6,8';
@@ -24,7 +24,7 @@ serverToUrl = function(server){
     return null
 }
 
-fisuTerritory = function(server){
+const fisuTerritory = function(server){
     switch (server.toLowerCase()){
         case "connery":
             return 'https://ps2.fisu.pw/control/?world=1';
@@ -44,7 +44,7 @@ fisuTerritory = function(server){
     return null
 }
 
-printableName = function(server){
+const printableName = function(server){
     switch (server.toLowerCase()){
         case "connery":
             return 'Connery';
@@ -63,7 +63,7 @@ printableName = function(server){
     }
 }
 
-continentBenefit = function(continent){
+const continentBenefit = function(continent){
     switch (continent){
         case "Indar":
             return "Increases heat efficiency of base Phalanx turrets"
@@ -91,25 +91,17 @@ module.exports = {
     territoryInfo: async function(server){
         let uri = serverToUrl(server)
         if(uri == null){
-            return new Promise(function(resolve, reject){
-                reject(server+" not recognized");
-            })
+            throw `${server} not recognized`;
         }
         let response = await got(uri).json();
         if(typeof(response.error) !== 'undefined'){
-            return new Promise(function(resolve, reject){
-                reject(response.error);
-            })
+            throw response.error;
         }
         if(response.statusCode == 404){
-            return new Promise(function(resolve, reject){
-                reject("API Unreachable");
-            })
+            throw "API Unreachable";
         }
         if(typeof(response.map_list) === 'undefined'){
-            return new Promise(function(resolve, reject){
-                reject("API response improperly formatted");
-            })
+            throw "API response improperly formatted";
         }
         let IndarData = response.map_list[0].Regions.Row;
         let HossinData = response.map_list[1].Regions.Row;
@@ -176,16 +168,13 @@ module.exports = {
         EsamirObj.vs = Math.max(0, EsamirObj.vs-1);
         EsamirObj.nc = Math.max(0, EsamirObj.nc-1);
         EsamirObj.tr = Math.max(0, EsamirObj.tr-1);
-        return new Promise(function(resolve, reject){
-            resolve({Indar: IndarObj, Hossin: HossinObj, Amerish: AmerishObj, Esamir: EsamirObj});
-        })
+
+        return {Indar: IndarObj, Hossin: HossinObj, Amerish: AmerishObj, Esamir: EsamirObj};
     },
 
     territory: async function(server){
         if(messageHandler.badQuery(server)){
-			return new Promise(function(resolve, reject){
-                reject("Server search contains disallowed characters");
-            })
+			throw "Server search contains disallowed characters";
         }
         
         let terObj = await this.territoryInfo(server);
@@ -218,8 +207,7 @@ module.exports = {
                 \n<:TR:818988588049629256> **TR**: ${terObj[continent].tr}  |  ${trPc}%`)
             }
         }
-        return new Promise(function(resolve, reject){
-            resolve(resEmbed);
-        })
+
+        return resEmbed;
     }
 }
