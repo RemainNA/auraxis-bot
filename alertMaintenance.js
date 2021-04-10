@@ -118,14 +118,14 @@ const editMessage = async function(embed, messageId, channelId, discordClient){
 
 module.exports = {
 	update: async function(pgClient, discordClient){
-		try{
-			let rows = await pgClient.query("SELECT DISTINCT alertID, error FROM alertMaintenance");
-			for(let row of rows.rows){
-				try{
-					let response = await got(`https://api.ps2alerts.com/instances/${row.alertid}`).json();
+		let rows = await pgClient.query("SELECT DISTINCT alertID, error FROM alertMaintenance");
+
+		for(let row of rows.rows){
+			got(`https://api.ps2alerts.com/instances/${row.alertid}`).json()
+				.then(response => {
 					updateAlert(response, pgClient, discordClient, "timeEnded" in response);
-				}
-				catch(err){
+				})
+				.catch(err => {
 					if(row.error){
 						pgClient.query("DELETE FROM alertMaintenance WHERE alertID = $1;", [row.alertid]);
 					}
@@ -134,11 +134,7 @@ module.exports = {
 						console.log("Error retrieving alert info from PS2Alerts");
 						console.log(err);
 					}
-				}
+				});
 			}
-		}
-		catch(err){
-			//ignore
-		}
 	}
 }
