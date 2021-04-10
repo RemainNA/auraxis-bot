@@ -26,12 +26,10 @@ async function getAllRules() {
     }})
 
     if (response.statusCode !== 200) {
-        return new Promise(function(resolve, reject){
-            reject(response.body);
-        })
+        throw response.body;
     }
 
-    return (response.body);
+    return response.body;
 }
 
 async function deleteAllRules(rules) {
@@ -148,30 +146,24 @@ async function postMessage(SQLclient, discordClient, tag, id, type){
 			baseText = "**New Retweet from "+tag+"**\n";
 			break;
 	}
-	try{
-		let result = await SQLclient.query(queryText, queryValues);
-		for(let row of result.rows){
-			discordClient.channels.fetch(row.channel).then(resChann => {
-				if(typeof(resChann.guild) !== 'undefined'){
-					if(resChann.permissionsFor(resChann.guild.me).has(['SEND_MESSAGES','VIEW_CHANNEL'])){
-						messageHandler.send(resChann, baseText+url, "Twitter message");
-					}
-					else{
-						subscriptions.unsubscribeAll(pgClient, row.channel);
-						console.log('Unsubscribed from '+row.channel);
-					} 
+
+	let result = await SQLclient.query(queryText, queryValues);
+	for(let row of result.rows){
+		discordClient.channels.fetch(row.channel).then(resChann => {
+			if(typeof(resChann.guild) !== 'undefined'){
+				if(resChann.permissionsFor(resChann.guild.me).has(['SEND_MESSAGES','VIEW_CHANNEL'])){
+					messageHandler.send(resChann, baseText+url, "Twitter message");
 				}
-				else{ // DM
-					messageHandler.send(resChann, url, "Twitter message");
+				else{
+					subscriptions.unsubscribeAll(pgClient, row.channel);
+					console.log('Unsubscribed from '+row.channel);
 				}
-			})
-		}
+			}
+			else{ // DM
+				messageHandler.send(resChann, url, "Twitter message");
+			}
+		})
 	}
-	catch(error){
-        return new Promise(function(resolve, reject){
-            reject(error);
-        })
-    }
 }
 
 module.exports = {

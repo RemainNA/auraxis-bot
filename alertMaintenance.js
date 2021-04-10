@@ -83,7 +83,7 @@ const updateAlert = async function(info, pgClient, discordClient, isComplete){
 			}
 		}
 	}
-	
+
 
 	pgClient.query("SELECT messageID, channelID FROM alertMaintenance WHERE alertID = $1;", [info.instanceId])
 	.then(rows => {
@@ -97,37 +97,29 @@ const updateAlert = async function(info, pgClient, discordClient, isComplete){
 				.catch(err => {
 					console.log(err)
 				})
-		}	
+		}
 	})
 }
 
 const editMessage = async function(embed, messageId, channelId, discordClient){
-	discordClient.channels.fetch(channelId)
-	.then(resChann => {
-		if(resChann.type != 'dm' && resChann.permissionsFor(resChann.guild.me).has('VIEW_CHANNEL')){
-			resChann.messages.fetch(messageId)
-			.then(resMsg => {
-				resMsg.edit(embed)
-				.catch(err => {
-					return new Promise(function(resolve, reject){
-						reject(err);
-					})
-				})
-			})
-			.catch(err => {
-				// ignore, will be cleaned up on alert end
-			})
+	try {
+		const resChann = await discordClient.channels.fetch(channelId)
+
+		if (resChann.type != 'dm' && resChann.permissionsFor(resChann.guild.me).has('VIEW_CHANNEL')) {
+			const resMsg = await resChann.messages.fetch(messageId);
+
+			resMsg.edit(embed);
 		}
-	})
-	.catch(err => {
+	}
+	catch(err) {
 		// ignore, will be cleaned up on alert end
-	})
+	}
 }
 
 module.exports = {
 	update: async function(pgClient, discordClient){
 		try{
-			let rows = await pgClient.query("SELECT DISTINCT alertID, error FROM alertMaintenance")
+			let rows = await pgClient.query("SELECT DISTINCT alertID, error FROM alertMaintenance");
 			for(let row of rows.rows){
 				try{
 					let response = await got(`https://api.ps2alerts.com/instances/${row.alertid}`).json();

@@ -25,9 +25,7 @@ const logEvent = async function(payload, environment, pgClient, discordClient){
     let uri = 'https://census.daybreakgames.com/s:'+process.env.serviceID+'/get/'+environment+'/character/'+payload.character_id+'?c:resolve=outfit_member';
     let response = await got(uri).json();
     if(typeof(response.character_list) === 'undefined'){
-        return new Promise(function(resolve, reject){
-            reject(null);
-        })
+        throw null; // TODO: Left this as is
     }
     let table = environmentToTable(environment); //helper function used for scope management
     let playerEvent = payload.event_name.substring(6);
@@ -38,9 +36,7 @@ const logEvent = async function(payload, environment, pgClient, discordClient){
             result = await pgClient.query("SELECT * FROM "+table+" WHERE id=$1;", [char.outfit_member.outfit_id]);
         }
         catch(error){
-            return new Promise(function(resolve, reject){
-                reject("1"+error);
-            })
+            throw `1${error}`;
         }
         if (result.rows.length > 0){
             let sendEmbed = new Discord.MessageEmbed();
@@ -117,30 +113,21 @@ const alertInfo = async function(payload, environment){
             name: alerts[payload.metagame_event_id].name,
             description: alerts[payload.metagame_event_id].description
         }
-        return new Promise(function(resolve, reject){
-            resolve(resObj);
-        })
+        return resObj;
     }
     let url = 'https://census.daybreakgames.com/s:'+process.env.serviceID+'/get/'+environment+'/metagame_event/'+payload.metagame_event_id;
     let response = await got(url).json();
     if(response.returned == 0 || typeof(response.metagame_event_list) === 'undefined' || typeof(response.metagame_event_list[0]) == 'undefined'){
         console.log("Unable to find alert info for id "+payload.metagame_event_id);
-        return new Promise(function(resolve, reject){
-            reject("Alert notification error");
-        })
+        throw "Alert notification error";
     }
     if(response.error != undefined){
-        return new Promise(function(resolve, reject){
-            reject(response.error);
-        })
+        throw response.error;
     }
-    let resObj = {
+    return  {
         name: response.metagame_event_list[0].name.en,
         description: response.metagame_event_list[0].description.en
     }
-    return new Promise(function(resolve, reject){
-        resolve(resObj);
-    })
 }
 
 const trackedAlerts = [
@@ -321,89 +308,80 @@ const baseEvent = async function(payload, environment, pgClient, discordClient){
     else if(environment == "ps2ps4eu:v2"){
         queryText = "SELECT * FROM ps4euoutfitcaptures WHERE id=$1";
     }
-    try{
-        let result = await pgClient.query(queryText, [payload.outfit_id]);
-        if(result.rowCount > 0){
-            let sendEmbed = new Discord.MessageEmbed();
-            let base = await baseInfo(payload.facility_id, environment);
-            sendEmbed.setTitle("["+result.rows[0].alias+"] "+result.rows[0].name+' captured '+base.name);
-            sendEmbed.setTimestamp();
-            if(payload.new_faction_id == "1"){ //Color cannot be dependent on outfit due to NSO outfits
-                sendEmbed.setColor("PURPLE");
-            }
-            else if(payload.new_faction_id == "2"){
-                sendEmbed.setColor("BLUE");
-            }
-            else if(payload.new_faction_id == "3"){
-                sendEmbed.setColor("RED");
-            }
-            if(payload.zone_id == "2"){
-                sendEmbed.addField("Continent", "Indar", true);
-            }
-            else if(payload.zone_id == "4"){
-                sendEmbed.addField("Continent", "Hossin", true);
-            }
-            else if(payload.zone_id == "6"){
-                sendEmbed.addField("Continent", "Amerish", true);
-            }
-            else if(payload.zone_id == "8"){
-                sendEmbed.addField("Continent", "Esamir", true);
-            }
-            if(centralBases.includes(payload.facility_id)){
-                sendEmbed.addField("Facility Type", base.type+"\n(Central base)", true);
-                sendEmbed.addField("Outfit Resources", "2 Polystellarite <:Polystellarite:818766888238448661>", true);
-            }
-            else if(base.type in outfitResources){
-                sendEmbed.addField("Facility Type", base.type, true);
-                sendEmbed.addField("Outfit Resources", outfitResources[base.type], true);
-            }
-            else{
-                sendEmbed.addField("Facility Type", base.type, true);
-                sendEmbed.addField("Outfit Resources", "Unknown", true);
-            }
-            if(payload.old_faction_id == "1"){
-                sendEmbed.addField("Captured From", "<:VS:818766983918518272> VS", true);
-            }
-            else if(payload.old_faction_id == "2"){
-                sendEmbed.addField("Captured From", "<:NC:818767043138027580> NC", true);
-            }
-            else if(payload.old_faction_id == "3"){
-                sendEmbed.addField("Captured From", "<:TR:818988588049629256> TR", true);
-            }
-            for (let row of result.rows){
-                discordClient.channels.fetch(row.channel)
-                .then(resChann => {
-                    if(typeof(resChann.guild) !== 'undefined'){
-                        if(resChann.permissionsFor(resChann.guild.me).has(['SEND_MESSAGES','VIEW_CHANNEL','EMBED_LINKS'])){
-                            messageHandler.send(resChann, sendEmbed, "Base capture event");
-                        }
-                        else{
-                            subscriptions.unsubscribeAll(pgClient, row.channel);
-                            console.log('Unsubscribed from '+row.channel);
-                        } 
-                    }
-                    else{ // DM
+    let result = await pgClient.query(queryText, [payload.outfit_id]);
+    if(result.rowCount > 0){
+        let sendEmbed = new Discord.MessageEmbed();
+        let base = await baseInfo(payload.facility_id, environment);
+        sendEmbed.setTitle("["+result.rows[0].alias+"] "+result.rows[0].name+' captured '+base.name);
+        sendEmbed.setTimestamp();
+        if(payload.new_faction_id == "1"){ //Color cannot be dependent on outfit due to NSO outfits
+            sendEmbed.setColor("PURPLE");
+        }
+        else if(payload.new_faction_id == "2"){
+            sendEmbed.setColor("BLUE");
+        }
+        else if(payload.new_faction_id == "3"){
+            sendEmbed.setColor("RED");
+        }
+        if(payload.zone_id == "2"){
+            sendEmbed.addField("Continent", "Indar", true);
+        }
+        else if(payload.zone_id == "4"){
+            sendEmbed.addField("Continent", "Hossin", true);
+        }
+        else if(payload.zone_id == "6"){
+            sendEmbed.addField("Continent", "Amerish", true);
+        }
+        else if(payload.zone_id == "8"){
+            sendEmbed.addField("Continent", "Esamir", true);
+        }
+        if(centralBases.includes(payload.facility_id)){
+            sendEmbed.addField("Facility Type", base.type+"\n(Central base)", true);
+            sendEmbed.addField("Outfit Resources", "2 Polystellarite <:Polystellarite:818766888238448661>", true);
+        }
+        else if(base.type in outfitResources){
+            sendEmbed.addField("Facility Type", base.type, true);
+            sendEmbed.addField("Outfit Resources", outfitResources[base.type], true);
+        }
+        else{
+            sendEmbed.addField("Facility Type", base.type, true);
+            sendEmbed.addField("Outfit Resources", "Unknown", true);
+        }
+        if(payload.old_faction_id == "1"){
+            sendEmbed.addField("Captured From", "<:VS:818766983918518272> VS", true);
+        }
+        else if(payload.old_faction_id == "2"){
+            sendEmbed.addField("Captured From", "<:NC:818767043138027580> NC", true);
+        }
+        else if(payload.old_faction_id == "3"){
+            sendEmbed.addField("Captured From", "<:TR:818988588049629256> TR", true);
+        }
+        for (let row of result.rows){
+            discordClient.channels.fetch(row.channel).then(resChann => {
+                if(typeof(resChann.guild) !== 'undefined'){
+                    if(resChann.permissionsFor(resChann.guild.me).has(['SEND_MESSAGES','VIEW_CHANNEL','EMBED_LINKS'])){
                         messageHandler.send(resChann, sendEmbed, "Base capture event");
-                    }                        
-                })
-                .catch(error => {
-                    if(typeof(error.code) !== 'undefined'){
-                        if(error.code == 10003){ //Unknown channel error, thrown when the channel is deleted
-                            subscriptions.unsubscribeAll(pgClient, row.channel);
-                            console.log('Unsubscribed from '+row.channel);
-                        }
                     }
                     else{
-                        console.log(error);
+                        subscriptions.unsubscribeAll(pgClient, row.channel);
+                        console.log('Unsubscribed from '+row.channel);
                     }
-                })
-            }
+                }
+                else{ // DM
+                    messageHandler.send(resChann, sendEmbed, "Base capture event");
+                }
+            }).catch(error => {
+                if(typeof(error.code) !== 'undefined'){
+                    if(error.code == 10003){ //Unknown channel error, thrown when the channel is deleted
+                        subscriptions.unsubscribeAll(pgClient, row.channel);
+                        console.log('Unsubscribed from '+row.channel);
+                    }
+                }
+                else{
+                    console.log(error);
+                }
+            })
         }
-    }
-    catch(error){
-        return new Promise(function(resolve, reject){
-            reject(error);
-        })
     }
 }
 
@@ -435,41 +413,29 @@ const ps4WebRequest = function(facilityID, environment){
 
 const baseInfo = async function(facilityID, environment){
     if(typeof(bases[facilityID]) !== 'undefined' && !ps4WebRequest(facilityID, environment)){
-        return new Promise(function(resolve, reject){
-            resolve(bases[facilityID]);
-        })
+        return bases[facilityID];
     }
     else{ //backup web request
         let uri = 'http://census.daybreakgames.com/s:'+process.env.serviceID+'/get/'+environment+'/map_region?facility_id='+facilityID;
         let response = await got(uri).json();
         if(typeof(response.error) !== 'undefined'){
-            return new Promise(function(resolve, reject){
-                reject(response.error);
-            })
+            throw response.error;
         }
         if(response.statusCode == 404){
-            return new Promise(function(resolve, reject){
-                reject("API Unreachable");
-            })
+            throw "API Unreachable";
         }
         if(response.returned == "0"){
-            return new Promise(function(resolve, reject){
-                reject("No result for FacilityID: "+facilityID);
-            })
+            throw `No result for FacilityID: ${facilityID}`;
         }
         if(typeof(response.map_region_list) === 'undefined' || typeof(response.map_region_list[0]) === 'undefined'){
-            return new Promise(function(resolve, reject){
-                reject("API response improperly formatted, FacilityID: "+facilityID);
-            })
+            throw `API response improperly formatted, FacilityID: ${facilityID}`;
         }
-        let resObj = {
+
+        return {
             "continent": response.map_region_list[0].zone_id,
             "name": response.map_region_list[0].facility_name,
             "type": response.map_region_list[0].facility_type
-        }
-        return new Promise(function(resolve, reject){
-            resolve(resObj);
-        })
+        };
     }
     
 }

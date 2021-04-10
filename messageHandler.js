@@ -29,9 +29,8 @@ module.exports = {
                 }
             });
         }
-        return new Promise(function(resolve, reject){
-			resolve(res);
-		})
+
+        return res;
     },
 
     handleError: function(channel, err, context="default"){

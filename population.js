@@ -16,14 +16,10 @@ const getPopulation = async function(world){
 	}
 	let response = await got(url).json();
 	if(typeof(response.error) !== 'undefined'){
-		return new Promise(function(resolve, reject){
-			reject(response.error);
-		})
+		throw response.error;
 	}
 	if(response.statusCode == 404){
-		return new Promise(function(resolve, reject){
-			reject("API Unreachable");
-		})
+		throw "API Unreachable"; // TODO: Maybe create an exception instead of a bare string
 	}
 	let resObj = {
 		vs: response.result[0].vs,
@@ -31,9 +27,7 @@ const getPopulation = async function(world){
 		tr: response.result[0].tr,
 		ns: response.result[0].ns
 	}
-	return new Promise(function(resolve, reject){
-		resolve(resObj);
-	})
+	return resObj;
 }
 
 function nameToWorld(name){
@@ -103,27 +97,16 @@ const fisuPopulation = function(server){
 module.exports = {
 	lookup: async function(server){
 		if(messageHandler.badQuery(server)){
-			return new Promise(function(resolve, reject){
-                reject("Server search contains disallowed characters");
-            })
+			throw "Server search contains disallowed characters";
 		}
 
 		let world = nameToWorld(server);
 		let normalized = normalize(server);
 		if(world == null){
-			return new Promise(function(resolve, reject){
-				reject(server+" not found.");
-			})
+			throw`${server} not found.`;
 		}
-		let res = {}
-		try{
-			res = await getPopulation(world);
-		}
-		catch(err){
-			return new Promise(function(resolve, reject){
-					reject(err);
-				})
-		}
+		let res = await getPopulation(world);
+
 		let sendEmbed = new Discord.MessageEmbed();
 		let total = Number(res.vs) + Number(res.nc) + Number(res.tr) + Number(res.ns);
 		sendEmbed.setTitle(normalized+" Population - "+total);
@@ -151,8 +134,7 @@ module.exports = {
 		else{
 			sendEmbed.setFooter('Data from ps2.fisu.pw');
 		}
-		return new Promise(function(resolve, reject){
-			resolve(sendEmbed);z
-		})
+
+		return sendEmbed;
 	}
 }

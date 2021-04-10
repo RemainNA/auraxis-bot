@@ -10,30 +10,20 @@ const onlineInfo = async function(oTag, platform){
 	}
 	catch(err){
 		if(err.message.indexOf('404') > -1){
-			return new Promise(function(resolve, reject){
-				reject("API Unreachable");
-			})
+			throw "API Unreachable";
 		}
 	}
 	if(typeof(response.error) !== 'undefined'){
 		if(response.error == 'service_unavailable'){
-			return new Promise(function(resolve, reject){
-				reject("Census API currently unavailable");
-			})
+			throw "Census API currently unavailable";
 		}
-		return new Promise(function(resolve, reject){
-			reject(response.error);
-		})
+		throw response.error;
 	}
 	if(typeof(response.outfit_list) === 'undefined'){
-		return new Promise(function(resolve, reject){
-			reject("API Error");
-		})
+		throw "API Error";
 	}
 	if(typeof(response.outfit_list[0]) === 'undefined'){
-		return new Promise(function(resolve, reject){
-			reject(oTag+" not found");
-		})
+		throw `${oTag} not found`;
 	}
 	let urlBase = 'https://ps2.fisu.pw/player/?name=';
 	if(platform == 'ps2ps4us:v2'){
@@ -54,14 +44,10 @@ const onlineInfo = async function(oTag, platform){
 	}
 	if(data.members[0].online_status == "service_unavailable"){
 		resObj.onlineCount = "Online member count unavailable";
-		return new Promise(function(resolve, reject){
-			resolve(resObj);
-		})
+		return resObj; // TODO: Was resolve, needs verifications if correct
 	}
 	if(typeof(data.members[0].name) === 'undefined'){
-		return new Promise(function(resolve, reject){
-			reject("API error: names not returned")
-		})
+		throw "API error: names not returned";
 	}
 	let pcModifier = 0;
 	let rankNames = ["","","","","","","",""];
@@ -72,7 +58,7 @@ const onlineInfo = async function(oTag, platform){
 			rankNames[Number.parseInt(rank.ordinal)-pcModifier] = rank.name;
 		}
 	}
-	for(i in data.members){
+	for(const i in data.members){
 		if(data.members[i].online_status > 0){
 			resObj.onlineCount += 1;
 			onlineMembers[Number.parseInt(data.members[i].rank_ordinal)-pcModifier].push("["+data.members[i].name.first+"]("+urlBase+data.members[i].name.first+")");
@@ -81,19 +67,17 @@ const onlineInfo = async function(oTag, platform){
 			rankNames[Number.parseInt(data.members[i].rank_ordinal)] = data.members[i].rank;
 		}
 	}
-	for(i in onlineMembers){
+	for(const i in onlineMembers){
 		onlineMembers[i].sort(function (a, b) {return a.toLowerCase().localeCompare(b.toLowerCase());});  //This sorts ignoring case: https://stackoverflow.com/questions/8996963/how-to-perform-case-insensitive-sorting-in-javascript#9645447
 	}
 	resObj.onlineMembers = onlineMembers;
 	resObj.rankNames = rankNames;
-	return new Promise(function(resolve, reject){
-		resolve(resObj);
-	})
+	return resObj;
 }
 
 const totalLength = function(arr){
 	let len = 0;
-	for(i in arr){
+	for(const i in arr){
 		len += arr[i].length+1;
 	}
 	return len;
@@ -102,19 +86,10 @@ const totalLength = function(arr){
 module.exports = {
 	online: async function(oTag, platform){
 		if(messageHandler.badQuery(oTag)){
-			return new Promise(function(resolve, reject){
-                reject("Outfit search contains disallowed characters");
-            })
+			throw "Outfit search contains disallowed characters";
 		}
 
-		try{
-			oInfo = await onlineInfo(oTag, platform);
-		}
-		catch(error){
-			return new Promise(function(resolve, reject){
-				reject(error);
-			})
-		}
+		const oInfo = await onlineInfo(oTag, platform);
 
 		let resEmbed = new Discord.MessageEmbed();
 
@@ -146,9 +121,8 @@ module.exports = {
 		if(oInfo.onlineCount == "Online member count unavailable"){
 			resEmbed.addField(oInfo.onlineCount, "-", true);
 			resEmbed.setDescription(oInfo.alias+"\n"+"?/"+oInfo.memberCount+" online");
-			return new Promise(function(resolve, reject){
-				resolve(resEmbed);
-			})
+
+			return resEmbed;
 		}
 		for(let i = 0; i < 8; i++){
 			if(oInfo.onlineMembers[i].length > 0){
@@ -161,8 +135,6 @@ module.exports = {
 				
 			}
 		}
-		return new Promise(function(resolve, reject){
-			resolve(resEmbed);
-		})
+		return resEmbed;
 	}
 }

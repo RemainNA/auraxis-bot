@@ -13,89 +13,66 @@ const getWeaponId = async function(name, searchSpace, cName=""){
 	if(typeof(weaponsJSON[name]) !== 'undefined' && searchSpace.includes(name)){
 		let returnObj = weaponsJSON[name];
 		returnObj.id = name;
-		return new Promise(function(resolve, reject){
-			resolve(returnObj);
-		})
+		return returnObj;
 	}
 
 	//Check for exact match
-	for(id in weaponsJSON){
+	for(const id in weaponsJSON){
 		if(weaponsJSON[id].name.toLowerCase() == name.toLowerCase() && searchSpace.includes(id)){
 			let returnObj = weaponsJSON[id];
-			returnObj.id = id;
-			return new Promise(function(resolve, reject){
-				resolve(returnObj);
-			})
+			returnObj.id = id; // TODO: Modification of an object without cloning, needs to be addressed
+			return returnObj;
 		}
 	}
 
 	//Check for partial match
-	for(id in weaponsJSON){
+	for(const id in weaponsJSON){
 		if(weaponsJSON[id].name.toLowerCase().indexOf(name.toLowerCase()) > -1 && searchSpace.includes(id)){
 			let returnObj = weaponsJSON[id];
 			returnObj.id = id;
-			return new Promise(function(resolve, reject){
-				resolve(returnObj);
-			})
+			return returnObj;
 		}
 	}
 
 	if(cName == ""){
-		return new Promise(function(resolve, reject){
-			reject(name+" not found.");
-		})
+		throw `${name} not found.`;
 	}
 	else{
-		return new Promise(function(resolve, reject){
-			reject(name+" not found for "+cName);
-		})
+		throw `${name} not found for ${cName}`;
 	}
 	
 }
 
 const characterInfo = async function(cName, wName, platform){
 	let uri = 'https://census.daybreakgames.com/s:'+process.env.serviceID+'/get/'+platform+'/character?name.first_lower='+cName+'&c:resolve=weapon_stat_by_faction,weapon_stat';
+	// TODO: This needs improvement, the code that follows the try/catch block should be inside try.
 	let response =  "";
     try{
-       response = await got(uri).json(); 
+       response = await got(uri).json();
     }
     catch(err){
         if(err.message.indexOf('404') > -1){
-            return new Promise(function(resolve, reject){
-                reject("API Unreachable");
-            })
+            throw "API Unreachable";
         }
     }
     if(typeof(response.error) !== 'undefined'){
         if(response.error == 'service_unavailable'){
-            return new Promise(function(resolve, reject){
-                reject("Census API currently unavailable");
-            })
+            throw "Census API currently unavailable";
         }
         if(typeof(response.error) === 'string'){
-            return new Promise(function(resolve, reject){
-                reject("Census API error: "+response.error);
-            })
+            throw `Census API error: ${response.error}`;
         }
-        return new Promise(function(resolve, reject){
-            reject(response.error);
-        })
+        throw response.error;
     }
     if(typeof(response.character_list) === 'undefined'){
-        return new Promise(function(resolve, reject){
-            reject("API Error");
-        })
+        throw "API Error";
     }
     if(typeof(response.character_list[0]) === 'undefined'){
-        return new Promise(function(resolve, reject){
-            reject(cName+" not found");
-        })
+        throw `${cName} not found`;
 	}
 	let data = response.character_list[0];
 	if(typeof(data.stats) === 'undefined' || typeof(data.stats.weapon_stat) === 'undefined' || typeof(data.stats.weapon_stat_by_faction) === 'undefined'){
-		return new Promise(function(resolve, reject){
-            reject("Unable to retrieve weapon stats");
-        })
+		throw "Unable to retrieve weapon stats";
 	}
 	let resObj = {
 		name: data.name.first,
@@ -117,21 +94,10 @@ const characterInfo = async function(cName, wName, platform){
 	}
 
 	if(validIds.length == 0){
-		return new Promise(function(resolve, reject){
-			reject(wName+" not found for "+cName);
-		})
+		throw `${wName} not found for ${cName}`;
 	}
 
-	let wInfo = {};
-	try{
-		wInfo = await getWeaponId(wName, validIds, cName);
-	}
-	catch(error){
-		return new Promise(function(resolve, reject){
-			reject(error);
-		})
-	}
-
+	let wInfo = await getWeaponId(wName, validIds, cName);
 	let wId = wInfo.id;
 
 	resObj.weapon = wId;
@@ -162,9 +128,7 @@ const characterInfo = async function(cName, wName, platform){
 	}
 
 	if(!found){
-		return new Promise(function(resolve, reject){
-			reject(wName+" not found for "+cName);
-		})
+		throw `${wName} not found for ${cName}`;
 	}
 
 	for(let weapon of data.stats.weapon_stat_by_faction){
@@ -194,34 +158,20 @@ const characterInfo = async function(cName, wName, platform){
 		}
 	}
 
-	return new Promise(function(resolve, reject){
-		resolve(resObj);
-	})
+	return resObj;
 }
 
 module.exports = {
 	lookup: async function(cName, wName, platform){
 		if(messageHandler.badQuery(cName)){
-			return new Promise(function(resolve, reject){
-                reject("Character search contains disallowed characters");
-            })
+			throw "Character search contains disallowed characters";
 		}
 
 		if(messageHandler.badQuery(wName)){
-			return new Promise(function(resolve, reject){
-                reject("Weapon search contains disallowed characters");
-            })
+			throw "Weapon search contains disallowed characters";
 		}
 
-		let cInfo = {};
-		try{
-			cInfo = await characterInfo(cName, wName, platform);
-		}
-		catch(error){
-			return new Promise(function(resolve, reject){
-                reject(error);
-            })
-		}
+		let cInfo = await characterInfo(cName, wName, platform);
 
 		let wInfo = weaponsJSON[cInfo.weapon];
 		wInfo.id = cInfo.weapon;
@@ -271,8 +221,6 @@ module.exports = {
 		wInfo.image_id != -1 && resEmbed.setThumbnail('http://census.daybreakgames.com/files/ps2/images/static/'+wInfo.image_id+'.png');
 		resEmbed.setFooter("Weapon ID: "+wInfo.id);
 
-		return new Promise(function(resolve, reject){
-			resolve(resEmbed);
-		})
+		return resEmbed;
 	}
 }

@@ -26,55 +26,37 @@ const weaponInfo = async function(name){
 	if(typeof(weaponsJSON[name]) !== 'undefined'){
 		let returnObj = weaponsJSON[name];
 		returnObj.id = name;
-		return new Promise(function(resolve, reject){
-			resolve(returnObj);
-		})
+		return returnObj;
 	}
 
 	//Check for exact match
-	for(id in weaponsJSON){
+	for(const id in weaponsJSON){
 		if(weaponsJSON[id].name.toLowerCase() == name.toLowerCase()){
 			let returnObj = weaponsJSON[id];
 			returnObj.id = id;
-			return new Promise(function(resolve, reject){
-				resolve(returnObj);
-			})
+			return returnObj;
 		}
 	}
 
 	//check for partial match
-	for(id in weaponsJSON){
+	for(const id in weaponsJSON){
 		if(weaponsJSON[id].name.toLowerCase().indexOf(name.toLowerCase()) > -1){
 			let returnObj = weaponsJSON[id];
 			returnObj.id = id;
-			return new Promise(function(resolve, reject){
-				resolve(returnObj);
-			})
+			return returnObj;
 		}
 	}
 
-	return new Promise(function(resolve, reject){
-		reject(name+" not found.");
-	})
+	throw `${name} not found.`;
 }
 
 module.exports = {
 	lookup: async function(name){
 		if(messageHandler.badQuery(name)){
-			return new Promise(function(resolve, reject){
-                reject("Weapon search contains disallowed characters");
-            })
+			throw "Weapon search contains disallowed characters";
 		}
 
-		let wInfo = {};
-		try{
-            wInfo = await weaponInfo(name);
-        }
-        catch(error){
-            return new Promise(function(resolve, reject){
-                reject(error);
-            })
-		}
+		let wInfo = await weaponInfo(name);
 		
 		let resEmbed = new Discord.MessageEmbed();
 
@@ -255,8 +237,6 @@ module.exports = {
 		resEmbed.setDescription(wInfo.description);
 		resEmbed.setFooter("ID: "+wInfo.id+" | Command currently in Beta");
 
-		return new Promise(function(resolve, reject){
-			resolve(resEmbed);
-		})
+		return resEmbed;
 	}
 }

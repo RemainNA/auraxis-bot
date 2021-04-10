@@ -7,55 +7,37 @@ const implantInfo = async function(name){
 	if(typeof(implantsJSON[name]) !== 'undefined'){
 		let returnObj = implantsJSON[name];
 		returnObj.name = name;
-		return new Promise(function(resolve, reject){
-			resolve(returnObj);
-		})
+		return returnObj;
 	}
 
 	//Lower case name match
-	for(implant in implantsJSON){
+	for(const implant in implantsJSON){
 		if(implant.toLowerCase() == name.toLowerCase()){
 			let returnObj = implantsJSON[implant];
 			returnObj.name = implant;
-			return new Promise(function(resolve, reject){
-				resolve(returnObj);
-			})
+			return returnObj;
 		}
 	}
 
 	//Partial match
-	for(implant in implantsJSON){
+	for(const implant in implantsJSON){
 		if(implant.toLowerCase().indexOf(name.toLowerCase()) > -1){
 			let returnObj = implantsJSON[implant];
 			returnObj.name = implant;
-			return new Promise(function(resolve, reject){
-				resolve(returnObj);
-			})
+			return returnObj;
 		}
 	}
 
-	return new Promise(function(resolve, reject){
-		reject(name+" not found.");
-	})
+	throw `${name} not found.`;
 }
 
 module.exports = {
 	lookup: async function(name){
 		if(messageHandler.badQuery(name)){
-			return new Promise(function(resolve, reject){
-                reject("Search contains disallowed characters");
-            })
+			throw "Search contains disallowed characters";
 		}
 		
-		let iInfo = {};
-		try{
-            iInfo = await implantInfo(name);
-        }
-        catch(error){
-            return new Promise(function(resolve, reject){
-                reject(error);
-            })
-		}
+		let iInfo = await implantInfo(name);
 
 		let resEmbed = new Discord.MessageEmbed();
 		resEmbed.setTitle(iInfo.name);
@@ -71,8 +53,6 @@ module.exports = {
 			resEmbed.addField("Rank 5", iInfo["5"]);
 		}
 
-		return new Promise(function(resolve, reject){
-			resolve(resEmbed);
-		})
+		return resEmbed;
 	}
 }

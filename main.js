@@ -138,7 +138,7 @@ client.on('message', message => {
 	}
 	else if (message.content.substring(0,11).toLowerCase() == '!character '){
 		let chars = message.content.substring(11).toLowerCase().split(" ");
-		for(x in chars){
+		for(const x in chars){
 			if(chars[x] != ""){
 				char.character(chars[x], 'ps2:v2')
 					.then(res => messageHandler.send(message.channel, res, "PC Character", true))
@@ -148,7 +148,7 @@ client.on('message', message => {
 	}
 	else if (message.content.substring(0,17).toLowerCase() == '!ps4us character '){
 		let chars = message.content.substring(17).toLowerCase().split(" ");
-		for(x in chars){
+		for(const x in chars){
 			if(chars[x] != ""){
 				char.character(chars[x], 'ps2ps4us:v2')
 					.then(res => messageHandler.send(message.channel, res, "PS4US Character", true))
@@ -158,7 +158,7 @@ client.on('message', message => {
 	}
 	else if (message.content.substring(0,17).toLowerCase() == '!ps4eu character '){
 		let chars = message.content.substring(17).toLowerCase().split(" ");
-		for(x in chars){
+		for(const x in chars){
 			if(chars[x] != ""){
 				char.character(chars[x], 'ps2ps4eu:v2')
 					.then(res => messageHandler.send(message.channel, res, "PS4EU Character", true))
@@ -214,7 +214,7 @@ client.on('message', message => {
 	}
 	else if (message.content.substring(0,8).toLowerCase() == '!outfit '){
 		let tags = message.content.substring(8).toLowerCase().split(" ");
-		for(x in tags){
+		for(const x in tags){
 			if(tags[x] != ""){
 				if(tags[x].length > 4 && !messageHandler.badQuery(tags[x])){
 					messageHandler.send(message.channel, tags[x]+" is longer than 4 letters, please enter a tag.", "PC tag too long");
@@ -228,7 +228,7 @@ client.on('message', message => {
 	}
 	else if (message.content.substring(0,14).toLowerCase() == '!ps4us outfit '){
 		let tags = message.content.substring(14).toLowerCase().split(" ");
-		for(x in tags){
+		for(const x in tags){
 			if(tags[x] != ""){
 				if(tags[x].length > 4 && !messageHandler.badQuery(tags[x])){
 					messageHandler.send(message.channel, tags[x]+" is longer than 4 letters, please enter a tag.", "PS4US tag too long");
@@ -242,7 +242,7 @@ client.on('message', message => {
 	}
 	else if (message.content.substring(0,14).toLowerCase() == '!ps4eu outfit '){
 		let tags = message.content.substring(14).toLowerCase().split(" ");
-		for(x in tags){
+		for(const x in tags){
 			if(tags[x] != ""){
 				if(tags[x].length > 4 && !messageHandler.badQuery(tags[x])){
 					messageHandler.send(message.channel, tags[x]+" is longer than 4 letters, please enter a tag.", "PS4EU tag too long");
@@ -256,7 +256,7 @@ client.on('message', message => {
 	}
 	else if (message.content.substring(0,8).toLowerCase() == '!online '){
 		let tags = message.content.substring(8).toLowerCase().split(" ");
-		for(x in tags){
+		for(const x in tags){
 			if(tags[x] != ""){
 				if(tags[x].length > 4 && !messageHandler.badQuery(tags[x])){
 					messageHandler.send(message.channel, tags[x]+" is longer than 4 letters, please enter a tag.", "PC tag too long");
@@ -270,7 +270,7 @@ client.on('message', message => {
 	}
 	else if (message.content.substring(0,14).toLowerCase() == '!ps4us online '){
 		let tags = message.content.substring(14).toLowerCase().split(" ");
-		for(x in tags){
+		for(const x in tags){
 			if(tags[x] != ""){
 				if(tags[x].length > 4 && !messageHandler.badQuery(tags[x])){
 					messageHandler.send(message.channel, tags[x]+" is longer than 4 letters, please enter a tag.", "PC tag too long");
@@ -284,7 +284,7 @@ client.on('message', message => {
 	}
 	else if (message.content.substring(0,14).toLowerCase() == '!ps4eu online '){
 		let tags = message.content.substring(14).toLowerCase().split(" ");
-		for(x in tags){
+		for(const x in tags){
 			if(tags[x] != ""){
 				if(tags[x].length > 4 && !messageHandler.badQuery(tags[x])){
 					messageHandler.send(message.channel, tags[x]+" is longer than 4 letters, please enter a tag.", "PC tag too long");
@@ -299,7 +299,7 @@ client.on('message', message => {
 	else if (message.content.substring(0,12).toLowerCase() == '!population '){
 		//server population
 		let servers = message.content.substring(12).toLowerCase().split(" ");
-		for(x in servers){
+		for(const x in servers){
 			if(servers[x] != ""){
 				population.lookup(servers[x])
 					.then(res => messageHandler.send(message.channel, res, "Population", true))
@@ -309,7 +309,7 @@ client.on('message', message => {
 	}
 	else if (message.content.substring(0,5).toLowerCase() == '!asp '){
 		let chars = message.content.substring(5).toLowerCase().split(" ");
-		for(x in chars){
+		for(const x in chars){
 			if(chars[x] != ""){
 				asp.originalBR(chars[x], "ps2:v2")
 					.then(res => messageHandler.send(message.channel, res, "PC ASP", true))
@@ -319,7 +319,7 @@ client.on('message', message => {
 	}
 	else if (message.content.substring(0,11).toLowerCase() == '!ps4us asp '){
 		let chars = message.content.substring(11).toLowerCase().split(" ");
-		for(x in chars){
+		for(const x in chars){
 			if(chars[x] != ""){
 				asp.originalBR(chars[x], "ps2ps4us:v2")
 					.then(res => messageHandler.send(message.channel, res, "PS4US ASP", true))
@@ -329,7 +329,7 @@ client.on('message', message => {
 	}
 	else if (message.content.substring(0,11).toLowerCase() == '!ps4eu asp '){
 		let chars = message.content.substring(11).toLowerCase().split(" ");
-		for(x in chars){
+		for(const x in chars){
 			if(chars[x] != ""){
 				asp.originalBR(chars[x], "ps2ps4eu:v2")
 					.then(res => messageHandler.send(message.channel, res, "PS4EU ASP", true))
@@ -339,7 +339,7 @@ client.on('message', message => {
 	}
 	else if (message.content.substring(0,11).toLowerCase() == '!territory '){
 		let servers = message.content.substring(11).toLowerCase().split(" ");
-		for(x in servers){
+		for(const x in servers){
 			if(servers[x] != ""){
 				territory.territory(servers[x])
 					.then(res => messageHandler.send(message.channel, res, "Territory", true))
@@ -349,7 +349,7 @@ client.on('message', message => {
 	}
 	else if (message.content.substring(0,8).toLowerCase() == '!alerts '){
 		let servers = message.content.substring(8).toLowerCase().split(" ");
-		for(x in servers){
+		for(const x in servers){
 			if(servers[x] != ""){
 				alerts.activeAlerts(servers[x])
 					.then(res => messageHandler.send(message.channel, res, "Alerts", true))
@@ -379,7 +379,7 @@ client.on('message', message => {
 	}
 	else if (message.content.substring(0,20).toLowerCase() == '!subscribe activity ' && runningOnline){
 		let outfits = message.content.substring(20).toLowerCase().split(" ");
-		for(x in outfits){
+		for(const x in outfits){
 			if(outfits[x] != ""){
 				subscription.subscribeActivity(SQLclient, message.channel.id, outfits[x], 'ps2:v2')
 					.then(res => messageHandler.send(message.channel, res, "Subscribe activity", true))
@@ -389,7 +389,7 @@ client.on('message', message => {
 	}
 	else if (message.content.substring(0,22).toLowerCase() == '!unsubscribe activity ' && runningOnline){
 		let outfits = message.content.substring(22).toLowerCase().split(" ");
-		for(x in outfits){
+		for(const x in outfits){
 			if(outfits[x] != ""){
 				subscription.unsubscribeActivity(SQLclient, message.channel.id, outfits[x], 'ps2:v2')
 					.then(res => messageHandler.send(message.channel, res, "Unsubscribe activity"))
@@ -399,7 +399,7 @@ client.on('message', message => {
 	}
 	else if (message.content.substring(0,26).toLowerCase() == '!ps4us subscribe activity ' && runningOnline){
 		let outfits = message.content.substring(26).toLowerCase().split(" ");
-		for(x in outfits){
+		for(const x in outfits){
 			if(outfits[x] != ""){
 				subscription.subscribeActivity(SQLclient, message.channel.id, outfits[x], 'ps2ps4us:v2')
 					.then(res => messageHandler.send(message.channel, res, "PS4US Subscribe activity", true))
@@ -409,7 +409,7 @@ client.on('message', message => {
 	}
 	else if (message.content.substring(0,28).toLowerCase() == '!ps4us unsubscribe activity ' && runningOnline){
 		let outfits = message.content.substring(28).toLowerCase().split(" ");
-		for(x in outfits){
+		for(const x in outfits){
 			if(outfits[x] != ""){
 				subscription.unsubscribeActivity(SQLclient, message.channel.id, outfits[x], 'ps2ps4us:v2')
 					.then(res => messageHandler.send(message.channel, res, "PS4US Unsubscribe activity"))
@@ -419,7 +419,7 @@ client.on('message', message => {
 	}
 	else if (message.content.substring(0,26).toLowerCase() == '!ps4eu subscribe activity ' && runningOnline){
 		let outfits = message.content.substring(26).toLowerCase().split(" ");
-		for(x in outfits){
+		for(const x in outfits){
 			if(outfits[x] != ""){
 				subscription.subscribeActivity(SQLclient, message.channel.id, outfits[x], 'ps2ps4eu:v2')
 				.then(res => messageHandler.send(message.channel, res, "PS4EU Subscribe activity", true))
@@ -429,7 +429,7 @@ client.on('message', message => {
 	}
 	else if (message.content.substring(0,28).toLowerCase() == '!ps4eu unsubscribe activity ' && runningOnline){
 		let outfits = message.content.substring(28).toLowerCase().split(" ");
-		for(x in outfits){
+		for(const x in outfits){
 			if(outfits[x] != ""){
 				subscription.unsubscribeActivity(SQLclient, message.channel.id, outfits[x], 'ps2ps4eu:v2')
 					.then(res => messageHandler.send(message.channel, res, "PS4EU Unsubscribe activity"))
@@ -439,7 +439,7 @@ client.on('message', message => {
 	}
 	else if (message.content.substring(0,20).toLowerCase() == '!subscribe captures ' && runningOnline){
 		let outfits = message.content.substring(20).toLowerCase().split(" ");
-		for(x in outfits){
+		for(const x in outfits){
 			if(outfits[x] != ""){
 				subscription.subscribeCaptures(SQLclient, message.channel.id, outfits[x], 'ps2:v2')
 					.then(res => messageHandler.send(message.channel, res, "Subscribe captures", true))
@@ -449,7 +449,7 @@ client.on('message', message => {
 	}
 	else if (message.content.substring(0,22).toLowerCase() == '!unsubscribe captures ' && runningOnline){
 		let outfits = message.content.substring(22).toLowerCase().split(" ");
-		for(x in outfits){
+		for(const x in outfits){
 			if(outfits[x] != ""){
 				subscription.unsubscribeCaptures(SQLclient, message.channel.id, outfits[x], 'ps2:v2')
 					.then(res => messageHandler.send(message.channel, res, "Unsubscribe captures"))
@@ -459,7 +459,7 @@ client.on('message', message => {
 	}
 	else if (message.content.substring(0,26).toLowerCase() == '!ps4us subscribe captures ' && runningOnline){
 		let outfits = message.content.substring(26).toLowerCase().split(" ");
-		for(x in outfits){
+		for(const x in outfits){
 			if(outfits[x] != ""){
 				subscription.subscribeCaptures(SQLclient, message.channel.id, outfits[x], 'ps2ps4us:v2')
 					.then(res => messageHandler.send(message.channel, res, "PS4US Subscribe captures", true))
@@ -469,7 +469,7 @@ client.on('message', message => {
 	}
 	else if (message.content.substring(0,28).toLowerCase() == '!ps4us unsubscribe captures ' && runningOnline){
 		let outfits = message.content.substring(28).toLowerCase().split(" ");
-		for(x in outfits){
+		for(const x in outfits){
 			if(outfits[x] != ""){
 				subscription.unsubscribeCaptures(SQLclient, message.channel.id, outfits[x], 'ps2ps4us:v2')
 					.then(res => messageHandler.send(message.channel, res, "PS4US Unsubscribe captures"))
@@ -479,7 +479,7 @@ client.on('message', message => {
 	}
 	else if (message.content.substring(0,26).toLowerCase() == '!ps4eu subscribe captures ' && runningOnline){
 		let outfits = message.content.substring(26).toLowerCase().split(" ");
-		for(x in outfits){
+		for(const x in outfits){
 			if(outfits[x] != ""){
 				subscription.subscribeCaptures(SQLclient, message.channel.id, outfits[x], 'ps2ps4eu:v2')
 					.then(res => messageHandler.send(message.channel, res, "PS4EU Subscribe captures", true))
@@ -489,7 +489,7 @@ client.on('message', message => {
 	}
 	else if (message.content.substring(0,28).toLowerCase() == '!ps4eu unsubscribe captures ' && runningOnline){
 		let outfits = message.content.substring(28).toLowerCase().split(" ");
-		for(x in outfits){
+		for(const x in outfits){
 			if(outfits[x] != ""){
 				subscription.unsubscribeCaptures(SQLclient, message.channel.id, outfits[x], 'ps2ps4eu:v2')
 					.then(res => messageHandler.send(message.channel, res, "PS4EU Unsubscribe captures"))
@@ -499,7 +499,7 @@ client.on('message', message => {
 	}
 	else if (message.content.substring(0,18).toLowerCase() == '!subscribe alerts ' && runningOnline){
 		let servers = message.content.substring(18).toLowerCase().split(" ");
-		for(x in servers){
+		for(const x in servers){
 			if(servers[x] != ""){
 				subscription.subscribeAlert(SQLclient, message.channel.id, servers[x])
 					.then(res => messageHandler.send(message.channel, res, "Subscribe alerts", true))
@@ -509,7 +509,7 @@ client.on('message', message => {
 	}
 	else if (message.content.substring(0,20).toLowerCase() == '!unsubscribe alerts ' && runningOnline){
 		let servers = message.content.substring(20).toLowerCase().split(" ");
-		for(x in servers){
+		for(const x in servers){
 			if(servers[x] != ""){
 				subscription.unsubscribeAlert(SQLclient, message.channel.id, servers[x])
 					.then(res => messageHandler.send(message.channel, res, "Unsubscribe alerts"))
@@ -519,7 +519,7 @@ client.on('message', message => {
 	}
 	else if (message.content.substring(0,19).toLowerCase() == '!subscribe twitter ' && runningOnline){
 		let users = message.content.substring(19).toLowerCase().split(" ");
-		for(x in users){
+		for(const x in users){
 			if(users[x] != ""){
 				subscription.subscribeTwitter(SQLclient, message.channel.id, users[x])
 					.then(res => messageHandler.send(message.channel, res, "Subscribe twitter", true))
@@ -529,7 +529,7 @@ client.on('message', message => {
 	}
 	else if (message.content.substring(0,21).toLowerCase() == '!unsubscribe twitter ' && runningOnline){
 		let users = message.content.substring(21).toLowerCase().split(" ");
-		for(x in users){
+		for(const x in users){
 			if(users[x] != ""){
 				subscription.unsubscribeTwitter(SQLclient, message.channel.id, users[x])
 					.then(res => messageHandler.send(message.channel, res, "Unsubscribe twitter"))
