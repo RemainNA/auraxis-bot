@@ -96,6 +96,7 @@ const updateAlert = async function(info, pgClient, discordClient, isComplete){
 					}
 				})
 				.catch(err => {
+					console.log("Error editing message");
 					console.log(err)
 				})
 		}
