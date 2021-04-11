@@ -43,7 +43,7 @@ const updateAlert = async function(info, pgClient, discordClient, isComplete){
 	let messageEmbed = new Discord.MessageEmbed();
 	messageEmbed.setTimestamp();
 	messageEmbed.setFooter("Data from ps2alerts.com");
-	let alertName = alerts[info.censusMetagameEventType].name
+	let alertName = alerts[info.censusMetagameEventType].name;
 	messageEmbed.setTitle(alertName);
 	if (alertName.includes('Enlightenment')){
 		messageEmbed.setColor('PURPLE');
@@ -54,7 +54,7 @@ const updateAlert = async function(info, pgClient, discordClient, isComplete){
 	else if (alertName.includes('Superiority')){
 		messageEmbed.setColor('RED');
 	}
-	messageEmbed.setDescription(`[${alerts[info.censusMetagameEventType].description}](https://ps2alerts.com/alert/${info.instanceId}?utm_source=auraxis-bot&utm_medium=discord&utm_campaign=partners)`)
+	messageEmbed.setDescription(`[${alerts[info.censusMetagameEventType].description}](https://ps2alerts.com/alert/${info.instanceId}?utm_source=auraxis-bot&utm_medium=discord&utm_campaign=partners)`);
 	messageEmbed.addField("Server", serverIdToName(info.world), true);
 	if(isComplete){
 		messageEmbed.addField("Status", "Ended", true);
