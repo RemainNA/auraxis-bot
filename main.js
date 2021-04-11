@@ -44,7 +44,7 @@ const client = new Discord.Client();
 // https://discordapp.com/developers/applications/me
 const token = process.env.token;
 
-client.on('ready', () => {
+client.on('ready', async () => {
 	console.log('Running on '+client.guilds.cache.size+' servers!');
 	if(runningOnline){
 		SQLclient = new pg.Client({
@@ -52,19 +52,18 @@ client.on('ready', () => {
 			ssl: {rejectUnauthorized: false}
 		});
 
-		SQLclient.connect();
+		await SQLclient.connect();
 
 		initialize.start(SQLclient);
 		listener.start(SQLclient, client);
-	}
-	if(twitterAvail){
-		twitterListener.start(SQLclient, client);
-	}
-
-	alertMaintenance.update(SQLclient, client);
-	setInterval(function () { 
+		if(twitterAvail){
+			twitterListener.start(SQLclient, client);
+		}
 		alertMaintenance.update(SQLclient, client);
-	}, 180000); //Update alerts every minute
+		setInterval(function () { 
+			alertMaintenance.update(SQLclient, client);
+		}, 180000); //Update alerts every minute
+	}
 
 	client.user.setActivity('!help')
 });
