@@ -107,9 +107,15 @@ const editMessage = async function(embed, messageId, channelId, discordClient){
 	try {
 		const resChann = await discordClient.channels.fetch(channelId)
 
-		if (resChann.type != 'dm' && resChann.permissionsFor(resChann.guild.me).has('VIEW_CHANNEL')) {
+		if(resChann.deleted){
+			return;
+		}
+		if (['text','news'].includes(resChann.type) && resChann.permissionsFor(resChann.guild.me).has('VIEW_CHANNEL')) {
 			const resMsg = await resChann.messages.fetch(messageId);
-
+			resMsg.edit(embed);
+		}
+		else if(resChann.type == 'dm'){
+			const resMsg = await resChann.messages.fetch(messageId);
 			resMsg.edit(embed);
 		}
 	}
