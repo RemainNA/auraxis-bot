@@ -79,8 +79,8 @@ const updateAlert = async function(info, pgClient, discordClient, isComplete){
 		else{
 			messageEmbed.addField("Result", winnerFaction[info.result.victor], true);
 			const minutesDone = Math.floor((Date.now() - Date.parse(info.timeEnded))/60000);
-			if (!(info.result.victor in winnerFaction) && minutesDone < 10){
-				isComplete = false; //Don't delete from list, retry up to 10 minutes later when field may be populated
+			if (!(info.result.victor in winnerFaction) && minutesDone < 5){
+				isComplete = false; //Don't delete from list, retry up to 5 minutes later when field may be populated
 			}
 		}
 	}
