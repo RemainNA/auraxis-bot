@@ -286,6 +286,7 @@ const outfitResources = {
     "Bio Lab": "8 Synthium <:Synthium:818766858865475584>",
     "Amp Station": "8 Synthium <:Synthium:818766858865475584>",
     "Tech Plant": "8 Synthium <:Synthium:818766858865475584>",
+    "Containment Site": "None",
     "Central base": "2 Polystellarite <:Polystellarite:818766888238448661>"
 }
 

@@ -121,9 +121,9 @@
         "name": "Xiphos Anti-Personnel Phalanx Turret"
     },
     "2010": {
-        "description": "<font color=\"#dc9c36\">Single use consumable. Carry up to 2 on the field between resupplies. 40 max.</font><br>The Flash XS-1 is a lightly armored, single-passenger vehicle designed for rapid deployment anywhere on the battlefield.",
+        "description": "<font color=\"#dc9c36\">Single use consumable. Carry up to 2 on the field between resupplies.</font><br>The Flash XS-1 is a lightly armored, single-passenger vehicle designed for rapid deployment anywhere on the battlefield.",
         "image_id": "3975",
-        "name": "Flash"
+        "name": "Flash XS-1"
     },
     "2011": {
         "name": "Forward Station"
@@ -134,9 +134,9 @@
         "name": "Bastion Fleet Carrier"
     },
     "2021": {
-        "description": "The Glaive Ionized Particle Cannon is unmanned mid-range artillery that disrupts defensive shield systems but only inflicts minor damage to personnel and equipment due to its lack of conventional payload. The IPC requires AI module support as well as a manually fired targeting dart to acquire a target.",
-        "image_id": "4052",
-        "name": "Glaive IPC"
+        "description": "The Flail fires a volley of 4 mortar shells in quick succession, doing moderate damage to all in range. Requires AI module as well as a manually fired targeting dart in order to fire.",
+        "image_id": "93301",
+        "name": "The Flail"
     },
     "2033": {
         "description": "An experimental recon vehicle with hover capabilities, allowing it to quickly traverse all types of terrain.",
@@ -214,6 +214,11 @@
         "description": "The Prowler is a versatile tank used exclusively by the Terran Republic.  It boasts a higher top speed and its twin barrel cannons are capable of inflicting damage quicker than the other tanks.",
         "image_id": "3993",
         "name": "Reclaimed Prowler"
+    },
+    "2136": {
+        "description": "The Dervish is an airborne, heavy fighter. The pilot commands light forward-facing weaponry while a secondary gunner operates a top-turret that is capable of warding off enemy air vehicles and applying additional pressure to attack targets.",
+        "image_id": "3981",
+        "name": "Dervish"
     },
     "3": {
         "description": "The Lightning is a light one man tank.  The Lightning can be outfitted with various types of turrets allowing it to fill anti-air and anti-armor roles.",

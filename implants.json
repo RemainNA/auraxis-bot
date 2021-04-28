@@ -176,11 +176,11 @@
         "image": "88860"
     },
     "Heavyweight": {
-        "1": "Reduces the amount of flinch you receive when being struck by a projectile by 50%, but your maximum movement speed is passively reduced by 10% at all times. <font color=\"#dc9c36\">MAX units can equip.</font>",
-        "2": "Reduces the amount of flinch you receive when being struck by a projectile by 55%, but your maximum movement speed is passively reduced by 10% at all times. <font color=\"#dc9c36\">MAX units can equip.</font>",
-        "3": "Reduces the amount of flinch you receive when being struck by a projectile by 65%, but your maximum movement speed is passively reduced by 10% at all times. <font color=\"#dc9c36\">MAX units can equip.</font>",
-        "4": "Reduces the amount of flinch you receive when being struck by a projectile by 80%, but your maximum movement speed is passively reduced by 10% at all times. <font color=\"#dc9c36\">MAX units can equip.</font>",
-        "5": "Reduces the amount of flinch you receive when being struck by a projectile by 80%, but your maximum movement speed is passively reduced by 10% at all times. Additionally, whenever you take fall damage, you will emit an impulse that knocks back enemy infantry. <font color=\"#dc9c36\">MAX units can equip.</font>",
+        "1": "Reduces screen shake caused by explosions by 60%, and you are no longer affected by knockbacks caused by enemies or allies. <font color=\"#dc9c36\">MAX units can equip.</font>",
+        "2": "Reduces screen shake caused by explosions by 65%, and you are no longer affected by knockbacks caused by enemies or allies. <font color=\"#dc9c36\">MAX units can equip.</font>",
+        "3": "Reduces screen shake caused by explosions by 75%, and you are no longer affected by knockbacks caused by enemies or allies. <font color=\"#dc9c36\">MAX units can equip.</font>",
+        "4": "Reduces screen shake caused by explosions by 95%, and you are no longer affected by knockbacks caused by enemies or allies. <font color=\"#dc9c36\">MAX units can equip.</font>",
+        "5": "Reduces screen shake caused by explosions by 95%, and you are no longer affected by knockbacks caused by enemies or allies. Additionally, whenever you take fall damage, you will emit an impulse that knocks back enemy infantry. <font color=\"#dc9c36\">MAX units can equip.</font>",
         "image": "89405"
     },
     "Infravision": {
@@ -260,7 +260,7 @@
         "image": "88875"
     },
     "Phylactery": {
-        "desc": "Each time experience is gained, your phylactery receives a charge. At 50 charges, your next death will allow you to self-revive once at 50% health. <font color=\"#dc9c36\">Charges cannot be gained while in a vehicle or while dead.</font>",
+        "desc": "Each time you are revived, a charge is added to the phylactery. At 3 charges, your next death will allow you to self-revive once at 50% health. Phylactery's self-revive does not count toward these charges. <font color=\"#dc9c36\">Charges cannot be gained while in a vehicle, and redeploying or using an equipment terminal will wipe your current progress. MAXes can use this implant.</font>",
         "image": "88254"
     },
     "Ransack": {

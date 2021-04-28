@@ -566,13 +566,18 @@
     },
     "234000": {
         "continent": "8",
-        "name": "Apex Genetics",
-        "type": "Small Outpost"
+        "name": "Mani Containment Site",
+        "type": "Containment Site"
     },
     "235": {
         "continent": "2",
         "name": "Rust Mesa Lookout",
         "type": "Small Outpost"
+    },
+    "235000": {
+        "continent": "8",
+        "name": "Stillwater Watch",
+        "type": "Construction Outpost"
     },
     "236": {
         "continent": "2",
@@ -684,6 +689,11 @@
         "name": "Old Auraxium Mines",
         "type": "Small Outpost"
     },
+    "247000": {
+        "continent": "8",
+        "name": "Northpoint Ruins",
+        "type": "Construction Outpost"
+    },
     "248": {
         "continent": "2",
         "name": "Valley Storage Yard",
@@ -731,12 +741,17 @@
     },
     "255010": {
         "continent": "8",
-        "name": "Mani Processing Plant",
+        "name": "Steelshore Processing",
+        "type": "Small Outpost"
+    },
+    "255020": {
+        "continent": "8",
+        "name": "Steelshore Reconstruction",
         "type": "Small Outpost"
     },
     "255030": {
         "continent": "8",
-        "name": "Mani Lake Satellite",
+        "name": "Esper Research Station",
         "type": "Small Outpost"
     },
     "256000": {
@@ -1339,11 +1354,6 @@
         "name": "Untapped Reservoir",
         "type": "Construction Outpost"
     },
-    "400311": {
-        "continent": "8",
-        "name": "Andvari Ruins",
-        "type": "Construction Outpost"
-    },
     "400314": {
         "continent": "8",
         "name": "Baldur",
@@ -1354,15 +1364,25 @@
         "name": "Vidar Observation Site",
         "type": "Construction Outpost"
     },
-    "400316": {
-        "continent": "8",
-        "name": "Excavion DS-01E",
-        "type": "Large Outpost"
-    },
     "400317": {
         "continent": "8",
         "name": "Jord",
         "type": "Amp Station"
+    },
+    "400326": {
+        "continent": "8",
+        "name": "Andvari Containment Site",
+        "type": "Containment Site"
+    },
+    "400327": {
+        "continent": "8",
+        "name": "Ymir Containment Site",
+        "type": "Containment Site"
+    },
+    "400328": {
+        "continent": "8",
+        "name": "Spral Oasis",
+        "type": "Construction Outpost"
     },
     "4010": {
         "continent": "2",
