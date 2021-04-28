@@ -131,7 +131,13 @@ module.exports = {
 		for(let row of rows.rows){
 			got(`https://api.ps2alerts.com/instances/${row.alertid}`).json()
 				.then(response => {
-					updateAlert(response, pgClient, discordClient, "timeEnded" in response);
+					try{
+						updateAlert(response, pgClient, discordClient, "timeEnded" in response);
+					}
+					catch(err){
+						console.log("Error occurred when updating alert");
+						console.log(err);
+					}
 				})
 				.catch(err => {
 					if(row.error){
