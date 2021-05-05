@@ -68,10 +68,16 @@ const updateAlert = async function(info, pgClient, discordClient, isComplete){
 		messageEmbed.addField("Status", `${hoursleft}h ${minutesleft}m remaining`, true);
 	}
 	messageEmbed.addField("Population", popLevels[info.bracket], true);
-	messageEmbed.addField("Territory Control", `\
-	\n<:VS:818766983918518272> **VS**: ${info.result.vs}%\
-	\n<:NC:818767043138027580> **NC**: ${info.result.nc}%\
-	\n<:TR:818988588049629256> **TR**: ${info.result.tr}%`, true);
+	try{
+		messageEmbed.addField("Territory Control", `\
+		\n<:VS:818766983918518272> **VS**: ${info.result.vs}%\
+		\n<:NC:818767043138027580> **NC**: ${info.result.nc}%\
+		\n<:TR:818988588049629256> **TR**: ${info.result.tr}%`, true);
+	}
+	catch(err){
+		throw "Error displaying territory";
+	}
+	
 	if(isComplete){
 		if(info.result.draw){
 			messageEmbed.addField("Result", "Draw", true);
@@ -124,6 +130,17 @@ const editMessage = async function(embed, messageId, channelId, discordClient){
 	}
 }
 
+const checkError = async function(row, pgClient, err){
+	if(row.error){
+		pgClient.query("DELETE FROM alertMaintenance WHERE alertID = $1;", [row.alertid]);
+	}
+	else{
+		pgClient.query("UPDATE alertMaintenance SET error = true WHERE alertID = $1;", [row.alertid]);
+		console.log("Error retrieving alert info from PS2Alerts");
+		console.log(err);
+	}
+}
+
 module.exports = {
 	update: async function(pgClient, discordClient){
 		let rows = await pgClient.query("SELECT DISTINCT alertID, error FROM alertMaintenance");
@@ -131,23 +148,19 @@ module.exports = {
 		for(let row of rows.rows){
 			got(`https://api.ps2alerts.com/instances/${row.alertid}`).json()
 				.then(response => {
-					try{
-						updateAlert(response, pgClient, discordClient, "timeEnded" in response);
-					}
-					catch(err){
-						console.log("Error occurred when updating alert");
-						console.log(err);
-					}
+					updateAlert(response, pgClient, discordClient, "timeEnded" in response)
+					.catch(err => {
+						if(err == "Error displaying territory"){
+							checkError(row, pgClient, err);
+						}
+						else{
+							console.log("Error occurred when updating alert");
+							console.log(err);
+						}
+					})
 				})
 				.catch(err => {
-					if(row.error){
-						pgClient.query("DELETE FROM alertMaintenance WHERE alertID = $1;", [row.alertid]);
-					}
-					else{
-						pgClient.query("UPDATE alertMaintenance SET error = true WHERE alertID = $1;", [row.alertid]);
-						console.log("Error retrieving alert info from PS2Alerts");
-						console.log(err);
-					}
+					checkError(row, pgClient, err);
 				});
 			}
 	}
