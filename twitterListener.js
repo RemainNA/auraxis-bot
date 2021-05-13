@@ -163,6 +163,17 @@ async function postMessage(SQLclient, discordClient, tag, id, type){
 				messageHandler.send(resChann, url, "Twitter message");
 			}
 		})
+		.catch(err => {
+			if(typeof(error.code) !== 'undefined'){
+				if(error.code == 10003){ //Unknown channel error, thrown when the channel is deleted
+					subscriptions.unsubscribeAll(SQLclient, row.channel);
+					console.log('Unsubscribed from '+row.channel);
+				}
+			}
+			else{
+				console.log(error);
+			}
+		})
 	}
 }
 
