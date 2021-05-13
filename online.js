@@ -44,7 +44,7 @@ const onlineInfo = async function(oTag, platform){
 	}
 	if(data.members[0].online_status == "service_unavailable"){
 		resObj.onlineCount = "Online member count unavailable";
-		return resObj; // TODO: Was resolve, needs verifications if correct
+		return resObj;
 	}
 	if(typeof(data.members[0].name) === 'undefined'){
 		throw "API error: names not returned";
