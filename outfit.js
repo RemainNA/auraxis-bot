@@ -26,6 +26,9 @@ const basicInfo = async function(oTag, platform){
 		throw `${oTag} not found`;
 	}
 	let data = response.outfit_list[0];
+	if(typeof(data.leader_character_id_join_character) === 'undefined'){
+		throw 'Outfit found, but some information is missing.  Please try again or contact the developer if the issue persists.'
+	}
 	let resObj = {
 		name: data.name,
 		alias: data.alias,
