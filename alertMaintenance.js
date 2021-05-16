@@ -160,7 +160,7 @@ module.exports = {
 					})
 				})
 				.catch(err => {
-					checkError(row, pgClient, err);
+					checkError(row, pgClient, "Error during web request");
 				});
 			}
 	}
