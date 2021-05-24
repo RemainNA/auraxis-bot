@@ -136,7 +136,7 @@ const checkError = async function(row, pgClient, err){
 	}
 	else{
 		pgClient.query("UPDATE alertMaintenance SET error = true WHERE alertID = $1;", [row.alertid]);
-		console.log("Error retrieving alert info from PS2Alerts");
+		console.log(`Error retrieving alert info from PS2Alerts for alert ${row.alertid}`);
 		console.log(err);
 	}
 }
