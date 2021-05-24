@@ -4,17 +4,17 @@ A Discord bot to look up stats and information from Planetside 2
 
 ## Invite
 
-The bot can be added to your server with [this invite link](https://discordapp.com/oauth2/authorize?client_id=437756856774033408&scope=bot&permissions=19456).
+The bot can be added to your server with [this invite link](https://discord.com/oauth2/authorize?client_id=437756856774033408&scope=bot&permissions=281600).
 
 ## Structure
 
-The main event listener for Discord messages is in main.js, it starts additional listeners in unifiedWSListener.js which each listen for events from the Daybreak Stream API for a given platform (PC, PS4US, PS4EU), as well as one in twitterListener.js for the Twitter Stream API.  Most commands have their functionality separated into their own files, and utilize async to support high message volume.
+The main event listener for Discord messages is in `main.js`, it starts additional listeners in `unifiedWSListener.js` which each listen for events from the Daybreak Stream API for a given platform (PC, PS4US, PS4EU), as well as one in `twitterListener.js` for the Twitter Stream API.  Most commands have their functionality separated into their own files, and utilize async to support high message volume.  Database structure is defined in `dbStructure.sql`.
 
 ## Usage
 
-The bot is designed to be simple to use.  Once added to your server with the [invite link](https://discordapp.com/oauth2/authorize?client_id=437756856774033408&scope=bot&permissions=19456), commands can be viewed with "!help".  In order to get the most out of the bot, please grant it the "Read Messages", "Send Messages", and "Embed Links" permissions.
+The bot is designed to be simple to use.  Once added to your server with the [invite link](https://discord.com/oauth2/authorize?client_id=437756856774033408&scope=bot&permissions=281600), commands can be viewed with `!help`.  In order to get the most out of the bot, please grant it the "Read Messages", "Send Messages", and "Embed Links" permissions.
 
-If you would like to deploy your own version of the bot, it is designed to run on Heroku.  Running locally is available, as long as you provide a Discord token, Daybreak Census API service ID, a Postgres database URL (optional), and Twitter API credentials in an auth.json file (optional).  Subscription functionality will be disabled if a database URL is not present.
+If you would like to deploy your own version of the bot, it is designed to run on Heroku.  When running locally a `.env` file is used for the environment variables, including the Discord Token, Daybreak Census API service ID, Postgres URL (optional), and Twitter API credentials (optional).  Subscription functionality will be disabled if a database URL is not present.
 
 ## Contact
 

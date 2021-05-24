@@ -95,7 +95,7 @@ const listOfCommands = [
 const links = [
 	"[GitHub page & FAQ](https://github.com/RemainNA/auraxis-bot)",
 	"[Support server](https://discord.gg/Kf5P6Ut)",
-	"[Invite bot](https://discordapp.com/oauth2/authorize?client_id=437756856774033408&scope=bot&permissions=19456)",
+	"[Invite bot](https://discord.com/oauth2/authorize?client_id=437756856774033408&scope=bot&permissions=281600)",
 	"[Donate on Ko-fi](https://ko-fi.com/remainna)"
 ]
 
