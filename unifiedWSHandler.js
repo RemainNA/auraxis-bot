@@ -8,17 +8,10 @@ const territory = require('./territory.js');
 const alerts = require('./alerts.json');
 const bases = require('./bases.json');
 
-
-const environmentToTable = function(environment){
-    if(environment == "ps2:v2"){
-        return "outfit";
-    }
-    else if(environment == "ps2ps4us:v2"){
-        return "ps4usoutfit";
-    }
-    else if(environment == "ps2ps4eu:v2"){
-        return "ps4euoutfit";
-    }
+const environmentToPlatform = {
+    "ps2:v2": "pc",
+    "ps2ps4us:v2": "ps4us",
+    "ps2ps4eu:v2": "ps4eu"
 }
 
 const logEvent = async function(payload, environment, pgClient, discordClient){
@@ -27,16 +20,16 @@ const logEvent = async function(payload, environment, pgClient, discordClient){
     if(typeof(response.character_list) === 'undefined'){
         throw null; // TODO: Left this as is
     }
-    let table = environmentToTable(environment); //helper function used for scope management
+    let platform = environmentToPlatform[environment];
     let playerEvent = payload.event_name.substring(6);
     if(response.character_list[0].outfit_member != null){
         let char = response.character_list[0];
         let result = "";
         try{
-            result = await pgClient.query("SELECT * FROM "+table+" WHERE id=$1;", [char.outfit_member.outfit_id]);
+            result = await pgClient.query("SELECT * FROM outfitactivity WHERE id = $1 AND platform = $2;", [char.outfit_member.outfit_id, platform]);
         }
         catch(error){
-            throw `1${error}`;
+            throw `Error in logEvent: ${error}`;
         }
         if (result.rows.length > 0){
             let sendEmbed = new Discord.MessageEmbed();
@@ -160,7 +153,6 @@ const trackedAlerts = [
 const alertEvent = async function(payload, environment, pgClient, discordClient){
     if(payload.metagame_event_state_name == "started"){
         let server = idToName(payload.world_id);
-        let queryText = "SELECT * FROM "+server;
         let response = await alertInfo(payload, environment);
         if(typeof(response.name) != undefined && response.name){
             let sendEmbed = new Discord.MessageEmbed();
@@ -234,7 +226,7 @@ const alertEvent = async function(payload, environment, pgClient, discordClient)
                 \n<:NC:818767043138027580> **NC**: ${ncPc}%\
                 \n<:TR:818988588049629256> **TR**: ${trPc}%`)
             }
-            let rows = await pgClient.query(queryText);
+            let rows = await pgClient.query("SELECT channel FROM alerts WHERE WORLD = $1", [server.toLowerCase()]);
             for (let row of rows.rows){
                 discordClient.channels.fetch(row.channel)
                     .then(resChann => {
@@ -301,15 +293,9 @@ const baseEvent = async function(payload, environment, pgClient, discordClient){
     if(payload.new_faction_id == payload.old_faction_id){
         return; //Ignore defended bases
     }
+    let platform = environmentToPlatform[environment];
     //check if outfit is in db, construct and send info w/ facility id
-    let queryText = "SELECT * FROM outfitcaptures WHERE id=$1";
-    if(environment == "ps2ps4us:v2"){
-        queryText = "SELECT * FROM ps4usoutfitcaptures WHERE id=$1";
-    }
-    else if(environment == "ps2ps4eu:v2"){
-        queryText = "SELECT * FROM ps4euoutfitcaptures WHERE id=$1";
-    }
-    let result = await pgClient.query(queryText, [payload.outfit_id]);
+    let result = await pgClient.query("SELECT * FROM outfitcaptures WHERE id=$1 AND platform = $2;", [payload.outfit_id, platform]);
     if(result.rowCount > 0){
         let sendEmbed = new Discord.MessageEmbed();
         let base = await baseInfo(payload.facility_id, environment);

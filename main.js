@@ -14,7 +14,6 @@ const listener = require('./unifiedWSListener.js');
 const subscription = require('./subscriptions.js');
 const population = require('./population.js');
 const asp = require('./preASP.js');
-const initialize = require('./initializeSQL.js');
 const territory = require('./territory.js');
 const alerts = require('./alerts.js');
 const messageHandler = require('./messageHandler.js');
@@ -54,7 +53,6 @@ client.on('ready', async () => {
 
 		await SQLclient.connect();
 
-		initialize.start(SQLclient);
 		listener.start(SQLclient, client);
 		if(twitterAvail){
 			twitterListener.start(SQLclient, client);

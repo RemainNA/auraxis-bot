@@ -2,14 +2,7 @@
 
 const got = require('got');
 const messageHandler = require('./messageHandler.js');
-
-const isValid = function(server){
-    servers = ['connery', 'miller', 'cobalt', 'emerald', 'soltech', 'genudine', 'ceres', 'jaegar']
-    if(servers.indexOf(server.toLowerCase()) > -1){
-        return true;
-    }
-    return false;
-}
+const servers = ['connery', 'miller', 'cobalt', 'emerald', 'soltech', 'genudine', 'ceres', 'jaegar']
 
 const standardizeName = function(server){
     switch(server.toLowerCase()){
@@ -71,6 +64,12 @@ const twitterUsers = function(user){
     }
 }
 
+const environmentToPlatform = {
+    "ps2:v2": "pc",
+    "ps2ps4us:v2": "ps4us",
+    "ps2ps4eu:v2": "ps4eu"
+}
+
 module.exports = {
     subscribeActivity: async function(pgClient, channel, tag, environment){
         //pgClient is the pgClient object from main
@@ -81,87 +80,25 @@ module.exports = {
 			throw "Outfit search contains disallowed characters";
 		}
         let outfit = await outfitInfo(tag, environment);
-        if(environment == "ps2:v2"){
-            let count = await pgClient.query('SELECT COUNT(channel) FROM outfit WHERE id=$1 AND channel=$2', [outfit.ID, channel]);
-            if (count.rows[0].count == 0){
-                if(outfit.faction == "1"){
-                    color = 'PURPLE';
-                }
-                else if(outfit.faction == "2"){
-                    color = 'BLUE';
-                }
-                else if(outfit.faction == "3"){
-                    color = 'RED';
-                }
-                else{
-                    color = 'GREY';
-                }
-                try{
-                    pgClient.query("INSERT INTO outfit (id, alias, color, channel) VALUES ($1, $2, $3, $4)", [outfit.ID, outfit.alias, color, channel]);
-                }
-                catch(error){
-                    console.log(error);
-                    throw error;
-                }
-                return `Subscribed to ${outfit.alias}`;
-            }
-
+        let platform = environmentToPlatform[environment];
+        let count = await pgClient.query('SELECT COUNT(channel) FROM outfitactivity WHERE id=$1 AND channel=$2 AND platform=$3', [outfit.ID, channel, platform]);
+        if(count.rows[0].count > 0){
             throw `Already subscribed to ${outfit.alias}`;
         }
-        if(environment == "ps2ps4us:v2"){
-            let count = await pgClient.query('SELECT COUNT(channel) FROM ps4usoutfit WHERE id=$1 AND channel=$2', [outfit.ID, channel]);
-            if (count.rows[0].count == 0){
-                if(outfit.faction == "1"){
-                    color = 'PURPLE';
-                }
-                else if(outfit.faction == "2"){
-                    color = 'BLUE';
-                }
-                else if(outfit.faction == "3"){
-                    color = 'RED';
-                }
-                else{
-                    color = 'GREY';
-                }
-                try{
-                    pgClient.query("INSERT INTO ps4usoutfit (id, alias, color, channel) VALUES ($1, $2, $3, $4)", [outfit.ID, outfit.alias, color, channel]);
-                }
-                catch(error){
-                    console.log(error);
-                    throw error;
-                }
-                return `Subscribed to ${outfit.alias}`;
-            }
-
-            throw `Already subscribed to ${outfit.alias}`;
+        if(outfit.faction == "1"){
+            color = 'PURPLE';
         }
-        if(environment == "ps2ps4eu:v2"){
-            let count = await pgClient.query('SELECT COUNT(channel) FROM ps4euoutfit WHERE id=$1 AND channel=$2', [outfit.ID, channel]);
-            if (count.rows[0].count == 0){
-                if(outfit.faction == "1"){
-                    color = 'PURPLE';
-                }
-                else if(outfit.faction == "2"){
-                    color = 'BLUE';
-                }
-                else if(outfit.faction == "3"){
-                    color = 'RED';
-                }
-                else{
-                    color = 'GREY';
-                }
-                try{
-                    pgClient.query("INSERT INTO ps4euoutfit (id, alias, color, channel) VALUES ($1, $2, $3, $4)", [outfit.ID, outfit.alias, color, channel]);
-                }
-                catch(error){
-                    console.log(error);
-                    throw error;
-                }
-                return `Subscribed to ${outfit.alias}`;
-            }
-
-            throw `Already subscribed to ${outfit.alias}`;
+        else if(outfit.faction == "2"){
+            color = 'BLUE';
         }
+        else if(outfit.faction == "3"){
+            color = 'RED';
+        }
+        else{
+            color = 'GREY';
+        }
+        pgClient.query("INSERT INTO outfitactivity (id, alias, color, channel, platform) VALUES ($1, $2, $3, $4, $5)", [outfit.ID, outfit.alias, color, channel, platform]);
+        return `Subscribed to ${outfit.alias}`;
     },
 
     unsubscribeActivity: async function(pgClient, channel, tag, environment){
@@ -169,54 +106,29 @@ module.exports = {
 			throw "Outfit search contains disallowed characters";
 		}
         let outfit = await outfitInfo(tag, environment);
-        if(environment == "ps2:v2"){
-            let count = await pgClient.query('SELECT COUNT(channel) FROM outfit WHERE id=$1 AND channel=$2', [outfit.ID, channel]);
-            if(count.rows[0].count == 0){
-                throw `Not subscribed to ${outfit.alias}`;
-            }
-
-            pgClient.query('DELETE FROM outfit WHERE channel=$1 AND id=$2', [channel, outfit.ID]);
-
-            return `Unsubscribed from ${outfit.alias}`;
+        let platform = environmentToPlatform[environment];
+        let count = await pgClient.query('SELECT COUNT(channel) FROM outfitactivity WHERE id=$1 AND channel=$2 AND platform=$3;', [outfit.ID, channel, platform]);
+        if(count.rows[0].count == 0){
+            throw `Not subscribed to ${outfit.alias}`;
         }
-        if(environment == "ps2ps4us:v2"){
-            let count = await pgClient.query('SELECT COUNT(channel) FROM ps4usoutfit WHERE id=$1 AND channel=$2', [outfit.ID, channel]);
-            if(count.rows[0].count == 0){
-                throw `Not subscribed to ${outfit.alias}`;
-            }
-
-            pgClient.query('DELETE FROM ps4usoutfit WHERE channel=$1 AND id=$2', [channel, outfit.ID]);
-
-            return `Unsubscribed from ${outfit.alias}`;
-        }
-        if(environment == "ps2ps4eu:v2"){
-            let count = await pgClient.query('SELECT COUNT(channel) FROM ps4euoutfit WHERE id=$1 AND channel=$2', [outfit.ID, channel]);
-            if(count.rows[0].count == 0){
-                throw `Not subscribed to ${outfit.alias}`;
-            }
-
-            pgClient.query('DELETE FROM ps4euoutfit WHERE channel=$1 AND id=$2', [channel, outfit.ID]);
-
-            return `Unsubscribed from ${outfit.alias}`;
-        }
+        pgClient.query('DELETE FROM outfitactivity WHERE channel=$1 AND id=$2 AND platform=$3;', [channel, outfit.ID, platform]);
+        return `Unsubscribed from ${outfit.alias}`;
     },
 
     subscribeAlert: async function(pgClient, channel, server){
         if(messageHandler.badQuery(server)){
 			throw "Server search contains disallowed characters";
 		}
-        if(isValid(server) == false){
+        if(!servers.includes(server)){
             throw `${server} not recognized`;
         }
-        let countQuery = "SELECT count(*) FROM "+server+" WHERE channel=$1"; //Only uses string concatenation after input validation
-        let insertQuery = "INSERT INTO "+server+" VALUES ($1)";
-        let count = await pgClient.query(countQuery, [channel]);
+        let count = await pgClient.query("SELECT count(*) FROM alerts WHERE channel=$1 AND world=$2;", [channel, server]);
         if(count.rows[0].count == 0){
-            pgClient.query(insertQuery, [channel]);
+            pgClient.query("INSERT INTO alerts (channel, world) VALUES ($1, $2);", [channel, server]);
 
             return `Subscribed to ${standardizeName(server)} alerts`;
         }
-
+        
         throw `Already subscribed to ${standardizeName(server)} alerts`;
     },
 
@@ -224,17 +136,15 @@ module.exports = {
         if(messageHandler.badQuery(server)){
 			throw "Server search contains disallowed characters";
 		}
-        if(isValid(server) == false){
+        if(!servers.includes(server)){
             throw `${server} not recognized`;
         }
-        let countQuery = "SELECT count(*) FROM "+server+" WHERE channel=$1"; //Only uses string concatenation after input validation
-        let deleteQuery = "DELETE FROM "+server+" WHERE channel=$1";
-        let count = await pgClient.query(countQuery, [channel]);
+        let count = await pgClient.query("SELECT COUNT(*) FROM alerts WHERE channel = $1 AND world=$2", [channel, server]);
         if(count.rows[0].count == 0){
             throw `Not subscribed to ${standardizeName(server)} alerts`;
         }
 
-        pgClient.query(deleteQuery, [channel]);
+        pgClient.query("DELETE FROM alerts WHERE channel=$1 AND world=$2", [channel, server]);
 
         return `Unsubscribed from ${standardizeName(server)} alerts`;
     },
@@ -244,54 +154,13 @@ module.exports = {
 			throw "Outfit search contains disallowed characters";
 		}
         let outfit = await outfitInfo(tag, environment);
-        if(environment == "ps2:v2"){
-            let count = await pgClient.query('SELECT COUNT(channel) FROM outfitcaptures WHERE id=$1 AND channel=$2', [outfit.ID, channel]);
-            if (count.rows[0].count == 0){
-                try{
-                    await pgClient.query("INSERT INTO outfitcaptures (id, alias, channel, name) VALUES ($1, $2, $3, $4)", [outfit.ID, outfit.alias, channel, outfit.name]);
-                    return `Subscribed to ${outfit.alias} base captures`;
-                }
-                catch(error){
-                    console.log(error);
-                    throw error;
-                }
-            }
-            else{
-                throw "Already subscribed to "+outfit.alias+" base captures";
-            }
+        let platform = environmentToPlatform[environment];
+        let count = await pgClient.query('SELECT COUNT(channel) FROM outfitcaptures WHERE id=$1 AND channel=$2 AND platform=$3;', [outfit.ID, channel, platform]);
+        if (count.rows[0].count > 0){
+            throw `Already subscribed to ${outfit.alias} base captures`;
         }
-        else if(environment == "ps2ps4us:v2"){
-            let count = await pgClient.query('SELECT COUNT(channel) FROM ps4usoutfitcaptures WHERE id=$1 AND channel=$2', [outfit.ID, channel]);
-            if (count.rows[0].count == 0){
-                try{
-                    await pgClient.query("INSERT INTO ps4usoutfitcaptures (id, alias, channel, name) VALUES ($1, $2, $3, $4)", [outfit.ID, outfit.alias, channel, outfit.name]);
-                    return `Subscribed to ${outfit.alias} base captures`;
-                }
-                catch(error){
-                    console.log(error);
-                    throw error;
-                }
-            }
-            else{
-                throw `Already subscribed to ${outfit.alias} base captures`;
-            }
-        }
-        else if(environment == "ps2ps4eu:v2"){
-            let count = await pgClient.query('SELECT COUNT(channel) FROM ps4euoutfitcaptures WHERE id=$1 AND channel=$2', [outfit.ID, channel]);
-            if (count.rows[0].count == 0){
-                try{
-                    await pgClient.query("INSERT INTO ps4euoutfitcaptures (id, alias, channel, name) VALUES ($1, $2, $3, $4)", [outfit.ID, outfit.alias, channel, outfit.name]);
-                    return `Subscribed to ${outfit.alias} base captures`;
-                }
-                catch(error){
-                    console.log(error);
-                    throw error;
-                }
-            }
-            else{
-                throw `Already subscribed to ${outfit.alias} base captures`;
-            }
-        }
+        await pgClient.query("INSERT INTO outfitcaptures (id, alias, channel, name, platform) VALUES ($1, $2, $3, $4, $5)", [outfit.ID, outfit.alias, channel, outfit.name, platform]);
+        return `Subscribed to ${outfit.alias} base captures`;
     },
 
     unsubscribeCaptures: async function(pgClient, channel, tag, environment){
@@ -299,36 +168,13 @@ module.exports = {
 			throw "Outfit search contains disallowed characters";
 		}
         let outfit = await outfitInfo(tag, environment);
-        if(environment == "ps2:v2"){
-            let count = await pgClient.query('SELECT COUNT(channel) FROM outfitcaptures WHERE id=$1 AND channel=$2', [outfit.ID, channel]);
-            if(count.rows[0].count == 0){
-                throw `Not subscribed to ${outfit.alias} captures`;
-            }
-            else{
-                pgClient.query('DELETE FROM outfitcaptures WHERE channel=$1 AND id=$2', [channel, outfit.ID]);
-                return `Unsubscribed from ${outfit.alias} captures`;
-            }
+        let platform = environmentToPlatform[environment];
+        let count = await pgClient.query('SELECT COUNT(channel) FROM outfitcaptures WHERE id=$1 AND channel=$2 AND platform=$3;', [outfit.ID, channel, platform]);
+        if(count.rows[0].count == 0){
+            throw `Not subscribed to ${outfit.alias} captures`;
         }
-        if(environment == "ps2ps4us:v2"){
-            let count = await pgClient.query('SELECT COUNT(channel) FROM ps4usoutfitcaptures WHERE id=$1 AND channel=$2', [outfit.ID, channel]);
-            if(count.rows[0].count == 0){
-                throw `Not subscribed to ${outfit.alias} captures`;
-            }
-            else{
-                pgClient.query('DELETE FROM ps4usoutfitcaptures WHERE channel=$1 AND id=$2', [channel, outfit.ID]);
-                return `Unsubscribed from ${outfit.alias} captures`;
-            }
-        }
-        if(environment == "ps2ps4eu:v2"){
-            let count = await pgClient.query('SELECT COUNT(channel) FROM ps4euoutfitcaptures WHERE id=$1 AND channel=$2', [outfit.ID, channel]);
-            if(count.rows[0].count == 0){
-                throw `Not subscribed to ${outfit.alias} captures`;
-            }
-            else{
-                pgClient.query('DELETE FROM ps4euoutfitcaptures WHERE channel=$1 AND id=$2', [channel, outfit.ID]);
-                return `Unsubscribed from ${outfit.alias} captures`;
-            }
-        }
+        pgClient.query('DELETE FROM outfitcaptures WHERE channel=$1 AND id=$2 AND platform=$3;', [channel, outfit.ID, platform]);
+        return `Unsubscribed from ${outfit.alias} captures`;
     },
 
     subscribeTwitter: async function(pgClient, channelId, user){
@@ -379,20 +225,9 @@ module.exports = {
 
     unsubscribeAll: async function(pgClient, channelId){
         const commands = [
-            "DELETE FROM connery WHERE channel = $1",
-            "DELETE FROM miller WHERE channel = $1",
-            "DELETE FROM cobalt WHERE channel = $1",
-            "DELETE FROM emerald WHERE channel = $1",
-            "DELETE FROM soltech WHERE channel = $1",
-            "DELETE FROM genudine WHERE channel = $1",
-            "DELETE FROM jaegar WHERE channel = $1",
-            "DELETE FROM ceres WHERE channel = $1",
-            "DELETE FROM outfit WHERE channel = $1",
-            "DELETE FROM ps4usoutfit WHERE channel = $1",
-            "DELETE FROM ps4euoutfit WHERE channel = $1",
+            "DELETE FROM alerts WHERE channel = $1",
+            "DELETE FROM outfitactivity WHERE channel = $1",
             "DELETE FROM outfitcaptures WHERE channel = $1",
-            "DELETE FROM ps4usoutfitcaptures WHERE channel = $1",
-            "DELETE FROM ps4euoutfitcaptures WHERE channel = $1",
             "DELETE FROM news WHERE channel = $1",
         ]
 
