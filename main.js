@@ -151,7 +151,7 @@ client.on('message', message => {
 	else if (message.content.substring(0,7).toLowerCase() == '!stats '){
 		let parts = message.content.toLowerCase().split(" ");
 		let cName = parts[1];
-		let wName = message.content.substring((7+cName.length+1));
+		let wName = message.content.substring((7+cName.length+1)).trim();
 		if(wName == ""){
 			char.character(cName, 'ps2:v2')
 				.then(res => messageHandler.send(message.channel, res, "PC Character by stats", true))
