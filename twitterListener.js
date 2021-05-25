@@ -155,7 +155,7 @@ async function postMessage(SQLclient, discordClient, tag, id, type){
 					messageHandler.send(resChann, baseText+url, "Twitter message");
 				}
 				else{
-					subscriptions.unsubscribeAll(pgClient, row.channel);
+					subscriptions.unsubscribeAll(SQLclient, row.channel);
 					console.log('Unsubscribed from '+row.channel);
 				}
 			}
