@@ -14,20 +14,30 @@ const getPopulation = async function(world){
 	else{
 		url = 'http://ps2.fisu.pw/api/population/?world='+world;
 	}
-	let response = await got(url).json();
-	if(typeof(response.error) !== 'undefined'){
-		throw response.error;
+	try{
+		let response = await got(url).json();
+		if(typeof(response.error) !== 'undefined'){
+			throw response.error;
+		}
+		if(response.statusCode == 404){
+			throw "API Unreachable"; // TODO: Maybe create an exception instead of a bare string
+		}
+		let resObj = {
+			vs: response.result[0].vs,
+			nc: response.result[0].nc,
+			tr: response.result[0].tr,
+			ns: response.result[0].ns
+		}
+		return resObj;
 	}
-	if(response.statusCode == 404){
-		throw "API Unreachable"; // TODO: Maybe create an exception instead of a bare string
+	catch(err){
+		if(typeof(err) === 'string'){
+			throw(err)
+		}
+		else{
+			throw("Error retrieving population statistics.")
+		}
 	}
-	let resObj = {
-		vs: response.result[0].vs,
-		nc: response.result[0].nc,
-		tr: response.result[0].tr,
-		ns: response.result[0].ns
-	}
-	return resObj;
 }
 
 function nameToWorld(name){
