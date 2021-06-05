@@ -11,6 +11,7 @@ const char = require('./character.js');
 const stats = require('./stats.js');
 const online = require('./online.js');
 const listener = require('./unifiedWSListener.js');
+const subscriptionConfig = require('./subscriptionConfig.js');
 const subscription = require('./subscriptions.js');
 const population = require('./population.js');
 const asp = require('./preASP.js');
@@ -24,6 +25,7 @@ const weaponSearch = require('./weaponSearch.js');
 const implant = require('./implant.js');
 const twitterListener = require('./twitterListener.js');
 const alertMaintenance = require('./alertMaintenance.js');
+const deleteMessages = require('./deleteMessages.js');
 
 require('dotenv').config();
 
@@ -58,8 +60,10 @@ client.on('ready', async () => {
 			twitterListener.start(SQLclient, client);
 		}
 		alertMaintenance.update(SQLclient, client);
+		deleteMessages.run(SQLclient, client);
 		setInterval(function () { 
 			alertMaintenance.update(SQLclient, client);
+			deleteMessages.run(SQLclient, client);
 		}, 60000); //Update alerts every minute
 	}
 
@@ -82,6 +86,10 @@ const listOfCommands = [
 "!subscribe twitter [wrel/planetside]",
 "!unsubscribe twitter [wrel/planetside]",
 "!unsubscribe all",
+"!config",
+"!config audit",
+"!config alerts [continent] [enable/disable]",
+"!config autodelete [enable/disable]",
 "!population [server]",
 "!territory [server]",
 "!alerts [server]",
@@ -101,7 +109,7 @@ const links = [
 
 // Create an event listener for messages
 client.on('message', message => {
-	if(message.author == client.user){
+	if(message.author == client.user || !message.content.startsWith("!")){
 		return;
 	}
 	if (message.content.toLowerCase() == '!ping') {
@@ -358,6 +366,26 @@ client.on('message', message => {
 		implant.lookup(message.content.substring(9))
 			.then(res => messageHandler.send(message.channel, res, "Implant", true))
 			.catch(err => messageHandler.handleError(message.channel, err, "Implant"))
+	}
+	else if (message.content.toLowerCase() == '!config' && runningOnline){
+		subscriptionConfig.displayConfig(message.channel.id, SQLclient)
+			.then(res => messageHandler.send(message.channel, res, "Display subscription config", true))
+			.catch(err => messageHandler.handleError(message.channel, err, "Display subscription config"))
+	}
+	else if (message.content.toLowerCase() == '!config audit' && runningOnline){
+		subscriptionConfig.audit(message.channel.id, SQLclient)
+			.then(res => messageHandler.send(message.channel, res, "Config audit", true))
+			.catch(err => messageHandler.handleError(message.channel, err, "Config audit"))
+	}
+	else if (message.content.substring(0,15).toLowerCase() == '!config alerts ' && runningOnline){
+		subscriptionConfig.setAlert(message.content.substring(15), message.channel.id, SQLclient)
+			.then(res => messageHandler.send(message.channel, res, "Alert config", true))
+			.catch(err => messageHandler.handleError(message.channel, err, "Alert config"))
+	}
+	else if (message.content.substring(0,19).toLowerCase() == '!config autodelete ' && runningOnline){
+		subscriptionConfig.setAutoDelete(message.content.substring(19), message.channel.id, SQLclient)
+			.then(res => messageHandler.send(message.channel, res, "AutoDelete config", true))
+			.catch(err => messageHandler.handleError(message.channel, err, "AutoDelete config"))
 	}
 	else if (message.content.substring(0,20).toLowerCase() == '!subscribe activity ' && runningOnline){
 		let outfits = message.content.substring(20).toLowerCase().split(" ");

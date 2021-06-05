@@ -93,6 +93,22 @@ Unsubscribes the channel from the above notifications.  Supports multiple users 
 
 Unsubscribes the channel from all outfit activity, capture, and server alert notifications.
 
+### !config
+
+Displays current subscription configuration options for the channel.
+
+### !config audit
+
+Attempts to fix issues with configuration options if they are missing.
+
+### !config alerts [continent] [enable/disable]
+
+Enables or disables displaying alerts for the given continent, or "other" for alerts such as Outfit Wars.
+
+### !config autodelete [enable/disable]
+
+Enables or disables automatically deleting alert notifications 5 minutes after they complete, and outfit activity notifications 5 minutes after they occur.
+
 #### !population [server]
 
 Returns the population per faction of the specified server.  Supports multiple servers per query.  Supports all platforms without prefixes

@@ -2,6 +2,7 @@
 
 const got = require('got');
 const messageHandler = require('./messageHandler.js');
+const config = require('./subscriptionConfig.js');
 const servers = ['connery', 'miller', 'cobalt', 'emerald', 'soltech', 'genudine', 'ceres', 'jaegar']
 
 const standardizeName = function(server){
@@ -98,7 +99,13 @@ module.exports = {
             color = 'GREY';
         }
         pgClient.query("INSERT INTO outfitactivity (id, alias, color, channel, platform) VALUES ($1, $2, $3, $4, $5)", [outfit.ID, outfit.alias, color, channel, platform]);
-        return `Subscribed to ${outfit.alias}`;
+        try{
+            await config.initializeConfig(channel, pgClient)
+            return `Subscribed to ${outfit.alias}`;
+        }
+        catch(err){
+            return `Subscribed to ${outfit.alias}.  Configuration step failed, using default config.`;
+        }
     },
 
     unsubscribeActivity: async function(pgClient, channel, tag, environment){
@@ -126,7 +133,13 @@ module.exports = {
         if(count.rows[0].count == 0){
             pgClient.query("INSERT INTO alerts (channel, world) VALUES ($1, $2);", [channel, server]);
 
-            return `Subscribed to ${standardizeName(server)} alerts`;
+            try{
+                await config.initializeConfig(channel, pgClient)
+                return `Subscribed to ${standardizeName(server)} alerts`;
+            }
+            catch(err){
+                return `Subscribed to ${standardizeName(server)} alerts.  Configuration step failed, using default config.`;
+            }
         }
         
         throw `Already subscribed to ${standardizeName(server)} alerts`;
@@ -160,7 +173,13 @@ module.exports = {
             throw `Already subscribed to ${outfit.alias} base captures`;
         }
         await pgClient.query("INSERT INTO outfitcaptures (id, alias, channel, name, platform) VALUES ($1, $2, $3, $4, $5)", [outfit.ID, outfit.alias, channel, outfit.name, platform]);
-        return `Subscribed to ${outfit.alias} base captures`;
+        try{
+            await config.initializeConfig(channel, pgClient)
+            return `Subscribed to ${outfit.alias} base captures`;
+        }
+        catch(err){
+            return `Subscribed to ${outfit.alias} base captures.  Configuration step failed, using default config.`;
+        }
     },
 
     unsubscribeCaptures: async function(pgClient, channel, tag, environment){
@@ -194,7 +213,13 @@ module.exports = {
                 console.log(error);
                 throw error;
             }
-            return `Subscribed to ${user} Twitter`;
+            try{
+                await config.initializeConfig(channelId, pgClient)
+                return `Subscribed to ${user} Twitter`;
+            }
+            catch(err){
+                return `Subscribed to ${user} Twitter.  Configuration step failed, using default config.`;
+            }
         }
 
         throw "Already subscribed to "+user+" Twitter";
@@ -229,6 +254,7 @@ module.exports = {
             "DELETE FROM outfitactivity WHERE channel = $1",
             "DELETE FROM outfitcaptures WHERE channel = $1",
             "DELETE FROM news WHERE channel = $1",
+            "DELETE FROM subscriptionConfig WHERE channel = $1"
         ]
 
         for(const command of commands){

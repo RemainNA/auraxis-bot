@@ -4,6 +4,7 @@ const got = require('got');
 const Discord = require('discord.js');
 const messageHandler = require('./messageHandler.js');
 const subscriptions = require('./subscriptions.js');
+const config = require('./subscriptionConfig.js');
 const territory = require('./territory.js');
 const alerts = require('./alerts.json');
 const bases = require('./bases.json');
@@ -26,7 +27,9 @@ const logEvent = async function(payload, environment, pgClient, discordClient){
         let char = response.character_list[0];
         let result = "";
         try{
-            result = await pgClient.query("SELECT * FROM outfitactivity WHERE id = $1 AND platform = $2;", [char.outfit_member.outfit_id, platform]);
+            result = await pgClient.query("SELECT a.id, a.color, a.alias, a.channel, a.platform, c.autoDelete\
+            FROM outfitActivity a LEFT JOIN subscriptionConfig c ON a.channel = c.channel\
+            WHERE a.id = $1 AND a.platform = $2;", [char.outfit_member.outfit_id, platform]);
         }
         catch(error){
             throw `Error in logEvent: ${error}`;
@@ -52,7 +55,15 @@ const logEvent = async function(payload, environment, pgClient, discordClient){
                     .then(resChann => {
                         if(typeof(resChann.guild) !== 'undefined'){
                             if(resChann.permissionsFor(resChann.guild.me).has(['SEND_MESSAGES','VIEW_CHANNEL', 'EMBED_LINKS'])){
-                                messageHandler.send(resChann, sendEmbed, "Log event");
+                                messageHandler.send(resChann, sendEmbed, "Log event")
+                                .then(messageId => {
+                                    if(messageId != -1 && row.autodelete == true){
+                                        const in5minutes = new Date((new Date()).getTime() + 300000);
+                                        pgClient.query("INSERT INTO toDelete (channel, messageID, timeToDelete) VALUES ($1, $2, $3)", [row.channel, messageId, in5minutes])
+                                            .catch(err => {console.log(err);})
+                                    }
+                                })
+                                
                             }
                             else{
                                 subscriptions.unsubscribeAll(pgClient, row.channel);
@@ -60,7 +71,14 @@ const logEvent = async function(payload, environment, pgClient, discordClient){
                             } 
                         }
                         else{ // DM
-                            messageHandler.send(resChann, sendEmbed, "Log event");
+                            messageHandler.send(resChann, sendEmbed, "Log event")
+                            .then(messageId => {
+                                if(messageId != -1 && row.autodelete === true){
+                                    const in5minutes = new Date((new Date()).getTime() + 30000);
+                                    pgClient.query("INSERT INTO toDelete (channel, messageID, timeToDelete) VALUES ($1, $2, $3)", [row.channel, messageId, in5minutes])
+                                        .catch(err => {console.log(err);})
+                                }
+                            })
                         }                        
                     })
                     .catch(error => {
@@ -182,7 +200,7 @@ const alertEvent = async function(payload, environment, pgClient, discordClient)
             catch{
                 
             }
-            let continent = ""
+            let continent = "Other"
             let showTerritory = false
             if(response.name.toLowerCase().indexOf("indar") > -1){
                 continent = "Indar";
@@ -226,8 +244,16 @@ const alertEvent = async function(payload, environment, pgClient, discordClient)
                 \n<:NC:818767043138027580> **NC**: ${ncPc}%\
                 \n<:TR:818988588049629256> **TR**: ${trPc}%`)
             }
-            let rows = await pgClient.query("SELECT channel FROM alerts WHERE WORLD = $1", [server.toLowerCase()]);
+            let rows = await pgClient.query("SELECT a.channel, c.Koltyr, c.Indar, c.Hossin, c.Amerish, c.Esamir, c.Other, c.autoDelete\
+            FROM alerts a LEFT JOIN subscriptionConfig c on a.channel = c.channel\
+            WHERE a.world = $1;", [server.toLowerCase()]);
             for (let row of rows.rows){
+                if(row[continent.toLowerCase()] == null){
+                    config.initializeConfig(row.channel, pgClient);
+                }
+                else if(row[continent.toLowerCase()] == false){
+                    continue;
+                }
                 discordClient.channels.fetch(row.channel)
                     .then(resChann => {
                         if(typeof(resChann.guild) !== 'undefined'){
@@ -237,6 +263,18 @@ const alertEvent = async function(payload, environment, pgClient, discordClient)
                                     if(messageId != -1 && trackedAlerts.indexOf(Number(payload.metagame_event_id)) > -1){
                                         pgClient.query("INSERT INTO alertMaintenance (alertID, messageID, channelID) VALUES ($1, $2, $3);", [`${payload.world_id}-${payload.instance_id}`, messageId, row.channel])
                                             .catch(err => {console.log(err);})
+                                    }
+                                    if(messageId != -1 && row.autodelete === true){
+                                        const in50minutes = new Date((new Date()).getTime() + 3000000);
+                                        const in95minutes = new Date((new Date()).getTime() + 5700000);
+                                        if(['Indar', 'Hossin', 'Esamir', 'Amerish'].includes(continent) && response.name.indexOf("Unstable Meltdown") == -1){
+                                            pgClient.query("INSERT INTO toDelete (channel, messageID, timeToDelete) VALUES ($1, $2, $3)", [row.channel, messageId, in95minutes])
+                                            .catch(err => {console.log(err);})
+                                        }
+                                        else{
+                                            pgClient.query("INSERT INTO toDelete (channel, messageID, timeToDelete) VALUES ($1, $2, $3)", [row.channel, messageId, in50minutes])
+                                            .catch(err => {console.log(err);})
+                                        }    
                                     }
                                 })
                             }
@@ -251,6 +289,18 @@ const alertEvent = async function(payload, environment, pgClient, discordClient)
                                 if(messageId != -1 && trackedAlerts.indexOf(Number(payload.metagame_event_id)) > -1){
                                     pgClient.query("INSERT INTO alertMaintenance (alertID, messageID, channelID) VALUES ($1, $2, $3);", [`${payload.world_id}-${payload.instance_id}`, messageId, row.channel])
                                         .catch(err => {console.log(err);})
+                                }
+                                if(messageId != -1 && row.autodelete === true){
+                                    const in50minutes = new Date((new Date()).getTime() + 3000000);
+                                    const in95minutes = new Date((new Date()).getTime() + 5700000);
+                                    if(['Indar', 'Hossin', 'Esamir', 'Amerish'].includes(continent) && response.name.indexOf("Unstable Meltdown") == -1){
+                                        pgClient.query("INSERT INTO toDelete (channel, messageID, timeToDelete) VALUES ($1, $2, $3)", [row.channel, messageId, in95minutes])
+                                        .catch(err => {console.log(err);})
+                                    }
+                                    else{
+                                        pgClient.query("INSERT INTO toDelete (channel, messageID, timeToDelete) VALUES ($1, $2, $3)", [row.channel, messageId, in50minutes])
+                                        .catch(err => {console.log(err);})
+                                    }    
                                 }
                             })
                         } 
