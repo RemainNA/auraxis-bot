@@ -118,11 +118,11 @@ const editMessage = async function(embed, messageId, channelId, discordClient){
 		}
 		if (['text','news'].includes(resChann.type) && resChann.permissionsFor(resChann.guild.me).has('VIEW_CHANNEL')) {
 			const resMsg = await resChann.messages.fetch(messageId);
-			resMsg.edit(embed);
+			await resMsg.edit(embed);
 		}
 		else if(resChann.type == 'dm'){
 			const resMsg = await resChann.messages.fetch(messageId);
-			resMsg.edit(embed);
+			await resMsg.edit(embed);
 		}
 	}
 	catch(err) {
