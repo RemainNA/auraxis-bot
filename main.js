@@ -107,11 +107,24 @@ const links = [
 	"[Donate on Ko-fi](https://ko-fi.com/remainna)"
 ]
 
+const checkPermissions = async function(channel, user){
+	if(channel.type == 'dm'){
+		return true;
+	}
+	else if(channel.type == 'text' || channel.type == 'news'){
+		return (await channel.permissionsFor(channel.guild.member(user)).has('MANAGE_CHANNELS'));
+	}
+	else{
+		return false;
+	}
+}
+
 // Create an event listener for messages
-client.on('message', message => {
+client.on('message', async message => {
 	if(message.author == client.user || !message.content.startsWith("!")){
 		return;
 	}
+	messageLower = message.content.toLowerCase();
 	if (message.content.toLowerCase() == '!ping') {
 		// ping function to check if bot is up
 		messageHandler.send(message.channel, "Bot's ping to Discord is "+client.ws.ping+'ms', 'ping');
@@ -367,194 +380,217 @@ client.on('message', message => {
 			.then(res => messageHandler.send(message.channel, res, "Implant", true))
 			.catch(err => messageHandler.handleError(message.channel, err, "Implant"))
 	}
-	else if (message.content.toLowerCase() == '!config' && runningOnline){
-		subscriptionConfig.displayConfig(message.channel.id, SQLclient)
-			.then(res => messageHandler.send(message.channel, res, "Display subscription config", true))
-			.catch(err => messageHandler.handleError(message.channel, err, "Display subscription config"))
+	else if(messageLower.startsWith("!config")){
+		let manageChannel = await checkPermissions(message.channel, message.author);
+		if(!manageChannel){
+			messageHandler.send(message.channel, "Managing subscriptions is only available to users with the Manage Channel permission", "Manage channel permissions error");
+		}
+		else if(!runningOnline){
+			messageHandler.send(message.channel, "Subscription functionality currently disabled", "Running offline error");
+		}
+		else if ((messageLower == '!config' || messageLower == '!config view')){
+			subscriptionConfig.displayConfig(message.channel.id, SQLclient)
+				.then(res => messageHandler.send(message.channel, res, "Display subscription config", true))
+				.catch(err => messageHandler.handleError(message.channel, err, "Display subscription config"))
+		}
+		else if (message.content.toLowerCase() == '!config audit'){
+			subscriptionConfig.audit(message.channel.id, SQLclient)
+				.then(res => messageHandler.send(message.channel, res, "Config audit", true))
+				.catch(err => messageHandler.handleError(message.channel, err, "Config audit"))
+		}
+		else if (message.content.substring(0,15).toLowerCase() == '!config alerts '){
+			subscriptionConfig.setAlert(message.content.substring(15), message.channel.id, SQLclient)
+				.then(res => messageHandler.send(message.channel, res, "Alert config", true))
+				.catch(err => messageHandler.handleError(message.channel, err, "Alert config"))
+		}
+		else if (message.content.substring(0,19).toLowerCase() == '!config autodelete '){
+			subscriptionConfig.setAutoDelete(message.content.substring(19), message.channel.id, SQLclient)
+				.then(res => messageHandler.send(message.channel, res, "AutoDelete config", true))
+				.catch(err => messageHandler.handleError(message.channel, err, "AutoDelete config"))
+		}
 	}
-	else if (message.content.toLowerCase() == '!config audit' && runningOnline){
-		subscriptionConfig.audit(message.channel.id, SQLclient)
-			.then(res => messageHandler.send(message.channel, res, "Config audit", true))
-			.catch(err => messageHandler.handleError(message.channel, err, "Config audit"))
-	}
-	else if (message.content.substring(0,15).toLowerCase() == '!config alerts ' && runningOnline){
-		subscriptionConfig.setAlert(message.content.substring(15), message.channel.id, SQLclient)
-			.then(res => messageHandler.send(message.channel, res, "Alert config", true))
-			.catch(err => messageHandler.handleError(message.channel, err, "Alert config"))
-	}
-	else if (message.content.substring(0,19).toLowerCase() == '!config autodelete ' && runningOnline){
-		subscriptionConfig.setAutoDelete(message.content.substring(19), message.channel.id, SQLclient)
-			.then(res => messageHandler.send(message.channel, res, "AutoDelete config", true))
-			.catch(err => messageHandler.handleError(message.channel, err, "AutoDelete config"))
-	}
-	else if (message.content.substring(0,20).toLowerCase() == '!subscribe activity ' && runningOnline){
-		let outfits = message.content.substring(20).toLowerCase().split(" ");
-		for(const x in outfits){
-			if(outfits[x] != ""){
-				subscription.subscribeActivity(SQLclient, message.channel.id, outfits[x], 'ps2:v2')
-					.then(res => messageHandler.send(message.channel, res, "Subscribe activity", true))
-					.catch(err => messageHandler.handleError(message.channel, err, "Subscribe activity"))
+	else if(messageLower.startsWith("!subscribe") || messageLower.startsWith("!ps4us subscribe") || messageLower.startsWith("!ps4eu subscribe")){
+		let manageChannel = await checkPermissions(message.channel, message.author);
+		if(!manageChannel){
+			messageHandler.send(message.channel, "Managing subscriptions is only available to users with the Manage Channel permission", "Manage channel permissions error");
+		}
+		else if(!runningOnline){
+			messageHandler.send(message.channel, "Subscription functionality currently disabled", "Running offline error");
+		}
+		else if (message.content.substring(0,20).toLowerCase() == '!subscribe activity '){
+			let outfits = message.content.substring(20).toLowerCase().split(" ");
+			for(const x in outfits){
+				if(outfits[x] != ""){
+					subscription.subscribeActivity(SQLclient, message.channel.id, outfits[x], 'ps2:v2')
+						.then(res => messageHandler.send(message.channel, res, "Subscribe activity", true))
+						.catch(err => messageHandler.handleError(message.channel, err, "Subscribe activity"))
+				}
+			}
+		}
+		else if (message.content.substring(0,26).toLowerCase() == '!ps4us subscribe activity '){
+			let outfits = message.content.substring(26).toLowerCase().split(" ");
+			for(const x in outfits){
+				if(outfits[x] != ""){
+					subscription.subscribeActivity(SQLclient, message.channel.id, outfits[x], 'ps2ps4us:v2')
+						.then(res => messageHandler.send(message.channel, res, "PS4US Subscribe activity", true))
+						.catch(err => messageHandler.handleError(message.channel, err, "PS4US Subscribe activity"))
+				}
+			}
+		}
+		else if (message.content.substring(0,26).toLowerCase() == '!ps4eu subscribe activity '){
+			let outfits = message.content.substring(26).toLowerCase().split(" ");
+			for(const x in outfits){
+				if(outfits[x] != ""){
+					subscription.subscribeActivity(SQLclient, message.channel.id, outfits[x], 'ps2ps4eu:v2')
+					.then(res => messageHandler.send(message.channel, res, "PS4EU Subscribe activity", true))
+					.catch(err => messageHandler.handleError(message.channel, err, "PS4EU Subscribe Activity"))
+				}
+			}
+		}
+		else if (message.content.substring(0,20).toLowerCase() == '!subscribe captures '){
+			let outfits = message.content.substring(20).toLowerCase().split(" ");
+			for(const x in outfits){
+				if(outfits[x] != ""){
+					subscription.subscribeCaptures(SQLclient, message.channel.id, outfits[x], 'ps2:v2')
+						.then(res => messageHandler.send(message.channel, res, "Subscribe captures", true))
+						.catch(err => messageHandler.handleError(message.channel, err, "Subscribe captures"))
+				}
+			}
+		}
+		else if (message.content.substring(0,26).toLowerCase() == '!ps4us subscribe captures '){
+			let outfits = message.content.substring(26).toLowerCase().split(" ");
+			for(const x in outfits){
+				if(outfits[x] != ""){
+					subscription.subscribeCaptures(SQLclient, message.channel.id, outfits[x], 'ps2ps4us:v2')
+						.then(res => messageHandler.send(message.channel, res, "PS4US Subscribe captures", true))
+						.catch(err => messageHandler.handleError(message.channel, err, "PS4US Subscribe captures"))
+				}
+			}
+		}
+		else if (message.content.substring(0,26).toLowerCase() == '!ps4eu subscribe captures '){
+			let outfits = message.content.substring(26).toLowerCase().split(" ");
+			for(const x in outfits){
+				if(outfits[x] != ""){
+					subscription.subscribeCaptures(SQLclient, message.channel.id, outfits[x], 'ps2ps4eu:v2')
+						.then(res => messageHandler.send(message.channel, res, "PS4EU Subscribe captures", true))
+						.catch(err => messageHandler.handleError(message.channel, err, "PS4EU Subscribe captures"))
+				}
+			}
+		}
+		else if (message.content.substring(0,18).toLowerCase() == '!subscribe alerts '){
+			let servers = message.content.substring(18).toLowerCase().split(" ");
+			for(const x in servers){
+				if(servers[x] != ""){
+					subscription.subscribeAlert(SQLclient, message.channel.id, servers[x])
+						.then(res => messageHandler.send(message.channel, res, "Subscribe alerts", true))
+						.catch(err => messageHandler.handleError(message.channel, err, "Subscribe alerts"))
+				}
+			}
+		}
+		else if (message.content.substring(0,19).toLowerCase() == '!subscribe twitter '){
+			let users = message.content.substring(19).toLowerCase().split(" ");
+			for(const x in users){
+				if(users[x] != ""){
+					subscription.subscribeTwitter(SQLclient, message.channel.id, users[x])
+						.then(res => messageHandler.send(message.channel, res, "Subscribe twitter", true))
+						.catch(err => messageHandler.handleError(message.channel, err, "Subscribe twitter"))
+				}
 			}
 		}
 	}
-	else if (message.content.substring(0,22).toLowerCase() == '!unsubscribe activity ' && runningOnline){
-		let outfits = message.content.substring(22).toLowerCase().split(" ");
-		for(const x in outfits){
-			if(outfits[x] != ""){
-				subscription.unsubscribeActivity(SQLclient, message.channel.id, outfits[x], 'ps2:v2')
-					.then(res => messageHandler.send(message.channel, res, "Unsubscribe activity"))
-					.catch(err => messageHandler.handleError(message.channel, err, "Unsubscribe activity"))
+	else if(messageLower.startsWith("!unsubscribe") || messageLower.startsWith("!ps4us unsubscribe") || messageLower.startsWith("!ps4eu unsubscribe")){
+		let manageChannel = await checkPermissions(message.channel, message.author);
+		if(!manageChannel){
+			messageHandler.send(message.channel, "Managing subscriptions is only available to users with the Manage Channel permission", "Manage channel permissions error");
+		}
+		else if(!runningOnline){
+			messageHandler.send(message.channel, "Subscription functionality currently disabled", "Running offline error");
+		}
+		else if (message.content.substring(0,22).toLowerCase() == '!unsubscribe activity '){
+			let outfits = message.content.substring(22).toLowerCase().split(" ");
+			for(const x in outfits){
+				if(outfits[x] != ""){
+					subscription.unsubscribeActivity(SQLclient, message.channel.id, outfits[x], 'ps2:v2')
+						.then(res => messageHandler.send(message.channel, res, "Unsubscribe activity"))
+						.catch(err => messageHandler.handleError(message.channel, err, "Unsubscribe activity"))
+				}
 			}
 		}
-	}
-	else if (message.content.substring(0,26).toLowerCase() == '!ps4us subscribe activity ' && runningOnline){
-		let outfits = message.content.substring(26).toLowerCase().split(" ");
-		for(const x in outfits){
-			if(outfits[x] != ""){
-				subscription.subscribeActivity(SQLclient, message.channel.id, outfits[x], 'ps2ps4us:v2')
-					.then(res => messageHandler.send(message.channel, res, "PS4US Subscribe activity", true))
-					.catch(err => messageHandler.handleError(message.channel, err, "PS4US Subscribe activity"))
+		else if (message.content.substring(0,28).toLowerCase() == '!ps4us unsubscribe activity '){
+			let outfits = message.content.substring(28).toLowerCase().split(" ");
+			for(const x in outfits){
+				if(outfits[x] != ""){
+					subscription.unsubscribeActivity(SQLclient, message.channel.id, outfits[x], 'ps2ps4us:v2')
+						.then(res => messageHandler.send(message.channel, res, "PS4US Unsubscribe activity"))
+						.catch(err => messageHandler.handleError(message.channel, err, "PS4US Unsubscribe activity"))
+				}
 			}
 		}
-	}
-	else if (message.content.substring(0,28).toLowerCase() == '!ps4us unsubscribe activity ' && runningOnline){
-		let outfits = message.content.substring(28).toLowerCase().split(" ");
-		for(const x in outfits){
-			if(outfits[x] != ""){
-				subscription.unsubscribeActivity(SQLclient, message.channel.id, outfits[x], 'ps2ps4us:v2')
-					.then(res => messageHandler.send(message.channel, res, "PS4US Unsubscribe activity"))
-					.catch(err => messageHandler.handleError(message.channel, err, "PS4US Unsubscribe activity"))
+		else if (message.content.substring(0,28).toLowerCase() == '!ps4eu unsubscribe activity '){
+			let outfits = message.content.substring(28).toLowerCase().split(" ");
+			for(const x in outfits){
+				if(outfits[x] != ""){
+					subscription.unsubscribeActivity(SQLclient, message.channel.id, outfits[x], 'ps2ps4eu:v2')
+						.then(res => messageHandler.send(message.channel, res, "PS4EU Unsubscribe activity"))
+						.catch(err => messageHandler.handleError(message.channel, err, "PS4EU Unsubscribe activity"))
+				}
 			}
 		}
-	}
-	else if (message.content.substring(0,26).toLowerCase() == '!ps4eu subscribe activity ' && runningOnline){
-		let outfits = message.content.substring(26).toLowerCase().split(" ");
-		for(const x in outfits){
-			if(outfits[x] != ""){
-				subscription.subscribeActivity(SQLclient, message.channel.id, outfits[x], 'ps2ps4eu:v2')
-				.then(res => messageHandler.send(message.channel, res, "PS4EU Subscribe activity", true))
-				.catch(err => messageHandler.handleError(message.channel, err, "PS4EU Subscribe Activity"))
+		else if (message.content.substring(0,22).toLowerCase() == '!unsubscribe captures '){
+			let outfits = message.content.substring(22).toLowerCase().split(" ");
+			for(const x in outfits){
+				if(outfits[x] != ""){
+					subscription.unsubscribeCaptures(SQLclient, message.channel.id, outfits[x], 'ps2:v2')
+						.then(res => messageHandler.send(message.channel, res, "Unsubscribe captures"))
+						.catch(err => messageHandler.handleError(message.channel, err, "Unsubscribe captures"))
+				}
 			}
 		}
-	}
-	else if (message.content.substring(0,28).toLowerCase() == '!ps4eu unsubscribe activity ' && runningOnline){
-		let outfits = message.content.substring(28).toLowerCase().split(" ");
-		for(const x in outfits){
-			if(outfits[x] != ""){
-				subscription.unsubscribeActivity(SQLclient, message.channel.id, outfits[x], 'ps2ps4eu:v2')
-					.then(res => messageHandler.send(message.channel, res, "PS4EU Unsubscribe activity"))
-					.catch(err => messageHandler.handleError(message.channel, err, "PS4EU Unsubscribe activity"))
+		else if (message.content.substring(0,28).toLowerCase() == '!ps4us unsubscribe captures '){
+			let outfits = message.content.substring(28).toLowerCase().split(" ");
+			for(const x in outfits){
+				if(outfits[x] != ""){
+					subscription.unsubscribeCaptures(SQLclient, message.channel.id, outfits[x], 'ps2ps4us:v2')
+						.then(res => messageHandler.send(message.channel, res, "PS4US Unsubscribe captures"))
+						.catch(err => messageHandler.handleError(message.channel, err, "PS4US Unsubscribe captures"))
+				}
 			}
 		}
-	}
-	else if (message.content.substring(0,20).toLowerCase() == '!subscribe captures ' && runningOnline){
-		let outfits = message.content.substring(20).toLowerCase().split(" ");
-		for(const x in outfits){
-			if(outfits[x] != ""){
-				subscription.subscribeCaptures(SQLclient, message.channel.id, outfits[x], 'ps2:v2')
-					.then(res => messageHandler.send(message.channel, res, "Subscribe captures", true))
-					.catch(err => messageHandler.handleError(message.channel, err, "Subscribe captures"))
+		else if (message.content.substring(0,28).toLowerCase() == '!ps4eu unsubscribe captures '){
+			let outfits = message.content.substring(28).toLowerCase().split(" ");
+			for(const x in outfits){
+				if(outfits[x] != ""){
+					subscription.unsubscribeCaptures(SQLclient, message.channel.id, outfits[x], 'ps2ps4eu:v2')
+						.then(res => messageHandler.send(message.channel, res, "PS4EU Unsubscribe captures"))
+						.catch(err => messageHandler.handleError(message.channel, err, "PS4EU Unsubscribe captures"))
+				}
 			}
 		}
-	}
-	else if (message.content.substring(0,22).toLowerCase() == '!unsubscribe captures ' && runningOnline){
-		let outfits = message.content.substring(22).toLowerCase().split(" ");
-		for(const x in outfits){
-			if(outfits[x] != ""){
-				subscription.unsubscribeCaptures(SQLclient, message.channel.id, outfits[x], 'ps2:v2')
-					.then(res => messageHandler.send(message.channel, res, "Unsubscribe captures"))
-					.catch(err => messageHandler.handleError(message.channel, err, "Unsubscribe captures"))
+		else if (message.content.substring(0,20).toLowerCase() == '!unsubscribe alerts '){
+			let servers = message.content.substring(20).toLowerCase().split(" ");
+			for(const x in servers){
+				if(servers[x] != ""){
+					subscription.unsubscribeAlert(SQLclient, message.channel.id, servers[x])
+						.then(res => messageHandler.send(message.channel, res, "Unsubscribe alerts"))
+						.catch(err => messageHandler.handleError(message.channel, err, "Unsubscribe alerts"))
+				}
 			}
 		}
-	}
-	else if (message.content.substring(0,26).toLowerCase() == '!ps4us subscribe captures ' && runningOnline){
-		let outfits = message.content.substring(26).toLowerCase().split(" ");
-		for(const x in outfits){
-			if(outfits[x] != ""){
-				subscription.subscribeCaptures(SQLclient, message.channel.id, outfits[x], 'ps2ps4us:v2')
-					.then(res => messageHandler.send(message.channel, res, "PS4US Subscribe captures", true))
-					.catch(err => messageHandler.handleError(message.channel, err, "PS4US Subscribe captures"))
+		else if (message.content.substring(0,21).toLowerCase() == '!unsubscribe twitter '){
+			let users = message.content.substring(21).toLowerCase().split(" ");
+			for(const x in users){
+				if(users[x] != ""){
+					subscription.unsubscribeTwitter(SQLclient, message.channel.id, users[x])
+						.then(res => messageHandler.send(message.channel, res, "Unsubscribe twitter"))
+						.catch(err => messageHandler.handleError(message.channel, err, "Unsubscribe twitter"))
+				}
 			}
 		}
-	}
-	else if (message.content.substring(0,28).toLowerCase() == '!ps4us unsubscribe captures ' && runningOnline){
-		let outfits = message.content.substring(28).toLowerCase().split(" ");
-		for(const x in outfits){
-			if(outfits[x] != ""){
-				subscription.unsubscribeCaptures(SQLclient, message.channel.id, outfits[x], 'ps2ps4us:v2')
-					.then(res => messageHandler.send(message.channel, res, "PS4US Unsubscribe captures"))
-					.catch(err => messageHandler.handleError(message.channel, err, "PS4US Unsubscribe captures"))
-			}
+		else if (message.content.toLowerCase() == "!unsubscribe all"){
+			subscription.unsubscribeAll(SQLclient, message.channel.id)
+				.then(res => messageHandler.send(message.channel, res, "Unsubscribe all"))
+				.catch(err => messageHandler.handleError(message.channel, err, "Unsubscribe all"))
 		}
-	}
-	else if (message.content.substring(0,26).toLowerCase() == '!ps4eu subscribe captures ' && runningOnline){
-		let outfits = message.content.substring(26).toLowerCase().split(" ");
-		for(const x in outfits){
-			if(outfits[x] != ""){
-				subscription.subscribeCaptures(SQLclient, message.channel.id, outfits[x], 'ps2ps4eu:v2')
-					.then(res => messageHandler.send(message.channel, res, "PS4EU Subscribe captures", true))
-					.catch(err => messageHandler.handleError(message.channel, err, "PS4EU Subscribe captures"))
-			}
-		}
-	}
-	else if (message.content.substring(0,28).toLowerCase() == '!ps4eu unsubscribe captures ' && runningOnline){
-		let outfits = message.content.substring(28).toLowerCase().split(" ");
-		for(const x in outfits){
-			if(outfits[x] != ""){
-				subscription.unsubscribeCaptures(SQLclient, message.channel.id, outfits[x], 'ps2ps4eu:v2')
-					.then(res => messageHandler.send(message.channel, res, "PS4EU Unsubscribe captures"))
-					.catch(err => messageHandler.handleError(message.channel, err, "PS4EU Unsubscribe captures"))
-			}
-		}
-	}
-	else if (message.content.substring(0,18).toLowerCase() == '!subscribe alerts ' && runningOnline){
-		let servers = message.content.substring(18).toLowerCase().split(" ");
-		for(const x in servers){
-			if(servers[x] != ""){
-				subscription.subscribeAlert(SQLclient, message.channel.id, servers[x])
-					.then(res => messageHandler.send(message.channel, res, "Subscribe alerts", true))
-					.catch(err => messageHandler.handleError(message.channel, err, "Subscribe alerts"))
-			}
-		}
-	}
-	else if (message.content.substring(0,20).toLowerCase() == '!unsubscribe alerts ' && runningOnline){
-		let servers = message.content.substring(20).toLowerCase().split(" ");
-		for(const x in servers){
-			if(servers[x] != ""){
-				subscription.unsubscribeAlert(SQLclient, message.channel.id, servers[x])
-					.then(res => messageHandler.send(message.channel, res, "Unsubscribe alerts"))
-					.catch(err => messageHandler.handleError(message.channel, err, "Unsubscribe alerts"))
-			}
-		}
-	}
-	else if (message.content.substring(0,19).toLowerCase() == '!subscribe twitter ' && runningOnline){
-		let users = message.content.substring(19).toLowerCase().split(" ");
-		for(const x in users){
-			if(users[x] != ""){
-				subscription.subscribeTwitter(SQLclient, message.channel.id, users[x])
-					.then(res => messageHandler.send(message.channel, res, "Subscribe twitter", true))
-					.catch(err => messageHandler.handleError(message.channel, err, "Subscribe twitter"))
-			}
-		}
-	}
-	else if (message.content.substring(0,21).toLowerCase() == '!unsubscribe twitter ' && runningOnline){
-		let users = message.content.substring(21).toLowerCase().split(" ");
-		for(const x in users){
-			if(users[x] != ""){
-				subscription.unsubscribeTwitter(SQLclient, message.channel.id, users[x])
-					.then(res => messageHandler.send(message.channel, res, "Unsubscribe twitter"))
-					.catch(err => messageHandler.handleError(message.channel, err, "Unsubscribe twitter"))
-			}
-		}
-	}
-	else if (message.content.toLowerCase() == "!unsubscribe all" && runningOnline){
-		subscription.unsubscribeAll(SQLclient, message.channel.id)
-			.then(res => messageHandler.send(message.channel, res, "Unsubscribe all"))
-			.catch(err => messageHandler.handleError(message.channel, err, "Unsubscribe all"))
-
-	}
-	else if (message.content.substring(0,1) == '!' && message.content.toLowerCase().indexOf('subscribe') != -1 && !runningOnline){
-		messageHandler.send(message.channel, 'Subscription functionality currently unavailable', "Subscriptions unabailable");
 	}
 });
 
