@@ -1,7 +1,7 @@
 // This file implements functions which parse messages from the Stream API and send messages to the appropriate channels based on subscription status.
 
 const got = require('got');
-const Discord = require('discord.js');
+const {MessageEmbed, Permissions} = require('discord.js');
 const messageHandler = require('./messageHandler.js');
 const subscriptions = require('./subscriptions.js');
 const config = require('./subscriptionConfig.js');
@@ -35,7 +35,7 @@ const logEvent = async function(payload, environment, pgClient, discordClient){
             throw `Error in logEvent: ${error}`;
         }
         if (result.rows.length > 0){
-            let sendEmbed = new Discord.MessageEmbed();
+            let sendEmbed = new MessageEmbed();
             sendEmbed.setTitle(result.rows[0].alias+' '+playerEvent);
             sendEmbed.setDescription(char.name.first);
             if (char.faction_id == "1"){ //vs
@@ -54,8 +54,8 @@ const logEvent = async function(payload, environment, pgClient, discordClient){
                 discordClient.channels.fetch(row.channel)
                     .then(resChann => {
                         if(typeof(resChann.guild) !== 'undefined'){
-                            if(resChann.permissionsFor(resChann.guild.me).has(['SEND_MESSAGES','VIEW_CHANNEL', 'EMBED_LINKS'])){
-                                messageHandler.send(resChann, sendEmbed, "Log event")
+                            if(resChann.permissionsFor(resChann.guild.me).has([Permissions.FLAGS.SEND_MESSAGES, Permissions.FLAGS.VIEW_CHANNEL, Permissions.FLAGS.EMBED_LINKS])){
+                                messageHandler.send(resChann, {embeds: [sendEmbed]}, "Log event")
                                 .then(messageId => {
                                     if(messageId != -1 && row.autodelete == true){
                                         const in5minutes = new Date((new Date()).getTime() + 300000);
@@ -71,7 +71,7 @@ const logEvent = async function(payload, environment, pgClient, discordClient){
                             } 
                         }
                         else{ // DM
-                            messageHandler.send(resChann, sendEmbed, "Log event")
+                            messageHandler.send(resChann, {embeds: [sendEmbed]}, "Log event")
                             .then(messageId => {
                                 if(messageId != -1 && row.autodelete === true){
                                     const in5minutes = new Date((new Date()).getTime() + 30000);
@@ -173,7 +173,7 @@ const alertEvent = async function(payload, environment, pgClient, discordClient)
         let server = idToName(payload.world_id);
         let response = await alertInfo(payload, environment);
         if(typeof(response.name) != undefined && response.name){
-            let sendEmbed = new Discord.MessageEmbed();
+            let sendEmbed = new MessageEmbed();
             sendEmbed.setTitle(response.name);
             if(trackedAlerts.indexOf(Number(payload.metagame_event_id)) == -1){
                 sendEmbed.setDescription(response.description);
@@ -257,8 +257,8 @@ const alertEvent = async function(payload, environment, pgClient, discordClient)
                 discordClient.channels.fetch(row.channel)
                     .then(resChann => {
                         if(typeof(resChann.guild) !== 'undefined'){
-                            if(resChann.permissionsFor(resChann.guild.me).has(['SEND_MESSAGES','VIEW_CHANNEL', 'EMBED_LINKS'])){
-                                messageHandler.send(resChann, sendEmbed, "Alert notification")
+                            if(resChann.permissionsFor(resChann.guild.me).has([Permissions.FLAGS.SEND_MESSAGES, Permissions.FLAGS.VIEW_CHANNEL, Permissions.FLAGS.EMBED_LINKS])){
+                                messageHandler.send(resChann, {embeds: [sendEmbed]}, "Alert notification")
                                 .then(messageId => {
                                     if(messageId != -1 && trackedAlerts.indexOf(Number(payload.metagame_event_id)) > -1){
                                         pgClient.query("INSERT INTO alertMaintenance (alertID, messageID, channelID) VALUES ($1, $2, $3);", [`${payload.world_id}-${payload.instance_id}`, messageId, row.channel])
@@ -284,7 +284,7 @@ const alertEvent = async function(payload, environment, pgClient, discordClient)
                             } 
                         }
                         else{ // DM
-                            messageHandler.send(resChann, sendEmbed, "Alert notification")
+                            messageHandler.send(resChann, {embeds: [sendEmbed]}, "Alert notification")
                             .then(messageId => {
                                 if(messageId != -1 && trackedAlerts.indexOf(Number(payload.metagame_event_id)) > -1){
                                     pgClient.query("INSERT INTO alertMaintenance (alertID, messageID, channelID) VALUES ($1, $2, $3);", [`${payload.world_id}-${payload.instance_id}`, messageId, row.channel])
@@ -347,7 +347,7 @@ const baseEvent = async function(payload, environment, pgClient, discordClient){
     //check if outfit is in db, construct and send info w/ facility id
     let result = await pgClient.query("SELECT * FROM outfitcaptures WHERE id=$1 AND platform = $2;", [payload.outfit_id, platform]);
     if(result.rowCount > 0){
-        let sendEmbed = new Discord.MessageEmbed();
+        let sendEmbed = new MessageEmbed();
         let base = await baseInfo(payload.facility_id, environment);
         sendEmbed.setTitle("["+result.rows[0].alias+"] "+result.rows[0].name+' captured '+base.name);
         sendEmbed.setTimestamp();
@@ -396,8 +396,8 @@ const baseEvent = async function(payload, environment, pgClient, discordClient){
         for (let row of result.rows){
             discordClient.channels.fetch(row.channel).then(resChann => {
                 if(typeof(resChann.guild) !== 'undefined'){
-                    if(resChann.permissionsFor(resChann.guild.me).has(['SEND_MESSAGES','VIEW_CHANNEL','EMBED_LINKS'])){
-                        messageHandler.send(resChann, sendEmbed, "Base capture event");
+                    if(resChann.permissionsFor(resChann.guild.me).has([Permissions.FLAGS.SEND_MESSAGES, Permissions.FLAGS.VIEW_CHANNEL, Permissions.FLAGS.EMBED_LINKS])){
+                        messageHandler.send(resChann, {embeds: [sendEmbed]}, "Base capture event");
                     }
                     else{
                         subscriptions.unsubscribeAll(pgClient, row.channel);
@@ -405,7 +405,7 @@ const baseEvent = async function(payload, environment, pgClient, discordClient){
                     }
                 }
                 else{ // DM
-                    messageHandler.send(resChann, sendEmbed, "Base capture event");
+                    messageHandler.send(resChann, {embeds: [sendEmbed]}, "Base capture event");
                 }
             }).catch(error => {
                 if(typeof(error.code) !== 'undefined'){

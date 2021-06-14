@@ -108,7 +108,7 @@ module.exports = {
 		let dayPc = Number.parseFloat((oInfo.onlineDay/oInfo.memberCount)*100).toPrecision(3);
 		let weekPc = Number.parseFloat((oInfo.onlineWeek/oInfo.memberCount)*100).toPrecision(3);
 		let monthPc = Number.parseFloat((oInfo.onlineMonth/oInfo.memberCount)*100).toPrecision(3);
-		resEmbed.addField("Online", oInfo.onlineMembers, true);
+		resEmbed.addField("Online", `${oInfo.onlineMembers}`, true);
 		resEmbed.addField("Last day", oInfo.onlineDay+" ("+dayPc+"%)", true);
 		resEmbed.addField("Last week", oInfo.onlineWeek+" ("+weekPc+"%)", true);
 		resEmbed.addField("Last month", oInfo.onlineMonth+" ("+monthPc+"%)", true);

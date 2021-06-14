@@ -67,7 +67,7 @@ const updateAlert = async function(info, pgClient, discordClient, isComplete){
 		let minutesleft = Math.floor(timeLeft/60000) - hoursleft*60;
 		messageEmbed.addField("Status", `${hoursleft}h ${minutesleft}m remaining`, true);
 	}
-	messageEmbed.addField("Population", popLevels[info.bracket], true);
+	messageEmbed.addField("Population", `${popLevels[info.bracket]}`, true);
 	try{
 		messageEmbed.addField("Territory Control", `\
 		\n<:VS:818766983918518272> **VS**: ${info.result.vs}%\
@@ -83,7 +83,7 @@ const updateAlert = async function(info, pgClient, discordClient, isComplete){
 			messageEmbed.addField("Result", "Draw", true);
 		}
 		else{
-			messageEmbed.addField("Result", winnerFaction[info.result.victor], true);
+			messageEmbed.addField("Result", `${winnerFaction[info.result.victor]}`, true);
 			const minutesDone = Math.floor((Date.now() - Date.parse(info.timeEnded))/60000);
 			if (!(info.result.victor in winnerFaction) && minutesDone < 5){
 				isComplete = false; //Don't delete from list, retry up to 5 minutes later when field may be populated
@@ -116,13 +116,13 @@ const editMessage = async function(embed, messageId, channelId, discordClient){
 		if(resChann.deleted){
 			return;
 		}
-		if (['text','news'].includes(resChann.type) && resChann.permissionsFor(resChann.guild.me).has('VIEW_CHANNEL')) {
+		if (['text','news'].includes(resChann.type) && resChann.permissionsFor(resChann.guild.me).has(Discord.Permissions.FLAGS.VIEW_CHANNEL)) {
 			const resMsg = await resChann.messages.fetch(messageId);
-			await resMsg.edit(embed);
+			await resMsg.edit({embeds: [embed]});
 		}
 		else if(resChann.type == 'dm'){
 			const resMsg = await resChann.messages.fetch(messageId);
-			await resMsg.edit(embed);
+			await resMsg.edit({embeds: [embed]});
 		}
 	}
 	catch(err) {

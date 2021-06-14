@@ -397,7 +397,7 @@ module.exports = {
             let accuracy = cInfo.infantryHits/cInfo.infantryShots;
             let hsr = cInfo.infantryHeadshots/cInfo.infantryKills;
             let iahr = accuracy*hsr;
-            resEmbed.addField("IAHR Score", Math.floor(iahr*10000), true);
+            resEmbed.addField("IAHR Score", `${Math.floor(iahr*10000)}`, true);
         }
 
         // Online status
@@ -453,7 +453,7 @@ module.exports = {
                 resEmbed.addField('Top Weapon (kills)', cInfo.topWeaponName+" ("+cInfo.mostKills+")", true);
             }
             if(cInfo.auraxCount != "Error"){
-                resEmbed.addField('Auraxium medals', cInfo.auraxCount, true);
+                resEmbed.addField('Auraxium medals', `${cInfo.auraxCount}`, true);
             }
         }
 

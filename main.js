@@ -40,7 +40,13 @@ if(typeof(process.env.TWITTER_CONSUMER_KEY) !== 'undefined'){
 	twitterAvail = true;
 }
 
-const client = new Discord.Client();
+const intentsList = [
+	Discord.Intents.FLAGS.GUILD_MESSAGES,
+	Discord.Intents.FLAGS.DIRECT_MESSAGES,
+	Discord.Intents.FLAGS.GUILDS
+]
+
+const client = new Discord.Client({intents: intentsList, allowedMentions: {parse: ['roles']}});
 
 // https://discordapp.com/developers/applications/me
 const token = process.env.token;
@@ -70,49 +76,47 @@ client.on('ready', async () => {
 	client.user.setActivity('!help')
 });
 
-const listOfCommands = [
-"!help",
-" ",
-"!<ps4us/ps4eu> character [name]",
-"!<ps4us/ps4eu> stats [name] <weapon name/id>",
-"!<ps4us/ps4eu> outfit [tag]",
-"!<ps4us/ps4eu> online [tag]",
-"!subscribe alerts [server]",
-"!unsubscribe alerts [server]",
-"!<ps4us/ps4eu> subscribe activity [tag]",
-"!<ps4us/ps4eu> unsubscribe activity [tag]",
-"!<ps4us/ps4eu> subscribe captures [tag]",
-"!<ps4us/ps4eu> unsubscribe captures [tag]",
-"!subscribe twitter [wrel/planetside]",
-"!unsubscribe twitter [wrel/planetside]",
-"!unsubscribe all",
-"!config",
-"!config audit",
-"!config alerts [continent] [enable/disable]",
-"!config autodelete [enable/disable]",
-"!population [server]",
-"!territory [server]",
-"!alerts [server]",
-"!status",
-"!weapon [weapon name/id]",
-"!weaponSearch [name]",
-"!implant [implant name]",
-"!<ps4us/ps4eu> asp [name]"
-]
+const listOfCommands = 
+"!help\n\
+\n\
+!<ps4us/ps4eu> character [name]\n\
+!<ps4us/ps4eu> stats [name] <weapon name/id>\n\
+!<ps4us/ps4eu> outfit [tag]\n\
+!<ps4us/ps4eu> online [tag]\n\
+!subscribe alerts [server]\n\
+!unsubscribe alerts [server]\n\
+!<ps4us/ps4eu> subscribe activity [tag]\n\
+!<ps4us/ps4eu> unsubscribe activity [tag]\n\
+!<ps4us/ps4eu> subscribe captures [tag]\n\
+!<ps4us/ps4eu> unsubscribe captures [tag]\n\
+!subscribe twitter [wrel/planetside]\n\
+!unsubscribe twitter [wrel/planetside]\n\
+!unsubscribe all\n\
+!config\n\
+!config audit\n\
+!config alerts [continent] [enable/disable]\n\
+!config autodelete [enable/disable]\n\
+!population [server]\n\
+!territory [server]\n\
+!alerts [server]\n\
+!status\n\
+!weapon [weapon name/id]\n\
+!weaponSearch [name]\n\
+!implant [implant name]\n\
+!<ps4us/ps4eu> asp [name]"
 
-const links = [
-	"[GitHub page & FAQ](https://github.com/RemainNA/auraxis-bot)",
-	"[Support server](https://discord.gg/Kf5P6Ut)",
-	"[Invite bot](https://discord.com/oauth2/authorize?client_id=437756856774033408&scope=bot&permissions=281600)",
-	"[Donate on Ko-fi](https://ko-fi.com/remainna)"
-]
+const links = '\n\
+[GitHub page & FAQ](https://github.com/RemainNA/auraxis-bot)\n\
+[Support server](https://discord.gg/Kf5P6Ut)\n\
+[Invite bot](https://discord.com/oauth2/authorize?client_id=437756856774033408&scope=bot&permissions=281600)\n\
+[Donate on Ko-fi](https://ko-fi.com/remainna)'
 
 const checkPermissions = async function(channel, user){
 	if(channel.type == 'dm'){
 		return true;
 	}
 	else if(channel.type == 'text' || channel.type == 'news'){
-		return (await channel.permissionsFor(channel.guild.member(user)).has('MANAGE_CHANNELS'));
+		return (await channel.permissionsFor(channel.guild.members.cache.get(user.id)).has('MANAGE_CHANNELS'));
 	}
 	else{
 		return false;
@@ -137,14 +141,14 @@ client.on('message', async message => {
 		helpEmbed.addField("Commands", listOfCommands);
 		helpEmbed.addField("Links", links);
 		helpEmbed.setFooter("<> = Optional, [] = Required");
-		messageHandler.send(message.channel, helpEmbed, 'help', true);
+		messageHandler.send(message.channel, {embeds: [helpEmbed]}, 'help', true);
 	}
 	else if (message.content.substring(0,11).toLowerCase() == '!character '){
 		let chars = message.content.substring(11).toLowerCase().split(" ");
 		for(const x in chars){
 			if(chars[x] != ""){
 				char.character(chars[x], 'ps2:v2')
-					.then(res => messageHandler.send(message.channel, res, "PC Character", true))
+					.then(res => messageHandler.send(message.channel, {embeds: [res]}, "PC Character", true))
 					.catch(err => messageHandler.handleError(message.channel, err, "PC Character"))
 			}
 		}
@@ -154,7 +158,7 @@ client.on('message', async message => {
 		for(const x in chars){
 			if(chars[x] != ""){
 				char.character(chars[x], 'ps2ps4us:v2')
-					.then(res => messageHandler.send(message.channel, res, "PS4US Character", true))
+					.then(res => messageHandler.send(message.channel, {embeds: [res]}, "PS4US Character", true))
 					.catch(err => messageHandler.handleError(message.channel, err, "PS4US Character"))
 			}
 		}
@@ -164,7 +168,7 @@ client.on('message', async message => {
 		for(const x in chars){
 			if(chars[x] != ""){
 				char.character(chars[x], 'ps2ps4eu:v2')
-					.then(res => messageHandler.send(message.channel, res, "PS4EU Character", true))
+					.then(res => messageHandler.send(message.channel, {embeds: [res]}, "PS4EU Character", true))
 					.catch(err => messageHandler.handleError(message.channel, err, "PS4EU Character"))
 			}
 		}
@@ -175,12 +179,12 @@ client.on('message', async message => {
 		let wName = message.content.substring((7+cName.length+1)).trim();
 		if(wName == ""){
 			char.character(cName, 'ps2:v2')
-				.then(res => messageHandler.send(message.channel, res, "PC Character by stats", true))
+				.then(res => messageHandler.send(message.channel, {embeds: [res]}, "PC Character by stats", true))
 				.catch(err => messageHandler.handleError(message.channel, err, "PC Character by stats"))
 		}
 		else{
 			stats.lookup(cName, wName, 'ps2:v2')
-				.then(res => messageHandler.send(message.channel, res, "PC Stats", true))
+				.then(res => messageHandler.send(message.channel, {embeds: [res]}, "PC Stats", true))
 				.catch(err => messageHandler.handleError(message.channel, err, "PC Stats"))	
 		}
 	}
@@ -190,12 +194,12 @@ client.on('message', async message => {
 		let wName = message.content.substring((13+cName.length+1));
 		if(wName == ""){
 			char.character(cName, 'ps2ps4us:v2')
-				.then(res => messageHandler.send(message.channel, res, "PS4US Character by stats", true))
+				.then(res => messageHandler.send(message.channel, {embeds: [res]}, "PS4US Character by stats", true))
 				.catch(err => messageHandler.handleError(message.channel, err, "PS4US Character by stats"))
 		}
 		else{
 			stats.lookup(cName, wName, 'ps2ps4us:v2')
-				.then(res => messageHandler.send(message.channel, res, "PS4US Stats", true))
+				.then(res => messageHandler.send(message.channel, {embeds: [res]}, "PS4US Stats", true))
 				.catch(err => messageHandler.handleError(message.channel, err, "PS4US Stats"))	
 		}
 	}
@@ -205,12 +209,12 @@ client.on('message', async message => {
 		let wName = message.content.substring((13+cName.length+1));
 		if(wName == ""){
 			char.character(cName, 'ps2ps4eu:v2')
-				.then(res => messageHandler.send(message.channel, res, "PS4EU Character by stats", true))
+				.then(res => messageHandler.send(message.channel, {embeds: [res]}, "PS4EU Character by stats", true))
 				.catch(err => messageHandler.handleError(message.channel, err, "PS4EU Character by stats"))
 		}
 		else{
 			stats.lookup(cName, wName, 'ps2ps4eu:v2')
-				.then(res => messageHandler.send(message.channel, res, "PS4EU Stats", true))
+				.then(res => messageHandler.send(message.channel, {embeds: [res]}, "PS4EU Stats", true))
 				.catch(err => messageHandler.handleError(message.channel, err, "PS4EU Stats"))	
 		}
 		
@@ -224,7 +228,7 @@ client.on('message', async message => {
 					continue;
 				}
 				outfit.outfit(tags[x], 'ps2:v2')
-					.then(res => messageHandler.send(message.channel, res, "PC Outfit", true))
+					.then(res => messageHandler.send(message.channel, {embeds: [res]}, "PC Outfit", true))
 					.catch(err => messageHandler.handleError(message.channel, err, "PC Outfit"))
 			}
 		}
@@ -238,7 +242,7 @@ client.on('message', async message => {
 					continue;
 				}
 				outfit.outfit(tags[x], 'ps2ps4us:v2')
-					.then(res => messageHandler.send(message.channel, res, "PS4US Outfit", true))
+					.then(res => messageHandler.send(message.channel, {embeds: [res]}, "PS4US Outfit", true))
 					.catch(err => messageHandler.handleError(message.channel, err, "PS4US Outfit"))
 			}
 		}
@@ -252,7 +256,7 @@ client.on('message', async message => {
 					continue;
 				}
 				outfit.outfit(tags[x], 'ps2ps4eu:v2')
-					.then(res => messageHandler.send(message.channel, res, "PS4EU Outfit", true))
+					.then(res => messageHandler.send(message.channel, {embeds: [res]}, "PS4EU Outfit", true))
 					.catch(err => messageHandler.handleError(message.channel, err, "PS4EU Outfit"))
 			}
 		}
@@ -266,7 +270,7 @@ client.on('message', async message => {
 					continue;
 				}
 				online.online(tags[x], 'ps2:v2')
-					.then(res => messageHandler.send(message.channel, res, "PC Online", true))
+					.then(res => messageHandler.send(message.channel, {embeds: [res]}, "PC Online", true))
 					.catch(err => messageHandler.handleError(message.channel, err, "PC Online"))
 			}
 		}
@@ -280,7 +284,7 @@ client.on('message', async message => {
 					continue;
 				}
 				online.online(tags[x], 'ps2ps4us:v2')
-					.then(res => messageHandler.send(message.channel, res, "PS4US Online", true))
+					.then(res => messageHandler.send(message.channel, {embeds: [res]}, "PS4US Online", true))
 					.catch(err => messageHandler.handleError(message.channel, err, "PS4US Online"))
 			}
 		}
@@ -294,7 +298,7 @@ client.on('message', async message => {
 					continue;
 				}
 				online.online(tags[x], 'ps2ps4eu:v2')
-					.then(res => messageHandler.send(message.channel, res, "PS4EU Online", true))
+					.then(res => messageHandler.send(message.channel, {embeds: [res]}, "PS4EU Online", true))
 					.catch(err => messageHandler.handleError(message.channel, err, "PS4EU Online"))
 			}
 		}
@@ -305,7 +309,7 @@ client.on('message', async message => {
 		for(const x in servers){
 			if(servers[x] != ""){
 				population.lookup(servers[x])
-					.then(res => messageHandler.send(message.channel, res, "Population", true))
+					.then(res => messageHandler.send(message.channel, {embeds: [res]}, "Population", true))
 					.catch(err => messageHandler.handleError(message.channel, err, "Population"))
 			}
 		}
@@ -315,7 +319,7 @@ client.on('message', async message => {
 		for(const x in chars){
 			if(chars[x] != ""){
 				asp.originalBR(chars[x], "ps2:v2")
-					.then(res => messageHandler.send(message.channel, res, "PC ASP", true))
+					.then(res => messageHandler.send(message.channel, {embeds: [res]}, "PC ASP", true))
 					.catch(err => messageHandler.handleError(message.channel, err, "PC ASP"))
 			}
 		}
@@ -325,7 +329,7 @@ client.on('message', async message => {
 		for(const x in chars){
 			if(chars[x] != ""){
 				asp.originalBR(chars[x], "ps2ps4us:v2")
-					.then(res => messageHandler.send(message.channel, res, "PS4US ASP", true))
+					.then(res => messageHandler.send(message.channel, {embeds: [res]}, "PS4US ASP", true))
 					.catch(err => messageHandler.handleError(message.channel, err, "PC ASP"))
 			}
 		}
@@ -335,7 +339,7 @@ client.on('message', async message => {
 		for(const x in chars){
 			if(chars[x] != ""){
 				asp.originalBR(chars[x], "ps2ps4eu:v2")
-					.then(res => messageHandler.send(message.channel, res, "PS4EU ASP", true))
+					.then(res => messageHandler.send(message.channel, {embeds: [res]}, "PS4EU ASP", true))
 					.catch(err => messageHandler.handleError(message.channel, err, "PC ASP"))
 			}
 		}
@@ -345,7 +349,7 @@ client.on('message', async message => {
 		for(const x in servers){
 			if(servers[x] != ""){
 				territory.territory(servers[x])
-					.then(res => messageHandler.send(message.channel, res, "Territory", true))
+					.then(res => messageHandler.send(message.channel, {embeds: [res]}, "Territory", true))
 					.catch(err => messageHandler.handleError(message.channel, err, "Territory"))
 			}
 		}
@@ -355,29 +359,29 @@ client.on('message', async message => {
 		for(const x in servers){
 			if(servers[x] != ""){
 				alerts.activeAlerts(servers[x])
-					.then(res => messageHandler.send(message.channel, res, "Alerts", true))
+					.then(res => messageHandler.send(message.channel, {embeds: [res]}, "Alerts", true))
 					.catch(err => messageHandler.handleError(message.channel, err, "Alerts"))
 			}
 		}
 	}
 	else if (message.content.toLowerCase() == '!status') {
 		status.servers()
-			.then(res => messageHandler.send(message.channel, res, "Server status", true))
+			.then(res => messageHandler.send(message.channel, {embeds: [res]}, "Server status", true))
 			.catch(err => messageHandler.handleError(message.channel, err, "Server status"))
 	}
 	else if (message.content.substring(0,8).toLowerCase() == '!weapon ') {
 		weapon.lookup(message.content.substring(8))
-			.then(res => messageHandler.send(message.channel, res, "Weapon", true))
+			.then(res => messageHandler.send(message.channel, {embeds: [res]}, "Weapon", true))
 			.catch(err => messageHandler.handleError(message.channel, err, "Weapon"))
 	}
 	else if (message.content.substring(0,14).toLowerCase() == '!weaponsearch ') {
 		weaponSearch.lookup(message.content.substring(14))
-			.then(res => messageHandler.send(message.channel, res, "Weapon search", true))
+			.then(res => messageHandler.send(message.channel, {embeds: [res]}, "Weapon search", true))
 			.catch(err => messageHandler.handleError(message.channel, err, "Weapon search"))
 	}
 	else if (message.content.substring(0,9).toLowerCase() == '!implant ') {
 		implant.lookup(message.content.substring(9))
-			.then(res => messageHandler.send(message.channel, res, "Implant", true))
+			.then(res => messageHandler.send(message.channel, {embeds: [res]}, "Implant", true))
 			.catch(err => messageHandler.handleError(message.channel, err, "Implant"))
 	}
 	else if(messageLower.startsWith("!config")){
@@ -390,7 +394,7 @@ client.on('message', async message => {
 		}
 		else if ((messageLower == '!config' || messageLower == '!config view')){
 			subscriptionConfig.displayConfig(message.channel.id, SQLclient)
-				.then(res => messageHandler.send(message.channel, res, "Display subscription config", true))
+				.then(res => messageHandler.send(message.channel, {embeds: [res]}, "Display subscription config", true))
 				.catch(err => messageHandler.handleError(message.channel, err, "Display subscription config"))
 		}
 		else if (message.content.toLowerCase() == '!config audit'){

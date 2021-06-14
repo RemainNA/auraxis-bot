@@ -139,7 +139,7 @@ module.exports = {
 		wInfo.recoilHorizontalMin && wInfo.recoilHorizontalMax && resEmbed.addField("Horizontal Recoil (min/max)", wInfo.recoilHorizontalMin+"/"+wInfo.recoilHorizontalMax, true);
 		wInfo.recoilHorizontalTolerance && resEmbed.addField("Horizontal Tolerance", wInfo.recoilHorizontalTolerance, true);
 		wInfo.firstShotMultiplier && resEmbed.addField("First Shot Multiplier", wInfo.firstShotMultiplier+"x", true);
-		wInfo.fireModes.length && resEmbed.addField("Fire modes", wInfo.fireModes, true);
+		wInfo.fireModes.length && resEmbed.addField("Fire modes", `${wInfo.fireModes}`.replace(/,/g, '\n'), true);
 		wInfo.headshotMultiplier && resEmbed.addField("Headshot Multiplier", Number(wInfo.headshotMultiplier)+1+"x", true);
 		wInfo.defZoom && wInfo.defZoom != 1 && resEmbed.addField("Iron Sights Zoom", wInfo.defZoom+"x", true);
 

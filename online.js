@@ -127,12 +127,11 @@ module.exports = {
 		for(let i = 0; i < 8; i++){
 			if(oInfo.onlineMembers[i].length > 0){
 				if(totalLength(oInfo.onlineMembers[i]) <= 1024){
-					resEmbed.addField(oInfo.rankNames[i]+" ("+oInfo.onlineMembers[i].length+")", oInfo.onlineMembers[i], true);
+					resEmbed.addField(oInfo.rankNames[i]+" ("+oInfo.onlineMembers[i].length+")", `${oInfo.onlineMembers[i]}`.replace(/,/g, '\n'), true);
 				}
 				else{
 					resEmbed.addField(oInfo.rankNames[i]+" ("+oInfo.onlineMembers[i].length+")", "Too many to display", true);
 				}
-				
 			}
 		}
 		return resEmbed;

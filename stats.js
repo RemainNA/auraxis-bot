@@ -194,7 +194,7 @@ module.exports = {
 		resEmbed.addField("KD", Number.parseFloat(totalKills/cInfo.deaths).toPrecision(3), true);
 		resEmbed.addField("Accuracy", (accuracy*100).toPrecision(3)+"%", true);
 		totalHeadshots && resEmbed.addField("HSR", (hsr*100).toPrecision(3)+"%", true);
-		ahr && resEmbed.addField("AHR Score", ahr, true);
+		ahr && resEmbed.addField("AHR Score", `${ahr}`, true);
 		totalVehicleKills && resEmbed.addField("Vehicle Kills", parseInt(totalVehicleKills).toLocaleString(), true);
 		resEmbed.addField("Playtime", hours+" hours, "+minutes+" minutes", true);
 		resEmbed.addField("KPM", Number.parseFloat(totalKills/(cInfo.playTime/60)).toPrecision(3), true);

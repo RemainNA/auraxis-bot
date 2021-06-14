@@ -30,7 +30,7 @@ module.exports = {
 		}
 		let resEmbed = new Discord.MessageEmbed();
 		resEmbed.setTitle("Weapon search results");
-		resEmbed.addField('\u200b', found);
+		resEmbed.addField('\u200b', `${found}`.replace(/,/g, '\n'));
 
 		return resEmbed;
 	}
