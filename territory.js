@@ -14,6 +14,8 @@ const serverToUrl = function(server){
             return 'https://census.daybreakgames.com/s:'+process.env.serviceID+'/get/ps2:v2/map/?world_id=13&zone_ids=2,4,6,8';
         case "emerald":
             return 'https://census.daybreakgames.com/s:'+process.env.serviceID+'/get/ps2:v2/map/?world_id=17&zone_ids=2,4,6,8';
+        case "jaegar":
+            return 'https://census.daybreakgames.com/s:'+process.env.serviceID+'/get/ps2:v2/map/?world_id=19&zone_ids=2,4,6,8';
         case "soltech":
             return 'https://census.daybreakgames.com/s:'+process.env.serviceID+'/get/ps2:v2/map/?world_id=40&zone_ids=2,4,6,8';
         case "genudine":
@@ -34,6 +36,8 @@ const fisuTerritory = function(server){
             return 'https://ps2.fisu.pw/control/?world=13';
         case "emerald":
             return 'https://ps2.fisu.pw/control/?world=17';
+        case "jaegar":
+            return 'https://ps2.fisu.pw/control/?world=19'
         case "soltech":
             return 'https://ps2.fisu.pw/control/?world=40';
         case "genudine":
@@ -54,6 +58,8 @@ const printableName = function(server){
             return 'Cobalt';
         case "emerald":
             return 'Emerald';
+        case "jaegar":
+            return 'Jaegar';
         case "soltech":
             return 'SolTech';
         case "genudine":
