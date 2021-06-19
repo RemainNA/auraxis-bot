@@ -6,8 +6,8 @@ const messageHandler = require('./messageHandler.js');
 const subscriptions = require('./subscriptions.js');
 const config = require('./subscriptionConfig.js');
 const territory = require('./territory.js');
-const alerts = require('./alerts.json');
-const bases = require('./bases.json');
+const alerts = require('./static/alerts.json');
+const bases = require('./static/bases.json');
 
 const environmentToPlatform = {
     "ps2:v2": "pc",

@@ -2,7 +2,7 @@
 // Currently in beta
 
 const Discord = require('discord.js');
-const weaponsJSON = require('./weapons.json');
+const weaponsJSON = require('./static/weapons.json');
 const messageHandler = require('./messageHandler.js');
 
 function CoFUpdated(CoF){

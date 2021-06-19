@@ -1,7 +1,7 @@
 //This file implements functions to look up currently active alerts from the ps2 alerts website
 
 const Discord = require('discord.js');
-const alerts = require('./alerts.json');
+const alerts = require('./static/alerts.json');
 const got = require('got');
 const messageHandler = require('./messageHandler.js');
 

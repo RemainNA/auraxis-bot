@@ -2,8 +2,8 @@
 // All three platforms are supported, but must be specified in the "platform" parameter
 
 const Discord = require('discord.js');
-const weapons = require('./weapons.json');
-const vehicles = require('./vehicles.json');
+const weapons = require('./static/weapons.json');
+const vehicles = require('./static/vehicles.json');
 const got = require('got');
 const messageHandler = require('./messageHandler.js');
 

@@ -1,5 +1,5 @@
 const Discord = require('discord.js');
-const implantsJSON = require('./implants.json');
+const implantsJSON = require('./static/implants.json');
 const messageHandler = require('./messageHandler.js');
 
 const implantInfo = async function(name){

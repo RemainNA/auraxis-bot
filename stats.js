@@ -1,7 +1,7 @@
 // This file implements functions to look up a character's stats with a specific weapon
 
 const Discord = require('discord.js');
-const weaponsJSON = require('./weapons.json');
+const weaponsJSON = require('./static/weapons.json');
 const got = require('got');
 const messageHandler = require('./messageHandler.js');
 

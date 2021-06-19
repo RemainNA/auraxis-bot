@@ -2,7 +2,7 @@
 
 const Discord = require('discord.js');
 const got = require('got');
-const alerts = require('./alerts.json');
+const alerts = require('./static/alerts.json');
 
 const serverIdToName = function(server){
 	switch(server){

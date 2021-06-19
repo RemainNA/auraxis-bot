@@ -1,7 +1,7 @@
 // This file defines functionality to search through known weapons and return matching results
 
 const Discord = require('discord.js');
-const weaponsJSON = require('./weapons.json');
+const weaponsJSON = require('./static/weapons.json');
 const messageHandler = require('./messageHandler.js');
 
 module.exports = {
