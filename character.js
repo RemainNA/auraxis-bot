@@ -489,8 +489,13 @@ module.exports = {
         if(typeof(cInfo.favoriteVehicle) !== 'undefined' && cInfo.favoriteVehicle != 0){
             let vehicleHours = Math.floor(cInfo.topVehicleTime/60/60);
             let vehicleMinutes = parseInt(cInfo.topVehicleTime/60 - vehicleHours*60);
-            let vehicleName = await getVehicleName(cInfo.favoriteVehicle);
-            resEmbed.addField("Most played vehicle (time)", vehicleName+" ("+vehicleHours+"h "+vehicleMinutes+"m)", true);
+            try{
+                let vehicleName = await getVehicleName(cInfo.favoriteVehicle);
+                resEmbed.addField("Most played vehicle (time)", vehicleName+" ("+vehicleHours+"h "+vehicleMinutes+"m)", true);
+            }
+            catch(err){
+                //Fail silently
+            }
         }
 
         return resEmbed;
