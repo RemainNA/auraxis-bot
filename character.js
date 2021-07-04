@@ -4,6 +4,7 @@
 const Discord = require('discord.js');
 const weapons = require('./static/weapons.json');
 const vehicles = require('./static/vehicles.json');
+const decals = require('./static/decals.json');
 const got = require('got');
 const messageHandler = require('./messageHandler.js');
 
@@ -341,6 +342,26 @@ module.exports = {
         }
         else{
             resEmbed.addField('BR', cInfo.br, true);
+        }
+
+        // Decal thumbnail
+        if(cInfo.prestige > 0){
+            resEmbed.setThumbnail("http://census.daybreakgames.com/files/ps2/images/static/88685.png");
+        }
+        else if (parseInt(cInfo.br) > 100){
+            resEmbed.setThumbnail(`http://census.daybreakgames.com/files/ps2/images/static/${85033+(parseInt(cInfo.br)-100)}.png`);
+        }
+        else if (cInfo.faction == "1"){ //vs
+            resEmbed.setThumbnail(`http://census.daybreakgames.com/files/ps2/images/static/${decals.vs[parseInt(cInfo.br)]}.png`);
+        }
+        else if (cInfo.faction == "2"){ //nc
+            resEmbed.setThumbnail(`http://census.daybreakgames.com/files/ps2/images/static/${decals.nc[parseInt(cInfo.br)]}.png`);
+        }
+        else if (cInfo.faction == "3"){ //tr
+            resEmbed.setThumbnail(`http://census.daybreakgames.com/files/ps2/images/static/${decals.tr[parseInt(cInfo.br)]}.png`);
+        }
+        else{ //nso
+            resEmbed.setThumbnail(`http://census.daybreakgames.com/files/ps2/images/static/${90110+Math.floor(parseInt(cInfo.br)/10)}.png`);
         }
 
         // Score, SPM
