@@ -102,6 +102,9 @@ module.exports = {
         if(typeof(response.map_list) === 'undefined'){
             throw "API response improperly formatted";
         }
+        if(typeof(response.map_list[0].Regions) === 'undefined'){
+            throw "API response missing Regions field";
+        }
         let IndarData = response.map_list[0].Regions.Row;
         let HossinData = response.map_list[1].Regions.Row;
         let AmerishData = response.map_list[2].Regions.Row;
