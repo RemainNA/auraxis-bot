@@ -104,47 +104,84 @@ const fisuPopulation = function(server){
     return null
 }
 
+const servers = [
+	"connery",
+    "miller",
+    "cobalt",
+    "emerald",
+	"jaegar",
+    "soltech",
+    "genudine",
+    "ceres"
+]
+
 module.exports = {
 	lookup: async function(server){
 		if(messageHandler.badQuery(server)){
 			throw "Server search contains disallowed characters";
 		}
 
-		let world = nameToWorld(server);
-		let normalized = normalize(server);
-		if(world == null){
-			throw`${server} not found.`;
-		}
-		let res = await getPopulation(world);
-
-		let sendEmbed = new Discord.MessageEmbed();
-		let total = Number(res.vs) + Number(res.nc) + Number(res.tr) + Number(res.ns);
-		sendEmbed.setTitle(normalized+" Population - "+total);
-		let vsPc = (res.vs/total)*100;
-		vsPc = Number.parseFloat(vsPc).toPrecision(3);
-		let ncPc = (res.nc/total)*100;
-		ncPc = Number.parseFloat(ncPc).toPrecision(3);
-		let trPc = (res.tr/total)*100;
-		trPc = Number.parseFloat(trPc).toPrecision(3);
-		let nsPc = (res.ns/total)*100;
-		nsPc = Number.parseFloat(nsPc).toPrecision(3);
-		sendEmbed.setDescription(`\
-		\n<:VS:818766983918518272> **VS**: ${res.vs}  |  ${vsPc}%\
-		\n<:NC:818767043138027580> **NC**: ${res.nc}  |  ${ncPc}%\
-		\n<:TR:818988588049629256> **TR**: ${res.tr}  |  ${trPc}%\
-		\n<:NS:819511690726866986> **NSO**: ${res.ns}  |  ${nsPc}%`)
-		sendEmbed.setTimestamp();
-		sendEmbed.setURL(fisuPopulation(server));
-		if(world == 2000){
-			sendEmbed.setFooter('Data from ps4eu.ps2.fisu.pw');
-		}
-		else if(world == 1000){
-			sendEmbed.setFooter('Data from ps4us.ps2.fisu.pw');
+		if(server == 'all'){
+			let resEmbed = new Discord.MessageEmbed();
+			let total = 0;
+			for(const serverName of servers){
+				const pop = await getPopulation(nameToWorld(serverName));
+				const normalized = normalize(serverName);
+				const serverTotal = pop.vs + pop.nc + pop.tr + pop.ns;
+				const vsPc = Number.parseFloat((pop.vs/serverTotal)*100).toPrecision(3);
+				const ncPc = Number.parseFloat((pop.nc/serverTotal)*100).toPrecision(3);
+				const trPc = Number.parseFloat((pop.tr/serverTotal)*100).toPrecision(3);
+				const nsPc = Number.parseFloat((pop.ns/serverTotal)*100).toPrecision(3);
+				const populationField = `\
+				\n<:VS:818766983918518272> **VS**: ${pop.vs}  |  ${vsPc}%\
+				\n<:NC:818767043138027580> **NC**: ${pop.nc}  |  ${ncPc}%\
+				\n<:TR:818988588049629256> **TR**: ${pop.tr}  |  ${trPc}%\
+				\n<:NS:819511690726866986> **NSO**: ${pop.ns}  |  ${nsPc}%`
+				resEmbed.addField(`${normalized} population - ${serverTotal}`, populationField, true);
+				total += serverTotal;
+			}
+			resEmbed.setTitle(`Total population - ${total}`);
+			resEmbed.setFooter('Data from ps2.fisu.pw');
+			resEmbed.setTimestamp();
+			return resEmbed
 		}
 		else{
-			sendEmbed.setFooter('Data from ps2.fisu.pw');
-		}
+			let world = nameToWorld(server);
+			let normalized = normalize(server);
+			if(world == null){
+				throw`${server} not found.`;
+			}
+			let res = await getPopulation(world);
 
-		return sendEmbed;
+			let sendEmbed = new Discord.MessageEmbed();
+			let total = Number(res.vs) + Number(res.nc) + Number(res.tr) + Number(res.ns);
+			sendEmbed.setTitle(normalized+" Population - "+total);
+			let vsPc = (res.vs/total)*100;
+			vsPc = Number.parseFloat(vsPc).toPrecision(3);
+			let ncPc = (res.nc/total)*100;
+			ncPc = Number.parseFloat(ncPc).toPrecision(3);
+			let trPc = (res.tr/total)*100;
+			trPc = Number.parseFloat(trPc).toPrecision(3);
+			let nsPc = (res.ns/total)*100;
+			nsPc = Number.parseFloat(nsPc).toPrecision(3);
+			sendEmbed.setDescription(`\
+			\n<:VS:818766983918518272> **VS**: ${res.vs}  |  ${vsPc}%\
+			\n<:NC:818767043138027580> **NC**: ${res.nc}  |  ${ncPc}%\
+			\n<:TR:818988588049629256> **TR**: ${res.tr}  |  ${trPc}%\
+			\n<:NS:819511690726866986> **NSO**: ${res.ns}  |  ${nsPc}%`)
+			sendEmbed.setTimestamp();
+			sendEmbed.setURL(fisuPopulation(server));
+			if(world == 2000){
+				sendEmbed.setFooter('Data from ps4eu.ps2.fisu.pw');
+			}
+			else if(world == 1000){
+				sendEmbed.setFooter('Data from ps4us.ps2.fisu.pw');
+			}
+			else{
+				sendEmbed.setFooter('Data from ps2.fisu.pw');
+			}
+
+			return sendEmbed;
+		}
 	}
 }
