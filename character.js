@@ -6,7 +6,7 @@ const weapons = require('./static/weapons.json');
 const vehicles = require('./static/vehicles.json');
 const decals = require('./static/decals.json');
 const got = require('got');
-const messageHandler = require('./messageHandler.js');
+const { serverNames, badQuery } = require('./utils');
 
 const basicInfo = async function(cName, platform){
     // Main function for character lookup.  Pulls most stats and calls other functions for medals/top weapon info
@@ -314,7 +314,7 @@ const getAuraxiumCount = async function(cName, platform){
 module.exports = {
     character: async function(cName, platform){
         // Calls function to get basic info, extracts info from returned object and constructs the Discord embed to send
-        if(messageHandler.badQuery(cName)){
+        if(badQuery(cName)){
 			throw "Character search contains disallowed characters";
 		}
         
@@ -370,32 +370,7 @@ module.exports = {
         }
 
         // Server
-        switch (cInfo.server)
-        {
-            case "1":
-                resEmbed.addField('Server', 'Connery', true);
-                break;
-            case "10":
-                resEmbed.addField('Server', 'Miller', true);
-                break;
-            case "13":
-                resEmbed.addField('Server', 'Cobalt', true);
-                break;
-            case "17":
-                resEmbed.addField('Server', 'Emerald', true);
-                break;
-            case "19":
-                resEmbed.addField('Server', 'Jaeger', true);
-                break;
-            case "40":
-                resEmbed.addField('Server', 'SolTech', true);
-                break;
-            case "1000":
-                resEmbed.addField('Server', 'Genudine', true);
-                break;
-            case "2000":
-                resEmbed.addField('Server', 'Ceres', true);
-        }
+        resEmbed.addField('Server', serverNames[Number(cInfo.server)], true);
 
         // Playtime
         hours = Math.floor(cInfo.playTime/60);

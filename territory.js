@@ -2,7 +2,7 @@
 
 const Discord = require('discord.js');
 const got = require('got');
-const messageHandler = require('./messageHandler.js');
+const { serverNames, serverIDs, badQuery } = require('./utils');
 
 const serverToUrl = function(serverID){
     if (serverID < 1000){
@@ -17,17 +17,6 @@ const serverToUrl = function(serverID){
     return null;
 }
 
-const serverIDs = {
-    "connery": 1,
-    "miller": 10,
-    "cobalt": 13,
-    "emerald": 17,
-    "jaegar": 19,
-    "soltech": 40,
-    "genudine": 1000,
-    "ceres": 2000
-}
-
 const fisuTerritory = function(serverID){
     if (serverID < 1000){
         return `https://ps2.fisu.pw/control/?world=${serverID}`;
@@ -39,27 +28,6 @@ const fisuTerritory = function(serverID){
         return 'https://ps4eu.ps2.fisu.pw/control/?world=2000';
     }
     return null;
-}
-
-const printableName = function(server){
-    switch (server.toLowerCase()){
-        case "connery":
-            return 'Connery';
-        case "miller":
-            return 'Miller';
-        case "cobalt":
-            return 'Cobalt';
-        case "emerald":
-            return 'Emerald';
-        case "jaegar":
-            return 'Jaegar';
-        case "soltech":
-            return 'SolTech';
-        case "genudine":
-            return 'Genudine';
-        case "ceres":
-            return 'Ceres';
-    }
 }
 
 const continentBenefit = function(continent){
@@ -90,7 +58,7 @@ module.exports = {
     territoryInfo: async function(serverID){
         let uri = serverToUrl(serverID)
         if(uri == null){
-            throw `${server} not recognized`;
+            throw `Server not recognized`;
         }
         let response = await got(uri).json();
         if(typeof(response.error) !== 'undefined'){
@@ -98,6 +66,9 @@ module.exports = {
         }
         if(response.statusCode == 404){
             throw "API Unreachable";
+        }
+        if(response.returned < 4){
+            throw "API response missing continents";
         }
         if(typeof(response.map_list) === 'undefined'){
             throw "API response improperly formatted";
@@ -175,7 +146,7 @@ module.exports = {
     },
 
     territory: async function(serverName){
-        if(messageHandler.badQuery(serverName)){
+        if(badQuery(serverName)){
 			throw "Server search contains disallowed characters";
         }
 
@@ -186,7 +157,7 @@ module.exports = {
         const serverID = serverIDs[serverName];
         let terObj = await this.territoryInfo(serverID);
         let resEmbed = new Discord.MessageEmbed();
-        resEmbed.setTitle(printableName(serverName)+" territory");
+        resEmbed.setTitle(serverNames[serverID]+" territory");
         resEmbed.setTimestamp();
         resEmbed.setURL(fisuTerritory(serverID));
         let continents = ["Indar", "Hossin", "Amerish", "Esamir"];
@@ -216,5 +187,7 @@ module.exports = {
         }
 
         return resEmbed;
-    }
+    },
+
+    continentBenefit: continentBenefit
 }

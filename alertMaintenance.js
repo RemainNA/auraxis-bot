@@ -3,27 +3,7 @@
 const Discord = require('discord.js');
 const got = require('got');
 const alerts = require('./static/alerts.json');
-
-const serverIdToName = function(server){
-	switch(server){
-		case 1:
-			return "Connery";
-		case 10:
-			return "Miller";
-		case 13:
-			return "Cobalt";
-		case 17:
-			return "Emerald";
-		case 19:
-			return "Jaegar";
-		case 40:
-			return "SolTech";
-		case 1000:
-			return "Genudine";
-		case 2000:
-			return "Ceres";
-	}
-}
+const { serverNames } = require('./utils.js');
 
 const popLevels = {
 	1: "Dead",
@@ -55,7 +35,7 @@ const updateAlert = async function(info, pgClient, discordClient, isComplete){
 		messageEmbed.setColor('RED');
 	}
 	messageEmbed.setDescription(`[${alerts[info.censusMetagameEventType].description}](https://ps2alerts.com/alert/${info.instanceId}?utm_source=auraxis-bot&utm_medium=discord&utm_campaign=partners)`);
-	messageEmbed.addField("Server", serverIdToName(info.world), true);
+	messageEmbed.addField("Server", serverNames[info.world], true);
 	if(isComplete){
 		messageEmbed.addField("Status", "Ended", true);
 	}
