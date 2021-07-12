@@ -1,6 +1,7 @@
 const Discord = require('discord.js');
 const got = require('got');
-const messageHandler = require('./messageHandler.js');
+const { serverNames, badQuery } = require('./utils.js');
+const bases = require('./static/bases.json');
 
 const basicInfo = async function(oTag, platform){
 	let uri = 'http://census.daybreakgames.com/s:'+process.env.serviceID+'/get/'+platform+'/outfit?alias_lower='+oTag+'&c:resolve=member_online_status&c:join=character^on:leader_character_id^to:character_id&c:join=character^on:members.character_id^to:character_id^hide:certs&c:join=characters_world^on:leader_character_id^to:character_id';
@@ -38,7 +39,8 @@ const basicInfo = async function(oTag, platform){
 		worldId: -1,
 		onlineDay: 0,
 		onlineWeek: 0,
-		onlineMonth: 0
+		onlineMonth: 0,
+		outfitID: data.outfit_id
 	}
 	if(typeof(data.leader_character_id_join_characters_world) !== 'undefined'){
 		resObj.worldId = data.leader_character_id_join_characters_world.world_id;
@@ -82,13 +84,36 @@ const basicInfo = async function(oTag, platform){
 	return resObj;
 }
 
+const ownedBases = async function(outfitID, worldID, pgClient){
+	let oBases = [];
+	try{
+		const res = await pgClient.query("SELECT * FROM bases WHERE outfit = $1 AND world = $2;", [outfitID, worldID]);
+		for(const row of res.rows){
+			oBases.push(row);
+		}
+		return oBases;
+	}
+	catch(err){
+		console.log(err);
+		return [];
+	}
+}
+
+const centralBases = [
+    '6200', // The Crown
+    '222280', // The Ascent
+    '254000', // Eisa
+    '298000' // Nason's Defiance
+]
+
 module.exports = {
-	outfit: async function(oTag, platform){
-		if(messageHandler.badQuery(oTag)){
+	outfit: async function(oTag, platform, pgClient){
+		if(badQuery(oTag)){
 			throw "Outfit search contains disallowed characters";
 		}
 
 		const oInfo = await basicInfo(oTag, platform);
+		const oBases = await ownedBases(oInfo.outfitID, oInfo.worldId, pgClient);
 
 		let resEmbed = new Discord.MessageEmbed();
 
@@ -112,31 +137,7 @@ module.exports = {
 		resEmbed.addField("Last day", oInfo.onlineDay+" ("+dayPc+"%)", true);
 		resEmbed.addField("Last week", oInfo.onlineWeek+" ("+weekPc+"%)", true);
 		resEmbed.addField("Last month", oInfo.onlineMonth+" ("+monthPc+"%)", true);
-		switch (oInfo.worldId){
-			case "1":
-				resEmbed.addField('Server', 'Connery', true);
-				break;
-			case "10":
-				resEmbed.addField('Server', 'Miller', true);
-				break;
-			case "13":
-				resEmbed.addField('Server', 'Cobalt', true);
-				break;
-			case "17":
-				resEmbed.addField('Server', 'Emerald', true);
-				break;
-			case "19":
-				resEmbed.addField('Server', 'Jaeger', true);
-				break;
-			case "40":
-				resEmbed.addField('Server', 'SolTech', true);
-				break;
-			case "1000":
-				resEmbed.addField('Server', 'Genudine', true);
-				break;
-			case "2000":
-				resEmbed.addField('Server', 'Ceres', true);
-		}
+		resEmbed.addField("Server", serverNames[Number(oInfo.worldId)], true);
 
 		switch (oInfo.faction){
 			case "1":
@@ -163,6 +164,49 @@ module.exports = {
 		}
 		else if(platform == "ps2ps4eu:v2"){
 			resEmbed.addField("Owner", "["+oInfo.owner+"]("+"https://ps4eu.ps2.fisu.pw/player/?name="+oInfo.owner+")", true);
+		}
+		let auraxium = 0;
+		let synthium = 0;
+		let polystellarite = 0;
+		let ownedNames = [];
+		for(let base of oBases){
+			if(base.facility in bases){
+				const baseInfo = bases[base.facility];
+				ownedNames.push(baseInfo.name);
+				if(base.facility in centralBases){
+					polystellarite += 2;
+					continue;
+				}
+				switch(baseInfo.type){
+					case "Small Outpost":
+						auraxium += 5;
+						break;
+					case "Large Outpost":
+						auraxium += 25;
+						break;
+					case "Construction Outpost":
+						synthium += 3;
+						break;
+					case "Bio Lab":
+						synthium += 8;
+						break;
+					case "Amp Station":
+						synthium += 8;
+						break;
+					case "Tech Plant":
+						synthium += 8;
+						break;
+					case "Containment Site":
+						synthium += 8;
+						break;
+				}
+			}
+		}
+		if((auraxium + synthium + polystellarite) > 0){ //Recognized bases are owned
+			resEmbed.addField('<:Auraxium:818766792376713249>', `+${auraxium/5}/min`, true);
+			resEmbed.addField('<:Synthium:818766858865475584>', `+${synthium/5}/min`, true);
+			resEmbed.addField('<:Polystellarite:818766888238448661>', `+${polystellarite/5}/min`, true);
+			resEmbed.addField('Bases owned', `${ownedNames}`.replace(/,/g, '\n'));
 		}
 
 		return resEmbed;
