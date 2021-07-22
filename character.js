@@ -9,7 +9,7 @@ const messageHandler = require('./messageHandler.js');
 
 const basicInfo = async function(cName, platform){
     // Main function for character lookup.  Pulls most stats and calls other functions for medals/top weapon info
-    let uri = 'https://census.daybreakgames.com/s:'+process.env.serviceID+'/get/'+platform+'/character?name.first_lower='+cName+'&c:resolve=outfit_member_extended,online_status,world,stat_history,weapon_stat_by_faction,weapon_stat&c:join=title,characters_stat^list:1';
+    let uri = 'http://census.daybreakgames.com/s:'+process.env.serviceID+'/get/'+platform+'/character?name.first_lower='+cName+'&c:resolve=outfit_member_extended,online_status,world,stat_history,weapon_stat_by_faction,weapon_stat&c:join=title,characters_stat^list:1';
     let response =  "";
     try{
        response = await got(uri).json(); 
@@ -188,7 +188,7 @@ const basicInfo = async function(cName, platform){
 }
 
 const checkASP = async function(cName, platform){
-    let uri = 'https://census.daybreakgames.com/s:'+process.env.serviceID+'/get/'+platform+'/character?name.first_lower='+cName+'&c:resolve=item_full&c:lang=en';
+    let uri = 'http://census.daybreakgames.com/s:'+process.env.serviceID+'/get/'+platform+'/character?name.first_lower='+cName+'&c:resolve=item_full&c:lang=en';
     let response = "";
     try{
         response = await got(uri).json(); 
@@ -258,7 +258,7 @@ const getWeaponName = async function(ID, platform){
     if(typeof(weapons[ID]) !== 'undefined'){
         return weapons[ID].name;
     }
-    let URI = 'https://census.daybreakgames.com/s:'+process.env.serviceID+'/get/'+platform+'/item/'+ID;
+    let URI = 'http://census.daybreakgames.com/s:'+process.env.serviceID+'/get/'+platform+'/item/'+ID;
     let response = await got(URI).json();
     if(response.returned==1){
         return response.item_list[0].name.en;
@@ -276,7 +276,7 @@ const getVehicleName = async function(ID, platform){
     if(typeof(vehicles[ID]) !== 'undefined'){
         return vehicles[ID].name;
     }
-    let URI = 'https://census.daybreakgames.com/s:'+process.env.serviceID+'/get/'+platform+'/vehicle/'+ID;
+    let URI = 'http://census.daybreakgames.com/s:'+process.env.serviceID+'/get/'+platform+'/vehicle/'+ID;
     let response = await got(URI).json();
     if(response.returned==1){
         return response.vehicle_list[0].name.en;

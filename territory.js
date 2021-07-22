@@ -7,19 +7,19 @@ const messageHandler = require('./messageHandler.js');
 const serverToUrl = function(server){
     switch (server.toLowerCase()){
         case "connery":
-            return 'https://census.daybreakgames.com/s:'+process.env.serviceID+'/get/ps2:v2/map/?world_id=1&zone_ids=2,4,6,8';
+            return 'http://census.daybreakgames.com/s:'+process.env.serviceID+'/get/ps2:v2/map/?world_id=1&zone_ids=2,4,6,8';
         case "miller":
-            return 'https://census.daybreakgames.com/s:'+process.env.serviceID+'/get/ps2:v2/map/?world_id=10&zone_ids=2,4,6,8';
+            return 'http://census.daybreakgames.com/s:'+process.env.serviceID+'/get/ps2:v2/map/?world_id=10&zone_ids=2,4,6,8';
         case "cobalt":
-            return 'https://census.daybreakgames.com/s:'+process.env.serviceID+'/get/ps2:v2/map/?world_id=13&zone_ids=2,4,6,8';
+            return 'http://census.daybreakgames.com/s:'+process.env.serviceID+'/get/ps2:v2/map/?world_id=13&zone_ids=2,4,6,8';
         case "emerald":
-            return 'https://census.daybreakgames.com/s:'+process.env.serviceID+'/get/ps2:v2/map/?world_id=17&zone_ids=2,4,6,8';
+            return 'http://census.daybreakgames.com/s:'+process.env.serviceID+'/get/ps2:v2/map/?world_id=17&zone_ids=2,4,6,8';
         case "soltech":
-            return 'https://census.daybreakgames.com/s:'+process.env.serviceID+'/get/ps2:v2/map/?world_id=40&zone_ids=2,4,6,8';
+            return 'http://census.daybreakgames.com/s:'+process.env.serviceID+'/get/ps2:v2/map/?world_id=40&zone_ids=2,4,6,8';
         case "genudine":
-            return 'https://census.daybreakgames.com/s:'+process.env.serviceID+'/get/ps2ps4us:v2/map/?world_id=1000&zone_ids=2,4,6,8';
+            return 'http://census.daybreakgames.com/s:'+process.env.serviceID+'/get/ps2ps4us:v2/map/?world_id=1000&zone_ids=2,4,6,8';
         case "ceres":
-            return 'https://census.daybreakgames.com/s:'+process.env.serviceID+'/get/ps2ps4eu:v2/map/?world_id=2000&zone_ids=2,4,6,8';
+            return 'http://census.daybreakgames.com/s:'+process.env.serviceID+'/get/ps2ps4eu:v2/map/?world_id=2000&zone_ids=2,4,6,8';
     }
     return null
 }

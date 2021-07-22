@@ -16,7 +16,7 @@ const environmentToPlatform = {
 }
 
 const logEvent = async function(payload, environment, pgClient, discordClient){
-    let uri = 'https://census.daybreakgames.com/s:'+process.env.serviceID+'/get/'+environment+'/character/'+payload.character_id+'?c:resolve=outfit_member';
+    let uri = 'http://census.daybreakgames.com/s:'+process.env.serviceID+'/get/'+environment+'/character/'+payload.character_id+'?c:resolve=outfit_member';
     let response = await got(uri).json();
     if(typeof(response.character_list) === 'undefined'){
         throw null; // TODO: Left this as is
@@ -126,7 +126,7 @@ const alertInfo = async function(payload, environment){
         }
         return resObj;
     }
-    let url = 'https://census.daybreakgames.com/s:'+process.env.serviceID+'/get/'+environment+'/metagame_event/'+payload.metagame_event_id;
+    let url = 'http://census.daybreakgames.com/s:'+process.env.serviceID+'/get/'+environment+'/metagame_event/'+payload.metagame_event_id;
     let response = await got(url).json();
     if(response.returned == 0 || typeof(response.metagame_event_list) === 'undefined' || typeof(response.metagame_event_list[0]) == 'undefined'){
         console.log("Unable to find alert info for id "+payload.metagame_event_id);
