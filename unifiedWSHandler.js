@@ -8,6 +8,7 @@ const config = require('./subscriptionConfig.js');
 const territory = require('./territory.js');
 const alerts = require('./static/alerts.json');
 const bases = require('./static/bases.json');
+const {serverNames} = require('./utils.js');
 
 const environmentToPlatform = {
     "ps2:v2": "pc",
@@ -97,27 +98,6 @@ const logEvent = async function(payload, environment, pgClient, discordClient){
     }
 }
 
-const idToName = function(server){
-    switch(server.toLowerCase()){
-        case "1":
-            return "Connery";
-        case "10":
-            return "Miller";
-        case "13":
-            return "Cobalt";
-        case "17":
-            return "Emerald";
-        case "19":
-            return "Jaegar";
-        case "40":
-            return "SolTech";
-        case "1000":
-            return "Genudine";
-        case "2000":
-            return "Ceres";
-    }
-}
-
 const alertInfo = async function(payload, environment){
     if(typeof(alerts[payload.metagame_event_id]) !== 'undefined'){
         let resObj = {
@@ -170,7 +150,7 @@ const trackedAlerts = [
 
 const alertEvent = async function(payload, environment, pgClient, discordClient){
     if(payload.metagame_event_state_name == "started"){
-        let server = idToName(payload.world_id);
+        let server = serverNames[payload.world_id];
         let response = await alertInfo(payload, environment);
         if(typeof(response.name) != undefined && response.name){
             let sendEmbed = new MessageEmbed();
@@ -192,10 +172,10 @@ const alertEvent = async function(payload, environment, pgClient, discordClient)
                 sendEmbed.setColor('RED');
             }
             sendEmbed.addField('Server', server, true);
-            sendEmbed.addField('Status', "Started", true);
+            sendEmbed.addField('Status', `Started <t:${Math.floor(Date.now()/1000)}:R>`, true);
             let terObj = "";
             try{
-                terObj = await territory.territoryInfo(server);
+                terObj = await territory.territoryInfo(payload.world_id);
             }
             catch{
                 
