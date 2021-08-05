@@ -45,7 +45,7 @@ const basicInfo = async function(cName, platform){
         server: data.world_id,
         playTime: data.times.minutes_played,
         online: data.online_status,
-        lastLogin: data.times.last_login_date,
+        lastLogin: data.times.last_login,
         faction: data.faction_id,
         inOutfit: false,
         stats: false,
@@ -406,7 +406,7 @@ module.exports = {
         else{
             resEmbed.addField('Online', ':x:', true);
         }
-        resEmbed.addField('Last Login', cInfo.lastLogin.substring(0,10), true);
+        resEmbed.addField('Last Login', `<t:${cInfo.lastLogin}:R>`, true);
 
         // Faction, embed color
         if (cInfo.faction == "1"){ //vs

@@ -42,6 +42,8 @@ const alertInfo = async function(server){
 			continent: alert.zone,
 			timeSinceStart: now-start,
 			timeLeft: (start+alert.duration)-now,
+			timeEnd: (start+alert.duration)/1000, //In Unix Epoch, not JS
+			timeStart: start/1000,
 			instanceId: alert.instanceId,
 			bracket: alert.bracket
 		}
@@ -74,13 +76,9 @@ module.exports = {
 		sendEmbed.setFooter("Data from ps2alerts.com");
 		sendEmbed.setTimestamp();
 		for(const x in alertObj){
-			let hoursSinceStart = Math.floor(alertObj[x].timeSinceStart/3600000);
-			let minutesSinceStart = Math.floor(alertObj[x].timeSinceStart/60000) - hoursSinceStart*60;
-			let hoursleft = Math.floor(alertObj[x].timeLeft/3600000);
-			let minutesleft = Math.floor(alertObj[x].timeLeft/60000) - hoursleft*60;
 			sendEmbed.addField(alertObj[x].name, "["+alertObj[x].description+"](https://ps2alerts.com/alert/"+alertObj[x].instanceId+"?utm_source=auraxis-bot&utm_medium=discord&utm_campaign=partners)");
-			sendEmbed.addField("Time since start", hoursSinceStart+"h "+minutesSinceStart+"m", true);
-			sendEmbed.addField("Time left", hoursleft+"h "+minutesleft+"m", true);
+			sendEmbed.addField("Time since start", `Started at <t:${alertObj[x].timeStart}:t>`, true);
+			sendEmbed.addField("Time left", `Ends <t:${alertObj[x].timeEnd}:R>`, true);
 			sendEmbed.addField("Activity Level", popLevels[alertObj[x].bracket], true)
 			sendEmbed.addField('Territory Control', `\
 			\n<:VS:818766983918518272> **VS**: ${alertObj[x].vs}%\

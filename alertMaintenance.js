@@ -37,15 +37,11 @@ const updateAlert = async function(info, pgClient, discordClient, isComplete){
 	messageEmbed.setDescription(`[${alerts[info.censusMetagameEventType].description}](https://ps2alerts.com/alert/${info.instanceId}?utm_source=auraxis-bot&utm_medium=discord&utm_campaign=partners)`);
 	messageEmbed.addField("Server", serverNames[info.world], true);
 	if(isComplete){
-		messageEmbed.addField("Status", "Ended", true);
+		messageEmbed.addField("Status", `Ended <t:${Math.floor(Date.parse(info.timeEnded)/1000)}:R>`, true);
 	}
 	else{
-		let now = Date.now();
-		let start = Date.parse(info.timeStarted);
-		let timeLeft = (start+info.duration)-now
-		let hoursleft = Math.floor(timeLeft/3600000);
-		let minutesleft = Math.floor(timeLeft/60000) - hoursleft*60;
-		messageEmbed.addField("Status", `${hoursleft}h ${minutesleft}m remaining`, true);
+		const start = Date.parse(info.timeStarted);
+		messageEmbed.addField("Status", `Started <t:${Math.floor(start/1000)}:t>\nEnds <t:${Math.floor((start+info.duration)/1000)}:R>`, true);
 	}
 	messageEmbed.addField("Population", `${popLevels[info.bracket]}`, true);
 	try{
