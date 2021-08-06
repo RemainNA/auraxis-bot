@@ -51,3 +51,25 @@ CREATE TABLE IF NOT EXISTS toDelete(
 	messageid TEXT PRIMARY KEY NOT NULL,
 	timeToDelete TIMESTAMPTZ NOT NULL
 );
+
+CREATE TABLE IF NOT EXISTS dashboard(
+	concatKey TEXT NOT NULL UNIQUE,
+	channel TEXT NOT NULL,
+	messageid TEXT PRIMARY KEY NOT NULL,
+	world TEXT NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS tracker(
+	channel TEXT NOT NULL,
+	trackerType TEXT NOT NULL,
+	world TEXT NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS bases(
+	concatKey TEXT PRIMARY KEY NOT NULL,
+	continent INT NOT NULL,
+	world TEXT NOT NULL,
+	facility INT NOT NULL,
+	outfit TEXT, --null if not owned
+	faction INT
+);
