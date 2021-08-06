@@ -70,6 +70,7 @@ const basicInfo = async function(cName, platform){
         resObj.outfitName = data.outfit_member.name;
         resObj.outfitAlias = data.outfit_member.alias;
         resObj.outfitRank = data.outfit_member.member_rank;
+        resObj.outfitRankOrdinal = data.outfit_member.member_rank_ordinal;
     }
     if(data.stats != null){
         resObj.stats = true;
@@ -440,7 +441,7 @@ module.exports = {
             else{
                 resEmbed.addField('Outfit', cInfo.outfitName, true);
             }
-            resEmbed.addField('Outfit Rank', cInfo.outfitRank, true);
+            resEmbed.addField('Outfit Rank', `${cInfo.outfitRank} (${cInfo.outfitRankOrdinal})`, true);
         }
 
         // Top Weapon, Auraxium medals
