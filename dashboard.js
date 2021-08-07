@@ -111,7 +111,12 @@ module.exports = {
 			}
 			catch(err){
 				console.log(`Error updating ${serverName} dashboard`);
-				console.log(err);
+				if(err?.name == 'ParseError'){
+					console.log('ParseError')
+				}
+				else{
+					console.log(err);
+				}
 			}
 		}
 	}
