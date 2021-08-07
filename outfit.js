@@ -100,10 +100,10 @@ const ownedBases = async function(outfitID, worldID, pgClient){
 }
 
 const centralBases = [
-    '6200', // The Crown
-    '222280', // The Ascent
-    '254000', // Eisa
-    '298000' // Nason's Defiance
+    6200, // The Crown
+    222280, // The Ascent
+    254000, // Eisa
+    298000 // Nason's Defiance
 ]
 
 module.exports = {
@@ -173,7 +173,7 @@ module.exports = {
 			if(base.facility in bases){
 				const baseInfo = bases[base.facility];
 				ownedNames.push(baseInfo.name);
-				if(base.facility in centralBases){
+				if(centralBases.includes(base.facility)){
 					polystellarite += 2;
 					continue;
 				}
