@@ -44,7 +44,7 @@ const getWeaponId = async function(name, searchSpace, cName=""){
 }
 
 const characterInfo = async function(cName, wName, platform){
-	let uri = 'https://census.daybreakgames.com/s:'+process.env.serviceID+'/get/'+platform+'/character?name.first_lower='+cName+'&c:resolve=weapon_stat_by_faction,weapon_stat';
+	let uri = 'http://census.daybreakgames.com/s:'+process.env.serviceID+'/get/'+platform+'/character?name.first_lower='+cName+'&c:resolve=weapon_stat_by_faction,weapon_stat';
 	// TODO: This needs improvement, the code that follows the try/catch block should be inside try.
 	let response =  "";
     try{
