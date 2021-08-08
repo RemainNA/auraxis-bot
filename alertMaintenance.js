@@ -92,11 +92,11 @@ const editMessage = async function(embed, messageId, channelId, discordClient){
 		if(resChann.deleted){
 			return;
 		}
-		if (['text','news'].includes(resChann.type) && resChann.permissionsFor(resChann.guild.me).has(Discord.Permissions.FLAGS.VIEW_CHANNEL)) {
+		if (['GUILD_TEXT','GUILD_NEWS'].includes(resChann.type) && resChann.permissionsFor(resChann.guild.me).has(Discord.Permissions.FLAGS.VIEW_CHANNEL)) {
 			const resMsg = await resChann.messages.fetch(messageId);
 			await resMsg.edit({embeds: [embed]});
 		}
-		else if(resChann.type == 'dm'){
+		else if(resChann.type == 'DM'){
 			const resMsg = await resChann.messages.fetch(messageId);
 			await resMsg.edit({embeds: [embed]});
 		}

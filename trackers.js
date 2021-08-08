@@ -55,7 +55,7 @@ module.exports = {
 				name = await territoryName(serverIDs[serverName]);
 			}
 			
-			let newChannel = await guild.channels.create(name, {type: 'voice', reason: 'New tracker channel', permissionOverwrites: [
+			let newChannel = await guild.channels.create(name, {type: 'GUILD_VOICE', reason: 'New tracker channel', permissionOverwrites: [
 				{
 					id: guild.id,
 					deny: ['CONNECT'],
