@@ -2,65 +2,32 @@
 
 const Discord = require('discord.js');
 const got = require('got');
-const messageHandler = require('./messageHandler.js');
+const { serverNames, serverIDs, badQuery } = require('./utils');
 
-const serverToUrl = function(server){
-    switch (server.toLowerCase()){
-        case "connery":
-            return 'http://census.daybreakgames.com/s:'+process.env.serviceID+'/get/ps2:v2/map/?world_id=1&zone_ids=2,4,6,8';
-        case "miller":
-            return 'http://census.daybreakgames.com/s:'+process.env.serviceID+'/get/ps2:v2/map/?world_id=10&zone_ids=2,4,6,8';
-        case "cobalt":
-            return 'http://census.daybreakgames.com/s:'+process.env.serviceID+'/get/ps2:v2/map/?world_id=13&zone_ids=2,4,6,8';
-        case "emerald":
-            return 'http://census.daybreakgames.com/s:'+process.env.serviceID+'/get/ps2:v2/map/?world_id=17&zone_ids=2,4,6,8';
-        case "soltech":
-            return 'http://census.daybreakgames.com/s:'+process.env.serviceID+'/get/ps2:v2/map/?world_id=40&zone_ids=2,4,6,8';
-        case "genudine":
-            return 'http://census.daybreakgames.com/s:'+process.env.serviceID+'/get/ps2ps4us:v2/map/?world_id=1000&zone_ids=2,4,6,8';
-        case "ceres":
-            return 'http://census.daybreakgames.com/s:'+process.env.serviceID+'/get/ps2ps4eu:v2/map/?world_id=2000&zone_ids=2,4,6,8';
+const serverToUrl = function(serverID){
+    if (serverID < 1000){
+        return `https://census.daybreakgames.com/s:${process.env.serviceID}/get/ps2:v2/map/?world_id=${serverID}&zone_ids=2,4,6,8`;
     }
-    return null
+    else if(serverID == 1000){
+        return `https://census.daybreakgames.com/s:${process.env.serviceID}/get/ps2ps4us:v2/map/?world_id=1000&zone_ids=2,4,6,8`;
+    }
+    else if(serverID == 2000){
+        return `https://census.daybreakgames.com/s:${process.env.serviceID}/get/ps2ps4eu:v2/map/?world_id=2000&zone_ids=2,4,6,8`;
+    }
+    return null;
 }
 
-const fisuTerritory = function(server){
-    switch (server.toLowerCase()){
-        case "connery":
-            return 'https://ps2.fisu.pw/control/?world=1';
-        case "miller":
-            return 'https://ps2.fisu.pw/control/?world=10';
-        case "cobalt":
-            return 'https://ps2.fisu.pw/control/?world=13';
-        case "emerald":
-            return 'https://ps2.fisu.pw/control/?world=17';
-        case "soltech":
-            return 'https://ps2.fisu.pw/control/?world=40';
-        case "genudine":
-            return 'https://ps4us.ps2.fisu.pw/control/?world=1000';
-        case "ceres":
-            return 'https://ps4eu.ps2.fisu.pw/control/?world=2000';
+const fisuTerritory = function(serverID){
+    if (serverID < 1000){
+        return `https://ps2.fisu.pw/control/?world=${serverID}`;
     }
-    return null
-}
-
-const printableName = function(server){
-    switch (server.toLowerCase()){
-        case "connery":
-            return 'Connery';
-        case "miller":
-            return 'Miller';
-        case "cobalt":
-            return 'Cobalt';
-        case "emerald":
-            return 'Emerald';
-        case "soltech":
-            return 'SolTech';
-        case "genudine":
-            return 'Genudine';
-        case "ceres":
-            return 'Ceres';
+    else if(serverID == 1000){
+        return 'https://ps4us.ps2.fisu.pw/control/?world=1000';
     }
+    else if(serverID == 2000){
+        return 'https://ps4eu.ps2.fisu.pw/control/?world=2000';
+    }
+    return null;
 }
 
 const continentBenefit = function(continent){
@@ -88,10 +55,10 @@ const continentBenefit = function(continent){
 // TR: 3
 
 module.exports = {
-    territoryInfo: async function(server){
-        let uri = serverToUrl(server)
+    territoryInfo: async function(serverID){
+        let uri = serverToUrl(serverID)
         if(uri == null){
-            throw `${server} not recognized`;
+            throw `Server not recognized`;
         }
         let response = await got(uri).json();
         if(typeof(response.error) !== 'undefined'){
@@ -100,8 +67,14 @@ module.exports = {
         if(response.statusCode == 404){
             throw "API Unreachable";
         }
+        if(response.returned < 4){
+            throw "API response missing continents";
+        }
         if(typeof(response.map_list) === 'undefined'){
             throw "API response improperly formatted";
+        }
+        if(typeof(response.map_list[0].Regions) === 'undefined'){
+            throw "API response missing Regions field";
         }
         let IndarData = response.map_list[0].Regions.Row;
         let HossinData = response.map_list[1].Regions.Row;
@@ -172,16 +145,21 @@ module.exports = {
         return {Indar: IndarObj, Hossin: HossinObj, Amerish: AmerishObj, Esamir: EsamirObj};
     },
 
-    territory: async function(server){
-        if(messageHandler.badQuery(server)){
+    territory: async function(serverName){
+        if(badQuery(serverName)){
 			throw "Server search contains disallowed characters";
         }
-        
-        let terObj = await this.territoryInfo(server);
+
+        if (!(serverName in serverIDs)){
+            throw `${serverName} not found`;
+        }
+
+        const serverID = serverIDs[serverName];
+        let terObj = await this.territoryInfo(serverID);
         let resEmbed = new Discord.MessageEmbed();
-        resEmbed.setTitle(printableName(server)+" territory");
+        resEmbed.setTitle(serverNames[serverID]+" territory");
         resEmbed.setTimestamp();
-        resEmbed.setURL(fisuTerritory(server));
+        resEmbed.setURL(fisuTerritory(serverID));
         let continents = ["Indar", "Hossin", "Amerish", "Esamir"];
         for(let continent of continents){
             let Total = terObj[continent].vs + terObj[continent].nc + terObj[continent].tr;
@@ -209,5 +187,7 @@ module.exports = {
         }
 
         return resEmbed;
-    }
+    },
+
+    continentBenefit: continentBenefit
 }

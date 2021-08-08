@@ -12,7 +12,7 @@ The main event listener for Discord messages is in `main.js`, it starts addition
 
 ## Usage
 
-The bot is designed to be simple to use.  Once added to your server with the [invite link](https://discord.com/api/oauth2/authorize?client_id=437756856774033408&permissions=281616&scope=bot%20applications.commands), commands can be viewed with `!help`.  In order to get the most out of the bot, please grant it the "Read Messages", "Send Messages", and "Embed Links" permissions.
+The bot is designed to be simple to use.  Once added to your server with the [invite link](https://discord.com/api/oauth2/authorize?client_id=437756856774033408&permissions=281616&scope=bot%20applications.commands), commands can be viewed with `/help`.  In order to get the most out of the bot, please grant it the "Read Messages", "Send Messages", "Embed Links", and "Use External Emoji" permissions.
 
 If you would like to deploy your own version of the bot, it is designed to run on Heroku.  When running locally a `.env` file is used for the environment variables, including the Discord Token, Daybreak Census API service ID, Postgres URL (optional), and Twitter API credentials (optional).  Subscription functionality will be disabled if a database URL is not present.
 
@@ -37,109 +37,121 @@ Any support, including just a few kind words, is greatly appreciated!
 
 ### <> = optional, [] = required
 
-#### !help
+#### /help
 
 Returns a list of commands and relevant links.
 
-#### !<ps4us/ps4eu> character [character]
+#### /character [character] \<platform>
 
 Returns the details (BR, Score, Server, Outfit, etc.) of the specified character.  Supports multiple characters per query.
 
-#### !<ps4us/ps4eu> stats [character] \<weapon name/id>
+#### /stats [character] \<weapon name/id> \<platform>
 
-Returns the stats of the specified character with the specified weapon.  If no weapon is entered it will fallback to the information provided by !character.
+Returns the stats of the specified character with the specified weapon.  If no weapon is entered it will fallback to the information provided by /character.
 
-#### !<ps4us/ps4eu> outfit [tag]
+#### /outfit [tag] \<platform>
 
 Returns the details (Name, owner, faction, server, member count, etc.) of the specified outfit tag.  Supports multiple tags per query.
 
-#### !<ps4us/ps4eu> online [tag]
+#### /online [tag] \<platform>
 
 Returns the list of all online members for the specified outfit tag.  Supports multiple tags per query.
 
-#### !subscribe alerts [server]
-
-Subscribes the channel to notifications of alerts starting on the specified servers.  Supports multiple servers per query.  Supports all platforms without prefixes.
-
-#### !unsubscribe alerts [server]
-
-Unsubscribes the channel from the above notifications.  Supports multiple servers per query.  Supports all platforms without prefixes.
-
-#### !<ps4us/ps4eu> subscribe activity [outfit]
-
-Subscribes the channel to notifications of logins and logouts of members in the specified outfit tag.  Supports multiple tags per query.
-
-#### !<ps4us/ps4eu> unsubscribe activity [outfit]
-
-Unsubscribes the channel from the above notifications.  Supports multiple tags per query.
-
-#### !<ps4us/ps4eu> subscribe captures [outfit]
-
-Subscribes the channel to notifications of bases captured by the specified tag.  Supports multiple tags per query.
-
-#### !<ps4us/ps4eu> unsubscribe captures [outfit]
-
-Unsubscribes the channel from the above notifications.  Supports multiple tags per query.
-
-#### !subscribe twitter [wrel/planetside]
-
-Subscribes the channel to live Tweet notifications from the specified account.  Supports multiple users per query.
-
-#### !unsubscribe twitter [wrel/planetside]
-
-Unsubscribes the channel from the above notifications.  Supports multiple users per query.
-
-#### !unsubscribe all
-
-Unsubscribes the channel from all outfit activity, capture, and server alert notifications.
-
-### !config
-
-Displays current subscription configuration options for the channel.
-
-### !config audit
-
-Attempts to fix issues with configuration options if they are missing.
-
-### !config alerts [continent] [enable/disable]
-
-Enables or disables displaying alerts for the given continent, or "other" for alerts such as Outfit Wars.
-
-### !config autodelete [enable/disable]
-
-Enables or disables automatically deleting alert notifications 5 minutes after they complete, and outfit activity notifications 5 minutes after they occur.
-
-#### !population [server]
+#### /population [server]
 
 Returns the population per faction of the specified server.  Supports multiple servers per query.  Supports all platforms without prefixes
 
-#### !territory [server]
+#### /territory [server]
 
 Returns the territory control of each continent on the specified server.  Supports multiple servers per query.  Supports all platforms without prefixes
 
-#### !alerts [server]
+#### /alerts [server]
 
 Returns ongoing alerts for the given server based on information from the ps2alerts api, including time remaining and current territory control.  Supports multiple servers per query.  Currently only supports PC servers.
 
-#### !status
+#### /status
 
 Return the current status of all servers as reported by the Census API.  Takes no parameters.
 
-#### !weapon [weapon name/id]
+#### /weapon [weapon name/id]
 
 Currently in beta.  Returns information on a given weapon.  Accepts weapon IDs, exact names, or partial names.  Only supports one weapon per query.
 
-#### !weaponsearch [name]
+#### /weaponsearch [name]
 
 Returns a list of weapon names and ids matching the given search term.  Only supports one search term per query.
 
-#### !implant [implant name]
+#### /implant [implant name]
 
 Returns information on given implant.  Accepts exact or partial names.  Only supports one implant per query.
 
-#### !<ps4us/ps4eu> asp [name]
+#### /asp [name] \<platform>
 
 Returns the BR a character reached before joining ASP, as well as their current ASP points and skills.  Supports multiple characters per query.  Does not work with NSO.
+
+## Commands requiring manage channel permissions
+
+### These commands will only run if the user has Manage Channel permissions in the current channel
+
+#### /subscribe alerts [server]
+
+Subscribes the channel to notifications of alerts starting on the specified servers.  Supports multiple servers per query.  Supports all platforms without prefixes.
+
+#### /unsubscribe alerts [server]
+
+Unsubscribes the channel from the above notifications.  Supports multiple servers per query.  Supports all platforms without prefixes.
+
+#### /subscribe activity [outfit] \<platform>
+
+Subscribes the channel to notifications of logins and logouts of members in the specified outfit tag.  Supports multiple tags per query.
+
+#### /unsubscribe activity [outfit] \<platform>
+
+Unsubscribes the channel from the above notifications.  Supports multiple tags per query.
+
+#### /subscribe captures [outfit] \<platform>
+
+Subscribes the channel to notifications of bases captured by the specified tag.  Supports multiple tags per query.
+
+#### /unsubscribe captures [outfit] \<platform>
+
+Unsubscribes the channel from the above notifications.  Supports multiple tags per query.
+
+#### /subscribe twitter [wrel/planetside]
+
+Subscribes the channel to live Tweet notifications from the specified account.  Supports multiple users per query.
+
+#### /unsubscribe twitter [wrel/planetside]
+
+Unsubscribes the channel from the above notifications.  Supports multiple users per query.
+
+#### /unsubscribe all
+
+Unsubscribes the channel from all outfit activity, capture, and server alert notifications.
+
+### /config view
+
+Displays current subscription configuration options for the channel.
+
+### /config audit
+
+Attempts to fix issues with configuration options if they are missing.
+
+### /config alerts [continent] [enable/disable]
+
+Enables or disables displaying alerts for the given continent, or "other" for alerts such as Outfit Wars.
+
+### /config autodelete [enable/disable]
+
+Enables or disables automatically deleting alert notifications 5 minutes after they complete, and outfit activity notifications 5 minutes after they occur.
+
+### /tracker [server] [Population/Continents]
+
+Creates a (by default) locked voice channel displaying server population or open continents.  The channel is automatically updated every 10 minutes.
+
+### /dashboard [server]
+
+Posts a message with server population, territory control, and active alerts.  This message is automatically updated every 5 minutes.  Limit 1 dashboard per server per channel.
 
 ## FAQ
 
@@ -147,13 +159,17 @@ Returns the BR a character reached before joining ASP, as well as their current 
 
 Please make sure you have granted it the "Read Messages" "Send Messages" and "Embed Links" permissions in the channel you are using it in.
 
+### Why am I not seeing slash commands?
+
+Certain servers will need to re-invite the bot to enable slash commands.  If you've done that, make sure that the "Use Slash Commands" permission is granted for users in the appropriate channel.
+
 ### The bot is responding, but I'm not seeing any info
 
 In your client settings, under "Text & Images" make sure "Show website preview info from links pasted into chat" is enabled
 
 ### Why am I seeing ":VS:", ":NC:", ":TR:", etc.?
 
-The bot is not allowed to use external emoji in that channel, to fix this grand the Use External Emoji permission to the bot.
+The bot is not allowed to use external emoji in that channel, to fix this grant the Use External Emoji permission to the bot.
 
 ### What is IAHR?
 

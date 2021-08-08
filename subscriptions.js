@@ -101,10 +101,10 @@ module.exports = {
         pgClient.query("INSERT INTO outfitactivity (id, alias, color, channel, platform) VALUES ($1, $2, $3, $4, $5)", [outfit.ID, outfit.alias, color, channel, platform]);
         try{
             await config.initializeConfig(channel, pgClient)
-            return `Subscribed to ${outfit.alias}`;
+            return `Subscribed to ${outfit.alias} activity`;
         }
         catch(err){
-            return `Subscribed to ${outfit.alias}.  Configuration step failed, using default config.`;
+            return `Subscribed to ${outfit.alias} activity.  Configuration step failed, using default config.`;
         }
     },
 
@@ -119,7 +119,7 @@ module.exports = {
             throw `Not subscribed to ${outfit.alias}`;
         }
         pgClient.query('DELETE FROM outfitactivity WHERE channel=$1 AND id=$2 AND platform=$3;', [channel, outfit.ID, platform]);
-        return `Unsubscribed from ${outfit.alias}`;
+        return `Unsubscribed from ${outfit.alias} activity`;
     },
 
     subscribeAlert: async function(pgClient, channel, server){

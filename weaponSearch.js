@@ -1,7 +1,7 @@
 // This file defines functionality to search through known weapons and return matching results
 
 const Discord = require('discord.js');
-const weaponsJSON = require('./weapons.json');
+const weaponsJSON = require('./static/weapons.json');
 const messageHandler = require('./messageHandler.js');
 
 module.exports = {
@@ -30,7 +30,7 @@ module.exports = {
 		}
 		let resEmbed = new Discord.MessageEmbed();
 		resEmbed.setTitle("Weapon search results");
-		resEmbed.addField('\u200b', found);
+		resEmbed.addField('\u200b', `${found}`.replace(/,/g, '\n'));
 
 		return resEmbed;
 	}

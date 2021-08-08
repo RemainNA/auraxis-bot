@@ -23,8 +23,13 @@ async function deleteMessage(channel, message, pgClient){
 		await pgClient.query("DELETE FROM toDelete WHERE messageid = $1;", [message]);
 	}
 	catch(err){
-		console.log(`Error deleting message ${message}`);
-		console.log(err);
+		if(err.code == 10008){
+			//Ignore, unknown message/it was probably already deleted
+		}
+		else{
+			console.log(`Error deleting message ${message}`);
+			console.log(err);
+		}
 		await pgClient.query("DELETE FROM toDelete WHERE messageid = $1;", [message]);
 	}
 }

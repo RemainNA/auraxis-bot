@@ -2,10 +2,11 @@
 // All three platforms are supported, but must be specified in the "platform" parameter
 
 const Discord = require('discord.js');
-const weapons = require('./weapons.json');
-const vehicles = require('./vehicles.json');
+const weapons = require('./static/weapons.json');
+const vehicles = require('./static/vehicles.json');
+const decals = require('./static/decals.json');
 const got = require('got');
-const messageHandler = require('./messageHandler.js');
+const { serverNames, badQuery } = require('./utils');
 
 const basicInfo = async function(cName, platform){
     // Main function for character lookup.  Pulls most stats and calls other functions for medals/top weapon info
@@ -44,7 +45,7 @@ const basicInfo = async function(cName, platform){
         server: data.world_id,
         playTime: data.times.minutes_played,
         online: data.online_status,
-        lastLogin: data.times.last_login_date,
+        lastLogin: data.times.last_login,
         faction: data.faction_id,
         inOutfit: false,
         stats: false,
@@ -69,6 +70,7 @@ const basicInfo = async function(cName, platform){
         resObj.outfitName = data.outfit_member.name;
         resObj.outfitAlias = data.outfit_member.alias;
         resObj.outfitRank = data.outfit_member.member_rank;
+        resObj.outfitRankOrdinal = data.outfit_member.member_rank_ordinal;
     }
     if(data.stats != null){
         resObj.stats = true;
@@ -313,7 +315,7 @@ const getAuraxiumCount = async function(cName, platform){
 module.exports = {
     character: async function(cName, platform){
         // Calls function to get basic info, extracts info from returned object and constructs the Discord embed to send
-        if(messageHandler.badQuery(cName)){
+        if(badQuery(cName)){
 			throw "Character search contains disallowed characters";
 		}
         
@@ -343,38 +345,33 @@ module.exports = {
             resEmbed.addField('BR', cInfo.br, true);
         }
 
+        // Decal thumbnail
+        if(cInfo.prestige > 0){
+            resEmbed.setThumbnail("http://census.daybreakgames.com/files/ps2/images/static/88685.png");
+        }
+        else if (parseInt(cInfo.br) > 100){
+            resEmbed.setThumbnail(`http://census.daybreakgames.com/files/ps2/images/static/${85033+(parseInt(cInfo.br)-100)}.png`);
+        }
+        else if (cInfo.faction == "1"){ //vs
+            resEmbed.setThumbnail(`http://census.daybreakgames.com/files/ps2/images/static/${decals.vs[parseInt(cInfo.br)]}.png`);
+        }
+        else if (cInfo.faction == "2"){ //nc
+            resEmbed.setThumbnail(`http://census.daybreakgames.com/files/ps2/images/static/${decals.nc[parseInt(cInfo.br)]}.png`);
+        }
+        else if (cInfo.faction == "3"){ //tr
+            resEmbed.setThumbnail(`http://census.daybreakgames.com/files/ps2/images/static/${decals.tr[parseInt(cInfo.br)]}.png`);
+        }
+        else{ //nso
+            resEmbed.setThumbnail(`http://census.daybreakgames.com/files/ps2/images/static/${90110+Math.floor(parseInt(cInfo.br)/10)}.png`);
+        }
+
         // Score, SPM
         if(cInfo.stat_history){
             resEmbed.addField('Score (SPM)', parseInt(cInfo.score).toLocaleString()+" ("+Number.parseFloat(cInfo.score/cInfo.playTime).toPrecision(4)+")", true);
         }
 
         // Server
-        switch (cInfo.server)
-        {
-            case "1":
-                resEmbed.addField('Server', 'Connery', true);
-                break;
-            case "10":
-                resEmbed.addField('Server', 'Miller', true);
-                break;
-            case "13":
-                resEmbed.addField('Server', 'Cobalt', true);
-                break;
-            case "17":
-                resEmbed.addField('Server', 'Emerald', true);
-                break;
-            case "19":
-                resEmbed.addField('Server', 'Jaeger', true);
-                break;
-            case "40":
-                resEmbed.addField('Server', 'SolTech', true);
-                break;
-            case "1000":
-                resEmbed.addField('Server', 'Genudine', true);
-                break;
-            case "2000":
-                resEmbed.addField('Server', 'Ceres', true);
-        }
+        resEmbed.addField('Server', serverNames[Number(cInfo.server)], true);
 
         // Playtime
         hours = Math.floor(cInfo.playTime/60);
@@ -397,7 +394,7 @@ module.exports = {
             let accuracy = cInfo.infantryHits/cInfo.infantryShots;
             let hsr = cInfo.infantryHeadshots/cInfo.infantryKills;
             let iahr = accuracy*hsr;
-            resEmbed.addField("IAHR Score", Math.floor(iahr*10000), true);
+            resEmbed.addField("IAHR Score", `${Math.floor(iahr*10000)}`, true);
         }
 
         // Online status
@@ -410,7 +407,7 @@ module.exports = {
         else{
             resEmbed.addField('Online', ':x:', true);
         }
-        resEmbed.addField('Last Login', cInfo.lastLogin.substring(0,10), true);
+        resEmbed.addField('Last Login', `<t:${cInfo.lastLogin}:R>`, true);
 
         // Faction, embed color
         if (cInfo.faction == "1"){ //vs
@@ -444,7 +441,7 @@ module.exports = {
             else{
                 resEmbed.addField('Outfit', cInfo.outfitName, true);
             }
-            resEmbed.addField('Outfit Rank', cInfo.outfitRank, true);
+            resEmbed.addField('Outfit Rank', `${cInfo.outfitRank} (${cInfo.outfitRankOrdinal})`, true);
         }
 
         // Top Weapon, Auraxium medals
@@ -453,7 +450,7 @@ module.exports = {
                 resEmbed.addField('Top Weapon (kills)', cInfo.topWeaponName+" ("+cInfo.mostKills+")", true);
             }
             if(cInfo.auraxCount != "Error"){
-                resEmbed.addField('Auraxium medals', cInfo.auraxCount, true);
+                resEmbed.addField('Auraxium medals', `${cInfo.auraxCount}`, true);
             }
         }
 

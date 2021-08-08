@@ -26,6 +26,9 @@ const implant = require('./implant.js');
 const twitterListener = require('./twitterListener.js');
 const alertMaintenance = require('./alertMaintenance.js');
 const deleteMessages = require('./deleteMessages.js');
+const dashboard = require('./dashboard.js');
+const trackers = require('./trackers.js');
+const openContinents = require('./openContinents.js');
 
 require('dotenv').config();
 
@@ -40,7 +43,13 @@ if(typeof(process.env.TWITTER_CONSUMER_KEY) !== 'undefined'){
 	twitterAvail = true;
 }
 
-const client = new Discord.Client();
+const intentsList = [
+	Discord.Intents.FLAGS.GUILD_MESSAGES,
+	Discord.Intents.FLAGS.DIRECT_MESSAGES,
+	Discord.Intents.FLAGS.GUILDS
+]
+
+const client = new Discord.Client({intents: intentsList, allowedMentions: {parse: ['roles']}, partials: ['CHANNEL']});
 
 // https://discordapp.com/developers/applications/me
 const token = process.env.token;
@@ -61,66 +70,420 @@ client.on('ready', async () => {
 		}
 		alertMaintenance.update(SQLclient, client);
 		deleteMessages.run(SQLclient, client);
+		openContinents.check(SQLclient);
+		trackers.update(SQLclient, client);
+		dashboard.update(SQLclient, client);
 		setInterval(function () { 
 			alertMaintenance.update(SQLclient, client);
 			deleteMessages.run(SQLclient, client);
+			openContinents.check(SQLclient);
 		}, 60000); //Update alerts every minute
+		setInterval(function() {
+			dashboard.update(SQLclient, client);
+		}, 300000) //Update dashboards every 5 minutes
+		setInterval(function() {
+			trackers.update(SQLclient, client);
+		}, 600000) //Update trackers every 10 minutes
 	}
 
-	client.user.setActivity('!help')
+	client.user.setActivity('/help')
 });
 
-const listOfCommands = [
-"!help",
-" ",
-"!<ps4us/ps4eu> character [name]",
-"!<ps4us/ps4eu> stats [name] <weapon name/id>",
-"!<ps4us/ps4eu> outfit [tag]",
-"!<ps4us/ps4eu> online [tag]",
-"!subscribe alerts [server]",
-"!unsubscribe alerts [server]",
-"!<ps4us/ps4eu> subscribe activity [tag]",
-"!<ps4us/ps4eu> unsubscribe activity [tag]",
-"!<ps4us/ps4eu> subscribe captures [tag]",
-"!<ps4us/ps4eu> unsubscribe captures [tag]",
-"!subscribe twitter [wrel/planetside]",
-"!unsubscribe twitter [wrel/planetside]",
-"!unsubscribe all",
-"!config",
-"!config audit",
-"!config alerts [continent] [enable/disable]",
-"!config autodelete [enable/disable]",
-"!population [server]",
-"!territory [server]",
-"!alerts [server]",
-"!status",
-"!weapon [weapon name/id]",
-"!weaponSearch [name]",
-"!implant [implant name]",
-"!<ps4us/ps4eu> asp [name]"
-]
+const listOfCommands = 
+"/help\n\
+\n\
+/character [name] <platform>\n\
+/stats [name] <weapon name/id> <platform>\n\
+/asp [name] <platform>\n\
+/outfit [tag] <platform>\n\
+/online [tag] <platform>\n\
+/population [server]\n\
+/territory [server]\n\
+/alerts [server]\n\
+/status\n\
+/weapon [weapon name/id]\n\
+/weaponSearch [name]\n\
+/implant [implant name]"
 
-const links = [
-	"[GitHub page & FAQ](https://github.com/RemainNA/auraxis-bot)",
-	"[Support server](https://discord.gg/Kf5P6Ut)",
-	"[Invite bot](https://discord.com/api/oauth2/authorize?client_id=437756856774033408&permissions=281616&scope=bot%20applications.commands)",
-	"[Donate on Ko-fi](https://ko-fi.com/remainna)"
-]
+const commandsManageChannels = 
+"/(un)subscribe alerts [server]\n\
+/(un)subscribe activity [tag] <platform>\n\
+/(un)subscribe captures [tag] <platform>\n\
+/(un)subscribe twitter [wrel/planetside]\n\
+/unsubscribe all\n\
+/config view\n\
+/config audit\n\
+/config alerts [continent] [enable/disable]\n\
+/config autodelete [enable/disable]\n\
+/tracker [server] [Population/Continents]\n\
+/dashboard [server]"
+
+const links = '\n\
+[GitHub page & FAQ](https://github.com/RemainNA/auraxis-bot)\n\
+[Support server](https://discord.gg/Kf5P6Ut)\n\
+[Invite bot](https://discord.com/api/oauth2/authorize?client_id=437756856774033408&permissions=281616&scope=bot%20applications.commands)\n\
+[Donate on Ko-fi](https://ko-fi.com/remainna)'
 
 const checkPermissions = async function(channel, user){
-	if(channel.type == 'dm'){
+	if(channel.type == 'DM'){
 		return true;
 	}
-	else if(channel.type == 'text' || channel.type == 'news'){
-		return (await channel.permissionsFor(channel.guild.member(user)).has('MANAGE_CHANNELS'));
+	else if(channel.type == 'GUILD_TEXT' || channel.type == 'GUILD_NEWS'){
+		return (await channel.permissionsFor(channel.guild.members.cache.get(user.id)).has(Discord.Permissions.FLAGS.MANAGE_CHANNELS));
 	}
 	else{
 		return false;
 	}
 }
 
+client.on('interactionCreate', async interaction => {
+	if(!interaction.isCommand()){
+		return;
+	}
+	const options = interaction.options;
+	try{
+		let res = "";
+		let manageChannel = false;
+		let errorList = [];
+		switch(interaction.commandName){
+		case 'ping':
+			await interaction.reply(`Bot's ping to Discord is ${client.ws.ping}ms`);
+			break;
+
+		case 'help':
+			let helpEmbed = new Discord.MessageEmbed();
+			helpEmbed.setTitle("Auraxis bot");
+			helpEmbed.setColor("BLUE");
+			helpEmbed.addField("Commands", listOfCommands);
+			helpEmbed.addField("Requires Manage Channel permission", commandsManageChannels);
+			helpEmbed.addField("Links", links);
+			helpEmbed.setFooter("<> = Optional, [] = Required");
+			await interaction.reply({embeds: [helpEmbed]});
+			break;
+
+		case 'character':
+			if(options.getString('name').split(' ').length > 10){
+				await interaction.reply({content: "This command supports a maximum of 10 characters per query", ephemeral: true});
+			}
+			else if(options.getString('name').split(' ').length > 1){
+				res = [];
+				await interaction.deferReply(); //Give the bot time to look up the results
+				for(const c of options.getString('name').toLowerCase().replace(/\s\s+/g, ' ').split(' ')){
+					try{
+						res.push(await char.character(c, options.getString('platform') || 'ps2:v2'));
+					}
+					catch(err){
+						errorList.push(c);
+					}
+				}
+				if(errorList.length > 0){
+					await interaction.editReply({content: `Error with ${errorList}`, embeds:res});
+				}
+				else{
+					await interaction.editReply({embeds:res});
+				}
+			}
+			else{
+				await interaction.deferReply(); //Give the bot time to look up the results
+				res = await char.character(options.getString('name').toLowerCase(), options.getString('platform') || 'ps2:v2');
+				await interaction.editReply({embeds:[res]});
+			}
+			break;			
+
+		case 'stats':
+			await interaction.deferReply(); //Give the bot time to look up the results
+			if(interaction.options.get('weapon')){
+				res = await stats.lookup(options.getString('name').toLowerCase(), options.getString('weapon').toLowerCase(), options.getString('platform') || 'ps2:v2');
+				await interaction.editReply({embeds:[res]});
+			}
+			else{ //character lookup
+				res = await char.character(interaction.options.getString('name').toLowerCase(), interaction.options.getString('platform') || 'ps2:v2');
+				await interaction.editReply({embeds:[res]});
+			}
+			break;
+
+		case 'outfit':
+			if(options.getString('tag').split(' ').length > 10){
+				await interaction.reply({content: "This command supports a maximum of 10 outfits per query", ephemeral: true});
+			}
+			else if(options.getString('tag').split(' ').length > 1){
+				res = [];
+				await interaction.deferReply(); //Give the bot time to look up the results
+				for(const t of options.getString('tag').toLowerCase().replace(/\s\s+/g, ' ').split(' ')){
+					if(t.length > 4){
+						errorList.push(t);
+						continue;
+					}
+					try{
+						res.push(await outfit.outfit(t, options.getString('platform') || 'ps2:v2', SQLclient));
+					}
+					catch(err){
+						errorList.push(t);
+					}
+				}
+				if(errorList.length > 0){
+					await interaction.editReply({content: `Error with ${errorList}`, embeds:res});
+				}
+				else{
+					await interaction.editReply({embeds:res});
+				}
+			}
+			else{
+				if(options.getString('tag').length > 4){
+					await interaction.reply({content: `${options.getString('tag')} is longer than 4 letters, please enter a tag.`, ephemeral: true});
+					return;
+				}
+				await interaction.deferReply(); //Give the bot time to look up the results
+				res = await outfit.outfit(options.getString('tag').toLowerCase(), options.getString('platform') || 'ps2:v2', SQLclient);
+				await interaction.editReply({embeds:[res]});
+			}
+			break;
+
+		case 'online':
+			if(options.getString('tag').split(' ').length > 10){
+				await interaction.reply({content: "This command supports a maximum of 10 outfits per query", ephemeral: true});
+			}
+			else if(options.getString('tag').split(' ').length > 1){
+				res = [];
+				await interaction.deferReply(); //Give the bot time to look up the results
+				for(const t of options.getString('tag').toLowerCase().replace(/\s\s+/g, ' ').split(' ')){
+					if(t.length > 4){
+						errorList.push(t);
+						continue;
+					}
+					try{
+						res.push(await online.online(t, options.getString('platform') || 'ps2:v2'));
+					}
+					catch(err){
+						errorList.push(t);
+					}
+				}
+				if(errorList.length > 0){
+					await interaction.editReply({content: `Error with ${errorList}`, embeds:res});
+				}
+				else{
+					await interaction.editReply({embeds:res});
+				}
+			}
+			else{
+				if(options.getString('tag').length > 4){
+					await interaction.reply({content: `${options.getString('tag')} is longer than 4 letters, please enter a tag.`, ephemeral: true});
+					return;
+				}
+				await interaction.deferReply(); //Give the bot time to look up the results
+				res = await online.online(options.getString('tag').toLowerCase(), options.getString('platform') || 'ps2:v2');
+				await interaction.editReply({embeds:[res]});
+			}
+			break;
+
+		case 'config':
+			manageChannel = await checkPermissions(interaction.channel, interaction.user);
+			if(!manageChannel){
+				await interaction.reply({content: "Managing subscriptions is only available to users with the Manage Channel permission", ephemeral: true})
+				return;
+			}
+			await interaction.deferReply();
+			switch(options.getSubcommand()){
+			case 'view':
+				res = await subscriptionConfig.displayConfig(interaction.channelId, SQLclient);
+				if(typeof(res) === 'string'){
+					await interaction.editReply(res);
+				}
+				else{
+					await interaction.editReply({embeds: [res]});
+				}
+				break;
+
+			case 'audit':
+				res = await subscriptionConfig.audit(interaction.channelId, SQLclient);
+				await interaction.editReply(res);
+				break;
+
+			case 'alerts':
+				res = await subscriptionConfig.setAlert(options.getString("continent"), options.getString("setting"), interaction.channelId, SQLclient);
+				await interaction.editReply(res);
+				break;
+			
+			case 'autodelete':
+				res = await subscriptionConfig.setAutoDelete(options.getString("setting"), interaction.channelId, SQLclient);
+				await interaction.editReply(res);
+			 	break;
+			
+			default:
+				interaction.editReply("Unknown command error");
+			}
+			
+			break;
+
+		case 'subscribe':
+			manageChannel = await checkPermissions(interaction.channel, interaction.user);
+			if(!manageChannel){
+				await interaction.reply({content: "Managing subscriptions is only available to users with the Manage Channel permission", ephemeral: true})
+				return;
+			}
+			await interaction.deferReply();
+			switch(options.getSubcommand()){
+			case 'alerts':
+				res = await subscription.subscribeAlert(SQLclient, interaction.channelId, options.getString('server'));
+				await interaction.editReply(res);
+				break;
+
+			case 'activity':
+				res = await subscription.subscribeActivity(SQLclient, interaction.channelId, options.getString('tag'), options.getString('platform') || 'ps2:v2');
+				await interaction.editReply(res);
+				break;
+
+			case 'captures':
+				res = await subscription.subscribeCaptures(SQLclient, interaction.channelId, options.getString('tag'), options.getString('platform') || 'ps2:v2');
+				await interaction.editReply(res);
+				break;
+
+			case 'twitter':
+				res = await subscription.subscribeTwitter(SQLclient, interaction.channelId, options.getString('user'));
+				await interaction.editReply(res);
+				break;
+
+			default:
+				interaction.editReply("Unknown command error");
+			}
+			
+			break;
+
+		case 'unsubscribe':
+			manageChannel = await checkPermissions(interaction.channel, interaction.user);
+			if(!manageChannel){
+				await interaction.reply({content: "Managing subscriptions is only available to users with the Manage Channel permission", ephemeral: true})
+				return;
+			}
+			await interaction.deferReply();
+			switch(options.getSubcommand()){
+			case 'alerts':
+				res = await subscription.unsubscribeAlert(SQLclient, interaction.channelId, options.getString("server"));
+				await interaction.editReply(res);
+			 	break;
+
+			case 'activity':
+				res = await subscription.unsubscribeActivity(SQLclient, interaction.channelId, options.getString("tag"), options.getString("platform") || 'ps2:v2');
+				await interaction.editReply(res);
+				break;
+
+			case 'captures':
+				res = await subscription.unsubscribeCaptures(SQLclient, interaction.channelId, options.getString("tag"), options.getString("platform") || 'ps2:v2');
+				await interaction.editReply(res);
+				break;
+
+			case 'twitter':
+				res = await subscription.unsubscribeTwitter(SQLclient, interaction.channelId, options.getString("user"));
+				await interaction.editReply(res);
+				break;
+
+			case 'all':
+				res = await subscription.unsubscribeAll(SQLclient, interaction.channelId);
+				await interaction.editReply(res);
+				break;
+
+			default:
+				interaction.editReply("Unknown command error");
+			}
+			
+			break;
+
+		case 'population':
+			await interaction.deferReply();
+			res = await population.lookup(options.getString("server"));
+			await interaction.editReply({embeds: [res]});
+			break;
+
+		case 'territory':
+			await interaction.deferReply();
+			res = await territory.territory(options.getString("server"));
+			await interaction.editReply({embeds: [res]});
+			break;
+
+		case 'alerts':
+			await interaction.deferReply();
+			res = await alerts.activeAlerts(options.getString("server"));
+			await interaction.editReply({embeds: [res]});
+			break;
+
+		case 'status':
+			await interaction.deferReply();
+			res = await status.servers();
+			await interaction.editReply({embeds: [res]});
+			break;
+
+		case 'weapon':
+			res = await weapon.lookup(options.getString("query"));
+			await interaction.reply({embeds: [res]});
+			break;
+
+		case 'weaponsearch':
+			res = await weaponSearch.lookup(options.getString("query"));
+			await interaction.reply({embeds: [res], ephemeral: true});
+			break;
+
+		case 'implant':
+			res = await implant.lookup(options.getString("query"));
+			await interaction.reply({embeds: [res]});
+			break;
+
+		case 'asp':
+			await interaction.deferReply();
+			res = await asp.originalBR(options.getString('name').toLowerCase(), options.getString('platform') || 'ps2:v2');
+			await interaction.editReply({embeds: [res]});
+			break;
+
+		case 'dashboard':
+			manageChannel = await checkPermissions(interaction.channel, interaction.user);
+			if(!manageChannel){
+				await interaction.reply({content: "Only users with the Manage Channel permission can create dashboards", ephemeral: true})
+				return;
+			}
+			await interaction.deferReply();
+			res = await dashboard.create(interaction.channel, options.getString("server"), SQLclient);
+			await interaction.editReply(res);
+			break;
+
+		case 'tracker':
+			if(interaction.channel.type == 'DM'){
+				await interaction.reply({content: "Cannot create trackers in DMs", ephemeral: true})
+			}
+			manageChannel = await checkPermissions(interaction.channel, interaction.user);
+			if(!manageChannel){
+				await interaction.reply({content: "Only users with the Manage Channel permission can create dashboards", ephemeral: true})
+				return;
+			}
+			await interaction.deferReply();
+			res = await trackers.create(options.getString('type'), options.getString('server'), interaction.guild, client, SQLclient);
+			await interaction.editReply(res);
+			break;
+		}
+		
+	}
+	catch(err){
+		if(typeof(err) !== 'string'){
+			console.log(`Error in ${interaction.commandName}`);
+			console.log(err);
+			if(interaction.deferred){
+				await interaction.editReply("Error occurred when handling command");
+			}
+			else{
+				await interaction.reply("Error occurred when handling command");
+			}
+		}
+		else{
+			if(interaction.deferred){
+				await interaction.editReply(err);
+			}
+			else{
+				await interaction.reply(err);
+			}
+		}
+	}
+})
+
 // Create an event listener for messages
-client.on('message', async message => {
+client.on('messageCreate', async message => {
 	if(message.author == client.user || !message.content.startsWith("!")){
 		return;
 	}
@@ -135,16 +498,17 @@ client.on('message', async message => {
 		helpEmbed.setTitle("Auraxis bot");
 		helpEmbed.setColor("BLUE");
 		helpEmbed.addField("Commands", listOfCommands);
+		helpEmbed.addField("Requires Manage Channel permission", commandsManageChannels);
 		helpEmbed.addField("Links", links);
 		helpEmbed.setFooter("<> = Optional, [] = Required");
-		messageHandler.send(message.channel, helpEmbed, 'help', true);
+		messageHandler.send(message.channel, {embeds: [helpEmbed]}, 'help', true);
 	}
 	else if (message.content.substring(0,11).toLowerCase() == '!character '){
 		let chars = message.content.substring(11).toLowerCase().split(" ");
 		for(const x in chars){
 			if(chars[x] != ""){
 				char.character(chars[x], 'ps2:v2')
-					.then(res => messageHandler.send(message.channel, res, "PC Character", true))
+					.then(res => messageHandler.send(message.channel, {embeds: [res]}, "PC Character", true))
 					.catch(err => messageHandler.handleError(message.channel, err, "PC Character"))
 			}
 		}
@@ -154,7 +518,7 @@ client.on('message', async message => {
 		for(const x in chars){
 			if(chars[x] != ""){
 				char.character(chars[x], 'ps2ps4us:v2')
-					.then(res => messageHandler.send(message.channel, res, "PS4US Character", true))
+					.then(res => messageHandler.send(message.channel, {embeds: [res]}, "PS4US Character", true))
 					.catch(err => messageHandler.handleError(message.channel, err, "PS4US Character"))
 			}
 		}
@@ -164,7 +528,7 @@ client.on('message', async message => {
 		for(const x in chars){
 			if(chars[x] != ""){
 				char.character(chars[x], 'ps2ps4eu:v2')
-					.then(res => messageHandler.send(message.channel, res, "PS4EU Character", true))
+					.then(res => messageHandler.send(message.channel, {embeds: [res]}, "PS4EU Character", true))
 					.catch(err => messageHandler.handleError(message.channel, err, "PS4EU Character"))
 			}
 		}
@@ -175,12 +539,12 @@ client.on('message', async message => {
 		let wName = message.content.substring((7+cName.length+1)).trim();
 		if(wName == ""){
 			char.character(cName, 'ps2:v2')
-				.then(res => messageHandler.send(message.channel, res, "PC Character by stats", true))
+				.then(res => messageHandler.send(message.channel, {embeds: [res]}, "PC Character by stats", true))
 				.catch(err => messageHandler.handleError(message.channel, err, "PC Character by stats"))
 		}
 		else{
 			stats.lookup(cName, wName, 'ps2:v2')
-				.then(res => messageHandler.send(message.channel, res, "PC Stats", true))
+				.then(res => messageHandler.send(message.channel, {embeds: [res]}, "PC Stats", true))
 				.catch(err => messageHandler.handleError(message.channel, err, "PC Stats"))	
 		}
 	}
@@ -190,12 +554,12 @@ client.on('message', async message => {
 		let wName = message.content.substring((13+cName.length+1));
 		if(wName == ""){
 			char.character(cName, 'ps2ps4us:v2')
-				.then(res => messageHandler.send(message.channel, res, "PS4US Character by stats", true))
+				.then(res => messageHandler.send(message.channel, {embeds: [res]}, "PS4US Character by stats", true))
 				.catch(err => messageHandler.handleError(message.channel, err, "PS4US Character by stats"))
 		}
 		else{
 			stats.lookup(cName, wName, 'ps2ps4us:v2')
-				.then(res => messageHandler.send(message.channel, res, "PS4US Stats", true))
+				.then(res => messageHandler.send(message.channel, {embeds: [res]}, "PS4US Stats", true))
 				.catch(err => messageHandler.handleError(message.channel, err, "PS4US Stats"))	
 		}
 	}
@@ -205,12 +569,12 @@ client.on('message', async message => {
 		let wName = message.content.substring((13+cName.length+1));
 		if(wName == ""){
 			char.character(cName, 'ps2ps4eu:v2')
-				.then(res => messageHandler.send(message.channel, res, "PS4EU Character by stats", true))
+				.then(res => messageHandler.send(message.channel, {embeds: [res]}, "PS4EU Character by stats", true))
 				.catch(err => messageHandler.handleError(message.channel, err, "PS4EU Character by stats"))
 		}
 		else{
 			stats.lookup(cName, wName, 'ps2ps4eu:v2')
-				.then(res => messageHandler.send(message.channel, res, "PS4EU Stats", true))
+				.then(res => messageHandler.send(message.channel, {embeds: [res]}, "PS4EU Stats", true))
 				.catch(err => messageHandler.handleError(message.channel, err, "PS4EU Stats"))	
 		}
 		
@@ -223,8 +587,8 @@ client.on('message', async message => {
 					messageHandler.send(message.channel, tags[x]+" is longer than 4 letters, please enter a tag.", "PC tag too long");
 					continue;
 				}
-				outfit.outfit(tags[x], 'ps2:v2')
-					.then(res => messageHandler.send(message.channel, res, "PC Outfit", true))
+				outfit.outfit(tags[x], 'ps2:v2', SQLclient)
+					.then(res => messageHandler.send(message.channel, {embeds: [res]}, "PC Outfit", true))
 					.catch(err => messageHandler.handleError(message.channel, err, "PC Outfit"))
 			}
 		}
@@ -237,8 +601,8 @@ client.on('message', async message => {
 					messageHandler.send(message.channel, tags[x]+" is longer than 4 letters, please enter a tag.", "PS4US tag too long");
 					continue;
 				}
-				outfit.outfit(tags[x], 'ps2ps4us:v2')
-					.then(res => messageHandler.send(message.channel, res, "PS4US Outfit", true))
+				outfit.outfit(tags[x], 'ps2ps4us:v2', SQLclient)
+					.then(res => messageHandler.send(message.channel, {embeds: [res]}, "PS4US Outfit", true))
 					.catch(err => messageHandler.handleError(message.channel, err, "PS4US Outfit"))
 			}
 		}
@@ -251,8 +615,8 @@ client.on('message', async message => {
 					messageHandler.send(message.channel, tags[x]+" is longer than 4 letters, please enter a tag.", "PS4EU tag too long");
 					continue;
 				}
-				outfit.outfit(tags[x], 'ps2ps4eu:v2')
-					.then(res => messageHandler.send(message.channel, res, "PS4EU Outfit", true))
+				outfit.outfit(tags[x], 'ps2ps4eu:v2', SQLclient)
+					.then(res => messageHandler.send(message.channel, {embeds: [res]}, "PS4EU Outfit", true))
 					.catch(err => messageHandler.handleError(message.channel, err, "PS4EU Outfit"))
 			}
 		}
@@ -266,7 +630,7 @@ client.on('message', async message => {
 					continue;
 				}
 				online.online(tags[x], 'ps2:v2')
-					.then(res => messageHandler.send(message.channel, res, "PC Online", true))
+					.then(res => messageHandler.send(message.channel, {embeds: [res]}, "PC Online", true))
 					.catch(err => messageHandler.handleError(message.channel, err, "PC Online"))
 			}
 		}
@@ -280,7 +644,7 @@ client.on('message', async message => {
 					continue;
 				}
 				online.online(tags[x], 'ps2ps4us:v2')
-					.then(res => messageHandler.send(message.channel, res, "PS4US Online", true))
+					.then(res => messageHandler.send(message.channel, {embeds: [res]}, "PS4US Online", true))
 					.catch(err => messageHandler.handleError(message.channel, err, "PS4US Online"))
 			}
 		}
@@ -294,7 +658,7 @@ client.on('message', async message => {
 					continue;
 				}
 				online.online(tags[x], 'ps2ps4eu:v2')
-					.then(res => messageHandler.send(message.channel, res, "PS4EU Online", true))
+					.then(res => messageHandler.send(message.channel, {embeds: [res]}, "PS4EU Online", true))
 					.catch(err => messageHandler.handleError(message.channel, err, "PS4EU Online"))
 			}
 		}
@@ -305,7 +669,7 @@ client.on('message', async message => {
 		for(const x in servers){
 			if(servers[x] != ""){
 				population.lookup(servers[x])
-					.then(res => messageHandler.send(message.channel, res, "Population", true))
+					.then(res => messageHandler.send(message.channel, {embeds: [res]}, "Population", true))
 					.catch(err => messageHandler.handleError(message.channel, err, "Population"))
 			}
 		}
@@ -315,7 +679,7 @@ client.on('message', async message => {
 		for(const x in chars){
 			if(chars[x] != ""){
 				asp.originalBR(chars[x], "ps2:v2")
-					.then(res => messageHandler.send(message.channel, res, "PC ASP", true))
+					.then(res => messageHandler.send(message.channel, {embeds: [res]}, "PC ASP", true))
 					.catch(err => messageHandler.handleError(message.channel, err, "PC ASP"))
 			}
 		}
@@ -325,7 +689,7 @@ client.on('message', async message => {
 		for(const x in chars){
 			if(chars[x] != ""){
 				asp.originalBR(chars[x], "ps2ps4us:v2")
-					.then(res => messageHandler.send(message.channel, res, "PS4US ASP", true))
+					.then(res => messageHandler.send(message.channel, {embeds: [res]}, "PS4US ASP", true))
 					.catch(err => messageHandler.handleError(message.channel, err, "PC ASP"))
 			}
 		}
@@ -335,7 +699,7 @@ client.on('message', async message => {
 		for(const x in chars){
 			if(chars[x] != ""){
 				asp.originalBR(chars[x], "ps2ps4eu:v2")
-					.then(res => messageHandler.send(message.channel, res, "PS4EU ASP", true))
+					.then(res => messageHandler.send(message.channel, {embeds: [res]}, "PS4EU ASP", true))
 					.catch(err => messageHandler.handleError(message.channel, err, "PC ASP"))
 			}
 		}
@@ -345,7 +709,7 @@ client.on('message', async message => {
 		for(const x in servers){
 			if(servers[x] != ""){
 				territory.territory(servers[x])
-					.then(res => messageHandler.send(message.channel, res, "Territory", true))
+					.then(res => messageHandler.send(message.channel, {embeds: [res]}, "Territory", true))
 					.catch(err => messageHandler.handleError(message.channel, err, "Territory"))
 			}
 		}
@@ -355,29 +719,29 @@ client.on('message', async message => {
 		for(const x in servers){
 			if(servers[x] != ""){
 				alerts.activeAlerts(servers[x])
-					.then(res => messageHandler.send(message.channel, res, "Alerts", true))
+					.then(res => messageHandler.send(message.channel, {embeds: [res]}, "Alerts", true))
 					.catch(err => messageHandler.handleError(message.channel, err, "Alerts"))
 			}
 		}
 	}
 	else if (message.content.toLowerCase() == '!status') {
 		status.servers()
-			.then(res => messageHandler.send(message.channel, res, "Server status", true))
+			.then(res => messageHandler.send(message.channel, {embeds: [res]}, "Server status", true))
 			.catch(err => messageHandler.handleError(message.channel, err, "Server status"))
 	}
 	else if (message.content.substring(0,8).toLowerCase() == '!weapon ') {
 		weapon.lookup(message.content.substring(8))
-			.then(res => messageHandler.send(message.channel, res, "Weapon", true))
+			.then(res => messageHandler.send(message.channel, {embeds: [res]}, "Weapon", true))
 			.catch(err => messageHandler.handleError(message.channel, err, "Weapon"))
 	}
 	else if (message.content.substring(0,14).toLowerCase() == '!weaponsearch ') {
 		weaponSearch.lookup(message.content.substring(14))
-			.then(res => messageHandler.send(message.channel, res, "Weapon search", true))
+			.then(res => messageHandler.send(message.channel, {embeds: [res]}, "Weapon search", true))
 			.catch(err => messageHandler.handleError(message.channel, err, "Weapon search"))
 	}
 	else if (message.content.substring(0,9).toLowerCase() == '!implant ') {
 		implant.lookup(message.content.substring(9))
-			.then(res => messageHandler.send(message.channel, res, "Implant", true))
+			.then(res => messageHandler.send(message.channel, {embeds: [res]}, "Implant", true))
 			.catch(err => messageHandler.handleError(message.channel, err, "Implant"))
 	}
 	else if(messageLower.startsWith("!config")){
@@ -388,9 +752,9 @@ client.on('message', async message => {
 		else if(!runningOnline){
 			messageHandler.send(message.channel, "Subscription functionality currently disabled", "Running offline error");
 		}
-		else if ((messageLower == '!config' || messageLower == '!config view')){
+		else if (messageLower == '!config view'){
 			subscriptionConfig.displayConfig(message.channel.id, SQLclient)
-				.then(res => messageHandler.send(message.channel, res, "Display subscription config", true))
+				.then(res => messageHandler.send(message.channel, {embeds: [res]}, "Display subscription config", true))
 				.catch(err => messageHandler.handleError(message.channel, err, "Display subscription config"))
 		}
 		else if (message.content.toLowerCase() == '!config audit'){
@@ -399,7 +763,8 @@ client.on('message', async message => {
 				.catch(err => messageHandler.handleError(message.channel, err, "Config audit"))
 		}
 		else if (message.content.substring(0,15).toLowerCase() == '!config alerts '){
-			subscriptionConfig.setAlert(message.content.substring(15), message.channel.id, SQLclient)
+			const configOptions = message.content.toLowerCase().split(" ");
+			subscriptionConfig.setAlert(configOptions[2], configOptions[3], message.channel.id, SQLclient)
 				.then(res => messageHandler.send(message.channel, res, "Alert config", true))
 				.catch(err => messageHandler.handleError(message.channel, err, "Alert config"))
 		}

@@ -35,13 +35,13 @@ const basicInfo = async function(cName, platform){
 		throw "NSO not supported";
 	}
 	if(data.prestige_level == "0"){
-		throw `${cName} has not yet unlocked ASP`;
+		throw `${data.name.first} has not yet unlocked ASP`;
 	}
 	let br = Number(data.battle_rank.value);
 	let availableTokens = 1+Math.floor(br/25);
 	let aspTitle = false;
 	let decals = []; //count br 101-120 decals
-	let tokens = [];
+	let tokens = "";
 	for (const x in data.items){
 		if (Number(data.items[x].item_id) >= 803931 && Number(data.items[x].item_id) <= 803950){
 			//record br 101-120 decals
@@ -49,8 +49,8 @@ const basicInfo = async function(cName, platform){
 		}
 		else if(data.items[x].item_type_id == "1" && data.items[x].item_category_id == "133"){
 			//record unlocked ASP items
-			tokens.push(data.items[x].name.en+": "+data.items[x].description.en);
-			tokens.push('----');
+			tokens += `${data.items[x].name.en}: ${data.items[x].description.en}\n`;
+			tokens += '----\n'
 			availableTokens -= 1;
 		}
 		if(Number(data.items[x].item_id) == 6004399){
@@ -100,9 +100,9 @@ module.exports = {
 			cInfo.unlocks = "None";
 		}
 		else{
-			cInfo.unlocks.pop();
+			cInfo.unlocks = cInfo.unlocks.substring(0,(cInfo.unlocks.length-6));
 		}
-		resEmbed.addField("Available Points", cInfo.availableTokens);
+		resEmbed.addField("Available Points", `${cInfo.availableTokens}`);
 		resEmbed.addField("ASP Skills", cInfo.unlocks);
 		resEmbed.setThumbnail("http://census.daybreakgames.com/files/ps2/images/static/88688.png");
 

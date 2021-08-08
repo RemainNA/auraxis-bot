@@ -2,28 +2,8 @@
 
 const Discord = require('discord.js');
 const got = require('got');
-const alerts = require('./alerts.json');
-
-const serverIdToName = function(server){
-	switch(server){
-		case 1:
-			return "Connery";
-		case 10:
-			return "Miller";
-		case 13:
-			return "Cobalt";
-		case 17:
-			return "Emerald";
-		case 19:
-			return "Jaegar";
-		case 40:
-			return "SolTech";
-		case 1000:
-			return "Genudine";
-		case 2000:
-			return "Ceres";
-	}
-}
+const alerts = require('./static/alerts.json');
+const { serverNames } = require('./utils.js');
 
 const popLevels = {
 	1: "Dead",
@@ -55,19 +35,15 @@ const updateAlert = async function(info, pgClient, discordClient, isComplete){
 		messageEmbed.setColor('RED');
 	}
 	messageEmbed.setDescription(`[${alerts[info.censusMetagameEventType].description}](https://ps2alerts.com/alert/${info.instanceId}?utm_source=auraxis-bot&utm_medium=discord&utm_campaign=partners)`);
-	messageEmbed.addField("Server", serverIdToName(info.world), true);
+	messageEmbed.addField("Server", serverNames[info.world], true);
 	if(isComplete){
-		messageEmbed.addField("Status", "Ended", true);
+		messageEmbed.addField("Status", `Ended <t:${Math.floor(Date.parse(info.timeEnded)/1000)}:R>`, true);
 	}
 	else{
-		let now = Date.now();
-		let start = Date.parse(info.timeStarted);
-		let timeLeft = (start+info.duration)-now
-		let hoursleft = Math.floor(timeLeft/3600000);
-		let minutesleft = Math.floor(timeLeft/60000) - hoursleft*60;
-		messageEmbed.addField("Status", `${hoursleft}h ${minutesleft}m remaining`, true);
+		const start = Date.parse(info.timeStarted);
+		messageEmbed.addField("Status", `Started <t:${Math.floor(start/1000)}:t>\nEnds <t:${Math.floor((start+info.duration)/1000)}:R>`, true);
 	}
-	messageEmbed.addField("Population", popLevels[info.bracket], true);
+	messageEmbed.addField("Population", `${popLevels[info.bracket]}`, true);
 	try{
 		messageEmbed.addField("Territory Control", `\
 		\n<:VS:818766983918518272> **VS**: ${info.result.vs}%\
@@ -83,7 +59,7 @@ const updateAlert = async function(info, pgClient, discordClient, isComplete){
 			messageEmbed.addField("Result", "Draw", true);
 		}
 		else{
-			messageEmbed.addField("Result", winnerFaction[info.result.victor], true);
+			messageEmbed.addField("Result", `${winnerFaction[info.result.victor]}`, true);
 			const minutesDone = Math.floor((Date.now() - Date.parse(info.timeEnded))/60000);
 			if (!(info.result.victor in winnerFaction) && minutesDone < 5){
 				isComplete = false; //Don't delete from list, retry up to 5 minutes later when field may be populated
@@ -116,13 +92,13 @@ const editMessage = async function(embed, messageId, channelId, discordClient){
 		if(resChann.deleted){
 			return;
 		}
-		if (['text','news'].includes(resChann.type) && resChann.permissionsFor(resChann.guild.me).has('VIEW_CHANNEL')) {
+		if (['GUILD_TEXT','GUILD_NEWS'].includes(resChann.type) && resChann.permissionsFor(resChann.guild.me).has(Discord.Permissions.FLAGS.VIEW_CHANNEL)) {
 			const resMsg = await resChann.messages.fetch(messageId);
-			await resMsg.edit(embed);
+			await resMsg.edit({embeds: [embed]});
 		}
-		else if(resChann.type == 'dm'){
+		else if(resChann.type == 'DM'){
 			const resMsg = await resChann.messages.fetch(messageId);
-			await resMsg.edit(embed);
+			await resMsg.edit({embeds: [embed]});
 		}
 	}
 	catch(err) {

@@ -68,30 +68,10 @@ module.exports = {
 		}
 	},
 
-	setAlert: async function(message, channel, pgClient){
+	setAlert: async function(continent, setting, channel, pgClient){
 		let res = await pgClient.query("SELECT * FROM subscriptionConfig WHERE channel = $1", [channel])
 		if (res.rows.length == 0){
 			throw("This channel has no active subscriptions so cannot be configured.  If you believe this is incorrect please run `!config audit`");
-		}
-		if(messageHandler.badQuery(message)){
-			throw("Query contains disallowed characters");
-		}
-		let params = message.trim().toLowerCase().split(" ");
-		if(params.length != 2){
-			throw("Format unrecognized.  Please use the format !config alerts [continent] [enable/disable]");
-		}
-		let continent = "";
-		let setting = "";
-		if(params[0] == 'enable' || params[0] == 'disable'){
-			setting = params[0];
-			continent = params[1];
-		}
-		else if(params[1] == 'enable' || params[1] == 'disable'){
-			setting = params[1];
-			continent = params[0];
-		}
-		else{
-			throw("Arguments not recognized.  Please use the format !config alerts [continent] [enable/disable]");
 		}
 		if(!continents.includes(continent)){
 			throw("Continent unrecognized.  Options are Koltyr, Indar, Hossin, Amerish, or Esamir.");

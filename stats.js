@@ -1,7 +1,7 @@
 // This file implements functions to look up a character's stats with a specific weapon
 
 const Discord = require('discord.js');
-const weaponsJSON = require('./weapons.json');
+const weaponsJSON = require('./static/weapons.json');
 const got = require('got');
 const messageHandler = require('./messageHandler.js');
 
@@ -194,7 +194,7 @@ module.exports = {
 		resEmbed.addField("KD", Number.parseFloat(totalKills/cInfo.deaths).toPrecision(3), true);
 		resEmbed.addField("Accuracy", (accuracy*100).toPrecision(3)+"%", true);
 		totalHeadshots && resEmbed.addField("HSR", (hsr*100).toPrecision(3)+"%", true);
-		ahr && resEmbed.addField("AHR Score", ahr, true);
+		ahr && resEmbed.addField("AHR Score", `${ahr}`, true);
 		totalVehicleKills && resEmbed.addField("Vehicle Kills", parseInt(totalVehicleKills).toLocaleString(), true);
 		resEmbed.addField("Playtime", hours+" hours, "+minutes+" minutes", true);
 		resEmbed.addField("KPM", Number.parseFloat(totalKills/(cInfo.playTime/60)).toPrecision(3), true);

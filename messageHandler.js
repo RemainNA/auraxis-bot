@@ -3,7 +3,7 @@
 module.exports = {
     send: async function(channel, message, context="default", embed=false){
         let res = -1;
-        if(embed && channel.type != 'dm' && !channel.permissionsFor(channel.guild.me).has('EMBED_LINKS')){
+        if(embed && channel.type != 'DM' && !channel.permissionsFor(channel.guild.me).has('EMBED_LINKS')){
             channel.send('Please grant the "Embed Links" permission to use this command').then(function(result){
                 //message successfully sent, no action needed.
             }, function(err){

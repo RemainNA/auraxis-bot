@@ -1,9 +1,9 @@
 //This file implements functions to look up currently active alerts from the ps2 alerts website
 
 const Discord = require('discord.js');
-const alerts = require('./alerts.json');
+const alerts = require('./static/alerts.json');
 const got = require('got');
-const messageHandler = require('./messageHandler.js');
+const { serverNames, serverIDs, badQuery } = require('./utils');
 
 const popLevels = {
 	1: "Dead",
@@ -23,7 +23,7 @@ const alertInfo = async function(server){
 		throw "API Unreachable";
 	}
 	if(response.length == 0){
-		throw `No active alerts on ${serverIdToName(server)}`;
+		throw `No active alerts on ${serverNames[server]}`;
 	}
 	let allAlerts = []
 	for(let alert of response){
@@ -42,6 +42,8 @@ const alertInfo = async function(server){
 			continent: alert.zone,
 			timeSinceStart: now-start,
 			timeLeft: (start+alert.duration)-now,
+			timeEnd: (start+alert.duration)/1000, //In Unix Epoch, not JS
+			timeStart: start/1000,
 			instanceId: alert.instanceId,
 			bracket: alert.bracket
 		}
@@ -51,86 +53,32 @@ const alertInfo = async function(server){
 	return allAlerts;
 }
 
-const serverToId = function(name){
-	switch(name){
-		case "connery":
-			return 1;
-		case "miller":
-			return 10;
-		case "cobalt":
-			return 13;
-		case "emerald":
-			return 17;
-		case "jaegar":
-			return 19;
-		case "soltech":
-			return 40;
-		case "genudine":
-			return 1000;
-		case "ceres":
-			return 2000;
-		default:
-			return false;
-		
-	}
-}
-
-const serverIdToName = function(server){
-    switch(server){
-        case 1:
-            return "Connery";
-        case 10:
-            return "Miller";
-        case 13:
-            return "Cobalt";
-        case 17:
-            return "Emerald";
-        case 19:
-            return "Jaegar";
-        case 40:
-            return "SolTech";
-        case 1000:
-            return "Genudine";
-        case 2000:
-            return "Ceres";
-    }
-}
-
 module.exports = {
 	activeAlerts: async function(server){
-		if(messageHandler.badQuery(server)){
+		if(badQuery(server)){
 			throw "Server search contains disallowed characters";
 		}
 
-		let serverId = serverToId(server);
-
-		if(!serverId){
+		if(!(server in serverIDs)){
 			throw `${server} not found.`;
 		}
-		
+
+		const serverID = serverIDs[server];
 		let alertObj = "";
 		try{
-			alertObj = await alertInfo(serverId);
+			alertObj = await alertInfo(serverID);
 		}
 		catch(err){
-			if(err == "No active alerts"){
-				throw `No active alerts on ${server}`;
-			}
-			else{
-				throw err;
-			}
+			throw err;
 		}
 		let sendEmbed = new Discord.MessageEmbed();
-		sendEmbed.setTitle(serverIdToName(serverId)+" alerts");
+		sendEmbed.setTitle(serverNames[serverID]+" alerts");
 		sendEmbed.setFooter("Data from ps2alerts.com");
+		sendEmbed.setTimestamp();
 		for(const x in alertObj){
-			let hoursSinceStart = Math.floor(alertObj[x].timeSinceStart/3600000);
-			let minutesSinceStart = Math.floor(alertObj[x].timeSinceStart/60000) - hoursSinceStart*60;
-			let hoursleft = Math.floor(alertObj[x].timeLeft/3600000);
-			let minutesleft = Math.floor(alertObj[x].timeLeft/60000) - hoursleft*60;
 			sendEmbed.addField(alertObj[x].name, "["+alertObj[x].description+"](https://ps2alerts.com/alert/"+alertObj[x].instanceId+"?utm_source=auraxis-bot&utm_medium=discord&utm_campaign=partners)");
-			sendEmbed.addField("Time since start", hoursSinceStart+"h "+minutesSinceStart+"m", true);
-			sendEmbed.addField("Time left", hoursleft+"h "+minutesleft+"m", true);
+			sendEmbed.addField("Time since start", `Started at <t:${alertObj[x].timeStart}:t>`, true);
+			sendEmbed.addField("Time left", `Ends <t:${alertObj[x].timeEnd}:R>`, true);
 			sendEmbed.addField("Activity Level", popLevels[alertObj[x].bracket], true)
 			sendEmbed.addField('Territory Control', `\
 			\n<:VS:818766983918518272> **VS**: ${alertObj[x].vs}%\
@@ -141,5 +89,7 @@ module.exports = {
 			}
 		}
 		return sendEmbed;
-	}
+	},
+
+	alertInfo: alertInfo
 }
