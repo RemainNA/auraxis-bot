@@ -29,6 +29,8 @@ const deleteMessages = require('./deleteMessages.js');
 const dashboard = require('./dashboard.js');
 const trackers = require('./trackers.js');
 const openContinents = require('./openContinents.js');
+const auraxiums = require('./auraxiums.js');
+const leaderboard = require('./leaderboard.js');
 
 require('dotenv').config();
 
@@ -95,11 +97,13 @@ const listOfCommands =
 /character [name] <platform>\n\
 /stats [name] <weapon name/id> <platform>\n\
 /asp [name] <platform>\n\
+/auraxiums [name] <platform>\n\
 /outfit [tag] <platform>\n\
 /online [tag] <platform>\n\
 /population [server]\n\
 /territory [server]\n\
 /alerts [server]\n\
+/leaderboard [type] [period] <server>\n\
 /status\n\
 /weapon [weapon name/id]\n\
 /weaponSearch [name]\n\
@@ -137,347 +141,367 @@ const checkPermissions = async function(channel, user){
 }
 
 client.on('interactionCreate', async interaction => {
-	if(!interaction.isCommand()){
-		return;
-	}
-	const options = interaction.options;
-	try{
-		let res = "";
-		let manageChannel = false;
-		let errorList = [];
-		switch(interaction.commandName){
-		case 'ping':
-			await interaction.reply(`Bot's ping to Discord is ${client.ws.ping}ms`);
-			break;
+	if(interaction.isCommand()){
+		const options = interaction.options;
+		try{
+			let res = "";
+			let manageChannel = false;
+			let errorList = [];
+			switch(interaction.commandName){
+			case 'ping':
+				await interaction.reply(`Bot's ping to Discord is ${client.ws.ping}ms`);
+				break;
 
-		case 'help':
-			let helpEmbed = new Discord.MessageEmbed();
-			helpEmbed.setTitle("Auraxis bot");
-			helpEmbed.setColor("BLUE");
-			helpEmbed.addField("Commands", listOfCommands);
-			helpEmbed.addField("Requires Manage Channel permission", commandsManageChannels);
-			helpEmbed.addField("Links", links);
-			helpEmbed.setFooter("<> = Optional, [] = Required");
-			await interaction.reply({embeds: [helpEmbed]});
-			break;
+			case 'help':
+				let helpEmbed = new Discord.MessageEmbed();
+				helpEmbed.setTitle("Auraxis bot");
+				helpEmbed.setColor("BLUE");
+				helpEmbed.addField("Commands", listOfCommands);
+				helpEmbed.addField("Requires Manage Channel permission", commandsManageChannels);
+				helpEmbed.addField("Links", links);
+				helpEmbed.setFooter("<> = Optional, [] = Required");
+				await interaction.reply({embeds: [helpEmbed]});
+				break;
 
-		case 'character':
-			if(options.getString('name').split(' ').length > 10){
-				await interaction.reply({content: "This command supports a maximum of 10 characters per query", ephemeral: true});
-			}
-			else if(options.getString('name').split(' ').length > 1){
-				res = [];
-				await interaction.deferReply(); //Give the bot time to look up the results
-				for(const c of options.getString('name').toLowerCase().replace(/\s\s+/g, ' ').split(' ')){
-					try{
-						res.push(await char.character(c, options.getString('platform') || 'ps2:v2'));
-					}
-					catch(err){
-						errorList.push(c);
-					}
+			case 'character':
+				if(options.getString('name').split(' ').length > 10){
+					await interaction.reply({content: "This command supports a maximum of 10 characters per query", ephemeral: true});
 				}
-				if(errorList.length > 0){
-					await interaction.editReply({content: `Error with ${errorList}`, embeds:res});
+				else if(options.getString('name').split(' ').length > 1){
+					res = [];
+					await interaction.deferReply(); //Give the bot time to look up the results
+					for(const c of options.getString('name').toLowerCase().replace(/\s\s+/g, ' ').split(' ')){
+						try{
+							res.push(await char.character(c, options.getString('platform') || 'ps2:v2'));
+						}
+						catch(err){
+							errorList.push(c);
+						}
+					}
+					if(errorList.length > 0){
+						await interaction.editReply({content: `Error with ${errorList}`, embeds:res});
+					}
+					else{
+						await interaction.editReply({embeds:res});
+					}
 				}
 				else{
-					await interaction.editReply({embeds:res});
+					await interaction.deferReply(); //Give the bot time to look up the results
+					res = await char.character(options.getString('name').toLowerCase(), options.getString('platform') || 'ps2:v2');
+					await interaction.editReply({embeds:[res]});
 				}
-			}
-			else{
-				await interaction.deferReply(); //Give the bot time to look up the results
-				res = await char.character(options.getString('name').toLowerCase(), options.getString('platform') || 'ps2:v2');
-				await interaction.editReply({embeds:[res]});
-			}
-			break;			
+				break;			
 
-		case 'stats':
-			await interaction.deferReply(); //Give the bot time to look up the results
-			if(interaction.options.get('weapon')){
-				res = await stats.lookup(options.getString('name').toLowerCase(), options.getString('weapon').toLowerCase(), options.getString('platform') || 'ps2:v2');
-				await interaction.editReply({embeds:[res]});
-			}
-			else{ //character lookup
-				res = await char.character(interaction.options.getString('name').toLowerCase(), interaction.options.getString('platform') || 'ps2:v2');
-				await interaction.editReply({embeds:[res]});
-			}
-			break;
-
-		case 'outfit':
-			if(options.getString('tag').split(' ').length > 10){
-				await interaction.reply({content: "This command supports a maximum of 10 outfits per query", ephemeral: true});
-			}
-			else if(options.getString('tag').split(' ').length > 1){
-				res = [];
+			case 'stats':
 				await interaction.deferReply(); //Give the bot time to look up the results
-				for(const t of options.getString('tag').toLowerCase().replace(/\s\s+/g, ' ').split(' ')){
-					if(t.length > 4){
-						errorList.push(t);
-						continue;
-					}
-					try{
-						res.push(await outfit.outfit(t, options.getString('platform') || 'ps2:v2', SQLclient));
-					}
-					catch(err){
-						errorList.push(t);
-					}
+				if(interaction.options.get('weapon')){
+					res = await stats.lookup(options.getString('name').toLowerCase(), options.getString('weapon').toLowerCase(), options.getString('platform') || 'ps2:v2');
+					await interaction.editReply({embeds:[res]});
 				}
-				if(errorList.length > 0){
-					await interaction.editReply({content: `Error with ${errorList}`, embeds:res});
+				else{ //character lookup
+					res = await char.character(interaction.options.getString('name').toLowerCase(), interaction.options.getString('platform') || 'ps2:v2');
+					await interaction.editReply({embeds:[res]});
+				}
+				break;
+
+			case 'outfit':
+				if(options.getString('tag').split(' ').length > 10){
+					await interaction.reply({content: "This command supports a maximum of 10 outfits per query", ephemeral: true});
+				}
+				else if(options.getString('tag').split(' ').length > 1){
+					res = [];
+					await interaction.deferReply(); //Give the bot time to look up the results
+					for(const t of options.getString('tag').toLowerCase().replace(/\s\s+/g, ' ').split(' ')){
+						if(t.length > 4){
+							errorList.push(t);
+							continue;
+						}
+						try{
+							res.push(await outfit.outfit(t, options.getString('platform') || 'ps2:v2', SQLclient));
+						}
+						catch(err){
+							errorList.push(t);
+						}
+					}
+					if(errorList.length > 0){
+						await interaction.editReply({content: `Error with ${errorList}`, embeds:res});
+					}
+					else{
+						await interaction.editReply({embeds:res});
+					}
 				}
 				else{
-					await interaction.editReply({embeds:res});
+					if(options.getString('tag').length > 4){
+						await interaction.reply({content: `${options.getString('tag')} is longer than 4 letters, please enter a tag.`, ephemeral: true});
+						return;
+					}
+					await interaction.deferReply(); //Give the bot time to look up the results
+					res = await outfit.outfit(options.getString('tag').toLowerCase(), options.getString('platform') || 'ps2:v2', SQLclient);
+					await interaction.editReply({embeds:[res]});
 				}
-			}
-			else{
-				if(options.getString('tag').length > 4){
-					await interaction.reply({content: `${options.getString('tag')} is longer than 4 letters, please enter a tag.`, ephemeral: true});
+				break;
+
+			case 'online':
+				if(options.getString('tag').split(' ').length > 10){
+					await interaction.reply({content: "This command supports a maximum of 10 outfits per query", ephemeral: true});
+				}
+				else if(options.getString('tag').split(' ').length > 1){
+					res = [];
+					await interaction.deferReply(); //Give the bot time to look up the results
+					for(const t of options.getString('tag').toLowerCase().replace(/\s\s+/g, ' ').split(' ')){
+						if(t.length > 4){
+							errorList.push(t);
+							continue;
+						}
+						try{
+							res.push(await online.online(t, options.getString('platform') || 'ps2:v2'));
+						}
+						catch(err){
+							errorList.push(t);
+						}
+					}
+					if(errorList.length > 0){
+						await interaction.editReply({content: `Error with ${errorList}`, embeds:res});
+					}
+					else{
+						await interaction.editReply({embeds:res});
+					}
+				}
+				else{
+					if(options.getString('tag').length > 4){
+						await interaction.reply({content: `${options.getString('tag')} is longer than 4 letters, please enter a tag.`, ephemeral: true});
+						return;
+					}
+					await interaction.deferReply(); //Give the bot time to look up the results
+					res = await online.online(options.getString('tag').toLowerCase(), options.getString('platform') || 'ps2:v2');
+					await interaction.editReply({embeds:[res]});
+				}
+				break;
+
+			case 'config':
+				manageChannel = await checkPermissions(interaction.channel, interaction.user);
+				if(!manageChannel){
+					await interaction.reply({content: "Managing subscriptions is only available to users with the Manage Channel permission", ephemeral: true})
 					return;
 				}
-				await interaction.deferReply(); //Give the bot time to look up the results
-				res = await outfit.outfit(options.getString('tag').toLowerCase(), options.getString('platform') || 'ps2:v2', SQLclient);
-				await interaction.editReply({embeds:[res]});
-			}
-			break;
+				await interaction.deferReply();
+				switch(options.getSubcommand()){
+				case 'view':
+					res = await subscriptionConfig.displayConfig(interaction.channelId, SQLclient);
+					if(typeof(res) === 'string'){
+						await interaction.editReply(res);
+					}
+					else{
+						await interaction.editReply({embeds: [res]});
+					}
+					break;
 
-		case 'online':
-			if(options.getString('tag').split(' ').length > 10){
-				await interaction.reply({content: "This command supports a maximum of 10 outfits per query", ephemeral: true});
-			}
-			else if(options.getString('tag').split(' ').length > 1){
-				res = [];
-				await interaction.deferReply(); //Give the bot time to look up the results
-				for(const t of options.getString('tag').toLowerCase().replace(/\s\s+/g, ' ').split(' ')){
-					if(t.length > 4){
-						errorList.push(t);
-						continue;
-					}
-					try{
-						res.push(await online.online(t, options.getString('platform') || 'ps2:v2'));
-					}
-					catch(err){
-						errorList.push(t);
-					}
-				}
-				if(errorList.length > 0){
-					await interaction.editReply({content: `Error with ${errorList}`, embeds:res});
-				}
-				else{
-					await interaction.editReply({embeds:res});
-				}
-			}
-			else{
-				if(options.getString('tag').length > 4){
-					await interaction.reply({content: `${options.getString('tag')} is longer than 4 letters, please enter a tag.`, ephemeral: true});
-					return;
-				}
-				await interaction.deferReply(); //Give the bot time to look up the results
-				res = await online.online(options.getString('tag').toLowerCase(), options.getString('platform') || 'ps2:v2');
-				await interaction.editReply({embeds:[res]});
-			}
-			break;
-
-		case 'config':
-			manageChannel = await checkPermissions(interaction.channel, interaction.user);
-			if(!manageChannel){
-				await interaction.reply({content: "Managing subscriptions is only available to users with the Manage Channel permission", ephemeral: true})
-				return;
-			}
-			await interaction.deferReply();
-			switch(options.getSubcommand()){
-			case 'view':
-				res = await subscriptionConfig.displayConfig(interaction.channelId, SQLclient);
-				if(typeof(res) === 'string'){
+				case 'audit':
+					res = await subscriptionConfig.audit(interaction.channelId, SQLclient);
 					await interaction.editReply(res);
+					break;
+
+				case 'alerts':
+					res = await subscriptionConfig.setAlert(options.getString("continent"), options.getString("setting"), interaction.channelId, SQLclient);
+					await interaction.editReply(res);
+					break;
+				
+				case 'autodelete':
+					res = await subscriptionConfig.setAutoDelete(options.getString("setting"), interaction.channelId, SQLclient);
+					await interaction.editReply(res);
+					break;
+				
+				default:
+					interaction.editReply("Unknown command error");
+				}
+				
+				break;
+
+			case 'subscribe':
+				manageChannel = await checkPermissions(interaction.channel, interaction.user);
+				if(!manageChannel){
+					await interaction.reply({content: "Managing subscriptions is only available to users with the Manage Channel permission", ephemeral: true})
+					return;
+				}
+				await interaction.deferReply();
+				switch(options.getSubcommand()){
+				case 'alerts':
+					res = await subscription.subscribeAlert(SQLclient, interaction.channelId, options.getString('server'));
+					await interaction.editReply(res);
+					break;
+
+				case 'activity':
+					res = await subscription.subscribeActivity(SQLclient, interaction.channelId, options.getString('tag'), options.getString('platform') || 'ps2:v2');
+					await interaction.editReply(res);
+					break;
+
+				case 'captures':
+					res = await subscription.subscribeCaptures(SQLclient, interaction.channelId, options.getString('tag'), options.getString('platform') || 'ps2:v2');
+					await interaction.editReply(res);
+					break;
+
+				case 'twitter':
+					res = await subscription.subscribeTwitter(SQLclient, interaction.channelId, options.getString('user'));
+					await interaction.editReply(res);
+					break;
+
+				default:
+					interaction.editReply("Unknown command error");
+				}
+				
+				break;
+
+			case 'unsubscribe':
+				manageChannel = await checkPermissions(interaction.channel, interaction.user);
+				if(!manageChannel){
+					await interaction.reply({content: "Managing subscriptions is only available to users with the Manage Channel permission", ephemeral: true})
+					return;
+				}
+				await interaction.deferReply();
+				switch(options.getSubcommand()){
+				case 'alerts':
+					res = await subscription.unsubscribeAlert(SQLclient, interaction.channelId, options.getString("server"));
+					await interaction.editReply(res);
+					break;
+
+				case 'activity':
+					res = await subscription.unsubscribeActivity(SQLclient, interaction.channelId, options.getString("tag"), options.getString("platform") || 'ps2:v2');
+					await interaction.editReply(res);
+					break;
+
+				case 'captures':
+					res = await subscription.unsubscribeCaptures(SQLclient, interaction.channelId, options.getString("tag"), options.getString("platform") || 'ps2:v2');
+					await interaction.editReply(res);
+					break;
+
+				case 'twitter':
+					res = await subscription.unsubscribeTwitter(SQLclient, interaction.channelId, options.getString("user"));
+					await interaction.editReply(res);
+					break;
+
+				case 'all':
+					res = await subscription.unsubscribeAll(SQLclient, interaction.channelId);
+					await interaction.editReply(res);
+					break;
+
+				default:
+					interaction.editReply("Unknown command error");
+				}
+				
+				break;
+
+			case 'population':
+				await interaction.deferReply();
+				res = await population.lookup(options.getString("server"));
+				await interaction.editReply({embeds: [res]});
+				break;
+
+			case 'territory':
+				await interaction.deferReply();
+				res = await territory.territory(options.getString("server"));
+				await interaction.editReply({embeds: [res]});
+				break;
+
+			case 'alerts':
+				await interaction.deferReply();
+				res = await alerts.activeAlerts(options.getString("server"));
+				await interaction.editReply({embeds: [res]});
+				break;
+
+			case 'status':
+				await interaction.deferReply();
+				res = await status.servers();
+				await interaction.editReply({embeds: [res]});
+				break;
+
+			case 'weapon':
+				res = await weapon.lookup(options.getString("query"));
+				await interaction.reply({embeds: [res]});
+				break;
+
+			case 'weaponsearch':
+				res = await weaponSearch.lookup(options.getString("query"));
+				await interaction.reply({embeds: [res], ephemeral: true});
+				break;
+
+			case 'implant':
+				res = await implant.lookup(options.getString("query"));
+				await interaction.reply({embeds: [res]});
+				break;
+
+			case 'asp':
+				await interaction.deferReply();
+				res = await asp.originalBR(options.getString('name').toLowerCase(), options.getString('platform') || 'ps2:v2');
+				await interaction.editReply({embeds: [res]});
+				break;
+
+			case 'dashboard':
+				manageChannel = await checkPermissions(interaction.channel, interaction.user);
+				if(!manageChannel){
+					await interaction.reply({content: "Only users with the Manage Channel permission can create dashboards", ephemeral: true})
+					return;
+				}
+				await interaction.deferReply();
+				res = await dashboard.create(interaction.channel, options.getString("server"), SQLclient);
+				await interaction.editReply(res);
+				break;
+
+			case 'tracker':
+				if(interaction.channel.type == 'DM'){
+					await interaction.reply({content: "Cannot create trackers in DMs", ephemeral: true})
+				}
+				manageChannel = await checkPermissions(interaction.channel, interaction.user);
+				if(!manageChannel){
+					await interaction.reply({content: "Only users with the Manage Channel permission can create dashboards", ephemeral: true})
+					return;
+				}
+				await interaction.deferReply();
+				res = await trackers.create(options.getString('type'), options.getString('server'), interaction.guild, client, SQLclient);
+				await interaction.editReply(res);
+				break;
+
+			case 'auraxiums':
+				await interaction.deferReply();
+				res = await auraxiums.medals(options.getString("name"), options.getString("platform") || "ps2:v2");
+				await interaction.editReply({embeds: [res[0]], components: res[1]});
+				break;
+
+			case 'leaderboard':
+				await interaction.deferReply();
+				res = await leaderboard.lookup(options.getString("type"), options.getString("period"), options.getString("server"), 20);
+				await interaction.editReply({embeds: [res]});
+				break;
+			
+			}
+			
+		}
+		catch(err){
+			if(typeof(err) !== 'string'){
+				console.log(`Error in ${interaction.commandName}`);
+				console.log(err);
+				if(interaction.deferred){
+					await interaction.editReply("Error occurred when handling command");
 				}
 				else{
-					await interaction.editReply({embeds: [res]});
+					await interaction.reply("Error occurred when handling command");
 				}
-				break;
-
-			case 'audit':
-				res = await subscriptionConfig.audit(interaction.channelId, SQLclient);
-				await interaction.editReply(res);
-				break;
-
-			case 'alerts':
-				res = await subscriptionConfig.setAlert(options.getString("continent"), options.getString("setting"), interaction.channelId, SQLclient);
-				await interaction.editReply(res);
-				break;
-			
-			case 'autodelete':
-				res = await subscriptionConfig.setAutoDelete(options.getString("setting"), interaction.channelId, SQLclient);
-				await interaction.editReply(res);
-			 	break;
-			
-			default:
-				interaction.editReply("Unknown command error");
 			}
-			
-			break;
-
-		case 'subscribe':
-			manageChannel = await checkPermissions(interaction.channel, interaction.user);
-			if(!manageChannel){
-				await interaction.reply({content: "Managing subscriptions is only available to users with the Manage Channel permission", ephemeral: true})
-				return;
+			else{
+				if(interaction.deferred){
+					await interaction.editReply(err);
+				}
+				else{
+					await interaction.reply(err);
+				}
 			}
-			await interaction.deferReply();
-			switch(options.getSubcommand()){
-			case 'alerts':
-				res = await subscription.subscribeAlert(SQLclient, interaction.channelId, options.getString('server'));
-				await interaction.editReply(res);
-				break;
-
-			case 'activity':
-				res = await subscription.subscribeActivity(SQLclient, interaction.channelId, options.getString('tag'), options.getString('platform') || 'ps2:v2');
-				await interaction.editReply(res);
-				break;
-
-			case 'captures':
-				res = await subscription.subscribeCaptures(SQLclient, interaction.channelId, options.getString('tag'), options.getString('platform') || 'ps2:v2');
-				await interaction.editReply(res);
-				break;
-
-			case 'twitter':
-				res = await subscription.subscribeTwitter(SQLclient, interaction.channelId, options.getString('user'));
-				await interaction.editReply(res);
-				break;
-
-			default:
-				interaction.editReply("Unknown command error");
-			}
-			
-			break;
-
-		case 'unsubscribe':
-			manageChannel = await checkPermissions(interaction.channel, interaction.user);
-			if(!manageChannel){
-				await interaction.reply({content: "Managing subscriptions is only available to users with the Manage Channel permission", ephemeral: true})
-				return;
-			}
-			await interaction.deferReply();
-			switch(options.getSubcommand()){
-			case 'alerts':
-				res = await subscription.unsubscribeAlert(SQLclient, interaction.channelId, options.getString("server"));
-				await interaction.editReply(res);
-			 	break;
-
-			case 'activity':
-				res = await subscription.unsubscribeActivity(SQLclient, interaction.channelId, options.getString("tag"), options.getString("platform") || 'ps2:v2');
-				await interaction.editReply(res);
-				break;
-
-			case 'captures':
-				res = await subscription.unsubscribeCaptures(SQLclient, interaction.channelId, options.getString("tag"), options.getString("platform") || 'ps2:v2');
-				await interaction.editReply(res);
-				break;
-
-			case 'twitter':
-				res = await subscription.unsubscribeTwitter(SQLclient, interaction.channelId, options.getString("user"));
-				await interaction.editReply(res);
-				break;
-
-			case 'all':
-				res = await subscription.unsubscribeAll(SQLclient, interaction.channelId);
-				await interaction.editReply(res);
-				break;
-
-			default:
-				interaction.editReply("Unknown command error");
-			}
-			
-			break;
-
-		case 'population':
-			await interaction.deferReply();
-			res = await population.lookup(options.getString("server"));
-			await interaction.editReply({embeds: [res]});
-			break;
-
-		case 'territory':
-			await interaction.deferReply();
-			res = await territory.territory(options.getString("server"));
-			await interaction.editReply({embeds: [res]});
-			break;
-
-		case 'alerts':
-			await interaction.deferReply();
-			res = await alerts.activeAlerts(options.getString("server"));
-			await interaction.editReply({embeds: [res]});
-			break;
-
-		case 'status':
-			await interaction.deferReply();
-			res = await status.servers();
-			await interaction.editReply({embeds: [res]});
-			break;
-
-		case 'weapon':
-			res = await weapon.lookup(options.getString("query"));
-			await interaction.reply({embeds: [res]});
-			break;
-
-		case 'weaponsearch':
-			res = await weaponSearch.lookup(options.getString("query"));
-			await interaction.reply({embeds: [res], ephemeral: true});
-			break;
-
-		case 'implant':
-			res = await implant.lookup(options.getString("query"));
-			await interaction.reply({embeds: [res]});
-			break;
-
-		case 'asp':
-			await interaction.deferReply();
-			res = await asp.originalBR(options.getString('name').toLowerCase(), options.getString('platform') || 'ps2:v2');
-			await interaction.editReply({embeds: [res]});
-			break;
-
-		case 'dashboard':
-			manageChannel = await checkPermissions(interaction.channel, interaction.user);
-			if(!manageChannel){
-				await interaction.reply({content: "Only users with the Manage Channel permission can create dashboards", ephemeral: true})
-				return;
-			}
-			await interaction.deferReply();
-			res = await dashboard.create(interaction.channel, options.getString("server"), SQLclient);
-			await interaction.editReply(res);
-			break;
-
-		case 'tracker':
-			if(interaction.channel.type == 'DM'){
-				await interaction.reply({content: "Cannot create trackers in DMs", ephemeral: true})
-			}
-			manageChannel = await checkPermissions(interaction.channel, interaction.user);
-			if(!manageChannel){
-				await interaction.reply({content: "Only users with the Manage Channel permission can create dashboards", ephemeral: true})
-				return;
-			}
-			await interaction.deferReply();
-			res = await trackers.create(options.getString('type'), options.getString('server'), interaction.guild, client, SQLclient);
-			await interaction.editReply(res);
-			break;
 		}
-		
 	}
-	catch(err){
-		if(typeof(err) !== 'string'){
-			console.log(`Error in ${interaction.commandName}`);
-			console.log(err);
-			if(interaction.deferred){
-				await interaction.editReply("Error occurred when handling command");
-			}
-			else{
-				await interaction.reply("Error occurred when handling command");
-			}
-		}
-		else{
-			if(interaction.deferred){
-				await interaction.editReply(err);
-			}
-			else{
-				await interaction.reply(err);
-			}
+	else if(interaction.isButton()){
+		if(interaction.customId.startsWith('auraxium')){
+			interaction.deferReply({ephemeral: true});
+			const auraxOptions = interaction.customId.split('%');
+			const aurax = await auraxiums.medals(auraxOptions[1], auraxOptions[2], true);
+			interaction.editReply({embeds: [aurax[0]]})
 		}
 	}
 })

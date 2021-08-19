@@ -49,6 +49,14 @@ Returns the details (BR, Score, Server, Outfit, etc.) of the specified character
 
 Returns the stats of the specified character with the specified weapon.  If no weapon is entered it will fallback to the information provided by /character.
 
+#### /asp [name] \<platform>
+
+Returns the BR a character reached before joining ASP, as well as their current ASP points and skills.  Supports multiple characters per query.  Does not work with NSO.
+
+### /auraxiums [name] \<platform>
+
+Returns a chronological list of a character's Auraxiums.  Only 20 are returned at first, but clicking the "View all" button will show the full list in an ephemeral message.
+
 #### /outfit [tag] \<platform>
 
 Returns the details (Name, owner, faction, server, member count, etc.) of the specified outfit tag.  Supports multiple tags per query.
@@ -67,7 +75,11 @@ Returns the territory control of each continent on the specified server.  Suppor
 
 #### /alerts [server]
 
-Returns ongoing alerts for the given server based on information from the ps2alerts api, including time remaining and current territory control.  Supports multiple servers per query.  Currently only supports PC servers.
+Returns ongoing alerts for the given server based on information from the ps2alerts api, including time remaining and current territory control.  Supports multiple servers per query.
+
+### /leaderboard [type] [period] \<server>
+
+Returns the specified leaderboard as reported by the Census API.
 
 #### /status
 
@@ -84,10 +96,6 @@ Returns a list of weapon names and ids matching the given search term.  Only sup
 #### /implant [implant name]
 
 Returns information on given implant.  Accepts exact or partial names.  Only supports one implant per query.
-
-#### /asp [name] \<platform>
-
-Returns the BR a character reached before joining ASP, as well as their current ASP points and skills.  Supports multiple characters per query.  Does not work with NSO.
 
 ## Commands requiring manage channel permissions
 
