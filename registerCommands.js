@@ -511,13 +511,90 @@ const data = [
 				}
 			]
 		}]
+	},
+	{
+		name: 'auraxiums',
+		description: "Lookup a list of a character's Auraxium medals",
+		options: [{
+			name: 'name',
+			type: 'STRING',
+			description: 'Character name, or multiple separated by spaces',
+			required: true,
+		},
+		{
+			name: 'platform',
+			type: 'STRING',
+			description: "Which platform is the character on?  Defaults to PC",
+			required: false,
+			choices: platforms
+		}]
+	},
+	{
+		name: 'leaderboard',
+		description: "Lookup current leaderboard",
+		options: [{
+			name: 'type',
+			type: 'STRING',
+			description: 'Type of leaderboard to look up',
+			required: true,
+			choices: [{
+				name: 'Kills',
+				value: 'Kills'
+			},
+			{
+				name: 'Score',
+				value: 'Score'
+			},
+			{
+				name: 'Time',
+				value: 'Time'
+			},
+			{
+				name: 'Deaths',
+				value: 'Deaths'
+			}]
+		},
+		{
+			name: 'period',
+			type: 'STRING',
+			description: 'Time period of the leaderboard',
+			required: true,
+			choices: [{
+				name: 'Forever',
+				value: 'Forever'
+			},
+			{
+				name: 'Monthly',
+				value: 'Monthly'
+			},
+			{
+				name: 'Weekly',
+				value: 'Weekly'
+			},
+			{
+				name: 'Daily',
+				value: 'Daily'
+			},
+			{
+				name: 'One Life',
+				value: 'OneLife'
+			}]
+		},
+		{
+			name: 'server',
+			type: 'STRING',
+			description: 'Server name',
+			required: false,
+			choices: servers
+		}]
 	}
 ]
 
 client.on("ready", async () => {
 	if (!client.application?.owner) await client.application?.fetch();
 	try{
-		const commands = await client.application?.commands.set(data);
+		const commands = await client.guilds.cache.get('586235992386830359')?.commands.set(data);
+		// const commands = await client.application?.commands.set(data);
 	}
 	catch(err){
 		console.log(err);
