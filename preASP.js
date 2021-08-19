@@ -1,36 +1,15 @@
 // This file implements a function which finds and returns the max BR a character reached before joining ASP, and tracks their ASP unlocks and tokens
 
 const Discord = require('discord.js');
-const got = require('got');
 const messageHandler = require('./messageHandler.js');
+const { censusRequest } = require('./utils.js');
 
 const basicInfo = async function(cName, platform){
-	let uri = 'http://census.daybreakgames.com/s:'+process.env.serviceID+'/get/'+platform+'/character?name.first_lower='+cName+'&c:resolve=item_full&c:lang=en';
-	let response = "";
-	try{
-		response = await got(uri).json(); 
-	}
-	catch(err){
-        if(err.message.indexOf('404') > -1){
-            throw "API Unreachable";
-        }
-    }
-    if(typeof(response.error) !== 'undefined'){
-        if(response.error == 'service_unavailable'){
-            throw "Census API currently unavailable";
-        }
-        if(typeof(response.error) === 'string'){
-            throw `Census API error: ${response.error}`;
-        }
-        throw response.error;
-    }
-    if(typeof(response.character_list) === 'undefined'){
-        throw "API Error";
-    }
-    if(typeof(response.character_list[0]) === 'undefined'){
+	let response = await censusRequest(platform, 'character_list', `/character?name.first_lower=${cName}&c:resolve=item_full&c:lang=en`);
+    if(response.length == 0){
         throw `${cName} not found`;
 	}
-	let data = response.character_list[0];
+	let data = response[0];
 	if(data.faction_id == "4"){
 		throw "NSO not supported";
 	}

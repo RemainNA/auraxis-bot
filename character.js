@@ -6,36 +6,15 @@ const weapons = require('./static/weapons.json');
 const vehicles = require('./static/vehicles.json');
 const decals = require('./static/decals.json');
 const got = require('got');
-const { serverNames, badQuery } = require('./utils');
+const { serverNames, badQuery, censusRequest } = require('./utils');
 
 const basicInfo = async function(cName, platform){
     // Main function for character lookup.  Pulls most stats and calls other functions for medals/top weapon info
-    let uri = 'http://census.daybreakgames.com/s:'+process.env.serviceID+'/get/'+platform+'/character?name.first_lower='+cName+'&c:resolve=outfit_member_extended,online_status,world,stat_history,weapon_stat_by_faction,weapon_stat&c:join=title,characters_stat^list:1';
-    let response =  "";
-    try{
-       response = await got(uri).json(); 
-    }
-    catch(err){
-        if(err.message.indexOf('404') > -1){
-            throw "API Unreachable";
-        }
-    }
-    if(typeof(response.error) !== 'undefined'){
-        if(response.error == 'service_unavailable'){
-            throw "Census API currently unavailable";
-        }
-        if(typeof(response.error) === 'string'){
-            throw `Census API error: ${response.error}`;
-        }
-        throw response.error;
-    }
-    if(typeof(response.character_list) === 'undefined'){
-        throw "API Error";
-    }
-    if(typeof(response.character_list[0]) === 'undefined'){
+    let response =  await censusRequest(platform, 'character_list', `/character?name.first_lower=${cName}&c:resolve=outfit_member_extended,online_status,world,stat_history,weapon_stat_by_faction,weapon_stat&c:join=title,characters_stat^list:1`)
+    if(response.length == 0){
         throw `${cName} not found`;
     }
-    let data = response.character_list[0];
+    let data = response[0];
     //store basic information
     let resObj = {
         name: data.name.first,
@@ -190,32 +169,8 @@ const basicInfo = async function(cName, platform){
 }
 
 const checkASP = async function(cName, platform){
-    let uri = 'http://census.daybreakgames.com/s:'+process.env.serviceID+'/get/'+platform+'/character?name.first_lower='+cName+'&c:resolve=item_full&c:lang=en';
-    let response = "";
-    try{
-        response = await got(uri).json(); 
-    }
-    catch(err){
-        if(err.message.indexOf('404') > -1){
-            throw "API Unreachable";
-        }
-    }
-    if(typeof(response.error) !== 'undefined'){
-        if(response.error == 'service_unavailable'){
-            throw "Census API currently unavailable";
-        }
-        if(typeof(response.error) === 'string'){
-            throw `Census API error: ${response.error}`;
-        }
-        throw response.error;
-    }
-    if(typeof(response.character_list) === 'undefined'){
-        throw "API Error";
-    }
-    if(typeof(response.character_list[0]) === 'undefined'){
-        throw `${cName} not found`;
-    }
-    let data = response.character_list[0];
+    let response = await censusRequest(platform, 'character_list', `/character?name.first_lower=${cName}&c:resolve=item_full&c:lang=en`);
+    let data = response[0];
     let aspTitle = false;
     for (const item of data.items){
         if(Number(item.item_id) == 6004399){
@@ -260,12 +215,11 @@ const getWeaponName = async function(ID, platform){
     if(typeof(weapons[ID]) !== 'undefined'){
         return weapons[ID].name;
     }
-    let URI = 'http://census.daybreakgames.com/s:'+process.env.serviceID+'/get/'+platform+'/item/'+ID;
-    let response = await got(URI).json();
-    if(response.returned==1){
+    let response = await censusRequest(platform, 'item_list', `/item/${ID}`)
+    if(response.length==1){
         return response.item_list[0].name.en;
     }
-    URI = 'https://ps2.fisu.pw/api/weapons/?id='+ID; //Fallback Fisu URI
+    let URI = 'https://ps2.fisu.pw/api/weapons/?id='+ID; //Fallback Fisu URI
     let fisuResponse = await got(URI).json();
     if(typeof(fisuResponse[ID]) !== 'undefined'){
         return fisuResponse[ID].name;
@@ -278,8 +232,7 @@ const getVehicleName = async function(ID, platform){
     if(typeof(vehicles[ID]) !== 'undefined'){
         return vehicles[ID].name;
     }
-    let URI = 'http://census.daybreakgames.com/s:'+process.env.serviceID+'/get/'+platform+'/vehicle/'+ID;
-    let response = await got(URI).json();
+    let response = await censusRequest(platform, 'vehicle_list', `/vehicle/${ID}`);
     if(response.returned==1){
         return response.vehicle_list[0].name.en;
     }
@@ -289,13 +242,12 @@ const getVehicleName = async function(ID, platform){
 
 const getAuraxiumCount = async function(cName, platform){
     // Calculates the number of Auraxium medals a specified character has
-    let URI = "http://census.daybreakgames.com/s:"+process.env.serviceID+"/get/"+platform+"/character?name.first_lower="+cName+"&c:join=characters_achievement^list:1^terms:earned_count=1^outer:0^hide:character_id%27earned_count%27start%27finish%27last_save%27last_save_date%27start_date(achievement^terms:repeatable=0^outer:0^show:name.en%27description.en)"
-    let response = await got(URI).json();
+    let response = await censusRequest(platform, 'character_list', `/character?name.first_lower=${cName}&c:join=characters_achievement^list:1^terms:earned_count=1^outer:0^hide:character_id%27earned_count%27start%27finish%27last_save%27last_save_date%27start_date(achievement^terms:repeatable=0^outer:0^show:name.en%27description.en)`);
     let medalCount = 0;
-    if(typeof(response.character_list) === 'undefined' || typeof(response.character_list[0]) === 'undefined'){
+    if(typeof(response) === 'undefined' || typeof(response[0]) === 'undefined'){
         return "Error"; // TODO: Verify if resolve is correct
     }
-    let achievementList = response.character_list[0].character_id_join_characters_achievement;
+    let achievementList = response[0].character_id_join_characters_achievement;
     for(const x in achievementList){
         achievement = achievementList[x].achievement_id_join_achievement;
         if(achievement != undefined){

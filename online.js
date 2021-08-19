@@ -1,28 +1,9 @@
 const Discord = require('discord.js');
-const got = require('got');
-const { badQuery } = require('./utils.js');
+const { badQuery, censusRequest } = require('./utils.js');
 
 const onlineInfo = async function(oTag, platform){
-	let uri = 'http://census.daybreakgames.com/s:'+process.env.serviceID+'/get/'+platform+'/outfit?alias_lower='+oTag+'&c:resolve=member_online_status,rank,member_character_name&c:join=character^on:leader_character_id^to:character_id&c:join=characters_world^on:leader_character_id^to:character_id';
-	let response = "";
-	try{
-		response = await got(uri).json(); 
-	}
-	catch(err){
-		if(err.message.indexOf('404') > -1){
-			throw "API Unreachable";
-		}
-	}
-	if(typeof(response.error) !== 'undefined'){
-		if(response.error == 'service_unavailable'){
-			throw "Census API currently unavailable";
-		}
-		throw response.error;
-	}
-	if(typeof(response.outfit_list) === 'undefined'){
-		throw "API Error";
-	}
-	if(typeof(response.outfit_list[0]) === 'undefined'){
+	let response = await censusRequest(platform, 'outfit_list', `/outfit?alias_lower=${oTag}&c:resolve=member_online_status,rank,member_character_name&c:join=character^on:leader_character_id^to:character_id&c:join=characters_world^on:leader_character_id^to:character_id`);
+	if(response.length == 0){
 		throw `${oTag} not found`;
 	}
 	let urlBase = 'https://ps2.fisu.pw/player/?name=';
@@ -32,7 +13,7 @@ const onlineInfo = async function(oTag, platform){
 	else if(platform == 'ps2ps4eu:v2'){
 		urlBase = 'https://ps4eu.ps2.fisu.pw/player/?name=';
 	}
-	let data = response.outfit_list[0];
+	let data = response[0];
 	let resObj = {
 		name: data.name,
 		alias: data.alias,

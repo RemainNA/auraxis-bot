@@ -1,32 +1,13 @@
 const Discord = require('discord.js');
-const got = require('got');
-const { serverNames, badQuery } = require('./utils.js');
+const { serverNames, badQuery, censusRequest } = require('./utils.js');
 const bases = require('./static/bases.json');
 
 const basicInfo = async function(oTag, platform){
-	let uri = 'http://census.daybreakgames.com/s:'+process.env.serviceID+'/get/'+platform+'/outfit?alias_lower='+oTag+'&c:resolve=member_online_status&c:join=character^on:leader_character_id^to:character_id&c:join=character^on:members.character_id^to:character_id^hide:certs&c:join=characters_world^on:leader_character_id^to:character_id';
-	let response = "";
-	try{
-		response = await got(uri).json(); 
-	}
-	catch(err){
-		if(err.message.indexOf('404') > -1){
-			throw"API Unreachable";
-		}
-	}
-	if(typeof(response.error) !== 'undefined'){
-		if(response.error == 'service_unavailable'){
-			throw "Census API currently unavailable";
-		}
-		throw response.error;
-	}
-	if(typeof(response.outfit_list) === 'undefined'){
-		throw "API Error";
-	}
-	if(typeof(response.outfit_list[0]) === 'undefined'){
+	let response = await censusRequest(platform, 'outfit_list', `/outfit?alias_lower=${oTag}&c:resolve=member_online_status&c:join=character^on:leader_character_id^to:character_id&c:join=character^on:members.character_id^to:character_id^hide:certs&c:join=characters_world^on:leader_character_id^to:character_id`);
+	if(response.length == 0){
 		throw `${oTag} not found`;
 	}
-	let data = response.outfit_list[0];
+	let data = response[0];
 	if(typeof(data.leader_character_id_join_character) === 'undefined'){
 		throw 'Outfit found, but some information is missing.  Please try again or contact the developer if the issue persists.'
 	}

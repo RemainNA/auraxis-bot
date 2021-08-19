@@ -1,10 +1,9 @@
 // This file implements functions to look up and report server status
 
 const Discord = require('discord.js');
-const got = require('got');
+const { censusRequest } = require('./utils.js');
 
 const info = async function(){
-	let uri = 'http://census.daybreakgames.com/s:'+process.env.serviceID+'/get/global/game_server_status?game_code=ps2&c:limit=100'
 	let status = {
 		'Connery': 'Unknown',
 		'Miller': 'Unknown',
@@ -16,27 +15,12 @@ const info = async function(){
 		'Ceres': 'Unknown'
 	}
 
-	let response = "";
-	try{
-		response = await got(uri).json(); 
-	}
-	catch(err){
-		if(err.message.indexOf('404') > -1){
-			throw "API Unreachable";
-		}
-	}
-	if(typeof(response.error) !== 'undefined'){
-        if(response.error == 'service_unavailable'){
-            throw "Census API currently unavailable";
-        }
-        throw response.error;
-    }
-    if(typeof(response.game_server_status_list) === 'undefined'){
+	const data = await censusRequest('global', 'game_server_status_list', '/game_server_status?game_code=ps2&c:limit=100');
+    if(typeof(data) === 'undefined'){
         throw "API Error";
 	}
 	
-	let data = response.game_server_status_list;
-	for(let world of data){
+	for(const world of data){
 		if(world.name.toLowerCase().includes("connery")){
 			status["Connery"] = world.last_reported_state;
 		}

@@ -1,9 +1,8 @@
 // This file defines several functions used in subscribing or unsubscribing to server alerts and outfit activity
 
-const got = require('got');
 const messageHandler = require('./messageHandler.js');
 const config = require('./subscriptionConfig.js');
-const servers = ['connery', 'miller', 'cobalt', 'emerald', 'soltech', 'genudine', 'ceres', 'jaegar']
+const { servers, censusRequest} = require('./utils.js')
 
 const standardizeName = function(server){
     switch(server.toLowerCase()){
@@ -26,25 +25,14 @@ const standardizeName = function(server){
     }
 }
 
-const outfitInfo = async function(tag, environment){
-    let uri = 'http://census.daybreakgames.com/s:'+process.env.serviceID+'/get/'+environment+'/outfit?alias_lower='+tag.toLowerCase()+'&c:join=character^on:leader_character_id^to:character_id';
-    let response = await got(uri).json();
-    if(response.error != undefined){
-        if(response.error == "service_unavailable"){
-            throw "Census API currently unavailable";
-        }
-        throw response.error;
-    }
-    if(response.statusCode == 404){
-        throw "API Unreachable";
-    }
-    if(typeof(response.outfit_list[0]) != undefined && response.outfit_list[0]){
-        let data = response.outfit_list[0];
+const outfitInfo = async function(tag, platform){
+    const response = await censusRequest(platform, 'outfit_list', `/outfit?alias_lower=${tag.toLowerCase()}&c:join=character^on:leader_character_id^to:character_id`);
+    if(typeof(response[0]) != undefined && response[0]){
         let resObj = {
-            ID: data.outfit_id,
-            faction: data.leader_character_id_join_character.faction_id,
-            alias: data.alias,
-            name: data.name
+            ID: response[0].outfit_id,
+            faction: response[0].leader_character_id_join_character.faction_id,
+            alias: response[0].alias,
+            name: response[0].name
         }
         return resObj;
     }

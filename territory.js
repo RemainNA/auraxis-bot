@@ -1,21 +1,7 @@
 // This file defines functions used in finding and returning the current territory control on a given server, broken up by continent
 
 const Discord = require('discord.js');
-const got = require('got');
-const { serverNames, serverIDs, badQuery } = require('./utils');
-
-const serverToUrl = function(serverID){
-    if (serverID < 1000){
-        return `https://census.daybreakgames.com/s:${process.env.serviceID}/get/ps2:v2/map/?world_id=${serverID}&zone_ids=2,4,6,8`;
-    }
-    else if(serverID == 1000){
-        return `https://census.daybreakgames.com/s:${process.env.serviceID}/get/ps2ps4us:v2/map/?world_id=1000&zone_ids=2,4,6,8`;
-    }
-    else if(serverID == 2000){
-        return `https://census.daybreakgames.com/s:${process.env.serviceID}/get/ps2ps4eu:v2/map/?world_id=2000&zone_ids=2,4,6,8`;
-    }
-    return null;
-}
+const { serverNames, serverIDs, badQuery, censusRequest } = require('./utils');
 
 const fisuTerritory = function(serverID){
     if (serverID < 1000){
@@ -56,30 +42,27 @@ const continentBenefit = function(continent){
 
 module.exports = {
     territoryInfo: async function(serverID){
-        let uri = serverToUrl(serverID)
-        if(uri == null){
-            throw `Server not recognized`;
+        let platform = 'ps2:v2';
+        if(serverID == 1000){
+            platform = 'ps2ps4us:v2';
         }
-        let response = await got(uri).json();
-        if(typeof(response.error) !== 'undefined'){
-            throw response.error;
+        else if(serverID == 2000){
+            platform = 'ps2ps4eu:v2';
         }
-        if(response.statusCode == 404){
-            throw "API Unreachable";
-        }
-        if(response.returned < 4){
+        let response = await censusRequest(platform, 'map_list', `/map/?world_id=${serverID}&zone_ids=2,4,6,8`);
+        if(response.length < 4){
             throw "API response missing continents";
         }
-        if(typeof(response.map_list) === 'undefined'){
+        if(typeof(response[0]) === 'undefined'){
             throw "API response improperly formatted";
         }
-        if(typeof(response.map_list[0].Regions) === 'undefined'){
+        if(typeof(response[0].Regions) === 'undefined'){
             throw "API response missing Regions field";
         }
-        let IndarData = response.map_list[0].Regions.Row;
-        let HossinData = response.map_list[1].Regions.Row;
-        let AmerishData = response.map_list[2].Regions.Row;
-        let EsamirData = response.map_list[3].Regions.Row;
+        let IndarData = response[0].Regions.Row;
+        let HossinData = response[1].Regions.Row;
+        let AmerishData = response[2].Regions.Row;
+        let EsamirData = response[3].Regions.Row;
         let IndarObj = {vs:0, nc:0, tr:0};
         let HossinObj = {vs:0, nc:0, tr:0};
         let AmerishObj = {vs:0, nc:0, tr:0};

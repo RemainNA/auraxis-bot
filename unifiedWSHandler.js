@@ -1,6 +1,5 @@
 // This file implements functions which parse messages from the Stream API and send messages to the appropriate channels based on subscription status.
 
-const got = require('got');
 const {MessageEmbed, Permissions} = require('discord.js');
 const messageHandler = require('./messageHandler.js');
 const subscriptions = require('./subscriptions.js');
@@ -8,7 +7,7 @@ const config = require('./subscriptionConfig.js');
 const territory = require('./territory.js');
 const alerts = require('./static/alerts.json');
 const bases = require('./static/bases.json');
-const {serverNames} = require('./utils.js');
+const {serverNames, censusRequest} = require('./utils.js');
 
 const environmentToPlatform = {
     "ps2:v2": "pc",
@@ -17,15 +16,11 @@ const environmentToPlatform = {
 }
 
 const logEvent = async function(payload, environment, pgClient, discordClient){
-    let uri = 'http://census.daybreakgames.com/s:'+process.env.serviceID+'/get/'+environment+'/character/'+payload.character_id+'?c:resolve=outfit_member';
-    let response = await got(uri).json();
-    if(typeof(response.character_list) === 'undefined'){
-        throw null; // TODO: Left this as is
-    }
+    let response = await censusRequest(environment, 'character_list', `/character/${payload.character_id}?c:resolve=outfit_member`);
     let platform = environmentToPlatform[environment];
     let playerEvent = payload.event_name.substring(6);
-    if(response.character_list[0].outfit_member != null){
-        let char = response.character_list[0];
+    if(response[0].outfit_member != null){
+        let char = response[0];
         let result = "";
         try{
             result = await pgClient.query("SELECT a.id, a.color, a.alias, a.channel, a.platform, c.autoDelete\
@@ -106,18 +101,14 @@ const alertInfo = async function(payload, environment){
         }
         return resObj;
     }
-    let url = 'http://census.daybreakgames.com/s:'+process.env.serviceID+'/get/'+environment+'/metagame_event/'+payload.metagame_event_id;
-    let response = await got(url).json();
-    if(response.returned == 0 || typeof(response.metagame_event_list) === 'undefined' || typeof(response.metagame_event_list[0]) == 'undefined'){
+    let response = await censusRequest(environment, "metagame_event_list", `/metagame_event/${payload.metagame_event_id}`);
+    if(response.length == 0 || typeof(response) === 'undefined' || typeof(response[0]) == 'undefined'){
         console.log("Unable to find alert info for id "+payload.metagame_event_id);
         throw "Alert notification error";
     }
-    if(response.error != undefined){
-        throw response.error;
-    }
     return  {
-        name: response.metagame_event_list[0].name.en,
-        description: response.metagame_event_list[0].description.en
+        name: response[0].name.en,
+        description: response[0].description.en
     }
 }
 
@@ -425,25 +416,18 @@ const baseInfo = async function(facilityID, environment){
         return bases[facilityID];
     }
     else{ //backup web request
-        let uri = 'http://census.daybreakgames.com/s:'+process.env.serviceID+'/get/'+environment+'/map_region?facility_id='+facilityID;
-        let response = await got(uri).json();
-        if(typeof(response.error) !== 'undefined'){
-            throw response.error;
-        }
-        if(response.statusCode == 404){
-            throw "API Unreachable";
-        }
-        if(response.returned == "0"){
+        let response = await censusRequest(environment, "map_region_list", `/map_region?facility_id=${facilityID}`);
+        if(response.length == "0"){
             throw `No result for FacilityID: ${facilityID}`;
         }
-        if(typeof(response.map_region_list) === 'undefined' || typeof(response.map_region_list[0]) === 'undefined'){
+        if(typeof(response) === 'undefined' || typeof(response[0]) === 'undefined'){
             throw `API response improperly formatted, FacilityID: ${facilityID}`;
         }
 
         return {
-            "continent": response.map_region_list[0].zone_id,
-            "name": response.map_region_list[0].facility_name,
-            "type": response.map_region_list[0].facility_type
+            "continent": response[0].zone_id,
+            "name": response[0].facility_name,
+            "type": response[0].facility_type
         };
     }
     
@@ -463,8 +447,8 @@ module.exports = {
         if(payload.character_id != null){
             logEvent(payload, environment, pgClient, discordClient)
                 .catch(error => {
-                    if(typeof(error) == "string"){
-                        console.log(error);
+                    if(typeof(error) == "string" && error != "Census API currently unavailable"){
+                        console.log("Login error: "+error);
                     }
                 });
         }

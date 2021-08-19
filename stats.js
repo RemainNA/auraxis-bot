@@ -2,8 +2,7 @@
 
 const Discord = require('discord.js');
 const weaponsJSON = require('./static/weapons.json');
-const got = require('got');
-const messageHandler = require('./messageHandler.js');
+const { badQuery, censusRequest } = require('./utils.js');
 
 const getWeaponId = async function(name, searchSpace, cName=""){
 	//Check if ID matches
@@ -44,33 +43,11 @@ const getWeaponId = async function(name, searchSpace, cName=""){
 }
 
 const characterInfo = async function(cName, wName, platform){
-	let uri = 'http://census.daybreakgames.com/s:'+process.env.serviceID+'/get/'+platform+'/character?name.first_lower='+cName+'&c:resolve=weapon_stat_by_faction,weapon_stat';
-	// TODO: This needs improvement, the code that follows the try/catch block should be inside try.
-	let response =  "";
-    try{
-       response = await got(uri).json();
-    }
-    catch(err){
-        if(err.message.indexOf('404') > -1){
-            throw "API Unreachable";
-        }
-    }
-    if(typeof(response.error) !== 'undefined'){
-        if(response.error == 'service_unavailable'){
-            throw "Census API currently unavailable";
-        }
-        if(typeof(response.error) === 'string'){
-            throw `Census API error: ${response.error}`;
-        }
-        throw response.error;
-    }
-    if(typeof(response.character_list) === 'undefined'){
-        throw "API Error";
-    }
-    if(typeof(response.character_list[0]) === 'undefined'){
+	let response =  await censusRequest(platform, 'character_list', `/character?name.first_lower=${cName}&c:resolve=weapon_stat_by_faction,weapon_stat`);
+    if(response.length == 0){
         throw `${cName} not found`;
 	}
-	let data = response.character_list[0];
+	let data = response[0];
 	if(typeof(data.stats) === 'undefined' || typeof(data.stats.weapon_stat) === 'undefined' || typeof(data.stats.weapon_stat_by_faction) === 'undefined'){
 		throw "Unable to retrieve weapon stats";
 	}
@@ -163,11 +140,11 @@ const characterInfo = async function(cName, wName, platform){
 
 module.exports = {
 	lookup: async function(cName, wName, platform){
-		if(messageHandler.badQuery(cName)){
+		if(badQuery(cName)){
 			throw "Character search contains disallowed characters";
 		}
 
-		if(messageHandler.badQuery(wName)){
+		if(badQuery(wName)){
 			throw "Weapon search contains disallowed characters";
 		}
 
