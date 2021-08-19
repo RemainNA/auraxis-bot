@@ -1,6 +1,6 @@
 const Discord = require('discord.js');
 const implantsJSON = require('./static/implants.json');
-const messageHandler = require('./messageHandler.js');
+const {badQuery} = require('./utils.js');
 
 const implantInfo = async function(name){
 	//Check if ID matches
@@ -33,7 +33,7 @@ const implantInfo = async function(name){
 
 module.exports = {
 	lookup: async function(name){
-		if(messageHandler.badQuery(name)){
+		if(badQuery(name)){
 			throw "Search contains disallowed characters";
 		}
 		

@@ -1,8 +1,7 @@
 // This file implements a function which finds and returns the max BR a character reached before joining ASP, and tracks their ASP unlocks and tokens
 
 const Discord = require('discord.js');
-const messageHandler = require('./messageHandler.js');
-const { censusRequest } = require('./utils.js');
+const { censusRequest, badQuery } = require('./utils.js');
 
 const basicInfo = async function(cName, platform){
 	let response = await censusRequest(platform, 'character_list', `/character?name.first_lower=${cName}&c:resolve=item_full&c:lang=en`);
@@ -55,7 +54,7 @@ const basicInfo = async function(cName, platform){
 
 module.exports = {
 	originalBR: async function(cName, platform){
-		if(messageHandler.badQuery(cName)){
+		if(badQuery(cName)){
 			throw "Character search contains disallowed characters";
 		}
 		let cInfo = await basicInfo(cName, platform);

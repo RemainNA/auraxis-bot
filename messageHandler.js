@@ -41,10 +41,5 @@ module.exports = {
             console.log("Error returned from function in context: "+context);
             console.log(err);
         }
-    },
-
-    badQuery: function(input){
-        // This is its own function so a single list of disallowed characters can be maintained
-        return input.match(/[<@>!+&?%*#$^()_:/\\,`~[\]{}|+=]/g);
     }
 }

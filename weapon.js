@@ -3,7 +3,7 @@
 
 const Discord = require('discord.js');
 const weaponsJSON = require('./static/weapons.json');
-const messageHandler = require('./messageHandler.js');
+const {badQuery} = require('./utils.js');
 
 function CoFUpdated(CoF){
 	for(let x of CoF){
@@ -52,7 +52,7 @@ const weaponInfo = async function(name){
 
 module.exports = {
 	lookup: async function(name){
-		if(messageHandler.badQuery(name)){
+		if(badQuery(name)){
 			throw "Weapon search contains disallowed characters";
 		}
 

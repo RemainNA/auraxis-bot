@@ -31,6 +31,7 @@ const trackers = require('./trackers.js');
 const openContinents = require('./openContinents.js');
 const auraxiums = require('./auraxiums.js');
 const leaderboard = require('./leaderboard.js');
+const {badQuery} = require('./utils.js')
 
 require('dotenv').config();
 
@@ -607,7 +608,7 @@ client.on('messageCreate', async message => {
 		let tags = message.content.substring(8).toLowerCase().split(" ");
 		for(const x in tags){
 			if(tags[x] != ""){
-				if(tags[x].length > 4 && !messageHandler.badQuery(tags[x])){
+				if(tags[x].length > 4 && !badQuery(tags[x])){
 					messageHandler.send(message.channel, tags[x]+" is longer than 4 letters, please enter a tag.", "PC tag too long");
 					continue;
 				}
@@ -621,7 +622,7 @@ client.on('messageCreate', async message => {
 		let tags = message.content.substring(14).toLowerCase().split(" ");
 		for(const x in tags){
 			if(tags[x] != ""){
-				if(tags[x].length > 4 && !messageHandler.badQuery(tags[x])){
+				if(tags[x].length > 4 && !badQuery(tags[x])){
 					messageHandler.send(message.channel, tags[x]+" is longer than 4 letters, please enter a tag.", "PS4US tag too long");
 					continue;
 				}
@@ -635,7 +636,7 @@ client.on('messageCreate', async message => {
 		let tags = message.content.substring(14).toLowerCase().split(" ");
 		for(const x in tags){
 			if(tags[x] != ""){
-				if(tags[x].length > 4 && !messageHandler.badQuery(tags[x])){
+				if(tags[x].length > 4 && !badQuery(tags[x])){
 					messageHandler.send(message.channel, tags[x]+" is longer than 4 letters, please enter a tag.", "PS4EU tag too long");
 					continue;
 				}
@@ -649,7 +650,7 @@ client.on('messageCreate', async message => {
 		let tags = message.content.substring(8).toLowerCase().split(" ");
 		for(const x in tags){
 			if(tags[x] != ""){
-				if(tags[x].length > 4 && !messageHandler.badQuery(tags[x])){
+				if(tags[x].length > 4 && !badQuery(tags[x])){
 					messageHandler.send(message.channel, tags[x]+" is longer than 4 letters, please enter a tag.", "PC tag too long");
 					continue;
 				}
@@ -663,7 +664,7 @@ client.on('messageCreate', async message => {
 		let tags = message.content.substring(14).toLowerCase().split(" ");
 		for(const x in tags){
 			if(tags[x] != ""){
-				if(tags[x].length > 4 && !messageHandler.badQuery(tags[x])){
+				if(tags[x].length > 4 && !badQuery(tags[x])){
 					messageHandler.send(message.channel, tags[x]+" is longer than 4 letters, please enter a tag.", "PC tag too long");
 					continue;
 				}
@@ -677,7 +678,7 @@ client.on('messageCreate', async message => {
 		let tags = message.content.substring(14).toLowerCase().split(" ");
 		for(const x in tags){
 			if(tags[x] != ""){
-				if(tags[x].length > 4 && !messageHandler.badQuery(tags[x])){
+				if(tags[x].length > 4 && !badQuery(tags[x])){
 					messageHandler.send(message.channel, tags[x]+" is longer than 4 letters, please enter a tag.", "PC tag too long");
 					continue;
 				}

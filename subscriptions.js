@@ -1,8 +1,7 @@
 // This file defines several functions used in subscribing or unsubscribing to server alerts and outfit activity
 
-const messageHandler = require('./messageHandler.js');
 const config = require('./subscriptionConfig.js');
-const { servers, censusRequest} = require('./utils.js')
+const { servers, censusRequest, badQuery } = require('./utils.js')
 
 const standardizeName = function(server){
     switch(server.toLowerCase()){
@@ -65,7 +64,7 @@ module.exports = {
         //channel is the discord channel ID
         //tag is the outfit tag
         //environment is ps2:v2, ps2ps4us:v2, or ps2ps4eu:v2
-        if(messageHandler.badQuery(tag)){
+        if(badQuery(tag)){
 			throw "Outfit search contains disallowed characters";
 		}
         let outfit = await outfitInfo(tag, environment);
@@ -97,7 +96,7 @@ module.exports = {
     },
 
     unsubscribeActivity: async function(pgClient, channel, tag, environment){
-        if(messageHandler.badQuery(tag)){
+        if(badQuery(tag)){
 			throw "Outfit search contains disallowed characters";
 		}
         let outfit = await outfitInfo(tag, environment);
@@ -111,7 +110,7 @@ module.exports = {
     },
 
     subscribeAlert: async function(pgClient, channel, server){
-        if(messageHandler.badQuery(server)){
+        if(badQuery(server)){
 			throw "Server search contains disallowed characters";
 		}
         if(!servers.includes(server)){
@@ -134,7 +133,7 @@ module.exports = {
     },
 
     unsubscribeAlert: async function(pgClient, channel, server){
-        if(messageHandler.badQuery(server)){
+        if(badQuery(server)){
 			throw "Server search contains disallowed characters";
 		}
         if(!servers.includes(server)){
@@ -151,7 +150,7 @@ module.exports = {
     },
 
     subscribeCaptures: async function(pgClient, channel, tag, environment){
-        if(messageHandler.badQuery(tag)){
+        if(badQuery(tag)){
 			throw "Outfit search contains disallowed characters";
 		}
         let outfit = await outfitInfo(tag, environment);
@@ -171,7 +170,7 @@ module.exports = {
     },
 
     unsubscribeCaptures: async function(pgClient, channel, tag, environment){
-        if(messageHandler.badQuery(tag)){
+        if(badQuery(tag)){
 			throw "Outfit search contains disallowed characters";
 		}
         let outfit = await outfitInfo(tag, environment);
@@ -185,7 +184,7 @@ module.exports = {
     },
 
     subscribeTwitter: async function(pgClient, channelId, user){
-        if(messageHandler.badQuery(user)){
+        if(badQuery(user)){
 			throw "User contains disallowed characters";
 		}
         let source = twitterUsers(user);
@@ -214,7 +213,7 @@ module.exports = {
     },
 
     unsubscribeTwitter: async function(pgClient, channelId, user){
-        if(messageHandler.badQuery(user)){
+        if(badQuery(user)){
 			throw "User contains disallowed characters";
 		}
         let source = twitterUsers(user);
