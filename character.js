@@ -5,6 +5,7 @@ const Discord = require('discord.js');
 const weapons = require('./static/weapons.json');
 const vehicles = require('./static/vehicles.json');
 const decals = require('./static/decals.json');
+const sanction = require('./static/sanction.json');
 const got = require('got');
 const { serverNames, badQuery, censusRequest } = require('./utils');
 
@@ -55,8 +56,7 @@ const basicInfo = async function(cName, platform){
         resObj.stats = true;
         let topID = 0;
         let mostKills = 0;
-        let infantryKills = 0;
-        let infantryHeadshots = 0;
+        let sanctionedStats = {}
 
         // Find most used weapon
         if(typeof(data.stats.weapon_stat_by_faction) !== 'undefined'){
@@ -69,21 +69,19 @@ const basicInfo = async function(cName, platform){
                             topID = stat.item_id;
                         } 
                     }
-                    if(includeInAHR(stat.item_id, stat.vehicle_id)){
-                        infantryKills += Number(stat.value_vs) + Number(stat.value_nc) + Number(stat.value_tr);
+                    if(includeInIVI(stat.item_id)){
+                        sanctionedStats = populateStats(sanctionedStats, stat.item_id, 'kills', (Number(stat.value_vs) + Number(stat.value_nc) + Number(stat.value_tr)));
                     }
                     
                 }
-                else if(stat.stat_name == "weapon_headshots" && includeInAHR(stat.item_id, stat.vehicle_id)){
-                    infantryHeadshots += Number(stat.value_vs) + Number(stat.value_nc) + Number(stat.value_tr);
+                else if(stat.stat_name == "weapon_headshots" && includeInIVI(stat.item_id)){
+                    sanctionedStats = populateStats(sanctionedStats, stat.item_id, 'headshots', (Number(stat.value_vs) + Number(stat.value_nc) + Number(stat.value_tr)));
                 }
             }
         }
         
         resObj.mostKills = mostKills;
         resObj.topWeaponID = topID;
-        resObj.infantryKills = infantryKills;
-        resObj.infantryHeadshots = infantryHeadshots;
 
         // Find name of most used weapon, calculate number of Auraxium medals
         if(mostKills > 0){
@@ -109,24 +107,20 @@ const basicInfo = async function(cName, platform){
         if(typeof(data.stats.weapon_stat) !== 'undefined'){
             let topVehicleTime = 0;
             let favoriteVehicle = 0;
-            let infantryShots = 0;
-            let infantryHits = 0;
             for(let stat of data.stats.weapon_stat){
                 if(stat.stat_name == "weapon_play_time" && stat.item_id == "0" && stat.value > topVehicleTime){
                     topVehicleTime = Number.parseInt(stat.value);
                     favoriteVehicle = stat.vehicle_id;
                 }
-                else if(stat.stat_name == "weapon_fire_count" && includeInAHR(stat.item_id, stat.vehicle_id)){
-                    infantryShots += Number.parseInt(stat.value);
+                else if(stat.stat_name == "weapon_fire_count" && includeInIVI(stat.item_id)){
+                    sanctionedStats = populateStats(sanctionedStats, stat.item_id, 'shots', Number.parseInt(stat.value));
                 }
-                else if(stat.stat_name == "weapon_hit_count" && includeInAHR(stat.item_id, stat.vehicle_id)){
-                    infantryHits += Number.parseInt(stat.value);
+                else if(stat.stat_name == "weapon_hit_count" && includeInIVI(stat.item_id)){
+                    sanctionedStats = populateStats(sanctionedStats, stat.item_id, 'hits', Number.parseInt(stat.value));
                 }
             }
             resObj.favoriteVehicle = favoriteVehicle;
             resObj.topVehicleTime = topVehicleTime;
-            resObj.infantryShots = infantryShots;
-            resObj.infantryHits = infantryHits;
         }
         // Pull stats for score, spm, and K/D
         if(typeof(data.stats.stat_history) !== 'undefined'){
@@ -151,6 +145,23 @@ const basicInfo = async function(cName, platform){
                 }
             }
         }
+        // IVI calculations
+        let infantryKills = 0;
+        let infantryHeadshots = 0;
+        let infantryShots = 0;
+        let infantryHits = 0;
+        for(const id in sanctionedStats){
+            if(sanctionedStats[id].kills && sanctionedStats[id].kills > 50){
+                infantryKills += sanctionedStats[id].kills;
+                infantryHeadshots += sanctionedStats[id].headshots;
+                infantryShots += sanctionedStats[id].shots;
+                infantryHits += sanctionedStats[id].hits;
+            }
+        }
+        resObj.infantryKills = infantryKills;
+        resObj.infantryHeadshots = infantryHeadshots;
+        resObj.infantryShots = infantryShots;
+        resObj.infantryHits = infantryHits;
         
     }
     if(typeof(data.character_id_join_characters_stat) !== 'undefined'){
@@ -181,33 +192,22 @@ const checkASP = async function(cName, platform){
     return aspTitle;
 }
 
-const AHRExclude = [
-    "Infantry Abilities",
-    "Knife",
-    "Grenade",
-    "Rocket Launcher",
-    "AA MAX (Right)",
-    "AA MAX (Left)",
-    "AV MAX (Right)",
-    "AV MAX (Left)",
-    "Explosive",
-    "Aerial Combat Weapon"
-]
+const populateStats = function(sanctionedStats, id, key, value){
+    if(id in sanctionedStats){
+        sanctionedStats[id][key] = value;
+    }
+    else{
+        sanctionedStats[id] = {};
+        sanctionedStats[id][key] = value;
+    }
+    return sanctionedStats;
+}
 
-const includeInAHR = function(ID, vehicleID){
-    if(vehicleID != "0"){
-        return false;
+const includeInIVI = function(ID){
+    if(ID in sanction && sanction[ID].sanction == "infantry"){
+        return true;
     }
-    try{
-        let category = weapons[ID].category;
-        if(AHRExclude.includes(category)){
-            return false;
-        }
-    }
-    catch{
-        return false;
-    }
-    return true;
+    return false;
 }
 
 const getWeaponName = async function(ID, platform){
@@ -341,12 +341,11 @@ module.exports = {
             resEmbed.addField('K-D Diff', `${Number.parseInt(cInfo.kills).toLocaleString()} - ${Number.parseInt(cInfo.deaths).toLocaleString()} = ${sign}${(cInfo.kills-cInfo.deaths).toLocaleString()}`, true);
         }
 
-        // IAHR Score
+        // IVI Score
         if(typeof(cInfo.infantryHeadshots) !== 'undefined' && typeof(cInfo.infantryHits) !== 'undefined'){
             let accuracy = cInfo.infantryHits/cInfo.infantryShots;
             let hsr = cInfo.infantryHeadshots/cInfo.infantryKills;
-            let iahr = accuracy*hsr;
-            resEmbed.addField("IAHR Score", `${Math.floor(iahr*10000)}`, true);
+            resEmbed.addField("IVI Score", `${Math.round(accuracy*hsr*10000)}`, true);
         }
 
         // Online status

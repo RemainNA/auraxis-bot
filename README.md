@@ -169,7 +169,7 @@ Please make sure you have granted it the "Read Messages" "Send Messages" and "Em
 
 ### Why am I not seeing slash commands?
 
-Certain servers will need to re-invite the bot to enable slash commands.  If you've done that, make sure that the "Use Slash Commands" permission is granted for users in the appropriate channel.
+Certain servers will need to re-invite the bot to enable slash commands.  If you've done that, make sure that the "Use Application Commands" permission is granted for users in the appropriate channel.
 
 ### The bot is responding, but I'm not seeing any info
 
@@ -179,10 +179,6 @@ In your client settings, under "Text & Images" make sure "Show website preview i
 
 The bot is not allowed to use external emoji in that channel, to fix this grant the Use External Emoji permission to the bot.
 
-### What is IAHR?
+### What is IVI score?  How is it calculated?
 
-IAHR score is "Infantry Accuracy * Headshot Ratio" score.  It is calculated by taking the cumulative accuracy and headshot ratios of all infantry weapons except for abilities, knives, grenades, rocket launchers, MAX AA and AV, explosives, and rocklet rifles, multiplying them together, then multiplying by 10,000.  AHR is the same, but per weapon instead of an aggregate across most infantry weapons.
-
-### Why not use IVI score?
-
-IVI score is not as standard as it seems.  When I attempted to implement it I discovered that different sources listed different IVI scores for the same character, and no standard formula was publicly available.  Because of that I decided it would be best to introduce an obviously distinct metric instead of adding to the confusion.
+IVI stands for "Infantry vs Infantry" and is one measure of "shooting skill" calculated by multiplying accuracy and headshot ratio.  Only weapons sanctioned under "infantry" in the community run sanction list and with more than 50 kills will be used in calculating IVI.  The stat as calculated per weapon is available in /stats as AHR (for Accuracy*Headshot Ratio) and is shown regardless of weapon sanction or number of kills.

@@ -1,0 +1,7532 @@
+{
+    "15016": {
+        "category": "AA MAX (Left)",
+        "name": "NS-10 Burster",
+        "sanction": "max"
+    },
+    "16016": {
+        "category": "AA MAX (Left)",
+        "name": "NS-10 Burster",
+        "sanction": "max"
+    },
+    "17016": {
+        "category": "AA MAX (Left)",
+        "name": "NS-10 Burster",
+        "sanction": "max"
+    },
+    "804742": {
+        "category": "AA MAX (Left)",
+        "name": "NS-10B Burster",
+        "sanction": "max"
+    },
+    "804744": {
+        "category": "AA MAX (Left)",
+        "name": "NS-10B Burster",
+        "sanction": "max"
+    },
+    "804746": {
+        "category": "AA MAX (Left)",
+        "name": "NS-10B Burster",
+        "sanction": "max"
+    },
+    "804748": {
+        "category": "AA MAX (Left)",
+        "name": "NS-10G Burster",
+        "sanction": "max"
+    },
+    "804750": {
+        "category": "AA MAX (Left)",
+        "name": "NS-10G Burster",
+        "sanction": "max"
+    },
+    "804752": {
+        "category": "AA MAX (Left)",
+        "name": "NS-10G Burster",
+        "sanction": "max"
+    },
+    "15004": {
+        "category": "AA MAX (Right)",
+        "name": "NS-10 Burster",
+        "sanction": "max"
+    },
+    "16004": {
+        "category": "AA MAX (Right)",
+        "name": "NS-10 Burster",
+        "sanction": "max"
+    },
+    "17004": {
+        "category": "AA MAX (Right)",
+        "name": "NS-10 Burster",
+        "sanction": "max"
+    },
+    "804741": {
+        "category": "AA MAX (Right)",
+        "name": "NS-10B Burster",
+        "sanction": "max"
+    },
+    "804743": {
+        "category": "AA MAX (Right)",
+        "name": "NS-10B Burster",
+        "sanction": "max"
+    },
+    "804745": {
+        "category": "AA MAX (Right)",
+        "name": "NS-10B Burster",
+        "sanction": "max"
+    },
+    "804747": {
+        "category": "AA MAX (Right)",
+        "name": "NS-10G Burster",
+        "sanction": "max"
+    },
+    "804749": {
+        "category": "AA MAX (Right)",
+        "name": "NS-10G Burster",
+        "sanction": "max"
+    },
+    "804751": {
+        "category": "AA MAX (Right)",
+        "name": "NS-10G Burster",
+        "sanction": "max"
+    },
+    "802768": {
+        "category": "Aerial Combat Weapon",
+        "name": "Rocklet Rifle",
+        "sanction": "none"
+    },
+    "804939": {
+        "category": "Aerial Combat Weapon",
+        "name": "Rocklet Rifle",
+        "sanction": "none"
+    },
+    "804940": {
+        "category": "Aerial Combat Weapon",
+        "name": "Rocklet Rifle",
+        "sanction": "none"
+    },
+    "6005191": {
+        "category": "Aerial Combat Weapon",
+        "name": "Rocklet Rifle",
+        "sanction": "none"
+    },
+    "7507": {
+        "category": "AI MAX (Left)",
+        "name": "AF-23 Grinder",
+        "sanction": "max"
+    },
+    "7505": {
+        "category": "AI MAX (Left)",
+        "name": "AF-34 Mattock",
+        "sanction": "max"
+    },
+    "7506": {
+        "category": "AI MAX (Left)",
+        "name": "AF-41 Hacksaw",
+        "sanction": "max"
+    },
+    "7525": {
+        "category": "AI MAX (Left)",
+        "name": "Blueshift VM5",
+        "sanction": "max"
+    },
+    "7520": {
+        "category": "AI MAX (Left)",
+        "name": "Cosmos VM3",
+        "sanction": "max"
+    },
+    "15000": {
+        "category": "AI MAX (Left)",
+        "name": "M1 Heavy Cycler",
+        "sanction": "max"
+    },
+    "7513": {
+        "category": "AI MAX (Left)",
+        "name": "M2 Mutilator",
+        "sanction": "max"
+    },
+    "7512": {
+        "category": "AI MAX (Left)",
+        "name": "M6 Onslaught",
+        "sanction": "max"
+    },
+    "7518": {
+        "category": "AI MAX (Left)",
+        "name": "MRC3 Mercy",
+        "sanction": "max"
+    },
+    "16000": {
+        "category": "AI MAX (Left)",
+        "name": "NCM1 Scattercannon",
+        "sanction": "max"
+    },
+    "7519": {
+        "category": "AI MAX (Left)",
+        "name": "Nebula VM20",
+        "sanction": "max"
+    },
+    "17000": {
+        "category": "AI MAX (Left)",
+        "name": "Quasar VM1",
+        "sanction": "max"
+    },
+    "16026": {
+        "category": "AI MAX (Right)",
+        "name": "AF-23 Grinder",
+        "sanction": "max"
+    },
+    "16024": {
+        "category": "AI MAX (Right)",
+        "name": "AF-34 Mattock",
+        "sanction": "max"
+    },
+    "16025": {
+        "category": "AI MAX (Right)",
+        "name": "AF-41 Hacksaw",
+        "sanction": "max"
+    },
+    "17030": {
+        "category": "AI MAX (Right)",
+        "name": "Blueshift VM5",
+        "sanction": "max"
+    },
+    "17025": {
+        "category": "AI MAX (Right)",
+        "name": "Cosmos VM3",
+        "sanction": "max"
+    },
+    "15012": {
+        "category": "AI MAX (Right)",
+        "name": "M1 Heavy Cycler",
+        "sanction": "max"
+    },
+    "15025": {
+        "category": "AI MAX (Right)",
+        "name": "M2 Mutilator",
+        "sanction": "max"
+    },
+    "15024": {
+        "category": "AI MAX (Right)",
+        "name": "M6 Onslaught",
+        "sanction": "max"
+    },
+    "15030": {
+        "category": "AI MAX (Right)",
+        "name": "MRC3 Mercy",
+        "sanction": "max"
+    },
+    "16012": {
+        "category": "AI MAX (Right)",
+        "name": "NCM1 Scattercannon",
+        "sanction": "max"
+    },
+    "17024": {
+        "category": "AI MAX (Right)",
+        "name": "Nebula VM20",
+        "sanction": "max"
+    },
+    "17012": {
+        "category": "AI MAX (Right)",
+        "name": "Quasar VM1",
+        "sanction": "max"
+    },
+    "6004869": {
+        "category": "ANT Harvesting Tool",
+        "name": "WLT-ARX Mining Laser",
+        "sanction": "none"
+    },
+    "6004870": {
+        "category": "ANT Harvesting Tool",
+        "name": "WLT-ARX Mining Laser",
+        "sanction": "none"
+    },
+    "6004871": {
+        "category": "ANT Harvesting Tool",
+        "name": "WLT-ARX Mining Laser",
+        "sanction": "none"
+    },
+    "6005888": {
+        "category": "ANT Harvesting Tool",
+        "name": "WLT-ARX Mining Laser",
+        "sanction": "none"
+    },
+    "6002141": {
+        "category": "ANT Harvesting Tool",
+        "name": "WLT-Howler Mining Laser",
+        "sanction": "none"
+    },
+    "6002142": {
+        "category": "ANT Harvesting Tool",
+        "name": "WLT-Howler Mining Laser",
+        "sanction": "none"
+    },
+    "6002143": {
+        "category": "ANT Harvesting Tool",
+        "name": "WLT-Howler Mining Laser",
+        "sanction": "none"
+    },
+    "6005435": {
+        "category": "ANT Harvesting Tool",
+        "name": "WLT-Howler Mining Laser",
+        "sanction": "none"
+    },
+    "803423": {
+        "category": "ANT Harvesting Tool",
+        "name": "WLT-Mandible Mining Laser",
+        "sanction": "none"
+    },
+    "803424": {
+        "category": "ANT Harvesting Tool",
+        "name": "WLT-Mandible Mining Laser",
+        "sanction": "none"
+    },
+    "803425": {
+        "category": "ANT Harvesting Tool",
+        "name": "WLT-Mandible Mining Laser",
+        "sanction": "none"
+    },
+    "6005436": {
+        "category": "ANT Harvesting Tool",
+        "name": "WLT-Mandible Mining Laser",
+        "sanction": "none"
+    },
+    "803485": {
+        "category": "ANT Top Turret",
+        "name": "G30 Walker",
+        "sanction": "gunner"
+    },
+    "803486": {
+        "category": "ANT Top Turret",
+        "name": "G30 Walker",
+        "sanction": "gunner"
+    },
+    "803487": {
+        "category": "ANT Top Turret",
+        "name": "G30 Walker",
+        "sanction": "gunner"
+    },
+    "6005429": {
+        "category": "ANT Top Turret",
+        "name": "G30 Walker",
+        "sanction": "gunner"
+    },
+    "803488": {
+        "category": "ANT Top Turret",
+        "name": "G40-F Ranger",
+        "sanction": "gunner"
+    },
+    "803489": {
+        "category": "ANT Top Turret",
+        "name": "G40-F Ranger",
+        "sanction": "gunner"
+    },
+    "803490": {
+        "category": "ANT Top Turret",
+        "name": "G40-F Ranger",
+        "sanction": "gunner"
+    },
+    "6005430": {
+        "category": "ANT Top Turret",
+        "name": "G40-F Ranger",
+        "sanction": "gunner"
+    },
+    "803482": {
+        "category": "ANT Top Turret",
+        "name": "M12 Kobalt",
+        "sanction": "gunner"
+    },
+    "803483": {
+        "category": "ANT Top Turret",
+        "name": "M12 Kobalt",
+        "sanction": "gunner"
+    },
+    "803484": {
+        "category": "ANT Top Turret",
+        "name": "M12 Kobalt",
+        "sanction": "gunner"
+    },
+    "6005432": {
+        "category": "ANT Top Turret",
+        "name": "M12 Kobalt",
+        "sanction": "gunner"
+    },
+    "803501": {
+        "category": "ANT Top Turret",
+        "name": "M20 Basilisk",
+        "sanction": "gunner"
+    },
+    "803502": {
+        "category": "ANT Top Turret",
+        "name": "M20 Basilisk",
+        "sanction": "gunner"
+    },
+    "803503": {
+        "category": "ANT Top Turret",
+        "name": "M20 Basilisk",
+        "sanction": "gunner"
+    },
+    "6005428": {
+        "category": "ANT Top Turret",
+        "name": "M20 Basilisk",
+        "sanction": "gunner"
+    },
+    "6005536": {
+        "category": "ANT Top Turret",
+        "name": "M20 Basilisk",
+        "sanction": "gunner"
+    },
+    "6005537": {
+        "category": "ANT Top Turret",
+        "name": "M20 Basilisk",
+        "sanction": "gunner"
+    },
+    "6005538": {
+        "category": "ANT Top Turret",
+        "name": "M20 Basilisk",
+        "sanction": "gunner"
+    },
+    "803491": {
+        "category": "ANT Top Turret",
+        "name": "M40 Fury",
+        "sanction": "gunner"
+    },
+    "803492": {
+        "category": "ANT Top Turret",
+        "name": "M40 Fury",
+        "sanction": "gunner"
+    },
+    "803493": {
+        "category": "ANT Top Turret",
+        "name": "M40 Fury",
+        "sanction": "gunner"
+    },
+    "6005431": {
+        "category": "ANT Top Turret",
+        "name": "M40 Fury",
+        "sanction": "gunner"
+    },
+    "803494": {
+        "category": "ANT Top Turret",
+        "name": "M60-G Bulldog",
+        "sanction": "gunner"
+    },
+    "803495": {
+        "category": "ANT Top Turret",
+        "name": "M60-G Bulldog",
+        "sanction": "gunner"
+    },
+    "803496": {
+        "category": "ANT Top Turret",
+        "name": "M60-G Bulldog",
+        "sanction": "gunner"
+    },
+    "6005433": {
+        "category": "ANT Top Turret",
+        "name": "M60-G Bulldog",
+        "sanction": "gunner"
+    },
+    "6005541": {
+        "category": "ANT Top Turret",
+        "name": "WLT-Weaver Mining Turret",
+        "sanction": "none"
+    },
+    "6005542": {
+        "category": "ANT Top Turret",
+        "name": "WLT-Weaver Mining Turret",
+        "sanction": "none"
+    },
+    "6005543": {
+        "category": "ANT Top Turret",
+        "name": "WLT-Weaver Mining Turret",
+        "sanction": "none"
+    },
+    "6006283": {
+        "category": "ANT Top Turret",
+        "name": "WLT-Weaver Mining Turret",
+        "sanction": "none"
+    },
+    "803497": {
+        "category": "ANT Top Turret",
+        "name": "WLT-Yellowjacket Mining Laser",
+        "sanction": "none"
+    },
+    "803498": {
+        "category": "ANT Top Turret",
+        "name": "WLT-Yellowjacket Mining Laser",
+        "sanction": "none"
+    },
+    "803499": {
+        "category": "ANT Top Turret",
+        "name": "WLT-Yellowjacket Mining Laser",
+        "sanction": "none"
+    },
+    "6005434": {
+        "category": "ANT Top Turret",
+        "name": "WLT-Yellowjacket Mining Laser",
+        "sanction": "none"
+    },
+    "6009864": {
+        "category": "Assault Rifle",
+        "name": "AR-100",
+        "sanction": "infantry"
+    },
+    "6009891": {
+        "category": "Assault Rifle",
+        "name": "AR-101",
+        "sanction": "infantry"
+    },
+    "6011252": {
+        "category": "Assault Rifle",
+        "name": "AR-ARX Maxwell",
+        "sanction": "infantry"
+    },
+    "6009892": {
+        "category": "Assault Rifle",
+        "name": "AR-N203",
+        "sanction": "infantry"
+    },
+    "7103": {
+        "category": "Assault Rifle",
+        "name": "Carnage AR",
+        "sanction": "infantry"
+    },
+    "7149": {
+        "category": "Assault Rifle",
+        "name": "CME",
+        "sanction": "infantry"
+    },
+    "7152": {
+        "category": "Assault Rifle",
+        "name": "Corvus VA55",
+        "sanction": "infantry"
+    },
+    "7124": {
+        "category": "Assault Rifle",
+        "name": "Cycler TRV",
+        "sanction": "infantry"
+    },
+    "1909": {
+        "category": "Assault Rifle",
+        "name": "Darkstar",
+        "sanction": "infantry"
+    },
+    "7150": {
+        "category": "Assault Rifle",
+        "name": "Equinox VE2 Burst",
+        "sanction": "infantry"
+    },
+    "77822": {
+        "category": "Assault Rifle",
+        "name": "Gauss Prime",
+        "sanction": "infantry"
+    },
+    "7101": {
+        "category": "Assault Rifle",
+        "name": "Gauss Rifle Burst",
+        "sanction": "infantry"
+    },
+    "73": {
+        "category": "Assault Rifle",
+        "name": "GR-22",
+        "sanction": "infantry"
+    },
+    "6002896": {
+        "category": "Assault Rifle",
+        "name": "GR-22AE",
+        "sanction": "infantry"
+    },
+    "7148": {
+        "category": "Assault Rifle",
+        "name": "H-V45",
+        "sanction": "infantry"
+    },
+    "6002852": {
+        "category": "Assault Rifle",
+        "name": "H-V45 AE",
+        "sanction": "infantry"
+    },
+    "6006187": {
+        "category": "Assault Rifle",
+        "name": "MG-A1 Arbalest",
+        "sanction": "infantry"
+    },
+    "6006186": {
+        "category": "Assault Rifle",
+        "name": "MGR-A1 Vanquisher",
+        "sanction": "infantry"
+    },
+    "4": {
+        "category": "Assault Rifle",
+        "name": "NC1 Gauss Rifle",
+        "sanction": "infantry"
+    },
+    "7104": {
+        "category": "Assault Rifle",
+        "name": "NC9 A-Tross",
+        "sanction": "infantry"
+    },
+    "6009604": {
+        "category": "Assault Rifle",
+        "name": "\"NS-11 \"\"Endeavor\"\" Assault Rifle\"",
+        "sanction": "infantry"
+    },
+    "70998": {
+        "category": "Assault Rifle",
+        "name": "NS-11A",
+        "sanction": "infantry"
+    },
+    "6003571": {
+        "category": "Assault Rifle",
+        "name": "\"NS-11A \"\"Heatwave\"\"\"",
+        "sanction": "infantry"
+    },
+    "802099": {
+        "category": "Assault Rifle",
+        "name": "NS-11AB",
+        "sanction": "infantry"
+    },
+    "802101": {
+        "category": "Assault Rifle",
+        "name": "NS-11AG",
+        "sanction": "infantry"
+    },
+    "69999": {
+        "category": "Assault Rifle",
+        "name": "NS-11P",
+        "sanction": "infantry"
+    },
+    "6008645": {
+        "category": "Assault Rifle",
+        "name": "\"NSX \"\"Ivory\"\" Yumi\"",
+        "sanction": "infantry"
+    },
+    "6008665": {
+        "category": "Assault Rifle",
+        "name": "\"NSX \"\"Networked\"\" Yumi\"",
+        "sanction": "infantry"
+    },
+    "804246": {
+        "category": "Assault Rifle",
+        "name": "NSX Yumi",
+        "sanction": "infantry"
+    },
+    "6008371": {
+        "category": "Assault Rifle",
+        "name": "PSA-02 Diamondback",
+        "sanction": "infantry"
+    },
+    "20": {
+        "category": "Assault Rifle",
+        "name": "Pulsar VS1",
+        "sanction": "infantry"
+    },
+    "7108": {
+        "category": "Assault Rifle",
+        "name": "Reaper DMR",
+        "sanction": "infantry"
+    },
+    "7125": {
+        "category": "Assault Rifle",
+        "name": "SABR-13",
+        "sanction": "infantry"
+    },
+    "14": {
+        "category": "Assault Rifle",
+        "name": "T1 Cycler",
+        "sanction": "infantry"
+    },
+    "1904": {
+        "category": "Assault Rifle",
+        "name": "T1A Unity",
+        "sanction": "infantry"
+    },
+    "7126": {
+        "category": "Assault Rifle",
+        "name": "T1B Cycler",
+        "sanction": "infantry"
+    },
+    "7128": {
+        "category": "Assault Rifle",
+        "name": "TAR",
+        "sanction": "infantry"
+    },
+    "6002874": {
+        "category": "Assault Rifle",
+        "name": "TAR-AE",
+        "sanction": "infantry"
+    },
+    "7153": {
+        "category": "Assault Rifle",
+        "name": "Terminus VX-9",
+        "sanction": "infantry"
+    },
+    "7129": {
+        "category": "Assault Rifle",
+        "name": "TORQ-9",
+        "sanction": "infantry"
+    },
+    "6006188": {
+        "category": "Assault Rifle",
+        "name": "VE-A Lacerta",
+        "sanction": "infantry"
+    },
+    "7151": {
+        "category": "Assault Rifle",
+        "name": "Equinox VE2",
+        "sanction": "none"
+    },
+    "7102": {
+        "category": "Assault Rifle",
+        "name": "Gauss Rifle S",
+        "sanction": "none"
+    },
+    "7127": {
+        "category": "Assault Rifle",
+        "name": "T1S Cycler",
+        "sanction": "none"
+    },
+    "17013": {
+        "category": "AV MAX (Left)",
+        "name": "Comet VM2",
+        "sanction": "max"
+    },
+    "15013": {
+        "category": "AV MAX (Left)",
+        "name": "M3 Pounder HEG",
+        "sanction": "max"
+    },
+    "16030": {
+        "category": "AV MAX (Left)",
+        "name": "MR1 Fracture",
+        "sanction": "max"
+    },
+    "16013": {
+        "category": "AV MAX (Left)",
+        "name": "NCM2 Falcon",
+        "sanction": "max"
+    },
+    "16028": {
+        "category": "AV MAX (Left)",
+        "name": "NCM3 Raven",
+        "sanction": "max"
+    },
+    "6003600": {
+        "category": "AV MAX (Left)",
+        "name": "\"NS-20 \"\"Heatwave\"\" Gorgon\"",
+        "sanction": "max"
+    },
+    "6003601": {
+        "category": "AV MAX (Left)",
+        "name": "\"NS-20 \"\"Heatwave\"\" Gorgon\"",
+        "sanction": "max"
+    },
+    "6003603": {
+        "category": "AV MAX (Left)",
+        "name": "\"NS-20 \"\"Heatwave\"\" Gorgon\"",
+        "sanction": "max"
+    },
+    "804652": {
+        "category": "AV MAX (Left)",
+        "name": "NS-20 Gorgon",
+        "sanction": "max"
+    },
+    "804654": {
+        "category": "AV MAX (Left)",
+        "name": "NS-20 Gorgon",
+        "sanction": "max"
+    },
+    "804656": {
+        "category": "AV MAX (Left)",
+        "name": "NS-20 Gorgon",
+        "sanction": "max"
+    },
+    "804717": {
+        "category": "AV MAX (Left)",
+        "name": "NS-20B Gorgon",
+        "sanction": "max"
+    },
+    "804719": {
+        "category": "AV MAX (Left)",
+        "name": "NS-20B Gorgon",
+        "sanction": "max"
+    },
+    "804721": {
+        "category": "AV MAX (Left)",
+        "name": "NS-20B Gorgon",
+        "sanction": "max"
+    },
+    "804723": {
+        "category": "AV MAX (Left)",
+        "name": "NS-20G Gorgon",
+        "sanction": "max"
+    },
+    "804725": {
+        "category": "AV MAX (Left)",
+        "name": "NS-20G Gorgon",
+        "sanction": "max"
+    },
+    "804727": {
+        "category": "AV MAX (Left)",
+        "name": "NS-20G Gorgon",
+        "sanction": "max"
+    },
+    "16032": {
+        "category": "AV MAX (Left)",
+        "name": "Vortex VM21",
+        "sanction": "max"
+    },
+    "17001": {
+        "category": "AV MAX (Right)",
+        "name": "Comet VM2",
+        "sanction": "max"
+    },
+    "15001": {
+        "category": "AV MAX (Right)",
+        "name": "M3 Pounder HEG",
+        "sanction": "max"
+    },
+    "16031": {
+        "category": "AV MAX (Right)",
+        "name": "MR1 Fracture",
+        "sanction": "max"
+    },
+    "16001": {
+        "category": "AV MAX (Right)",
+        "name": "NCM2 Falcon",
+        "sanction": "max"
+    },
+    "16029": {
+        "category": "AV MAX (Right)",
+        "name": "NCM3 Raven",
+        "sanction": "max"
+    },
+    "6003599": {
+        "category": "AV MAX (Right)",
+        "name": "\"NS-20 \"\"Heatwave\"\" Gorgon\"",
+        "sanction": "max"
+    },
+    "6003602": {
+        "category": "AV MAX (Right)",
+        "name": "\"NS-20 \"\"Heatwave\"\" Gorgon\"",
+        "sanction": "max"
+    },
+    "6003604": {
+        "category": "AV MAX (Right)",
+        "name": "\"NS-20 \"\"Heatwave\"\" Gorgon\"",
+        "sanction": "max"
+    },
+    "804653": {
+        "category": "AV MAX (Right)",
+        "name": "NS-20 Gorgon",
+        "sanction": "max"
+    },
+    "804655": {
+        "category": "AV MAX (Right)",
+        "name": "NS-20 Gorgon",
+        "sanction": "max"
+    },
+    "804657": {
+        "category": "AV MAX (Right)",
+        "name": "NS-20 Gorgon",
+        "sanction": "max"
+    },
+    "804718": {
+        "category": "AV MAX (Right)",
+        "name": "NS-20B Gorgon",
+        "sanction": "max"
+    },
+    "804720": {
+        "category": "AV MAX (Right)",
+        "name": "NS-20B Gorgon",
+        "sanction": "max"
+    },
+    "804722": {
+        "category": "AV MAX (Right)",
+        "name": "NS-20B Gorgon",
+        "sanction": "max"
+    },
+    "804724": {
+        "category": "AV MAX (Right)",
+        "name": "NS-20G Gorgon",
+        "sanction": "max"
+    },
+    "804726": {
+        "category": "AV MAX (Right)",
+        "name": "NS-20G Gorgon",
+        "sanction": "max"
+    },
+    "804728": {
+        "category": "AV MAX (Right)",
+        "name": "NS-20G Gorgon",
+        "sanction": "max"
+    },
+    "16033": {
+        "category": "AV MAX (Right)",
+        "name": "Vortex VM21",
+        "sanction": "max"
+    },
+    "6008906": {
+        "category": "Bastion Bombard",
+        "name": "Mauler Cannon",
+        "sanction": "none"
+    },
+    "6008907": {
+        "category": "Bastion Bombard",
+        "name": "Mauler Cannon",
+        "sanction": "none"
+    },
+    "6008908": {
+        "category": "Bastion Bombard",
+        "name": "Mauler Cannon",
+        "sanction": "none"
+    },
+    "6008909": {
+        "category": "Bastion Bombard",
+        "name": "Mauler Cannon",
+        "sanction": "none"
+    },
+    "6009001": {
+        "category": "Bastion Bombard",
+        "name": "Mauler Cannon",
+        "sanction": "none"
+    },
+    "6009002": {
+        "category": "Bastion Bombard",
+        "name": "Mauler Cannon",
+        "sanction": "none"
+    },
+    "6009003": {
+        "category": "Bastion Bombard",
+        "name": "Mauler Cannon",
+        "sanction": "none"
+    },
+    "6009004": {
+        "category": "Bastion Bombard",
+        "name": "Mauler Cannon",
+        "sanction": "none"
+    },
+    "6009005": {
+        "category": "Bastion Bombard",
+        "name": "Mauler Cannon",
+        "sanction": "none"
+    },
+    "6009006": {
+        "category": "Bastion Bombard",
+        "name": "Mauler Cannon",
+        "sanction": "none"
+    },
+    "6009007": {
+        "category": "Bastion Bombard",
+        "name": "Mauler Cannon",
+        "sanction": "none"
+    },
+    "6009008": {
+        "category": "Bastion Bombard",
+        "name": "Mauler Cannon",
+        "sanction": "none"
+    },
+    "6008901": {
+        "category": "Bastion Point Defense",
+        "name": "Bastion CDWS",
+        "sanction": "none"
+    },
+    "6009023": {
+        "category": "Bastion Point Defense",
+        "name": "Bastion CDWS",
+        "sanction": "none"
+    },
+    "6009024": {
+        "category": "Bastion Point Defense",
+        "name": "Bastion CDWS",
+        "sanction": "none"
+    },
+    "6008903": {
+        "category": "Bastion Point Defense",
+        "name": "Bastion CIWS",
+        "sanction": "none"
+    },
+    "6008904": {
+        "category": "Bastion Point Defense",
+        "name": "Bastion CIWS",
+        "sanction": "none"
+    },
+    "6008905": {
+        "category": "Bastion Point Defense",
+        "name": "Bastion CIWS",
+        "sanction": "none"
+    },
+    "6008928": {
+        "category": "Bastion Point Defense",
+        "name": "Bastion CIWS",
+        "sanction": "none"
+    },
+    "6009015": {
+        "category": "Bastion Point Defense",
+        "name": "Bastion CIWS",
+        "sanction": "none"
+    },
+    "6009016": {
+        "category": "Bastion Point Defense",
+        "name": "Bastion CIWS",
+        "sanction": "none"
+    },
+    "6009017": {
+        "category": "Bastion Point Defense",
+        "name": "Bastion CIWS",
+        "sanction": "none"
+    },
+    "6009018": {
+        "category": "Bastion Point Defense",
+        "name": "Bastion CIWS",
+        "sanction": "none"
+    },
+    "6009019": {
+        "category": "Bastion Point Defense",
+        "name": "Bastion CIWS",
+        "sanction": "none"
+    },
+    "6009020": {
+        "category": "Bastion Point Defense",
+        "name": "Bastion CIWS",
+        "sanction": "none"
+    },
+    "6009021": {
+        "category": "Bastion Point Defense",
+        "name": "Bastion CIWS",
+        "sanction": "none"
+    },
+    "6009022": {
+        "category": "Bastion Point Defense",
+        "name": "Bastion CIWS",
+        "sanction": "none"
+    },
+    "6008910": {
+        "category": "Bastion Weapon System",
+        "name": "Bastion Battery",
+        "sanction": "none"
+    },
+    "6008911": {
+        "category": "Bastion Weapon System",
+        "name": "Bastion Battery",
+        "sanction": "none"
+    },
+    "6008929": {
+        "category": "Bastion Weapon System",
+        "name": "Bastion Battery",
+        "sanction": "none"
+    },
+    "6008930": {
+        "category": "Bastion Weapon System",
+        "name": "Bastion Battery",
+        "sanction": "none"
+    },
+    "6009036": {
+        "category": "Bastion Weapon System",
+        "name": "Bastion Battery",
+        "sanction": "none"
+    },
+    "6009037": {
+        "category": "Bastion Weapon System",
+        "name": "Bastion Battery",
+        "sanction": "none"
+    },
+    "6009038": {
+        "category": "Bastion Weapon System",
+        "name": "Bastion Battery",
+        "sanction": "none"
+    },
+    "6009039": {
+        "category": "Bastion Weapon System",
+        "name": "Bastion Battery",
+        "sanction": "none"
+    },
+    "6009040": {
+        "category": "Bastion Weapon System",
+        "name": "Bastion Battery",
+        "sanction": "none"
+    },
+    "6009041": {
+        "category": "Bastion Weapon System",
+        "name": "Bastion Battery",
+        "sanction": "none"
+    },
+    "6009042": {
+        "category": "Bastion Weapon System",
+        "name": "Bastion Battery",
+        "sanction": "none"
+    },
+    "6009043": {
+        "category": "Bastion Weapon System",
+        "name": "Bastion Battery",
+        "sanction": "none"
+    },
+    "25008": {
+        "category": "Battle Rifle",
+        "name": "AMR-66",
+        "sanction": "infantry"
+    },
+    "1989": {
+        "category": "Battle Rifle",
+        "name": "DMR-99",
+        "sanction": "infantry"
+    },
+    "26008": {
+        "category": "Battle Rifle",
+        "name": "Eidolon VE33",
+        "sanction": "infantry"
+    },
+    "1984": {
+        "category": "Battle Rifle",
+        "name": "GD Guardian",
+        "sanction": "infantry"
+    },
+    "6004216": {
+        "category": "Battle Rifle",
+        "name": "MG-HBR1 Dragoon",
+        "sanction": "infantry"
+    },
+    "6004209": {
+        "category": "Battle Rifle",
+        "name": "MGR-M1 Bishop",
+        "sanction": "infantry"
+    },
+    "6009101": {
+        "category": "Battle Rifle",
+        "name": "NS-30 Tranquility",
+        "sanction": "infantry"
+    },
+    "6005970": {
+        "category": "Battle Rifle",
+        "name": "NSX-A Sesshin",
+        "sanction": "infantry"
+    },
+    "1994": {
+        "category": "Battle Rifle",
+        "name": "Revenant",
+        "sanction": "infantry"
+    },
+    "6004214": {
+        "category": "Battle Rifle",
+        "name": "VE-LR Obelisk",
+        "sanction": "infantry"
+    },
+    "24008": {
+        "category": "Battle Rifle",
+        "name": "Warden",
+        "sanction": "infantry"
+    },
+    "1869": {
+        "category": "Carbine",
+        "name": "19A Fortuna",
+        "sanction": "infantry"
+    },
+    "7170": {
+        "category": "Carbine",
+        "name": "AC-X11",
+        "sanction": "infantry"
+    },
+    "3": {
+        "category": "Carbine",
+        "name": "AF-19 Mercenary",
+        "sanction": "infantry"
+    },
+    "7174": {
+        "category": "Carbine",
+        "name": "AF-4A Bandit",
+        "sanction": "infantry"
+    },
+    "6003947": {
+        "category": "Carbine",
+        "name": "AF-4A Bandit AE",
+        "sanction": "infantry"
+    },
+    "6009893": {
+        "category": "Carbine",
+        "name": "CB-100",
+        "sanction": "infantry"
+    },
+    "6009895": {
+        "category": "Carbine",
+        "name": "CB-200",
+        "sanction": "infantry"
+    },
+    "6011251": {
+        "category": "Carbine",
+        "name": "CB-ARX Newton",
+        "sanction": "infantry"
+    },
+    "6009894": {
+        "category": "Carbine",
+        "name": "CB-X75",
+        "sanction": "infantry"
+    },
+    "1919": {
+        "category": "Carbine",
+        "name": "Eclipse VE3A",
+        "sanction": "infantry"
+    },
+    "7171": {
+        "category": "Carbine",
+        "name": "Gauss Compact Burst",
+        "sanction": "infantry"
+    },
+    "7169": {
+        "category": "Carbine",
+        "name": "GD-7F",
+        "sanction": "infantry"
+    },
+    "7194": {
+        "category": "Carbine",
+        "name": "HC1 Cougar",
+        "sanction": "infantry"
+    },
+    "19000": {
+        "category": "Carbine",
+        "name": "LC2 Lynx",
+        "sanction": "infantry"
+    },
+    "6003968": {
+        "category": "Carbine",
+        "name": "LC2 Lynx AE",
+        "sanction": "infantry"
+    },
+    "7193": {
+        "category": "Carbine",
+        "name": "LC3 Jaguar",
+        "sanction": "infantry"
+    },
+    "6005049": {
+        "category": "Carbine",
+        "name": "MG-C1 Kindred",
+        "sanction": "infantry"
+    },
+    "6005055": {
+        "category": "Carbine",
+        "name": "MGR-C1 Charger",
+        "sanction": "infantry"
+    },
+    "6009656": {
+        "category": "Carbine",
+        "name": "\"NS-11 \"\"Endeavor\"\" Carbine\"",
+        "sanction": "infantry"
+    },
+    "75005": {
+        "category": "Carbine",
+        "name": "NS-11C",
+        "sanction": "infantry"
+    },
+    "802100": {
+        "category": "Carbine",
+        "name": "NS-11CB",
+        "sanction": "infantry"
+    },
+    "802102": {
+        "category": "Carbine",
+        "name": "NS-11CG",
+        "sanction": "infantry"
+    },
+    "75234": {
+        "category": "Carbine",
+        "name": "NS-11CP",
+        "sanction": "infantry"
+    },
+    "804243": {
+        "category": "Carbine",
+        "name": "NSX Tanto",
+        "sanction": "infantry"
+    },
+    "6003752": {
+        "category": "Carbine",
+        "name": "NSX-P Tanto",
+        "sanction": "infantry"
+    },
+    "7211": {
+        "category": "Carbine",
+        "name": "Pulsar C",
+        "sanction": "infantry"
+    },
+    "7173": {
+        "category": "Carbine",
+        "name": "Razor GD-23",
+        "sanction": "infantry"
+    },
+    "7214": {
+        "category": "Carbine",
+        "name": "Serpent VE92",
+        "sanction": "infantry"
+    },
+    "7212": {
+        "category": "Carbine",
+        "name": "Solstice Burst",
+        "sanction": "infantry"
+    },
+    "44": {
+        "category": "Carbine",
+        "name": "Solstice VE3",
+        "sanction": "infantry"
+    },
+    "7190": {
+        "category": "Carbine",
+        "name": "T5 AMC",
+        "sanction": "infantry"
+    },
+    "43": {
+        "category": "Carbine",
+        "name": "TRAC-5",
+        "sanction": "infantry"
+    },
+    "7191": {
+        "category": "Carbine",
+        "name": "TRAC-5 Burst",
+        "sanction": "infantry"
+    },
+    "1914": {
+        "category": "Carbine",
+        "name": "TRAC-Shot",
+        "sanction": "infantry"
+    },
+    "6005110": {
+        "category": "Carbine",
+        "name": "VE-C Horizon",
+        "sanction": "infantry"
+    },
+    "20000": {
+        "category": "Carbine",
+        "name": "VX6-7",
+        "sanction": "infantry"
+    },
+    "7215": {
+        "category": "Carbine",
+        "name": "Zenith VX-5",
+        "sanction": "infantry"
+    },
+    "6003967": {
+        "category": "Carbine",
+        "name": "Zenith VX-5AE",
+        "sanction": "infantry"
+    },
+    "7172": {
+        "category": "Carbine",
+        "name": "Gauss Compact S",
+        "sanction": "none"
+    },
+    "7213": {
+        "category": "Carbine",
+        "name": "Solstice SF",
+        "sanction": "none"
+    },
+    "7192": {
+        "category": "Carbine",
+        "name": "TRAC-5 S",
+        "sanction": "none"
+    },
+    "6010679": {
+        "category": "Chimera Primary Weapons",
+        "name": "CT-102 Satyr",
+        "sanction": "armor"
+    },
+    "6009957": {
+        "category": "Chimera Primary Weapons",
+        "name": "CT-135",
+        "sanction": "armor"
+    },
+    "6010678": {
+        "category": "Chimera Primary Weapons",
+        "name": "CT-150 Cyclops",
+        "sanction": "armor"
+    },
+    "6010715": {
+        "category": "Chimera Secondary Weapons",
+        "name": "CT2-20 HCG",
+        "sanction": "gunner"
+    },
+    "6010717": {
+        "category": "Chimera Secondary Weapons",
+        "name": "CT2-8M Siren",
+        "sanction": "gunner"
+    },
+    "6010716": {
+        "category": "Chimera Secondary Weapons",
+        "name": "CT2-XP",
+        "sanction": "gunner"
+    },
+    "6009235": {
+        "category": "Colossus Front Left Weapon",
+        "name": "M12 Goblin SP",
+        "sanction": "none"
+    },
+    "6009239": {
+        "category": "Colossus Front Left Weapon",
+        "name": "M12 Goblin SP",
+        "sanction": "none"
+    },
+    "6009243": {
+        "category": "Colossus Front Left Weapon",
+        "name": "M12 Goblin SP",
+        "sanction": "none"
+    },
+    "6009251": {
+        "category": "Colossus Front Left Weapon",
+        "name": "M12 Goblin SP",
+        "sanction": "none"
+    },
+    "6008750": {
+        "category": "Colossus Front Left Weapon",
+        "name": "M20 Gecko",
+        "sanction": "none"
+    },
+    "6009227": {
+        "category": "Colossus Front Left Weapon",
+        "name": "M20 Gecko",
+        "sanction": "none"
+    },
+    "6009231": {
+        "category": "Colossus Front Left Weapon",
+        "name": "M20 Gecko",
+        "sanction": "none"
+    },
+    "6009247": {
+        "category": "Colossus Front Left Weapon",
+        "name": "M20 Gecko",
+        "sanction": "none"
+    },
+    "6009255": {
+        "category": "Colossus Front Left Weapon",
+        "name": "M60 Pug",
+        "sanction": "none"
+    },
+    "6009259": {
+        "category": "Colossus Front Left Weapon",
+        "name": "M60 Pug",
+        "sanction": "none"
+    },
+    "6009263": {
+        "category": "Colossus Front Left Weapon",
+        "name": "M60 Pug",
+        "sanction": "none"
+    },
+    "6009267": {
+        "category": "Colossus Front Left Weapon",
+        "name": "M60 Pug",
+        "sanction": "none"
+    },
+    "6009271": {
+        "category": "Colossus Front Left Weapon",
+        "name": "M75 Fang",
+        "sanction": "none"
+    },
+    "6009275": {
+        "category": "Colossus Front Left Weapon",
+        "name": "M75 Fang",
+        "sanction": "none"
+    },
+    "6009279": {
+        "category": "Colossus Front Left Weapon",
+        "name": "M75 Fang",
+        "sanction": "none"
+    },
+    "6009283": {
+        "category": "Colossus Front Left Weapon",
+        "name": "M75 Fang",
+        "sanction": "none"
+    },
+    "6009234": {
+        "category": "Colossus Front Right Weapon",
+        "name": "M12 Goblin SP",
+        "sanction": "none"
+    },
+    "6009238": {
+        "category": "Colossus Front Right Weapon",
+        "name": "M12 Goblin SP",
+        "sanction": "none"
+    },
+    "6009242": {
+        "category": "Colossus Front Right Weapon",
+        "name": "M12 Goblin SP",
+        "sanction": "none"
+    },
+    "6009250": {
+        "category": "Colossus Front Right Weapon",
+        "name": "M12 Goblin SP",
+        "sanction": "none"
+    },
+    "6008749": {
+        "category": "Colossus Front Right Weapon",
+        "name": "M20 Gecko",
+        "sanction": "none"
+    },
+    "6009226": {
+        "category": "Colossus Front Right Weapon",
+        "name": "M20 Gecko",
+        "sanction": "none"
+    },
+    "6009230": {
+        "category": "Colossus Front Right Weapon",
+        "name": "M20 Gecko",
+        "sanction": "none"
+    },
+    "6009246": {
+        "category": "Colossus Front Right Weapon",
+        "name": "M20 Gecko",
+        "sanction": "none"
+    },
+    "6009254": {
+        "category": "Colossus Front Right Weapon",
+        "name": "M60 Pug",
+        "sanction": "none"
+    },
+    "6009258": {
+        "category": "Colossus Front Right Weapon",
+        "name": "M60 Pug",
+        "sanction": "none"
+    },
+    "6009262": {
+        "category": "Colossus Front Right Weapon",
+        "name": "M60 Pug",
+        "sanction": "none"
+    },
+    "6009266": {
+        "category": "Colossus Front Right Weapon",
+        "name": "M60 Pug",
+        "sanction": "none"
+    },
+    "6009270": {
+        "category": "Colossus Front Right Weapon",
+        "name": "M75 Fang",
+        "sanction": "none"
+    },
+    "6009274": {
+        "category": "Colossus Front Right Weapon",
+        "name": "M75 Fang",
+        "sanction": "none"
+    },
+    "6009278": {
+        "category": "Colossus Front Right Weapon",
+        "name": "M75 Fang",
+        "sanction": "none"
+    },
+    "6009282": {
+        "category": "Colossus Front Right Weapon",
+        "name": "M75 Fang",
+        "sanction": "none"
+    },
+    "6003420": {
+        "category": "Colossus Primary Weapon",
+        "name": "Mammoth Cannon",
+        "sanction": "none"
+    },
+    "6008734": {
+        "category": "Colossus Primary Weapon",
+        "name": "Mammoth Cannon",
+        "sanction": "none"
+    },
+    "6008735": {
+        "category": "Colossus Primary Weapon",
+        "name": "Mammoth Cannon",
+        "sanction": "none"
+    },
+    "6008736": {
+        "category": "Colossus Primary Weapon",
+        "name": "Mammoth Cannon",
+        "sanction": "none"
+    },
+    "6009273": {
+        "category": "Colossus Rear Left Weapon",
+        "name": "Dingo ML-6",
+        "sanction": "none"
+    },
+    "6009277": {
+        "category": "Colossus Rear Left Weapon",
+        "name": "Dingo ML-6",
+        "sanction": "none"
+    },
+    "6009281": {
+        "category": "Colossus Rear Left Weapon",
+        "name": "Dingo ML-6",
+        "sanction": "none"
+    },
+    "6009285": {
+        "category": "Colossus Rear Left Weapon",
+        "name": "Dingo ML-6",
+        "sanction": "none"
+    },
+    "6009237": {
+        "category": "Colossus Rear Left Weapon",
+        "name": "M12 Goblin SP",
+        "sanction": "none"
+    },
+    "6009241": {
+        "category": "Colossus Rear Left Weapon",
+        "name": "M12 Goblin SP",
+        "sanction": "none"
+    },
+    "6009245": {
+        "category": "Colossus Rear Left Weapon",
+        "name": "M12 Goblin SP",
+        "sanction": "none"
+    },
+    "6009253": {
+        "category": "Colossus Rear Left Weapon",
+        "name": "M12 Goblin SP",
+        "sanction": "none"
+    },
+    "6008752": {
+        "category": "Colossus Rear Left Weapon",
+        "name": "M20 Gecko",
+        "sanction": "none"
+    },
+    "6009229": {
+        "category": "Colossus Rear Left Weapon",
+        "name": "M20 Gecko",
+        "sanction": "none"
+    },
+    "6009233": {
+        "category": "Colossus Rear Left Weapon",
+        "name": "M20 Gecko",
+        "sanction": "none"
+    },
+    "6009249": {
+        "category": "Colossus Rear Left Weapon",
+        "name": "M20 Gecko",
+        "sanction": "none"
+    },
+    "6009257": {
+        "category": "Colossus Rear Left Weapon",
+        "name": "M60 Pug",
+        "sanction": "none"
+    },
+    "6009261": {
+        "category": "Colossus Rear Left Weapon",
+        "name": "M60 Pug",
+        "sanction": "none"
+    },
+    "6009265": {
+        "category": "Colossus Rear Left Weapon",
+        "name": "M60 Pug",
+        "sanction": "none"
+    },
+    "6009269": {
+        "category": "Colossus Rear Left Weapon",
+        "name": "M60 Pug",
+        "sanction": "none"
+    },
+    "6009272": {
+        "category": "Colossus Rear Right Weapon",
+        "name": "Dingo ML-6",
+        "sanction": "none"
+    },
+    "6009276": {
+        "category": "Colossus Rear Right Weapon",
+        "name": "Dingo ML-6",
+        "sanction": "none"
+    },
+    "6009280": {
+        "category": "Colossus Rear Right Weapon",
+        "name": "Dingo ML-6",
+        "sanction": "none"
+    },
+    "6009284": {
+        "category": "Colossus Rear Right Weapon",
+        "name": "Dingo ML-6",
+        "sanction": "none"
+    },
+    "6009236": {
+        "category": "Colossus Rear Right Weapon",
+        "name": "M12 Goblin SP",
+        "sanction": "none"
+    },
+    "6009240": {
+        "category": "Colossus Rear Right Weapon",
+        "name": "M12 Goblin SP",
+        "sanction": "none"
+    },
+    "6009244": {
+        "category": "Colossus Rear Right Weapon",
+        "name": "M12 Goblin SP",
+        "sanction": "none"
+    },
+    "6009252": {
+        "category": "Colossus Rear Right Weapon",
+        "name": "M12 Goblin SP",
+        "sanction": "none"
+    },
+    "6008751": {
+        "category": "Colossus Rear Right Weapon",
+        "name": "M20 Gecko",
+        "sanction": "none"
+    },
+    "6009228": {
+        "category": "Colossus Rear Right Weapon",
+        "name": "M20 Gecko",
+        "sanction": "none"
+    },
+    "6009232": {
+        "category": "Colossus Rear Right Weapon",
+        "name": "M20 Gecko",
+        "sanction": "none"
+    },
+    "6009248": {
+        "category": "Colossus Rear Right Weapon",
+        "name": "M20 Gecko",
+        "sanction": "none"
+    },
+    "6009256": {
+        "category": "Colossus Rear Right Weapon",
+        "name": "M60 Pug",
+        "sanction": "none"
+    },
+    "6009260": {
+        "category": "Colossus Rear Right Weapon",
+        "name": "M60 Pug",
+        "sanction": "none"
+    },
+    "6009264": {
+        "category": "Colossus Rear Right Weapon",
+        "name": "M60 Pug",
+        "sanction": "none"
+    },
+    "6009268": {
+        "category": "Colossus Rear Right Weapon",
+        "name": "M60 Pug",
+        "sanction": "none"
+    },
+    "2310": {
+        "category": "Crossbow",
+        "name": "Blackheart",
+        "sanction": "none"
+    },
+    "2309": {
+        "category": "Crossbow",
+        "name": "Heartstring",
+        "sanction": "none"
+    },
+    "2308": {
+        "category": "Crossbow",
+        "name": "Hunter QCX",
+        "sanction": "none"
+    },
+    "2317": {
+        "category": "Crossbow",
+        "name": "Hunter QCX-B",
+        "sanction": "none"
+    },
+    "2318": {
+        "category": "Crossbow",
+        "name": "Hunter QCX-G",
+        "sanction": "none"
+    },
+    "50562": {
+        "category": "Crossbow",
+        "name": "Hunter QCX-P",
+        "sanction": "none"
+    },
+    "1044": {
+        "category": "Explosive",
+        "name": "Bouncing Betty",
+        "sanction": "none"
+    },
+    "432": {
+        "category": "Explosive",
+        "name": "C-4",
+        "sanction": "none"
+    },
+    "800623": {
+        "category": "Explosive",
+        "name": "C-4 ARX",
+        "sanction": "none"
+    },
+    "6009782": {
+        "category": "Explosive",
+        "name": "C-4 Present",
+        "sanction": "none"
+    },
+    "429": {
+        "category": "Explosive",
+        "name": "Claymore",
+        "sanction": "none"
+    },
+    "804701": {
+        "category": "Explosive",
+        "name": "Command Uplink Device",
+        "sanction": "none"
+    },
+    "6005243": {
+        "category": "Explosive",
+        "name": "F.U.S.E. (Anti-Infantry)",
+        "sanction": "none"
+    },
+    "6009995": {
+        "category": "Explosive",
+        "name": "F.U.S.E. (Anti-Infantry)",
+        "sanction": "none"
+    },
+    "6010115": {
+        "category": "Explosive",
+        "name": "Outdated Network Terminal",
+        "sanction": "none"
+    },
+    "1045": {
+        "category": "Explosive",
+        "name": "Proximity Mine",
+        "sanction": "none"
+    },
+    "6005422": {
+        "category": "Explosive",
+        "name": "Proximity Mine",
+        "sanction": "none"
+    },
+    "6005963": {
+        "category": "Explosive",
+        "name": "Proximity Mine",
+        "sanction": "none"
+    },
+    "650": {
+        "category": "Explosive",
+        "name": "Tank Mine",
+        "sanction": "none"
+    },
+    "6005961": {
+        "category": "Explosive",
+        "name": "Tank Mine",
+        "sanction": "none"
+    },
+    "6005962": {
+        "category": "Explosive",
+        "name": "Tank Mine",
+        "sanction": "none"
+    },
+    "6004753": {
+        "category": "Flash Primary Weapon",
+        "name": "LA7 Buzzard",
+        "sanction": "none"
+    },
+    "2500": {
+        "category": "Flash Primary Weapon",
+        "name": "M12 Kobalt-F",
+        "sanction": "none"
+    },
+    "2501": {
+        "category": "Flash Primary Weapon",
+        "name": "M12 Kobalt-F",
+        "sanction": "none"
+    },
+    "2502": {
+        "category": "Flash Primary Weapon",
+        "name": "M12 Kobalt-F",
+        "sanction": "none"
+    },
+    "6005168": {
+        "category": "Flash Primary Weapon",
+        "name": "M12 Kobalt-F",
+        "sanction": "none"
+    },
+    "2507": {
+        "category": "Flash Primary Weapon",
+        "name": "M20 Basilisk-F",
+        "sanction": "none"
+    },
+    "2508": {
+        "category": "Flash Primary Weapon",
+        "name": "M20 Basilisk-F",
+        "sanction": "none"
+    },
+    "2509": {
+        "category": "Flash Primary Weapon",
+        "name": "M20 Basilisk-F",
+        "sanction": "none"
+    },
+    "6005166": {
+        "category": "Flash Primary Weapon",
+        "name": "M20 Basilisk-F",
+        "sanction": "none"
+    },
+    "6004754": {
+        "category": "Flash Primary Weapon",
+        "name": "M4-F Pillager",
+        "sanction": "none"
+    },
+    "2510": {
+        "category": "Flash Primary Weapon",
+        "name": "M40 Fury-F",
+        "sanction": "none"
+    },
+    "2511": {
+        "category": "Flash Primary Weapon",
+        "name": "M40 Fury-F",
+        "sanction": "none"
+    },
+    "2512": {
+        "category": "Flash Primary Weapon",
+        "name": "M40 Fury-F",
+        "sanction": "none"
+    },
+    "6005167": {
+        "category": "Flash Primary Weapon",
+        "name": "M40 Fury-F",
+        "sanction": "none"
+    },
+    "2657": {
+        "category": "Flash Primary Weapon",
+        "name": "S12 Renegade",
+        "sanction": "none"
+    },
+    "2658": {
+        "category": "Flash Primary Weapon",
+        "name": "S12 Renegade",
+        "sanction": "none"
+    },
+    "2659": {
+        "category": "Flash Primary Weapon",
+        "name": "S12 Renegade",
+        "sanction": "none"
+    },
+    "6005224": {
+        "category": "Flash Primary Weapon",
+        "name": "S12 Renegade",
+        "sanction": "none"
+    },
+    "6004752": {
+        "category": "Flash Primary Weapon",
+        "name": "V30-F Starfall",
+        "sanction": "none"
+    },
+    "5502": {
+        "category": "Galaxy Left Weapon",
+        "name": "M20 Drake",
+        "sanction": "none"
+    },
+    "5506": {
+        "category": "Galaxy Left Weapon",
+        "name": "M20 Drake",
+        "sanction": "none"
+    },
+    "5510": {
+        "category": "Galaxy Left Weapon",
+        "name": "M20 Drake",
+        "sanction": "none"
+    },
+    "6005473": {
+        "category": "Galaxy Left Weapon",
+        "name": "M20 Drake",
+        "sanction": "none"
+    },
+    "5514": {
+        "category": "Galaxy Left Weapon",
+        "name": "M60-A Bulldog",
+        "sanction": "none"
+    },
+    "5518": {
+        "category": "Galaxy Left Weapon",
+        "name": "M60-A Bulldog",
+        "sanction": "none"
+    },
+    "5522": {
+        "category": "Galaxy Left Weapon",
+        "name": "M60-A Bulldog",
+        "sanction": "none"
+    },
+    "6005485": {
+        "category": "Galaxy Left Weapon",
+        "name": "M60-A Bulldog",
+        "sanction": "none"
+    },
+    "6003398": {
+        "category": "Galaxy Left Weapon",
+        "name": "Pelter Rocket Pod",
+        "sanction": "none"
+    },
+    "6003405": {
+        "category": "Galaxy Left Weapon",
+        "name": "Pelter Rocket Pod",
+        "sanction": "none"
+    },
+    "6003410": {
+        "category": "Galaxy Left Weapon",
+        "name": "Pelter Rocket Pod",
+        "sanction": "none"
+    },
+    "6005487": {
+        "category": "Galaxy Left Weapon",
+        "name": "Pelter Rocket Pod",
+        "sanction": "none"
+    },
+    "5503": {
+        "category": "Galaxy Right Weapon",
+        "name": "M20 Drake",
+        "sanction": "none"
+    },
+    "5507": {
+        "category": "Galaxy Right Weapon",
+        "name": "M20 Drake",
+        "sanction": "none"
+    },
+    "5511": {
+        "category": "Galaxy Right Weapon",
+        "name": "M20 Drake",
+        "sanction": "none"
+    },
+    "6005474": {
+        "category": "Galaxy Right Weapon",
+        "name": "M20 Drake",
+        "sanction": "none"
+    },
+    "5515": {
+        "category": "Galaxy Right Weapon",
+        "name": "M60-A Bulldog",
+        "sanction": "none"
+    },
+    "5519": {
+        "category": "Galaxy Right Weapon",
+        "name": "M60-A Bulldog",
+        "sanction": "none"
+    },
+    "5523": {
+        "category": "Galaxy Right Weapon",
+        "name": "M60-A Bulldog",
+        "sanction": "none"
+    },
+    "6005486": {
+        "category": "Galaxy Right Weapon",
+        "name": "M60-A Bulldog",
+        "sanction": "none"
+    },
+    "6003294": {
+        "category": "Galaxy Right Weapon",
+        "name": "Pelter Rocket Pod",
+        "sanction": "none"
+    },
+    "6003295": {
+        "category": "Galaxy Right Weapon",
+        "name": "Pelter Rocket Pod",
+        "sanction": "none"
+    },
+    "6003296": {
+        "category": "Galaxy Right Weapon",
+        "name": "Pelter Rocket Pod",
+        "sanction": "none"
+    },
+    "6005488": {
+        "category": "Galaxy Right Weapon",
+        "name": "Pelter Rocket Pod",
+        "sanction": "none"
+    },
+    "5513": {
+        "category": "Galaxy Tail Weapon",
+        "name": "A30 Walker",
+        "sanction": "none"
+    },
+    "5517": {
+        "category": "Galaxy Tail Weapon",
+        "name": "A30 Walker",
+        "sanction": "none"
+    },
+    "5521": {
+        "category": "Galaxy Tail Weapon",
+        "name": "A30 Walker",
+        "sanction": "none"
+    },
+    "6005479": {
+        "category": "Galaxy Tail Weapon",
+        "name": "A30 Walker",
+        "sanction": "none"
+    },
+    "5501": {
+        "category": "Galaxy Tail Weapon",
+        "name": "M20 Drake",
+        "sanction": "none"
+    },
+    "5505": {
+        "category": "Galaxy Tail Weapon",
+        "name": "M20 Drake",
+        "sanction": "none"
+    },
+    "5509": {
+        "category": "Galaxy Tail Weapon",
+        "name": "M20 Drake",
+        "sanction": "none"
+    },
+    "6005475": {
+        "category": "Galaxy Tail Weapon",
+        "name": "M20 Drake",
+        "sanction": "none"
+    },
+    "5512": {
+        "category": "Galaxy Top Weapon",
+        "name": "A30 Walker",
+        "sanction": "none"
+    },
+    "5516": {
+        "category": "Galaxy Top Weapon",
+        "name": "A30 Walker",
+        "sanction": "none"
+    },
+    "5520": {
+        "category": "Galaxy Top Weapon",
+        "name": "A30 Walker",
+        "sanction": "none"
+    },
+    "6005480": {
+        "category": "Galaxy Top Weapon",
+        "name": "A30 Walker",
+        "sanction": "none"
+    },
+    "6003172": {
+        "category": "Galaxy Top Weapon",
+        "name": "Hyena Missile Launcher",
+        "sanction": "none"
+    },
+    "6003173": {
+        "category": "Galaxy Top Weapon",
+        "name": "Hyena Missile Launcher",
+        "sanction": "none"
+    },
+    "6003174": {
+        "category": "Galaxy Top Weapon",
+        "name": "Hyena Missile Launcher",
+        "sanction": "none"
+    },
+    "6005490": {
+        "category": "Galaxy Top Weapon",
+        "name": "Hyena Missile Launcher",
+        "sanction": "none"
+    },
+    "5500": {
+        "category": "Galaxy Top Weapon",
+        "name": "M20 Drake",
+        "sanction": "none"
+    },
+    "5504": {
+        "category": "Galaxy Top Weapon",
+        "name": "M20 Drake",
+        "sanction": "none"
+    },
+    "5508": {
+        "category": "Galaxy Top Weapon",
+        "name": "M20 Drake",
+        "sanction": "none"
+    },
+    "6005476": {
+        "category": "Galaxy Top Weapon",
+        "name": "M20 Drake",
+        "sanction": "none"
+    },
+    "1095": {
+        "category": "Grenade",
+        "name": "Anti-Vehicle Grenade",
+        "sanction": "none"
+    },
+    "1096": {
+        "category": "Grenade",
+        "name": "Concussion Grenade",
+        "sanction": "none"
+    },
+    "6009524": {
+        "category": "Grenade",
+        "name": "Condensate Grenade",
+        "sanction": "none"
+    },
+    "6050": {
+        "category": "Grenade",
+        "name": "Decoy Grenade",
+        "sanction": "none"
+    },
+    "50051": {
+        "category": "Grenade",
+        "name": "EMP Grenade",
+        "sanction": "none"
+    },
+    "6004750": {
+        "category": "Grenade",
+        "name": "Flamewake Grenade",
+        "sanction": "none"
+    },
+    "7755": {
+        "category": "Grenade",
+        "name": "Flash Grenade",
+        "sanction": "none"
+    },
+    "44505": {
+        "category": "Grenade",
+        "name": "Frag Grenade",
+        "sanction": "none"
+    },
+    "44605": {
+        "category": "Grenade",
+        "name": "Frag Grenade",
+        "sanction": "none"
+    },
+    "6005182": {
+        "category": "Grenade",
+        "name": "Frag Grenade",
+        "sanction": "none"
+    },
+    "6009583": {
+        "category": "Grenade",
+        "name": "Infernal Grenade",
+        "sanction": "none"
+    },
+    "6009459": {
+        "category": "Grenade",
+        "name": "Lightning Grenade",
+        "sanction": "none"
+    },
+    "883": {
+        "category": "Grenade",
+        "name": "Nanite Healing Grenade",
+        "sanction": "none"
+    },
+    "884": {
+        "category": "Grenade",
+        "name": "Nanite Revive Grenade",
+        "sanction": "none"
+    },
+    "6003738": {
+        "category": "Grenade",
+        "name": "Nano-Repair Grenade",
+        "sanction": "none"
+    },
+    "6003418": {
+        "category": "Grenade",
+        "name": "NSX Fujin",
+        "sanction": "none"
+    },
+    "6005472": {
+        "category": "Grenade",
+        "name": "NSX Raijin",
+        "sanction": "none"
+    },
+    "44705": {
+        "category": "Grenade",
+        "name": "Plasma Grenade",
+        "sanction": "none"
+    },
+    "6003847": {
+        "category": "Grenade",
+        "name": "Pumpkin Grenade",
+        "sanction": "none"
+    },
+    "6002453": {
+        "category": "Grenade",
+        "name": "Quick-Det Flash Grenade",
+        "sanction": "none"
+    },
+    "44506": {
+        "category": "Grenade",
+        "name": "Smoke Grenade",
+        "sanction": "none"
+    },
+    "6005304": {
+        "category": "Grenade",
+        "name": "Smoke Grenade",
+        "sanction": "none"
+    },
+    "880": {
+        "category": "Grenade",
+        "name": "Sticky Grenade",
+        "sanction": "none"
+    },
+    "881": {
+        "category": "Grenade",
+        "name": "Sticky Grenade",
+        "sanction": "none"
+    },
+    "882": {
+        "category": "Grenade",
+        "name": "Sticky Grenade",
+        "sanction": "none"
+    },
+    "6005328": {
+        "category": "Grenade",
+        "name": "Sticky Grenade",
+        "sanction": "none"
+    },
+    "6004742": {
+        "category": "Grenade",
+        "name": "Water Balloon",
+        "sanction": "none"
+    },
+    "6004743": {
+        "category": "Grenade",
+        "name": "Water Balloon",
+        "sanction": "none"
+    },
+    "6004744": {
+        "category": "Grenade",
+        "name": "Water Balloon",
+        "sanction": "none"
+    },
+    "6007252": {
+        "category": "Grenade",
+        "name": "Water Balloon",
+        "sanction": "none"
+    },
+    "802898": {
+        "category": "Harasser Top Gunner",
+        "name": "Aphelion VEX-4H",
+        "sanction": "gunner"
+    },
+    "6124": {
+        "category": "Harasser Top Gunner",
+        "name": "C85 Canister-H",
+        "sanction": "gunner"
+    },
+    "6118": {
+        "category": "Harasser Top Gunner",
+        "name": "E540 Halberd-H",
+        "sanction": "gunner"
+    },
+    "6119": {
+        "category": "Harasser Top Gunner",
+        "name": "E540 Halberd-H",
+        "sanction": "gunner"
+    },
+    "6120": {
+        "category": "Harasser Top Gunner",
+        "name": "E540 Halberd-H",
+        "sanction": "gunner"
+    },
+    "6005378": {
+        "category": "Harasser Top Gunner",
+        "name": "E540 Halberd-H",
+        "sanction": "gunner"
+    },
+    "6123": {
+        "category": "Harasser Top Gunner",
+        "name": "Enforcer ML65-H",
+        "sanction": "gunner"
+    },
+    "6121": {
+        "category": "Harasser Top Gunner",
+        "name": "G20 Vulcan-H",
+        "sanction": "gunner"
+    },
+    "6106": {
+        "category": "Harasser Top Gunner",
+        "name": "G30 Walker",
+        "sanction": "gunner"
+    },
+    "6107": {
+        "category": "Harasser Top Gunner",
+        "name": "G30 Walker",
+        "sanction": "gunner"
+    },
+    "6108": {
+        "category": "Harasser Top Gunner",
+        "name": "G30 Walker",
+        "sanction": "gunner"
+    },
+    "6005380": {
+        "category": "Harasser Top Gunner",
+        "name": "G30 Walker",
+        "sanction": "gunner"
+    },
+    "6109": {
+        "category": "Harasser Top Gunner",
+        "name": "G40-F Ranger",
+        "sanction": "gunner"
+    },
+    "6110": {
+        "category": "Harasser Top Gunner",
+        "name": "G40-F Ranger",
+        "sanction": "gunner"
+    },
+    "6111": {
+        "category": "Harasser Top Gunner",
+        "name": "G40-F Ranger",
+        "sanction": "gunner"
+    },
+    "6005381": {
+        "category": "Harasser Top Gunner",
+        "name": "G40-F Ranger",
+        "sanction": "gunner"
+    },
+    "6006397": {
+        "category": "Harasser Top Gunner",
+        "name": "Halberd-H SE",
+        "sanction": "gunner"
+    },
+    "6006401": {
+        "category": "Harasser Top Gunner",
+        "name": "Halberd-H SE",
+        "sanction": "gunner"
+    },
+    "6006402": {
+        "category": "Harasser Top Gunner",
+        "name": "Halberd-H SE",
+        "sanction": "gunner"
+    },
+    "6006403": {
+        "category": "Harasser Top Gunner",
+        "name": "Halberd-H SE",
+        "sanction": "gunner"
+    },
+    "6100": {
+        "category": "Harasser Top Gunner",
+        "name": "M12 Kobalt-H",
+        "sanction": "gunner"
+    },
+    "6101": {
+        "category": "Harasser Top Gunner",
+        "name": "M12 Kobalt-H",
+        "sanction": "gunner"
+    },
+    "6102": {
+        "category": "Harasser Top Gunner",
+        "name": "M12 Kobalt-H",
+        "sanction": "gunner"
+    },
+    "6005383": {
+        "category": "Harasser Top Gunner",
+        "name": "M12 Kobalt-H",
+        "sanction": "gunner"
+    },
+    "6103": {
+        "category": "Harasser Top Gunner",
+        "name": "M20 Basilisk-H",
+        "sanction": "gunner"
+    },
+    "6104": {
+        "category": "Harasser Top Gunner",
+        "name": "M20 Basilisk-H",
+        "sanction": "gunner"
+    },
+    "6105": {
+        "category": "Harasser Top Gunner",
+        "name": "M20 Basilisk-H",
+        "sanction": "gunner"
+    },
+    "6005379": {
+        "category": "Harasser Top Gunner",
+        "name": "M20 Basilisk-H",
+        "sanction": "gunner"
+    },
+    "6115": {
+        "category": "Harasser Top Gunner",
+        "name": "M40 Fury-H",
+        "sanction": "gunner"
+    },
+    "6116": {
+        "category": "Harasser Top Gunner",
+        "name": "M40 Fury-H",
+        "sanction": "gunner"
+    },
+    "6117": {
+        "category": "Harasser Top Gunner",
+        "name": "M40 Fury-H",
+        "sanction": "gunner"
+    },
+    "6005382": {
+        "category": "Harasser Top Gunner",
+        "name": "M40 Fury-H",
+        "sanction": "gunner"
+    },
+    "6112": {
+        "category": "Harasser Top Gunner",
+        "name": "M60-G Bulldog-H",
+        "sanction": "gunner"
+    },
+    "6113": {
+        "category": "Harasser Top Gunner",
+        "name": "M60-G Bulldog-H",
+        "sanction": "gunner"
+    },
+    "6114": {
+        "category": "Harasser Top Gunner",
+        "name": "M60-G Bulldog-H",
+        "sanction": "gunner"
+    },
+    "6005384": {
+        "category": "Harasser Top Gunner",
+        "name": "M60-G Bulldog-H",
+        "sanction": "gunner"
+    },
+    "802900": {
+        "category": "Harasser Top Gunner",
+        "name": "M96 Mjolnir-H",
+        "sanction": "gunner"
+    },
+    "802875": {
+        "category": "Harasser Top Gunner",
+        "name": "MR11 Gatekeeper-H",
+        "sanction": "gunner"
+    },
+    "6122": {
+        "category": "Harasser Top Gunner",
+        "name": "P525 Marauder-H",
+        "sanction": "gunner"
+    },
+    "6125": {
+        "category": "Harasser Top Gunner",
+        "name": "Proton II PPA-H",
+        "sanction": "gunner"
+    },
+    "6126": {
+        "category": "Harasser Top Gunner",
+        "name": "Saron HRB-H",
+        "sanction": "gunner"
+    },
+    "6011140": {
+        "category": "Heavy Weapon",
+        "name": "D11 Detonator",
+        "sanction": "max"
+    },
+    "6011064": {
+        "category": "Heavy Weapon",
+        "name": "D7 Hummingbird",
+        "sanction": "max"
+    },
+    "6008686": {
+        "category": "Heavy Weapon",
+        "name": "Grenade Printer",
+        "sanction": "max"
+    },
+    "6011412": {
+        "category": "Heavy Weapon",
+        "name": "Mega Soldier Soaker (Ballistic Blue)",
+        "sanction": "meme"
+    },
+    "6011418": {
+        "category": "Heavy Weapon",
+        "name": "Mega Soldier Soaker (Electric Sky)",
+        "sanction": "meme"
+    },
+    "6011409": {
+        "category": "Heavy Weapon",
+        "name": "Mega Soldier Soaker (Imperial Purple)",
+        "sanction": "meme"
+    },
+    "6011415": {
+        "category": "Heavy Weapon",
+        "name": "Mega Soldier Soaker (Riot Red)",
+        "sanction": "meme"
+    },
+    "6011389": {
+        "category": "Heavy Weapon",
+        "name": "Mega Soldier Soaker XP100",
+        "sanction": "meme"
+    },
+    "7540": {
+        "category": "Heavy Weapon",
+        "name": "Lasher X2",
+        "sanction": "none"
+    },
+    "803732": {
+        "category": "Heavy Weapon",
+        "name": "Lasher X2 AE",
+        "sanction": "none"
+    },
+    "6004144": {
+        "category": "Heavy Weapon",
+        "name": "Lasher X2-P",
+        "sanction": "none"
+    },
+    "7528": {
+        "category": "Heavy Weapon",
+        "name": "NC05 Jackhammer",
+        "sanction": "none"
+    },
+    "803756": {
+        "category": "Heavy Weapon",
+        "name": "NC05 Jackhammer AE",
+        "sanction": "none"
+    },
+    "6004174": {
+        "category": "Heavy Weapon",
+        "name": "NC05-P Jackhammer",
+        "sanction": "none"
+    },
+    "6006332": {
+        "category": "Heavy Weapon",
+        "name": "NS-03 Thumper",
+        "sanction": "none"
+    },
+    "6009426": {
+        "category": "Heavy Weapon",
+        "name": "NS-03 Thumper SE",
+        "sanction": "none"
+    },
+    "7533": {
+        "category": "Heavy Weapon",
+        "name": "T7 Mini-Chaingun",
+        "sanction": "none"
+    },
+    "803779": {
+        "category": "Heavy Weapon",
+        "name": "T7 Mini-Chaingun AE",
+        "sanction": "none"
+    },
+    "6004168": {
+        "category": "Heavy Weapon",
+        "name": "T7-P Mini-Chaingun",
+        "sanction": "none"
+    },
+    "6011152": {
+        "category": "Hybrid Rifle",
+        "name": "NSX Kuwa",
+        "sanction": "infantry"
+    },
+    "6005967": {
+        "category": "Hybrid Rifle",
+        "name": "NSX-A Kuwa",
+        "sanction": "infantry"
+    },
+    "804846": {
+        "category": "Infantry Abilities",
+        "name": "Cert Fountain",
+        "sanction": ""
+    },
+    "6009460": {
+        "category": "Infantry Abilities",
+        "name": "Metal Detector",
+        "sanction": ""
+    },
+    "6004560": {
+        "category": "Infantry Abilities",
+        "name": "Meteorite",
+        "sanction": ""
+    },
+    "6005102": {
+        "category": "Infantry Abilities",
+        "name": "Pumpking Slayer",
+        "sanction": ""
+    },
+    "310": {
+        "category": "Infantry Abilities",
+        "name": "Stealth Test",
+        "sanction": ""
+    },
+    "6009595": {
+        "category": "Infantry Abilities",
+        "name": "Trick or Treat!",
+        "sanction": ""
+    },
+    "200": {
+        "category": "Infantry Abilities",
+        "name": "Anti-Infantry MANA Turret",
+        "sanction": "infantry"
+    },
+    "201": {
+        "category": "Infantry Abilities",
+        "name": "Anti-Infantry MANA Turret",
+        "sanction": "infantry"
+    },
+    "202": {
+        "category": "Infantry Abilities",
+        "name": "Anti-Infantry MANA Turret",
+        "sanction": "infantry"
+    },
+    "6005223": {
+        "category": "Infantry Abilities",
+        "name": "Anti-Infantry MANA Turret",
+        "sanction": "infantry"
+    },
+    "803031": {
+        "category": "Infantry Abilities",
+        "name": "AA SpitFire Turret",
+        "sanction": "none"
+    },
+    "803032": {
+        "category": "Infantry Abilities",
+        "name": "AA SpitFire Turret",
+        "sanction": "none"
+    },
+    "803033": {
+        "category": "Infantry Abilities",
+        "name": "AA SpitFire Turret",
+        "sanction": "none"
+    },
+    "803034": {
+        "category": "Infantry Abilities",
+        "name": "AA SpitFire Turret",
+        "sanction": "none"
+    },
+    "803035": {
+        "category": "Infantry Abilities",
+        "name": "AA SpitFire Turret",
+        "sanction": "none"
+    },
+    "803036": {
+        "category": "Infantry Abilities",
+        "name": "AA SpitFire Turret",
+        "sanction": "none"
+    },
+    "6002561": {
+        "category": "Infantry Abilities",
+        "name": "ADMIN: Orbital Strike Gun",
+        "sanction": "none"
+    },
+    "803785": {
+        "category": "Infantry Abilities",
+        "name": "AE Medical Applicator 1",
+        "sanction": "none"
+    },
+    "803786": {
+        "category": "Infantry Abilities",
+        "name": "AE Medical Applicator 1",
+        "sanction": "none"
+    },
+    "803787": {
+        "category": "Infantry Abilities",
+        "name": "AE Medical Applicator 1",
+        "sanction": "none"
+    },
+    "6006606": {
+        "category": "Infantry Abilities",
+        "name": "AE Medical Applicator 1",
+        "sanction": "none"
+    },
+    "803788": {
+        "category": "Infantry Abilities",
+        "name": "AE Medical Applicator 2",
+        "sanction": "none"
+    },
+    "803793": {
+        "category": "Infantry Abilities",
+        "name": "AE Medical Applicator 2",
+        "sanction": "none"
+    },
+    "803798": {
+        "category": "Infantry Abilities",
+        "name": "AE Medical Applicator 2",
+        "sanction": "none"
+    },
+    "6006607": {
+        "category": "Infantry Abilities",
+        "name": "AE Medical Applicator 2",
+        "sanction": "none"
+    },
+    "803789": {
+        "category": "Infantry Abilities",
+        "name": "AE Medical Applicator 3",
+        "sanction": "none"
+    },
+    "803794": {
+        "category": "Infantry Abilities",
+        "name": "AE Medical Applicator 3",
+        "sanction": "none"
+    },
+    "803799": {
+        "category": "Infantry Abilities",
+        "name": "AE Medical Applicator 3",
+        "sanction": "none"
+    },
+    "6006608": {
+        "category": "Infantry Abilities",
+        "name": "AE Medical Applicator 3",
+        "sanction": "none"
+    },
+    "803790": {
+        "category": "Infantry Abilities",
+        "name": "AE Medical Applicator 4",
+        "sanction": "none"
+    },
+    "803795": {
+        "category": "Infantry Abilities",
+        "name": "AE Medical Applicator 4",
+        "sanction": "none"
+    },
+    "803800": {
+        "category": "Infantry Abilities",
+        "name": "AE Medical Applicator 4",
+        "sanction": "none"
+    },
+    "6006609": {
+        "category": "Infantry Abilities",
+        "name": "AE Medical Applicator 4",
+        "sanction": "none"
+    },
+    "803791": {
+        "category": "Infantry Abilities",
+        "name": "AE Medical Applicator 5",
+        "sanction": "none"
+    },
+    "803796": {
+        "category": "Infantry Abilities",
+        "name": "AE Medical Applicator 5",
+        "sanction": "none"
+    },
+    "803801": {
+        "category": "Infantry Abilities",
+        "name": "AE Medical Applicator 5",
+        "sanction": "none"
+    },
+    "6006610": {
+        "category": "Infantry Abilities",
+        "name": "AE Medical Applicator 5",
+        "sanction": "none"
+    },
+    "803792": {
+        "category": "Infantry Abilities",
+        "name": "AE Medical Applicator 6",
+        "sanction": "none"
+    },
+    "803797": {
+        "category": "Infantry Abilities",
+        "name": "AE Medical Applicator 6",
+        "sanction": "none"
+    },
+    "803802": {
+        "category": "Infantry Abilities",
+        "name": "AE Medical Applicator 6",
+        "sanction": "none"
+    },
+    "6006611": {
+        "category": "Infantry Abilities",
+        "name": "AE Medical Applicator 6",
+        "sanction": "none"
+    },
+    "803804": {
+        "category": "Infantry Abilities",
+        "name": "AE Nano-Armor Kit 1",
+        "sanction": "none"
+    },
+    "803809": {
+        "category": "Infantry Abilities",
+        "name": "AE Nano-Armor Kit 1",
+        "sanction": "none"
+    },
+    "803815": {
+        "category": "Infantry Abilities",
+        "name": "AE Nano-Armor Kit 1",
+        "sanction": "none"
+    },
+    "6006682": {
+        "category": "Infantry Abilities",
+        "name": "AE Nano-Armor Kit 1",
+        "sanction": "none"
+    },
+    "803803": {
+        "category": "Infantry Abilities",
+        "name": "AE Nano-Armor Kit 2",
+        "sanction": "none"
+    },
+    "803810": {
+        "category": "Infantry Abilities",
+        "name": "AE Nano-Armor Kit 2",
+        "sanction": "none"
+    },
+    "803816": {
+        "category": "Infantry Abilities",
+        "name": "AE Nano-Armor Kit 2",
+        "sanction": "none"
+    },
+    "6006683": {
+        "category": "Infantry Abilities",
+        "name": "AE Nano-Armor Kit 2",
+        "sanction": "none"
+    },
+    "803805": {
+        "category": "Infantry Abilities",
+        "name": "AE Nano-Armor Kit 3",
+        "sanction": "none"
+    },
+    "803811": {
+        "category": "Infantry Abilities",
+        "name": "AE Nano-Armor Kit 3",
+        "sanction": "none"
+    },
+    "803817": {
+        "category": "Infantry Abilities",
+        "name": "AE Nano-Armor Kit 3",
+        "sanction": "none"
+    },
+    "6006684": {
+        "category": "Infantry Abilities",
+        "name": "AE Nano-Armor Kit 3",
+        "sanction": "none"
+    },
+    "803807": {
+        "category": "Infantry Abilities",
+        "name": "AE Nano-Armor Kit 4",
+        "sanction": "none"
+    },
+    "803812": {
+        "category": "Infantry Abilities",
+        "name": "AE Nano-Armor Kit 4",
+        "sanction": "none"
+    },
+    "803818": {
+        "category": "Infantry Abilities",
+        "name": "AE Nano-Armor Kit 4",
+        "sanction": "none"
+    },
+    "6006685": {
+        "category": "Infantry Abilities",
+        "name": "AE Nano-Armor Kit 4",
+        "sanction": "none"
+    },
+    "803808": {
+        "category": "Infantry Abilities",
+        "name": "AE Nano-Armor Kit 5",
+        "sanction": "none"
+    },
+    "803813": {
+        "category": "Infantry Abilities",
+        "name": "AE Nano-Armor Kit 5",
+        "sanction": "none"
+    },
+    "803819": {
+        "category": "Infantry Abilities",
+        "name": "AE Nano-Armor Kit 5",
+        "sanction": "none"
+    },
+    "6006700": {
+        "category": "Infantry Abilities",
+        "name": "AE Nano-Armor Kit 5",
+        "sanction": "none"
+    },
+    "803806": {
+        "category": "Infantry Abilities",
+        "name": "AE Nano-Armor Kit 6",
+        "sanction": "none"
+    },
+    "803814": {
+        "category": "Infantry Abilities",
+        "name": "AE Nano-Armor Kit 6",
+        "sanction": "none"
+    },
+    "803820": {
+        "category": "Infantry Abilities",
+        "name": "AE Nano-Armor Kit 6",
+        "sanction": "none"
+    },
+    "6006701": {
+        "category": "Infantry Abilities",
+        "name": "AE Nano-Armor Kit 6",
+        "sanction": "none"
+    },
+    "6002366": {
+        "category": "Infantry Abilities",
+        "name": "Alarm Module",
+        "sanction": "none"
+    },
+    "6002367": {
+        "category": "Infantry Abilities",
+        "name": "Alarm Module",
+        "sanction": "none"
+    },
+    "6002368": {
+        "category": "Infantry Abilities",
+        "name": "Alarm Module",
+        "sanction": "none"
+    },
+    "6005628": {
+        "category": "Infantry Abilities",
+        "name": "Alarm Module",
+        "sanction": "none"
+    },
+    "153": {
+        "category": "Infantry Abilities",
+        "name": "Ammunition Package 1",
+        "sanction": "none"
+    },
+    "376": {
+        "category": "Infantry Abilities",
+        "name": "Ammunition Package 1",
+        "sanction": "none"
+    },
+    "377": {
+        "category": "Infantry Abilities",
+        "name": "Ammunition Package 1",
+        "sanction": "none"
+    },
+    "6005225": {
+        "category": "Infantry Abilities",
+        "name": "Ammunition Package 1",
+        "sanction": "none"
+    },
+    "1264": {
+        "category": "Infantry Abilities",
+        "name": "Ammunition Package 2",
+        "sanction": "none"
+    },
+    "1269": {
+        "category": "Infantry Abilities",
+        "name": "Ammunition Package 2",
+        "sanction": "none"
+    },
+    "1274": {
+        "category": "Infantry Abilities",
+        "name": "Ammunition Package 2",
+        "sanction": "none"
+    },
+    "6005226": {
+        "category": "Infantry Abilities",
+        "name": "Ammunition Package 2",
+        "sanction": "none"
+    },
+    "1265": {
+        "category": "Infantry Abilities",
+        "name": "Ammunition Package 3",
+        "sanction": "none"
+    },
+    "1270": {
+        "category": "Infantry Abilities",
+        "name": "Ammunition Package 3",
+        "sanction": "none"
+    },
+    "1275": {
+        "category": "Infantry Abilities",
+        "name": "Ammunition Package 3",
+        "sanction": "none"
+    },
+    "6005227": {
+        "category": "Infantry Abilities",
+        "name": "Ammunition Package 3",
+        "sanction": "none"
+    },
+    "1266": {
+        "category": "Infantry Abilities",
+        "name": "Ammunition Package 4",
+        "sanction": "none"
+    },
+    "1271": {
+        "category": "Infantry Abilities",
+        "name": "Ammunition Package 4",
+        "sanction": "none"
+    },
+    "1276": {
+        "category": "Infantry Abilities",
+        "name": "Ammunition Package 4",
+        "sanction": "none"
+    },
+    "6005228": {
+        "category": "Infantry Abilities",
+        "name": "Ammunition Package 4",
+        "sanction": "none"
+    },
+    "1267": {
+        "category": "Infantry Abilities",
+        "name": "Ammunition Package 5",
+        "sanction": "none"
+    },
+    "1272": {
+        "category": "Infantry Abilities",
+        "name": "Ammunition Package 5",
+        "sanction": "none"
+    },
+    "1277": {
+        "category": "Infantry Abilities",
+        "name": "Ammunition Package 5",
+        "sanction": "none"
+    },
+    "6005229": {
+        "category": "Infantry Abilities",
+        "name": "Ammunition Package 5",
+        "sanction": "none"
+    },
+    "1268": {
+        "category": "Infantry Abilities",
+        "name": "Ammunition Package 6",
+        "sanction": "none"
+    },
+    "1273": {
+        "category": "Infantry Abilities",
+        "name": "Ammunition Package 6",
+        "sanction": "none"
+    },
+    "1278": {
+        "category": "Infantry Abilities",
+        "name": "Ammunition Package 6",
+        "sanction": "none"
+    },
+    "6005230": {
+        "category": "Infantry Abilities",
+        "name": "Ammunition Package 6",
+        "sanction": "none"
+    },
+    "71563": {
+        "category": "Infantry Abilities",
+        "name": "Anti-Vehicle MANA Turret",
+        "sanction": "none"
+    },
+    "71564": {
+        "category": "Infantry Abilities",
+        "name": "Anti-Vehicle MANA Turret",
+        "sanction": "none"
+    },
+    "71565": {
+        "category": "Infantry Abilities",
+        "name": "Anti-Vehicle MANA Turret",
+        "sanction": "none"
+    },
+    "6005424": {
+        "category": "Infantry Abilities",
+        "name": "Anti-Vehicle MANA Turret",
+        "sanction": "none"
+    },
+    "6009044": {
+        "category": "Infantry Abilities",
+        "name": "Armory War Asset Orbital Strike",
+        "sanction": "none"
+    },
+    "803025": {
+        "category": "Infantry Abilities",
+        "name": "AV SpitFire Turret",
+        "sanction": "none"
+    },
+    "803026": {
+        "category": "Infantry Abilities",
+        "name": "AV SpitFire Turret",
+        "sanction": "none"
+    },
+    "803027": {
+        "category": "Infantry Abilities",
+        "name": "AV SpitFire Turret",
+        "sanction": "none"
+    },
+    "803028": {
+        "category": "Infantry Abilities",
+        "name": "AV SpitFire Turret",
+        "sanction": "none"
+    },
+    "803029": {
+        "category": "Infantry Abilities",
+        "name": "AV SpitFire Turret",
+        "sanction": "none"
+    },
+    "803030": {
+        "category": "Infantry Abilities",
+        "name": "AV SpitFire Turret",
+        "sanction": "none"
+    },
+    "6004611": {
+        "category": "Infantry Abilities",
+        "name": "Bending Beacon",
+        "sanction": "none"
+    },
+    "6006353": {
+        "category": "Infantry Abilities",
+        "name": "Bending Beacon",
+        "sanction": "none"
+    },
+    "804980": {
+        "category": "Infantry Abilities",
+        "name": "Blast Wall",
+        "sanction": "none"
+    },
+    "804981": {
+        "category": "Infantry Abilities",
+        "name": "Blast Wall",
+        "sanction": "none"
+    },
+    "804982": {
+        "category": "Infantry Abilities",
+        "name": "Blast Wall",
+        "sanction": "none"
+    },
+    "6005634": {
+        "category": "Infantry Abilities",
+        "name": "Blast Wall",
+        "sanction": "none"
+    },
+    "803614": {
+        "category": "Infantry Abilities",
+        "name": "Bunker",
+        "sanction": "none"
+    },
+    "803615": {
+        "category": "Infantry Abilities",
+        "name": "Bunker",
+        "sanction": "none"
+    },
+    "803616": {
+        "category": "Infantry Abilities",
+        "name": "Bunker",
+        "sanction": "none"
+    },
+    "6005701": {
+        "category": "Infantry Abilities",
+        "name": "Bunker",
+        "sanction": "none"
+    },
+    "6009090": {
+        "category": "Infantry Abilities",
+        "name": "Caltrop",
+        "sanction": "none"
+    },
+    "6009069": {
+        "category": "Infantry Abilities",
+        "name": "Cortium Bomb",
+        "sanction": "none"
+    },
+    "804702": {
+        "category": "Infantry Abilities",
+        "name": "Cortium Silo",
+        "sanction": "none"
+    },
+    "804703": {
+        "category": "Infantry Abilities",
+        "name": "Cortium Silo",
+        "sanction": "none"
+    },
+    "804704": {
+        "category": "Infantry Abilities",
+        "name": "Cortium Silo",
+        "sanction": "none"
+    },
+    "6005657": {
+        "category": "Infantry Abilities",
+        "name": "Cortium Silo",
+        "sanction": "none"
+    },
+    "6003075": {
+        "category": "Infantry Abilities",
+        "name": "Cortium Tap",
+        "sanction": "none"
+    },
+    "803469": {
+        "category": "Infantry Abilities",
+        "name": "Deconstruction Tool",
+        "sanction": "none"
+    },
+    "6009753": {
+        "category": "Infantry Abilities",
+        "name": "Elysium Refinery",
+        "sanction": "none"
+    },
+    "6002466": {
+        "category": "Infantry Abilities",
+        "name": "Elysium Spawn Tube",
+        "sanction": "none"
+    },
+    "6002467": {
+        "category": "Infantry Abilities",
+        "name": "Elysium Spawn Tube",
+        "sanction": "none"
+    },
+    "6002468": {
+        "category": "Infantry Abilities",
+        "name": "Elysium Spawn Tube",
+        "sanction": "none"
+    },
+    "6005659": {
+        "category": "Infantry Abilities",
+        "name": "Elysium Spawn Tube",
+        "sanction": "none"
+    },
+    "804954": {
+        "category": "Infantry Abilities",
+        "name": "Faction Banner",
+        "sanction": "none"
+    },
+    "804955": {
+        "category": "Infantry Abilities",
+        "name": "Faction Banner",
+        "sanction": "none"
+    },
+    "804956": {
+        "category": "Infantry Abilities",
+        "name": "Faction Banner",
+        "sanction": "none"
+    },
+    "6005640": {
+        "category": "Infantry Abilities",
+        "name": "Faction Banner",
+        "sanction": "none"
+    },
+    "6004292": {
+        "category": "Infantry Abilities",
+        "name": "Flail Targeting Dart",
+        "sanction": "none"
+    },
+    "6009000": {
+        "category": "Infantry Abilities",
+        "name": "Flash XS-1",
+        "sanction": "none"
+    },
+    "6009009": {
+        "category": "Infantry Abilities",
+        "name": "Flash XS-1",
+        "sanction": "none"
+    },
+    "6002390": {
+        "category": "Infantry Abilities",
+        "name": "Glaive IPC",
+        "sanction": "none"
+    },
+    "6002391": {
+        "category": "Infantry Abilities",
+        "name": "Glaive IPC",
+        "sanction": "none"
+    },
+    "6002392": {
+        "category": "Infantry Abilities",
+        "name": "Glaive IPC",
+        "sanction": "none"
+    },
+    "6005636": {
+        "category": "Infantry Abilities",
+        "name": "Glaive IPC",
+        "sanction": "none"
+    },
+    "6002954": {
+        "category": "Infantry Abilities",
+        "name": "Hardlight Barrier",
+        "sanction": "none"
+    },
+    "6002955": {
+        "category": "Infantry Abilities",
+        "name": "Hardlight Barrier",
+        "sanction": "none"
+    },
+    "6002956": {
+        "category": "Infantry Abilities",
+        "name": "Hardlight Barrier",
+        "sanction": "none"
+    },
+    "6005515": {
+        "category": "Infantry Abilities",
+        "name": "Hardlight Barrier",
+        "sanction": "none"
+    },
+    "6009064": {
+        "category": "Infantry Abilities",
+        "name": "Hardlight Canopy",
+        "sanction": "none"
+    },
+    "803617": {
+        "category": "Infantry Abilities",
+        "name": "HIVE",
+        "sanction": "none"
+    },
+    "803618": {
+        "category": "Infantry Abilities",
+        "name": "HIVE",
+        "sanction": "none"
+    },
+    "803619": {
+        "category": "Infantry Abilities",
+        "name": "HIVE",
+        "sanction": "none"
+    },
+    "803588": {
+        "category": "Infantry Abilities",
+        "name": "Hoplon Anti-Aircraft Phalanx Tower",
+        "sanction": "none"
+    },
+    "803589": {
+        "category": "Infantry Abilities",
+        "name": "Hoplon Anti-Aircraft Phalanx Tower",
+        "sanction": "none"
+    },
+    "803590": {
+        "category": "Infantry Abilities",
+        "name": "Hoplon Anti-Aircraft Phalanx Tower",
+        "sanction": "none"
+    },
+    "6005622": {
+        "category": "Infantry Abilities",
+        "name": "Hoplon Anti-Aircraft Phalanx Tower",
+        "sanction": "none"
+    },
+    "6002348": {
+        "category": "Infantry Abilities",
+        "name": "Infantry Tower",
+        "sanction": "none"
+    },
+    "6002349": {
+        "category": "Infantry Abilities",
+        "name": "Infantry Tower",
+        "sanction": "none"
+    },
+    "6002350": {
+        "category": "Infantry Abilities",
+        "name": "Infantry Tower",
+        "sanction": "none"
+    },
+    "6005644": {
+        "category": "Infantry Abilities",
+        "name": "Infantry Tower",
+        "sanction": "none"
+    },
+    "6009093": {
+        "category": "Infantry Abilities",
+        "name": "Infradine",
+        "sanction": "none"
+    },
+    "6002553": {
+        "category": "Infantry Abilities",
+        "name": "IPC Targeting Dart",
+        "sanction": "none"
+    },
+    "6009047": {
+        "category": "Infantry Abilities",
+        "name": "Javelin XS-1",
+        "sanction": "none"
+    },
+    "6002496": {
+        "category": "Infantry Abilities",
+        "name": "Light Air Terminal",
+        "sanction": "none"
+    },
+    "6002497": {
+        "category": "Infantry Abilities",
+        "name": "Light Air Terminal",
+        "sanction": "none"
+    },
+    "6002498": {
+        "category": "Infantry Abilities",
+        "name": "Light Air Terminal",
+        "sanction": "none"
+    },
+    "6005626": {
+        "category": "Infantry Abilities",
+        "name": "Light Air Terminal",
+        "sanction": "none"
+    },
+    "6002472": {
+        "category": "Infantry Abilities",
+        "name": "Light Vehicle Terminal",
+        "sanction": "none"
+    },
+    "6002473": {
+        "category": "Infantry Abilities",
+        "name": "Light Vehicle Terminal",
+        "sanction": "none"
+    },
+    "6002474": {
+        "category": "Infantry Abilities",
+        "name": "Light Vehicle Terminal",
+        "sanction": "none"
+    },
+    "6005663": {
+        "category": "Infantry Abilities",
+        "name": "Light Vehicle Terminal",
+        "sanction": "none"
+    },
+    "6009467": {
+        "category": "Infantry Abilities",
+        "name": "Lightning Arrester",
+        "sanction": "none"
+    },
+    "6002360": {
+        "category": "Infantry Abilities",
+        "name": "Lumifiber Rampart Wall",
+        "sanction": "none"
+    },
+    "6002361": {
+        "category": "Infantry Abilities",
+        "name": "Lumifiber Rampart Wall",
+        "sanction": "none"
+    },
+    "6002362": {
+        "category": "Infantry Abilities",
+        "name": "Lumifiber Rampart Wall",
+        "sanction": "none"
+    },
+    "6005646": {
+        "category": "Infantry Abilities",
+        "name": "Lumifiber Rampart Wall",
+        "sanction": "none"
+    },
+    "500": {
+        "category": "Infantry Abilities",
+        "name": "MANA Anti-Vehicle Turret",
+        "sanction": "none"
+    },
+    "501": {
+        "category": "Infantry Abilities",
+        "name": "MANA Anti-Vehicle Turret",
+        "sanction": "none"
+    },
+    "502": {
+        "category": "Infantry Abilities",
+        "name": "MANA Anti-Vehicle Turret",
+        "sanction": "none"
+    },
+    "6005425": {
+        "category": "Infantry Abilities",
+        "name": "MANA Anti-Vehicle Turret",
+        "sanction": "none"
+    },
+    "93": {
+        "category": "Infantry Abilities",
+        "name": "Medical Applicator 1",
+        "sanction": "none"
+    },
+    "94": {
+        "category": "Infantry Abilities",
+        "name": "Medical Applicator 1",
+        "sanction": "none"
+    },
+    "95": {
+        "category": "Infantry Abilities",
+        "name": "Medical Applicator 1",
+        "sanction": "none"
+    },
+    "6005372": {
+        "category": "Infantry Abilities",
+        "name": "Medical Applicator 1",
+        "sanction": "none"
+    },
+    "1608": {
+        "category": "Infantry Abilities",
+        "name": "Medical Applicator 2",
+        "sanction": "none"
+    },
+    "1617": {
+        "category": "Infantry Abilities",
+        "name": "Medical Applicator 2",
+        "sanction": "none"
+    },
+    "1626": {
+        "category": "Infantry Abilities",
+        "name": "Medical Applicator 2",
+        "sanction": "none"
+    },
+    "6005373": {
+        "category": "Infantry Abilities",
+        "name": "Medical Applicator 2",
+        "sanction": "none"
+    },
+    "1609": {
+        "category": "Infantry Abilities",
+        "name": "Medical Applicator 3",
+        "sanction": "none"
+    },
+    "1618": {
+        "category": "Infantry Abilities",
+        "name": "Medical Applicator 3",
+        "sanction": "none"
+    },
+    "1627": {
+        "category": "Infantry Abilities",
+        "name": "Medical Applicator 3",
+        "sanction": "none"
+    },
+    "6005374": {
+        "category": "Infantry Abilities",
+        "name": "Medical Applicator 3",
+        "sanction": "none"
+    },
+    "1610": {
+        "category": "Infantry Abilities",
+        "name": "Medical Applicator 4",
+        "sanction": "none"
+    },
+    "1619": {
+        "category": "Infantry Abilities",
+        "name": "Medical Applicator 4",
+        "sanction": "none"
+    },
+    "1628": {
+        "category": "Infantry Abilities",
+        "name": "Medical Applicator 4",
+        "sanction": "none"
+    },
+    "6005375": {
+        "category": "Infantry Abilities",
+        "name": "Medical Applicator 4",
+        "sanction": "none"
+    },
+    "1611": {
+        "category": "Infantry Abilities",
+        "name": "Medical Applicator 5",
+        "sanction": "none"
+    },
+    "1620": {
+        "category": "Infantry Abilities",
+        "name": "Medical Applicator 5",
+        "sanction": "none"
+    },
+    "1629": {
+        "category": "Infantry Abilities",
+        "name": "Medical Applicator 5",
+        "sanction": "none"
+    },
+    "6005376": {
+        "category": "Infantry Abilities",
+        "name": "Medical Applicator 5",
+        "sanction": "none"
+    },
+    "1612": {
+        "category": "Infantry Abilities",
+        "name": "Medical Applicator 6",
+        "sanction": "none"
+    },
+    "1621": {
+        "category": "Infantry Abilities",
+        "name": "Medical Applicator 6",
+        "sanction": "none"
+    },
+    "1630": {
+        "category": "Infantry Abilities",
+        "name": "Medical Applicator 6",
+        "sanction": "none"
+    },
+    "6005377": {
+        "category": "Infantry Abilities",
+        "name": "Medical Applicator 6",
+        "sanction": "none"
+    },
+    "99": {
+        "category": "Infantry Abilities",
+        "name": "Medical Kit",
+        "sanction": "none"
+    },
+    "100": {
+        "category": "Infantry Abilities",
+        "name": "Medical Kit",
+        "sanction": "none"
+    },
+    "101": {
+        "category": "Infantry Abilities",
+        "name": "Medical Kit",
+        "sanction": "none"
+    },
+    "6005263": {
+        "category": "Infantry Abilities",
+        "name": "Medical Kit",
+        "sanction": "none"
+    },
+    "75285": {
+        "category": "Infantry Abilities",
+        "name": "Motion Spotter 1",
+        "sanction": "none"
+    },
+    "75286": {
+        "category": "Infantry Abilities",
+        "name": "Motion Spotter 2",
+        "sanction": "none"
+    },
+    "75287": {
+        "category": "Infantry Abilities",
+        "name": "Motion Spotter 3",
+        "sanction": "none"
+    },
+    "75288": {
+        "category": "Infantry Abilities",
+        "name": "Motion Spotter 4",
+        "sanction": "none"
+    },
+    "75289": {
+        "category": "Infantry Abilities",
+        "name": "Motion Spotter 5",
+        "sanction": "none"
+    },
+    "124": {
+        "category": "Infantry Abilities",
+        "name": "Nano-Armor Kit 1",
+        "sanction": "none"
+    },
+    "125": {
+        "category": "Infantry Abilities",
+        "name": "Nano-Armor Kit 1",
+        "sanction": "none"
+    },
+    "126": {
+        "category": "Infantry Abilities",
+        "name": "Nano-Armor Kit 1",
+        "sanction": "none"
+    },
+    "6005217": {
+        "category": "Infantry Abilities",
+        "name": "Nano-Armor Kit 1",
+        "sanction": "none"
+    },
+    "1252": {
+        "category": "Infantry Abilities",
+        "name": "Nano-Armor Kit 2",
+        "sanction": "none"
+    },
+    "1256": {
+        "category": "Infantry Abilities",
+        "name": "Nano-Armor Kit 2",
+        "sanction": "none"
+    },
+    "1260": {
+        "category": "Infantry Abilities",
+        "name": "Nano-Armor Kit 2",
+        "sanction": "none"
+    },
+    "6005218": {
+        "category": "Infantry Abilities",
+        "name": "Nano-Armor Kit 2",
+        "sanction": "none"
+    },
+    "1253": {
+        "category": "Infantry Abilities",
+        "name": "Nano-Armor Kit 3",
+        "sanction": "none"
+    },
+    "1257": {
+        "category": "Infantry Abilities",
+        "name": "Nano-Armor Kit 3",
+        "sanction": "none"
+    },
+    "1261": {
+        "category": "Infantry Abilities",
+        "name": "Nano-Armor Kit 3",
+        "sanction": "none"
+    },
+    "6005219": {
+        "category": "Infantry Abilities",
+        "name": "Nano-Armor Kit 3",
+        "sanction": "none"
+    },
+    "1254": {
+        "category": "Infantry Abilities",
+        "name": "Nano-Armor Kit 4",
+        "sanction": "none"
+    },
+    "1258": {
+        "category": "Infantry Abilities",
+        "name": "Nano-Armor Kit 4",
+        "sanction": "none"
+    },
+    "1262": {
+        "category": "Infantry Abilities",
+        "name": "Nano-Armor Kit 4",
+        "sanction": "none"
+    },
+    "6005220": {
+        "category": "Infantry Abilities",
+        "name": "Nano-Armor Kit 4",
+        "sanction": "none"
+    },
+    "1255": {
+        "category": "Infantry Abilities",
+        "name": "Nano-Armor Kit 5",
+        "sanction": "none"
+    },
+    "1259": {
+        "category": "Infantry Abilities",
+        "name": "Nano-Armor Kit 5",
+        "sanction": "none"
+    },
+    "1263": {
+        "category": "Infantry Abilities",
+        "name": "Nano-Armor Kit 5",
+        "sanction": "none"
+    },
+    "6005221": {
+        "category": "Infantry Abilities",
+        "name": "Nano-Armor Kit 5",
+        "sanction": "none"
+    },
+    "6010": {
+        "category": "Infantry Abilities",
+        "name": "Nano-Armor Kit 6",
+        "sanction": "none"
+    },
+    "6011": {
+        "category": "Infantry Abilities",
+        "name": "Nano-Armor Kit 6",
+        "sanction": "none"
+    },
+    "6012": {
+        "category": "Infantry Abilities",
+        "name": "Nano-Armor Kit 6",
+        "sanction": "none"
+    },
+    "6005222": {
+        "category": "Infantry Abilities",
+        "name": "Nano-Armor Kit 6",
+        "sanction": "none"
+    },
+    "6009605": {
+        "category": "Infantry Abilities",
+        "name": "NE-11 PML",
+        "sanction": "none"
+    },
+    "6009487": {
+        "category": "Infantry Abilities",
+        "name": "Neutralizer Device",
+        "sanction": "none"
+    },
+    "6002554": {
+        "category": "Infantry Abilities",
+        "name": "Orbital Strike Target Designator",
+        "sanction": "none"
+    },
+    "6002524": {
+        "category": "Infantry Abilities",
+        "name": "Orbital Strike Uplink",
+        "sanction": "none"
+    },
+    "6002525": {
+        "category": "Infantry Abilities",
+        "name": "Orbital Strike Uplink",
+        "sanction": "none"
+    },
+    "6002526": {
+        "category": "Infantry Abilities",
+        "name": "Orbital Strike Uplink",
+        "sanction": "none"
+    },
+    "6005648": {
+        "category": "Infantry Abilities",
+        "name": "Orbital Strike Uplink",
+        "sanction": "none"
+    },
+    "6009058": {
+        "category": "Infantry Abilities",
+        "name": "Ordnance Dampener",
+        "sanction": "none"
+    },
+    "6004284": {
+        "category": "Infantry Abilities",
+        "name": "Pain Spire",
+        "sanction": "none"
+    },
+    "6004421": {
+        "category": "Infantry Abilities",
+        "name": "Pain Spire",
+        "sanction": "none"
+    },
+    "6004423": {
+        "category": "Infantry Abilities",
+        "name": "Pain Spire",
+        "sanction": "none"
+    },
+    "6005706": {
+        "category": "Infantry Abilities",
+        "name": "Pain Spire",
+        "sanction": "none"
+    },
+    "6002478": {
+        "category": "Infantry Abilities",
+        "name": "Pillbox",
+        "sanction": "none"
+    },
+    "6002479": {
+        "category": "Infantry Abilities",
+        "name": "Pillbox",
+        "sanction": "none"
+    },
+    "6002480": {
+        "category": "Infantry Abilities",
+        "name": "Pillbox",
+        "sanction": "none"
+    },
+    "6005652": {
+        "category": "Infantry Abilities",
+        "name": "Pillbox",
+        "sanction": "none"
+    },
+    "803605": {
+        "category": "Infantry Abilities",
+        "name": "Rampart Wall",
+        "sanction": "none"
+    },
+    "803606": {
+        "category": "Infantry Abilities",
+        "name": "Rampart Wall",
+        "sanction": "none"
+    },
+    "803607": {
+        "category": "Infantry Abilities",
+        "name": "Rampart Wall",
+        "sanction": "none"
+    },
+    "6005698": {
+        "category": "Infantry Abilities",
+        "name": "Rampart Wall",
+        "sanction": "none"
+    },
+    "804870": {
+        "category": "Infantry Abilities",
+        "name": "RD-GG Recon Device",
+        "sanction": "none"
+    },
+    "804871": {
+        "category": "Infantry Abilities",
+        "name": "RD-GG Recon Device",
+        "sanction": "none"
+    },
+    "804872": {
+        "category": "Infantry Abilities",
+        "name": "RD-GG Recon Device",
+        "sanction": "none"
+    },
+    "804873": {
+        "category": "Infantry Abilities",
+        "name": "RD-GG Recon Device 2",
+        "sanction": "none"
+    },
+    "804874": {
+        "category": "Infantry Abilities",
+        "name": "RD-GG Recon Device 2",
+        "sanction": "none"
+    },
+    "804875": {
+        "category": "Infantry Abilities",
+        "name": "RD-GG Recon Device 2",
+        "sanction": "none"
+    },
+    "804876": {
+        "category": "Infantry Abilities",
+        "name": "RD-GG Recon Device 3",
+        "sanction": "none"
+    },
+    "804877": {
+        "category": "Infantry Abilities",
+        "name": "RD-GG Recon Device 3",
+        "sanction": "none"
+    },
+    "804878": {
+        "category": "Infantry Abilities",
+        "name": "RD-GG Recon Device 3",
+        "sanction": "none"
+    },
+    "804879": {
+        "category": "Infantry Abilities",
+        "name": "RD-GG Recon Device 4",
+        "sanction": "none"
+    },
+    "804880": {
+        "category": "Infantry Abilities",
+        "name": "RD-GG Recon Device 4",
+        "sanction": "none"
+    },
+    "804881": {
+        "category": "Infantry Abilities",
+        "name": "RD-GG Recon Device 4",
+        "sanction": "none"
+    },
+    "804882": {
+        "category": "Infantry Abilities",
+        "name": "RD-GG Recon Device 5",
+        "sanction": "none"
+    },
+    "804883": {
+        "category": "Infantry Abilities",
+        "name": "RD-GG Recon Device 5",
+        "sanction": "none"
+    },
+    "804884": {
+        "category": "Infantry Abilities",
+        "name": "RD-GG Recon Device 5",
+        "sanction": "none"
+    },
+    "804869": {
+        "category": "Infantry Abilities",
+        "name": "RD-GG Recon Device 6",
+        "sanction": "none"
+    },
+    "804885": {
+        "category": "Infantry Abilities",
+        "name": "RD-GG Recon Device 6",
+        "sanction": "none"
+    },
+    "804886": {
+        "category": "Infantry Abilities",
+        "name": "RD-GG Recon Device 6",
+        "sanction": "none"
+    },
+    "309": {
+        "category": "Infantry Abilities",
+        "name": "Recon Detection Device 1",
+        "sanction": "none"
+    },
+    "471": {
+        "category": "Infantry Abilities",
+        "name": "Recon Detection Device 1",
+        "sanction": "none"
+    },
+    "472": {
+        "category": "Infantry Abilities",
+        "name": "Recon Detection Device 1",
+        "sanction": "none"
+    },
+    "6005169": {
+        "category": "Infantry Abilities",
+        "name": "Recon Detection Device 1",
+        "sanction": "none"
+    },
+    "473": {
+        "category": "Infantry Abilities",
+        "name": "Recon Detection Device 2",
+        "sanction": "none"
+    },
+    "477": {
+        "category": "Infantry Abilities",
+        "name": "Recon Detection Device 2",
+        "sanction": "none"
+    },
+    "481": {
+        "category": "Infantry Abilities",
+        "name": "Recon Detection Device 2",
+        "sanction": "none"
+    },
+    "6005170": {
+        "category": "Infantry Abilities",
+        "name": "Recon Detection Device 2",
+        "sanction": "none"
+    },
+    "474": {
+        "category": "Infantry Abilities",
+        "name": "Recon Detection Device 3",
+        "sanction": "none"
+    },
+    "478": {
+        "category": "Infantry Abilities",
+        "name": "Recon Detection Device 3",
+        "sanction": "none"
+    },
+    "482": {
+        "category": "Infantry Abilities",
+        "name": "Recon Detection Device 3",
+        "sanction": "none"
+    },
+    "6005171": {
+        "category": "Infantry Abilities",
+        "name": "Recon Detection Device 3",
+        "sanction": "none"
+    },
+    "475": {
+        "category": "Infantry Abilities",
+        "name": "Recon Detection Device 4",
+        "sanction": "none"
+    },
+    "479": {
+        "category": "Infantry Abilities",
+        "name": "Recon Detection Device 4",
+        "sanction": "none"
+    },
+    "483": {
+        "category": "Infantry Abilities",
+        "name": "Recon Detection Device 4",
+        "sanction": "none"
+    },
+    "6005172": {
+        "category": "Infantry Abilities",
+        "name": "Recon Detection Device 4",
+        "sanction": "none"
+    },
+    "476": {
+        "category": "Infantry Abilities",
+        "name": "Recon Detection Device 5",
+        "sanction": "none"
+    },
+    "480": {
+        "category": "Infantry Abilities",
+        "name": "Recon Detection Device 5",
+        "sanction": "none"
+    },
+    "484": {
+        "category": "Infantry Abilities",
+        "name": "Recon Detection Device 5",
+        "sanction": "none"
+    },
+    "6005173": {
+        "category": "Infantry Abilities",
+        "name": "Recon Detection Device 5",
+        "sanction": "none"
+    },
+    "485": {
+        "category": "Infantry Abilities",
+        "name": "Recon Detection Device 6",
+        "sanction": "none"
+    },
+    "486": {
+        "category": "Infantry Abilities",
+        "name": "Recon Detection Device 6",
+        "sanction": "none"
+    },
+    "487": {
+        "category": "Infantry Abilities",
+        "name": "Recon Detection Device 6",
+        "sanction": "none"
+    },
+    "6005174": {
+        "category": "Infantry Abilities",
+        "name": "Recon Detection Device 6",
+        "sanction": "none"
+    },
+    "804974": {
+        "category": "Infantry Abilities",
+        "name": "Reinforcements Module",
+        "sanction": "none"
+    },
+    "804975": {
+        "category": "Infantry Abilities",
+        "name": "Reinforcements Module",
+        "sanction": "none"
+    },
+    "804976": {
+        "category": "Infantry Abilities",
+        "name": "Reinforcements Module",
+        "sanction": "none"
+    },
+    "6005654": {
+        "category": "Infantry Abilities",
+        "name": "Reinforcements Module",
+        "sanction": "none"
+    },
+    "804269": {
+        "category": "Infantry Abilities",
+        "name": "Repair Module",
+        "sanction": "none"
+    },
+    "804270": {
+        "category": "Infantry Abilities",
+        "name": "Repair Module",
+        "sanction": "none"
+    },
+    "804271": {
+        "category": "Infantry Abilities",
+        "name": "Repair Module",
+        "sanction": "none"
+    },
+    "6005666": {
+        "category": "Infantry Abilities",
+        "name": "Repair Module",
+        "sanction": "none"
+    },
+    "6004529": {
+        "category": "Infantry Abilities",
+        "name": "Reserve Hardlight Barrier",
+        "sanction": "none"
+    },
+    "6004530": {
+        "category": "Infantry Abilities",
+        "name": "Reserve Hardlight Barrier",
+        "sanction": "none"
+    },
+    "6004531": {
+        "category": "Infantry Abilities",
+        "name": "Reserve Hardlight Barrier",
+        "sanction": "none"
+    },
+    "6005329": {
+        "category": "Infantry Abilities",
+        "name": "Reserve Hardlight Barrier",
+        "sanction": "none"
+    },
+    "7609": {
+        "category": "Infantry Abilities",
+        "name": "Restoration Kit",
+        "sanction": "none"
+    },
+    "7610": {
+        "category": "Infantry Abilities",
+        "name": "Restoration Kit",
+        "sanction": "none"
+    },
+    "7611": {
+        "category": "Infantry Abilities",
+        "name": "Restoration Kit",
+        "sanction": "none"
+    },
+    "6005267": {
+        "category": "Infantry Abilities",
+        "name": "Restoration Kit",
+        "sanction": "none"
+    },
+    "6003551": {
+        "category": "Infantry Abilities",
+        "name": "Router",
+        "sanction": "none"
+    },
+    "6003552": {
+        "category": "Infantry Abilities",
+        "name": "Router",
+        "sanction": "none"
+    },
+    "6003553": {
+        "category": "Infantry Abilities",
+        "name": "Router",
+        "sanction": "none"
+    },
+    "6005655": {
+        "category": "Infantry Abilities",
+        "name": "Router",
+        "sanction": "none"
+    },
+    "6004286": {
+        "category": "Infantry Abilities",
+        "name": "Routing Spire",
+        "sanction": "none"
+    },
+    "6004425": {
+        "category": "Infantry Abilities",
+        "name": "Routing Spire",
+        "sanction": "none"
+    },
+    "6004427": {
+        "category": "Infantry Abilities",
+        "name": "Routing Spire",
+        "sanction": "none"
+    },
+    "6005703": {
+        "category": "Infantry Abilities",
+        "name": "Routing Spire",
+        "sanction": "none"
+    },
+    "6009723": {
+        "category": "Infantry Abilities",
+        "name": "Shield Matrix Pylon",
+        "sanction": "none"
+    },
+    "45": {
+        "category": "Infantry Abilities",
+        "name": "Shield Recharging Field",
+        "sanction": "none"
+    },
+    "46": {
+        "category": "Infantry Abilities",
+        "name": "Shield Recharging Field",
+        "sanction": "none"
+    },
+    "47": {
+        "category": "Infantry Abilities",
+        "name": "Shield Recharging Field",
+        "sanction": "none"
+    },
+    "154": {
+        "category": "Infantry Abilities",
+        "name": "Shield Recharging Field",
+        "sanction": "none"
+    },
+    "466": {
+        "category": "Infantry Abilities",
+        "name": "Shield Recharging Field",
+        "sanction": "none"
+    },
+    "6009856": {
+        "category": "Infantry Abilities",
+        "name": "Signal Scanner",
+        "sanction": "none"
+    },
+    "804263": {
+        "category": "Infantry Abilities",
+        "name": "Skywall Shield Emitter",
+        "sanction": "none"
+    },
+    "804264": {
+        "category": "Infantry Abilities",
+        "name": "Skywall Shield Emitter",
+        "sanction": "none"
+    },
+    "804265": {
+        "category": "Infantry Abilities",
+        "name": "Skywall Shield Emitter",
+        "sanction": "none"
+    },
+    "6005672": {
+        "category": "Infantry Abilities",
+        "name": "Skywall Shield Emitter",
+        "sanction": "none"
+    },
+    "6004873": {
+        "category": "Infantry Abilities",
+        "name": "Solid Wall",
+        "sanction": "none"
+    },
+    "7": {
+        "category": "Infantry Abilities",
+        "name": "Spawn Beacon",
+        "sanction": "none"
+    },
+    "803427": {
+        "category": "Infantry Abilities",
+        "name": "Spear Anti-Vehicle Tower",
+        "sanction": "none"
+    },
+    "803428": {
+        "category": "Infantry Abilities",
+        "name": "Spear Anti-Vehicle Tower",
+        "sanction": "none"
+    },
+    "803429": {
+        "category": "Infantry Abilities",
+        "name": "Spear Anti-Vehicle Tower",
+        "sanction": "none"
+    },
+    "6005638": {
+        "category": "Infantry Abilities",
+        "name": "Spear Anti-Vehicle Tower",
+        "sanction": "none"
+    },
+    "6002399": {
+        "category": "Infantry Abilities",
+        "name": "Spear Anti-Vehicle Turret",
+        "sanction": "none"
+    },
+    "6002405": {
+        "category": "Infantry Abilities",
+        "name": "Spear Anti-Vehicle Turret",
+        "sanction": "none"
+    },
+    "6002419": {
+        "category": "Infantry Abilities",
+        "name": "Spear Anti-Vehicle Turret",
+        "sanction": "none"
+    },
+    "6005650": {
+        "category": "Infantry Abilities",
+        "name": "Spear Anti-Vehicle Turret",
+        "sanction": "none"
+    },
+    "802512": {
+        "category": "Infantry Abilities",
+        "name": "Spitfire Auto-Turret",
+        "sanction": "none"
+    },
+    "802514": {
+        "category": "Infantry Abilities",
+        "name": "Spitfire Auto-Turret",
+        "sanction": "none"
+    },
+    "802515": {
+        "category": "Infantry Abilities",
+        "name": "Spitfire Auto-Turret",
+        "sanction": "none"
+    },
+    "802516": {
+        "category": "Infantry Abilities",
+        "name": "Spitfire Auto-Turret",
+        "sanction": "none"
+    },
+    "802517": {
+        "category": "Infantry Abilities",
+        "name": "Spitfire Auto-Turret",
+        "sanction": "none"
+    },
+    "802518": {
+        "category": "Infantry Abilities",
+        "name": "Spitfire Auto-Turret",
+        "sanction": "none"
+    },
+    "6005426": {
+        "category": "Infantry Abilities",
+        "name": "Spitfire Auto-Turret",
+        "sanction": "none"
+    },
+    "6005427": {
+        "category": "Infantry Abilities",
+        "name": "Spitfire Auto-Turret",
+        "sanction": "none"
+    },
+    "6009294": {
+        "category": "Infantry Abilities",
+        "name": "Spitfire Auto-Turret",
+        "sanction": "none"
+    },
+    "6009572": {
+        "category": "Infantry Abilities",
+        "name": "Stormglider Drone",
+        "sanction": "none"
+    },
+    "804266": {
+        "category": "Infantry Abilities",
+        "name": "Structure Shield Module",
+        "sanction": "none"
+    },
+    "804267": {
+        "category": "Infantry Abilities",
+        "name": "Structure Shield Module",
+        "sanction": "none"
+    },
+    "804268": {
+        "category": "Infantry Abilities",
+        "name": "Structure Shield Module",
+        "sanction": "none"
+    },
+    "6005669": {
+        "category": "Infantry Abilities",
+        "name": "Structure Shield Module",
+        "sanction": "none"
+    },
+    "803611": {
+        "category": "Infantry Abilities",
+        "name": "Sunderer Garage",
+        "sanction": "none"
+    },
+    "803612": {
+        "category": "Infantry Abilities",
+        "name": "Sunderer Garage",
+        "sanction": "none"
+    },
+    "803613": {
+        "category": "Infantry Abilities",
+        "name": "Sunderer Garage",
+        "sanction": "none"
+    },
+    "6005700": {
+        "category": "Infantry Abilities",
+        "name": "Sunderer Garage",
+        "sanction": "none"
+    },
+    "6004201": {
+        "category": "Infantry Abilities",
+        "name": "Tactical Snowman",
+        "sanction": "none"
+    },
+    "6004288": {
+        "category": "Infantry Abilities",
+        "name": "The Flail",
+        "sanction": "none"
+    },
+    "6004446": {
+        "category": "Infantry Abilities",
+        "name": "The Flail",
+        "sanction": "none"
+    },
+    "6004448": {
+        "category": "Infantry Abilities",
+        "name": "The Flail",
+        "sanction": "none"
+    },
+    "6005632": {
+        "category": "Infantry Abilities",
+        "name": "The Flail",
+        "sanction": "none"
+    },
+    "804272": {
+        "category": "Infantry Abilities",
+        "name": "Turret AI Module",
+        "sanction": "none"
+    },
+    "804273": {
+        "category": "Infantry Abilities",
+        "name": "Turret AI Module",
+        "sanction": "none"
+    },
+    "804274": {
+        "category": "Infantry Abilities",
+        "name": "Turret AI Module",
+        "sanction": "none"
+    },
+    "6005668": {
+        "category": "Infantry Abilities",
+        "name": "Turret AI Module",
+        "sanction": "none"
+    },
+    "6002484": {
+        "category": "Infantry Abilities",
+        "name": "Vehicle Ammo Dispenser",
+        "sanction": "none"
+    },
+    "6002485": {
+        "category": "Infantry Abilities",
+        "name": "Vehicle Ammo Dispenser",
+        "sanction": "none"
+    },
+    "6002486": {
+        "category": "Infantry Abilities",
+        "name": "Vehicle Ammo Dispenser",
+        "sanction": "none"
+    },
+    "6005630": {
+        "category": "Infantry Abilities",
+        "name": "Vehicle Ammo Dispenser",
+        "sanction": "none"
+    },
+    "6002490": {
+        "category": "Infantry Abilities",
+        "name": "Vehicle Gate",
+        "sanction": "none"
+    },
+    "6002491": {
+        "category": "Infantry Abilities",
+        "name": "Vehicle Gate",
+        "sanction": "none"
+    },
+    "6002492": {
+        "category": "Infantry Abilities",
+        "name": "Vehicle Gate",
+        "sanction": "none"
+    },
+    "6005642": {
+        "category": "Infantry Abilities",
+        "name": "Vehicle Gate",
+        "sanction": "none"
+    },
+    "6002354": {
+        "category": "Infantry Abilities",
+        "name": "Vehicle Ramp",
+        "sanction": "none"
+    },
+    "6002355": {
+        "category": "Infantry Abilities",
+        "name": "Vehicle Ramp",
+        "sanction": "none"
+    },
+    "6002356": {
+        "category": "Infantry Abilities",
+        "name": "Vehicle Ramp",
+        "sanction": "none"
+    },
+    "6005661": {
+        "category": "Infantry Abilities",
+        "name": "Vehicle Ramp",
+        "sanction": "none"
+    },
+    "803470": {
+        "category": "Infantry Abilities",
+        "name": "Welding Device",
+        "sanction": "none"
+    },
+    "6004272": {
+        "category": "Infantry Abilities",
+        "name": "Welding Device",
+        "sanction": "none"
+    },
+    "803591": {
+        "category": "Infantry Abilities",
+        "name": "Xiphos Anti-Personnel Tower",
+        "sanction": "none"
+    },
+    "803592": {
+        "category": "Infantry Abilities",
+        "name": "Xiphos Anti-Personnel Tower",
+        "sanction": "none"
+    },
+    "803593": {
+        "category": "Infantry Abilities",
+        "name": "Xiphos Anti-Personnel Tower",
+        "sanction": "none"
+    },
+    "6005624": {
+        "category": "Infantry Abilities",
+        "name": "Xiphos Anti-Personnel Tower",
+        "sanction": "none"
+    },
+    "554": {
+        "category": "Infantry Weapons",
+        "name": "MANA Anti-Personnel Turret",
+        "sanction": "none"
+    },
+    "555": {
+        "category": "Infantry Weapons",
+        "name": "MANA Anti-Personnel Turret",
+        "sanction": "none"
+    },
+    "556": {
+        "category": "Infantry Weapons",
+        "name": "MANA Anti-Personnel Turret",
+        "sanction": "none"
+    },
+    "557": {
+        "category": "Infantry Weapons",
+        "name": "MANA Anti-Personnel Turret",
+        "sanction": "none"
+    },
+    "6005423": {
+        "category": "Infantry Weapons",
+        "name": "MANA Anti-Personnel Turret",
+        "sanction": "none"
+    },
+    "503": {
+        "category": "Infantry Weapons",
+        "name": "MANA Anti-Vehicle Turret",
+        "sanction": "none"
+    },
+    "6010044": {
+        "category": "Javelin Primary Weapon",
+        "name": "JVN-30 Salamander",
+        "sanction": "none"
+    },
+    "6010078": {
+        "category": "Javelin Primary Weapon",
+        "name": "JVN-50 Celeste",
+        "sanction": "none"
+    },
+    "6010076": {
+        "category": "Javelin Primary Weapon",
+        "name": "JVN-X3 Hydra",
+        "sanction": "none"
+    },
+    "6008651": {
+        "category": "Knife",
+        "name": "Ancient Psykinetic Blade",
+        "sanction": "none"
+    },
+    "6011053": {
+        "category": "Knife",
+        "name": "Ancient Psykinetic Blade",
+        "sanction": "none"
+    },
+    "800625": {
+        "category": "Knife",
+        "name": "Auraxium Chainblade",
+        "sanction": "none"
+    },
+    "800626": {
+        "category": "Knife",
+        "name": "Auraxium Force-Blade",
+        "sanction": "none"
+    },
+    "800624": {
+        "category": "Knife",
+        "name": "Auraxium Mag-Cutter",
+        "sanction": "none"
+    },
+    "802025": {
+        "category": "Knife",
+        "name": "Auraxium Slasher",
+        "sanction": "none"
+    },
+    "271": {
+        "category": "Knife",
+        "name": "Carver",
+        "sanction": "none"
+    },
+    "6005453": {
+        "category": "Knife",
+        "name": "Carver AE",
+        "sanction": "none"
+    },
+    "13": {
+        "category": "Knife",
+        "name": "Chainblade",
+        "sanction": "none"
+    },
+    "802317": {
+        "category": "Knife",
+        "name": "Damascus Edge",
+        "sanction": "none"
+    },
+    "6008687": {
+        "category": "Knife",
+        "name": "Defector Claws",
+        "sanction": "none"
+    },
+    "6009854": {
+        "category": "Knife",
+        "name": "Excursion Kukri",
+        "sanction": "none"
+    },
+    "6006080": {
+        "category": "Knife",
+        "name": "Fatestealer",
+        "sanction": "none"
+    },
+    "19": {
+        "category": "Knife",
+        "name": "Force-Blade",
+        "sanction": "none"
+    },
+    "802316": {
+        "category": "Knife",
+        "name": "Hardlight Dagger",
+        "sanction": "none"
+    },
+    "802315": {
+        "category": "Knife",
+        "name": "Hexedge",
+        "sanction": "none"
+    },
+    "802584": {
+        "category": "Knife",
+        "name": "Icikill",
+        "sanction": "none"
+    },
+    "286": {
+        "category": "Knife",
+        "name": "Lumine Edge",
+        "sanction": "none"
+    },
+    "6005451": {
+        "category": "Knife",
+        "name": "Lumine Edge AE",
+        "sanction": "none"
+    },
+    "1": {
+        "category": "Knife",
+        "name": "Mag-Cutter",
+        "sanction": "none"
+    },
+    "1082": {
+        "category": "Knife",
+        "name": "MAX Punch",
+        "sanction": "none"
+    },
+    "1083": {
+        "category": "Knife",
+        "name": "MAX Punch",
+        "sanction": "none"
+    },
+    "1084": {
+        "category": "Knife",
+        "name": "MAX Punch",
+        "sanction": "none"
+    },
+    "6006081": {
+        "category": "Knife",
+        "name": "Nightshade",
+        "sanction": "none"
+    },
+    "800627": {
+        "category": "Knife",
+        "name": "NS AutoBlade",
+        "sanction": "none"
+    },
+    "802903": {
+        "category": "Knife",
+        "name": "NS Campion",
+        "sanction": "none"
+    },
+    "6006146": {
+        "category": "Knife",
+        "name": "NS Campion",
+        "sanction": "none"
+    },
+    "6006147": {
+        "category": "Knife",
+        "name": "NS Campion",
+        "sanction": "none"
+    },
+    "6004825": {
+        "category": "Knife",
+        "name": "NS Commando",
+        "sanction": "none"
+    },
+    "6009600": {
+        "category": "Knife",
+        "name": "NS Firebug",
+        "sanction": "none"
+    },
+    "802902": {
+        "category": "Knife",
+        "name": "NS Harrower",
+        "sanction": "none"
+    },
+    "6009463": {
+        "category": "Knife",
+        "name": "NS Icebreaker",
+        "sanction": "none"
+    },
+    "6009515": {
+        "category": "Knife",
+        "name": "NS Icebreaker",
+        "sanction": "none"
+    },
+    "6009516": {
+        "category": "Knife",
+        "name": "NS Icebreaker",
+        "sanction": "none"
+    },
+    "6009517": {
+        "category": "Knife",
+        "name": "NS Icebreaker",
+        "sanction": "none"
+    },
+    "6009518": {
+        "category": "Knife",
+        "name": "NS Icebreaker",
+        "sanction": "none"
+    },
+    "802904": {
+        "category": "Knife",
+        "name": "NS Victory",
+        "sanction": "none"
+    },
+    "6006067": {
+        "category": "Knife",
+        "name": "NS-A Commando",
+        "sanction": "none"
+    },
+    "6005664": {
+        "category": "Knife",
+        "name": "NS-G Commando",
+        "sanction": "none"
+    },
+    "804113": {
+        "category": "Knife",
+        "name": "\"NS-TMC-01 \"\"His Regards\"\"\"",
+        "sanction": "none"
+    },
+    "6005743": {
+        "category": "Knife",
+        "name": "NS-W Survivor",
+        "sanction": "none"
+    },
+    "804795": {
+        "category": "Knife",
+        "name": "NSX Amaterasu",
+        "sanction": "none"
+    },
+    "285": {
+        "category": "Knife",
+        "name": "Ripper",
+        "sanction": "none"
+    },
+    "6005452": {
+        "category": "Knife",
+        "name": "Ripper AE",
+        "sanction": "none"
+    },
+    "801969": {
+        "category": "Knife",
+        "name": "The Slasher",
+        "sanction": "none"
+    },
+    "5209": {
+        "category": "Liberator Belly Weapon",
+        "name": "AP30 Shredder",
+        "sanction": "gunner"
+    },
+    "5210": {
+        "category": "Liberator Belly Weapon",
+        "name": "AP30 Shredder",
+        "sanction": "gunner"
+    },
+    "5211": {
+        "category": "Liberator Belly Weapon",
+        "name": "AP30 Shredder",
+        "sanction": "gunner"
+    },
+    "6005463": {
+        "category": "Liberator Belly Weapon",
+        "name": "AP30 Shredder",
+        "sanction": "gunner"
+    },
+    "5224": {
+        "category": "Liberator Belly Weapon",
+        "name": "C150 Dalton",
+        "sanction": "gunner"
+    },
+    "5225": {
+        "category": "Liberator Belly Weapon",
+        "name": "C150 Dalton",
+        "sanction": "gunner"
+    },
+    "5226": {
+        "category": "Liberator Belly Weapon",
+        "name": "C150 Dalton",
+        "sanction": "gunner"
+    },
+    "6005464": {
+        "category": "Liberator Belly Weapon",
+        "name": "C150 Dalton",
+        "sanction": "gunner"
+    },
+    "5227": {
+        "category": "Liberator Belly Weapon",
+        "name": "L105 Zephyr",
+        "sanction": "gunner"
+    },
+    "5228": {
+        "category": "Liberator Belly Weapon",
+        "name": "L105 Zephyr",
+        "sanction": "gunner"
+    },
+    "5229": {
+        "category": "Liberator Belly Weapon",
+        "name": "L105 Zephyr",
+        "sanction": "gunner"
+    },
+    "6005466": {
+        "category": "Liberator Belly Weapon",
+        "name": "L105 Zephyr",
+        "sanction": "gunner"
+    },
+    "5250": {
+        "category": "Liberator Belly Weapon",
+        "name": "L105 Zephyr PX",
+        "sanction": "gunner"
+    },
+    "5251": {
+        "category": "Liberator Belly Weapon",
+        "name": "L105 Zephyr PX",
+        "sanction": "gunner"
+    },
+    "5252": {
+        "category": "Liberator Belly Weapon",
+        "name": "L105 Zephyr PX",
+        "sanction": "gunner"
+    },
+    "5441": {
+        "category": "Liberator Belly Weapon",
+        "name": "Dual-75 Duster",
+        "sanction": "none"
+    },
+    "5442": {
+        "category": "Liberator Belly Weapon",
+        "name": "Dual-75 Duster",
+        "sanction": "none"
+    },
+    "5443": {
+        "category": "Liberator Belly Weapon",
+        "name": "Dual-75 Duster",
+        "sanction": "none"
+    },
+    "6005462": {
+        "category": "Liberator Belly Weapon",
+        "name": "Dual-75 Duster",
+        "sanction": "none"
+    },
+    "5215": {
+        "category": "Liberator Nose Cannon",
+        "name": "CAS30 Tank Buster",
+        "sanction": "air"
+    },
+    "5216": {
+        "category": "Liberator Nose Cannon",
+        "name": "CAS30 Tank Buster",
+        "sanction": "air"
+    },
+    "5217": {
+        "category": "Liberator Nose Cannon",
+        "name": "CAS30 Tank Buster",
+        "sanction": "air"
+    },
+    "6005461": {
+        "category": "Liberator Nose Cannon",
+        "name": "CAS30 Tank Buster",
+        "sanction": "air"
+    },
+    "5206": {
+        "category": "Liberator Nose Cannon",
+        "name": "L-30R Vektor",
+        "sanction": "air"
+    },
+    "5207": {
+        "category": "Liberator Nose Cannon",
+        "name": "L-30R Vektor",
+        "sanction": "air"
+    },
+    "5208": {
+        "category": "Liberator Nose Cannon",
+        "name": "L-30R Vektor",
+        "sanction": "air"
+    },
+    "6005454": {
+        "category": "Liberator Nose Cannon",
+        "name": "L-30R Vektor",
+        "sanction": "air"
+    },
+    "5218": {
+        "category": "Liberator Nose Cannon",
+        "name": "L-24R Spur",
+        "sanction": "none"
+    },
+    "5219": {
+        "category": "Liberator Nose Cannon",
+        "name": "L-24R Spur",
+        "sanction": "none"
+    },
+    "5220": {
+        "category": "Liberator Nose Cannon",
+        "name": "L-24R Spur",
+        "sanction": "none"
+    },
+    "6005455": {
+        "category": "Liberator Nose Cannon",
+        "name": "L-24R Spur",
+        "sanction": "none"
+    },
+    "5212": {
+        "category": "Liberator Tail Weapon",
+        "name": "A30 Walker",
+        "sanction": "gunner"
+    },
+    "5213": {
+        "category": "Liberator Tail Weapon",
+        "name": "A30 Walker",
+        "sanction": "gunner"
+    },
+    "5214": {
+        "category": "Liberator Tail Weapon",
+        "name": "A30 Walker",
+        "sanction": "gunner"
+    },
+    "6005459": {
+        "category": "Liberator Tail Weapon",
+        "name": "A30 Walker",
+        "sanction": "gunner"
+    },
+    "5200": {
+        "category": "Liberator Tail Weapon",
+        "name": "M20 Drake",
+        "sanction": "gunner"
+    },
+    "5202": {
+        "category": "Liberator Tail Weapon",
+        "name": "M20 Drake",
+        "sanction": "gunner"
+    },
+    "5204": {
+        "category": "Liberator Tail Weapon",
+        "name": "M20 Drake",
+        "sanction": "gunner"
+    },
+    "6005457": {
+        "category": "Liberator Tail Weapon",
+        "name": "M20 Drake",
+        "sanction": "gunner"
+    },
+    "5221": {
+        "category": "Liberator Tail Weapon",
+        "name": "M60-A Bulldog",
+        "sanction": "gunner"
+    },
+    "5222": {
+        "category": "Liberator Tail Weapon",
+        "name": "M60-A Bulldog",
+        "sanction": "gunner"
+    },
+    "5223": {
+        "category": "Liberator Tail Weapon",
+        "name": "M60-A Bulldog",
+        "sanction": "gunner"
+    },
+    "6005460": {
+        "category": "Liberator Tail Weapon",
+        "name": "M60-A Bulldog",
+        "sanction": "gunner"
+    },
+    "5494": {
+        "category": "Liberator Tail Weapon",
+        "name": "Hyena Missile Launcher",
+        "sanction": "none"
+    },
+    "5495": {
+        "category": "Liberator Tail Weapon",
+        "name": "Hyena Missile Launcher",
+        "sanction": "none"
+    },
+    "5496": {
+        "category": "Liberator Tail Weapon",
+        "name": "Hyena Missile Launcher",
+        "sanction": "none"
+    },
+    "6005456": {
+        "category": "Liberator Tail Weapon",
+        "name": "Hyena Missile Launcher",
+        "sanction": "none"
+    },
+    "6009461": {
+        "category": "Lightning Primary Weapon",
+        "name": "L20 Anaconda",
+        "sanction": ""
+    },
+    "6009490": {
+        "category": "Lightning Primary Weapon",
+        "name": "L20 Anaconda",
+        "sanction": ""
+    },
+    "6009491": {
+        "category": "Lightning Primary Weapon",
+        "name": "L20 Anaconda",
+        "sanction": ""
+    },
+    "6009492": {
+        "category": "Lightning Primary Weapon",
+        "name": "L20 Anaconda",
+        "sanction": ""
+    },
+    "3100": {
+        "category": "Lightning Primary Weapon",
+        "name": "C75 Viper",
+        "sanction": "armor"
+    },
+    "3101": {
+        "category": "Lightning Primary Weapon",
+        "name": "C75 Viper",
+        "sanction": "armor"
+    },
+    "3102": {
+        "category": "Lightning Primary Weapon",
+        "name": "C75 Viper",
+        "sanction": "armor"
+    },
+    "6005302": {
+        "category": "Lightning Primary Weapon",
+        "name": "C75 Viper",
+        "sanction": "armor"
+    },
+    "3103": {
+        "category": "Lightning Primary Weapon",
+        "name": "L100 Python AP",
+        "sanction": "armor"
+    },
+    "3104": {
+        "category": "Lightning Primary Weapon",
+        "name": "L100 Python AP",
+        "sanction": "armor"
+    },
+    "3105": {
+        "category": "Lightning Primary Weapon",
+        "name": "L100 Python AP",
+        "sanction": "armor"
+    },
+    "6005299": {
+        "category": "Lightning Primary Weapon",
+        "name": "L100 Python AP",
+        "sanction": "armor"
+    },
+    "3156": {
+        "category": "Lightning Primary Weapon",
+        "name": "L100 Python HEAT",
+        "sanction": "armor"
+    },
+    "3157": {
+        "category": "Lightning Primary Weapon",
+        "name": "L100 Python HEAT",
+        "sanction": "armor"
+    },
+    "3158": {
+        "category": "Lightning Primary Weapon",
+        "name": "L100 Python HEAT",
+        "sanction": "armor"
+    },
+    "6005300": {
+        "category": "Lightning Primary Weapon",
+        "name": "L100 Python HEAT",
+        "sanction": "armor"
+    },
+    "3153": {
+        "category": "Lightning Primary Weapon",
+        "name": "L100 Python HESH",
+        "sanction": "armor"
+    },
+    "3154": {
+        "category": "Lightning Primary Weapon",
+        "name": "L100 Python HESH",
+        "sanction": "armor"
+    },
+    "3155": {
+        "category": "Lightning Primary Weapon",
+        "name": "L100 Python HESH",
+        "sanction": "armor"
+    },
+    "6005301": {
+        "category": "Lightning Primary Weapon",
+        "name": "L100 Python HESH",
+        "sanction": "armor"
+    },
+    "6005068": {
+        "category": "Lightning Primary Weapon",
+        "name": "LB00 Python AP",
+        "sanction": "armor"
+    },
+    "6005069": {
+        "category": "Lightning Primary Weapon",
+        "name": "LB00 Python AP",
+        "sanction": "armor"
+    },
+    "6005070": {
+        "category": "Lightning Primary Weapon",
+        "name": "LB00 Python AP",
+        "sanction": "armor"
+    },
+    "6008684": {
+        "category": "Lightning Primary Weapon",
+        "name": "LB00 Python AP",
+        "sanction": "armor"
+    },
+    "3106": {
+        "category": "Lightning Primary Weapon",
+        "name": "Skyguard",
+        "sanction": "armor"
+    },
+    "3107": {
+        "category": "Lightning Primary Weapon",
+        "name": "Skyguard",
+        "sanction": "armor"
+    },
+    "3108": {
+        "category": "Lightning Primary Weapon",
+        "name": "Skyguard",
+        "sanction": "armor"
+    },
+    "6005303": {
+        "category": "Lightning Primary Weapon",
+        "name": "Skyguard",
+        "sanction": "armor"
+    },
+    "1894": {
+        "category": "LMG",
+        "name": "Betelgeuse 54-A",
+        "sanction": "infantry"
+    },
+    "7232": {
+        "category": "LMG",
+        "name": "EM1",
+        "sanction": "infantry"
+    },
+    "7235": {
+        "category": "LMG",
+        "name": "EM6",
+        "sanction": "infantry"
+    },
+    "7277": {
+        "category": "LMG",
+        "name": "Flare VE6",
+        "sanction": "infantry"
+    },
+    "7233": {
+        "category": "LMG",
+        "name": "GD-22S",
+        "sanction": "infantry"
+    },
+    "7236": {
+        "category": "LMG",
+        "name": "LA1 Anchor",
+        "sanction": "infantry"
+    },
+    "6006299": {
+        "category": "LMG",
+        "name": "LA1 Service Anchor",
+        "sanction": "infantry"
+    },
+    "6004120": {
+        "category": "LMG",
+        "name": "MG-H1 Watchman",
+        "sanction": "infantry"
+    },
+    "6005331": {
+        "category": "LMG",
+        "name": "MG-H1 Watchman AE",
+        "sanction": "infantry"
+    },
+    "6004218": {
+        "category": "LMG",
+        "name": "MGR-L1 Promise",
+        "sanction": "infantry"
+    },
+    "6005330": {
+        "category": "LMG",
+        "name": "MGR-L1 Promise AE",
+        "sanction": "infantry"
+    },
+    "7254": {
+        "category": "LMG",
+        "name": "MSW-R",
+        "sanction": "infantry"
+    },
+    "78": {
+        "category": "LMG",
+        "name": "NC6 Gauss SAW",
+        "sanction": "infantry"
+    },
+    "1879": {
+        "category": "LMG",
+        "name": "NC6A GODSAW",
+        "sanction": "infantry"
+    },
+    "7234": {
+        "category": "LMG",
+        "name": "NC6S Gauss SAW S",
+        "sanction": "infantry"
+    },
+    "6009672": {
+        "category": "LMG",
+        "name": "\"NS-15 \"\"Endeavor\"\" Machinegun\"",
+        "sanction": "infantry"
+    },
+    "803699": {
+        "category": "LMG",
+        "name": "NS-15 Gallows",
+        "sanction": "infantry"
+    },
+    "802319": {
+        "category": "LMG",
+        "name": "NS-15M AE",
+        "sanction": "infantry"
+    },
+    "75034": {
+        "category": "LMG",
+        "name": "NS-15M1",
+        "sanction": "infantry"
+    },
+    "802106": {
+        "category": "LMG",
+        "name": "NS-15M2",
+        "sanction": "infantry"
+    },
+    "802105": {
+        "category": "LMG",
+        "name": "NS-15MB",
+        "sanction": "infantry"
+    },
+    "802104": {
+        "category": "LMG",
+        "name": "NS-15MG",
+        "sanction": "infantry"
+    },
+    "316": {
+        "category": "LMG",
+        "name": "NS-15MP",
+        "sanction": "infantry"
+    },
+    "6008644": {
+        "category": "LMG",
+        "name": "\"NSX \"\"Ivory\"\" Naginata\"",
+        "sanction": "infantry"
+    },
+    "6008668": {
+        "category": "LMG",
+        "name": "\"NSX \"\"Networked\"\" Naginata\"",
+        "sanction": "infantry"
+    },
+    "804249": {
+        "category": "LMG",
+        "name": "NSX Naginata",
+        "sanction": "infantry"
+    },
+    "6004197": {
+        "category": "LMG",
+        "name": "NSX-P Naginata",
+        "sanction": "infantry"
+    },
+    "80": {
+        "category": "LMG",
+        "name": "Orion VS54",
+        "sanction": "infantry"
+    },
+    "7275": {
+        "category": "LMG",
+        "name": "Pulsar LSW",
+        "sanction": "infantry"
+    },
+    "7276": {
+        "category": "LMG",
+        "name": "SVA-88",
+        "sanction": "infantry"
+    },
+    "802738": {
+        "category": "LMG",
+        "name": "SVA-GG",
+        "sanction": "infantry"
+    },
+    "7255": {
+        "category": "LMG",
+        "name": "T16 Rhino",
+        "sanction": "infantry"
+    },
+    "7257": {
+        "category": "LMG",
+        "name": "T32 Bull",
+        "sanction": "infantry"
+    },
+    "79": {
+        "category": "LMG",
+        "name": "T9 CARV",
+        "sanction": "infantry"
+    },
+    "7253": {
+        "category": "LMG",
+        "name": "T9 CARV-S",
+        "sanction": "infantry"
+    },
+    "1924": {
+        "category": "LMG",
+        "name": "\"T9A \"\"Butcher\"\"\"",
+        "sanction": "infantry"
+    },
+    "7256": {
+        "category": "LMG",
+        "name": "TMG-50",
+        "sanction": "infantry"
+    },
+    "7278": {
+        "category": "LMG",
+        "name": "Ursa",
+        "sanction": "infantry"
+    },
+    "6004118": {
+        "category": "LMG",
+        "name": "VE-H Maw",
+        "sanction": "infantry"
+    },
+    "6005332": {
+        "category": "LMG",
+        "name": "VE-H Maw AE",
+        "sanction": "infantry"
+    },
+    "7274": {
+        "category": "LMG",
+        "name": "VX29 Polaris",
+        "sanction": "infantry"
+    },
+    "6009899": {
+        "category": "LMG",
+        "name": "XMG-100",
+        "sanction": "infantry"
+    },
+    "6009900": {
+        "category": "LMG",
+        "name": "XMG-155",
+        "sanction": "infantry"
+    },
+    "6009901": {
+        "category": "LMG",
+        "name": "XMG-200",
+        "sanction": "infantry"
+    },
+    "6011254": {
+        "category": "LMG",
+        "name": "XMG-ARX Galilei",
+        "sanction": "infantry"
+    },
+    "802897": {
+        "category": "Magrider Gunner Weapon",
+        "name": "Aphelion VEX-4",
+        "sanction": "gunner"
+    },
+    "3441": {
+        "category": "Magrider Gunner Weapon",
+        "name": "E540 Halberd",
+        "sanction": "gunner"
+    },
+    "3403": {
+        "category": "Magrider Gunner Weapon",
+        "name": "G30 Walker",
+        "sanction": "gunner"
+    },
+    "3406": {
+        "category": "Magrider Gunner Weapon",
+        "name": "G40-F Ranger",
+        "sanction": "gunner"
+    },
+    "6006400": {
+        "category": "Magrider Gunner Weapon",
+        "name": "Halberd SE",
+        "sanction": "gunner"
+    },
+    "3401": {
+        "category": "Magrider Gunner Weapon",
+        "name": "M12 Kobalt",
+        "sanction": "gunner"
+    },
+    "3402": {
+        "category": "Magrider Gunner Weapon",
+        "name": "M20 Basilisk",
+        "sanction": "gunner"
+    },
+    "3404": {
+        "category": "Magrider Gunner Weapon",
+        "name": "Proton II PPA",
+        "sanction": "gunner"
+    },
+    "3442": {
+        "category": "Magrider Gunner Weapon",
+        "name": "Saron HRB",
+        "sanction": "gunner"
+    },
+    "3460": {
+        "category": "Magrider Primary Weapon",
+        "name": "Supernova FPC",
+        "sanction": "armor"
+    },
+    "3400": {
+        "category": "Magrider Primary Weapon",
+        "name": "Supernova PC",
+        "sanction": "armor"
+    },
+    "3461": {
+        "category": "Magrider Primary Weapon",
+        "name": "Supernova VPC",
+        "sanction": "armor"
+    },
+    "3427": {
+        "category": "Magrider Primary Weapon",
+        "name": "Supernova-R PC",
+        "sanction": "armor"
+    },
+    "4906": {
+        "category": "Mosquito Nose Cannon",
+        "name": "M14 Banshee",
+        "sanction": "air"
+    },
+    "5050": {
+        "category": "Mosquito Nose Cannon",
+        "name": "M18 Locust",
+        "sanction": "air"
+    },
+    "4900": {
+        "category": "Mosquito Nose Cannon",
+        "name": "M18 Needler",
+        "sanction": "air"
+    },
+    "4911": {
+        "category": "Mosquito Nose Cannon",
+        "name": "M18 Rotary",
+        "sanction": "air"
+    },
+    "6009025": {
+        "category": "Mosquito Nose Cannon",
+        "name": "M18-2 Pincer",
+        "sanction": "air"
+    },
+    "4903": {
+        "category": "Mosquito Wing Mount",
+        "name": "Hellfire Rocket Pods",
+        "sanction": "air"
+    },
+    "6006063": {
+        "category": "Mosquito Wing Mount",
+        "name": "M202 Wyrm",
+        "sanction": "air"
+    },
+    "5052": {
+        "category": "Mosquito Wing Mount",
+        "name": "Coyote Missiles",
+        "sanction": "none"
+    },
+    "6009464": {
+        "category": "Mosquito Wing Mount",
+        "name": "Havoc Missiles",
+        "sanction": "none"
+    },
+    "5051": {
+        "category": "Mosquito Wing Mount",
+        "name": "Hornet Missiles",
+        "sanction": "none"
+    },
+    "4905": {
+        "category": "Mosquito Wing Mount",
+        "name": "Tomcat A2AM Pods",
+        "sanction": "none"
+    },
+    "6006090": {
+        "category": "Pistol",
+        "name": "\"\"\"Jackpot\"\" Cerberus\"",
+        "sanction": "infantry"
+    },
+    "21": {
+        "category": "Pistol",
+        "name": "Beamer VS3",
+        "sanction": "infantry"
+    },
+    "7403": {
+        "category": "Pistol",
+        "name": "Beamer VS3-FB",
+        "sanction": "infantry"
+    },
+    "7413": {
+        "category": "Pistol",
+        "name": "Cerberus",
+        "sanction": "infantry"
+    },
+    "6006092": {
+        "category": "Pistol",
+        "name": "\"LA3 \"\"Jackpot\"\" Desperado\"",
+        "sanction": "infantry"
+    },
+    "7389": {
+        "category": "Pistol",
+        "name": "LA3 Desperado",
+        "sanction": "infantry"
+    },
+    "7388": {
+        "category": "Pistol",
+        "name": "LA8 Rebel",
+        "sanction": "infantry"
+    },
+    "7412": {
+        "category": "Pistol",
+        "name": "Manticore SX40",
+        "sanction": "infantry"
+    },
+    "2": {
+        "category": "Pistol",
+        "name": "NC4 Mag-Shot",
+        "sanction": "infantry"
+    },
+    "7379": {
+        "category": "Pistol",
+        "name": "NC4-FB Mag-Shot",
+        "sanction": "infantry"
+    },
+    "6009652": {
+        "category": "Pistol",
+        "name": "\"NS-357 \"\"Endeavor\"\" Underboss\"",
+        "sanction": "infantry"
+    },
+    "6003943": {
+        "category": "Pistol",
+        "name": "NS-357 IA",
+        "sanction": "infantry"
+    },
+    "75071": {
+        "category": "Pistol",
+        "name": "NS-357 Underboss",
+        "sanction": "infantry"
+    },
+    "75173": {
+        "category": "Pistol",
+        "name": "NS-357B Underboss",
+        "sanction": "infantry"
+    },
+    "75171": {
+        "category": "Pistol",
+        "name": "NS-357G Underboss",
+        "sanction": "infantry"
+    },
+    "75268": {
+        "category": "Pistol",
+        "name": "NS-357P Underboss",
+        "sanction": "infantry"
+    },
+    "75063": {
+        "category": "Pistol",
+        "name": "NS-44 Commissioner",
+        "sanction": "infantry"
+    },
+    "803824": {
+        "category": "Pistol",
+        "name": "NS-44 Commissioner AE",
+        "sanction": "infantry"
+    },
+    "803825": {
+        "category": "Pistol",
+        "name": "NS-44 Commissioner AE",
+        "sanction": "infantry"
+    },
+    "803826": {
+        "category": "Pistol",
+        "name": "NS-44 Commissioner AE",
+        "sanction": "infantry"
+    },
+    "75172": {
+        "category": "Pistol",
+        "name": "NS-44B Commissioner",
+        "sanction": "infantry"
+    },
+    "75170": {
+        "category": "Pistol",
+        "name": "NS-44G Commissioner",
+        "sanction": "infantry"
+    },
+    "6002661": {
+        "category": "Pistol",
+        "name": "\"NS-44L \"\"Ravenous\"\" Blackhand\"",
+        "sanction": "infantry"
+    },
+    "802733": {
+        "category": "Pistol",
+        "name": "NS-44L Blackhand",
+        "sanction": "infantry"
+    },
+    "6003793": {
+        "category": "Pistol",
+        "name": "NS-44L Showdown",
+        "sanction": "infantry"
+    },
+    "802781": {
+        "category": "Pistol",
+        "name": "NS-44LB Blackhand",
+        "sanction": "infantry"
+    },
+    "802782": {
+        "category": "Pistol",
+        "name": "NS-44LG Blackhand",
+        "sanction": "infantry"
+    },
+    "804960": {
+        "category": "Pistol",
+        "name": "NS-44LP Blackhand",
+        "sanction": "infantry"
+    },
+    "2001": {
+        "category": "Pistol",
+        "name": "NS-44P Commissioner",
+        "sanction": "infantry"
+    },
+    "6003704": {
+        "category": "Pistol",
+        "name": "\"NS-45 \"\"Brass\"\" Pilot\"",
+        "sanction": "infantry"
+    },
+    "6003665": {
+        "category": "Pistol",
+        "name": "NS-45 Pilot",
+        "sanction": "infantry"
+    },
+    "6009722": {
+        "category": "Pistol",
+        "name": "NS-45P Pilot",
+        "sanction": "infantry"
+    },
+    "6004413": {
+        "category": "Pistol",
+        "name": "\"NS-61 \"\"Ivory\"\" Emissary\"",
+        "sanction": "infantry"
+    },
+    "6008666": {
+        "category": "Pistol",
+        "name": "\"NS-61 \"\"Networked\"\" Emissary\"",
+        "sanction": "infantry"
+    },
+    "6002640": {
+        "category": "Pistol",
+        "name": "\"NS-61 \"\"Ravenous\"\" Emissary\"",
+        "sanction": "infantry"
+    },
+    "804138": {
+        "category": "Pistol",
+        "name": "NS-61 Emissary",
+        "sanction": "infantry"
+    },
+    "804405": {
+        "category": "Pistol",
+        "name": "NS-61B Emissary",
+        "sanction": "infantry"
+    },
+    "804428": {
+        "category": "Pistol",
+        "name": "NS-61G Emissary",
+        "sanction": "infantry"
+    },
+    "6011154": {
+        "category": "Pistol",
+        "name": "NSX Yawara",
+        "sanction": "infantry"
+    },
+    "6005969": {
+        "category": "Pistol",
+        "name": "NSX-A Yawara",
+        "sanction": "infantry"
+    },
+    "7414": {
+        "category": "Pistol",
+        "name": "Spiker",
+        "sanction": "infantry"
+    },
+    "7402": {
+        "category": "Pistol",
+        "name": "T4 AMP",
+        "sanction": "infantry"
+    },
+    "1889": {
+        "category": "Pistol",
+        "name": "The Executive",
+        "sanction": "infantry"
+    },
+    "1959": {
+        "category": "Pistol",
+        "name": "The Immortal",
+        "sanction": "infantry"
+    },
+    "1954": {
+        "category": "Pistol",
+        "name": "The President",
+        "sanction": "infantry"
+    },
+    "7401": {
+        "category": "Pistol",
+        "name": "TS2 Inquisitor",
+        "sanction": "infantry"
+    },
+    "15": {
+        "category": "Pistol",
+        "name": "TX1 Repeater",
+        "sanction": "infantry"
+    },
+    "7391": {
+        "category": "Pistol",
+        "name": "TX1-FB Repeater",
+        "sanction": "infantry"
+    },
+    "6006091": {
+        "category": "Pistol",
+        "name": "\"TX2 \"\"Jackpot\"\" Emperor\"",
+        "sanction": "infantry"
+    },
+    "7400": {
+        "category": "Pistol",
+        "name": "TX2 Emperor",
+        "sanction": "infantry"
+    },
+    "6009902": {
+        "category": "Pistol",
+        "name": "U-100 Lastly",
+        "sanction": "infantry"
+    },
+    "6009903": {
+        "category": "Pistol",
+        "name": "U-150 Recall",
+        "sanction": "infantry"
+    },
+    "6009904": {
+        "category": "Pistol",
+        "name": "U-200 Harbinger",
+        "sanction": "infantry"
+    },
+    "6011258": {
+        "category": "Pistol",
+        "name": "U-ARX Dirac",
+        "sanction": "infantry"
+    },
+    "6004995": {
+        "category": "Pistol",
+        "name": "Ectoblaster",
+        "sanction": "meme"
+    },
+    "75517": {
+        "category": "Pistol",
+        "name": "NC Patriot Flare Gun",
+        "sanction": "meme"
+    },
+    "803007": {
+        "category": "Pistol",
+        "name": "NC Triumph Flare Gun",
+        "sanction": "meme"
+    },
+    "801970": {
+        "category": "Pistol",
+        "name": "NS CandyCannon 3000",
+        "sanction": "meme"
+    },
+    "76358": {
+        "category": "Pistol",
+        "name": "NS Deep Freeze",
+        "sanction": "meme"
+    },
+    "75490": {
+        "category": "Pistol",
+        "name": "NS Patriot Flare Gun",
+        "sanction": "meme"
+    },
+    "6004714": {
+        "category": "Pistol",
+        "name": "Soldier Soaker",
+        "sanction": "meme"
+    },
+    "75519": {
+        "category": "Pistol",
+        "name": "TR Patriot Flare Gun",
+        "sanction": "meme"
+    },
+    "803008": {
+        "category": "Pistol",
+        "name": "TR Triumph Flare Gun",
+        "sanction": "meme"
+    },
+    "75521": {
+        "category": "Pistol",
+        "name": "VS Patriot Flare Gun",
+        "sanction": "meme"
+    },
+    "803009": {
+        "category": "Pistol",
+        "name": "VS Triumph Flare Gun",
+        "sanction": "meme"
+    },
+    "7390": {
+        "category": "Pistol",
+        "name": "NC08 Mag-Scatter",
+        "sanction": "none"
+    },
+    "4015": {
+        "category": "Prowler Gunner Weapon",
+        "name": "E540 Halberd",
+        "sanction": "gunner"
+    },
+    "4029": {
+        "category": "Prowler Gunner Weapon",
+        "name": "G30 Vulcan",
+        "sanction": "gunner"
+    },
+    "4003": {
+        "category": "Prowler Gunner Weapon",
+        "name": "G30 Walker",
+        "sanction": "gunner"
+    },
+    "4010": {
+        "category": "Prowler Gunner Weapon",
+        "name": "G40-F Ranger",
+        "sanction": "gunner"
+    },
+    "6006398": {
+        "category": "Prowler Gunner Weapon",
+        "name": "Halberd SE",
+        "sanction": "gunner"
+    },
+    "4001": {
+        "category": "Prowler Gunner Weapon",
+        "name": "M12 Kobalt",
+        "sanction": "gunner"
+    },
+    "4002": {
+        "category": "Prowler Gunner Weapon",
+        "name": "M20 Basilisk",
+        "sanction": "gunner"
+    },
+    "802874": {
+        "category": "Prowler Gunner Weapon",
+        "name": "MR11 Gatekeeper",
+        "sanction": "gunner"
+    },
+    "4007": {
+        "category": "Prowler Gunner Weapon",
+        "name": "P525 Marauder",
+        "sanction": "gunner"
+    },
+    "4008": {
+        "category": "Prowler Primary Weapon",
+        "name": "P2-120 AP",
+        "sanction": "armor"
+    },
+    "4000": {
+        "category": "Prowler Primary Weapon",
+        "name": "P2-120 HEAT",
+        "sanction": "armor"
+    },
+    "4009": {
+        "category": "Prowler Primary Weapon",
+        "name": "P2-120 HESH",
+        "sanction": "armor"
+    },
+    "4016": {
+        "category": "Prowler Primary Weapon",
+        "name": "P2-120-R HEAT",
+        "sanction": "armor"
+    },
+    "4745": {
+        "category": "Reaver Nose Cannon",
+        "name": "M20 Kestrel",
+        "sanction": "air"
+    },
+    "4600": {
+        "category": "Reaver Nose Cannon",
+        "name": "M20 Mustang",
+        "sanction": "air"
+    },
+    "6009029": {
+        "category": "Reaver Nose Cannon",
+        "name": "M20-W Appaloosa",
+        "sanction": "air"
+    },
+    "4605": {
+        "category": "Reaver Nose Cannon",
+        "name": "M30 Mustang AH",
+        "sanction": "air"
+    },
+    "4604": {
+        "category": "Reaver Nose Cannon",
+        "name": "Vortek Rotary",
+        "sanction": "air"
+    },
+    "4601": {
+        "category": "Reaver Wing Mount",
+        "name": "Breaker Rocket Pods",
+        "sanction": "air"
+    },
+    "6006065": {
+        "category": "Reaver Wing Mount",
+        "name": "M202 Wyrm",
+        "sanction": "air"
+    },
+    "4747": {
+        "category": "Reaver Wing Mount",
+        "name": "Coyote Missiles",
+        "sanction": "none"
+    },
+    "6009466": {
+        "category": "Reaver Wing Mount",
+        "name": "Havoc Missiles",
+        "sanction": "none"
+    },
+    "4746": {
+        "category": "Reaver Wing Mount",
+        "name": "Hornet Missiles",
+        "sanction": "none"
+    },
+    "4602": {
+        "category": "Reaver Wing Mount",
+        "name": "Tomcat A2AM Pods",
+        "sanction": "none"
+    },
+    "33003": {
+        "category": "Rocket Launcher",
+        "name": "AF-22 Crow",
+        "sanction": "none"
+    },
+    "34004": {
+        "category": "Rocket Launcher",
+        "name": "ASP-30 Grounder",
+        "sanction": "none"
+    },
+    "35003": {
+        "category": "Rocket Launcher",
+        "name": "Hades VSH4",
+        "sanction": "none"
+    },
+    "33004": {
+        "category": "Rocket Launcher",
+        "name": "Hawk GD-68",
+        "sanction": "none"
+    },
+    "268": {
+        "category": "Rocket Launcher",
+        "name": "Lancer AE",
+        "sanction": "none"
+    },
+    "35002": {
+        "category": "Rocket Launcher",
+        "name": "Lancer VS22",
+        "sanction": "none"
+    },
+    "6009905": {
+        "category": "Rocket Launcher",
+        "name": "LAV-AG",
+        "sanction": "none"
+    },
+    "6009907": {
+        "category": "Rocket Launcher",
+        "name": "LAV-LA",
+        "sanction": "none"
+    },
+    "6009906": {
+        "category": "Rocket Launcher",
+        "name": "LAV-LG",
+        "sanction": "none"
+    },
+    "34003": {
+        "category": "Rocket Launcher",
+        "name": "M9 SKEP Launcher",
+        "sanction": "none"
+    },
+    "85": {
+        "category": "Rocket Launcher",
+        "name": "ML-7",
+        "sanction": "none"
+    },
+    "33002": {
+        "category": "Rocket Launcher",
+        "name": "NC15 Phoenix",
+        "sanction": "none"
+    },
+    "35004": {
+        "category": "Rocket Launcher",
+        "name": "Nemesis VSH9",
+        "sanction": "none"
+    },
+    "6003611": {
+        "category": "Rocket Launcher",
+        "name": "\"NS \"\"Heatwave\"\" Decimator\"",
+        "sanction": "none"
+    },
+    "6004407": {
+        "category": "Rocket Launcher",
+        "name": "\"NS \"\"Jackpot\"\" Decimator\"",
+        "sanction": "none"
+    },
+    "50561": {
+        "category": "Rocket Launcher",
+        "name": "NS Annihilator",
+        "sanction": "none"
+    },
+    "802302": {
+        "category": "Rocket Launcher",
+        "name": "NS Annihilator-B",
+        "sanction": "none"
+    },
+    "802301": {
+        "category": "Rocket Launcher",
+        "name": "NS Annihilator-G",
+        "sanction": "none"
+    },
+    "50560": {
+        "category": "Rocket Launcher",
+        "name": "NS Decimator",
+        "sanction": "none"
+    },
+    "802300": {
+        "category": "Rocket Launcher",
+        "name": "NS Decimator-B",
+        "sanction": "none"
+    },
+    "802299": {
+        "category": "Rocket Launcher",
+        "name": "NS Decimator-G",
+        "sanction": "none"
+    },
+    "6010049": {
+        "category": "Rocket Launcher",
+        "name": "NS Scorpion",
+        "sanction": "none"
+    },
+    "6002637": {
+        "category": "Rocket Launcher",
+        "name": "\"NS-R3 \"\"Ravenous\"\" Swarm\"",
+        "sanction": "none"
+    },
+    "802969": {
+        "category": "Rocket Launcher",
+        "name": "NS-R3 Swarm",
+        "sanction": "none"
+    },
+    "804179": {
+        "category": "Rocket Launcher",
+        "name": "NSX Masamune",
+        "sanction": "none"
+    },
+    "6011151": {
+        "category": "Rocket Launcher",
+        "name": "NSX Muramasa",
+        "sanction": "none"
+    },
+    "6005966": {
+        "category": "Rocket Launcher",
+        "name": "NSX-A Muramasa",
+        "sanction": "none"
+    },
+    "266": {
+        "category": "Rocket Launcher",
+        "name": "Phoenix AE",
+        "sanction": "none"
+    },
+    "86": {
+        "category": "Rocket Launcher",
+        "name": "S1",
+        "sanction": "none"
+    },
+    "84": {
+        "category": "Rocket Launcher",
+        "name": "Shrike",
+        "sanction": "none"
+    },
+    "267": {
+        "category": "Rocket Launcher",
+        "name": "Striker AE",
+        "sanction": "none"
+    },
+    "34002": {
+        "category": "Rocket Launcher",
+        "name": "T2 Striker",
+        "sanction": "none"
+    },
+    "1964": {
+        "category": "Rocket Launcher",
+        "name": "The Kraken",
+        "sanction": "none"
+    },
+    "6004198": {
+        "category": "Scout Rifle",
+        "name": "Mystery Weapon",
+        "sanction": ""
+    },
+    "6009973": {
+        "category": "Scout Rifle",
+        "name": "\"AF-18 \"\"Hazmat\"\" Stalker\"",
+        "sanction": "infantry"
+    },
+    "7358": {
+        "category": "Scout Rifle",
+        "name": "AF-18 Stalker",
+        "sanction": "infantry"
+    },
+    "6004008": {
+        "category": "Scout Rifle",
+        "name": "AF-18 Stalker AE",
+        "sanction": "infantry"
+    },
+    "24007": {
+        "category": "Scout Rifle",
+        "name": "AF-6 Shadow",
+        "sanction": "infantry"
+    },
+    "6009972": {
+        "category": "Scout Rifle",
+        "name": "\"Artemis \"\"Hazmat\"\" VX26\"",
+        "sanction": "infantry"
+    },
+    "7372": {
+        "category": "Scout Rifle",
+        "name": "Artemis VX26",
+        "sanction": "infantry"
+    },
+    "6004010": {
+        "category": "Scout Rifle",
+        "name": "Artemis VX26 AE",
+        "sanction": "infantry"
+    },
+    "6010045": {
+        "category": "Scout Rifle",
+        "name": "BAR-100",
+        "sanction": "infantry"
+    },
+    "6010047": {
+        "category": "Scout Rifle",
+        "name": "BAR-200",
+        "sanction": "infantry"
+    },
+    "6010046": {
+        "category": "Scout Rifle",
+        "name": "BAR-A75",
+        "sanction": "infantry"
+    },
+    "6011257": {
+        "category": "Scout Rifle",
+        "name": "BAR-ARX Feynman",
+        "sanction": "infantry"
+    },
+    "25007": {
+        "category": "Scout Rifle",
+        "name": "HSR-1",
+        "sanction": "infantry"
+    },
+    "2311": {
+        "category": "Scout Rifle",
+        "name": "NS-30 Vandal",
+        "sanction": "infantry"
+    },
+    "2312": {
+        "category": "Scout Rifle",
+        "name": "NS-30B Vandal",
+        "sanction": "infantry"
+    },
+    "2313": {
+        "category": "Scout Rifle",
+        "name": "NS-30G Vandal",
+        "sanction": "infantry"
+    },
+    "6009974": {
+        "category": "Scout Rifle",
+        "name": "\"NSX \"\"Hazmat\"\" Tomoe\"",
+        "sanction": "infantry"
+    },
+    "6008654": {
+        "category": "Scout Rifle",
+        "name": "\"NSX \"\"Ivory\"\" Tomoe\"",
+        "sanction": "infantry"
+    },
+    "6008669": {
+        "category": "Scout Rifle",
+        "name": "\"NSX \"\"Networked\"\" Tomoe\"",
+        "sanction": "infantry"
+    },
+    "6011155": {
+        "category": "Scout Rifle",
+        "name": "NSX Sesshin",
+        "sanction": "infantry"
+    },
+    "804252": {
+        "category": "Scout Rifle",
+        "name": "NSX Tomoe",
+        "sanction": "infantry"
+    },
+    "26007": {
+        "category": "Scout Rifle",
+        "name": "Nyx VX31",
+        "sanction": "infantry"
+    },
+    "7365": {
+        "category": "Scout Rifle",
+        "name": "SOAS-20",
+        "sanction": "infantry"
+    },
+    "6009971": {
+        "category": "Scout Rifle",
+        "name": "\"SOAS-20 \"\"Hazmat\"\"\"",
+        "sanction": "infantry"
+    },
+    "6004009": {
+        "category": "Scout Rifle",
+        "name": "SOAS-20 AE",
+        "sanction": "infantry"
+    },
+    "4445": {
+        "category": "Scythe Nose Cannon",
+        "name": "Antares LC",
+        "sanction": "air"
+    },
+    "4305": {
+        "category": "Scythe Nose Cannon",
+        "name": "Light PPA",
+        "sanction": "air"
+    },
+    "4302": {
+        "category": "Scythe Nose Cannon",
+        "name": "Saron Laser Cannon",
+        "sanction": "air"
+    },
+    "6009030": {
+        "category": "Scythe Nose Cannon",
+        "name": "Twin-Saron LC",
+        "sanction": "air"
+    },
+    "4304": {
+        "category": "Scythe Nose Cannon",
+        "name": "V26 Maelstrom Turbo Laser",
+        "sanction": "air"
+    },
+    "4301": {
+        "category": "Scythe Wing Mount",
+        "name": "Dual Photon Pods",
+        "sanction": "air"
+    },
+    "6006064": {
+        "category": "Scythe Wing Mount",
+        "name": "M202 Wyrm",
+        "sanction": "air"
+    },
+    "4447": {
+        "category": "Scythe Wing Mount",
+        "name": "Coyote Missiles",
+        "sanction": "none"
+    },
+    "6009465": {
+        "category": "Scythe Wing Mount",
+        "name": "Havoc Missiles",
+        "sanction": "none"
+    },
+    "4446": {
+        "category": "Scythe Wing Mount",
+        "name": "Hornet Missiles",
+        "sanction": "none"
+    },
+    "4300": {
+        "category": "Scythe Wing Mount",
+        "name": "Photon A2A Missile Pods",
+        "sanction": "none"
+    },
+    "6009866": {
+        "category": "Shotgun",
+        "name": "\"NS \"\"Lucky\"\" Baron G5\"",
+        "sanction": "none"
+    },
+    "75083": {
+        "category": "Shotgun",
+        "name": "NS Baron G5",
+        "sanction": "none"
+    },
+    "802322": {
+        "category": "Shotgun",
+        "name": "NS Baron G5AE",
+        "sanction": "none"
+    },
+    "1097": {
+        "category": "Shotgun",
+        "name": "NS Baron G5B",
+        "sanction": "none"
+    },
+    "1849": {
+        "category": "Shotgun",
+        "name": "NS Baron G5G",
+        "sanction": "none"
+    },
+    "6011234": {
+        "category": "Shotgun",
+        "name": "NS Viscount G6",
+        "sanction": "none"
+    },
+    "6005713": {
+        "category": "Shotgun",
+        "name": "The Little Helper",
+        "sanction": "none"
+    },
+    "40000": {
+        "category": "Shotgun",
+        "name": "AF-57 Piston",
+        "sanction": "shotgun"
+    },
+    "30": {
+        "category": "Shotgun",
+        "name": "AS16 NightHawk",
+        "sanction": "shotgun"
+    },
+    "1939": {
+        "category": "Shotgun",
+        "name": "Chaos",
+        "sanction": "shotgun"
+    },
+    "41002": {
+        "category": "Shotgun",
+        "name": "Deimos VA29",
+        "sanction": "shotgun"
+    },
+    "39000": {
+        "category": "Shotgun",
+        "name": "FA1 Barrage",
+        "sanction": "shotgun"
+    },
+    "40001": {
+        "category": "Shotgun",
+        "name": "GD-66 Claw",
+        "sanction": "shotgun"
+    },
+    "1934": {
+        "category": "Shotgun",
+        "name": "Havoc",
+        "sanction": "shotgun"
+    },
+    "6009908": {
+        "category": "Shotgun",
+        "name": "HSG-400",
+        "sanction": "shotgun"
+    },
+    "40002": {
+        "category": "Shotgun",
+        "name": "LA39 Bruiser",
+        "sanction": "shotgun"
+    },
+    "128": {
+        "category": "Shotgun",
+        "name": "Mauler S6",
+        "sanction": "shotgun"
+    },
+    "7423": {
+        "category": "Shotgun",
+        "name": "NC12 Sweeper",
+        "sanction": "shotgun"
+    },
+    "129": {
+        "category": "Shotgun",
+        "name": "Nova",
+        "sanction": "shotgun"
+    },
+    "41000": {
+        "category": "Shotgun",
+        "name": "Pandora VX25",
+        "sanction": "shotgun"
+    },
+    "41001": {
+        "category": "Shotgun",
+        "name": "Phobos VX86",
+        "sanction": "shotgun"
+    },
+    "6009910": {
+        "category": "Shotgun",
+        "name": "SG-100",
+        "sanction": "shotgun"
+    },
+    "6009909": {
+        "category": "Shotgun",
+        "name": "SG-A25",
+        "sanction": "shotgun"
+    },
+    "6011256": {
+        "category": "Shotgun",
+        "name": "SG-ARX Rutherford",
+        "sanction": "shotgun"
+    },
+    "39002": {
+        "category": "Shotgun",
+        "name": "TAS-16 Blackjack",
+        "sanction": "shotgun"
+    },
+    "7441": {
+        "category": "Shotgun",
+        "name": "Thanatos VE70",
+        "sanction": "shotgun"
+    },
+    "1884": {
+        "category": "Shotgun",
+        "name": "The Brawler",
+        "sanction": "shotgun"
+    },
+    "39001": {
+        "category": "Shotgun",
+        "name": "TRS-12 Uppercut",
+        "sanction": "shotgun"
+    },
+    "7432": {
+        "category": "Shotgun",
+        "name": "TS4 Haymaker",
+        "sanction": "shotgun"
+    },
+    "27000": {
+        "category": "SMG",
+        "name": "AF-4 Cyclone",
+        "sanction": "infantry"
+    },
+    "6002824": {
+        "category": "SMG",
+        "name": "AF-4AE Cyclone",
+        "sanction": "infantry"
+    },
+    "27005": {
+        "category": "SMG",
+        "name": "AF-4G Cyclone",
+        "sanction": "infantry"
+    },
+    "27001": {
+        "category": "SMG",
+        "name": "Blitz GD-10",
+        "sanction": "infantry"
+    },
+    "29000": {
+        "category": "SMG",
+        "name": "Eridani SX5",
+        "sanction": "infantry"
+    },
+    "6002772": {
+        "category": "SMG",
+        "name": "Eridani SX5-AE",
+        "sanction": "infantry"
+    },
+    "29005": {
+        "category": "SMG",
+        "name": "Eridani SX5G",
+        "sanction": "infantry"
+    },
+    "6003879": {
+        "category": "SMG",
+        "name": "MG-S1 Jackal",
+        "sanction": "infantry"
+    },
+    "6003850": {
+        "category": "SMG",
+        "name": "MGR-S1 Gladius",
+        "sanction": "infantry"
+    },
+    "2314": {
+        "category": "SMG",
+        "name": "MKV Suppressed",
+        "sanction": "infantry"
+    },
+    "2315": {
+        "category": "SMG",
+        "name": "MKV-B Suppressed",
+        "sanction": "infantry"
+    },
+    "2316": {
+        "category": "SMG",
+        "name": "MKV-G Suppressed",
+        "sanction": "infantry"
+    },
+    "6003059": {
+        "category": "SMG",
+        "name": "MKV-P Suppressed",
+        "sanction": "infantry"
+    },
+    "6009203": {
+        "category": "SMG",
+        "name": "NS-66 Punisher",
+        "sanction": "infantry"
+    },
+    "6010117": {
+        "category": "SMG",
+        "name": "NS-66 Punisher SE",
+        "sanction": "infantry"
+    },
+    "6009623": {
+        "category": "SMG",
+        "name": "\"NS-7 \"\"Endeavor\"\" PDW\"",
+        "sanction": "infantry"
+    },
+    "7494": {
+        "category": "SMG",
+        "name": "NS-7 PDW",
+        "sanction": "infantry"
+    },
+    "7495": {
+        "category": "SMG",
+        "name": "NS-7B PDW",
+        "sanction": "infantry"
+    },
+    "7496": {
+        "category": "SMG",
+        "name": "NS-7G PDW",
+        "sanction": "infantry"
+    },
+    "6008660": {
+        "category": "SMG",
+        "name": "\"NSX \"\"Ivory\"\" Tengu\"",
+        "sanction": "infantry"
+    },
+    "6008671": {
+        "category": "SMG",
+        "name": "\"NSX \"\"Networked\"\" Tengu\"",
+        "sanction": "infantry"
+    },
+    "6011153": {
+        "category": "SMG",
+        "name": "NSX Kappa",
+        "sanction": "infantry"
+    },
+    "804257": {
+        "category": "SMG",
+        "name": "NSX Tengu",
+        "sanction": "infantry"
+    },
+    "6005968": {
+        "category": "SMG",
+        "name": "NSX-A Kappa",
+        "sanction": "infantry"
+    },
+    "6006239": {
+        "category": "SMG",
+        "name": "NSX-P Tengu",
+        "sanction": "infantry"
+    },
+    "28001": {
+        "category": "SMG",
+        "name": "PDW-16 Hailstorm",
+        "sanction": "infantry"
+    },
+    "6009896": {
+        "category": "SMG",
+        "name": "PMG-100",
+        "sanction": "infantry"
+    },
+    "6009897": {
+        "category": "SMG",
+        "name": "PMG-200",
+        "sanction": "infantry"
+    },
+    "6009898": {
+        "category": "SMG",
+        "name": "PMG-3XB",
+        "sanction": "infantry"
+    },
+    "6011253": {
+        "category": "SMG",
+        "name": "PMG-ARX Schrodinger",
+        "sanction": "infantry"
+    },
+    "6004570": {
+        "category": "SMG",
+        "name": "PS1-AV Suppressor",
+        "sanction": "infantry"
+    },
+    "1944": {
+        "category": "SMG",
+        "name": "Shuriken",
+        "sanction": "infantry"
+    },
+    "29001": {
+        "category": "SMG",
+        "name": "Sirius SX12",
+        "sanction": "infantry"
+    },
+    "1949": {
+        "category": "SMG",
+        "name": "Skorpios",
+        "sanction": "infantry"
+    },
+    "28000": {
+        "category": "SMG",
+        "name": "SMG-46 Armistice",
+        "sanction": "infantry"
+    },
+    "6002800": {
+        "category": "SMG",
+        "name": "SMG-46AE Armistice",
+        "sanction": "infantry"
+    },
+    "28005": {
+        "category": "SMG",
+        "name": "SMG-46G Armistice",
+        "sanction": "infantry"
+    },
+    "1899": {
+        "category": "SMG",
+        "name": "Tempest",
+        "sanction": "infantry"
+    },
+    "6003925": {
+        "category": "SMG",
+        "name": "VE-S Canis",
+        "sanction": "infantry"
+    },
+    "6004294": {
+        "category": "Sniper Rifle",
+        "name": "AM7-XOXO",
+        "sanction": "infantry"
+    },
+    "24002": {
+        "category": "Sniper Rifle",
+        "name": "Impetus",
+        "sanction": "infantry"
+    },
+    "25002": {
+        "category": "Sniper Rifle",
+        "name": "KSR-35",
+        "sanction": "infantry"
+    },
+    "6002943": {
+        "category": "Sniper Rifle",
+        "name": "NS-AM7 AE/NC Archer",
+        "sanction": "infantry"
+    },
+    "6002930": {
+        "category": "Sniper Rifle",
+        "name": "NS-AM7 AE/TR Archer",
+        "sanction": "infantry"
+    },
+    "802771": {
+        "category": "Sniper Rifle",
+        "name": "NS-AM7 Archer",
+        "sanction": "infantry"
+    },
+    "6002918": {
+        "category": "Sniper Rifle",
+        "name": "NS-AM7 VS/AE Archer",
+        "sanction": "infantry"
+    },
+    "802910": {
+        "category": "Sniper Rifle",
+        "name": "NS-AM7B Archer",
+        "sanction": "infantry"
+    },
+    "802921": {
+        "category": "Sniper Rifle",
+        "name": "NS-AM7G Archer",
+        "sanction": "infantry"
+    },
+    "6004992": {
+        "category": "Sniper Rifle",
+        "name": "NS-AM8 Shortbow",
+        "sanction": "infantry"
+    },
+    "26002": {
+        "category": "Sniper Rifle",
+        "name": "Phantom VA23",
+        "sanction": "infantry"
+    },
+    "6008496": {
+        "category": "Sniper Rifle",
+        "name": "PSA-01 Hammerhead AMR",
+        "sanction": "infantry"
+    },
+    "88": {
+        "category": "Sniper Rifle",
+        "name": "99SV",
+        "sanction": "sniper"
+    },
+    "7301": {
+        "category": "Sniper Rifle",
+        "name": "AF-8 RailJack",
+        "sanction": "sniper"
+    },
+    "1974": {
+        "category": "Sniper Rifle",
+        "name": "Bighorn .50M",
+        "sanction": "sniper"
+    },
+    "24004": {
+        "category": "Sniper Rifle",
+        "name": "EM4 Longshot",
+        "sanction": "sniper"
+    },
+    "6002758": {
+        "category": "Sniper Rifle",
+        "name": "EM4-AE Longshot",
+        "sanction": "sniper"
+    },
+    "24000": {
+        "category": "Sniper Rifle",
+        "name": "Gauss SPR",
+        "sanction": "sniper"
+    },
+    "26001": {
+        "category": "Sniper Rifle",
+        "name": "Ghost",
+        "sanction": "sniper"
+    },
+    "24003": {
+        "category": "Sniper Rifle",
+        "name": "LA80",
+        "sanction": "sniper"
+    },
+    "25000": {
+        "category": "Sniper Rifle",
+        "name": "M77-B",
+        "sanction": "sniper"
+    },
+    "87": {
+        "category": "Sniper Rifle",
+        "name": "NC14 Bolt Driver",
+        "sanction": "sniper"
+    },
+    "6008652": {
+        "category": "Sniper Rifle",
+        "name": "\"NSX \"\"Ivory\"\" Daimyo\"",
+        "sanction": "sniper"
+    },
+    "6008670": {
+        "category": "Sniper Rifle",
+        "name": "\"NSX \"\"Networked\"\" Daimyo\"",
+        "sanction": "sniper"
+    },
+    "804255": {
+        "category": "Sniper Rifle",
+        "name": "NSX Daimyo",
+        "sanction": "sniper"
+    },
+    "26004": {
+        "category": "Sniper Rifle",
+        "name": "Parallax VX3",
+        "sanction": "sniper"
+    },
+    "6002732": {
+        "category": "Sniper Rifle",
+        "name": "Parallax VX3-AE",
+        "sanction": "sniper"
+    },
+    "1979": {
+        "category": "Sniper Rifle",
+        "name": "Parsec VX3-A",
+        "sanction": "sniper"
+    },
+    "7337": {
+        "category": "Sniper Rifle",
+        "name": "Phaseshift VX-S",
+        "sanction": "sniper"
+    },
+    "25004": {
+        "category": "Sniper Rifle",
+        "name": "RAMS .50M",
+        "sanction": "sniper"
+    },
+    "6002745": {
+        "category": "Sniper Rifle",
+        "name": "RAMS-AE .50M",
+        "sanction": "sniper"
+    },
+    "24001": {
+        "category": "Sniper Rifle",
+        "name": "SAS-R",
+        "sanction": "sniper"
+    },
+    "6010510": {
+        "category": "Sniper Rifle",
+        "name": "SR-100",
+        "sanction": "sniper"
+    },
+    "6010512": {
+        "category": "Sniper Rifle",
+        "name": "SR-150",
+        "sanction": "sniper"
+    },
+    "6006850": {
+        "category": "Sniper Rifle",
+        "name": "SR-200",
+        "sanction": "sniper"
+    },
+    "25003": {
+        "category": "Sniper Rifle",
+        "name": "SR-7",
+        "sanction": "sniper"
+    },
+    "6011255": {
+        "category": "Sniper Rifle",
+        "name": "SR-ARX Einstein",
+        "sanction": "sniper"
+    },
+    "6010511": {
+        "category": "Sniper Rifle",
+        "name": "SR-L75",
+        "sanction": "sniper"
+    },
+    "1969": {
+        "category": "Sniper Rifle",
+        "name": "The Moonshot",
+        "sanction": "sniper"
+    },
+    "7316": {
+        "category": "Sniper Rifle",
+        "name": "TRAP-M1",
+        "sanction": "sniper"
+    },
+    "25001": {
+        "category": "Sniper Rifle",
+        "name": "TSAR-42",
+        "sanction": "sniper"
+    },
+    "26003": {
+        "category": "Sniper Rifle",
+        "name": "V10",
+        "sanction": "sniper"
+    },
+    "89": {
+        "category": "Sniper Rifle",
+        "name": "VA39 Spectre",
+        "sanction": "sniper"
+    },
+    "26000": {
+        "category": "Sniper Rifle",
+        "name": "XM98",
+        "sanction": "sniper"
+    },
+    "3080": {
+        "category": "Sunderer Front Gunner",
+        "name": "G30 Walker",
+        "sanction": "gunner"
+    },
+    "3081": {
+        "category": "Sunderer Front Gunner",
+        "name": "G30 Walker",
+        "sanction": "gunner"
+    },
+    "3082": {
+        "category": "Sunderer Front Gunner",
+        "name": "G30 Walker",
+        "sanction": "gunner"
+    },
+    "6005233": {
+        "category": "Sunderer Front Gunner",
+        "name": "G30 Walker",
+        "sanction": "gunner"
+    },
+    "3086": {
+        "category": "Sunderer Front Gunner",
+        "name": "G40-F Ranger",
+        "sanction": "gunner"
+    },
+    "3087": {
+        "category": "Sunderer Front Gunner",
+        "name": "G40-F Ranger",
+        "sanction": "gunner"
+    },
+    "3088": {
+        "category": "Sunderer Front Gunner",
+        "name": "G40-F Ranger",
+        "sanction": "gunner"
+    },
+    "6005235": {
+        "category": "Sunderer Front Gunner",
+        "name": "G40-F Ranger",
+        "sanction": "gunner"
+    },
+    "2800": {
+        "category": "Sunderer Front Gunner",
+        "name": "M12 Kobalt",
+        "sanction": "gunner"
+    },
+    "2801": {
+        "category": "Sunderer Front Gunner",
+        "name": "M12 Kobalt",
+        "sanction": "gunner"
+    },
+    "2802": {
+        "category": "Sunderer Front Gunner",
+        "name": "M12 Kobalt",
+        "sanction": "gunner"
+    },
+    "6005239": {
+        "category": "Sunderer Front Gunner",
+        "name": "M12 Kobalt",
+        "sanction": "gunner"
+    },
+    "2803": {
+        "category": "Sunderer Front Gunner",
+        "name": "M20 Basilisk",
+        "sanction": "gunner"
+    },
+    "2804": {
+        "category": "Sunderer Front Gunner",
+        "name": "M20 Basilisk",
+        "sanction": "gunner"
+    },
+    "2805": {
+        "category": "Sunderer Front Gunner",
+        "name": "M20 Basilisk",
+        "sanction": "gunner"
+    },
+    "6005231": {
+        "category": "Sunderer Front Gunner",
+        "name": "M20 Basilisk",
+        "sanction": "gunner"
+    },
+    "2874": {
+        "category": "Sunderer Front Gunner",
+        "name": "M40 Fury",
+        "sanction": "gunner"
+    },
+    "2875": {
+        "category": "Sunderer Front Gunner",
+        "name": "M40 Fury",
+        "sanction": "gunner"
+    },
+    "2876": {
+        "category": "Sunderer Front Gunner",
+        "name": "M40 Fury",
+        "sanction": "gunner"
+    },
+    "6005237": {
+        "category": "Sunderer Front Gunner",
+        "name": "M40 Fury",
+        "sanction": "gunner"
+    },
+    "2832": {
+        "category": "Sunderer Front Gunner",
+        "name": "M60-G Bulldog",
+        "sanction": "gunner"
+    },
+    "2833": {
+        "category": "Sunderer Front Gunner",
+        "name": "M60-G Bulldog",
+        "sanction": "gunner"
+    },
+    "2834": {
+        "category": "Sunderer Front Gunner",
+        "name": "M60-G Bulldog",
+        "sanction": "gunner"
+    },
+    "6005241": {
+        "category": "Sunderer Front Gunner",
+        "name": "M60-G Bulldog",
+        "sanction": "gunner"
+    },
+    "3083": {
+        "category": "Sunderer Rear Gunner",
+        "name": "G30 Walker",
+        "sanction": "gunner"
+    },
+    "3084": {
+        "category": "Sunderer Rear Gunner",
+        "name": "G30 Walker",
+        "sanction": "gunner"
+    },
+    "3085": {
+        "category": "Sunderer Rear Gunner",
+        "name": "G30 Walker",
+        "sanction": "gunner"
+    },
+    "6005234": {
+        "category": "Sunderer Rear Gunner",
+        "name": "G30 Walker",
+        "sanction": "gunner"
+    },
+    "3089": {
+        "category": "Sunderer Rear Gunner",
+        "name": "G40-F Ranger",
+        "sanction": "gunner"
+    },
+    "3090": {
+        "category": "Sunderer Rear Gunner",
+        "name": "G40-F Ranger",
+        "sanction": "gunner"
+    },
+    "3091": {
+        "category": "Sunderer Rear Gunner",
+        "name": "G40-F Ranger",
+        "sanction": "gunner"
+    },
+    "6005236": {
+        "category": "Sunderer Rear Gunner",
+        "name": "G40-F Ranger",
+        "sanction": "gunner"
+    },
+    "2806": {
+        "category": "Sunderer Rear Gunner",
+        "name": "M12 Kobalt",
+        "sanction": "gunner"
+    },
+    "2807": {
+        "category": "Sunderer Rear Gunner",
+        "name": "M12 Kobalt",
+        "sanction": "gunner"
+    },
+    "2808": {
+        "category": "Sunderer Rear Gunner",
+        "name": "M12 Kobalt",
+        "sanction": "gunner"
+    },
+    "6005240": {
+        "category": "Sunderer Rear Gunner",
+        "name": "M12 Kobalt",
+        "sanction": "gunner"
+    },
+    "2809": {
+        "category": "Sunderer Rear Gunner",
+        "name": "M20 Basilisk",
+        "sanction": "gunner"
+    },
+    "2810": {
+        "category": "Sunderer Rear Gunner",
+        "name": "M20 Basilisk",
+        "sanction": "gunner"
+    },
+    "2811": {
+        "category": "Sunderer Rear Gunner",
+        "name": "M20 Basilisk",
+        "sanction": "gunner"
+    },
+    "6005232": {
+        "category": "Sunderer Rear Gunner",
+        "name": "M20 Basilisk",
+        "sanction": "gunner"
+    },
+    "2877": {
+        "category": "Sunderer Rear Gunner",
+        "name": "M40 Fury",
+        "sanction": "gunner"
+    },
+    "2878": {
+        "category": "Sunderer Rear Gunner",
+        "name": "M40 Fury",
+        "sanction": "gunner"
+    },
+    "2879": {
+        "category": "Sunderer Rear Gunner",
+        "name": "M40 Fury",
+        "sanction": "gunner"
+    },
+    "6005238": {
+        "category": "Sunderer Rear Gunner",
+        "name": "M40 Fury",
+        "sanction": "gunner"
+    },
+    "2835": {
+        "category": "Sunderer Rear Gunner",
+        "name": "M60-G Bulldog",
+        "sanction": "gunner"
+    },
+    "2836": {
+        "category": "Sunderer Rear Gunner",
+        "name": "M60-G Bulldog",
+        "sanction": "gunner"
+    },
+    "2837": {
+        "category": "Sunderer Rear Gunner",
+        "name": "M60-G Bulldog",
+        "sanction": "gunner"
+    },
+    "6005242": {
+        "category": "Sunderer Rear Gunner",
+        "name": "M60-G Bulldog",
+        "sanction": "gunner"
+    },
+    "6002421": {
+        "category": "UNKNOWN Admin: Base Gun",
+        "name": "Admin: Base Gun",
+        "sanction": "none"
+    },
+    "6002429": {
+        "category": "UNKNOWN BaseSmash: Crystal Gun",
+        "name": "BaseSmash: Crystal Gun",
+        "sanction": "none"
+    },
+    "6009928": {
+        "category": "UNKNOWN DV-21 Lotus",
+        "name": "DV-21 Lotus",
+        "sanction": "air"
+    },
+    "6009860": {
+        "category": "UNKNOWN DV-22 Raycaster",
+        "name": "DV-22 Raycaster",
+        "sanction": "air"
+    },
+    "6009861": {
+        "category": "UNKNOWN DV-22T Lightweaver",
+        "name": "DV-22T Lightweaver",
+        "sanction": "gunner"
+    },
+    "6009991": {
+        "category": "UNKNOWN DV-LAT Pixie",
+        "name": "DV-LAT Pixie",
+        "sanction": "gunner"
+    },
+    "6009992": {
+        "category": "UNKNOWN DV-XAT",
+        "name": "DV-XAT",
+        "sanction": "gunner"
+    },
+    "6009927": {
+        "category": "UNKNOWN DV-XE",
+        "name": "DV-XE",
+        "sanction": "air"
+    },
+    "6553": {
+        "category": "Valkyrie Nose Gunner",
+        "name": "CAS 14-E",
+        "sanction": "none"
+    },
+    "6554": {
+        "category": "Valkyrie Nose Gunner",
+        "name": "CAS 14-E",
+        "sanction": "none"
+    },
+    "6555": {
+        "category": "Valkyrie Nose Gunner",
+        "name": "CAS 14-E",
+        "sanction": "none"
+    },
+    "6005495": {
+        "category": "Valkyrie Nose Gunner",
+        "name": "CAS 14-E",
+        "sanction": "none"
+    },
+    "6556": {
+        "category": "Valkyrie Nose Gunner",
+        "name": "Hellion G20",
+        "sanction": "none"
+    },
+    "6557": {
+        "category": "Valkyrie Nose Gunner",
+        "name": "Hellion G20",
+        "sanction": "none"
+    },
+    "6558": {
+        "category": "Valkyrie Nose Gunner",
+        "name": "Hellion G20",
+        "sanction": "none"
+    },
+    "6005496": {
+        "category": "Valkyrie Nose Gunner",
+        "name": "Hellion G20",
+        "sanction": "none"
+    },
+    "6550": {
+        "category": "Valkyrie Nose Gunner",
+        "name": "M20 Wyvern",
+        "sanction": "none"
+    },
+    "6551": {
+        "category": "Valkyrie Nose Gunner",
+        "name": "M20 Wyvern",
+        "sanction": "none"
+    },
+    "6552": {
+        "category": "Valkyrie Nose Gunner",
+        "name": "M20 Wyvern",
+        "sanction": "none"
+    },
+    "6005494": {
+        "category": "Valkyrie Nose Gunner",
+        "name": "M20 Wyvern",
+        "sanction": "none"
+    },
+    "6559": {
+        "category": "Valkyrie Nose Gunner",
+        "name": "Pelter Rocket Pod",
+        "sanction": "none"
+    },
+    "6560": {
+        "category": "Valkyrie Nose Gunner",
+        "name": "Pelter Rocket Pod",
+        "sanction": "none"
+    },
+    "6561": {
+        "category": "Valkyrie Nose Gunner",
+        "name": "Pelter Rocket Pod",
+        "sanction": "none"
+    },
+    "6005497": {
+        "category": "Valkyrie Nose Gunner",
+        "name": "Pelter Rocket Pod",
+        "sanction": "none"
+    },
+    "6562": {
+        "category": "Valkyrie Nose Gunner",
+        "name": "VLG Missile Launcher",
+        "sanction": "none"
+    },
+    "6563": {
+        "category": "Valkyrie Nose Gunner",
+        "name": "VLG Missile Launcher",
+        "sanction": "none"
+    },
+    "6564": {
+        "category": "Valkyrie Nose Gunner",
+        "name": "VLG Missile Launcher",
+        "sanction": "none"
+    },
+    "6005498": {
+        "category": "Valkyrie Nose Gunner",
+        "name": "VLG Missile Launcher",
+        "sanction": "none"
+    },
+    "3707": {
+        "category": "Vanguard Gunner Weapon",
+        "name": "C85 Canister",
+        "sanction": "gunner"
+    },
+    "3709": {
+        "category": "Vanguard Gunner Weapon",
+        "name": "E540 Halberd",
+        "sanction": "gunner"
+    },
+    "3704": {
+        "category": "Vanguard Gunner Weapon",
+        "name": "Enforcer ML85",
+        "sanction": "gunner"
+    },
+    "3703": {
+        "category": "Vanguard Gunner Weapon",
+        "name": "G30 Walker",
+        "sanction": "gunner"
+    },
+    "3708": {
+        "category": "Vanguard Gunner Weapon",
+        "name": "G40-F Ranger",
+        "sanction": "gunner"
+    },
+    "6006399": {
+        "category": "Vanguard Gunner Weapon",
+        "name": "Halberd SE",
+        "sanction": "gunner"
+    },
+    "3701": {
+        "category": "Vanguard Gunner Weapon",
+        "name": "M12 Kobalt",
+        "sanction": "gunner"
+    },
+    "3702": {
+        "category": "Vanguard Gunner Weapon",
+        "name": "M20 Basilisk",
+        "sanction": "gunner"
+    },
+    "802899": {
+        "category": "Vanguard Gunner Weapon",
+        "name": "M96 Mjolnir",
+        "sanction": "gunner"
+    },
+    "3756": {
+        "category": "Vanguard Primary Weapon",
+        "name": "150mm Titan-R HEAT",
+        "sanction": "armor"
+    },
+    "3730": {
+        "category": "Vanguard Primary Weapon",
+        "name": "Titan-150 AP",
+        "sanction": "armor"
+    },
+    "3700": {
+        "category": "Vanguard Primary Weapon",
+        "name": "Titan-150 HEAT",
+        "sanction": "armor"
+    },
+    "3731": {
+        "category": "Vanguard Primary Weapon",
+        "name": "Titan-150 HESH",
+        "sanction": "armor"
+    },
+    "6008733": {
+        "category": "Vehicle Abilities",
+        "name": "NEST Launcher",
+        "sanction": "none"
+    },
+    "728": {
+        "category": "Vehicle Weapons",
+        "name": "UNKNOWN Vehicle Weapons #728",
+        "sanction": ""
+    },
+    "729": {
+        "category": "Vehicle Weapons",
+        "name": "UNKNOWN Vehicle Weapons #729",
+        "sanction": ""
+    },
+    "731": {
+        "category": "Vehicle Weapons",
+        "name": "UNKNOWN Vehicle Weapons #731",
+        "sanction": ""
+    },
+    "732": {
+        "category": "Vehicle Weapons",
+        "name": "UNKNOWN Vehicle Weapons #732",
+        "sanction": ""
+    },
+    "700": {
+        "category": "Vehicle Weapons",
+        "name": "Aspis Anti-Aircraft Phalanx Turret",
+        "sanction": "none"
+    },
+    "701": {
+        "category": "Vehicle Weapons",
+        "name": "Aspis Anti-Aircraft Phalanx Turret",
+        "sanction": "none"
+    },
+    "702": {
+        "category": "Vehicle Weapons",
+        "name": "Aspis Anti-Aircraft Phalanx Turret",
+        "sanction": "none"
+    },
+    "727": {
+        "category": "Vehicle Weapons",
+        "name": "Aspis Anti-Aircraft Phalanx Turret",
+        "sanction": "none"
+    },
+    "6002396": {
+        "category": "Vehicle Weapons",
+        "name": "Glaive IPC",
+        "sanction": "none"
+    },
+    "6002397": {
+        "category": "Vehicle Weapons",
+        "name": "Glaive IPC",
+        "sanction": "none"
+    },
+    "6002398": {
+        "category": "Vehicle Weapons",
+        "name": "Glaive IPC",
+        "sanction": "none"
+    },
+    "6006069": {
+        "category": "Vehicle Weapons",
+        "name": "Glaive IPC",
+        "sanction": "none"
+    },
+    "803594": {
+        "category": "Vehicle Weapons",
+        "name": "Hoplon Anti-Aircraft Phalanx Tower",
+        "sanction": "none"
+    },
+    "803595": {
+        "category": "Vehicle Weapons",
+        "name": "Hoplon Anti-Aircraft Phalanx Tower",
+        "sanction": "none"
+    },
+    "803596": {
+        "category": "Vehicle Weapons",
+        "name": "Hoplon Anti-Aircraft Phalanx Tower",
+        "sanction": "none"
+    },
+    "803597": {
+        "category": "Vehicle Weapons",
+        "name": "Hoplon Anti-Aircraft Phalanx Tower",
+        "sanction": "none"
+    },
+    "803431": {
+        "category": "Vehicle Weapons",
+        "name": "Spear Anti-Vehicle Phalanx Tower",
+        "sanction": "none"
+    },
+    "803432": {
+        "category": "Vehicle Weapons",
+        "name": "Spear Anti-Vehicle Phalanx Tower",
+        "sanction": "none"
+    },
+    "803433": {
+        "category": "Vehicle Weapons",
+        "name": "Spear Anti-Vehicle Phalanx Tower",
+        "sanction": "none"
+    },
+    "803434": {
+        "category": "Vehicle Weapons",
+        "name": "Spear Anti-Vehicle Phalanx Tower",
+        "sanction": "none"
+    },
+    "703": {
+        "category": "Vehicle Weapons",
+        "name": "Spear Anti-Vehicle Phalanx Turret",
+        "sanction": "none"
+    },
+    "704": {
+        "category": "Vehicle Weapons",
+        "name": "Spear Anti-Vehicle Phalanx Turret",
+        "sanction": "none"
+    },
+    "705": {
+        "category": "Vehicle Weapons",
+        "name": "Spear Anti-Vehicle Phalanx Turret",
+        "sanction": "none"
+    },
+    "730": {
+        "category": "Vehicle Weapons",
+        "name": "Spear Anti-Vehicle Phalanx Turret",
+        "sanction": "none"
+    },
+    "6002450": {
+        "category": "Vehicle Weapons",
+        "name": "Spear Anti-Vehicle Phalanx Turret",
+        "sanction": "none"
+    },
+    "6002451": {
+        "category": "Vehicle Weapons",
+        "name": "Spear Anti-Vehicle Phalanx Turret",
+        "sanction": "none"
+    },
+    "6002452": {
+        "category": "Vehicle Weapons",
+        "name": "Spear Anti-Vehicle Phalanx Turret",
+        "sanction": "none"
+    },
+    "6009835": {
+        "category": "Vehicle Weapons",
+        "name": "Spear Anti-Vehicle Phalanx Turret",
+        "sanction": "none"
+    },
+    "6004400": {
+        "category": "Vehicle Weapons",
+        "name": "The Flail",
+        "sanction": "none"
+    },
+    "6004444": {
+        "category": "Vehicle Weapons",
+        "name": "The Flail",
+        "sanction": "none"
+    },
+    "6004445": {
+        "category": "Vehicle Weapons",
+        "name": "The Flail",
+        "sanction": "none"
+    },
+    "6006068": {
+        "category": "Vehicle Weapons",
+        "name": "The Flail",
+        "sanction": "none"
+    },
+    "803598": {
+        "category": "Vehicle Weapons",
+        "name": "Xiphos Anti-Personnel Phalanx Tower",
+        "sanction": "none"
+    },
+    "803599": {
+        "category": "Vehicle Weapons",
+        "name": "Xiphos Anti-Personnel Phalanx Tower",
+        "sanction": "none"
+    },
+    "803600": {
+        "category": "Vehicle Weapons",
+        "name": "Xiphos Anti-Personnel Phalanx Tower",
+        "sanction": "none"
+    },
+    "803601": {
+        "category": "Vehicle Weapons",
+        "name": "Xiphos Anti-Personnel Phalanx Tower",
+        "sanction": "none"
+    },
+    "551": {
+        "category": "Vehicle Weapons",
+        "name": "Xiphos Anti-Personnel Phalanx Turret",
+        "sanction": "none"
+    },
+    "552": {
+        "category": "Vehicle Weapons",
+        "name": "Xiphos Anti-Personnel Phalanx Turret",
+        "sanction": "none"
+    },
+    "553": {
+        "category": "Vehicle Weapons",
+        "name": "Xiphos Anti-Personnel Phalanx Turret",
+        "sanction": "none"
+    },
+    "724": {
+        "category": "Vehicle Weapons",
+        "name": "Xiphos Anti-Personnel Phalanx Turret",
+        "sanction": "none"
+    },
+    "725": {
+        "category": "Vehicle Weapons",
+        "name": "Xiphos Anti-Personnel Phalanx Turret",
+        "sanction": "none"
+    },
+    "726": {
+        "category": "Vehicle Weapons",
+        "name": "Xiphos Anti-Personnel Phalanx Turret",
+        "sanction": "none"
+    },
+    "6005544": {
+        "category": "Wasp Prototype Wing Mount",
+        "name": "Pummeler Rocket Pods",
+        "sanction": ""
+    },
+    "6005545": {
+        "category": "Wasp Prototype Wing Mount",
+        "name": "Pummeler Rocket Pods",
+        "sanction": ""
+    },
+    "6005546": {
+        "category": "Wasp Prototype Wing Mount",
+        "name": "Pummeler Rocket Pods",
+        "sanction": ""
+    },
+    "6006172": {
+        "category": "Wasp Prototype Wing Mount",
+        "name": "Pummeler Rocket Pods",
+        "sanction": ""
+    },
+    "6006173": {
+        "category": "Wasp Prototype Wing Mount",
+        "name": "Pummeler Rocket Pods",
+        "sanction": ""
+    },
+    "6006174": {
+        "category": "Wasp Prototype Wing Mount",
+        "name": "Pummeler Rocket Pods",
+        "sanction": ""
+    },
+    "6006284": {
+        "category": "Wasp Prototype Wing Mount",
+        "name": "Pummeler Rocket Pods",
+        "sanction": ""
+    },
+    "6006285": {
+        "category": "Wasp Prototype Wing Mount",
+        "name": "Pummeler Rocket Pods",
+        "sanction": ""
+    }
+}
