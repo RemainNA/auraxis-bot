@@ -593,8 +593,7 @@ const data = [
 client.on("ready", async () => {
 	if (!client.application?.owner) await client.application?.fetch();
 	try{
-		const commands = await client.guilds.cache.get('586235992386830359')?.commands.set(data);
-		// const commands = await client.application?.commands.set(data);
+		const commands = await client.application?.commands.set(data);
 	}
 	catch(err){
 		console.log(err);
