@@ -224,6 +224,9 @@ const getWeaponName = async function(ID, platform){
     if(typeof(fisuResponse[ID]) !== 'undefined'){
         return fisuResponse[ID].name;
     }
+    if(ID in sanction){
+        return sanction[ID].name;
+    }
 
     throw "Not found";
 }

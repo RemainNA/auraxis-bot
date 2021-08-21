@@ -2,6 +2,7 @@
 
 const Discord = require('discord.js');
 const weaponsJSON = require('./static/weapons.json');
+const sanction = require('./static/sanction.json');
 const { badQuery, censusRequest } = require('./utils.js');
 
 const getWeaponId = async function(name, searchSpace, cName=""){
@@ -9,27 +10,37 @@ const getWeaponId = async function(name, searchSpace, cName=""){
 
 	name = name.replace(/[“”]/g, '"');
 
-	if(typeof(weaponsJSON[name]) !== 'undefined' && searchSpace.includes(name)){
-		let returnObj = weaponsJSON[name];
-		returnObj.id = name;
-		return returnObj;
+	if(name in weaponsJSON && searchSpace.includes(name)){
+		return [weaponsJSON[name], name];
+	}
+
+	if(name in sanction && searchSpace.includes(name)){
+		return [sanction[name], name];
 	}
 
 	//Check for exact match
 	for(const id in weaponsJSON){
 		if(weaponsJSON[id].name.toLowerCase() == name.toLowerCase() && searchSpace.includes(id)){
-			let returnObj = weaponsJSON[id];
-			returnObj.id = id; // TODO: Modification of an object without cloning, needs to be addressed
-			return returnObj;
+			return [weaponsJSON[id], id];
+		}
+	}
+
+	for(const id in sanction){
+		if(sanction[id].name.toLowerCase() == name.toLowerCase() && searchSpace.includes(id)){
+			return [sanction[id], id];
 		}
 	}
 
 	//Check for partial match
 	for(const id in weaponsJSON){
 		if(weaponsJSON[id].name.toLowerCase().indexOf(name.toLowerCase()) > -1 && searchSpace.includes(id)){
-			let returnObj = weaponsJSON[id];
-			returnObj.id = id;
-			return returnObj;
+			return [weaponsJSON[id], id];
+		}
+	}
+
+	for(const id in sanction){
+		if(sanction[id].name.toLowerCase().indexOf(name.toLowerCase()) > -1 && searchSpace.includes(id)){
+			return [sanction[id], id];
 		}
 	}
 
@@ -75,7 +86,7 @@ const characterInfo = async function(cName, wName, platform){
 	}
 
 	let wInfo = await getWeaponId(wName, validIds, cName);
-	let wId = wInfo.id;
+	let wId = wInfo[1];
 
 	resObj.weapon = wId;
 
@@ -151,6 +162,9 @@ module.exports = {
 		let cInfo = await characterInfo(cName, wName, platform);
 
 		let wInfo = weaponsJSON[cInfo.weapon];
+		if(wInfo == undefined){
+			wInfo = sanction[cInfo.weapon];
+		}
 		wInfo.id = cInfo.weapon;
 
 		let resEmbed = new Discord.MessageEmbed();
@@ -195,7 +209,9 @@ module.exports = {
 			default:
 				resEmbed.setColor('GREY');
 		}
-		wInfo.image_id != -1 && resEmbed.setThumbnail('http://census.daybreakgames.com/files/ps2/images/static/'+wInfo.image_id+'.png');
+		if(wInfo.image_id != -1 && wInfo.image_id != undefined){
+			resEmbed.setThumbnail('http://census.daybreakgames.com/files/ps2/images/static/'+wInfo.image_id+'.png');
+		}
 		resEmbed.setFooter("Weapon ID: "+wInfo.id);
 
 		return resEmbed;
