@@ -14,43 +14,53 @@ const popLevels = {
 }
 
 const alertInfo = async function(server){
-	let uri = 'https://api.ps2alerts.com/instances/active?world='+server;
-	let response = await got(uri).json();
-	if(typeof(response.error) !== 'undefined'){
-		throw response.error;
-	}
-	if(response.statusCode == 404){
-		throw "API Unreachable";
-	}
-	if(response.length == 0){
-		throw `No active alerts on ${serverNames[server]}`;
-	}
-	let allAlerts = []
-	for(let alert of response){
-		if(typeof(alerts[alert.censusMetagameEventType]) === 'undefined'){
-			console.log("Unable to find alert info for id "+alert.censusMetagameEventType);
-			throw "Alert lookup error";
+	try{
+		let uri = 'https://api.ps2alerts.com/instances/active?world='+server;
+		let response = await got(uri).json();
+		if(typeof(response.error) !== 'undefined'){
+			throw response.error;
 		}
-		let now = Date.now();
-		let start = Date.parse(alert.timeStarted);
-		let resObj = {
-			name: alerts[alert.censusMetagameEventType].name,
-			description: alerts[alert.censusMetagameEventType].description,
-			vs: alert.result.vs,
-			nc: alert.result.nc,
-			tr: alert.result.tr,
-			continent: alert.zone,
-			timeSinceStart: now-start,
-			timeLeft: (start+alert.duration)-now,
-			timeEnd: (start+alert.duration)/1000, //In Unix Epoch, not JS
-			timeStart: start/1000,
-			instanceId: alert.instanceId,
-			bracket: alert.bracket
+		if(response.statusCode == 404){
+			throw "API Unreachable";
 		}
-		allAlerts.push(resObj);
+		if(response.length == 0){
+			throw `No active alerts on ${serverNames[server]}`;
+		}
+		let allAlerts = []
+		for(let alert of response){
+			if(typeof(alerts[alert.censusMetagameEventType]) === 'undefined'){
+				console.log("Unable to find alert info for id "+alert.censusMetagameEventType);
+				throw "Alert lookup error";
+			}
+			let now = Date.now();
+			let start = Date.parse(alert.timeStarted);
+			let resObj = {
+				name: alerts[alert.censusMetagameEventType].name,
+				description: alerts[alert.censusMetagameEventType].description,
+				vs: alert.result.vs,
+				nc: alert.result.nc,
+				tr: alert.result.tr,
+				continent: alert.zone,
+				timeSinceStart: now-start,
+				timeLeft: (start+alert.duration)-now,
+				timeEnd: (start+alert.duration)/1000, //In Unix Epoch, not JS
+				timeStart: start/1000,
+				instanceId: alert.instanceId,
+				bracket: alert.bracket
+			}
+			allAlerts.push(resObj);
+		}
+		
+		return allAlerts;
 	}
-	
-	return allAlerts;
+	catch(err){
+		if(typeof(err) == 'string'){
+			throw err
+		}
+		else{
+			throw `Error retrieving alert information: ${err.message}`;
+		}
+	}
 }
 
 module.exports = {

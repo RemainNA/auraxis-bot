@@ -28,7 +28,7 @@ const basicInfo = async function(oTag, platform){
 	}
 
 	onlineServiceAvailable = true;
-	if(data.members[0].online_status == "service_unavailable"){
+	if(data.members != undefined && data.members[0].online_status == "service_unavailable"){
 		resObj["onlineMembers"] = "Online member count unavailable";
 		onlineServiceAvailable = false;
 	}
