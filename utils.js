@@ -84,8 +84,11 @@ async function censusRequest(platform, key, extension){
 			throw err;
 		}
 		if(err.message.indexOf('404') > -1){
-            throw "API Unreachable";
+            throw "Census API Unreachable: 404";
         }
+		if(err.name == 'ParseError'){
+			throw "Census API Unavailable: Redirect"
+		}
 		throw err;
 	}
 }
