@@ -93,12 +93,7 @@ module.exports = {
 			}
 			catch(err){
 				console.log(`Error updating ${serverName} population tracker`);
-				if(err?.name == 'ParseError'){
-					console.log('ParseError')
-				}
-				else{
-					console.log(err);
-				}
+				console.log(err);
 			}
 			try{
 				const terName = await territoryName(serverIDs[serverName]);
@@ -109,12 +104,7 @@ module.exports = {
 			}
 			catch(err){
 				console.log(`Error updating ${serverName} territory tracker`);
-				if(err?.name == 'ParseError'){
-					console.log('ParseError')
-				}
-				else{
-					console.log(err);
-				}
+				console.log(err);
 			}
 		}
 	}
