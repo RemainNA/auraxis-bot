@@ -31,6 +31,9 @@ const serverStatus = async function(serverID){
 
 	for (const continent of continents){
 		const totalTer = territory[continent].vs + territory[continent].nc + territory[continent].tr;
+		if(totalTer == 0){
+			continue; // This accounts for Esamir being disabled on PS4
+		}
 		const vsPc = Number.parseFloat((territory[continent].vs/totalTer)*100).toPrecision(3);
 		const ncPc = Number.parseFloat((territory[continent].nc/totalTer)*100).toPrecision(3);
 		const trPc = Number.parseFloat((territory[continent].tr/totalTer)*100).toPrecision(3);

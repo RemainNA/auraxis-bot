@@ -50,7 +50,7 @@ module.exports = {
             platform = 'ps2ps4eu:v2';
         }
         let response = await censusRequest(platform, 'map_list', `/map/?world_id=${serverID}&zone_ids=2,4,6,8`);
-        if(response.length < 4){
+        if(response.length < 3){
             throw "API response missing continents";
         }
         if(typeof(response[0]) === 'undefined'){
@@ -62,7 +62,10 @@ module.exports = {
         let IndarData = response[0].Regions.Row;
         let HossinData = response[1].Regions.Row;
         let AmerishData = response[2].Regions.Row;
-        let EsamirData = response[3].Regions.Row;
+        let EsamirData = [];
+        if(response.length == 4){
+            EsamirData = response[3].Regions.Row;
+        }
         let IndarObj = {vs:0, nc:0, tr:0};
         let HossinObj = {vs:0, nc:0, tr:0};
         let AmerishObj = {vs:0, nc:0, tr:0};
@@ -146,6 +149,9 @@ module.exports = {
         let continents = ["Indar", "Hossin", "Amerish", "Esamir"];
         for(let continent of continents){
             let Total = terObj[continent].vs + terObj[continent].nc + terObj[continent].tr;
+            if(Total == 0){
+                continue; // This accounts for Esamir being disabled on PS4
+            }
             let vsPc = (terObj[continent].vs/Total)*100;
             vsPc = Number.parseFloat(vsPc).toPrecision(3);
             let ncPc = (terObj[continent].nc/Total)*100;
