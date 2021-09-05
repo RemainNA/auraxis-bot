@@ -19,22 +19,26 @@ const getDirectiveList = async function(cName, platform){
 	}
 
 	directiveList.sort((a,b) => b[1] - a[1]);
-	return [nameResponse[0].name.first, nameResponse[0].faction_id, directiveList];
+	return {
+		name: nameResponse[0].name.first, 
+		faction: nameResponse[0].faction_id, 
+		directives: directiveList
+	};
 }
 
 module.exports = {
 	directives: async function(cName, platform, expanded=false){
 		const directiveList = await getDirectiveList(cName.toLowerCase(), platform);
 		let resEmbed = new Discord.MessageEmbed();
-		resEmbed.setTitle(`${directiveList[0]} Directives`);
+		resEmbed.setTitle(`${directiveList.name} Directives`);
 		let textList = "";
-		let remaining = directiveList[2].length;
+		let remaining = directiveList.directives.length;
 		if(remaining == 0){
-			throw `${directiveList[0]} has not completed any directives`
+			throw `${directiveList.name} has not completed any directives`
 		}
 		if(expanded){
 			remaining = 0
-			for(const dir of directiveList[2]){
+			for(const dir of directiveList.directives){
 				textList += `<t:${dir[1]}:d>: ${directives[dir[0]].name}\n`;
 			}
 			resEmbed.setDescription(textList);
@@ -45,7 +49,7 @@ module.exports = {
 				//This is just to avoid returning a list that says "and 1 more", it'll always be at least 5 more
 				max = 25;
 			}
-			for(const dir of directiveList[2]){
+			for(const dir of directiveList.directives){
 				if(max == 0){
 					textList += `And ${remaining} more`;
 					break;
@@ -56,13 +60,13 @@ module.exports = {
 			}
 			resEmbed.setDescription(textList);
 		}
-		if (directiveList[1] == "1"){ //vs
+		if (directiveList.faction == "1"){ //vs
             resEmbed.setColor('PURPLE');
         }
-        else if (directiveList[1] == "2"){ //nc
+        else if (directiveList.faction == "2"){ //nc
             resEmbed.setColor('BLUE');
         }
-        else if (directiveList[1] == "3"){ //tr
+        else if (directiveList.faction == "3"){ //tr
             resEmbed.setColor('RED');
         }
         else{ //NSO
@@ -82,7 +86,7 @@ module.exports = {
 			const row = new Discord.MessageActionRow()
 			row.addComponents(
 				new Discord.MessageButton()
-					.setCustomId(`directives%${directiveList[0]}%${platform}`)
+					.setCustomId(`directives%${directiveList.name}%${platform}`)
 					.setLabel('View all')
 					.setStyle('PRIMARY')
 			);
