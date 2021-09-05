@@ -97,6 +97,9 @@ module.exports = {
 	create: async function(channel, serverName, pgClient){
 		let resEmbed = await serverStatus(serverIDs[serverName]);
 		let messageID = await messageHandler.send(channel, {embeds: [resEmbed]}, "Create dashboard", true);
+		if(messageID == -1){
+			throw "Error creating dashboard, please check that the bot has permission to post in this channel.";
+		}
 		await pgClient.query("INSERT INTO dashboard (concatkey, channel, messageid, world) VALUES ($1, $2, $3, $4)\
 		ON CONFLICT(concatkey) DO UPDATE SET messageid = $3;",
 		[`${channel.id}-${serverName}`, channel.id, messageID, serverName]);
