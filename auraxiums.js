@@ -26,7 +26,11 @@ const getAuraxiumList = async function(cName, platform){
     }
 
 	medalList.sort((a,b) => b[1] - a[1]);  //Chronological sort, newest first
-    return [response[0].name.first, medalList];
+    return {
+		name: response[0].name.first, 
+		faction: response[0].faction_id, 
+		medals: medalList
+	};
 }
 
 module.exports = {
@@ -34,16 +38,16 @@ module.exports = {
 		const medalList = await getAuraxiumList(cName.toLowerCase(), platform);
 
 		let resEmbed = new Discord.MessageEmbed();
-		resEmbed.setTitle(`${medalList[0]} Auraxiums`);
+		resEmbed.setTitle(`${medalList.name} Auraxiums`);
 		let textList = "";
-		let remaining = medalList[1].length;
+		let remaining = medalList.medals.length;
 		if(remaining == 0){
-			throw `${cName} has no Auraxium medals`
+			throw `${medalList.name} has no Auraxium medals`
 		}
 		if(expanded){
 			let continued = false;
 			remaining = 0
-			for(const medal of medalList[1]){
+			for(const medal of medalList.medals){
 				const currentItem = `<t:${medal[1]/1000}:d>: ${medal[0]}\n`;
 				if(!continued && (textList.length + currentItem.length) > 4000){
 					continued = true;
@@ -71,7 +75,7 @@ module.exports = {
 				//This is just to avoid returning a list that says "and 1 more", it'll always be at least 5 more
 				max = 25;
 			}
-			for(const medal of medalList[1]){
+			for(const medal of medalList.medals){
 				if(max == 0){
 					textList += `And ${remaining} more`;
 					break;
@@ -83,15 +87,33 @@ module.exports = {
 			resEmbed.setDescription(textList);
 		}
 		
-		resEmbed.setColor('DARK_PURPLE');
+		if (medalList.faction == "1"){ //vs
+            resEmbed.setColor('PURPLE');
+        }
+        else if (medalList.faction == "2"){ //nc
+            resEmbed.setColor('BLUE');
+        }
+        else if (medalList.faction == "3"){ //tr
+            resEmbed.setColor('RED');
+        }
+        else{ //NSO
+            resEmbed.setColor('GREY');
+        }
 		resEmbed.setThumbnail('https://census.daybreakgames.com/files/ps2/images/static/3068.png');
-		resEmbed.setURL(`https://ps2.fisu.pw/player/?name=${medalList[0]}&show=weapons`)
-
+		if(platform == 'ps2:v2'){
+			resEmbed.setURL(`https://ps2.fisu.pw/player/?name=${medalList.name}&show=weapons`)
+		}
+		else if(platform == 'ps2ps4us:v2'){
+			resEmbed.setURL(`https://ps4us.ps2.fisu.pw/player/?name=${medalList.name}&show=weapons`)
+		}
+		else if(platform == 'ps2ps4eu:v2'){
+			resEmbed.setURL(`https://ps4eu.ps2.fisu.pw/player/?name=${medalList.name}&show=weapons`)
+		}
 		if(remaining > 0){
 			const row = new Discord.MessageActionRow()
 			row.addComponents(
 				new Discord.MessageButton()
-					.setCustomId(`auraxiums%${medalList[0]}%${platform}`)
+					.setCustomId(`auraxiums%${medalList.name}%${platform}`)
 					.setLabel('View all')
 					.setStyle('PRIMARY')
 			);
