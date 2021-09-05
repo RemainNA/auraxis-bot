@@ -518,7 +518,7 @@ const data = [
 		options: [{
 			name: 'name',
 			type: 'STRING',
-			description: 'Character name, or multiple separated by spaces',
+			description: 'Character name',
 			required: true,
 		},
 		{
@@ -586,6 +586,23 @@ const data = [
 			description: 'Server name',
 			required: false,
 			choices: servers
+		}]
+	},
+	{
+		name: 'directives',
+		description: "Lookup a list of a character's Auraxium medals",
+		options: [{
+			name: 'name',
+			type: 'STRING',
+			description: 'Character name',
+			required: true,
+		},
+		{
+			name: 'platform',
+			type: 'STRING',
+			description: "Which platform is the character on?  Defaults to PC",
+			required: false,
+			choices: platforms
 		}]
 	}
 ]

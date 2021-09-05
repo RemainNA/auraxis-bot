@@ -1,0 +1,222 @@
+{
+    "4": {
+        "name": "Carbines",
+        "image": "79587"
+    },
+    "6": {
+        "name": "Sniper Rifles",
+        "image": "79645"
+    },
+    "8": {
+        "name": "Light Machine Guns",
+        "image": "79616"
+    },
+    "10": {
+        "name": "Assault Rifles",
+        "image": "79583"
+    },
+    "13": {
+        "name": "Shotguns",
+        "image": "79656"
+    },
+    "15": {
+        "name": "Submachine Guns",
+        "image": "79661"
+    },
+    "17": {
+        "name": "Sidearms",
+        "image": "79658"
+    },
+    "21": {
+        "name": "Explosives",
+        "image": "79593"
+    },
+    "23": {
+        "name": "Liberator",
+        "image": "79607"
+    },
+    "24": {
+        "name": "Light Assault",
+        "image": "77993"
+    },
+    "25": {
+        "name": "Infiltrator",
+        "image": "77991"
+    },
+    "26": {
+        "name": "Engineer",
+        "image": "77989"
+    },
+    "27": {
+        "name": "Heavy Assault",
+        "image": "77990"
+    },
+    "28": {
+        "name": "Combat Medic",
+        "image": "77987"
+    },
+    "29": {
+        "name": "MAX",
+        "image": "77994"
+    },
+    "31": {
+        "name": "Force Recon",
+        "image": "77992"
+    },
+    "33": {
+        "name": "Exceptional",
+        "image": "79737"
+    },
+    "34": {
+        "name": "Flash",
+        "image": "79637"
+    },
+    "35": {
+        "name": "Harasser",
+        "image": "79598"
+    },
+    "36": {
+        "name": "Lightning",
+        "image": "79611"
+    },
+    "37": {
+        "name": "Magrider",
+        "image": "79618"
+    },
+    "38": {
+        "name": "Vanguard",
+        "image": "79673"
+    },
+    "39": {
+        "name": "Prowler",
+        "image": "79633"
+    },
+    "40": {
+        "name": "Scythe",
+        "image": "79650"
+    },
+    "41": {
+        "name": "Reaver",
+        "image": "79640"
+    },
+    "42": {
+        "name": "Mosquito",
+        "image": "79625"
+    },
+    "43": {
+        "name": "Sunderer",
+        "image": "79666"
+    },
+    "44": {
+        "name": "Galaxy",
+        "image": "79595"
+    },
+    "45": {
+        "name": "Scout Rifles",
+        "image": "79645"
+    },
+    "46": {
+        "name": "Objectives",
+        "image": "79586"
+    },
+    "47": {
+        "name": "Launchers",
+        "image": "79605"
+    },
+    "48": {
+        "name": "Valkyrie",
+        "image": "80344"
+    },
+    "49": {
+        "name": "Leadership",
+        "image": "80343"
+    },
+    "50": {
+        "name": "Halloween",
+        "image": "80676"
+    },
+    "51": {
+        "name": "Basic Training",
+        "image": "84293"
+    },
+    "56": {
+        "name": "Social",
+        "image": "84294"
+    },
+    "57": {
+        "name": "Bounties",
+        "image": "84790"
+    },
+    "59": {
+        "name": "ANT",
+        "image": "86536"
+    },
+    "61": {
+        "name": "NS Export Series",
+        "image": "79737"
+    },
+    "62": {
+        "name": "Mayhem Series",
+        "image": "79737"
+    },
+    "64": {
+        "name": "Halloween II",
+        "image": "80676"
+    },
+    "65": {
+        "name": "Exceptional II",
+        "image": "79737"
+    },
+    "68": {
+        "name": "Construction",
+        "image": "89462"
+    },
+    "70": {
+        "name": "Halloween III",
+        "image": "80676"
+    },
+    "72": {
+        "name": "CQC Primary",
+        "image": "79656"
+    },
+    "73": {
+        "name": "Sidearms",
+        "image": "79658"
+    },
+    "74": {
+        "name": "Long Rifles",
+        "image": "79645"
+    },
+    "75": {
+        "name": "Assault Weapons",
+        "image": "79583"
+    },
+    "76": {
+        "name": "Launchers",
+        "image": "79605"
+    },
+    "81": {
+        "name": "Halloween 2019",
+        "image": "80676"
+    },
+    "82": {
+        "name": "Halloween 2019",
+        "image": "80676"
+    },
+    "83": {
+        "name": "Exceptional III",
+        "image": "79737"
+    },
+    "85": {
+        "name": "Sanctuary",
+        "image": "79624"
+    },
+    "90": {
+        "name": "Halloween VII",
+        "image": "80676"
+    },
+    "92": {
+        "name": "Exceptional IV",
+        "image": "79737"
+    }
+}

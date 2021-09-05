@@ -31,6 +31,7 @@ const trackers = require('./trackers.js');
 const openContinents = require('./openContinents.js');
 const auraxiums = require('./auraxiums.js');
 const leaderboard = require('./leaderboard.js');
+const directives = require('./directives.js');
 const {badQuery} = require('./utils.js')
 
 require('dotenv').config();
@@ -99,6 +100,7 @@ const listOfCommands =
 /stats [name] <weapon name/id> <platform>\n\
 /asp [name] <platform>\n\
 /auraxiums [name] <platform>\n\
+/directives [name] <platform>\n\
 /outfit [tag] <platform>\n\
 /online [tag] <platform>\n\
 /population [server]\n\
@@ -472,6 +474,12 @@ client.on('interactionCreate', async interaction => {
 				res = await leaderboard.lookup(options.getString("type"), options.getString("period"), options.getString("server"), 20);
 				await interaction.editReply({embeds: [res]});
 				break;
+
+			case 'directives':
+				await interaction.deferReply();
+				res = await directives.directives(options.getString("name"), options.getString("platform") || "ps2:v2");
+				await interaction.editReply({embeds: [res[0]], components: res[1]});
+				break;
 			
 			}
 			
@@ -508,6 +516,12 @@ client.on('interactionCreate', async interaction => {
 			const auraxOptions = interaction.customId.split('%');
 			const aurax = await auraxiums.medals(auraxOptions[1], auraxOptions[2], true);
 			interaction.editReply({embeds: [aurax[0]]})
+		}
+		else if(interaction.customId.startsWith('directives')){
+			interaction.deferReply({ephemeral: true});
+			const directiveOptions = interaction.customId.split('%');
+			const direc = await directives.directives(directiveOptions[1], directiveOptions[2], true);
+			interaction.editReply({embeds: [direc[0]]})
 		}
 	}
 })

@@ -55,7 +55,11 @@ Returns the BR a character reached before joining ASP, as well as their current 
 
 ### /auraxiums [name] \<platform>
 
-Returns a chronological list of a character's Auraxiums.  Only 20 are returned at first, but clicking the "View all" button will show the full list in an ephemeral message.
+Returns a chronological list of a character's Auraxiums.  Only 20 are displayed at first, but clicking the "View all" button will show the full list in an ephemeral message.
+
+### /directives [name] \<platform>
+
+Returns a chronological list of a character's completed directives.  Only 20 are displayed at first, but clicking the "View all" button will show the full list in an ephemeral message.
 
 #### /outfit [tag] \<platform>
 
