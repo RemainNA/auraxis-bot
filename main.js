@@ -479,6 +479,11 @@ client.on('interactionCreate', async interaction => {
 		catch(err){
 			if(typeof(err) !== 'string'){
 				console.log(`Error in ${interaction.commandName}`);
+				if(err.code == 10062){ //"Unknown interaction"
+					console.log("Unknown interaction");
+					console.log(interaction.options);
+					return;
+				}
 				console.log(err);
 				if(interaction.deferred){
 					await interaction.editReply("Error occurred when handling command");
