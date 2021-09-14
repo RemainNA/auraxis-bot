@@ -512,16 +512,16 @@ client.on('interactionCreate', async interaction => {
 	}
 	else if(interaction.isButton()){
 		if(interaction.customId.startsWith('auraxium')){
-			interaction.deferReply({ephemeral: true});
+			await interaction.deferReply({ephemeral: true});
 			const auraxOptions = interaction.customId.split('%');
 			const aurax = await auraxiums.medals(auraxOptions[1], auraxOptions[2], true);
-			interaction.editReply({embeds: [aurax[0]]})
+			await interaction.editReply({embeds: [aurax[0]]})
 		}
 		else if(interaction.customId.startsWith('directives')){
-			interaction.deferReply({ephemeral: true});
+			await interaction.deferReply({ephemeral: true});
 			const directiveOptions = interaction.customId.split('%');
 			const direc = await directives.directives(directiveOptions[1], directiveOptions[2], true);
-			interaction.editReply({embeds: [direc[0]]})
+			await interaction.editReply({embeds: [direc[0]]})
 		}
 	}
 })
