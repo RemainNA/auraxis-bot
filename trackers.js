@@ -32,7 +32,7 @@ const updateChannelName = async function(name, channelID, discordClient, pgClien
 		}
 	}
 	catch(err){
-		if(err.code == 10003 || err.code == 50013){ //Deleted/unknown channel or no permissions
+		if(err.code == 10003 || err.code == 50013 || err.code == 50001){ //Deleted/unknown channel, no permissions, missing access
 			console.log(`Removed tracker channel ${channelID}`);
 			pgClient.query("DELETE FROM tracker WHERE channel = $1;", [channelID]);
 		}
