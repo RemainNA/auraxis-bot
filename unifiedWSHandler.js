@@ -74,6 +74,10 @@ const logEvent = async function(payload, environment, pgClient, discordClient){
                                     pgClient.query("INSERT INTO toDelete (channel, messageID, timeToDelete) VALUES ($1, $2, $3)", [row.channel, messageId, in5minutes])
                                         .catch(err => {console.log(err);})
                                 }
+                                else if(messageId == -1){
+                                    subscriptions.unsubscribeAll(pgClient, row.channel);
+                                    console.log('Unsubscribed from '+row.channel);
+                                }
                             })
                         }                        
                     })
@@ -272,6 +276,10 @@ const alertEvent = async function(payload, environment, pgClient, discordClient)
                                         pgClient.query("INSERT INTO toDelete (channel, messageID, timeToDelete) VALUES ($1, $2, $3)", [row.channel, messageId, in50minutes])
                                         .catch(err => {console.log(err);})
                                     }    
+                                }
+                                else if(messageId == -1){
+                                    subscriptions.unsubscribeAll(pgClient, row.channel);
+                                    console.log('Unsubscribed from '+row.channel);
                                 }
                             })
                         } 
