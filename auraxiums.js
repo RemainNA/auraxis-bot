@@ -55,7 +55,7 @@ module.exports = {
 					textList = currentItem;
 				}
 				else if(continued && (textList.length + currentItem.length) > 1024){
-					resEmbed.addField("Continued", textList);
+					resEmbed.addField("Continued...", textList);
 					textList = currentItem;
 				}
 				else{
@@ -63,7 +63,7 @@ module.exports = {
 				}
 			}
 			if(continued){
-				resEmbed.addField("Continued", textList);
+				resEmbed.addField("Continued...", textList);
 			}
 			else{
 				resEmbed.setDescription(textList);
