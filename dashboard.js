@@ -37,13 +37,13 @@ const serverStatus = async function(serverID){
 		const vsPc = Number.parseFloat((territory[continent].vs/totalTer)*100).toPrecision(3);
 		const ncPc = Number.parseFloat((territory[continent].nc/totalTer)*100).toPrecision(3);
 		const trPc = Number.parseFloat((territory[continent].tr/totalTer)*100).toPrecision(3);
-		if(vsPc == 100){
+		if(territory[continent].locked == 1){
 			territoryField += `**${continent}** <:VS:818766983918518272>\nOwned by the VS: ${continentBenefit(continent)}\n\n`;
 		}
-		else if(ncPc == 100){
+		else if(territory[continent].locked == 2){
 			territoryField += `**${continent}** <:NC:818767043138027580>\nOwned by the NC: ${continentBenefit(continent)}\n\n`;
 		}
-		else if(trPc == 100){
+		else if(territory[continent].locked == 3){
 			territoryField += `**${continent}** <:TR:818988588049629256>\nOwned by the TR: ${continentBenefit(continent)}\n\n`;
 		}
 		else{

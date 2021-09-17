@@ -66,10 +66,10 @@ module.exports = {
         if(response.length == 4){
             EsamirData = response[3].Regions.Row;
         }
-        let IndarObj = {vs:0, nc:0, tr:0};
-        let HossinObj = {vs:0, nc:0, tr:0};
-        let AmerishObj = {vs:0, nc:0, tr:0};
-        let EsamirObj = {vs:0, nc:0, tr:0};
+        let IndarObj = {vs:0, nc:0, tr:0, locked:-1};
+        let HossinObj = {vs:0, nc:0, tr:0, locked:-1};
+        let AmerishObj = {vs:0, nc:0, tr:0, locked:-1};
+        let EsamirObj = {vs:0, nc:0, tr:0, locked:-1};
         for(let row of IndarData){
             if(row.RowData.FactionId == "1"){
                 IndarObj.vs += 1;
@@ -114,6 +114,20 @@ module.exports = {
                 EsamirObj.tr += 1;
             }
         }
+        // Check for lock status
+        for(let obj of [IndarObj, HossinObj, AmerishObj, EsamirObj]){
+            const total = obj.vs + obj.nc + obj.tr;
+            if(obj.vs == total){
+                obj.locked = 1;
+            }
+            else if(obj.nc == total){
+                obj.locked = 2;
+            }
+            else if(obj.tr == total){
+                obj.locked = 3;
+            }
+        }
+
         //Account for warpgates
         IndarObj.vs = Math.max(0, IndarObj.vs-1);
         IndarObj.nc = Math.max(0, IndarObj.nc-1);
@@ -158,13 +172,13 @@ module.exports = {
             ncPc = Number.parseFloat(ncPc).toPrecision(3);
             let trPc = (terObj[continent].tr/Total)*100;
             trPc = Number.parseFloat(trPc).toPrecision(3);
-            if(vsPc == 100){
+            if(terObj[continent].locked == 1){
                 resEmbed.addField(`${continent} <:VS:818766983918518272> `, 'Owned by the VS: '+continentBenefit(continent));
             }
-            else if(ncPc == 100){
+            else if(terObj[continent].locked == 2){
                 resEmbed.addField(`${continent} <:NC:818767043138027580> `, 'Owned by the NC: '+continentBenefit(continent));
             }
-            else if(trPc == 100){
+            else if(terObj[continent].locked == 3){
                 resEmbed.addField(`${continent} <:TR:818988588049629256> `, 'Owned by the TR: '+continentBenefit(continent));
             }
             else{
