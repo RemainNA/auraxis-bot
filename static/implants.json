@@ -20,11 +20,11 @@
         "image": "87795"
     },
     "Assassin": {
-        "1": "Kills from greater than 150 meters will clear spot checks on you, and prevent spotting attempts on you for one second. <font color=\"#dc9c36\">Does not clear spot checks on vehicles.</font>",
-        "2": "Kills from greater than 125 meters will clear spot checks on you, and prevent spotting attempts on you for one second. <font color=\"#dc9c36\">Does not clear spot checks on vehicles.</font>",
-        "3": "Kills from greater than 100 meters will clear spot checks on you, and prevent spotting attempts on you for one second. <font color=\"#dc9c36\">Does not clear spot checks on vehicles.</font>",
-        "4": "Kills from greater than 50 meters will clear spot checks on you, and prevent spotting attempts on you for one second. <font color=\"#dc9c36\">Does not clear spot checks on vehicles.</font>",
-        "5": "Kills from greater than 50 meters, or headshot kills, will clear spot checks on you, and prevent spotting attempts on you for one second. In addition, dealing damage to enemies will now automatically spot them for you and nearby allies. <font color=\"#dc9c36\">Does not clear spot checks on vehicles.</font>",
+        "1": "Damaging enemies now automatically spots them for you and allies, while kills from greater than 150 meters will clear spot checks on you and prevent new ones from being applied for one second. <font color=\"#dc9c36\">Does not clear spot checks on vehicles.</font>",
+        "2": "Damaging enemies now automatically spots them for you and allies, while kills from greater than 125 meters will clear spot checks on you and prevent new ones from being applied for one second. <font color=\"#dc9c36\">Does not clear spot checks on vehicles.</font>",
+        "3": "Damaging enemies now automatically spots them for you and allies, while kills from greater than 100 meters will clear spot checks on you and prevent new ones from being applied for one second. <font color=\"#dc9c36\">Does not clear spot checks on vehicles.</font>",
+        "4": "Damaging enemies now automatically spots them for you and allies, while kills from greater than 50 meters will clear spot checks on you and prevent new ones from being applied for one second. <font color=\"#dc9c36\">Does not clear spot checks on vehicles.</font>",
+        "5": "Damaging enemies now automatically spots them for you and allies, while kills from greater than 50 meters will clear spot checks on you and prevent new ones from being applied for one second. Headshots now also apply this effect at any range.<font color=\"#dc9c36\">Does not clear spot checks on vehicles.</font>",
         "image": "87792"
     },
     "Assimilate": {
@@ -44,7 +44,7 @@
         "image": "89320"
     },
     "Avoidance": {
-        "desc": "Your movements no longer trigger Claymores, Proximity Mines, or Bouncing Betty, and the range at which Spitfire Turrets can acquire you is reduced by 50%.",
+        "desc": "Your movements no longer trigger anti-infantry mines, and you are no longer targeted by Spitfire turrets.",
         "image": "89583"
     },
     "Battle Hardened": {
@@ -80,7 +80,7 @@
         "image": "87344"
     },
     "Cold Heart": {
-        "desc": "When killing an enemy with a headshot, your heat weapons receive 20% faster recovery delay and cooldown rates for 3 seconds. Additionally, heat-based Tools receive this benefit passively at all times.",
+        "desc": "Crouching momentarily will activate a coolant system in your suit. While doused in coolant, burning damage is reduced by 90%, you no longer appear on map-based recon detection, and your movement speed is reduced by 10%. Firing a weapon will immediately end this effect.",
         "image": "87720"
     },
     "Combat Surgeon": {
@@ -136,7 +136,7 @@
         "image": "88845"
     },
     "Experimental Stims": {
-        "desc": "When using a Medical Kit or Restoration Kit, you receive a random increase to sprint speed, reload speed, or small arms resistance for a short time.",
+        "desc": "Using a Stim will also provide 12 seconds of benefit from another rank 5 implant. The implant chosen is random from this list: Safe Fall, Vampire, Battle Hardened, Heavyweight, Response Jacket. Experimental Stims only triggers when there is no active benefit.",
         "image": "87717"
     },
     "Failsafe": {
@@ -224,7 +224,7 @@
         "2": "Reduces the rate of decay on your overshield by 55% while stationary, and 28% while moving. <font color=\"#dc9c36\">Heavy Assault only.</font>",
         "3": "Reduces the rate of decay on your overshield by 65% while stationary, and 33% while moving. <font color=\"#dc9c36\">Heavy Assault only.</font>",
         "4": "Reduces the rate of decay on your overshield by 80% while stationary, and 40% while moving. <font color=\"#dc9c36\">Heavy Assault only.</font>",
-        "5": "Reduces the rate of decay on your overshield by 80% while stationary, and 40% while moving. Additionally, your depleted overshield no longer has a delay before it begins recharging. <font color=\"#dc9c36\">Heavy Assault only.</font>",
+        "5": "Reduces the rate of decay on your overshield by 80% while stationary, and 40% while moving. Additionally, an active Heavy Shield no longer prevents your personal shield from recharging. <font color=\"#dc9c36\">Heavy Assault only.</font>",
         "image": "88998"
     },
     "Nightmare": {
@@ -236,11 +236,11 @@
         "image": "87473"
     },
     "Ocular Shield": {
-        "1": "Reduces the duration and effectiveness of Concussion, Flash, and EMP Grenades used against you by 15%. <font color=\"#dc9c36\">MAX units can equip.</font>",
-        "2": "Reduces the duration and effectiveness of Concussion, Flash, and EMP Grenades used against you by 18%. <font color=\"#dc9c36\">MAX units can equip.</font>",
-        "3": "Reduces the duration and effectiveness of Concussion, Flash, and EMP Grenades used against you by 23%. <font color=\"#dc9c36\">MAX units can equip.</font>",
-        "4": "Reduces the duration and effectiveness of Concussion, Flash, and EMP Grenades used against you by 30%. <font color=\"#dc9c36\">MAX units can equip.</font>",
-        "5": "Reduces the duration and effectiveness of Concussion, Flash, and EMP Grenades used against you 30%; and using a Medical or Restoration Kit provides immunity to these effects for the next 5 seconds, but does not clear effects already applied. <font color=\"#dc9c36\">MAX units can equip.</font>",
+        "1": "Reduces the duration of Concussion, Flash, and EMP Grenades used against you by 45%. <font color=\"#dc9c36\">MAX units can equip.</font>",
+        "2": "Reduces the duration of Concussion, Flash, and EMP Grenades used against you by 50%. <font color=\"#dc9c36\">MAX units can equip.</font>",
+        "3": "Reduces the duration of Concussion, Flash, and EMP Grenades used against you by 60%. <font color=\"#dc9c36\">MAX units can equip.</font>",
+        "4": "Reduces the duration of Concussion, Flash, and EMP Grenades used against you by 75%. <font color=\"#dc9c36\">MAX units can equip.</font>",
+        "5": "Reduces the duration of Concussion, Flash, and EMP Grenades used against you 75%, and you are no longer affected by your own Flash, Concussion, or EMP grenades. <font color=\"#dc9c36\">MAX units can equip.</font>",
         "image": "87506"
     },
     "Overdrive": {
@@ -256,7 +256,7 @@
         "2": "Whenever you receive damage, 4% of your maximum jump jet fuel is restored. <font color=\"#dc9c36\">Light Assault only.</font>",
         "3": "Whenever you receive damage, 5.5% of your maximum jump jet fuel is restored. <font color=\"#dc9c36\">Light Assault only.</font>",
         "4": "Whenever you receive damage, 8% of your maximum jump jet fuel is restored. <font color=\"#dc9c36\">Light Assault only.</font>",
-        "5": "Whenever you receive damage, 8% of your maximum jump jet fuel is restored. Additionally, reloading your tool slot will drastically reduce fall damage for 6 seconds. <font color=\"#dc9c36\">Light Assault only.</font>",
+        "5": "Whenever you receive damage, 8% of your maximum jump jet fuel is restored. Additionally, you receive roughly 20 meters of fall damage protection passively.<font color=\"#dc9c36\">Light Assault only.</font>",
         "image": "88875"
     },
     "Phylactery": {
@@ -340,7 +340,7 @@
         "2": "Your strafe speed is increased by 23%, but accelerating and decelerating while strafing takes twice as long.",
         "3": "Your strafe speed is increased by 28%, but accelerating and decelerating while strafing takes twice as long.",
         "4": "Your strafe speed is increased by 35%, but accelerating and decelerating while strafing takes twice as long.",
-        "5": "Your strafe speed is increased by 35%, but accelerating and decelerating while strafing takes twice as long. In addition, you no longer appear highlighted on IRNV optics.",
+        "5": "Your strafe speed is increased by 35%, but accelerating and decelerating while strafing takes twice as long. In addition, your backpedal speed is increased by 35% at all times.",
         "image": "89302"
     },
     "Survivalist": {
@@ -360,11 +360,11 @@
         "image": "87512"
     },
     "Symbiote": {
-        "1": "Passively receive 20% small arms resistance. This does not stack with Nanoweave Armor. Any time you are alive for longer than 20 seconds without taking small arms damage, the symbiote will gnaw at your health pool.",
-        "2": "Passively receive 20% small arms resistance. This does not stack with Nanoweave Armor. Any time you are alive for longer than 22 seconds without taking small arms damage, the symbiote will gnaw at your health pool.",
-        "3": "Passively receive 20% small arms resistance. This does not stack with Nanoweave Armor. Any time you are alive for longer than 25 seconds without taking small arms damage, the symbiote will gnaw at your health pool.",
-        "4": "Passively receive 20% small arms resistance. This does not stack with Nanoweave Armor. Any time you are alive for longer than 30 seconds without taking small arms damage, the symbiote will gnaw at your health pool.",
-        "5": "Passively receive 20% small arms resistance. This does not stack with Nanoweave Armor. Any time you are alive for longer than 30 seconds without taking small arms damage or killing an enemy player, the symbiote will gnaw at your health pool.",
+        "1": "While your personal shield is active, receiving small arms damage now heals 50 health immediately. This effect may only trigger once every 8 seconds.",
+        "2": "While your personal shield is active, receiving small arms damage now heals 50 health immediately. This effect may only trigger once every 7.5 seconds.",
+        "3": "While your personal shield is active, receiving small arms damage now heals 50 health immediately. This effect may only trigger once every 6 seconds.",
+        "4": "While your personal shield is active, receiving small arms damage now heals 50 health immediately. This effect may only trigger once every 4 seconds.",
+        "5": "While your personal shield is active, receiving small arms or common explosive damage now heals 50 health immediately. Both damage types have independent cooldowns, and each effect may only trigger once every 4 seconds.",
         "image": "89058"
     },
     "Target Focus": {
