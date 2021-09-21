@@ -173,7 +173,8 @@ module.exports = {
 			const activity = await pgClient.query("SELECT * FROM outfitActivity WHERE channel = $1", [channel]);
 			const captures = await pgClient.query("SELECT * FROM outfitCaptures WHERE channel = $1", [channel]);
 			const news = await pgClient.query("SELECT * FROM news WHERE channel = $1", [channel]);
-			const activeSubscriptions = alerts.rows.length + activity.rows.length + captures.rows.length + news.rows.length;
+			const unlocks = await pgClient.query("SELECT * FROM unlocks WHERE channel = $1", [channel]);
+			const activeSubscriptions = alerts.rows.length + activity.rows.length + captures.rows.length + news.rows.length + unlocks.rows.length;
 			const existingConfig = await pgClient.query("SELECT * FROM subscriptionConfig WHERE channel = $1", [channel]);
 			const activeConfig = existingConfig.rows.length;
 			let status = ""
