@@ -129,6 +129,14 @@ Subscribes the channel to notifications of bases captured by the specified tag. 
 
 Unsubscribes the channel from the above notifications.  Supports multiple tags per query.
 
+#### /subscribe unlocks [server]
+
+Subscribes the channel to notifications of continent unlocks on the specified server.
+
+#### /unsubscribe unlocks [server]
+
+Unsubscribes the channel from the above notifications.Supports all platforms without prefixes.
+
 #### /subscribe twitter [wrel/planetside]
 
 Subscribes the channel to live Tweet notifications from the specified account.  Supports multiple users per query.

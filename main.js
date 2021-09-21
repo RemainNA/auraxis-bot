@@ -74,13 +74,13 @@ client.on('ready', async () => {
 		}
 		alertMaintenance.update(SQLclient, client);
 		deleteMessages.run(SQLclient, client);
-		openContinents.check(SQLclient);
+		openContinents.check(SQLclient, client);
 		trackers.update(SQLclient, client);
 		dashboard.update(SQLclient, client);
 		setInterval(function () { 
 			alertMaintenance.update(SQLclient, client);
 			deleteMessages.run(SQLclient, client);
-			openContinents.check(SQLclient);
+			openContinents.check(SQLclient, client);
 		}, 60000); //Update alerts every minute
 		setInterval(function() {
 			dashboard.update(SQLclient, client);
@@ -116,6 +116,7 @@ const commandsManageChannels =
 "/(un)subscribe alerts [server]\n\
 /(un)subscribe activity [tag] <platform>\n\
 /(un)subscribe captures [tag] <platform>\n\
+/(un)subscribe unlocks [server]\n\
 /(un)subscribe twitter [wrel/planetside]\n\
 /unsubscribe all\n\
 /config view\n\
@@ -348,6 +349,11 @@ client.on('interactionCreate', async interaction => {
 					await interaction.editReply(res);
 					break;
 
+				case 'unlocks':
+					res = await subscription.subscribeUnlocks(SQLclient, interaction.channelId, options.getString('server'));
+					await interaction.editReply(res);
+					break;
+
 				default:
 					interaction.editReply("Unknown command error");
 				}
@@ -379,6 +385,11 @@ client.on('interactionCreate', async interaction => {
 
 				case 'twitter':
 					res = await subscription.unsubscribeTwitter(SQLclient, interaction.channelId, options.getString("user"));
+					await interaction.editReply(res);
+					break;
+
+				case 'unlocks':
+					res = await subscription.unsubscribeUnlocks(SQLclient, interaction.channelId, options.getString("server"));
 					await interaction.editReply(res);
 					break;
 

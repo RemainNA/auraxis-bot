@@ -73,3 +73,25 @@ CREATE TABLE IF NOT EXISTS bases(
 	outfit TEXT, --null if not owned
 	faction INT
 );
+
+CREATE TABLE IF NOT EXISTS unlocks(
+	channel TEXT,
+	world TEXT
+);
+
+CREATE TABLE IF NOT EXISTS openContinents(
+	world TEXT NOT NULL,
+	indar BOOLEAN DEFAULT FALSE,
+	hossin BOOLEAN DEFAULT FALSE,
+	amerish BOOLEAN DEFAULT FALSE,
+	esamir BOOLEAN DEFAULT FALSE
+);
+
+INSERT INTO opencontinents (world) VALUES ('connery');
+INSERT INTO opencontinents (world) VALUES ('miller');
+INSERT INTO opencontinents (world) VALUES ('cobalt');
+INSERT INTO opencontinents (world) VALUES ('emerald');
+INSERT INTO opencontinents (world) VALUES ('jaegar');
+INSERT INTO opencontinents (world) VALUES ('soltech');
+INSERT INTO opencontinents (world) VALUES ('genudine');
+INSERT INTO opencontinents (world) VALUES ('ceres');

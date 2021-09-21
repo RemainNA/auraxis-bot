@@ -194,6 +194,19 @@ const data = [
 			]
 		},
 		{
+			name: "unlocks",
+			description: "Receive a notification when a continent unlocks on a server",
+			type: 'SUB_COMMAND',
+			options: [{
+				name: 'server',
+				description: 'Server name',
+				type: 'STRING',
+				required: true,
+				choices: servers
+			}
+			]
+		},
+		{
 			name: "twitter",
 			description: "Receive a notification whenever a user posts or retweets",
 			type: 'SUB_COMMAND',
@@ -268,6 +281,19 @@ const data = [
 				description: "Which platform is the outfit on?  Defaults to PC",
 				required: false,
 				choices: platforms
+			}
+			]
+		},
+		{
+			name: "unlocks",
+			description: "Remove active continent unlock subscriptions",
+			type: 'SUB_COMMAND',
+			options: [{
+				name: 'server',
+				description: 'Server name',
+				type: 'STRING',
+				required: true,
+				choices: servers
 			}
 			]
 		},

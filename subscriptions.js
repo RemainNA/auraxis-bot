@@ -235,13 +235,41 @@ module.exports = {
         throw `Not subscribed to ${user} Twitter`;
     },
 
+    subscribeUnlocks: async function(pgClient, channel, server){
+        let count = await pgClient.query("SELECT count(*) FROM unlocks WHERE channel=$1 AND world=$2;", [channel, server]);
+        if(count.rows[0].count == 0){
+            pgClient.query("INSERT INTO unlocks (channel, world) VALUES ($1, $2);", [channel, server]);
+            try{
+                await config.initializeConfig(channel, pgClient)
+                return `Subscribed to ${standardizeName(server)} unlocks.  Configure which continents are shown using /config continents`;
+            }
+            catch(err){
+                return `Subscribed to ${standardizeName(server)} unlocks.  Configuration step failed, using default config.`;
+            }
+        }
+        
+        throw `Already subscribed to ${standardizeName(server)} unlocks`;
+    },
+
+    unsubscribeUnlocks: async function(pgClient, channel, server){
+        let count = await pgClient.query("SELECT COUNT(*) FROM unlocks WHERE channel = $1 AND world=$2", [channel, server]);
+        if(count.rows[0].count == 0){
+            throw `Not subscribed to ${standardizeName(server)} unlocks`;
+        }
+
+        pgClient.query("DELETE FROM unlocks WHERE channel=$1 AND world=$2", [channel, server]);
+
+        return `Unsubscribed from ${standardizeName(server)} unlocks`;
+    },
+
     unsubscribeAll: async function(pgClient, channelId){
         const commands = [
             "DELETE FROM alerts WHERE channel = $1",
             "DELETE FROM outfitactivity WHERE channel = $1",
             "DELETE FROM outfitcaptures WHERE channel = $1",
             "DELETE FROM news WHERE channel = $1",
-            "DELETE FROM subscriptionConfig WHERE channel = $1"
+            "DELETE FROM subscriptionConfig WHERE channel = $1",
+            "DELETE FROM unlocks WHERE channel = $1"
         ]
 
         for(const command of commands){
