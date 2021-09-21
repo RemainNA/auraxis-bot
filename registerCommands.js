@@ -341,8 +341,8 @@ const data = [
 				type: 'SUB_COMMAND'
 			},
 			{
-				name: 'alerts',
-				description: 'Enable or disable alert notifications for a given continent',
+				name: 'continent',
+				description: 'Enable or disable alert and unlock notifications for a given continent',
 				type: 'SUB_COMMAND',
 				options: [{
 					name: 'continent',
@@ -378,7 +378,7 @@ const data = [
 				},
 				{
 					name: 'setting',
-					description: "Show alerts for specified continent",
+					description: "Show alerts and unlocks for specified continent",
 					type: 'STRING',
 					required: true,
 					choices: [

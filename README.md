@@ -157,9 +157,9 @@ Displays current subscription configuration options for the channel.
 
 Attempts to fix issues with configuration options if they are missing.
 
-### /config alerts [continent] [enable/disable]
+### /config continent [continent] [enable/disable]
 
-Enables or disables displaying alerts for the given continent, or "other" for alerts such as Outfit Wars.
+Enables or disables displaying alerts and unlocks for the given continent, or "other" for alerts such as Outfit Wars.
 
 ### /config autodelete [enable/disable]
 

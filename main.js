@@ -121,7 +121,7 @@ const commandsManageChannels =
 /unsubscribe all\n\
 /config view\n\
 /config audit\n\
-/config alerts [continent] [enable/disable]\n\
+/config continent [continent] [enable/disable]\n\
 /config autodelete [enable/disable]\n\
 /tracker [server] [Population/Continents]\n\
 /dashboard [server]"
@@ -305,8 +305,8 @@ client.on('interactionCreate', async interaction => {
 					await interaction.editReply(res);
 					break;
 
-				case 'alerts':
-					res = await subscriptionConfig.setAlert(options.getString("continent"), options.getString("setting"), interaction.channelId, SQLclient);
+				case 'continent':
+					res = await subscriptionConfig.setContinent(options.getString("continent"), options.getString("setting"), interaction.channelId, SQLclient);
 					await interaction.editReply(res);
 					break;
 				
@@ -817,9 +817,9 @@ client.on('messageCreate', async message => {
 				.then(res => messageHandler.send(message.channel, res, "Config audit", true))
 				.catch(err => messageHandler.handleError(message.channel, err, "Config audit"))
 		}
-		else if (message.content.substring(0,15).toLowerCase() == '!config alerts '){
+		else if (message.content.substring(0,18).toLowerCase() == '!config continent '){
 			const configOptions = message.content.toLowerCase().split(" ");
-			subscriptionConfig.setAlert(configOptions[2], configOptions[3], message.channel.id, SQLclient)
+			subscriptionConfig.setContinent(configOptions[2], configOptions[3], message.channel.id, SQLclient)
 				.then(res => messageHandler.send(message.channel, res, "Alert config", true))
 				.catch(err => messageHandler.handleError(message.channel, err, "Alert config"))
 		}

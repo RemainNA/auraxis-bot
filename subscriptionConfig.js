@@ -1,15 +1,25 @@
-// This file implements functionality to configure subscriptions and the !config command
+// This file implements functionality to configure subscriptions and the /config command
 
 const Discord = require('discord.js');
-const messageHandler = require('./messageHandler.js');
 
 const getAlertStatus = function(continent, shown){
-	if(shown){
-		return `:white_check_mark: **${continent}** alerts are displayed`;
+	if(["Indar", "Hossin", "Amerish", "Esamir"].includes(continent)){
+		if(shown){
+			return `:white_check_mark: **${continent}** alerts and unlocks are displayed`;
+		}
+		else{
+			return `:x: **${continent}** alerts and unlocks are not displayed`;
+		}
 	}
 	else{
-		return `:x: **${continent}** alerts are not displayed`;
+		if(shown){
+			return `:white_check_mark: **${continent}** alerts are displayed`;
+		}
+		else{
+			return `:x: **${continent}** alerts are not displayed`;
+		}
 	}
+	
 }
 
 const continents = [
@@ -38,7 +48,7 @@ module.exports = {
 			alertStatus += getAlertStatus("Amerish", row.amerish)+"\n";
 			alertStatus += getAlertStatus("Esamir", row.esamir)+"\n";
 			alertStatus += getAlertStatus("Other", row.other);
-			resEmbed.addField("Alerts", alertStatus);
+			resEmbed.addField("Continents", alertStatus);
 			if(row.autodelete){
 				resEmbed.addField("Auto Delete", ":white_check_mark: Alert and outfit activity notifications are automatically deleted");
 			}
@@ -68,10 +78,10 @@ module.exports = {
 		}
 	},
 
-	setAlert: async function(continent, setting, channel, pgClient){
+	setContinent: async function(continent, setting, channel, pgClient){
 		let res = await pgClient.query("SELECT * FROM subscriptionConfig WHERE channel = $1", [channel])
 		if (res.rows.length == 0){
-			throw("This channel has no active subscriptions so cannot be configured.  If you believe this is incorrect please run `!config audit`");
+			throw("This channel has no active subscriptions so cannot be configured.  If you believe this is incorrect please run `/config audit`");
 		}
 		if(!continents.includes(continent)){
 			throw("Continent unrecognized.  Options are Koltyr, Indar, Hossin, Amerish, or Esamir.");
@@ -85,19 +95,19 @@ module.exports = {
 				case "indar":
 					pgClient.query("UPDATE subscriptionConfig SET indar = true WHERE channel = $1;", [channel])
 						.catch(err => {throw(err)})
-					return("Indar alerts will be displayed");
+					return("Indar alerts and unlocks will be displayed");
 				case "hossin":
 					pgClient.query("UPDATE subscriptionConfig SET hossin = true WHERE channel = $1;", [channel])
 						.catch(err => {throw(err)})
-					return("Hossin alerts will be displayed");
+					return("Hossin alerts and unlocks will be displayed");
 				case "amerish":
 					pgClient.query("UPDATE subscriptionConfig SET amerish = true WHERE channel = $1;", [channel])
 						.catch(err => {throw(err)})
-					return("Amerish alerts will be displayed");
+					return("Amerish alerts and unlocks will be displayed");
 				case "esamir":
 					pgClient.query("UPDATE subscriptionConfig SET esamir = true WHERE channel = $1;", [channel])
 						.catch(err => {throw(err)})
-					return("Esamir alerts will be displayed");
+					return("Esamir alerts and unlocks will be displayed");
 				case "other":
 					pgClient.query("UPDATE subscriptionConfig SET other = true WHERE channel = $1;", [channel])
 						.catch(err => {throw(err)})
@@ -113,19 +123,19 @@ module.exports = {
 				case "indar":
 					pgClient.query("UPDATE subscriptionConfig SET indar = false WHERE channel = $1;", [channel])
 						.catch(err => {throw(err)})
-					return("Indar alerts will not be displayed");
+					return("Indar alerts and unlocks will not be displayed");
 				case "hossin":
 					pgClient.query("UPDATE subscriptionConfig SET hossin = false WHERE channel = $1;", [channel])
 						.catch(err => {throw(err)})
-					return("Hossin alerts will not be displayed");
+					return("Hossin alerts and unlocks will not be displayed");
 				case "amerish":
 					pgClient.query("UPDATE subscriptionConfig SET amerish = false WHERE channel = $1;", [channel])
 						.catch(err => {throw(err)})
-					return("Amerish alerts will not be displayed");
+					return("Amerish alerts and unlocks will not be displayed");
 				case "esamir":
 					pgClient.query("UPDATE subscriptionConfig SET esamir = false WHERE channel = $1;", [channel])
 						.catch(err => {throw(err)})
-					return("Esamir alerts will not be displayed");
+					return("Esamir alerts and unlocks will not be displayed");
 				case "other":
 					pgClient.query("UPDATE subscriptionConfig SET other = false WHERE channel = $1;", [channel])
 						.catch(err => {throw(err)})
@@ -140,17 +150,17 @@ module.exports = {
 	setAutoDelete: async function(message, channel, pgClient){
 		let res = await pgClient.query("SELECT * FROM subscriptionConfig WHERE channel = $1", [channel])
 		if (res.rows.length == 0){
-			throw("This channel has no active subscriptions so cannot be configured.  If you believe this is incorrect please run `!config audit`");
+			throw("This channel has no active subscriptions so cannot be configured.  If you believe this is incorrect please run `/config audit`");
 		}
 		if(message.trim().toLowerCase() == 'enable'){
 			pgClient.query("UPDATE subscriptionConfig SET autoDelete = true WHERE channel = $1;", [channel])
 				.catch(err => {throw(err)})
-			return("Alerts notifications will be automatically deleted");
+			return("Alerts and outfit activity notifications will be automatically deleted");
 		}
 		else if(message.trim().toLowerCase() == 'disable'){
 			pgClient.query("UPDATE subscriptionConfig SET autoDelete = false WHERE channel = $1;", [channel])
 				.catch(err => {throw(err)})
-			return("Alerts and dev tweets will not be automatically crossposted");
+			return("Alerts and outfit activity notifications will not be automatically deleted");
 		}
 		else{
 			throw("Setting unrecognized.  Options are enable or disable.");
