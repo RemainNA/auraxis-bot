@@ -311,6 +311,22 @@
         "description": "Control territory to lock Koltyr",
         "name": "Koltyr Enlightenment"
     },
+    "211": {
+        "description": "Control territory to lock Amerish",
+        "name": "Amerish Conquest"
+    },
+    "212": {
+        "description": "Control territory to lock Esamir",
+        "name": "Esamir Conquest"
+    },
+    "213": {
+        "description": "Control territory to lock Hossin",
+        "name": "Hossin Conquest"
+    },
+    "214": {
+        "description": "Control territory to lock Indar",
+        "name": "Indar Conquest"
+    },
     "3": {
         "description": "Capture Amerish within the time limit",
         "name": "Seeing Green"
