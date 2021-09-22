@@ -9,6 +9,8 @@ const alerts = require('./static/alerts.json');
 const bases = require('./static/bases.json');
 const {serverNames, censusRequest} = require('./utils.js');
 
+const wait = require('util').promisify(setTimeout);
+
 const environmentToPlatform = {
     "ps2:v2": "pc",
     "ps2ps4us:v2": "ps4us",
@@ -381,6 +383,10 @@ const baseEvent = async function(payload, environment, pgClient, discordClient){
         else if(payload.old_faction_id == "3"){
             sendEmbed.addField("Captured From", "<:TR:818988588049629256> TR", true);
         }
+        const contributions = await captureContributions(payload.outfit_id, payload.facility_id, payload.timestamp, environment);
+        if(contributions.length > 0){
+            sendEmbed.addField("<:Merit:890295314337136690> Contributors", `${contributions}`.replace(/,/g, ', '), true);
+        }
         for (let row of result.rows){
             discordClient.channels.fetch(row.channel).then(resChann => {
                 if(typeof(resChann.guild) !== 'undefined'){
@@ -408,6 +414,37 @@ const baseEvent = async function(payload, environment, pgClient, discordClient){
             })
         }
     }
+}
+
+const captureContributions = async function(outfitID, baseID, timestamp, platform){
+    try{
+        const response = await censusRequest(platform, 'outfit_list', `/outfit/${outfitID}?c:resolve=member_online_status`);
+        let contributions = []
+        if(response[0]?.members[0].online_status == "service_unavailable"){
+            return ["Unable to determine contributors"];
+        }
+        await wait(2000); // Just waiting to make sure all values fill in in the characters_event collection
+        for(const member of response[0].members){
+            if(member.online_status > 0){
+                try{
+                    const eventResponse = await censusRequest(platform, 'characters_event_list', `characters_event?id=${member.character_id}&type=FACILITY_CHARACTER&c:resolve=character_name`);
+                    if(eventResponse[0].facility_id == baseID && eventResponse[0].timestamp == timestamp){
+                        contributions.push(eventResponse[0].character.name.first);
+                    }
+                }
+                catch(err){
+                    continue;
+                }
+            }
+        }
+        return contributions;
+    }
+    catch(err){
+        console.log("Capture contributions error");
+        console.log(err);
+        return ["Error occurred when retrieving contributors"];
+    }
+    
 }
 
 const objectEquality = function(a, b){
