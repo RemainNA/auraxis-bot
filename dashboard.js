@@ -83,7 +83,7 @@ const editMessage = async function(channelID, messageID, newDash, pgClient, disc
 		await message.edit({embeds: [newDash]});
 	}
 	catch(err){
-		if(err?.code == 10008 || err?.code == 10003){ //Unknown message or channel
+		if(err?.code == 10008 || err?.code == 10003 || err?.code == 50001){ //Unknown message/channel or missing access
 			console.log("Deleted message from dashboard table");
 			pgClient.query("DELETE FROM dashboard WHERE messageid = $1;", [messageID]);
 		}
