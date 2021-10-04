@@ -74,7 +74,7 @@ module.exports = {
 		}
 		catch(err){
 			if(err.message == "Missing Permissions"){
-				throw "Unable to create channel due to missing \"Manage Channels\" permission.";
+				throw "Unable to create channel due to missing permissions. Ensure the bot has both \"Manage Channels\" and \"Connect\" permissions granted.";
 			}
 			else{
 				throw(err);
