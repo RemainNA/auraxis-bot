@@ -129,7 +129,7 @@ const commandsManageChannels =
 const links = '\n\
 [GitHub page & FAQ](https://github.com/RemainNA/auraxis-bot)\n\
 [Support server](https://discord.gg/Kf5P6Ut)\n\
-[Invite bot](https://discord.com/api/oauth2/authorize?client_id=437756856774033408&permissions=281616&scope=bot%20applications.commands)\n\
+[Invite bot](https://discord.com/api/oauth2/authorize?client_id=437756856774033408&permissions=1330192&scope=bot%20applications.commands)\n\
 [Donate on Ko-fi](https://ko-fi.com/remainna)'
 
 const checkPermissions = async function(channel, user){
