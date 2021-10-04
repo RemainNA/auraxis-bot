@@ -2464,6 +2464,16 @@
         "name": "Saron HRB-H",
         "sanction": "gunner"
     },
+    "6011442": {
+        "category": "Heavy Crossbow",
+        "name": "Demon Seeker HLX",
+        "sanction": "none"
+    },
+    "6011432": {
+        "category": "Heavy Crossbow",
+        "name": "Seeker HLX",
+        "sanction": "none"
+    },
     "6011140": {
         "category": "Heavy Weapon",
         "name": "D11 Detonator",
@@ -4559,6 +4569,11 @@
         "name": "Auraxium Slasher",
         "sanction": "none"
     },
+    "6011454": {
+        "category": "Knife",
+        "name": "Bonecleaver",
+        "sanction": "none"
+    },
     "271": {
         "category": "Knife",
         "name": "Carver",
@@ -4584,6 +4599,16 @@
         "name": "Defector Claws",
         "sanction": "none"
     },
+    "6011457": {
+        "category": "Knife",
+        "name": "Doomsayer",
+        "sanction": "none"
+    },
+    "6011456": {
+        "category": "Knife",
+        "name": "Eviscerator",
+        "sanction": "none"
+    },
     "6009854": {
         "category": "Knife",
         "name": "Excursion Kukri",
@@ -4597,6 +4622,11 @@
     "19": {
         "category": "Knife",
         "name": "Force-Blade",
+        "sanction": "none"
+    },
+    "6011455": {
+        "category": "Knife",
+        "name": "Guillotine",
         "sanction": "none"
     },
     "802316": {
@@ -6674,6 +6704,11 @@
         "name": "99SV",
         "sanction": "sniper"
     },
+    "6006850": {
+        "category": "Sniper Rifle",
+        "name": "ADVX // Mako",
+        "sanction": "sniper"
+    },
     "7301": {
         "category": "Sniper Rifle",
         "name": "AF-8 RailJack",
@@ -6777,11 +6812,6 @@
     "6010512": {
         "category": "Sniper Rifle",
         "name": "SR-150",
-        "sanction": "sniper"
-    },
-    "6006850": {
-        "category": "Sniper Rifle",
-        "name": "SR-200",
         "sanction": "sniper"
     },
     "25003": {
@@ -7276,27 +7306,27 @@
     },
     "6008733": {
         "category": "Vehicle Abilities",
-        "name": "NEST Launcher",
+        "name": "JVN-MM N.E.S.T.",
         "sanction": "none"
     },
     "728": {
         "category": "Vehicle Weapons",
-        "name": "UNKNOWN Vehicle Weapons #728",
+        "name": "UNKNOWN Vehicle Weapons {728}",
         "sanction": ""
     },
     "729": {
         "category": "Vehicle Weapons",
-        "name": "UNKNOWN Vehicle Weapons #729",
+        "name": "UNKNOWN Vehicle Weapons {729}",
         "sanction": ""
     },
     "731": {
         "category": "Vehicle Weapons",
-        "name": "UNKNOWN Vehicle Weapons #731",
+        "name": "UNKNOWN Vehicle Weapons {731}",
         "sanction": ""
     },
     "732": {
         "category": "Vehicle Weapons",
-        "name": "UNKNOWN Vehicle Weapons #732",
+        "name": "UNKNOWN Vehicle Weapons {732}",
         "sanction": ""
     },
     "700": {
@@ -7492,41 +7522,41 @@
     "6005544": {
         "category": "Wasp Prototype Wing Mount",
         "name": "Pummeler Rocket Pods",
-        "sanction": ""
+        "sanction": "none"
     },
     "6005545": {
         "category": "Wasp Prototype Wing Mount",
         "name": "Pummeler Rocket Pods",
-        "sanction": ""
+        "sanction": "none"
     },
     "6005546": {
         "category": "Wasp Prototype Wing Mount",
         "name": "Pummeler Rocket Pods",
-        "sanction": ""
+        "sanction": "none"
     },
     "6006172": {
         "category": "Wasp Prototype Wing Mount",
         "name": "Pummeler Rocket Pods",
-        "sanction": ""
+        "sanction": "none"
     },
     "6006173": {
         "category": "Wasp Prototype Wing Mount",
         "name": "Pummeler Rocket Pods",
-        "sanction": ""
+        "sanction": "none"
     },
     "6006174": {
         "category": "Wasp Prototype Wing Mount",
         "name": "Pummeler Rocket Pods",
-        "sanction": ""
+        "sanction": "none"
     },
     "6006284": {
         "category": "Wasp Prototype Wing Mount",
         "name": "Pummeler Rocket Pods",
-        "sanction": ""
+        "sanction": "none"
     },
     "6006285": {
         "category": "Wasp Prototype Wing Mount",
         "name": "Pummeler Rocket Pods",
-        "sanction": ""
+        "sanction": "none"
     }
 }
