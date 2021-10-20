@@ -21,6 +21,9 @@ const territoryName = async function(serverID){
 			openList.push(cont);
 		}
 	}
+	if(openList.length == 0){
+		openList.push("Koltyr");
+	}
 	return `${serverNames[serverID]}: ${openList}`;
 }
 
