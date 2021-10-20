@@ -85,18 +85,20 @@ module.exports = {
 		}
 	},
 
-	update: async function(pgClient, discordClient){
+	update: async function(pgClient, discordClient, continentOnly = false){
 		for(const serverName of servers){
-			try{
-				const popName = await populationName(serverIDs[serverName]);
-				const channels = await pgClient.query("SELECT channel FROM tracker WHERE trackertype = $1 AND world = $2;", ["population", serverName]);
-				for(const row of channels.rows){
-					await updateChannelName(popName, row.channel, discordClient, pgClient);
+			if(!continentOnly){
+				try{
+					const popName = await populationName(serverIDs[serverName]);
+					const channels = await pgClient.query("SELECT channel FROM tracker WHERE trackertype = $1 AND world = $2;", ["population", serverName]);
+					for(const row of channels.rows){
+						await updateChannelName(popName, row.channel, discordClient, pgClient);
+					}
 				}
-			}
-			catch(err){
-				console.log(`Error updating ${serverName} population tracker`);
-				console.log(err);
+				catch(err){
+					console.log(`Error updating ${serverName} population tracker`);
+					console.log(err);
+				}
 			}
 			try{
 				const terName = await territoryName(serverIDs[serverName]);

@@ -5,6 +5,7 @@ const {serverIDs, serverNames, servers, continents} = require('./utils.js');
 const {send} = require('./messageHandler.js');
 const {unsubscribeAll} = require('./subscriptions.js');
 const {Permissions} = require('discord.js');
+const trackers = require('./trackers.js');
 
 const contIDs = {
 	"Indar": "2",
@@ -72,7 +73,7 @@ module.exports = {
 							console.log("Unlock error")
 							console.log(err);
 						}
-						
+						trackers.update(pgClient, discordClient, true); //Update trackers with new continent
 					}
 				}
 				await pgClient.query("UPDATE openContinents SET indar = $1, hossin = $2, amerish = $3, esamir = $4 WHERE world = $5;",
