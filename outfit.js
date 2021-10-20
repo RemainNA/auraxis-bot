@@ -21,7 +21,8 @@ const basicInfo = async function(oTag, platform){
 		onlineDay: 0,
 		onlineWeek: 0,
 		onlineMonth: 0,
-		outfitID: data.outfit_id
+		outfitID: data.outfit_id,
+		timeCreated: data.time_created
 	}
 	if(typeof(data.leader_character_id_join_characters_world) !== 'undefined'){
 		resObj.worldId = data.leader_character_id_join_characters_world.world_id;
@@ -109,8 +110,8 @@ module.exports = {
 		else if(platform == 'ps2ps4eu:v2'){
 			resEmbed.setURL('http://ps4eu.ps2.fisu.pw/outfit/?name='+oInfo.alias);
 		}
+		resEmbed.addField("Founded", `<t:${oInfo.timeCreated}:D>`, true)
 		resEmbed.addField("Members", oInfo.memberCount, true);
-		resEmbed.addField('\u200b', '\u200b', true)
 		let dayPc = Number.parseFloat((oInfo.onlineDay/oInfo.memberCount)*100).toPrecision(3);
 		let weekPc = Number.parseFloat((oInfo.onlineWeek/oInfo.memberCount)*100).toPrecision(3);
 		let monthPc = Number.parseFloat((oInfo.onlineMonth/oInfo.memberCount)*100).toPrecision(3);
