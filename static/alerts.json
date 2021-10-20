@@ -327,6 +327,10 @@
         "description": "Control territory to lock Indar",
         "name": "Indar Conquest"
     },
+    "215": {
+        "description": "Control territory to lock Koltyr",
+        "name": "Koltyr Conquest"
+    },
     "3": {
         "description": "Capture Amerish within the time limit",
         "name": "Seeing Green"
