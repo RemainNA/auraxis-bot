@@ -29,6 +29,14 @@ const continents = [
 	"Esamir"
 ]
 
+const continentsKoltyr = [
+	"Indar",
+	"Hossin",
+	"Amerish",
+	"Esamir",
+	"Koltyr"
+]
+
 const serverNames = {
 	1: "Connery",
 	10: "Miller",
@@ -97,6 +105,7 @@ module.exports = {
 	servers: servers,
 	serversNoJaegar: serversNoJaegar,
 	continents: continents,
+	continentsKoltyr: continentsKoltyr,
 	serverNames: serverNames,
 	serverIDs: serverIDs,
 	badQuery: badQuery,

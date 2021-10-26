@@ -26,6 +26,8 @@ const continentBenefit = function(continent){
             return "Base generators auto-repair over time"
         case "Esamir":
             return "Allied control points increase shield capacity"
+        default:
+            return "No benefit"
     }
 }
 
@@ -49,7 +51,7 @@ module.exports = {
         else if(serverID == 2000){
             platform = 'ps2ps4eu:v2';
         }
-        let response = await censusRequest(platform, 'map_list', `/map/?world_id=${serverID}&zone_ids=2,4,6,8`);
+        let response = await censusRequest(platform, 'map_list', `/map/?world_id=${serverID}&zone_ids=2,4,6,8,14`);
         if(response.length < 3){
             throw "API response missing continents";
         }
@@ -59,63 +61,46 @@ module.exports = {
         if(typeof(response[0].Regions) === 'undefined'){
             throw "API response missing Regions field";
         }
-        let IndarData = response[0].Regions.Row;
-        let HossinData = response[1].Regions.Row;
-        let AmerishData = response[2].Regions.Row;
-        let EsamirData = [];
-        if(response.length == 4){
-            EsamirData = response[3].Regions.Row;
-        }
         let IndarObj = {vs:0, nc:0, tr:0, locked:-1};
         let HossinObj = {vs:0, nc:0, tr:0, locked:-1};
         let AmerishObj = {vs:0, nc:0, tr:0, locked:-1};
         let EsamirObj = {vs:0, nc:0, tr:0, locked:-1};
-        for(let row of IndarData){
-            if(row.RowData.FactionId == "1"){
-                IndarObj.vs += 1;
+        let KoltyrObj = {vs:0, nc:0, tr:0, locked:-1};
+        for(const res of response){
+            let vs = 0;
+            let nc = 0;
+            let tr = 0;
+            for(const row of res.Regions.Row){
+                if(row.RowData.FactionId == "1"){
+                    vs += 1;
+                }
+                else if(row.RowData.FactionId == "2"){
+                    nc += 1;
+                }
+                else if(row.RowData.FactionId == "3"){
+                    tr += 1;
+                }
             }
-            else if(row.RowData.FactionId == "2"){
-                IndarObj.nc += 1;
-            }
-            else if(row.RowData.FactionId == "3"){
-                IndarObj.tr += 1;
-            }
-        }
-        for(let row of HossinData){
-            if(row.RowData.FactionId == "1"){
-                HossinObj.vs += 1;
-            }
-            else if(row.RowData.FactionId == "2"){
-                HossinObj.nc += 1;
-            }
-            else if(row.RowData.FactionId == "3"){
-                HossinObj.tr += 1;
-            }
-        }
-        for(let row of AmerishData){
-            if(row.RowData.FactionId == "1"){
-                AmerishObj.vs += 1;
-            }
-            else if(row.RowData.FactionId == "2"){
-                AmerishObj.nc += 1;
-            }
-            else if(row.RowData.FactionId == "3"){
-                AmerishObj.tr += 1;
-            }
-        }
-        for(let row of EsamirData){
-            if(row.RowData.FactionId == "1"){
-                EsamirObj.vs += 1;
-            }
-            else if(row.RowData.FactionId == "2"){
-                EsamirObj.nc += 1;
-            }
-            else if(row.RowData.FactionId == "3"){
-                EsamirObj.tr += 1;
+            switch(res.ZoneId){
+                case "2":
+                    IndarObj = {vs:vs, nc:nc, tr:tr, locked:-1};
+                    break;
+                case "4":
+                    HossinObj = {vs:vs, nc:nc, tr:tr, locked:-1};
+                    break;
+                case "6":
+                    AmerishObj = {vs:vs, nc:nc, tr:tr, locked:-1};
+                    break;
+                case "8":
+                    EsamirObj = {vs:vs, nc:nc, tr:tr, locked:-1};
+                    break;
+                case "14":
+                    KoltyrObj = {vs:vs, nc:nc, tr:tr, locked:-1};
+                    break;
             }
         }
         // Check for lock status
-        for(let obj of [IndarObj, HossinObj, AmerishObj, EsamirObj]){
+        for(let obj of [IndarObj, HossinObj, AmerishObj, EsamirObj, KoltyrObj]){
             const total = obj.vs + obj.nc + obj.tr;
             if(obj.vs == total){
                 obj.locked = 1;
@@ -141,8 +126,11 @@ module.exports = {
         EsamirObj.vs = Math.max(0, EsamirObj.vs-1);
         EsamirObj.nc = Math.max(0, EsamirObj.nc-1);
         EsamirObj.tr = Math.max(0, EsamirObj.tr-1);
+        KoltyrObj.vs = Math.max(0, KoltyrObj.vs-1);
+        KoltyrObj.nc = Math.max(0, KoltyrObj.nc-1);
+        KoltyrObj.tr = Math.max(0, KoltyrObj.tr-1);
 
-        return {Indar: IndarObj, Hossin: HossinObj, Amerish: AmerishObj, Esamir: EsamirObj};
+        return {Indar: IndarObj, Hossin: HossinObj, Amerish: AmerishObj, Esamir: EsamirObj, Koltyr: KoltyrObj};
     },
 
     territory: async function(serverName){
@@ -160,7 +148,7 @@ module.exports = {
         resEmbed.setTitle(serverNames[serverID]+" territory");
         resEmbed.setTimestamp();
         resEmbed.setURL(fisuTerritory(serverID));
-        let continents = ["Indar", "Hossin", "Amerish", "Esamir"];
+        let continents = ["Indar", "Hossin", "Amerish", "Esamir", "Koltyr"];
         for(let continent of continents){
             let Total = terObj[continent].vs + terObj[continent].nc + terObj[continent].tr;
             if(Total == 0){

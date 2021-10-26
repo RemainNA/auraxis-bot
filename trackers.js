@@ -2,7 +2,7 @@
 
 const {getPopulation} = require('./population.js');
 const {territoryInfo} = require('./territory.js');
-const {serverNames, serverIDs, servers, continents} = require('./utils.js');
+const {serverNames, serverIDs, servers, continentsKoltyr} = require('./utils.js');
 
 const populationName = async function(serverID){
 	const population = await getPopulation(serverID);
@@ -13,16 +13,10 @@ const populationName = async function(serverID){
 const territoryName = async function(serverID){
 	const territory = await territoryInfo(serverID);
 	let openList = [];
-	for (const cont of continents){
-		if(territory[cont].vs == 0 || territory[cont].nc == 0 || territory[cont].tr == 0){
-			continue;
-		}
-		else{
+	for (const cont of continentsKoltyr){
+		if(territory[cont].locked == -1){
 			openList.push(cont);
 		}
-	}
-	if(openList.length == 0){
-		openList.push("Koltyr");
 	}
 	return `${serverNames[serverID]}: ${openList}`;
 }
