@@ -31,6 +31,22 @@ const implantInfo = async function(name){
 	throw `${name} not found.`;
 }
 
+const partialMatches = async function(query){
+	let matches = [];
+	query = query.replace(/[“”]/g, '"').toLowerCase();
+
+	for(const implant in implantsJSON){
+		if(implant.toLowerCase().indexOf(query) > -1){
+			matches.push({name: implant, value: implant});
+		}
+		if(matches.length >= 25){
+			break;
+		}
+	}
+
+	return matches
+}
+
 module.exports = {
 	lookup: async function(name){
 		if(badQuery(name)){
@@ -54,5 +70,7 @@ module.exports = {
 		}
 
 		return resEmbed;
-	}
+	},
+
+	partialMatches: partialMatches
 }

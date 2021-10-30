@@ -95,6 +95,7 @@ const data = [
 			name: 'weapon',
 			type: 'STRING',
 			description: 'Weapon name or id, can search with a partial name',
+			autocomplete: true,
 			required: false,
 		},
 		{
@@ -460,6 +461,7 @@ const data = [
 			name: 'query',
 			type: 'STRING',
 			description: 'Weapon name, partial name, or id',
+			autocomplete: true,
 			required: true,
 		}]
 	},
@@ -480,6 +482,7 @@ const data = [
 			name: 'query',
 			type: 'STRING',
 			description: 'Implant name or partial name',
+			autocomplete: true,
 			required: true,
 		}]
 	},

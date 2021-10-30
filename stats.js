@@ -53,6 +53,34 @@ const getWeaponId = async function(name, searchSpace, cName=""){
 	
 }
 
+const partialMatches = async function(query){
+	let matches = [];
+	let included = [];
+	query = query.replace(/[“”]/g, '"').toLowerCase();
+
+	for(const id in weaponsJSON){
+		if(weaponsJSON[id].name.toLowerCase().indexOf(query) > -1){
+			matches.push({name: `${weaponsJSON[id].name} [${id}]`, value: id});
+			included.push(id);
+		}
+		if(matches.length >= 25){
+			break;
+		}
+	}
+
+	for(const id in sanction){
+		if(matches.length >= 25){
+			break;
+		}
+		if(sanction[id].name.toLowerCase().indexOf(query) > -1 && !included.includes(id)){
+			matches.push({name: `${sanction[id].name} [${id}]`, value: id});
+			included.push(id);
+		}
+	}
+
+	return matches;
+}
+
 const characterInfo = async function(cName, wName, platform){
 	let response =  await censusRequest(platform, 'character_list', `/character?name.first_lower=${cName}&c:resolve=weapon_stat_by_faction,weapon_stat`);
     if(response.length == 0){
@@ -215,5 +243,7 @@ module.exports = {
 		resEmbed.setFooter("Weapon ID: "+wInfo.id);
 
 		return resEmbed;
-	}
+	},
+
+	partialMatches: partialMatches
 }

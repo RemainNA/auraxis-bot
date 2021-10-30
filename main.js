@@ -535,6 +535,20 @@ client.on('interactionCreate', async interaction => {
 			await interaction.editReply({embeds: [direc[0]]})
 		}
 	}
+	else if(interaction.isAutocomplete()){
+		if(interaction.commandName == 'stats'){
+			const weaponsList = await stats.partialMatches(interaction.options.getString('weapon'));
+			await interaction.respond(weaponsList);
+		}
+		else if(interaction.commandName == 'weapon'){
+			const weaponsList = await weapon.partialMatches(interaction.options.getString('query'));
+			await interaction.respond(weaponsList);
+		}
+		else if(interaction.commandName == 'implant'){
+			const implantList = await implant.partialMatches(interaction.options.getString('query'));
+			await interaction.respond(implantList);
+		}
+	}
 })
 
 // Create an event listener for messages
