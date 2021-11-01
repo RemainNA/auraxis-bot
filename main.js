@@ -522,17 +522,43 @@ client.on('interactionCreate', async interaction => {
 		}
 	}
 	else if(interaction.isButton()){
-		if(interaction.customId.startsWith('auraxium')){
-			await interaction.deferReply({ephemeral: true});
-			const auraxOptions = interaction.customId.split('%');
-			const aurax = await auraxiums.medals(auraxOptions[1], auraxOptions[2], true);
-			await interaction.editReply({embeds: [aurax[0]]})
+		try{
+			if(interaction.customId.startsWith('auraxium')){
+				await interaction.deferReply({ephemeral: true});
+				const auraxOptions = interaction.customId.split('%');
+				const aurax = await auraxiums.medals(auraxOptions[1], auraxOptions[2], true);
+				await interaction.editReply({embeds: [aurax[0]]})
+			}
+			else if(interaction.customId.startsWith('directives')){
+				await interaction.deferReply({ephemeral: true});
+				const directiveOptions = interaction.customId.split('%');
+				const direc = await directives.directives(directiveOptions[1], directiveOptions[2], true);
+				await interaction.editReply({embeds: [direc[0]]})
+			}
 		}
-		else if(interaction.customId.startsWith('directives')){
-			await interaction.deferReply({ephemeral: true});
-			const directiveOptions = interaction.customId.split('%');
-			const direc = await directives.directives(directiveOptions[1], directiveOptions[2], true);
-			await interaction.editReply({embeds: [direc[0]]})
+		catch(err){
+			if(typeof(err) !== 'string'){
+				console.log(`Error in ${interaction.customId} button`);
+				if(err.code == 10062){ //"Unknown interaction"
+					console.log("Unknown interaction");
+					return;
+				}
+				console.log(err);
+				if(interaction.deferred){
+					await interaction.editReply("Error occurred when handling command");
+				}
+				else{
+					await interaction.reply("Error occurred when handling command");
+				}
+			}
+			else{
+				if(interaction.deferred){
+					await interaction.editReply(err);
+				}
+				else{
+					await interaction.reply(err);
+				}
+			}
 		}
 	}
 	else if(interaction.isAutocomplete()){
