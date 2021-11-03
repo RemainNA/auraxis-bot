@@ -548,7 +548,7 @@ client.on('interactionCreate', async interaction => {
 					await interaction.editReply("Error occurred when handling command");
 				}
 				else{
-					await interaction.reply("Error occurred when handling command");
+					await interaction.reply({content: "Error occurred when handling command", ephemeral: true});
 				}
 			}
 			else{
@@ -556,7 +556,7 @@ client.on('interactionCreate', async interaction => {
 					await interaction.editReply(err);
 				}
 				else{
-					await interaction.reply(err);
+					await interaction.reply({content: err, ephemeral: true});
 				}
 			}
 		}
