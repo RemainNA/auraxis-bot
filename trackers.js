@@ -145,25 +145,27 @@ module.exports = {
 				console.log(err);
 			}
 		}
-		try{
-			const outfits = await pgClient.query("SELECT DISTINCT outfitid, platform FROM outfittracker;");
-			for(const row of outfits.rows){
-				try{
-					const oName = await outfitName(row.outfitid, row.platform);
-					const channels = await pgClient.query("SELECT channel FROM outfittracker WHERE outfitid = $1 AND platform = $2;", [row.outfitid, row.platform]);
-					for(channelRow of channels.rows){
-						await updateChannelName(oName, channelRow.channel, discordClient, pgClient);
+		if(!continentOnly){
+			try{
+				const outfits = await pgClient.query("SELECT DISTINCT outfitid, platform FROM outfittracker;");
+				for(const row of outfits.rows){
+					try{
+						const oName = await outfitName(row.outfitid, row.platform);
+						const channels = await pgClient.query("SELECT channel FROM outfittracker WHERE outfitid = $1 AND platform = $2;", [row.outfitid, row.platform]);
+						for(channelRow of channels.rows){
+							await updateChannelName(oName, channelRow.channel, discordClient, pgClient);
+						}
 					}
+					catch(err){
+						console.log(`Error updating outfit tracker ${row.outfitid}`);
+						console.log(err);
+					}
+					
 				}
-				catch(err){
-					console.log(`Error updating outfit tracker ${row.outfitid}`);
-					console.log(err);
-				}
-				
+			}catch(err){
+				console.log(`Error pulling outfit trackers`);
+				console.log(err);
 			}
-		}catch(err){
-			console.log(`Error pulling outfit trackers`);
-			console.log(err);
 		}
 	}
 }
