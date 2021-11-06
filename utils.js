@@ -97,6 +97,9 @@ async function censusRequest(platform, key, extension){
 		if(err.name == 'ParseError'){
 			throw "Census API Unavailable: Redirect"
 		}
+		if(err.code == 'ECONNRESET'){
+			throw "Census API error: ECONNRESET"
+		}
 		throw err;
 	}
 }
