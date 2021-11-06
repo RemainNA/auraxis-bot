@@ -465,7 +465,7 @@ client.on('interactionCreate', async interaction => {
 					break;
 
 				case 'outfit':
-					res = await dashboard.createOutfit(interaction.channel, options.getString("tag"), options.getString('platform') || 'ps2:v2', SQLclient);
+					res = await dashboard.createOutfit(interaction.channel, options.getString("tag").toLowerCase(), options.getString('platform') || 'ps2:v2', SQLclient);
 					await interaction.editReply(res);
 					break;
 
@@ -492,7 +492,7 @@ client.on('interactionCreate', async interaction => {
 						break;
 	
 					case 'outfit':
-						res = await trackers.createOutfit(options.getString('tag'), options.getString('platform') || 'ps2:v2', interaction.guild, client, SQLclient);
+						res = await trackers.createOutfit(options.getString('tag').toLowerCase(), options.getString('platform') || 'ps2:v2', interaction.guild, client, SQLclient);
 						await interaction.editReply(res);
 						break;
 	
