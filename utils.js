@@ -83,7 +83,7 @@ async function censusRequest(platform, key, extension){
 			throw `Census API error: ${response.errorCode}`;
 		}
 		if(typeof(response[key]) === 'undefined'){
-			throw "Census API Error: undefined response";
+			throw "Census API error: undefined response";
 		}
 		return response[key];
 	}
@@ -92,10 +92,10 @@ async function censusRequest(platform, key, extension){
 			throw err;
 		}
 		if(err.message.indexOf('404') > -1){
-            throw "Census API Unreachable: 404";
+            throw "Census API unreachable: 404";
         }
 		if(err.name == 'ParseError'){
-			throw "Census API Unavailable: Redirect"
+			throw "Census API unavailable: Redirect"
 		}
 		if(err.code == 'ECONNRESET'){
 			throw "Census API error: ECONNRESET"
