@@ -165,9 +165,13 @@ Enables or disables displaying alerts and unlocks for the given continent, or "o
 
 Enables or disables automatically deleting alert notifications 5 minutes after they complete, and outfit activity notifications 5 minutes after they occur.
 
-### /tracker [server] [Population/Continents]
+### /tracker server [server] [Population/Continents]
 
 Creates a (by default) locked voice channel displaying server population or open continents.  The channel is automatically updated every 10 minutes.
+
+### /tracker outfit [tag] \<platform>
+
+Creates a (by default) locked voice channel displaying outfit online count.  The channel is automatically updated every 10 minutes.
 
 ### /dashboard server [server]
 

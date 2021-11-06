@@ -541,30 +541,55 @@ const data = [
 	},
 	{
 		name: 'tracker',
-		description: "Create an automatically updating voice channel showing server info",
+		description: "Create an automatically updating voice channel",
 		options: [{
-			name: 'server',
-			type: 'STRING',
-			description: 'Server name',
-			required: true,
-			choices: servers
-		},
-		{
-			name: 'type',
-			type: 'STRING',
-			description: 'Type of tracker channel',
-			required: true,
-			choices:[
-				{
-					name: 'Population',
-					value: 'population'
+			name: "server",
+			description: "Create an automatically updating voice channel displaying server info",
+			type: 'SUB_COMMAND',
+			options: [{
+				name: 'server',
+				type: 'STRING',
+				description: 'Server name',
+				required: true,
+				choices: servers
+			},
+			{
+				name: 'type',
+				type: 'STRING',
+				description: 'Type of tracker channel',
+				required: true,
+				choices:[
+					{
+						name: 'Population',
+						value: 'population'
+					},
+					{
+						name: 'Continents',
+						value: 'territory'
+					}
+				]
+			}]
+			},
+			{
+				name: "outfit",
+				description: "Create an automatically updating voice channel displaying outfit online count",
+				type: 'SUB_COMMAND',
+				options: [{
+					name: 'tag',
+					type: 'STRING',
+					description: 'Outfit tag',
+					required: true
 				},
 				{
-					name: 'Continents',
-					value: 'territory'
+					name: 'platform',
+					type: 'STRING',
+					description: "Which platform is the outfit on?  Defaults to PC",
+					required: false,
+					choices: platforms
 				}
-			]
-		}]
+				]
+			}
+		]
 	},
 	{
 		name: 'auraxiums',

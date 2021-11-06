@@ -123,7 +123,8 @@ const commandsManageChannels =
 /config audit\n\
 /config continent [continent] [enable/disable]\n\
 /config autodelete [enable/disable]\n\
-/tracker [server] [Population/Continents]\n\
+/tracker server [server] [Population/Continents]\n\
+/tracker outfit [tag] <platform>\n\
 /dashboard server [server]\n\
 /dashboard outfit [tag] <platform>"
 
@@ -484,8 +485,21 @@ client.on('interactionCreate', async interaction => {
 					return;
 				}
 				await interaction.deferReply();
-				res = await trackers.create(options.getString('type'), options.getString('server'), interaction.guild, client, SQLclient);
-				await interaction.editReply(res);
+				switch(options.getSubcommand()){
+					case 'server':
+						res = await trackers.create(options.getString('type'), options.getString('server'), interaction.guild, client, SQLclient);
+						await interaction.editReply(res);
+						break;
+	
+					case 'outfit':
+						res = await trackers.createOutfit(options.getString('tag'), options.getString('platform') || 'ps2:v2', interaction.guild, client, SQLclient);
+						await interaction.editReply(res);
+						break;
+	
+					default: 
+						interaction.editReply("Unknown command error");
+					}
+				
 				break;
 
 			case 'auraxiums':

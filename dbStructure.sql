@@ -73,6 +73,12 @@ CREATE TABLE IF NOT EXISTS tracker(
 	world TEXT NOT NULL
 );
 
+CREATE TABLE IF NOT EXISTS outfitTracker(
+	channel TEXT NOT NULL,
+	outfitid TEXT NOT NULL,
+	platform TEXT NOT NULL
+);
+
 CREATE TABLE IF NOT EXISTS bases(
 	concatKey TEXT PRIMARY KEY NOT NULL,
 	continent INT NOT NULL,

@@ -2,6 +2,7 @@
 
 const {getPopulation} = require('./population.js');
 const {territoryInfo} = require('./territory.js');
+const {onlineInfo} = require('./online.js');
 const {serverNames, serverIDs, servers, continentsKoltyr} = require('./utils.js');
 
 const populationName = async function(serverID){
@@ -21,6 +22,11 @@ const territoryName = async function(serverID){
 	return `${serverNames[serverID]}: ${openList}`;
 }
 
+const outfitName = async function(outfitID, platform){
+	const oInfo = await onlineInfo("", platform, outfitID);
+	return `${oInfo.alias}: ${oInfo.onlineCount} online`;
+}
+
 const updateChannelName = async function(name, channelID, discordClient, pgClient){
 	try{
 		let channel = await discordClient.channels.fetch(channelID);
@@ -32,6 +38,7 @@ const updateChannelName = async function(name, channelID, discordClient, pgClien
 		if(err.code == 10003 || err.code == 50013 || err.code == 50001){ //Deleted/unknown channel, no permissions, missing access
 			console.log(`Removed tracker channel ${channelID}`);
 			pgClient.query("DELETE FROM tracker WHERE channel = $1;", [channelID]);
+			pgClient.query("DELETE FROM outfittracker WHERE channel = $1;", [channelID]);
 		}
 		else{
 			console.log("Error in updateChannelName");
@@ -79,6 +86,38 @@ module.exports = {
 		}
 	},
 
+	createOutfit: async function(tag, platform, guild, discordClient, pgClient){
+		try{
+			const oInfo = await onlineInfo(tag, platform);
+			const name = `${oInfo.alias}: ${oInfo.onlineCount} online`;
+			
+			let newChannel = await guild.channels.create(name, {type: 'GUILD_VOICE', reason: 'New tracker channel', permissionOverwrites: [
+				{
+					id: guild.id,
+					deny: ['CONNECT'],
+					allow: ['VIEW_CHANNEL']
+				},
+				{
+					id: discordClient.user.id,
+					allow: ['CONNECT', 'MANAGE_CHANNELS', 'VIEW_CHANNEL']
+				}
+			]});
+
+			await pgClient.query("INSERT INTO outfittracker (channel, outfitid, platform) VALUES ($1, $2, $3);",
+			[newChannel.id, oInfo.outfitID, platform]);
+
+			return `Tracker channel created as ${newChannel.toString()}. This channel will automatically update once every 10 minutes. If you edit permissions make sure to keep "Manage Channel" enabled for Auraxis Bot.`;
+		}
+		catch(err){
+			if(err.message == "Missing Permissions"){
+				throw "Unable to create channel due to missing permissions. Ensure the bot has both \"Manage Channels\" and \"Connect\" permissions granted.";
+			}
+			else{
+				throw(err);
+			}		
+		}
+	},
+
 	update: async function(pgClient, discordClient, continentOnly = false){
 		for(const serverName of servers){
 			if(!continentOnly){
@@ -105,6 +144,26 @@ module.exports = {
 				console.log(`Error updating ${serverName} territory tracker`);
 				console.log(err);
 			}
+		}
+		try{
+			const outfits = await pgClient.query("SELECT DISTINCT outfitid, platform FROM outfittracker;");
+			for(const row of outfits.rows){
+				try{
+					const oName = await outfitName(row.outfitid, row.platform);
+					const channels = await pgClient.query("SELECT channel FROM outfittracker WHERE outfitid = $1 AND platform = $2;", [row.outfitid, row.platform]);
+					for(channelRow of channels.rows){
+						await updateChannelName(oName, channelRow.channel, discordClient, pgClient);
+					}
+				}
+				catch(err){
+					console.log(`Error updating outfit tracker ${row.outfitid}`);
+					console.log(err);
+				}
+				
+			}
+		}catch(err){
+			console.log(`Error pulling outfit trackers`);
+			console.log(err);
 		}
 	}
 }
