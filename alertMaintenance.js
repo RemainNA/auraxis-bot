@@ -3,15 +3,8 @@
 const Discord = require('discord.js');
 const got = require('got');
 const alerts = require('./static/alerts.json');
-const { serverNames } = require('./utils.js');
-
-const popLevels = {
-	1: "Dead",
-	2: "Low",
-	3: "Medium",
-	4: "High",
-	5: "Prime"
-}
+const {serverNames} = require('./utils.js');
+const {popLevels} = require('./alerts.js')
 
 const winnerFaction = {
 	1: "<:VS:818766983918518272> VS win",
