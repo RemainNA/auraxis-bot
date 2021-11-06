@@ -124,7 +124,8 @@ const commandsManageChannels =
 /config continent [continent] [enable/disable]\n\
 /config autodelete [enable/disable]\n\
 /tracker [server] [Population/Continents]\n\
-/dashboard [server]"
+/dashboard server [server]\n\
+/dashboard outfit [tag] <platform>"
 
 const links = '\n\
 [GitHub page & FAQ](https://github.com/RemainNA/auraxis-bot)\n\
@@ -456,8 +457,21 @@ client.on('interactionCreate', async interaction => {
 					return;
 				}
 				await interaction.deferReply();
-				res = await dashboard.create(interaction.channel, options.getString("server"), SQLclient);
-				await interaction.editReply(res);
+				switch(options.getSubcommand()){
+				case 'server':
+					res = await dashboard.createServer(interaction.channel, options.getString("server"), SQLclient);
+					await interaction.editReply(res);
+					break;
+
+				case 'outfit':
+					res = await dashboard.createOutfit(interaction.channel, options.getString("tag"), options.getString('platform') || 'ps2:v2', SQLclient);
+					await interaction.editReply(res);
+					break;
+
+				default: 
+					interaction.editReply("Unknown command error");
+				}
+				
 				break;
 
 			case 'tracker':

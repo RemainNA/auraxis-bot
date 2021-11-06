@@ -5,6 +5,9 @@ const messageHandler = require('./messageHandler.js');
 const {getPopulation} = require('./population.js');
 const {alertInfo} = require('./alerts.js');
 const {territoryInfo, continentBenefit} = require('./territory.js');
+const {onlineInfo, totalLength} = require('./online.js');
+const {ownedBases, centralBases} = require('./outfit.js');
+const bases = require('./static/bases.json');
 const {serverNames, serverIDs, servers, continents} = require('./utils.js');
 
 const serverStatus = async function(serverID){
@@ -76,6 +79,90 @@ const serverStatus = async function(serverID){
 	return resEmbed;
 }
 
+const outfitStatus = async function(outfitID, platform, pgClient){
+	const oInfo = await onlineInfo("", platform, outfitID);
+	let resEmbed = new MessageEmbed();
+	if(oInfo.alias != ""){
+		resEmbed.setTitle(`[${oInfo.alias}] ${oInfo.name}`);
+		if(platform == 'ps2:v2'){
+			resEmbed.setURL(`http://ps2.fisu.pw/outfit/?name=${oInfo.alias}`);
+		}
+		else if(platform == 'ps2ps4us:v2'){
+			resEmbed.setURL(`http://ps4us.ps2.fisu.pw/outfit/?name=${oInfo.alias}`);
+		}
+		else if(platform == 'ps2ps4eu:v2'){
+			resEmbed.setURL(`http://ps4eu.ps2.fisu.pw/outfit/?name=${oInfo.alias}`);
+		}
+	}
+	else{
+		resEmbed.setTitle(oInfo.name);
+	}
+	resEmbed.setDescription(`${oInfo.onlineCount}/${oInfo.memberCount} online`);
+
+	switch (oInfo.faction){
+		case "1":
+			resEmbed.setColor('PURPLE');
+			break;
+		case "2":
+			resEmbed.setColor('BLUE');
+			break;
+		case "3":
+			resEmbed.setColor('RED');
+			break;
+		default:
+			resEmbed.setColor('GREY');
+	}
+
+	for(let i = 0; i < 8; i++){
+		if(oInfo.onlineMembers[i].length > 0){
+			if(totalLength(oInfo.onlineMembers[i]) <= 1024){
+				resEmbed.addField(oInfo.rankNames[i]+" ("+oInfo.onlineMembers[i].length+")", `${oInfo.onlineMembers[i]}`.replace(/,/g, '\n'), true);
+			}
+			else{
+				resEmbed.addField(oInfo.rankNames[i]+" ("+oInfo.onlineMembers[i].length+")", "Too many to display", true);
+			}
+		}
+	}
+
+	const oBases = await ownedBases(outfitID, oInfo.world, pgClient);
+	let auraxium = 0;
+	let synthium = 0;
+	let polystellarite = 0;
+	let ownedNames = [];
+	for(const base of oBases){
+		if(base.facility in bases){
+			const baseInfo = bases[base.facility];
+			ownedNames.push(baseInfo.name);
+			if(centralBases.includes(base.facility)){
+				polystellarite += 2;
+			}
+			else if(baseInfo.type == "Small Outpost"){
+				auraxium += 5;
+			}
+			else if(baseInfo.type == "Large Outpost"){
+				auraxium += 25;
+			}
+			else if(baseInfo.type == "Construction Outpost"){
+				synthium += 3;
+			}
+			else if(["Bio Lab", "Amp Station", "Tech Plant", "Containment Site"].includes(baseInfo.type)){
+				synthium += 8;
+			}
+		}
+	}
+	if((auraxium + synthium + polystellarite) > 0){ //Recognized bases are owned
+		resEmbed.addField('Bases owned', `${ownedNames}`.replace(/,/g, '\n'));
+		resEmbed.addField('<:Auraxium:818766792376713249>', `+${auraxium/5}/min`, true);
+		resEmbed.addField('<:Synthium:818766858865475584>', `+${synthium/5}/min`, true);
+		resEmbed.addField('<:Polystellarite:818766888238448661>', `+${polystellarite/5}/min`, true);
+	}
+
+	resEmbed.setTimestamp();
+	resEmbed.setFooter("Updated every 5 minutes");
+
+	return resEmbed;
+}
+
 const editMessage = async function(channelID, messageID, newDash, pgClient, discordClient){
 	try{
 		const channel = await discordClient.channels.fetch(channelID);
@@ -86,6 +173,7 @@ const editMessage = async function(channelID, messageID, newDash, pgClient, disc
 		if(err?.code == 10008 || err?.code == 10003 || err?.code == 50001){ //Unknown message/channel or missing access
 			console.log("Deleted message from dashboard table");
 			pgClient.query("DELETE FROM dashboard WHERE messageid = $1;", [messageID]);
+			pgClient.query("DELETE FROM outfitDashboard WHERE messageid = $1;", [messageID]);
 		}
 		else{
 			console.log(err);
@@ -94,15 +182,28 @@ const editMessage = async function(channelID, messageID, newDash, pgClient, disc
 }
 
 module.exports = {
-	create: async function(channel, serverName, pgClient){
-		let resEmbed = await serverStatus(serverIDs[serverName]);
-		let messageID = await messageHandler.send(channel, {embeds: [resEmbed]}, "Create dashboard", true);
+	createServer: async function(channel, serverName, pgClient){
+		const resEmbed = await serverStatus(serverIDs[serverName]);
+		const messageID = await messageHandler.send(channel, {embeds: [resEmbed]}, "Create server dashboard", true);
 		if(messageID == -1){
 			throw "Error creating dashboard, please check that the bot has permission to post in this channel.";
 		}
 		await pgClient.query("INSERT INTO dashboard (concatkey, channel, messageid, world) VALUES ($1, $2, $3, $4)\
 		ON CONFLICT(concatkey) DO UPDATE SET messageid = $3;",
 		[`${channel.id}-${serverName}`, channel.id, messageID, serverName]);
+		return "Dashboard successfully created.  It will be automatically updated every 5 minutes.";
+	},
+
+	createOutfit: async function(channel, oTag, platform, pgClient){
+		const oInfo = await onlineInfo(oTag, platform);
+		const resEmbed = await outfitStatus(oInfo.outfitID, platform, pgClient);
+		const messageID = await messageHandler.send(channel, {embeds: [resEmbed]}, "Create outfit dashboard", true);
+		if(messageID == -1){
+			throw "Error creating dashboard, please check that the bot has permission to post in this channel.";
+		}
+		await pgClient.query("INSERT INTO outfitDashboard (concatkey, channel, messageid, outfitID, platform) VALUES ($1, $2, $3, $4, $5)\
+		ON CONFLICT(concatkey) DO UPDATE SET messageid = $3;",
+		[`${channel.id}-${oInfo.outfitID}`, channel.id, messageID, oInfo.outfitID, platform]);
 		return "Dashboard successfully created.  It will be automatically updated every 5 minutes.";
 	},
 
@@ -119,6 +220,26 @@ module.exports = {
 				console.log(`Error updating ${serverName} dashboard`);
 				console.log(err);
 			}
+		}
+		try{
+			const outfits = await pgClient.query('SELECT DISTINCT outfitID, platform FROM outfitDashboard;');
+			for(const row of outfits.rows){
+				try{
+					const status = await outfitStatus(row.outfitid, row.platform, pgClient);
+					const channels = await pgClient.query('SELECT * FROM outfitdashboard WHERE outfitid = $1 AND platform = $2', [row.outfitid, row.platform]);
+					for(const channelRow of channels.rows){
+						await editMessage(channelRow.channel, channelRow.messageid, status, pgClient, discordClient);
+					}
+				}
+				catch(err){
+					console.log(`Error updating outfit dashboard ${row.platform}: ${row.outfitid}`);
+					console.log(err);
+				}
+			}
+		}
+		catch(err){
+			console.log(`Error pulling outfit dashboards`);
+			console.log(err);
 		}
 	}
 }

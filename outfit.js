@@ -192,5 +192,8 @@ module.exports = {
 		}
 
 		return resEmbed;
-	}
+	},
+
+	ownedBases: ownedBases,
+	centralBases: centralBases
 }

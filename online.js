@@ -1,8 +1,12 @@
 const Discord = require('discord.js');
 const { badQuery, censusRequest } = require('./utils.js');
 
-const onlineInfo = async function(oTag, platform){
-	let response = await censusRequest(platform, 'outfit_list', `/outfit?alias_lower=${oTag}&c:resolve=member_online_status,rank,member_character_name&c:join=character^on:leader_character_id^to:character_id&c:join=characters_world^on:leader_character_id^to:character_id`);
+const onlineInfo = async function(oTag, platform, outfitID = null){
+	let url = `/outfit?alias_lower=${oTag}&c:resolve=member_online_status,rank,member_character_name&c:join=character^on:leader_character_id^to:character_id&c:join=characters_world^on:leader_character_id^to:character_id`;
+	if(outfitID != null){
+		url = `/outfit/${outfitID}?c:resolve=member_online_status,rank,member_character_name&c:join=character^on:leader_character_id^to:character_id&c:join=characters_world^on:leader_character_id^to:character_id`
+	}
+	let response = await censusRequest(platform, 'outfit_list', url);
 	if(response.length == 0){
 		throw `${oTag} not found`;
 	}
@@ -18,7 +22,9 @@ const onlineInfo = async function(oTag, platform){
 		name: data.name,
 		alias: data.alias,
 		memberCount: data.member_count,
-		onlineCount: 0
+		onlineCount: 0,
+		world: data.leader_character_id_join_characters_world.world_id,
+		outfitID: data.outfit_id
 	}
 	if(typeof(data.leader_character_id_join_character) !== 'undefined'){
 		resObj.faction = data.leader_character_id_join_character.faction_id;
@@ -116,5 +122,8 @@ module.exports = {
 			}
 		}
 		return resEmbed;
-	}
+	},
+
+	onlineInfo: onlineInfo,
+	totalLength: totalLength
 }

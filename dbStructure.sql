@@ -59,6 +59,14 @@ CREATE TABLE IF NOT EXISTS dashboard(
 	world TEXT NOT NULL
 );
 
+CREATE TABLE IF NOT EXISTS outfitDashboard(
+	concatKey TEXT NOT NULL UNIQUE,
+	channel TEXT NOT NULL,
+	messageid TEXT PRIMARY KEY NOT NULL,
+	outfitid BIGINT NOT NULL,
+	platform TEXT NOT NULL
+);
+
 CREATE TABLE IF NOT EXISTS tracker(
 	channel TEXT NOT NULL,
 	trackerType TEXT NOT NULL,

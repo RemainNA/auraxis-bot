@@ -169,9 +169,13 @@ Enables or disables automatically deleting alert notifications 5 minutes after t
 
 Creates a (by default) locked voice channel displaying server population or open continents.  The channel is automatically updated every 10 minutes.
 
-### /dashboard [server]
+### /dashboard server [server]
 
 Posts a message with server population, territory control, and active alerts.  This message is automatically updated every 5 minutes.  Limit 1 dashboard per server per channel.
+
+### /dashboard outfit [tag] \<platform>
+
+Posts a message with outfit online members, owned bases, and resource generation.  This message is automatically updated every 5 minutes.  Limit 1 dashboard per outfit per channel.
 
 ## FAQ
 

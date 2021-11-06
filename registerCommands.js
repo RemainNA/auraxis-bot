@@ -505,14 +505,39 @@ const data = [
 	},
 	{
 		name: 'dashboard',
-		description: "Create an automatically updating dashboard displaying server status",
+		description: "Create an automatically updating dashboard",
 		options: [{
-			name: 'server',
-			type: 'STRING',
-			description: 'Server name',
-			required: true,
-			choices: servers
-		}]
+			name: "server",
+			description: "Create an automatically updating dashboard displaying server status",
+			type: 'SUB_COMMAND',
+			options: [{
+				name: 'server',
+				type: 'STRING',
+				description: 'Server name',
+				required: true,
+				choices: servers
+			}]
+		},
+		{
+			name: "outfit",
+			description: "Create an automatically updating dashboard displaying outfit status",
+			type: 'SUB_COMMAND',
+			options: [{
+				name: 'tag',
+				type: 'STRING',
+				description: 'Outfit tag',
+				required: true
+			},
+			{
+				name: 'platform',
+				type: 'STRING',
+				description: "Which platform is the outfit on?  Defaults to PC",
+				required: false,
+				choices: platforms
+			}
+			]
+		}
+		]
 	},
 	{
 		name: 'tracker',
