@@ -3,7 +3,7 @@
 const {MessageEmbed} = require('discord.js');
 const messageHandler = require('./messageHandler.js');
 const {getPopulation} = require('./population.js');
-const {alertInfo} = require('./alerts.js');
+const {alertInfo, popLevels} = require('./alerts.js');
 const {territoryInfo, continentBenefit} = require('./territory.js');
 const {onlineInfo, totalLength} = require('./online.js');
 const {ownedBases, centralBases} = require('./outfit.js');
@@ -65,7 +65,7 @@ const serverStatus = async function(serverID){
 		let alertField = "";
 		for(const alert of alerts){
 			alertField += `**[${alert.name}](https://ps2alerts.com/alert/${alert.instanceId}?utm_source=auraxis-bot&utm_medium=discord&utm_campaign=partners)**\
-			\n${alert.description}\nStarted at <t:${alert.timeStart}:t>\nEnds <t:${alert.timeEnd}:R>\n\n`;
+			\n${alert.description}\nStarted at <t:${alert.timeStart}:t>\nEnds <t:${alert.timeEnd}:R>\nPopulation: ${popLevels[alert.bracket]}\n\n`;
 		}
 		resEmbed.addField("Alerts", alertField, true);
 	}

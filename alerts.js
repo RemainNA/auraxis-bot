@@ -101,5 +101,6 @@ module.exports = {
 		return sendEmbed;
 	},
 
-	alertInfo: alertInfo
+	alertInfo: alertInfo,
+	popLevels: popLevels
 }
