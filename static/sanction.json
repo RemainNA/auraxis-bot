@@ -2584,6 +2584,11 @@
         "name": "Cert Fountain",
         "sanction": ""
     },
+    "6011430": {
+        "category": "Infantry Abilities",
+        "name": "Jack Johnson and Tom O'Leary",
+        "sanction": ""
+    },
     "6009460": {
         "category": "Infantry Abilities",
         "name": "Metal Detector",
@@ -5159,6 +5164,11 @@
         "name": "Skyguard",
         "sanction": "armor"
     },
+    "6011562": {
+        "category": "LMG",
+        "name": "\"\"\"Treasured\"\" Orion VS54\"",
+        "sanction": "infantry"
+    },
     "1894": {
         "category": "LMG",
         "name": "Betelgeuse 54-A",
@@ -5602,6 +5612,11 @@
     "803826": {
         "category": "Pistol",
         "name": "NS-44 Commissioner AE",
+        "sanction": "infantry"
+    },
+    "6011555": {
+        "category": "Pistol",
+        "name": "NS-44AE Mutiny",
         "sanction": "infantry"
     },
     "75172": {
