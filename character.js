@@ -301,8 +301,11 @@ module.exports = {
         }
 
         // Decal thumbnail
-        if(cInfo.prestige > 0){
+        if(cInfo.prestige == "1"){
             resEmbed.setThumbnail("http://census.daybreakgames.com/files/ps2/images/static/88685.png");
+        }
+        else if (cInfo.prestige == "2"){
+            resEmbed.setThumbnail("http://census.daybreakgames.com/files/ps2/images/static/94469.png");
         }
         else if (parseInt(cInfo.br) > 100){
             resEmbed.setThumbnail(`http://census.daybreakgames.com/files/ps2/images/static/${85033+(parseInt(cInfo.br)-100)}.png`);

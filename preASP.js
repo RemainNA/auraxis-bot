@@ -16,7 +16,7 @@ const basicInfo = async function(cName, platform){
 		throw `${data.name.first} has not yet unlocked ASP`;
 	}
 	let br = Number(data.battle_rank.value);
-	let availableTokens = 1+Math.floor(br/25);
+	let availableTokens = 1 + Math.floor(br/25) + 4 * (Number.parseInt(data.prestige_level) - 1);
 	let aspTitle = false;
 	let decals = []; //count br 101-120 decals
 	let tokens = "";
