@@ -26,13 +26,6 @@ const continents = [
 	"Indar",
 	"Hossin",
 	"Amerish",
-	"Esamir"
-]
-
-const continentsKoltyr = [
-	"Indar",
-	"Hossin",
-	"Amerish",
 	"Esamir",
 	"Koltyr"
 ]
@@ -108,7 +101,6 @@ module.exports = {
 	servers: servers,
 	serversNoJaegar: serversNoJaegar,
 	continents: continents,
-	continentsKoltyr: continentsKoltyr,
 	serverNames: serverNames,
 	serverIDs: serverIDs,
 	badQuery: badQuery,

@@ -8,7 +8,7 @@ const {territoryInfo, continentBenefit} = require('./territory.js');
 const {onlineInfo, totalLength} = require('./online.js');
 const {ownedBases, centralBases} = require('./outfit.js');
 const bases = require('./static/bases.json');
-const {serverNames, serverIDs, servers, continentsKoltyr} = require('./utils.js');
+const {serverNames, serverIDs, servers, continents} = require('./utils.js');
 
 const serverStatus = async function(serverID){
 	let resEmbed = new MessageEmbed();
@@ -32,7 +32,7 @@ const serverStatus = async function(serverID){
 	const territory = await territoryInfo(serverID);
 	let territoryField = "";
 
-	for (const continent of continentsKoltyr){
+	for (const continent of continents){
 		const totalTer = territory[continent].vs + territory[continent].nc + territory[continent].tr;
 		if(totalTer == 0){
 			continue; // This accounts for Esamir being disabled on PS4

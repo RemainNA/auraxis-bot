@@ -1,7 +1,7 @@
 //This file implements functions to check which continents are open, update base ownership, and send unlock notifications
 
 const {territoryInfo} = require('./territory.js');
-const {serverIDs, serverNames, servers, continentsKoltyr} = require('./utils.js');
+const {serverIDs, serverNames, servers, continents} = require('./utils.js');
 const {send} = require('./messageHandler.js');
 const {unsubscribeAll} = require('./subscriptions.js');
 const {Permissions} = require('discord.js');
@@ -53,7 +53,7 @@ module.exports = {
 			try{
 				const territory = await territoryInfo(serverIDs[server]);
 				const currentStatus = await pgClient.query("SELECT * FROM openContinents WHERE world = $1;", [server]);
-				for(const cont of continentsKoltyr){
+				for(const cont of continents){
 					if(territory[cont].locked != -1){
 						await pgClient.query("DELETE FROM bases WHERE continent = $1 AND world = $2;",
 						[contIDs[cont], serverIDs[server]]);
