@@ -4789,6 +4789,11 @@
         "name": "The Slasher",
         "sanction": "none"
     },
+    "6011556": {
+        "category": "Knife",
+        "name": "The Swashbuckler",
+        "sanction": "none"
+    },
     "5209": {
         "category": "Liberator Belly Weapon",
         "name": "AP30 Shredder",
@@ -5163,6 +5168,16 @@
         "category": "Lightning Primary Weapon",
         "name": "Skyguard",
         "sanction": "armor"
+    },
+    "6011563": {
+        "category": "LMG",
+        "name": "\"\"\"Treasured\"\" LA-1 Anchor\"",
+        "sanction": "infantry"
+    },
+    "6011564": {
+        "category": "LMG",
+        "name": "\"\"\"Treasured\"\" MSW-R\"",
+        "sanction": "infantry"
     },
     "6011562": {
         "category": "LMG",
