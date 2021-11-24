@@ -73,6 +73,9 @@ async function censusRequest(platform, key, extension){
 			throw response.error;
 		}
 		if(typeof(response.errorCode) !== 'undefined'){
+			if(response.errorCode == "SERVER_ERROR" && response.errorMessage){
+				throw `Census API server error: ${response.errorMessage}`;
+			}
 			throw `Census API error: ${response.errorCode}`;
 		}
 		if(typeof(response[key]) === 'undefined'){
