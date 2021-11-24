@@ -113,13 +113,19 @@ const outfitStatus = async function(outfitID, platform, pgClient){
 			resEmbed.setColor('GREY');
 	}
 
-	for(let i = 0; i < 8; i++){
-		if(oInfo.onlineMembers[i].length > 0){
-			if(totalLength(oInfo.onlineMembers[i]) <= 1024){
-				resEmbed.addField(oInfo.rankNames[i]+" ("+oInfo.onlineMembers[i].length+")", `${oInfo.onlineMembers[i]}`.replace(/,/g, '\n'), true);
-			}
-			else{
-				resEmbed.addField(oInfo.rankNames[i]+" ("+oInfo.onlineMembers[i].length+")", "Too many to display", true);
+	if(oInfo.onlineCount == "Online member count unavailable"){
+		resEmbed.addField("Online member count unavailable", "-");
+		resEmbed.setDescription(`?/${oInfo.memberCount} online`);
+	}
+	else{
+		for(let i = 0; i < 8; i++){
+			if(oInfo.onlineMembers[i].length > 0){
+				if(totalLength(oInfo.onlineMembers[i]) <= 1024){
+					resEmbed.addField(oInfo.rankNames[i]+" ("+oInfo.onlineMembers[i].length+")", `${oInfo.onlineMembers[i]}`.replace(/,/g, '\n'), true);
+				}
+				else{
+					resEmbed.addField(oInfo.rankNames[i]+" ("+oInfo.onlineMembers[i].length+")", "Too many to display", true);
+				}
 			}
 		}
 	}
