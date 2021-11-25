@@ -496,7 +496,7 @@ module.exports = {
         if(payload.character_id != null){
             logEvent(payload, environment, pgClient, discordClient)
                 .catch(error => {
-                    if(typeof(error) == "string" && error != "Census API currently unavailable" && error != "Census API Unavailable: Redirect"){
+                    if(typeof(error) == "string" && error != "Census API currently unavailable" && error != "Census API unavailable: Redirect"){
                         console.log("Login error: "+error);
                     }
                 });
