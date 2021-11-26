@@ -32,7 +32,8 @@ const openContinents = require('./openContinents.js');
 const auraxiums = require('./auraxiums.js');
 const leaderboard = require('./leaderboard.js');
 const directives = require('./directives.js');
-const {badQuery} = require('./utils.js')
+const {badQuery} = require('./utils.js');
+const outfitMaintenance = require('./outfitMaintenance.js');
 
 require('dotenv').config();
 
@@ -72,6 +73,7 @@ client.on('ready', async () => {
 		if(twitterAvail){
 			twitterListener.start(SQLclient, client);
 		}
+		outfitMaintenance.update(SQLclient);
 		alertMaintenance.update(SQLclient, client);
 		deleteMessages.run(SQLclient, client);
 		openContinents.check(SQLclient, client);
