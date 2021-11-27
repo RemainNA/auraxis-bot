@@ -26,7 +26,8 @@ const getPopulation = async function(world){
 			vs: response.result[0].vs,
 			nc: response.result[0].nc,
 			tr: response.result[0].tr,
-			ns: response.result[0].ns
+			ns: response.result[0].ns,
+			world: world
 		}
 		return resObj;
 	}
@@ -64,9 +65,10 @@ module.exports = {
 		if(server == 'all'){
 			let resEmbed = new Discord.MessageEmbed();
 			let total = 0;
-			for(const serverName of servers){
-				const pop = await getPopulation(serverIDs[serverName]);
-				const normalized = serverNames[serverIDs[serverName]];
+			//Construct an array of promises and await them all in parallel
+			const results = await Promise.all(Array.from(servers, x=> getPopulation(serverIDs[x])))
+			for(const pop of results){
+				const normalized = serverNames[pop.world];
 				const serverTotal = pop.vs + pop.nc + pop.tr + pop.ns;
 				const vsPc = Number.parseFloat((pop.vs/(serverTotal||1))*100).toPrecision(3);
 				const ncPc = Number.parseFloat((pop.nc/(serverTotal||1))*100).toPrecision(3);
