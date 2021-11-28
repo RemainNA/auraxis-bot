@@ -592,17 +592,26 @@ client.on('interactionCreate', async interaction => {
 		}
 	}
 	else if(interaction.isAutocomplete()){
-		if(interaction.commandName == 'stats'){
-			const weaponsList = await stats.partialMatches(interaction.options.getString('weapon'));
-			await interaction.respond(weaponsList);
+		try{
+			if(interaction.commandName == 'stats'){
+				const weaponsList = await stats.partialMatches(interaction.options.getString('weapon'));
+				await interaction.respond(weaponsList);
+			}
+			else if(interaction.commandName == 'weapon'){
+				const weaponsList = await weapon.partialMatches(interaction.options.getString('query'));
+				await interaction.respond(weaponsList);
+			}
+			else if(interaction.commandName == 'implant'){
+				const implantList = await implant.partialMatches(interaction.options.getString('query'));
+				await interaction.respond(implantList);
+			}
 		}
-		else if(interaction.commandName == 'weapon'){
-			const weaponsList = await weapon.partialMatches(interaction.options.getString('query'));
-			await interaction.respond(weaponsList);
-		}
-		else if(interaction.commandName == 'implant'){
-			const implantList = await implant.partialMatches(interaction.options.getString('query'));
-			await interaction.respond(implantList);
+		catch(err){
+			if(err.code == 10062){
+				return;
+			}
+			console.log("Autocomplete error");
+			console.log(err);
 		}
 	}
 })
