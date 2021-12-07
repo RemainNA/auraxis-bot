@@ -51,7 +51,7 @@ function listen(pgClient, discordClient){
             setTimeout(function() {
                 pcTimeout++;
                 listen(pgClient, discordClient);
-            }, 1000 * (2 ** pcTimeout));
+            }, Math.min(1000 * (2 ** pcTimeout), 300000));
         })
     
     }
@@ -85,7 +85,7 @@ function listen(pgClient, discordClient){
             setTimeout(function() {
                 usTimeout++;
                 listen(pgClient, discordClient);
-            }, 1000 * (2 ** usTimeout));
+            }, Math.min(1000 * (2 ** usTimeout), 300000));
         })
 
     }
@@ -119,7 +119,7 @@ function listen(pgClient, discordClient){
             setTimeout(function() {
                 euTimeout++;
                 listen(pgClient, discordClient);
-            }, 1000 * (2 ** euTimeout));
+            }, Math.min(1000 * (2 ** euTimeout), 300000));
         })
     }
 }
