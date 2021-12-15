@@ -36,8 +36,8 @@ const info = async function(){
 		else if(world.name.toLowerCase().includes("soltech")){
 			status["SolTech"] = world.last_reported_state;
 		}
-		else if(world.name.toLowerCase().includes("jaegar")){
-			status["Jaegar"] = world.last_reported_state;
+		else if(world.name.toLowerCase().includes("jaeger")){
+			status["Jaeger"] = world.last_reported_state;
 		}
 		else if(world.name.toLowerCase().includes("genudine")){
 			status["Genudine"] = world.last_reported_state;

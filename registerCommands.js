@@ -23,7 +23,7 @@ const platforms = [
 	}
 ]
 
-const serversNoJaegar = [
+const serversNoJaeger = [
 	{
 		name: "Connery",
 		value: "connery"
@@ -54,7 +54,7 @@ const serversNoJaegar = [
 	}
 ]
 
-const servers = serversNoJaegar.concat([{name:"Jaegar", value: "jaegar"}]);
+const servers = serversNoJaeger.concat([{name:"Jaeger", value: "jaeger"}]);
 
 const data = [
 	{
@@ -447,7 +447,7 @@ const data = [
 			type: 'STRING',
 			description: 'Server name',
 			required: true,
-			choices: serversNoJaegar
+			choices: serversNoJaeger
 		}]
 	},
 	{

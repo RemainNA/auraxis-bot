@@ -6,17 +6,7 @@ const servers = [
     "miller",
     "cobalt",
     "emerald",
-	"jaegar",
-    "soltech",
-    "genudine",
-    "ceres"
-]
-
-const serversNoJaegar = [
-	"connery",
-    "miller",
-    "cobalt",
-    "emerald",
+	"jaeger",
     "soltech",
     "genudine",
     "ceres"
@@ -35,7 +25,7 @@ const serverNames = {
 	10: "Miller",
 	13: "Cobalt",
 	17: "Emerald",
-	19: "Jaegar",
+	19: "Jaeger",
 	40: "SolTech",
 	1000: "Genudine",
 	2000: "Ceres"
@@ -46,7 +36,7 @@ const serverIDs = {
     "miller": 10,
     "cobalt": 13,
     "emerald": 17,
-    "jaegar": 19,
+    "jaeger": 19,
     "soltech": 40,
     "genudine": 1000,
     "ceres": 2000
@@ -102,7 +92,6 @@ async function censusRequest(platform, key, extension){
 
 module.exports = {
 	servers: servers,
-	serversNoJaegar: serversNoJaegar,
 	continents: continents,
 	serverNames: serverNames,
 	serverIDs: serverIDs,
