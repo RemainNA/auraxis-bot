@@ -1,4 +1,14 @@
 {
+    "6002421": {
+        "category": "",
+        "name": "Admin: Base Gun",
+        "sanction": "none"
+    },
+    "6002429": {
+        "category": "",
+        "name": "BaseSmash: Crystal Gun",
+        "sanction": "none"
+    },
     "15016": {
         "category": "AA MAX (Left)",
         "name": "NS-10 Burster",
@@ -380,6 +390,11 @@
         "sanction": "gunner"
     },
     "6005538": {
+        "category": "ANT Top Turret",
+        "name": "M20 Basilisk",
+        "sanction": "gunner"
+    },
+    "6011606": {
         "category": "ANT Top Turret",
         "name": "M20 Basilisk",
         "sanction": "gunner"
@@ -1719,6 +1734,36 @@
         "name": "Hunter QCX-P",
         "sanction": "none"
     },
+    "6009928": {
+        "category": "Dervish Nose Cannon",
+        "name": "DV-21 Lotus",
+        "sanction": "air"
+    },
+    "6009860": {
+        "category": "Dervish Nose Cannon",
+        "name": "DV-22 Raycaster",
+        "sanction": "air"
+    },
+    "6009927": {
+        "category": "Dervish Nose Cannon",
+        "name": "DV-XE",
+        "sanction": "air"
+    },
+    "6009861": {
+        "category": "Dervish Top Turret",
+        "name": "DV-22T Lightweaver",
+        "sanction": "gunner"
+    },
+    "6009991": {
+        "category": "Dervish Top Turret",
+        "name": "DV-LAT Pixie",
+        "sanction": "gunner"
+    },
+    "6009992": {
+        "category": "Dervish Top Turret",
+        "name": "DV-XAT",
+        "sanction": "gunner"
+    },
     "1044": {
         "category": "Explosive",
         "name": "Bouncing Betty",
@@ -2584,11 +2629,6 @@
         "name": "Cert Fountain",
         "sanction": ""
     },
-    "6011430": {
-        "category": "Infantry Abilities",
-        "name": "Jack Johnson and Tom O'Leary",
-        "sanction": ""
-    },
     "6009460": {
         "category": "Infantry Abilities",
         "name": "Metal Detector",
@@ -3364,9 +3404,114 @@
         "name": "IPC Targeting Dart",
         "sanction": "none"
     },
+    "6011430": {
+        "category": "Infantry Abilities",
+        "name": "Jack Johnson and Tom O'Leary",
+        "sanction": "none"
+    },
     "6009047": {
         "category": "Infantry Abilities",
         "name": "Javelin XS-1",
+        "sanction": "none"
+    },
+    "6011574": {
+        "category": "Infantry Abilities",
+        "name": "Jump Booster 1",
+        "sanction": "none"
+    },
+    "6011712": {
+        "category": "Infantry Abilities",
+        "name": "Jump Booster 1",
+        "sanction": "none"
+    },
+    "6011717": {
+        "category": "Infantry Abilities",
+        "name": "Jump Booster 1",
+        "sanction": "none"
+    },
+    "6011722": {
+        "category": "Infantry Abilities",
+        "name": "Jump Booster 1",
+        "sanction": "none"
+    },
+    "6011585": {
+        "category": "Infantry Abilities",
+        "name": "Jump Booster 2",
+        "sanction": "none"
+    },
+    "6011713": {
+        "category": "Infantry Abilities",
+        "name": "Jump Booster 2",
+        "sanction": "none"
+    },
+    "6011718": {
+        "category": "Infantry Abilities",
+        "name": "Jump Booster 2",
+        "sanction": "none"
+    },
+    "6011723": {
+        "category": "Infantry Abilities",
+        "name": "Jump Booster 2",
+        "sanction": "none"
+    },
+    "6011586": {
+        "category": "Infantry Abilities",
+        "name": "Jump Booster 3",
+        "sanction": "none"
+    },
+    "6011714": {
+        "category": "Infantry Abilities",
+        "name": "Jump Booster 3",
+        "sanction": "none"
+    },
+    "6011719": {
+        "category": "Infantry Abilities",
+        "name": "Jump Booster 3",
+        "sanction": "none"
+    },
+    "6011724": {
+        "category": "Infantry Abilities",
+        "name": "Jump Booster 3",
+        "sanction": "none"
+    },
+    "6011587": {
+        "category": "Infantry Abilities",
+        "name": "Jump Booster 4",
+        "sanction": "none"
+    },
+    "6011715": {
+        "category": "Infantry Abilities",
+        "name": "Jump Booster 4",
+        "sanction": "none"
+    },
+    "6011720": {
+        "category": "Infantry Abilities",
+        "name": "Jump Booster 4",
+        "sanction": "none"
+    },
+    "6011725": {
+        "category": "Infantry Abilities",
+        "name": "Jump Booster 4",
+        "sanction": "none"
+    },
+    "6011588": {
+        "category": "Infantry Abilities",
+        "name": "Jump Booster 5",
+        "sanction": "none"
+    },
+    "6011716": {
+        "category": "Infantry Abilities",
+        "name": "Jump Booster 5",
+        "sanction": "none"
+    },
+    "6011721": {
+        "category": "Infantry Abilities",
+        "name": "Jump Booster 5",
+        "sanction": "none"
+    },
+    "6011726": {
+        "category": "Infantry Abilities",
+        "name": "Jump Booster 5",
         "sanction": "none"
     },
     "6002496": {
@@ -4067,6 +4212,31 @@
     "6005654": {
         "category": "Infantry Abilities",
         "name": "Reinforcements Module",
+        "sanction": "none"
+    },
+    "6011576": {
+        "category": "Infantry Abilities",
+        "name": "Repair Drone 1",
+        "sanction": "none"
+    },
+    "6011593": {
+        "category": "Infantry Abilities",
+        "name": "Repair Drone 2",
+        "sanction": "none"
+    },
+    "6011594": {
+        "category": "Infantry Abilities",
+        "name": "Repair Drone 3",
+        "sanction": "none"
+    },
+    "6011595": {
+        "category": "Infantry Abilities",
+        "name": "Repair Drone 4",
+        "sanction": "none"
+    },
+    "6011596": {
+        "category": "Infantry Abilities",
+        "name": "Repair Drone 5",
         "sanction": "none"
     },
     "804269": {
@@ -5184,6 +5354,11 @@
         "name": "\"\"\"Treasured\"\" Orion VS54\"",
         "sanction": "infantry"
     },
+    "6011565": {
+        "category": "LMG",
+        "name": "\"\"\"Treasured\"\" XMG-100\"",
+        "sanction": "infantry"
+    },
     "1894": {
         "category": "LMG",
         "name": "Betelgeuse 54-A",
@@ -5528,6 +5703,11 @@
         "category": "Mosquito Wing Mount",
         "name": "Tomcat A2AM Pods",
         "sanction": "none"
+    },
+    "6011734": {
+        "category": "Pistol",
+        "name": "NS-1999 Party Pistol",
+        "sanction": ""
     },
     "6006090": {
         "category": "Pistol",
@@ -5983,6 +6163,11 @@
         "category": "Reaver Wing Mount",
         "name": "Tomcat A2AM Pods",
         "sanction": "none"
+    },
+    "6011735": {
+        "category": "Rocket Launcher",
+        "name": "NS Crystal Scorpion",
+        "sanction": ""
     },
     "33003": {
         "category": "Rocket Launcher",
@@ -7129,46 +7314,6 @@
         "name": "M60-G Bulldog",
         "sanction": "gunner"
     },
-    "6002421": {
-        "category": "UNKNOWN Admin: Base Gun",
-        "name": "Admin: Base Gun",
-        "sanction": "none"
-    },
-    "6002429": {
-        "category": "UNKNOWN BaseSmash: Crystal Gun",
-        "name": "BaseSmash: Crystal Gun",
-        "sanction": "none"
-    },
-    "6009928": {
-        "category": "UNKNOWN DV-21 Lotus",
-        "name": "DV-21 Lotus",
-        "sanction": "air"
-    },
-    "6009860": {
-        "category": "UNKNOWN DV-22 Raycaster",
-        "name": "DV-22 Raycaster",
-        "sanction": "air"
-    },
-    "6009861": {
-        "category": "UNKNOWN DV-22T Lightweaver",
-        "name": "DV-22T Lightweaver",
-        "sanction": "gunner"
-    },
-    "6009991": {
-        "category": "UNKNOWN DV-LAT Pixie",
-        "name": "DV-LAT Pixie",
-        "sanction": "gunner"
-    },
-    "6009992": {
-        "category": "UNKNOWN DV-XAT",
-        "name": "DV-XAT",
-        "sanction": "gunner"
-    },
-    "6009927": {
-        "category": "UNKNOWN DV-XE",
-        "name": "DV-XE",
-        "sanction": "air"
-    },
     "6553": {
         "category": "Valkyrie Nose Gunner",
         "name": "CAS 14-E",
@@ -7341,22 +7486,22 @@
     },
     "728": {
         "category": "Vehicle Weapons",
-        "name": "UNKNOWN Vehicle Weapons {728}",
+        "name": "",
         "sanction": ""
     },
     "729": {
         "category": "Vehicle Weapons",
-        "name": "UNKNOWN Vehicle Weapons {729}",
+        "name": "",
         "sanction": ""
     },
     "731": {
         "category": "Vehicle Weapons",
-        "name": "UNKNOWN Vehicle Weapons {731}",
+        "name": "",
         "sanction": ""
     },
     "732": {
         "category": "Vehicle Weapons",
-        "name": "UNKNOWN Vehicle Weapons {732}",
+        "name": "",
         "sanction": ""
     },
     "700": {
