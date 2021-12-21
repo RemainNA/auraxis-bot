@@ -56,7 +56,7 @@ const partialMatches = async function(query){
 
 	for(const id in weaponsJSON){
 		if(weaponsJSON[id].name.toLowerCase().indexOf(query) > -1){
-			matches.push({name: `${weaponsJSON[id].name} [${id}]`, value: id});
+			matches.push({name: `${weaponsJSON[id].name} (${weaponsJSON[id].category}) [${id}]`, value: id});
 		}
 		if(matches.length >= 25){
 			break;
@@ -68,6 +68,11 @@ const partialMatches = async function(query){
 
 module.exports = {
 	lookup: async function(name){
+		if(name.indexOf("[") > -1){
+			// Account for autocomplete breaking
+			const splitList = name.split("[")
+			name = splitList[splitList.length-1].split("]")[0];
+		}
 		if(badQuery(name)){
 			throw "Weapon search contains disallowed characters";
 		}
