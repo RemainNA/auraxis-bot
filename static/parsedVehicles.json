@@ -1,0 +1,158 @@
+{
+    "1": {
+        "name": "Flash",
+        "image": "3975"
+    },
+    "2": {
+        "name": "Sunderer",
+        "image": "4002"
+    },
+    "3": {
+        "name": "Lightning",
+        "image": "3984"
+    },
+    "4": {
+        "name": "Magrider",
+        "image": "3987"
+    },
+    "5": {
+        "name": "Vanguard",
+        "image": "4005"
+    },
+    "6": {
+        "name": "Prowler",
+        "image": "3993"
+    },
+    "7": {
+        "name": "Scythe",
+        "image": "3999"
+    },
+    "8": {
+        "name": "Reaver",
+        "image": "3996"
+    },
+    "9": {
+        "name": "Mosquito",
+        "image": "3990"
+    },
+    "10": {
+        "name": "Liberator",
+        "image": "3981"
+    },
+    "100": {
+        "name": "Xiphos Anti-Personnel Phalanx Turret",
+        "image": "10950"
+    },
+    "101": {
+        "name": "MANA Anti-Personnel Turret",
+        "image": "4040"
+    },
+    "102": {
+        "name": "MANA Anti-Vehicle Turret",
+        "image": "8053"
+    },
+    "11": {
+        "name": "Galaxy",
+        "image": "3978"
+    },
+    "12": {
+        "name": "Harasser",
+        "image": "8687"
+    },
+    "13": {
+        "name": "Drop Pod",
+        "image": "7349"
+    },
+    "14": {
+        "name": "Valkyrie",
+        "image": "79698"
+    },
+    "15": {
+        "name": "ANT",
+        "image": "84726"
+    },
+    "150": {
+        "name": "Aspis Anti-Aircraft Phalanx Turret ",
+        "image": "4046"
+    },
+    "151": {
+        "name": "Spear Anti-Vehicle Phalanx Turret",
+        "image": "4052"
+    },
+    "160": {
+        "name": "Spear Anti-Vehicle Tower",
+        "image": "4052"
+    },
+    "161": {
+        "name": "Aspis Anti-Aircraft Phalanx Tower",
+        "image": "4046"
+    },
+    "162": {
+        "name": "Xiphos Anti-Personnel Tower",
+        "image": "10950"
+    },
+    "163": {
+        "name": "Glaive IPC",
+        "image": "4052"
+    },
+    "2006": {
+        "name": "Spear Anti-Vehicle Phalanx Turret",
+        "image": "4052"
+    },
+    "2007": {
+        "name": "Colossus",
+        "image": "92804"
+    },
+    "2008": {
+        "name": "Drop Pod",
+        "image": "7349"
+    },
+    "2009": {
+        "name": "Xiphos Anti-Personnel Phalanx Turret",
+        "image": "10950"
+    },
+    "2010": {
+        "name": "Flash XS-1",
+        "image": "3975"
+    },
+    "2019": {
+        "name": "Bastion Fleet Carrier",
+        "image": "92694"
+    },
+    "2021": {
+        "name": "The Flail",
+        "image": "93301"
+    },
+    "2033": {
+        "name": "Javelin",
+        "image": "92337"
+    },
+    "2039": {
+        "name": "Deliverer Prototype",
+        "image": "84726"
+    },
+    "2040": {
+        "name": "Wasp Prototype",
+        "image": "79698"
+    },
+    "2122": {
+        "name": "Mosquito Interceptor",
+        "image": "3990"
+    },
+    "2123": {
+        "name": "Reaver Interceptor",
+        "image": "3996"
+    },
+    "2124": {
+        "name": "Scythe Interceptor",
+        "image": "3999"
+    },
+    "2136": {
+        "name": "Dervish",
+        "image": "93595"
+    },
+    "2137": {
+        "name": "Chimera",
+        "image": "93592"
+    }
+}

@@ -453,5 +453,7 @@ module.exports = {
         }
 
         return resEmbed;
-    }
+    },
+
+    getWeaponName: getWeaponName
 }

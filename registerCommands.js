@@ -683,6 +683,30 @@ const data = [
 			required: false,
 			choices: platforms
 		}]
+	},
+	{
+		name: 'vehicle',
+		description: "Lookup a character's stats with a given vehicle",
+		options: [{
+			name: 'name',
+			type: 'STRING',
+			description: 'Character name',
+			required: true,
+		},
+		{
+			name: 'vehicle',
+			type: 'STRING',
+			description: 'Vehicle name',
+			autocomplete: true,
+			required: true,
+		},
+		{
+			name: 'platform',
+			type: 'STRING',
+			description: "Which platform is the character on?  Defaults to PC",
+			required: false,
+			choices: platforms
+		}]
 	}
 ]
 

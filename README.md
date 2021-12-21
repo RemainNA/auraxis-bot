@@ -61,6 +61,10 @@ Returns a chronological list of a character's Auraxiums.  Only 20 are displayed 
 
 Returns a chronological list of a character's completed directives.  Only 20 are displayed at first, but clicking the "View all" button will show the full list in an ephemeral message.
 
+### /vehicle [name] [vehicle] \<platform>
+
+Returns information about the character's vehicle usage, including play time, kills, roadkills, and top weapon.
+
 #### /outfit [tag] \<platform>
 
 Returns the details (Name, owner, faction, server, member count, etc.) of the specified outfit tag.  Supports multiple tags per query.

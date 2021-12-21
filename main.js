@@ -32,6 +32,7 @@ const openContinents = require('./openContinents.js');
 const auraxiums = require('./auraxiums.js');
 const leaderboard = require('./leaderboard.js');
 const directives = require('./directives.js');
+const vehicles = require('./vehicles.js');
 const {badQuery} = require('./utils.js');
 const outfitMaintenance = require('./outfitMaintenance.js');
 
@@ -103,6 +104,7 @@ const listOfCommands =
 /asp [name] <platform>\n\
 /auraxiums [name] <platform>\n\
 /directives [name] <platform>\n\
+/vehicle [name] [vehicle] <platform>\n\
 /outfit [tag] <platform>\n\
 /online [tag] <platform>\n\
 /population [server]\n\
@@ -522,6 +524,12 @@ client.on('interactionCreate', async interaction => {
 				await interaction.editReply({embeds: [res[0]], components: res[1]});
 				break;
 			
+			case 'vehicle':
+				await interaction.deferReply();
+				res = await vehicles.vehicle(options.getString("name"), options.getString("vehicle"), options.getString("platform") || "ps2:v2");
+				await interaction.editReply({embeds: [res]});
+				break;
+			
 			}
 			
 		}
@@ -604,6 +612,10 @@ client.on('interactionCreate', async interaction => {
 			else if(interaction.commandName == 'implant'){
 				const implantList = await implant.partialMatches(interaction.options.getString('query'));
 				await interaction.respond(implantList);
+			}
+			else if(interaction.commandName == 'vehicle'){
+				const vehicleList = await vehicles.partialMatches(interaction.options.getString('vehicle'));
+				await interaction.respond(vehicleList);
 			}
 		}
 		catch(err){
