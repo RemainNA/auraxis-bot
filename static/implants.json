@@ -55,6 +55,10 @@
         "5": "Reduces camera shake and flinch from explosions and bullet impacts by 50%, and killing a target will double this bonus for the next 10 seconds. <font color=\"#dc9c36\">MAX units can equip.</font>",
         "image": "87515"
     },
+    "Berserker": {
+        "desc": "You regenerate 40 health per second and your armor is reduced by 20% at all times. Taking damage pauses this regeneration for 2 seconds, and regeneration does not stack with Nanite Auto-Repair.  <font color=\"#dc9c36\">MAX only.</font>",
+        "image": "94270"
+    },
     "Bionics": {
         "desc": "Your personal shield health is increased by 400, and 400 health is removed from your health pool.",
         "image": "89604"
@@ -327,6 +331,14 @@
         "5": "Killing enemy MAX units will restore 800 health, and killing a MAX within 5 meters of you will restore an additional 200 health. <font color=\"#dc9c36\">MAX only.</font>",
         "image": "88926"
     },
+    "Scavenger": {
+        "1": "Killing an enemy while wielding a melee weapon or sidearm will restock 12% of your primary and secondary magazines for free.",
+        "2": "Killing an enemy while wielding a melee weapon or sidearm will restock 15% of your primary and secondary magazines for free.",
+        "3": "Killing an enemy while wielding a melee weapon or sidearm will restock 20% of your primary and secondary magazines for free.",
+        "4": "Killing an enemy while wielding a melee weapon or sidearm will restock 30% of your primary and secondary magazines for free.",
+        "5": "Killing an enemy while wielding a melee weapon or sidearm will restock 30% of your primary and secondary magazines for free. Additionally, dying will fully restock your primary and secondary weapon magazines from reserves.",
+        "image": "94303"
+    },
     "Sensor Shield": {
         "1": "Your radar signature no longer appears on detection devices outside of 30 meters.",
         "2": "Your radar signature no longer appears on detection devices outside of 26 meters.",
@@ -342,6 +354,14 @@
         "4": "Your strafe speed is increased by 35%, but accelerating and decelerating while strafing takes twice as long.",
         "5": "Your strafe speed is increased by 35%, but accelerating and decelerating while strafing takes twice as long. In addition, your backpedal speed is increased by 35% at all times.",
         "image": "89302"
+    },
+    "Springstep": {
+        "1": "Finishing a reload will increase your sprint speed by 10%, your jump height significantly, and allow you to enter sprint almost instantly, for the next 1.5 seconds. Firing your weapon ends this effect early.",
+        "2": "Finishing a reload will increase your sprint speed by 12%, your jump height significantly, and allow you to enter sprint almost instantly, for the next 1.5 seconds. Firing your weapon ends this effect early.",
+        "3": "Finishing a reload will increase your sprint speed by 15%, your jump height significantly, and allow you to enter sprint almost instantly, for the next 1.5 seconds. Firing your weapon ends this effect early.",
+        "4": "Finishing a reload will increase your sprint speed by 20%, your jump height significantly, and allow you to enter sprint almost instantly, for the next 1.5 seconds. Firing your weapon ends this effect early.",
+        "5": "Finishing a reload or receiving fall damage will increase your sprint speed by 10%, your jump height significantly, and allow you to enter sprint almost instantly, for the next 1.5 seconds. Firing your weapon ends this effect early.",
+        "image": "94354"
     },
     "Survivalist": {
         "1": "Reduces your passive shield recharge delay by 0.5 seconds, and whenever your shield breaks, your sprint speed is increased by 20% for 3 seconds. Taking damage will remove the added sprint speed. <font color=\"#dc9c36\">12 second cooldown after triggering.</font>",
