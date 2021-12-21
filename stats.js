@@ -47,10 +47,24 @@ const getWeaponId = async function(name, searchSpace, cName=""){
 	if(cName == ""){
 		throw `${name} not found.`;
 	}
+	else if(name in weaponsJSON){
+		throw `${weaponsJSON[name].name} [${name}] not found for ${cName}`;
+	}
+	else if(name in sanction){
+		throw `${sanction[name].name} [${name}] not found for ${cName}`;
+	}
 	else{
 		throw `${name} not found for ${cName}`;
 	}
 	
+}
+
+const factions = {
+	"0": "Common pool",
+	"1": "VS",
+	"2": "NC",
+	"3": "TR",
+	"4": "NSO"
 }
 
 const partialMatches = async function(query){
@@ -60,7 +74,12 @@ const partialMatches = async function(query){
 
 	for(const id in weaponsJSON){
 		if(weaponsJSON[id].name.toLowerCase().indexOf(query) > -1){
-			matches.push({name: `${weaponsJSON[id].name} [${id}]`, value: id});
+			if(weaponsJSON[id].faction){
+				matches.push({name: `${weaponsJSON[id].name} (${factions[weaponsJSON[id].faction]} ${weaponsJSON[id].category}) [${id}]`, value: id});
+			}
+			else{
+				matches.push({name: `${weaponsJSON[id].name} (${sanction[id].category}) [${id}]`, value: id});
+			}
 			included.push(id);
 		}
 		if(matches.length >= 25){
@@ -73,7 +92,7 @@ const partialMatches = async function(query){
 			break;
 		}
 		if(sanction[id].name.toLowerCase().indexOf(query) > -1 && !included.includes(id)){
-			matches.push({name: `${sanction[id].name} [${id}]`, value: id});
+			matches.push({name: `${sanction[id].name} (${sanction[id].category}) [${id}]`, value: id});
 			included.push(id);
 		}
 	}
@@ -110,10 +129,10 @@ const characterInfo = async function(cName, wName, platform){
 	}
 
 	if(validIds.length == 0){
-		throw `${wName} not found for ${cName}`;
+		throw `${wName} not found for ${data.name.first}`;
 	}
 
-	let wInfo = await getWeaponId(wName, validIds, cName);
+	let wInfo = await getWeaponId(wName, validIds, data.name.first);
 	let wId = wInfo[1];
 
 	resObj.weapon = wId;
@@ -182,7 +201,11 @@ module.exports = {
 		if(badQuery(cName)){
 			throw "Character search contains disallowed characters";
 		}
-
+		if(wName.indexOf("[") > -1){
+			// Account for autocomplete breaking
+			const splitList = wName.split("[")
+			wName = splitList[splitList.length-1].split("]")[0];
+		}
 		if(badQuery(wName)){
 			throw "Weapon search contains disallowed characters";
 		}
@@ -197,7 +220,7 @@ module.exports = {
 
 		let resEmbed = new Discord.MessageEmbed();
 		resEmbed.setTitle(cInfo.name);
-		resEmbed.setDescription(wInfo.name);
+		resEmbed.setDescription(`${wInfo.name} (${wInfo.category})`);
 		let totalKills = parseInt(cInfo.vsKills)+parseInt(cInfo.ncKills)+parseInt(cInfo.trKills);
 		let totalHeadshots = parseInt(cInfo.vsHeadshots)+parseInt(cInfo.ncHeadshots)+parseInt(cInfo.trHeadshots);
 		let totalDamage = parseInt(cInfo.vsDamageGiven)+parseInt(cInfo.ncDamageGiven)+parseInt(cInfo.trDamageGiven);
