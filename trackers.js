@@ -35,16 +35,19 @@ const updateChannelName = async function(name, channelID, discordClient, pgClien
 		}
 	}
 	catch(err){
-		if(err.code == 10003 || err.code == 50013 || err.code == 50001){ //Deleted/unknown channel, no permissions, missing access
+		console.log(err);
+		if(err.code == 10003){ //Deleted/unknown channel
 			console.log(`Removed tracker channel ${channelID}`);
 			pgClient.query("DELETE FROM tracker WHERE channel = $1;", [channelID]);
 			pgClient.query("DELETE FROM outfittracker WHERE channel = $1;", [channelID]);
+		}
+		else if(err.code == 50013 || err.code == 50001){ //Missing permissions, missing access
+			//Ignore in case permissions are updated
 		}
 		else{
 			console.log("Error in updateChannelName");
 			console.log(err);
 		}
-		
 	}
 }
 
@@ -74,7 +77,7 @@ module.exports = {
 			await pgClient.query("INSERT INTO tracker (channel, trackerType, world) VALUES ($1, $2, $3);",
 			[newChannel.id, type, serverName]);
 
-			return `Tracker channel created as ${newChannel.toString()}. This channel will automatically update once every 10 minutes. If you edit permissions make sure to keep "Manage Channel" enabled for Auraxis Bot.`;
+			return `Tracker channel created as ${newChannel.toString()}. This channel will automatically update once every 10 minutes. If you move the channel or edit permissions make sure to keep the "Manage Channel" and "Connect" permissions enabled for Auraxis Bot.`;
 		}
 		catch(err){
 			if(err.message == "Missing Permissions"){
@@ -106,7 +109,7 @@ module.exports = {
 			await pgClient.query("INSERT INTO outfittracker (channel, outfitid, platform) VALUES ($1, $2, $3);",
 			[newChannel.id, oInfo.outfitID, platform]);
 
-			return `Tracker channel created as ${newChannel.toString()}. This channel will automatically update once every 10 minutes. If you edit permissions make sure to keep "Manage Channel" enabled for Auraxis Bot.`;
+			return `Tracker channel created as ${newChannel.toString()}. This channel will automatically update once every 10 minutes. If you move the channel or edit permissions make sure to keep the "Manage Channel" and "Connect" permissions enabled for Auraxis Bot.`;
 		}
 		catch(err){
 			if(err.message == "Missing Permissions"){
