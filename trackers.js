@@ -35,7 +35,6 @@ const updateChannelName = async function(name, channelID, discordClient, pgClien
 		}
 	}
 	catch(err){
-		console.log(err);
 		if(err.code == 10003){ //Deleted/unknown channel
 			console.log(`Removed tracker channel ${channelID}`);
 			pgClient.query("DELETE FROM tracker WHERE channel = $1;", [channelID]);
