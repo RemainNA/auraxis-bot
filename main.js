@@ -81,11 +81,11 @@ client.on('ready', async () => {
 		trackers.update(SQLclient, client);
 		dashboard.update(SQLclient, client);
 		setInterval(function () { 
-			alertMaintenance.update(SQLclient, client);
 			deleteMessages.run(SQLclient, client);
 			openContinents.check(SQLclient, client);
 		}, 60000); //Update alerts every minute
 		setInterval(function() {
+			alertMaintenance.update(SQLclient, client);
 			dashboard.update(SQLclient, client);
 		}, 300000) //Update dashboards every 5 minutes
 		setInterval(function() {
