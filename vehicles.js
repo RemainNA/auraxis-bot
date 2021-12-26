@@ -80,7 +80,18 @@ module.exports = {
 			imageID = vehicles[vehicleID].image;
 		}
 		else{
-			throw "Vehicle not recognized";
+			const input = vehicleID.toLowerCase();
+			for(const vid in vehicles){
+				if(vehicles[vid].name.toLowerCase().indexOf(input) > -1){
+					vehicleID = vid;
+					vehicleName = vehicles[vid].name;
+					imageID = vehicles[vid].image;
+					break;
+				}
+			}
+			if(vehicleName == ""){
+				throw "Input not recognized";
+			}
 		}
 
 		const vInfo = await vehicleOverview(cName, vehicleID, platform);
