@@ -53,6 +53,8 @@ module.exports = {
 			try{
 				const territory = await territoryInfo(serverIDs[server]);
 				const currentStatus = await pgClient.query("SELECT * FROM openContinents WHERE world = $1;", [server]);
+				await pgClient.query("UPDATE openContinents SET indar = $1, hossin = $2, amerish = $3, esamir = $4, koltyr = $5 WHERE world = $6;",
+				[territory["Indar"].locked == -1, territory["Hossin"].locked == -1, territory["Amerish"].locked == -1, territory["Esamir"].locked == -1, territory["Koltyr"].locked == -1, server]);
 				for(const cont of continents){
 					if(territory[cont].locked != -1){
 						await pgClient.query("DELETE FROM bases WHERE continent = $1 AND world = $2;",
@@ -77,11 +79,10 @@ module.exports = {
 						trackers.update(pgClient, discordClient, true); //Update trackers with new continent
 					}
 				}
-				await pgClient.query("UPDATE openContinents SET indar = $1, hossin = $2, amerish = $3, esamir = $4, koltyr = $5 WHERE world = $6;",
-				[territory["Indar"].locked == -1, territory["Hossin"].locked == -1, territory["Amerish"].locked == -1, territory["Esamir"].locked == -1, territory["Koltyr"].locked == -1, server]);
 			}
 			catch(err){
-				continue;  //Will retry in a minute, don't need to fill log
+				console.log("Error in openContinents");
+				console.log(err);
 			}
 		}
 	}
