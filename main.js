@@ -563,23 +563,25 @@ client.on('interactionCreate', async interaction => {
 	}
 	else if(interaction.isButton()){
 		try{
-			if(interaction.customId.startsWith('auraxium')){
-				await interaction.deferReply({ephemeral: true});
-				const auraxOptions = interaction.customId.split('%');
-				const aurax = await auraxiums.medals(auraxOptions[1], auraxOptions[2], true);
-				await interaction.editReply({embeds: [aurax[0]]})
-			}
-			else if(interaction.customId.startsWith('directives')){
-				await interaction.deferReply({ephemeral: true});
-				const directiveOptions = interaction.customId.split('%');
-				const direc = await directives.directives(directiveOptions[1], directiveOptions[2], true);
-				await interaction.editReply({embeds: [direc[0]]})
-			}
-			else if(interaction.customId.startsWith('recentStats')){
-				await interaction.deferReply({ephemeral: false});
-				const recentStatsOptions = interaction.customId.split('%');
-				const recentStats = await character.recentStats(recentStatsOptions[2], recentStatsOptions[3], recentStatsOptions[1]);
-				await interaction.editReply({embeds: [recentStats]})
+			const options = interaction.customId.split('%');
+			switch(options[0]){
+				case 'auraxiums':
+					await interaction.deferReply({ephemeral: true});
+					const aurax = await auraxiums.medals(options[1], options[2], true);
+					await interaction.editReply({embeds: [aurax[0]]});
+					break;
+
+				case 'directives':
+					await interaction.deferReply({ephemeral: true});
+					const direc = await directives.directives(options[1], options[2], true);
+					await interaction.editReply({embeds: [direc[0]]});
+					break;
+
+				case 'recentStats':
+					await interaction.deferReply({ephemeral: false});
+					const recentStats = await character.recentStats(options[2], options[3], options[1]);
+					await interaction.editReply({embeds: [recentStats]});
+					break;
 			}
 		}
 		catch(err){
