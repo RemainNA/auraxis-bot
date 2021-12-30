@@ -20,6 +20,7 @@ const basicInfo = async function(cName, platform){
 	let aspTitle = false;
 	let decals = []; //count br 101-120 decals
 	let tokens = "";
+	let tokensContinued = "";
 	for (const x in data.items){
 		if (Number(data.items[x].item_id) >= 803931 && Number(data.items[x].item_id) <= 803950){
 			//record br 101-120 decals
@@ -27,8 +28,14 @@ const basicInfo = async function(cName, platform){
 		}
 		else if(data.items[x].item_type_id == "1" && data.items[x].item_category_id == "133"){
 			//record unlocked ASP items
-			tokens += `${data.items[x].name.en}: ${data.items[x].description.en}\n`;
-			tokens += '----\n'
+			if((tokens.length + data.items[x].name.en.length + data.items[x].description.en.length + 8) > 1024){
+				tokensContinued += `${data.items[x].name.en}: ${data.items[x].description.en}\n`;
+				tokensContinued += '----\n'
+			}
+			else{
+				tokens += `${data.items[x].name.en}: ${data.items[x].description.en}\n`;
+				tokens += '----\n'
+			}		
 			availableTokens -= 1;
 		}
 		if(Number(data.items[x].item_id) == 6004399){
@@ -47,6 +54,7 @@ const basicInfo = async function(cName, platform){
 		preBR: preBR,
 		name: data.name.first,
 		unlocks: tokens,
+		unlocksContinued: tokensContinued,
 		availableTokens: availableTokens
 	}
 	return retInfo;
@@ -82,6 +90,9 @@ module.exports = {
 		}
 		resEmbed.addField("Available Points", `${cInfo.availableTokens}`);
 		resEmbed.addField("ASP Skills", cInfo.unlocks);
+		if(cInfo.unlocksContinued != ""){
+			resEmbed.addField("ASP Skills Continued", cInfo.unlocksContinued.substring(0,(cInfo.unlocksContinued.length-6)));
+		}
 		resEmbed.setThumbnail("http://census.daybreakgames.com/files/ps2/images/static/88688.png");
 
 		return resEmbed;
