@@ -35,6 +35,7 @@ const directives = require('./directives.js');
 const vehicles = require('./vehicles.js');
 const {badQuery} = require('./utils.js');
 const outfitMaintenance = require('./outfitMaintenance.js');
+const character = require('./character.js');
 
 require('dotenv').config();
 
@@ -182,7 +183,8 @@ client.on('interactionCreate', async interaction => {
 					await interaction.deferReply(); //Give the bot time to look up the results
 					for(const c of options.getString('name').toLowerCase().replace(/\s\s+/g, ' ').split(' ')){
 						try{
-							res.push(await char.character(c, options.getString('platform') || 'ps2:v2'));
+							const cRes = await char.character(c, options.getString('platform') || 'ps2:v2');
+							res.push(cRes[0]);
 						}
 						catch(err){
 							errorList.push(c);
@@ -198,7 +200,7 @@ client.on('interactionCreate', async interaction => {
 				else{
 					await interaction.deferReply(); //Give the bot time to look up the results
 					res = await char.character(options.getString('name').toLowerCase(), options.getString('platform') || 'ps2:v2');
-					await interaction.editReply({embeds:[res]});
+					await interaction.editReply({embeds:[res[0]], components: res[1]});
 				}
 				break;			
 
@@ -210,7 +212,7 @@ client.on('interactionCreate', async interaction => {
 				}
 				else{ //character lookup
 					res = await char.character(interaction.options.getString('name').toLowerCase(), interaction.options.getString('platform') || 'ps2:v2');
-					await interaction.editReply({embeds:[res]});
+					await interaction.editReply({embeds:[res[0]], components: res[1]});
 				}
 				break;
 
@@ -573,6 +575,12 @@ client.on('interactionCreate', async interaction => {
 				const direc = await directives.directives(directiveOptions[1], directiveOptions[2], true);
 				await interaction.editReply({embeds: [direc[0]]})
 			}
+			else if(interaction.customId.startsWith('recentStats')){
+				await interaction.deferReply({ephemeral: false});
+				const recentStatsOptions = interaction.customId.split('%');
+				const recentStats = await character.recentStats(recentStatsOptions[2], recentStatsOptions[3], recentStatsOptions[1]);
+				await interaction.editReply({embeds: [recentStats]})
+			}
 		}
 		catch(err){
 			if(typeof(err) !== 'string'){
@@ -654,7 +662,7 @@ client.on('messageCreate', async message => {
 		for(const x in chars){
 			if(chars[x] != ""){
 				char.character(chars[x], 'ps2:v2')
-					.then(res => messageHandler.send(message.channel, {embeds: [res]}, "PC Character", true))
+					.then(res => messageHandler.send(message.channel, {embeds: [res[0]], components: res[1]}, "PC Character", true))
 					.catch(err => messageHandler.handleError(message.channel, err, "PC Character"))
 			}
 		}
@@ -664,7 +672,7 @@ client.on('messageCreate', async message => {
 		for(const x in chars){
 			if(chars[x] != ""){
 				char.character(chars[x], 'ps2ps4us:v2')
-					.then(res => messageHandler.send(message.channel, {embeds: [res]}, "PS4US Character", true))
+					.then(res => messageHandler.send(message.channel, {embeds: [res[0]], components: res[1]}, "PS4US Character", true))
 					.catch(err => messageHandler.handleError(message.channel, err, "PS4US Character"))
 			}
 		}
@@ -674,7 +682,7 @@ client.on('messageCreate', async message => {
 		for(const x in chars){
 			if(chars[x] != ""){
 				char.character(chars[x], 'ps2ps4eu:v2')
-					.then(res => messageHandler.send(message.channel, {embeds: [res]}, "PS4EU Character", true))
+					.then(res => messageHandler.send(message.channel, {embeds: [res[0]], components: res[1]}, "PS4EU Character", true))
 					.catch(err => messageHandler.handleError(message.channel, err, "PS4EU Character"))
 			}
 		}
@@ -685,7 +693,7 @@ client.on('messageCreate', async message => {
 		let wName = message.content.substring((7+cName.length+1)).trim();
 		if(wName == ""){
 			char.character(cName, 'ps2:v2')
-				.then(res => messageHandler.send(message.channel, {embeds: [res]}, "PC Character by stats", true))
+				.then(res => messageHandler.send(message.channel, {embeds: [res[0]], components: res[1]}, "PC Character by stats", true))
 				.catch(err => messageHandler.handleError(message.channel, err, "PC Character by stats"))
 		}
 		else{
@@ -700,7 +708,7 @@ client.on('messageCreate', async message => {
 		let wName = message.content.substring((13+cName.length+1));
 		if(wName == ""){
 			char.character(cName, 'ps2ps4us:v2')
-				.then(res => messageHandler.send(message.channel, {embeds: [res]}, "PS4US Character by stats", true))
+				.then(res => messageHandler.send(message.channel, {embeds: [res[0]], components: res[1]}, "PS4US Character by stats", true))
 				.catch(err => messageHandler.handleError(message.channel, err, "PS4US Character by stats"))
 		}
 		else{
@@ -715,7 +723,7 @@ client.on('messageCreate', async message => {
 		let wName = message.content.substring((13+cName.length+1));
 		if(wName == ""){
 			char.character(cName, 'ps2ps4eu:v2')
-				.then(res => messageHandler.send(message.channel, {embeds: [res]}, "PS4EU Character by stats", true))
+				.then(res => messageHandler.send(message.channel, {embeds: [res[0]], components: res[1]}, "PS4EU Character by stats", true))
 				.catch(err => messageHandler.handleError(message.channel, err, "PS4EU Character by stats"))
 		}
 		else{

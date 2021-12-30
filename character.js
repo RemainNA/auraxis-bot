@@ -19,6 +19,7 @@ const basicInfo = async function(cName, platform){
     //store basic information
     let resObj = {
         name: data.name.first,
+        characterID: data.character_id,
         title: null,
         br: data.battle_rank.value,
         prestige: data.prestige_level,
@@ -267,6 +268,45 @@ const getAuraxiumCount = async function(cName, platform){
     return medalCount;
 }
 
+const recentStatsInfo =  async function(cID, platform, days){
+    const response = await censusRequest(platform, 'character_list', `/character/${cID}?c:resolve=stat_history&c:join=title,characters_stat^list:1`);
+    const data = response[0];
+    let resObj = {
+        name: data.name.first,
+        br: data.battle_rank.value,
+        prestige: data.prestige_level,
+        server: data.world_id,
+        lastLogin: data.times.last_login,
+        faction: data.faction_id,
+        lastSave: data.times.last_save,
+        kills: 0,
+        deaths: 0,
+        time: 0,
+        score: 0,
+        certs: 0,
+        battle_rank: 0
+    }
+    if(data.stats?.stat_history == undefined){
+        throw "Unable to retrieve stat history";
+    }
+    for(const stat of data.stats.stat_history){
+        let current = 0;
+        let currentDays = Number.parseInt(days);
+        for(const day in stat.day){
+            current += Number.parseInt(stat.day[day]);
+            currentDays -= 1;
+            if(currentDays <= 0){
+                break;
+            }
+        }
+        if(stat.stat_name in resObj){
+            resObj[stat.stat_name] = current;
+        }
+        
+    }
+    return resObj;
+}
+
 module.exports = {
     character: async function(cName, platform){
         // Calls function to get basic info, extracts info from returned object and constructs the Discord embed to send
@@ -276,6 +316,21 @@ module.exports = {
         
         const cInfo = await basicInfo(cName, platform);
         let resEmbed = new Discord.MessageEmbed();
+        const row = new Discord.MessageActionRow()
+        row.addComponents(
+            new Discord.MessageButton()
+                .setCustomId(`recentStats%30%${cInfo.characterID}%${platform}`)
+                .setLabel('30 day stats')
+                .setStyle('PRIMARY'),
+            new Discord.MessageButton()
+                .setCustomId(`recentStats%7%${cInfo.characterID}%${platform}`)
+                .setLabel('7 day stats')
+                .setStyle('PRIMARY'),
+            new Discord.MessageButton()
+                .setCustomId(`recentStats%1%${cInfo.characterID}%${platform}`)
+                .setLabel('1 day stats')
+                .setStyle('PRIMARY')
+        );
 
         // Username, title, fisu url
         resEmbed.setTitle(cInfo.name);
@@ -451,8 +506,42 @@ module.exports = {
                 //Fail silently
             }
         }
+        return [resEmbed, [row]];
+    },
 
-        return resEmbed;
+    recentStats: async function(cID, platform, days){
+        const cInfo = await recentStatsInfo(cID, platform, days);
+        if(cInfo.time == 0){
+            throw "No stats in this time period";
+        }
+        const resEmbed = new Discord.MessageEmbed();
+        resEmbed.setTitle(cInfo.name);
+        resEmbed.setDescription(`${days} day stats ending <t:${cInfo.lastSave}:d>`);
+        if (cInfo.faction == "1"){ //vs
+            resEmbed.setColor('PURPLE');
+        }
+        else if (cInfo.faction == "2"){ //nc
+            resEmbed.setColor('BLUE');
+        }
+        else if (cInfo.faction == "3"){ //tr
+            resEmbed.setColor('RED');
+        }
+        else{ //NSO
+            resEmbed.setColor('GREY');
+        }
+        resEmbed.addField('Score (SPM)', `${cInfo.score.toLocaleString()} (${(cInfo.score/(cInfo.time/60)).toPrecision(4)})`, true);
+        const hours = Math.floor(cInfo.time/60/60);
+        const minutes = Math.floor(cInfo.time/60 - hours*60);
+        resEmbed.addField('Playtime', `${hours} hours, ${minutes} minutes`, true);
+        resEmbed.addField('Certs gained', cInfo.certs.toLocaleString(), true);
+        resEmbed.addField('K/D', Number.parseFloat(cInfo.kills/cInfo.deaths).toPrecision(3), true);
+        let sign = '';
+        if((cInfo.kills-cInfo.deaths) > 0){
+            sign = '+';
+        }
+        resEmbed.addField('K-D Diff', `${(cInfo.kills).toLocaleString()} - ${(cInfo.deaths).toLocaleString()} = ${sign}${(cInfo.kills-cInfo.deaths).toLocaleString()}`, true);
+        resEmbed.addField('KPM', (cInfo.kills/(cInfo.time/60)).toPrecision(3), true);
+        return resEmbed;     
     },
 
     getWeaponName: getWeaponName
