@@ -582,6 +582,12 @@ client.on('interactionCreate', async interaction => {
 					const recentStats = await character.recentStats(options[2], options[3], options[1]);
 					await interaction.editReply({embeds: [recentStats]});
 					break;
+
+				case 'outfit':
+					await interaction.deferReply({ephemeral: false});
+					const outfitRes = await outfit.outfit("", options[2], SQLclient, options[1]);
+					await interaction.editReply({embeds: [outfitRes]});
+					break;
 			}
 		}
 		catch(err){

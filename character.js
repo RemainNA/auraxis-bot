@@ -52,6 +52,7 @@ const basicInfo = async function(cName, platform){
         resObj.outfitAlias = data.outfit_member.alias;
         resObj.outfitRank = data.outfit_member.member_rank;
         resObj.outfitRankOrdinal = data.outfit_member.member_rank_ordinal;
+        resObj.outfitID = data.outfit_member.outfit_id;
     }
     if(data.stats != null){
         resObj.stats = true;
@@ -454,6 +455,12 @@ module.exports = {
                 resEmbed.addField('Outfit', cInfo.outfitName, true);
             }
             resEmbed.addField('Outfit Rank', `${cInfo.outfitRank} (${cInfo.outfitRankOrdinal})`, true);
+            row.addComponents(
+                new Discord.MessageButton()
+                    .setCustomId(`outfit%${cInfo.outfitID}%${platform}`)
+                    .setLabel('View outfit')
+                    .setStyle('PRIMARY')
+            )
         }
 
         // Top Weapon, Auraxium medals

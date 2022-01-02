@@ -2,8 +2,12 @@ const Discord = require('discord.js');
 const { serverNames, badQuery, censusRequest } = require('./utils.js');
 const bases = require('./static/bases.json');
 
-const basicInfo = async function(oTag, platform){
-	let response = await censusRequest(platform, 'outfit_list', `/outfit?alias_lower=${oTag}&c:resolve=member_online_status&c:join=character^on:leader_character_id^to:character_id&c:join=character^on:members.character_id^to:character_id^hide:certs&c:join=characters_world^on:leader_character_id^to:character_id`);
+const basicInfo = async function(oTag, platform, oID){
+	let url = `/outfit?alias_lower=${oTag}&c:resolve=member_online_status&c:join=character^on:leader_character_id^to:character_id&c:join=character^on:members.character_id^to:character_id^hide:certs&c:join=characters_world^on:leader_character_id^to:character_id`;
+	if(oID != null){
+		url = `/outfit/${oID}?c:resolve=member_online_status&c:join=character^on:leader_character_id^to:character_id&c:join=character^on:members.character_id^to:character_id^hide:certs&c:join=characters_world^on:leader_character_id^to:character_id`;
+	}
+	let response = await censusRequest(platform, 'outfit_list', url);
 	if(response.length == 0){
 		throw `${oTag} not found`;
 	}
@@ -89,26 +93,28 @@ const centralBases = [
 ]
 
 module.exports = {
-	outfit: async function(oTag, platform, pgClient){
+	outfit: async function(oTag, platform, pgClient, oID = null){
 		if(badQuery(oTag)){
 			throw "Outfit search contains disallowed characters";
 		}
 
-		const oInfo = await basicInfo(oTag, platform);
+		const oInfo = await basicInfo(oTag, platform, oID);
 		const oBases = await ownedBases(oInfo.outfitID, oInfo.worldId, pgClient);
 
 		let resEmbed = new Discord.MessageEmbed();
 
 		resEmbed.setTitle(oInfo.name);
-		resEmbed.setDescription(oInfo.alias);
-		if(platform == 'ps2:v2'){
-			resEmbed.setURL('http://ps2.fisu.pw/outfit/?name='+oInfo.alias);
-		}
-		else if(platform == 'ps2ps4us:v2'){
-			resEmbed.setURL('http://ps4us.ps2.fisu.pw/outfit/?name='+oInfo.alias);
-		}
-		else if(platform == 'ps2ps4eu:v2'){
-			resEmbed.setURL('http://ps4eu.ps2.fisu.pw/outfit/?name='+oInfo.alias);
+		if(oInfo.alias != ""){
+			resEmbed.setDescription(oInfo.alias);z
+			if(platform == 'ps2:v2'){
+				resEmbed.setURL('http://ps2.fisu.pw/outfit/?name='+oInfo.alias);
+			}
+			else if(platform == 'ps2ps4us:v2'){
+				resEmbed.setURL('http://ps4us.ps2.fisu.pw/outfit/?name='+oInfo.alias);
+			}
+			else if(platform == 'ps2ps4eu:v2'){
+				resEmbed.setURL('http://ps4eu.ps2.fisu.pw/outfit/?name='+oInfo.alias);
+			}
 		}
 		resEmbed.addField("Founded", `<t:${oInfo.timeCreated}:D>`, true)
 		resEmbed.addField("Members", oInfo.memberCount, true);
