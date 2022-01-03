@@ -105,7 +105,7 @@ module.exports = {
 
 		resEmbed.setTitle(oInfo.name);
 		if(oInfo.alias != ""){
-			resEmbed.setDescription(oInfo.alias);z
+			resEmbed.setDescription(oInfo.alias);
 			if(platform == 'ps2:v2'){
 				resEmbed.setURL('http://ps2.fisu.pw/outfit/?name='+oInfo.alias);
 			}
