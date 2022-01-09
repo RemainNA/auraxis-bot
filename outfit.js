@@ -92,6 +92,15 @@ const centralBases = [
     298000 // Nason's Defiance
 ]
 
+const generateReport = function(outfits, start, end){
+	let reportString = `${start},${end};`;
+	for(const outfit of outfits){
+		reportString += `o${outfit};`;
+	}
+	const encodedString = Buffer.from(reportString, 'utf-8').toString('base64');
+	return `https://wt.honu.pw/report/${encodedString}`;
+}
+
 module.exports = {
 	outfit: async function(oTag, platform, pgClient, oID = null){
 		if(badQuery(oTag)){
@@ -197,7 +206,23 @@ module.exports = {
 			resEmbed.addField('Bases owned', `${ownedNames}`.replace(/,/g, '\n'));
 		}
 
-		return resEmbed;
+		const row = new Discord.MessageActionRow();
+		if(platform == "ps2:v2"){
+			const now = Math.round(Date.now() / 1000);
+
+			row.addComponents(
+				new Discord.MessageButton()
+					.setStyle('LINK')
+					.setURL(generateReport([oInfo.outfitID], now-3600, now))
+					.setLabel("Past 1 hour report"),
+				new Discord.MessageButton()
+					.setStyle('LINK')
+					.setURL(generateReport([oInfo.outfitID], now-7200, now))
+					.setLabel("Past 2 hour report")
+			)
+		}
+
+		return [resEmbed, [row]];
 	},
 
 	ownedBases: ownedBases,

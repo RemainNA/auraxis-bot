@@ -229,7 +229,8 @@ client.on('interactionCreate', async interaction => {
 							continue;
 						}
 						try{
-							res.push(await outfit.outfit(t, options.getString('platform') || 'ps2:v2', SQLclient));
+							const outfitRes = await outfit.outfit(t, options.getString('platform') || 'ps2:v2', SQLclient);
+							res.push(outfitRes[0]);
 						}
 						catch(err){
 							errorList.push(t);
@@ -249,7 +250,7 @@ client.on('interactionCreate', async interaction => {
 					}
 					await interaction.deferReply(); //Give the bot time to look up the results
 					res = await outfit.outfit(options.getString('tag').toLowerCase(), options.getString('platform') || 'ps2:v2', SQLclient);
-					await interaction.editReply({embeds:[res]});
+					await interaction.editReply({embeds:[res[0]], components: res[1]});
 				}
 				break;
 
@@ -586,7 +587,7 @@ client.on('interactionCreate', async interaction => {
 				case 'outfit':
 					await interaction.deferReply({ephemeral: false});
 					const outfitRes = await outfit.outfit("", options[2], SQLclient, options[1]);
-					await interaction.editReply({embeds: [outfitRes]});
+					await interaction.editReply({embeds: [outfitRes[0]], components: outfitRes[1]});
 					break;
 			}
 		}
@@ -750,7 +751,7 @@ client.on('messageCreate', async message => {
 					continue;
 				}
 				outfit.outfit(tags[x], 'ps2:v2', SQLclient)
-					.then(res => messageHandler.send(message.channel, {embeds: [res]}, "PC Outfit", true))
+					.then(res => messageHandler.send(message.channel, {embeds: [res[0]], components: res[1]}, "PC Outfit", true))
 					.catch(err => messageHandler.handleError(message.channel, err, "PC Outfit"))
 			}
 		}
@@ -764,7 +765,7 @@ client.on('messageCreate', async message => {
 					continue;
 				}
 				outfit.outfit(tags[x], 'ps2ps4us:v2', SQLclient)
-					.then(res => messageHandler.send(message.channel, {embeds: [res]}, "PS4US Outfit", true))
+					.then(res => messageHandler.send(message.channel, {embeds: [res[0]]}, "PS4US Outfit", true))
 					.catch(err => messageHandler.handleError(message.channel, err, "PS4US Outfit"))
 			}
 		}
@@ -778,7 +779,7 @@ client.on('messageCreate', async message => {
 					continue;
 				}
 				outfit.outfit(tags[x], 'ps2ps4eu:v2', SQLclient)
-					.then(res => messageHandler.send(message.channel, {embeds: [res]}, "PS4EU Outfit", true))
+					.then(res => messageHandler.send(message.channel, {embeds: [res[0]]}, "PS4EU Outfit", true))
 					.catch(err => messageHandler.handleError(message.channel, err, "PS4EU Outfit"))
 			}
 		}
