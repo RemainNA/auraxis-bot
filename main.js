@@ -598,6 +598,10 @@ client.on('interactionCreate', async interaction => {
 					console.log("Unknown interaction");
 					return;
 				}
+				else if(err.code == 10008){ //"Unknown Message"
+					console.log("Unknown Message");
+					return;
+				}
 				console.log(err);
 				if(interaction.deferred){
 					await interaction.editReply("Error occurred when handling command");
