@@ -169,6 +169,9 @@ async function postMessage(SQLclient, discordClient, tag, id, type){
 					subscriptions.unsubscribeAll(SQLclient, row.channel);
 					console.log('Unsubscribed from '+row.channel);
 				}
+				else{
+					console.log(error);
+				}
 			}
 			else{
 				console.log(error);
