@@ -250,7 +250,12 @@ client.on('interactionCreate', async interaction => {
 					}
 					await interaction.deferReply(); //Give the bot time to look up the results
 					res = await outfit.outfit(options.getString('tag').toLowerCase(), options.getString('platform') || 'ps2:v2', SQLclient);
-					await interaction.editReply({embeds:[res[0]], components: res[1]});
+					if(options.getString('platform') == 'ps2ps4us:v2' || (options.getString('platform') == 'ps2ps4eu:v2')){
+						await interaction.editReply({embeds:[res[0]]});
+					}
+					else{
+						await interaction.editReply({embeds:[res[0]], components: res[1]});
+					}
 				}
 				break;
 
