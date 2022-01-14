@@ -597,7 +597,12 @@ client.on('interactionCreate', async interaction => {
 				case 'outfit':
 					await interaction.deferReply({ephemeral: false});
 					const outfitRes = await outfit.outfit("", options[2], SQLclient, options[1]);
-					await interaction.editReply({embeds: [outfitRes[0]], components: outfitRes[1]});
+					if(options[2] == 'ps2:v2'){
+						await interaction.editReply({embeds: [outfitRes[0]], components: outfitRes[1]});
+					}
+					else{
+						await interaction.editReply({embeds: [outfitRes[0]]});
+					}
 					break;
 			}
 		}
