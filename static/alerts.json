@@ -331,6 +331,18 @@
         "description": "Control territory to lock Koltyr",
         "name": "Koltyr Conquest"
     },
+    "222": {
+        "description": "Control territory to lock Oshur",
+        "name": "Oshur Liberation"
+    },
+    "223": {
+        "description": "Control territory to lock Oshur",
+        "name": "Oshur Superiority"
+    },
+    "224": {
+        "description": "Control territory to lock Oshur",
+        "name": "Oshur Enlightenment"
+    },
     "3": {
         "description": "Capture Amerish within the time limit",
         "name": "Seeing Green"

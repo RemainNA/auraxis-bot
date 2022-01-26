@@ -17,6 +17,7 @@ const continents = [
 	"Hossin",
 	"Amerish",
 	"Esamir",
+	"Oshur",
 	"Koltyr"
 ]
 

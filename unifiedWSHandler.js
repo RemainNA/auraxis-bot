@@ -199,6 +199,10 @@ const alertEvent = async function(payload, environment, pgClient, discordClient)
                 continent = "Hossin";
                 showTerritory = true;
             }
+            else if(response.name.toLowerCase().indexOf("oshur") > -1){
+                continent = "Oshur";
+                showTerritory = true;
+            }
             else if(response.name.toLowerCase().indexOf("koltyr") > -1){
                 continent = "Koltyr";
                 showTerritory = true;
@@ -225,7 +229,7 @@ const alertEvent = async function(payload, environment, pgClient, discordClient)
                 \n<:NC:818767043138027580> **NC**: ${ncPc}%\
                 \n<:TR:818988588049629256> **TR**: ${trPc}%`)
             }
-            let rows = await pgClient.query("SELECT a.channel, c.Koltyr, c.Indar, c.Hossin, c.Amerish, c.Esamir, c.Other, c.autoDelete\
+            let rows = await pgClient.query("SELECT a.channel, c.Koltyr, c.Indar, c.Hossin, c.Amerish, c.Esamir, c.Oshur, c.Other, c.autoDelete\
             FROM alerts a LEFT JOIN subscriptionConfig c on a.channel = c.channel\
             WHERE a.world = $1;", [server.toLowerCase()]);
             for (let row of rows.rows){
@@ -248,7 +252,7 @@ const alertEvent = async function(payload, environment, pgClient, discordClient)
                                     if(messageId != -1 && row.autodelete === true){
                                         const in50minutes = new Date((new Date()).getTime() + 3000000);
                                         const in95minutes = new Date((new Date()).getTime() + 5700000);
-                                        if(['Indar', 'Hossin', 'Esamir', 'Amerish'].includes(continent) && response.name.indexOf("Unstable Meltdown") == -1){
+                                        if(['Indar', 'Hossin', 'Esamir', 'Amerish', 'Oshur'].includes(continent) && response.name.indexOf("Unstable Meltdown") == -1){
                                             pgClient.query("INSERT INTO toDelete (channel, messageID, timeToDelete) VALUES ($1, $2, $3)", [row.channel, messageId, in95minutes])
                                             .catch(err => {console.log(err);})
                                         }
@@ -274,7 +278,7 @@ const alertEvent = async function(payload, environment, pgClient, discordClient)
                                 if(messageId != -1 && row.autodelete === true){
                                     const in50minutes = new Date((new Date()).getTime() + 3000000);
                                     const in95minutes = new Date((new Date()).getTime() + 5700000);
-                                    if(['Indar', 'Hossin', 'Esamir', 'Amerish'].includes(continent) && response.name.indexOf("Unstable Meltdown") == -1){
+                                    if(['Indar', 'Hossin', 'Esamir', 'Amerish', 'Oshur'].includes(continent) && response.name.indexOf("Unstable Meltdown") == -1){
                                         pgClient.query("INSERT INTO toDelete (channel, messageID, timeToDelete) VALUES ($1, $2, $3)", [row.channel, messageId, in95minutes])
                                         .catch(err => {console.log(err);})
                                     }
@@ -314,7 +318,9 @@ const outfitResources = {
     "Amp Station": "8 Synthium <:Synthium:818766858865475584>",
     "Tech Plant": "8 Synthium <:Synthium:818766858865475584>",
     "Containment Site": "8 Synthium <:Synthium:818766858865475584>",
-    "Central base": "2 Polystellarite <:Polystellarite:818766888238448661>"
+    "Central base": "2 Polystellarite <:Polystellarite:818766888238448661>",
+    "Interlink": "None",
+    "Trident": "None"
 }
 
 const centralBases = [
@@ -361,6 +367,9 @@ const baseEvent = async function(payload, environment, pgClient, discordClient){
         }
         else if(payload.zone_id == "8"){
             sendEmbed.addField("Continent", "Esamir", true);
+        }
+        else if(payload.zone_id == "344"){
+            sendEmbed.addField("Continent", "Oshur", true);
         }
         if(centralBases.includes(payload.facility_id)){
             sendEmbed.addField("Facility Type", base.type+"\n(Central base)", true);

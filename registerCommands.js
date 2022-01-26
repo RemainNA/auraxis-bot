@@ -372,6 +372,10 @@ const data = [
 							value: 'esamir'
 						},
 						{
+							name: 'Oshur',
+							value: 'oshur'
+						},
+						{
 							name: 'Other',
 							value: 'other'
 						}

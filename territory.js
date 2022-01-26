@@ -1,7 +1,7 @@
 // This file defines functions used in finding and returning the current territory control on a given server, broken up by continent
 
 const Discord = require('discord.js');
-const { serverNames, serverIDs, badQuery, censusRequest } = require('./utils');
+const { serverNames, serverIDs, badQuery, censusRequest, continents } = require('./utils');
 
 const fisuTerritory = function(serverID){
     if (serverID < 1000){
@@ -26,6 +26,8 @@ const continentBenefit = function(continent){
             return "Base generators auto-repair over time"
         case "Esamir":
             return "Allied control points increase shield capacity"
+        case "Oshur":
+            return "-20% Air Vehicle Nanite cost"
         default:
             return "No benefit"
     }
@@ -51,7 +53,7 @@ module.exports = {
         else if(serverID == 2000){
             platform = 'ps2ps4eu:v2';
         }
-        let response = await censusRequest(platform, 'map_list', `/map/?world_id=${serverID}&zone_ids=2,4,6,8,14`);
+        let response = await censusRequest(platform, 'map_list', `/map/?world_id=${serverID}&zone_ids=2,4,6,8,14,344`);
         if(response.length < 3){
             throw "API response missing continents";
         }
@@ -65,6 +67,7 @@ module.exports = {
         let HossinObj = {vs:0, nc:0, tr:0, locked:-1};
         let AmerishObj = {vs:0, nc:0, tr:0, locked:-1};
         let EsamirObj = {vs:0, nc:0, tr:0, locked:-1};
+        let OshurObj = {vs:0, nc:0, tr:0, locked:-1};
         let KoltyrObj = {vs:0, nc:0, tr:0, locked:-1};
         for(const res of response){
             let vs = 0;
@@ -97,10 +100,13 @@ module.exports = {
                 case "14":
                     KoltyrObj = {vs:vs, nc:nc, tr:tr, locked:-1};
                     break;
+                case "344":
+                    OshurObj = {vs:vs, nc:nc, tr:tr, locked:-1};
+                    break;
             }
         }
         // Check for lock status
-        for(let obj of [IndarObj, HossinObj, AmerishObj, EsamirObj, KoltyrObj]){
+        for(let obj of [IndarObj, HossinObj, AmerishObj, EsamirObj, OshurObj, KoltyrObj]){
             const total = obj.vs + obj.nc + obj.tr;
             if(obj.vs == total){
                 obj.locked = 1;
@@ -126,11 +132,14 @@ module.exports = {
         EsamirObj.vs = Math.max(0, EsamirObj.vs-1);
         EsamirObj.nc = Math.max(0, EsamirObj.nc-1);
         EsamirObj.tr = Math.max(0, EsamirObj.tr-1);
+        OshurObj.vs = Math.max(0, OshurObj.vs-1);
+        OshurObj.nc = Math.max(0, OshurObj.nc-1);
+        OshurObj.tr = Math.max(0, OshurObj.tr-1);
         KoltyrObj.vs = Math.max(0, KoltyrObj.vs-1);
         KoltyrObj.nc = Math.max(0, KoltyrObj.nc-1);
         KoltyrObj.tr = Math.max(0, KoltyrObj.tr-1);
 
-        return {Indar: IndarObj, Hossin: HossinObj, Amerish: AmerishObj, Esamir: EsamirObj, Koltyr: KoltyrObj};
+        return {Indar: IndarObj, Hossin: HossinObj, Amerish: AmerishObj, Esamir: EsamirObj, Oshur: OshurObj, Koltyr: KoltyrObj};
     },
 
     territory: async function(serverName){
@@ -148,7 +157,6 @@ module.exports = {
         resEmbed.setTitle(serverNames[serverID]+" territory");
         resEmbed.setTimestamp();
         resEmbed.setURL(fisuTerritory(serverID));
-        let continents = ["Indar", "Hossin", "Amerish", "Esamir", "Koltyr"];
         for(let continent of continents){
             let Total = terObj[continent].vs + terObj[continent].nc + terObj[continent].tr;
             if(Total == 0){

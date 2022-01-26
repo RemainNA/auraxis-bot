@@ -3,7 +3,7 @@
 const Discord = require('discord.js');
 
 const getAlertStatus = function(continent, shown){
-	if(["Indar", "Hossin", "Amerish", "Esamir"].includes(continent)){
+	if(["Indar", "Hossin", "Amerish", "Esamir", "Oshur"].includes(continent)){
 		if(shown){
 			return `:white_check_mark: **${continent}** alerts and unlocks are displayed`;
 		}
@@ -28,6 +28,7 @@ const continents = [
 	"hossin",
 	"amerish",
 	"esamir",
+	"oshur",
 	"other"
 ]
 
@@ -47,6 +48,7 @@ module.exports = {
 			alertStatus += getAlertStatus("Hossin", row.hossin)+"\n";
 			alertStatus += getAlertStatus("Amerish", row.amerish)+"\n";
 			alertStatus += getAlertStatus("Esamir", row.esamir)+"\n";
+			alertStatus += getAlertStatus("Oshur", row.oshur)+"\n";
 			alertStatus += getAlertStatus("Other", row.other);
 			resEmbed.addField("Continents", alertStatus);
 			if(row.autodelete){
@@ -84,7 +86,7 @@ module.exports = {
 			throw("This channel has no active subscriptions so cannot be configured.  If you believe this is incorrect please run `/config audit`");
 		}
 		if(!continents.includes(continent)){
-			throw("Continent unrecognized.  Options are Koltyr, Indar, Hossin, Amerish, or Esamir.");
+			throw("Continent unrecognized.  Options are Koltyr, Indar, Hossin, Amerish, Esamir, or Oshur.");
 		}
 		if(setting == 'enable'){
 			switch(continent){
@@ -108,6 +110,10 @@ module.exports = {
 					pgClient.query("UPDATE subscriptionConfig SET esamir = true WHERE channel = $1;", [channel])
 						.catch(err => {throw(err)})
 					return("Esamir alerts and unlocks will be displayed");
+				case "oshur":
+					pgClient.query("UPDATE subscriptionConfig SET oshur = true WHERE channel = $1;", [channel])
+						.catch(err => {throw(err)})
+					return("Oshur alerts and unlocks will be displayed");
 				case "other":
 					pgClient.query("UPDATE subscriptionConfig SET other = true WHERE channel = $1;", [channel])
 						.catch(err => {throw(err)})
@@ -136,6 +142,10 @@ module.exports = {
 					pgClient.query("UPDATE subscriptionConfig SET esamir = false WHERE channel = $1;", [channel])
 						.catch(err => {throw(err)})
 					return("Esamir alerts and unlocks will not be displayed");
+				case "oshur":
+					pgClient.query("UPDATE subscriptionConfig SET oshur = false WHERE channel = $1;", [channel])
+						.catch(err => {throw(err)})
+					return("Oshur alerts and unlocks will not be displayed");
 				case "other":
 					pgClient.query("UPDATE subscriptionConfig SET other = false WHERE channel = $1;", [channel])
 						.catch(err => {throw(err)})
