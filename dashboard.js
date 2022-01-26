@@ -182,6 +182,7 @@ const editMessage = async function(channelID, messageID, newDash, pgClient, disc
 			pgClient.query("DELETE FROM outfitDashboard WHERE messageid = $1;", [messageID]);
 		}
 		else{
+			console.log('Error editing dashboard');
 			console.log(err);
 		}
 	}
