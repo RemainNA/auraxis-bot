@@ -335,7 +335,7 @@ const baseEvent = async function(payload, environment, pgClient, discordClient){
         return; //Ignore defended bases
     }
     let platform = environmentToPlatform[environment];
-    if(payload.zone_id == '2' || payload.zone_id == '4' || payload.zone_id == '6' || payload.zone_id == '8'){ //Don't track bases outside the main continents 
+    if(payload.zone_id == '2' || payload.zone_id == '4' || payload.zone_id == '6' || payload.zone_id == '8' || payload.zone_id == '344'){ //Don't track bases outside the main continents 
         await pgClient.query("INSERT INTO bases VALUES ($1, $2, $3, $4, $5, $6)\
         ON CONFLICT(concatKey) DO UPDATE SET outfit = $5, faction = $6;",
         [`${payload.world_id}-${payload.facility_id}`, payload.zone_id, payload.world_id, payload.facility_id, payload.outfit_id, payload.new_faction_id]);
