@@ -5704,11 +5704,6 @@
         "name": "Tomcat A2AM Pods",
         "sanction": "none"
     },
-    "6011734": {
-        "category": "Pistol",
-        "name": "NS-1999 Party Pistol",
-        "sanction": ""
-    },
     "6006090": {
         "category": "Pistol",
         "name": "\"\"\"Jackpot\"\" Cerberus\"",
@@ -6014,6 +6009,11 @@
         "name": "NS Patriot Flare Gun",
         "sanction": "meme"
     },
+    "6011734": {
+        "category": "Pistol",
+        "name": "NS-1999 Party Pistol",
+        "sanction": "meme"
+    },
     "6004714": {
         "category": "Pistol",
         "name": "Soldier Soaker",
@@ -6164,11 +6164,6 @@
         "name": "Tomcat A2AM Pods",
         "sanction": "none"
     },
-    "6011735": {
-        "category": "Rocket Launcher",
-        "name": "NS Crystal Scorpion",
-        "sanction": ""
-    },
     "33003": {
         "category": "Rocket Launcher",
         "name": "AF-22 Crow",
@@ -6244,6 +6239,11 @@
         "name": "\"NS \"\"Jackpot\"\" Decimator\"",
         "sanction": "none"
     },
+    "6011773": {
+        "category": "Rocket Launcher",
+        "name": "\"NS \"\"Tigerstrike\"\" Decimator\"",
+        "sanction": "none"
+    },
     "50561": {
         "category": "Rocket Launcher",
         "name": "NS Annihilator",
@@ -6257,6 +6257,11 @@
     "802301": {
         "category": "Rocket Launcher",
         "name": "NS Annihilator-G",
+        "sanction": "none"
+    },
+    "6011735": {
+        "category": "Rocket Launcher",
+        "name": "NS Crystal Scorpion",
         "sanction": "none"
     },
     "50560": {
@@ -7314,6 +7319,26 @@
         "name": "M60-G Bulldog",
         "sanction": "gunner"
     },
+    "6011538": {
+        "category": "Underwater Weapons",
+        "name": "UBP-1 Starfish",
+        "sanction": "infantry"
+    },
+    "6011526": {
+        "category": "Underwater Weapons",
+        "name": "UBR-100 Frogman",
+        "sanction": "infantry"
+    },
+    "6011527": {
+        "category": "Underwater Weapons",
+        "name": "UBR-150 Sea Lion",
+        "sanction": "infantry"
+    },
+    "6011528": {
+        "category": "Underwater Weapons",
+        "name": "UBR-300 Swordfish",
+        "sanction": "infantry"
+    },
     "6553": {
         "category": "Valkyrie Nose Gunner",
         "name": "CAS 14-E",
@@ -7522,6 +7547,11 @@
     "727": {
         "category": "Vehicle Weapons",
         "name": "Aspis Anti-Aircraft Phalanx Turret",
+        "sanction": "none"
+    },
+    "6011770": {
+        "category": "Vehicle Weapons",
+        "name": "Exodus PPC",
         "sanction": "none"
     },
     "6002396": {
