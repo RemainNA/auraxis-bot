@@ -207,6 +207,12 @@ module.exports = {
 		}
 
 		const row = new Discord.MessageActionRow();
+		row.addComponents(
+			new Discord.MessageButton()
+				.setStyle('PRIMARY')
+				.setLabel("View online")
+				.setCustomId(`online%${oInfo.outfitID}%${platform}`)
+		)
 		if(platform == "ps2:v2"){
 			const now = Math.round(Date.now() / 1000);
 

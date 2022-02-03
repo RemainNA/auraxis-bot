@@ -71,13 +71,12 @@ const totalLength = function(arr){
 }
 
 module.exports = {
-	online: async function(oTag, platform){
+	online: async function(oTag, platform, outfitID = null){
 		if(badQuery(oTag)){
 			throw "Outfit search contains disallowed characters";
 		}
 
-		const oInfo = await onlineInfo(oTag, platform);
-
+		let oInfo = await onlineInfo(oTag, platform, outfitID);
 		let resEmbed = new Discord.MessageEmbed();
 
 		resEmbed.setTitle(oInfo.name);
