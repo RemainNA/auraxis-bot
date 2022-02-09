@@ -54,7 +54,12 @@ module.exports = {
 					textList += `And ${remaining} more`;
 					break;
 				}
-				textList += `<t:${dir[1]}:d>: ${directives[dir[0]].name}\n`;
+				if(dir[0] in directives){
+					textList += `<t:${dir[1]}:d>: ${directives[dir[0]].name}\n`;
+				}
+				else{
+					console.log(`Missing directive id ${dir[0]}`);
+				}
 				remaining -= 1;
 				max -= 1
 			}
