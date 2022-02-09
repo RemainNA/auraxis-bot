@@ -196,6 +196,12 @@ module.exports = {
 					case "Containment Site":
 						synthium += 8;
 						break;
+					case "Interlink":
+						synthium += 8;
+						break;
+					case "Trident":
+						polystellarite += 1;
+						break;
 				}
 			}
 		}

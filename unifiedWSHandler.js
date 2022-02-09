@@ -318,9 +318,9 @@ const outfitResources = {
     "Amp Station": "8 Synthium <:Synthium:818766858865475584>",
     "Tech Plant": "8 Synthium <:Synthium:818766858865475584>",
     "Containment Site": "8 Synthium <:Synthium:818766858865475584>",
-    "Central base": "2 Polystellarite <:Polystellarite:818766888238448661>",
-    "Interlink": "None",
-    "Trident": "None"
+    "Interlink": "8 Synthium <:Synthium:818766858865475584>",
+    "Trident": "1 Polystellarite <:Polystellarite:818766888238448661>",
+    "Central base": "2 Polystellarite <:Polystellarite:818766888238448661>"
 }
 
 const centralBases = [
