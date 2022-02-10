@@ -2519,6 +2519,11 @@
         "name": "Seeker HLX",
         "sanction": "none"
     },
+    "6011831": {
+        "category": "Heavy Crossbow",
+        "name": "Seraphim HLX",
+        "sanction": "none"
+    },
     "6011140": {
         "category": "Heavy Weapon",
         "name": "D11 Detonator",
