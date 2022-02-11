@@ -343,6 +343,10 @@
         "description": "Control territory to lock Oshur",
         "name": "Oshur Enlightenment"
     },
+    "226": {
+        "description": "Control territory to lock Oshur",
+        "name": "Oshur Conquest"
+    },
     "3": {
         "description": "Capture Amerish within the time limit",
         "name": "Seeing Green"
