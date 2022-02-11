@@ -147,6 +147,10 @@ const trackedAlerts = [
     212,
     213,
     214,
+    222,
+    223,
+    224,
+    226
 ];
 
 const alertEvent = async function(payload, environment, pgClient, discordClient){
