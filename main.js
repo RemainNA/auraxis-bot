@@ -139,6 +139,8 @@ const links = '\n\
 [Invite bot](https://discord.com/api/oauth2/authorize?client_id=437756856774033408&permissions=1330192&scope=bot%20applications.commands)\n\
 [Donate on Ko-fi](https://ko-fi.com/remainna)'
 
+const deprecationNotice = 'Exclamation commands will be disabled at the end of April, please switch over to slash commands.  View the FAQ in !help for more info.';
+
 const checkPermissions = async function(channel, user){
 	if(channel.type == 'DM'){
 		return true;
@@ -679,14 +681,14 @@ client.on('messageCreate', async message => {
 		helpEmbed.addField("Requires Manage Channel permission", commandsManageChannels);
 		helpEmbed.addField("Links", links);
 		helpEmbed.setFooter("<> = Optional, [] = Required");
-		messageHandler.send(message.channel, {embeds: [helpEmbed]}, 'help', true);
+		messageHandler.send(message.channel, {content: deprecationNotice, embeds: [helpEmbed]}, 'help', true);
 	}
 	else if (message.content.substring(0,11).toLowerCase() == '!character '){
 		let chars = message.content.substring(11).toLowerCase().split(" ");
 		for(const x in chars){
 			if(chars[x] != ""){
 				char.character(chars[x], 'ps2:v2')
-					.then(res => messageHandler.send(message.channel, {embeds: [res[0]], components: res[1]}, "PC Character", true))
+					.then(res => messageHandler.send(message.channel, {content: deprecationNotice, embeds: [res[0]], components: res[1]}, "PC Character", true))
 					.catch(err => messageHandler.handleError(message.channel, err, "PC Character"))
 			}
 		}
@@ -696,7 +698,7 @@ client.on('messageCreate', async message => {
 		for(const x in chars){
 			if(chars[x] != ""){
 				char.character(chars[x], 'ps2ps4us:v2')
-					.then(res => messageHandler.send(message.channel, {embeds: [res[0]], components: res[1]}, "PS4US Character", true))
+					.then(res => messageHandler.send(message.channel, {content: deprecationNotice, embeds: [res[0]], components: res[1]}, "PS4US Character", true))
 					.catch(err => messageHandler.handleError(message.channel, err, "PS4US Character"))
 			}
 		}
@@ -706,7 +708,7 @@ client.on('messageCreate', async message => {
 		for(const x in chars){
 			if(chars[x] != ""){
 				char.character(chars[x], 'ps2ps4eu:v2')
-					.then(res => messageHandler.send(message.channel, {embeds: [res[0]], components: res[1]}, "PS4EU Character", true))
+					.then(res => messageHandler.send(message.channel, {content: deprecationNotice, embeds: [res[0]], components: res[1]}, "PS4EU Character", true))
 					.catch(err => messageHandler.handleError(message.channel, err, "PS4EU Character"))
 			}
 		}
@@ -717,12 +719,12 @@ client.on('messageCreate', async message => {
 		let wName = message.content.substring((7+cName.length+1)).trim();
 		if(wName == ""){
 			char.character(cName, 'ps2:v2')
-				.then(res => messageHandler.send(message.channel, {embeds: [res[0]], components: res[1]}, "PC Character by stats", true))
+				.then(res => messageHandler.send(message.channel, {content: deprecationNotice, embeds: [res[0]], components: res[1]}, "PC Character by stats", true))
 				.catch(err => messageHandler.handleError(message.channel, err, "PC Character by stats"))
 		}
 		else{
 			stats.lookup(cName, wName, 'ps2:v2')
-				.then(res => messageHandler.send(message.channel, {embeds: [res]}, "PC Stats", true))
+				.then(res => messageHandler.send(message.channel, {content: deprecationNotice, embeds: [res]}, "PC Stats", true))
 				.catch(err => messageHandler.handleError(message.channel, err, "PC Stats"))	
 		}
 	}
@@ -732,12 +734,12 @@ client.on('messageCreate', async message => {
 		let wName = message.content.substring((13+cName.length+1));
 		if(wName == ""){
 			char.character(cName, 'ps2ps4us:v2')
-				.then(res => messageHandler.send(message.channel, {embeds: [res[0]], components: res[1]}, "PS4US Character by stats", true))
+				.then(res => messageHandler.send(message.channel, {content: deprecationNotice, embeds: [res[0]], components: res[1]}, "PS4US Character by stats", true))
 				.catch(err => messageHandler.handleError(message.channel, err, "PS4US Character by stats"))
 		}
 		else{
 			stats.lookup(cName, wName, 'ps2ps4us:v2')
-				.then(res => messageHandler.send(message.channel, {embeds: [res]}, "PS4US Stats", true))
+				.then(res => messageHandler.send(message.channel, {content: deprecationNotice, embeds: [res]}, "PS4US Stats", true))
 				.catch(err => messageHandler.handleError(message.channel, err, "PS4US Stats"))	
 		}
 	}
@@ -747,12 +749,12 @@ client.on('messageCreate', async message => {
 		let wName = message.content.substring((13+cName.length+1));
 		if(wName == ""){
 			char.character(cName, 'ps2ps4eu:v2')
-				.then(res => messageHandler.send(message.channel, {embeds: [res[0]], components: res[1]}, "PS4EU Character by stats", true))
+				.then(res => messageHandler.send(message.channel, {content: deprecationNotice, embeds: [res[0]], components: res[1]}, "PS4EU Character by stats", true))
 				.catch(err => messageHandler.handleError(message.channel, err, "PS4EU Character by stats"))
 		}
 		else{
 			stats.lookup(cName, wName, 'ps2ps4eu:v2')
-				.then(res => messageHandler.send(message.channel, {embeds: [res]}, "PS4EU Stats", true))
+				.then(res => messageHandler.send(message.channel, {content: deprecationNotice, embeds: [res]}, "PS4EU Stats", true))
 				.catch(err => messageHandler.handleError(message.channel, err, "PS4EU Stats"))	
 		}
 		
@@ -766,7 +768,7 @@ client.on('messageCreate', async message => {
 					continue;
 				}
 				outfit.outfit(tags[x], 'ps2:v2', SQLclient)
-					.then(res => messageHandler.send(message.channel, {embeds: [res[0]], components: res[1]}, "PC Outfit", true))
+					.then(res => messageHandler.send(message.channel, {content: deprecationNotice, embeds: [res[0]], components: res[1]}, "PC Outfit", true))
 					.catch(err => messageHandler.handleError(message.channel, err, "PC Outfit"))
 			}
 		}
@@ -780,7 +782,7 @@ client.on('messageCreate', async message => {
 					continue;
 				}
 				outfit.outfit(tags[x], 'ps2ps4us:v2', SQLclient)
-					.then(res => messageHandler.send(message.channel, {embeds: [res[0]], components: res[1]}, "PS4US Outfit", true))
+					.then(res => messageHandler.send(message.channel, {content: deprecationNotice, embeds: [res[0]], components: res[1]}, "PS4US Outfit", true))
 					.catch(err => messageHandler.handleError(message.channel, err, "PS4US Outfit"))
 			}
 		}
@@ -794,7 +796,7 @@ client.on('messageCreate', async message => {
 					continue;
 				}
 				outfit.outfit(tags[x], 'ps2ps4eu:v2', SQLclient)
-					.then(res => messageHandler.send(message.channel, {embeds: [res[0]], components: res[1]}, "PS4EU Outfit", true))
+					.then(res => messageHandler.send(message.channel, {content: deprecationNotice, embeds: [res[0]], components: res[1]}, "PS4EU Outfit", true))
 					.catch(err => messageHandler.handleError(message.channel, err, "PS4EU Outfit"))
 			}
 		}
@@ -808,7 +810,7 @@ client.on('messageCreate', async message => {
 					continue;
 				}
 				online.online(tags[x], 'ps2:v2')
-					.then(res => messageHandler.send(message.channel, {embeds: [res]}, "PC Online", true))
+					.then(res => messageHandler.send(message.channel, {content: deprecationNotice, embeds: [res]}, "PC Online", true))
 					.catch(err => messageHandler.handleError(message.channel, err, "PC Online"))
 			}
 		}
@@ -822,7 +824,7 @@ client.on('messageCreate', async message => {
 					continue;
 				}
 				online.online(tags[x], 'ps2ps4us:v2')
-					.then(res => messageHandler.send(message.channel, {embeds: [res]}, "PS4US Online", true))
+					.then(res => messageHandler.send(message.channel, {content: deprecationNotice, embeds: [res]}, "PS4US Online", true))
 					.catch(err => messageHandler.handleError(message.channel, err, "PS4US Online"))
 			}
 		}
@@ -836,7 +838,7 @@ client.on('messageCreate', async message => {
 					continue;
 				}
 				online.online(tags[x], 'ps2ps4eu:v2')
-					.then(res => messageHandler.send(message.channel, {embeds: [res]}, "PS4EU Online", true))
+					.then(res => messageHandler.send(message.channel, {content: deprecationNotice, embeds: [res]}, "PS4EU Online", true))
 					.catch(err => messageHandler.handleError(message.channel, err, "PS4EU Online"))
 			}
 		}
@@ -847,7 +849,7 @@ client.on('messageCreate', async message => {
 		for(const x in servers){
 			if(servers[x] != ""){
 				population.lookup(servers[x])
-					.then(res => messageHandler.send(message.channel, {embeds: [res]}, "Population", true))
+					.then(res => messageHandler.send(message.channel, {content: deprecationNotice, embeds: [res]}, "Population", true))
 					.catch(err => messageHandler.handleError(message.channel, err, "Population"))
 			}
 		}
@@ -857,7 +859,7 @@ client.on('messageCreate', async message => {
 		for(const x in chars){
 			if(chars[x] != ""){
 				asp.originalBR(chars[x], "ps2:v2")
-					.then(res => messageHandler.send(message.channel, {embeds: [res]}, "PC ASP", true))
+					.then(res => messageHandler.send(message.channel, {content: deprecationNotice, embeds: [res]}, "PC ASP", true))
 					.catch(err => messageHandler.handleError(message.channel, err, "PC ASP"))
 			}
 		}
@@ -867,7 +869,7 @@ client.on('messageCreate', async message => {
 		for(const x in chars){
 			if(chars[x] != ""){
 				asp.originalBR(chars[x], "ps2ps4us:v2")
-					.then(res => messageHandler.send(message.channel, {embeds: [res]}, "PS4US ASP", true))
+					.then(res => messageHandler.send(message.channel, {content: deprecationNotice, embeds: [res]}, "PS4US ASP", true))
 					.catch(err => messageHandler.handleError(message.channel, err, "PC ASP"))
 			}
 		}
@@ -877,7 +879,7 @@ client.on('messageCreate', async message => {
 		for(const x in chars){
 			if(chars[x] != ""){
 				asp.originalBR(chars[x], "ps2ps4eu:v2")
-					.then(res => messageHandler.send(message.channel, {embeds: [res]}, "PS4EU ASP", true))
+					.then(res => messageHandler.send(message.channel, {content: deprecationNotice, embeds: [res]}, "PS4EU ASP", true))
 					.catch(err => messageHandler.handleError(message.channel, err, "PC ASP"))
 			}
 		}
@@ -887,7 +889,7 @@ client.on('messageCreate', async message => {
 		for(const x in servers){
 			if(servers[x] != ""){
 				territory.territory(servers[x])
-					.then(res => messageHandler.send(message.channel, {embeds: [res]}, "Territory", true))
+					.then(res => messageHandler.send(message.channel, {content: deprecationNotice, embeds: [res]}, "Territory", true))
 					.catch(err => messageHandler.handleError(message.channel, err, "Territory"))
 			}
 		}
@@ -897,29 +899,29 @@ client.on('messageCreate', async message => {
 		for(const x in servers){
 			if(servers[x] != ""){
 				alerts.activeAlerts(servers[x])
-					.then(res => messageHandler.send(message.channel, {embeds: [res]}, "Alerts", true))
+					.then(res => messageHandler.send(message.channel, {content: deprecationNotice, embeds: [res]}, "Alerts", true))
 					.catch(err => messageHandler.handleError(message.channel, err, "Alerts"))
 			}
 		}
 	}
 	else if (message.content.toLowerCase() == '!status') {
 		status.servers()
-			.then(res => messageHandler.send(message.channel, {embeds: [res]}, "Server status", true))
+			.then(res => messageHandler.send(message.channel, {content: deprecationNotice, embeds: [res]}, "Server status", true))
 			.catch(err => messageHandler.handleError(message.channel, err, "Server status"))
 	}
 	else if (message.content.substring(0,8).toLowerCase() == '!weapon ') {
 		weapon.lookup(message.content.substring(8))
-			.then(res => messageHandler.send(message.channel, {embeds: [res]}, "Weapon", true))
+			.then(res => messageHandler.send(message.channel, {content: deprecationNotice, embeds: [res]}, "Weapon", true))
 			.catch(err => messageHandler.handleError(message.channel, err, "Weapon"))
 	}
 	else if (message.content.substring(0,14).toLowerCase() == '!weaponsearch ') {
 		weaponSearch.lookup(message.content.substring(14))
-			.then(res => messageHandler.send(message.channel, {embeds: [res]}, "Weapon search", true))
+			.then(res => messageHandler.send(message.channel, {content: deprecationNotice, embeds: [res]}, "Weapon search", true))
 			.catch(err => messageHandler.handleError(message.channel, err, "Weapon search"))
 	}
 	else if (message.content.substring(0,9).toLowerCase() == '!implant ') {
 		implant.lookup(message.content.substring(9))
-			.then(res => messageHandler.send(message.channel, {embeds: [res]}, "Implant", true))
+			.then(res => messageHandler.send(message.channel, {content: deprecationNotice, embeds: [res]}, "Implant", true))
 			.catch(err => messageHandler.handleError(message.channel, err, "Implant"))
 	}
 	else if(messageLower.startsWith("!config")){
@@ -932,7 +934,7 @@ client.on('messageCreate', async message => {
 		}
 		else if (messageLower == '!config view'){
 			subscriptionConfig.displayConfig(message.channel.id, SQLclient)
-				.then(res => messageHandler.send(message.channel, {embeds: [res]}, "Display subscription config", true))
+				.then(res => messageHandler.send(message.channel, {content: deprecationNotice, embeds: [res]}, "Display subscription config", true))
 				.catch(err => messageHandler.handleError(message.channel, err, "Display subscription config"))
 		}
 		else if (message.content.toLowerCase() == '!config audit'){
