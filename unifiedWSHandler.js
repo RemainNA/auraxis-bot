@@ -433,21 +433,21 @@ const captureContributions = async function(outfitID, baseID, timestamp, platfor
     try{
         const response = await censusRequest(platform, 'outfit_list', `/outfit/${outfitID}?c:resolve=member_online_status`);
         let contributions = []
+        let online = []
         if(response[0]?.members[0].online_status == "service_unavailable"){
             return ["Unable to determine contributors"];
         }
         await wait(2000); // Just waiting to make sure all values fill in in the characters_event collection
         for(const member of response[0].members){
             if(member.online_status > 0){
-                try{
-                    const eventResponse = await censusRequest(platform, 'characters_event_list', `characters_event?id=${member.character_id}&type=FACILITY_CHARACTER&c:resolve=character_name`);
-                    if(eventResponse[0].facility_id == baseID && eventResponse[0].timestamp == timestamp){
-                        contributions.push(eventResponse[0].character.name.first);
-                    }
-                }
-                catch(err){
-                    continue;
-                }
+                online.push(member.character_id)
+            }
+        }
+        const onlineEvents = await Promise.allSettled(Array.from(online, x => 
+            censusRequest(platform, 'characters_event_list', `characters_event?id=${x}&type=FACILITY_CHARACTER&c:resolve=character_name`)));
+        for(const event of onlineEvents){
+            if(event.status == "fulfilled" && event.value[0].facility_id == baseID && event.value[0].timestamp == timestamp){
+                contributions.push(event.value[0]?.character.name.first);
             }
         }
         return contributions;
