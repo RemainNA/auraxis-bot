@@ -117,7 +117,7 @@ module.exports = {
 		for(let row of rows.rows){
 			got(`https://api.ps2alerts.com/instances/${row.alertid}`).json()
 				.then(response => {
-					updateAlert(response, pgClient, discordClient, "timeEnded" in response)
+					updateAlert(response, pgClient, discordClient, response.timeEnded != null)
 					.catch(err => {
 						if(err == "Error displaying territory"){
 							checkError(row, pgClient, err);
