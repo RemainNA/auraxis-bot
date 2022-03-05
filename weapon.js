@@ -256,7 +256,7 @@ module.exports = {
 		}
 
 		resEmbed.setDescription(wInfo.description);
-		resEmbed.setFooter("ID: "+wInfo.id+" | Command currently in Beta");
+		resEmbed.setFooter({text: "ID: "+wInfo.id+" | Command currently in Beta"});
 
 		return resEmbed;
 	},

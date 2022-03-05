@@ -263,7 +263,7 @@ module.exports = {
 		if(wInfo.image_id != -1 && wInfo.image_id != undefined){
 			resEmbed.setThumbnail('http://census.daybreakgames.com/files/ps2/images/static/'+wInfo.image_id+'.png');
 		}
-		resEmbed.setFooter("Weapon ID: "+wInfo.id);
+		resEmbed.setFooter({text: "Weapon ID: "+wInfo.id});
 
 		return resEmbed;
 	},

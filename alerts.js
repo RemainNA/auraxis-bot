@@ -83,7 +83,7 @@ module.exports = {
 		}
 		let sendEmbed = new Discord.MessageEmbed();
 		sendEmbed.setTitle(serverNames[serverID]+" alerts");
-		sendEmbed.setFooter("Data from ps2alerts.com");
+		sendEmbed.setFooter({text: "Data from ps2alerts.com"});
 		sendEmbed.setTimestamp();
 		for(const x in alertObj){
 			sendEmbed.addField(alertObj[x].name, "["+alertObj[x].description+"](https://ps2alerts.com/alert/"+alertObj[x].instanceId+"?utm_source=auraxis-bot&utm_medium=discord&utm_campaign=partners)");

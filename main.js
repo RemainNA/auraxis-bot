@@ -172,7 +172,7 @@ client.on('interactionCreate', async interaction => {
 				helpEmbed.addField("Commands", listOfCommands);
 				helpEmbed.addField("Requires Manage Channel permission", commandsManageChannels);
 				helpEmbed.addField("Links", links);
-				helpEmbed.setFooter("<> = Optional, [] = Required");
+				helpEmbed.setFooter({text: "<> = Optional, [] = Required"});
 				await interaction.reply({embeds: [helpEmbed]});
 				break;
 
@@ -680,7 +680,7 @@ client.on('messageCreate', async message => {
 		helpEmbed.addField("Commands", listOfCommands);
 		helpEmbed.addField("Requires Manage Channel permission", commandsManageChannels);
 		helpEmbed.addField("Links", links);
-		helpEmbed.setFooter("<> = Optional, [] = Required");
+		helpEmbed.setFooter({text: "<> = Optional, [] = Required"});
 		messageHandler.send(message.channel, {content: deprecationNotice, embeds: [helpEmbed]}, 'help', true);
 	}
 	else if (message.content.substring(0,11).toLowerCase() == '!character '){

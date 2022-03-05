@@ -15,7 +15,7 @@ const winnerFaction = {
 const updateAlert = async function(info, pgClient, discordClient, isComplete){
 	let messageEmbed = new Discord.MessageEmbed();
 	messageEmbed.setTimestamp();
-	messageEmbed.setFooter("Data from ps2alerts.com");
+	messageEmbed.setFooter({text: "Data from ps2alerts.com"})
 	let alertName = alerts[info.censusMetagameEventType].name;
 	messageEmbed.setTitle(alertName);
 	if (alertName.includes('Enlightenment')){

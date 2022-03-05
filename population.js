@@ -83,7 +83,7 @@ module.exports = {
 				total += serverTotal;
 			}
 			resEmbed.setTitle(`Total population - ${total}`);
-			resEmbed.setFooter('Data from ps2.fisu.pw');
+			resEmbed.setFooter({text: 'Data from ps2.fisu.pw'});
 			resEmbed.setTimestamp();
 			return resEmbed
 		}
@@ -108,13 +108,13 @@ module.exports = {
 			sendEmbed.setTimestamp();
 			sendEmbed.setURL(fisuPopulation(serverID));
 			if(serverID == 2000){
-				sendEmbed.setFooter('Data from ps4eu.ps2.fisu.pw');
+				sendEmbed.setFooter({text: 'Data from ps4eu.ps2.fisu.pw'});
 			}
 			else if(serverID == 1000){
-				sendEmbed.setFooter('Data from ps4us.ps2.fisu.pw');
+				sendEmbed.setFooter({text: 'Data from ps4us.ps2.fisu.pw'});
 			}
 			else{
-				sendEmbed.setFooter('Data from ps2.fisu.pw');
+				sendEmbed.setFooter({text: 'Data from ps2.fisu.pw'});
 			}
 
 			return sendEmbed;
