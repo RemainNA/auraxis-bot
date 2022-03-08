@@ -6,6 +6,15 @@ const Discord = require('discord.js');
 //PostgreSQL connection
 const pg = require('pg');
 
+// Internationalization
+const i18n = require('i18n');
+i18n.configure({
+	directory: './locales',
+	defaultLocale: 'en-us',
+	updateFiles: false,
+	objectNotation: true
+})
+
 // commands
 const char = require('./character.js');
 const stats = require('./stats.js');
@@ -201,7 +210,7 @@ client.on('interactionCreate', async interaction => {
 				}
 				else{
 					await interaction.deferReply(); //Give the bot time to look up the results
-					res = await char.character(options.getString('name').toLowerCase(), options.getString('platform') || 'ps2:v2');
+					res = await char.character(options.getString('name').toLowerCase(), options.getString('platform') || 'ps2:v2', interaction.locale);
 					await interaction.editReply({embeds:[res[0]], components: res[1]});
 				}
 				break;			
@@ -213,7 +222,7 @@ client.on('interactionCreate', async interaction => {
 					await interaction.editReply({embeds:[res]});
 				}
 				else{ //character lookup
-					res = await char.character(interaction.options.getString('name').toLowerCase(), interaction.options.getString('platform') || 'ps2:v2');
+					res = await char.character(interaction.options.getString('name').toLowerCase(), interaction.options.getString('platform') || 'ps2:v2', interaction.locale);
 					await interaction.editReply({embeds:[res[0]], components: res[1]});
 				}
 				break;
@@ -417,7 +426,7 @@ client.on('interactionCreate', async interaction => {
 
 			case 'population':
 				await interaction.deferReply();
-				res = await population.lookup(options.getString("server"));
+				res = await population.lookup(options.getString("server"), interaction.locale);
 				await interaction.editReply({embeds: [res]});
 				break;
 
@@ -587,7 +596,7 @@ client.on('interactionCreate', async interaction => {
 
 				case 'recentStats':
 					await interaction.deferReply({ephemeral: false});
-					const recentStats = await character.recentStats(options[2], options[3], options[1]);
+					const recentStats = await character.recentStats(options[2], options[3], options[1], interaction.locale);
 					await interaction.editReply({embeds: [recentStats]});
 					break;
 
