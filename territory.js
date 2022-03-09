@@ -2,6 +2,7 @@
 
 const Discord = require('discord.js');
 const { serverNames, serverIDs, badQuery, censusRequest, continents } = require('./utils');
+const i18n = require('i18n');
 
 const fisuTerritory = function(serverID){
     if (serverID < 1000){
@@ -16,20 +17,20 @@ const fisuTerritory = function(serverID){
     return null;
 }
 
-const continentBenefit = function(continent){
+const continentBenefit = function(continent, locale="en-US"){
     switch (continent){
         case "Indar":
-            return "Increases heat efficiency of base Phalanx turrets"
+            return i18n.__({phrase: "Increases heat efficiency of base Phalanx turrets", locale: locale});
         case "Hossin":
-            return "Vehicle/Aircraft repair at ammo resupply towers/pads"
+            return i18n.__({phrase: "Vehicle/Aircraft repair at ammo resupply towers/pads", locale: locale});
         case "Amerish":
-            return "Base generators auto-repair over time"
+            return i18n.__({phrase: "Base generators auto-repair over time", locale: locale});
         case "Esamir":
-            return "Allied control points increase shield capacity"
+            return i18n.__({phrase: "Allied control points increase shield capacity", locale: locale});
         case "Oshur":
-            return "-20% Air Vehicle Nanite cost"
+            return i18n.__({phrase: "-20% Air Vehicle Nanite cost", locale: locale});
         default:
-            return "No benefit"
+            return i18n.__({phrase: "No benefit", locale: locale});
     }
 }
 
@@ -142,7 +143,7 @@ module.exports = {
         return {Indar: IndarObj, Hossin: HossinObj, Amerish: AmerishObj, Esamir: EsamirObj, Oshur: OshurObj, Koltyr: KoltyrObj};
     },
 
-    territory: async function(serverName){
+    territory: async function(serverName, locale="en-US"){
         if(badQuery(serverName)){
 			throw "Server search contains disallowed characters";
         }
@@ -154,7 +155,7 @@ module.exports = {
         const serverID = serverIDs[serverName];
         let terObj = await this.territoryInfo(serverID);
         let resEmbed = new Discord.MessageEmbed();
-        resEmbed.setTitle(serverNames[serverID]+" territory");
+        resEmbed.setTitle(i18n.__mf({phrase: "{continent} territory", locale: locale}, {continent: i18n.__({phrase: serverNames[serverID], locale: locale})}));
         resEmbed.setTimestamp();
         resEmbed.setURL(fisuTerritory(serverID));
         for(let continent of continents){
@@ -169,19 +170,19 @@ module.exports = {
             let trPc = (terObj[continent].tr/Total)*100;
             trPc = Number.parseFloat(trPc).toPrecision(3);
             if(terObj[continent].locked == 1){
-                resEmbed.addField(`${continent} <:VS:818766983918518272> `, 'Owned by the VS: '+continentBenefit(continent));
+                resEmbed.addField(`${i18n.__({phrase: continent, locale: locale})} <:VS:818766983918518272> `, i18n.__mf({phrase: "Owned by the {faction}", locale: locale}, {faction: i18n.__({phrase: "VS", locale: locale})})+": "+continentBenefit(continent, locale));
             }
             else if(terObj[continent].locked == 2){
-                resEmbed.addField(`${continent} <:NC:818767043138027580> `, 'Owned by the NC: '+continentBenefit(continent));
+                resEmbed.addField(`${i18n.__({phrase: continent, locale: locale})} <:NC:818767043138027580> `, i18n.__mf({phrase: "Owned by the {faction}", locale: locale}, {faction: i18n.__({phrase: "NC", locale: locale})})+": "+continentBenefit(continent, locale));
             }
             else if(terObj[continent].locked == 3){
-                resEmbed.addField(`${continent} <:TR:818988588049629256> `, 'Owned by the TR: '+continentBenefit(continent));
+                resEmbed.addField(`${i18n.__({phrase: continent, locale: locale})} <:TR:818988588049629256> `, i18n.__mf({phrase: "Owned by the {faction}", locale: locale}, {faction: i18n.__({phrase: "TR", locale: locale})})+": "+continentBenefit(continent, locale));
             }
             else{
                 resEmbed.addField(continent, `\
-                \n<:VS:818766983918518272> **VS**: ${terObj[continent].vs}  |  ${vsPc}%\
-                \n<:NC:818767043138027580> **NC**: ${terObj[continent].nc}  |  ${ncPc}%\
-                \n<:TR:818988588049629256> **TR**: ${terObj[continent].tr}  |  ${trPc}%`)
+                \n<:VS:818766983918518272> **${i18n.__({phrase: "VS", locale: locale})}**: ${terObj[continent].vs}  |  ${vsPc}%\
+                \n<:NC:818767043138027580> **${i18n.__({phrase: "NC", locale: locale})}**: ${terObj[continent].nc}  |  ${ncPc}%\
+                \n<:TR:818988588049629256> **${i18n.__({phrase: "TR", locale: locale})}**: ${terObj[continent].tr}  |  ${trPc}%`)
             }
         }
 
