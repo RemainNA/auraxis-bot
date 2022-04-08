@@ -299,6 +299,11 @@
         "name": "WLT-Mandible Mining Laser",
         "sanction": "none"
     },
+    "6011882": {
+        "category": "ANT Top Turret",
+        "name": "A2-20 HCG",
+        "sanction": "gunner"
+    },
     "803485": {
         "category": "ANT Top Turret",
         "name": "G30 Walker",
@@ -357,6 +362,11 @@
     "6005432": {
         "category": "ANT Top Turret",
         "name": "M12 Kobalt",
+        "sanction": "gunner"
+    },
+    "6011879": {
+        "category": "ANT Top Turret",
+        "name": "M18 Palisade-A",
         "sanction": "gunner"
     },
     "803501": {
@@ -437,6 +447,16 @@
     "6005433": {
         "category": "ANT Top Turret",
         "name": "M60-G Bulldog",
+        "sanction": "gunner"
+    },
+    "6011881": {
+        "category": "ANT Top Turret",
+        "name": "N30 Trawler-A",
+        "sanction": "gunner"
+    },
+    "6011880": {
+        "category": "ANT Top Turret",
+        "name": "V42 Pariah-A",
         "sanction": "gunner"
     },
     "6005541": {
@@ -522,11 +542,6 @@
     "1909": {
         "category": "Assault Rifle",
         "name": "Darkstar",
-        "sanction": "infantry"
-    },
-    "7150": {
-        "category": "Assault Rifle",
-        "name": "Equinox VE2 Burst",
         "sanction": "infantry"
     },
     "77822": {
@@ -627,6 +642,11 @@
     "6008371": {
         "category": "Assault Rifle",
         "name": "PSA-02 Diamondback",
+        "sanction": "infantry"
+    },
+    "7150": {
+        "category": "Assault Rifle",
+        "name": "Pulsar Burst",
         "sanction": "infantry"
     },
     "20": {
@@ -1144,6 +1164,11 @@
         "name": "AF-19 Mercenary",
         "sanction": "infantry"
     },
+    "7171": {
+        "category": "Carbine",
+        "name": "AF-20 Rogue",
+        "sanction": "infantry"
+    },
     "7174": {
         "category": "Carbine",
         "name": "AF-4A Bandit",
@@ -1177,11 +1202,6 @@
     "1919": {
         "category": "Carbine",
         "name": "Eclipse VE3A",
-        "sanction": "infantry"
-    },
-    "7171": {
-        "category": "Carbine",
-        "name": "Gauss Compact Burst",
         "sanction": "infantry"
     },
     "7169": {
@@ -1321,12 +1341,12 @@
     },
     "7172": {
         "category": "Carbine",
-        "name": "Gauss Compact S",
+        "name": "NC2 Gauss Compact",
         "sanction": "none"
     },
     "7213": {
         "category": "Carbine",
-        "name": "Solstice SF",
+        "name": "Prominence VE4",
         "sanction": "none"
     },
     "7192": {
@@ -1794,6 +1814,16 @@
         "name": "Command Uplink Device",
         "sanction": "none"
     },
+    "6011878": {
+        "category": "Explosive",
+        "name": "Concussion Mine",
+        "sanction": "none"
+    },
+    "6011923": {
+        "category": "Explosive",
+        "name": "EMP Mine",
+        "sanction": "none"
+    },
     "6005243": {
         "category": "Explosive",
         "name": "F.U.S.E. (Anti-Infantry)",
@@ -1802,6 +1832,16 @@
     "6009995": {
         "category": "Explosive",
         "name": "F.U.S.E. (Anti-Infantry)",
+        "sanction": "none"
+    },
+    "6011915": {
+        "category": "Explosive",
+        "name": "Flashbang Mine",
+        "sanction": "none"
+    },
+    "6011924": {
+        "category": "Explosive",
+        "name": "Havoc Mine",
         "sanction": "none"
     },
     "6010115": {
@@ -2159,6 +2199,11 @@
         "name": "Anti-Vehicle Grenade",
         "sanction": "none"
     },
+    "6011863": {
+        "category": "Grenade",
+        "name": "Cleansing Grenade",
+        "sanction": "none"
+    },
     "1096": {
         "category": "Grenade",
         "name": "Concussion Grenade",
@@ -2204,6 +2249,16 @@
         "name": "Frag Grenade",
         "sanction": "none"
     },
+    "6011943": {
+        "category": "Grenade",
+        "name": "Havoc Grenade",
+        "sanction": "none"
+    },
+    "6011871": {
+        "category": "Grenade",
+        "name": "Impulse Grenade",
+        "sanction": "none"
+    },
     "6009583": {
         "category": "Grenade",
         "name": "Infernal Grenade",
@@ -2214,14 +2269,14 @@
         "name": "Lightning Grenade",
         "sanction": "none"
     },
-    "883": {
-        "category": "Grenade",
-        "name": "Nanite Healing Grenade",
-        "sanction": "none"
-    },
     "884": {
         "category": "Grenade",
         "name": "Nanite Revive Grenade",
+        "sanction": "none"
+    },
+    "883": {
+        "category": "Grenade",
+        "name": "Nano-Regen Grenade",
         "sanction": "none"
     },
     "6003738": {
@@ -2282,6 +2337,11 @@
     "6005328": {
         "category": "Grenade",
         "name": "Sticky Grenade",
+        "sanction": "none"
+    },
+    "6011945": {
+        "category": "Grenade",
+        "name": "Timed EMP Grenade",
         "sanction": "none"
     },
     "6004742": {
@@ -2384,6 +2444,11 @@
         "name": "G40-F Ranger",
         "sanction": "gunner"
     },
+    "6011886": {
+        "category": "Harasser Top Gunner",
+        "name": "H2-20 HCG",
+        "sanction": "gunner"
+    },
     "6006397": {
         "category": "Harasser Top Gunner",
         "name": "Halberd-H SE",
@@ -2422,6 +2487,11 @@
     "6005383": {
         "category": "Harasser Top Gunner",
         "name": "M12 Kobalt-H",
+        "sanction": "gunner"
+    },
+    "6011883": {
+        "category": "Harasser Top Gunner",
+        "name": "M18 Palisade-H",
         "sanction": "gunner"
     },
     "6103": {
@@ -2494,6 +2564,11 @@
         "name": "MR11 Gatekeeper-H",
         "sanction": "gunner"
     },
+    "6011885": {
+        "category": "Harasser Top Gunner",
+        "name": "N30 Trawler-H",
+        "sanction": "gunner"
+    },
     "6122": {
         "category": "Harasser Top Gunner",
         "name": "P525 Marauder-H",
@@ -2507,6 +2582,11 @@
     "6126": {
         "category": "Harasser Top Gunner",
         "name": "Saron HRB-H",
+        "sanction": "gunner"
+    },
+    "6011884": {
+        "category": "Harasser Top Gunner",
+        "name": "V42 Pariah-H",
         "sanction": "gunner"
     },
     "6011442": {
@@ -2602,6 +2682,11 @@
     "6009426": {
         "category": "Heavy Weapon",
         "name": "NS-03 Thumper SE",
+        "sanction": "none"
+    },
+    "6012324": {
+        "category": "Heavy Weapon",
+        "name": "SPRK-33's Stomper",
         "sanction": "none"
     },
     "7533": {
@@ -4919,6 +5004,11 @@
         "name": "NS Icebreaker",
         "sanction": "none"
     },
+    "6012441": {
+        "category": "Knife",
+        "name": "NS SQU-34K",
+        "sanction": "none"
+    },
     "802904": {
         "category": "Knife",
         "name": "NS Victory",
@@ -4967,6 +5057,11 @@
     "6011556": {
         "category": "Knife",
         "name": "The Swashbuckler",
+        "sanction": "none"
+    },
+    "6011914": {
+        "category": "Knife",
+        "name": "Wyrdwood Shillelagh",
         "sanction": "none"
     },
     "5209": {
@@ -5634,6 +5729,11 @@
         "name": "Saron HRB",
         "sanction": "gunner"
     },
+    "6011888": {
+        "category": "Magrider Gunner Weapon",
+        "name": "V42 Pariah",
+        "sanction": "gunner"
+    },
     "3460": {
         "category": "Magrider Primary Weapon",
         "name": "Supernova FPC",
@@ -5787,6 +5887,11 @@
     "75268": {
         "category": "Pistol",
         "name": "NS-357P Underboss",
+        "sanction": "infantry"
+    },
+    "6011930": {
+        "category": "Pistol",
+        "name": "\"NS-44 \"\"Jackpot\"\" Commissioner\"",
         "sanction": "infantry"
     },
     "75063": {
@@ -6077,6 +6182,11 @@
     "4001": {
         "category": "Prowler Gunner Weapon",
         "name": "M12 Kobalt",
+        "sanction": "gunner"
+    },
+    "6011887": {
+        "category": "Prowler Gunner Weapon",
+        "name": "M18 Palisade",
         "sanction": "gunner"
     },
     "4002": {
@@ -6734,6 +6844,11 @@
         "name": "MKV-P Suppressed",
         "sanction": "infantry"
     },
+    "6013051": {
+        "category": "SMG",
+        "name": "NS-66 Bumblebee",
+        "sanction": "infantry"
+    },
     "6009203": {
         "category": "SMG",
         "name": "NS-66 Punisher",
@@ -7144,6 +7259,11 @@
         "name": "M12 Kobalt",
         "sanction": "gunner"
     },
+    "6011874": {
+        "category": "Sunderer Front Gunner",
+        "name": "M18 Palisade-S",
+        "sanction": "gunner"
+    },
     "2803": {
         "category": "Sunderer Front Gunner",
         "name": "M20 Basilisk",
@@ -7202,6 +7322,21 @@
     "6005241": {
         "category": "Sunderer Front Gunner",
         "name": "M60-G Bulldog",
+        "sanction": "gunner"
+    },
+    "6011872": {
+        "category": "Sunderer Front Gunner",
+        "name": "N30 Trawler-S",
+        "sanction": "gunner"
+    },
+    "6011869": {
+        "category": "Sunderer Front Gunner",
+        "name": "S2-20 HCG",
+        "sanction": "gunner"
+    },
+    "6011877": {
+        "category": "Sunderer Front Gunner",
+        "name": "V42 Pariah-S",
         "sanction": "gunner"
     },
     "3083": {
@@ -7264,6 +7399,11 @@
         "name": "M12 Kobalt",
         "sanction": "gunner"
     },
+    "6011875": {
+        "category": "Sunderer Rear Gunner",
+        "name": "M18 Palisade-S",
+        "sanction": "gunner"
+    },
     "2809": {
         "category": "Sunderer Rear Gunner",
         "name": "M20 Basilisk",
@@ -7322,6 +7462,21 @@
     "6005242": {
         "category": "Sunderer Rear Gunner",
         "name": "M60-G Bulldog",
+        "sanction": "gunner"
+    },
+    "6011873": {
+        "category": "Sunderer Rear Gunner",
+        "name": "N30 Trawler-S",
+        "sanction": "gunner"
+    },
+    "6011870": {
+        "category": "Sunderer Rear Gunner",
+        "name": "S2-20 HCG",
+        "sanction": "gunner"
+    },
+    "6011876": {
+        "category": "Sunderer Rear Gunner",
+        "name": "V42 Pariah-S",
         "sanction": "gunner"
     },
     "6011538": {
@@ -7487,6 +7642,11 @@
     "802899": {
         "category": "Vanguard Gunner Weapon",
         "name": "M96 Mjolnir",
+        "sanction": "gunner"
+    },
+    "6011889": {
+        "category": "Vanguard Gunner Weapon",
+        "name": "N30 Trawler",
         "sanction": "gunner"
     },
     "3756": {
