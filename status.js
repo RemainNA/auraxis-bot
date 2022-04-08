@@ -2,6 +2,7 @@
 
 const Discord = require('discord.js');
 const { censusRequest } = require('./utils.js');
+const i18n = require('i18n');
 
 const info = async function(){
 	let status = {
@@ -51,12 +52,12 @@ const info = async function(){
 }
 
 module.exports = {
-	servers: async function(){
+	servers: async function(locale="en-US"){
 		let status = await info();
 		let resEmbed = new Discord.MessageEmbed();
-		resEmbed.setTitle('Server Status');
+		resEmbed.setTitle(i18n.__({phrase: 'Server Status', locale: locale}));
 		for(const i in status){
-			resEmbed.addField(i, status[i], true);
+			resEmbed.addField(i18n.__({phrase: i, locale: locale}), i18n.__({phrase: status[i], locale: locale}), true);
 		}
 		resEmbed.setTimestamp();
 		return resEmbed;

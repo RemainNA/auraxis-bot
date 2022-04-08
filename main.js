@@ -6,6 +6,15 @@ const Discord = require('discord.js');
 //PostgreSQL connection
 const pg = require('pg');
 
+// Internationalization
+const i18n = require('i18n');
+i18n.configure({
+	directory: './locales/responses',
+	defaultLocale: 'en-us',
+	updateFiles: false,
+	objectNotation: true
+})
+
 // commands
 const char = require('./character.js');
 const stats = require('./stats.js');
@@ -166,13 +175,19 @@ client.on('interactionCreate', async interaction => {
 				break;
 
 			case 'help':
+				const locale = interaction.locale;
 				let helpEmbed = new Discord.MessageEmbed();
 				helpEmbed.setTitle("Auraxis bot");
 				helpEmbed.setColor("BLUE");
-				helpEmbed.addField("Commands", listOfCommands);
-				helpEmbed.addField("Requires Manage Channel permission", commandsManageChannels);
-				helpEmbed.addField("Links", links);
-				helpEmbed.setFooter("<> = Optional, [] = Required");
+				helpEmbed.addField(i18n.__({phrase: "Commands", locale: locale}), listOfCommands);
+				helpEmbed.addField(i18n.__({phrase: "Requires Manage Channel permission", locale: locale}), commandsManageChannels);
+				const links = `\
+				\n[${i18n.__({phrase: "GitHub page & FAQ", locale: locale})}](https://github.com/RemainNA/auraxis-bot)\
+				\n[${i18n.__({phrase: "Support server", locale: locale})}](https://discord.gg/Kf5P6Ut)\
+				\n[${i18n.__({phrase: "Invite bot", locale: locale})}](https://discord.com/api/oauth2/authorize?client_id=437756856774033408&permissions=1330192&scope=bot%20applications.commands)\
+				\n[${i18n.__({phrase: "Donate on Ko-fi", locale: locale})}](https://ko-fi.com/remainna)`
+				helpEmbed.addField(i18n.__({phrase: "Links", locale: locale}), links);
+				helpEmbed.setFooter({text: i18n.__({phrase: "<> = Optional, [] = Required", locale: locale})});
 				await interaction.reply({embeds: [helpEmbed]});
 				break;
 
@@ -201,7 +216,7 @@ client.on('interactionCreate', async interaction => {
 				}
 				else{
 					await interaction.deferReply(); //Give the bot time to look up the results
-					res = await char.character(options.getString('name').toLowerCase(), options.getString('platform') || 'ps2:v2');
+					res = await char.character(options.getString('name').toLowerCase(), options.getString('platform') || 'ps2:v2', interaction.locale);
 					await interaction.editReply({embeds:[res[0]], components: res[1]});
 				}
 				break;			
@@ -209,18 +224,18 @@ client.on('interactionCreate', async interaction => {
 			case 'stats':
 				await interaction.deferReply(); //Give the bot time to look up the results
 				if(interaction.options.get('weapon')){
-					res = await stats.lookup(options.getString('name').toLowerCase(), options.getString('weapon').toLowerCase(), options.getString('platform') || 'ps2:v2');
+					res = await stats.lookup(options.getString('name').toLowerCase(), options.getString('weapon').toLowerCase(), options.getString('platform') || 'ps2:v2', interaction.locale);
 					await interaction.editReply({embeds:[res]});
 				}
 				else{ //character lookup
-					res = await char.character(interaction.options.getString('name').toLowerCase(), interaction.options.getString('platform') || 'ps2:v2');
+					res = await char.character(interaction.options.getString('name').toLowerCase(), interaction.options.getString('platform') || 'ps2:v2', interaction.locale);
 					await interaction.editReply({embeds:[res[0]], components: res[1]});
 				}
 				break;
 
 			case 'outfit':
 				if(options.getString('tag').split(' ').length > 10){
-					await interaction.reply({content: "This command supports a maximum of 10 outfits per query", ephemeral: true});
+					await interaction.reply({content: i18n.__({phrase: "This command supports a maximum of 10 outfits per query", locale: interaction.locale}), ephemeral: true});
 				}
 				else if(options.getString('tag').split(' ').length > 1){
 					res = [];
@@ -231,7 +246,7 @@ client.on('interactionCreate', async interaction => {
 							continue;
 						}
 						try{
-							const outfitRes = await outfit.outfit(t, options.getString('platform') || 'ps2:v2', SQLclient);
+							const outfitRes = await outfit.outfit(t, options.getString('platform') || 'ps2:v2', SQLclient, null, interaction.locale);
 							res.push(outfitRes[0]);
 						}
 						catch(err){
@@ -247,11 +262,11 @@ client.on('interactionCreate', async interaction => {
 				}
 				else{
 					if(options.getString('tag').length > 4){
-						await interaction.reply({content: `${options.getString('tag')} is longer than 4 letters, please enter a tag.`, ephemeral: true});
+						await interaction.reply({content: i18n.__mf({phrase: "{tag} is longer than 4 letters, please enter a tag", locale: interaction.locale}, {tag: options.getString('tag')}), ephemeral: true});
 						return;
 					}
 					await interaction.deferReply(); //Give the bot time to look up the results
-					res = await outfit.outfit(options.getString('tag').toLowerCase(), options.getString('platform') || 'ps2:v2', SQLclient);
+					res = await outfit.outfit(options.getString('tag').toLowerCase(), options.getString('platform') || 'ps2:v2', SQLclient, null, interaction.locale);
 					await interaction.editReply({embeds:[res[0]], components: res[1]});
 				}
 				break;
@@ -269,7 +284,7 @@ client.on('interactionCreate', async interaction => {
 							continue;
 						}
 						try{
-							res.push(await online.online(t, options.getString('platform') || 'ps2:v2'));
+							res.push(await online.online(t, options.getString('platform') || 'ps2:v2', null, interaction.locale));
 						}
 						catch(err){
 							errorList.push(t);
@@ -284,11 +299,11 @@ client.on('interactionCreate', async interaction => {
 				}
 				else{
 					if(options.getString('tag').length > 4){
-						await interaction.reply({content: `${options.getString('tag')} is longer than 4 letters, please enter a tag.`, ephemeral: true});
+						await interaction.reply({content: i18n.__mf({phrase: "{tag} is longer than 4 letters, please enter a tag", locale: interaction.locale}, {tag: options.getString('tag')}), ephemeral: true});
 						return;
 					}
 					await interaction.deferReply(); //Give the bot time to look up the results
-					res = await online.online(options.getString('tag').toLowerCase(), options.getString('platform') || 'ps2:v2');
+					res = await online.online(options.getString('tag').toLowerCase(), options.getString('platform') || 'ps2:v2', null, interaction.locale);
 					await interaction.editReply({embeds:[res]});
 				}
 				break;
@@ -417,13 +432,13 @@ client.on('interactionCreate', async interaction => {
 
 			case 'population':
 				await interaction.deferReply();
-				res = await population.lookup(options.getString("server"));
+				res = await population.lookup(options.getString("server"), interaction.locale);
 				await interaction.editReply({embeds: [res]});
 				break;
 
 			case 'territory':
 				await interaction.deferReply();
-				res = await territory.territory(options.getString("server"));
+				res = await territory.territory(options.getString("server"), interaction.locale);
 				await interaction.editReply({embeds: [res]});
 				break;
 
@@ -435,12 +450,12 @@ client.on('interactionCreate', async interaction => {
 
 			case 'status':
 				await interaction.deferReply();
-				res = await status.servers();
+				res = await status.servers(interaction.locale);
 				await interaction.editReply({embeds: [res]});
 				break;
 
 			case 'weapon':
-				res = await weapon.lookup(options.getString("query"));
+				res = await weapon.lookup(options.getString("query"), interaction.locale);
 				await interaction.reply({embeds: [res]});
 				break;
 
@@ -456,7 +471,7 @@ client.on('interactionCreate', async interaction => {
 
 			case 'asp':
 				await interaction.deferReply();
-				res = await asp.originalBR(options.getString('name').toLowerCase(), options.getString('platform') || 'ps2:v2');
+				res = await asp.originalBR(options.getString('name').toLowerCase(), options.getString('platform') || 'ps2:v2', interaction.locale);
 				await interaction.editReply({embeds: [res]});
 				break;
 
@@ -513,13 +528,13 @@ client.on('interactionCreate', async interaction => {
 
 			case 'auraxiums':
 				await interaction.deferReply();
-				res = await auraxiums.medals(options.getString("name"), options.getString("platform") || "ps2:v2");
+				res = await auraxiums.medals(options.getString("name"), options.getString("platform") || "ps2:v2", false, interaction.locale);
 				await interaction.editReply({embeds: [res[0]], components: res[1]});
 				break;
 
 			case 'leaderboard':
 				await interaction.deferReply();
-				res = await leaderboard.lookup(options.getString("type"), options.getString("period"), options.getString("server"), 20);
+				res = await leaderboard.lookup(options.getString("type"), options.getString("period"), options.getString("server"), 20, interaction.locale);
 				await interaction.editReply({embeds: [res]});
 				break;
 
@@ -531,7 +546,7 @@ client.on('interactionCreate', async interaction => {
 			
 			case 'vehicle':
 				await interaction.deferReply();
-				res = await vehicles.vehicle(options.getString("name"), options.getString("vehicle"), options.getString("platform") || "ps2:v2");
+				res = await vehicles.vehicle(options.getString("name"), options.getString("vehicle"), options.getString("platform") || "ps2:v2", interaction.locale);
 				await interaction.editReply({embeds: [res]});
 				break;
 			
@@ -575,7 +590,7 @@ client.on('interactionCreate', async interaction => {
 			switch(options[0]){
 				case 'auraxiums':
 					await interaction.deferReply({ephemeral: true});
-					const aurax = await auraxiums.medals(options[1], options[2], true);
+					const aurax = await auraxiums.medals(options[1], options[2], true, interaction.locale);
 					await interaction.editReply({embeds: [aurax[0]]});
 					break;
 
@@ -587,19 +602,19 @@ client.on('interactionCreate', async interaction => {
 
 				case 'recentStats':
 					await interaction.deferReply({ephemeral: false});
-					const recentStats = await character.recentStats(options[2], options[3], options[1]);
+					const recentStats = await character.recentStats(options[2], options[3], options[1], interaction.locale);
 					await interaction.editReply({embeds: [recentStats]});
 					break;
 
 				case 'outfit':
 					await interaction.deferReply({ephemeral: false});
-					const outfitRes = await outfit.outfit("", options[2], SQLclient, options[1]);
+					const outfitRes = await outfit.outfit("", options[2], SQLclient, options[1], interaction.locale);
 					await interaction.editReply({embeds: [outfitRes[0]], components: outfitRes[1]});
 					break;
 
 				case 'online':
 					await interaction.deferReply({ephemeral: false});
-					const onlineRes = await online.online("", options[2], options[1]);
+					const onlineRes = await online.online("", options[2], options[1], interaction.locale);
 					await interaction.editReply({embeds: [onlineRes]});
 					break;
 			}
@@ -680,7 +695,7 @@ client.on('messageCreate', async message => {
 		helpEmbed.addField("Commands", listOfCommands);
 		helpEmbed.addField("Requires Manage Channel permission", commandsManageChannels);
 		helpEmbed.addField("Links", links);
-		helpEmbed.setFooter("<> = Optional, [] = Required");
+		helpEmbed.setFooter({text: "<> = Optional, [] = Required"});
 		messageHandler.send(message.channel, {content: deprecationNotice, embeds: [helpEmbed]}, 'help', true);
 	}
 	else if (message.content.substring(0,11).toLowerCase() == '!character '){

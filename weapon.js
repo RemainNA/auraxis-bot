@@ -1,9 +1,9 @@
 // This file defines functionality to parse weapons.json and return the relevant info
-// Currently in beta
 
 const Discord = require('discord.js');
 const weaponsJSON = require('./static/weapons.json');
-const {badQuery} = require('./utils.js');
+const {badQuery, localeNumber} = require('./utils.js');
+const i18n = require('i18n');
 
 function CoFUpdated(CoF){
 	for(let x of CoF){
@@ -67,14 +67,14 @@ const partialMatches = async function(query){
 }
 
 module.exports = {
-	lookup: async function(name){
+	lookup: async function(name, locale="en-US"){
 		if(name.indexOf("[") > -1){
 			// Account for autocomplete breaking
 			const splitList = name.split("[")
 			name = splitList[splitList.length-1].split("]")[0];
 		}
 		if(badQuery(name)){
-			throw "Weapon search contains disallowed characters";
+			throw i18n.__({phrase: "Weapon search contains disallowed characters", locale: locale});
 		}
 
 		let wInfo = await weaponInfo(name);
@@ -85,62 +85,71 @@ module.exports = {
 		wInfo.image_id != -1 && resEmbed.setThumbnail('http://census.daybreakgames.com/files/ps2/images/static/'+wInfo.image_id+'.png');
 		
 		if(typeof(wInfo.category) !== 'undefined'){
-			resEmbed.addField("Category", wInfo.category, true);
+			resEmbed.addField(i18n.__({phrase: "Category", locale: locale}), wInfo.category, true);
 		}
 
 		if(typeof(wInfo.fireRate) !== 'undefined'){
 			if(wInfo.fireRate != 0 && wInfo.clip != 1){
-				resEmbed.addField("Fire Rate", (60*(1000/wInfo.fireRate)).toPrecision(3), true);
+				resEmbed.addField(i18n.__({phrase: "Fire Rate", locale: locale}), localeNumber(60*(1000/wInfo.fireRate), locale), true);
 			}
 		}
 		if(typeof(wInfo.heatCapacity) !== 'undefined'){
-			resEmbed.addField("Heat Capacity", wInfo.heatCapacity, true);
-			resEmbed.addField("Heat Per Shot", wInfo.heatPerShot, true);
-			resEmbed.addField("Heat Bleed Off", wInfo.heatBleedOff+"/s", true);
-			resEmbed.addField("Recovery Delay", wInfo.heatRecoveryDelay/1000+" s \n "+(Number(wInfo.overheatPenalty)+Number(wInfo.heatRecoveryDelay))/1000+" s Overheated", true);
+			resEmbed.addField(i18n.__({phrase: "Heat Capacity", locale: locale}), wInfo.heatCapacity, true);
+			resEmbed.addField(i18n.__({phrase: "Heat Per Shot", locale: locale}), wInfo.heatPerShot, true);
+			resEmbed.addField(i18n.__({phrase: "Heat Bleed Off", locale: locale}), wInfo.heatBleedOff+"/s", true);
+			resEmbed.addField(i18n.__({phrase: "Recovery Delay", locale: locale}), wInfo.heatRecoveryDelay/1000+" s \n "+(Number(wInfo.overheatPenalty)+Number(wInfo.heatRecoveryDelay))/1000+" s Overheated", true);
 		}
 		else if (typeof(wInfo.clip) !== 'undefined' && wInfo.clip != 1){
 			if(typeof(wInfo.ammo) !== 'undefined' && wInfo.ammo != 1){
-				resEmbed.addField("Ammo", wInfo.clip+" magazine \n"+wInfo.ammo+" capacity", true);
+				resEmbed.addField(i18n.__({phrase: "Ammo", locale: locale}), 
+				i18n.__mf({phrase: "{m} magazine", locale: locale}, {m: wInfo.clip})+"\n"+
+				i18n.__mf({phrase: "{c} capacity", locale: locale}, {m: wInfo.ammo}), true);
 			}
 			else{
-				resEmbed.addField("Magazine", wInfo.clip, true);
+				resEmbed.addField(i18n.__({phrase: "Magazine", locale: locale}), wInfo.clip, true);
 			}
 			if(typeof(wInfo.reload) !== 'undefined' && wInfo.reload != 0){
 				if(typeof(wInfo.chamber) !== 'undefined' && wInfo.chamber != 0){
-					resEmbed.addField("Reload", (wInfo.reload/1000).toPrecision(3)+"s Short\n "+(wInfo.reload/1000+wInfo.chamber/1000).toPrecision(3)+"s Long", true);
+					const shortReload = localeNumber(wInfo.reload/1000, locale);
+					const longReload = localeNumber(wInfo.reload/1000+wInfo.chamber/1000, locale);
+					resEmbed.addField(i18n.__({phrase: "Reload", locale: locale}), 
+					i18n.__mf({phrase: "{time}s Short", locale: locale}, {time: shortReload})+"\n"+
+					i18n.__mf({phrase: "{time}s Long", locale: locale}, {time: longReload}), true);
 				}
 				else{
 					// Some weapons with magazines don't have long/short reloads, e.g. P2-120 HEAT
-					resEmbed.addField("Reload", wInfo.reload/1000+"s", true);
+					const reload = localeNumber(wInfo.reload/1000);
+					resEmbed.addField(i18n.__({phrase: "Reload", locale: locale}), 
+					i18n.__mf({phrase: "{time}s", locale: locale}, {time: reload}), true);
 				}
 			}
 		}
 		else if(typeof(wInfo.reload) !== 'undefined' && wInfo.reload != 0){
-			resEmbed.addField("Reload", wInfo.reload/1000+"s", true);
+			resEmbed.addField(i18n.__({phrase: "Reload", locale: locale}), wInfo.reload/1000+"s", true);
 		}
 
 		
 
 		if(typeof(wInfo.maxDamage) !== 'undefined'){	
-			resEmbed.addField("Damage", wInfo.maxDamage+" @ "+wInfo.maxDamageRange+"m \n "+wInfo.minDamage+" @ "+wInfo.minDamageRange+"m", true);
+			resEmbed.addField(i18n.__({phrase: "Damage", locale: locale}), wInfo.maxDamage+" @ "+wInfo.maxDamageRange+"m \n "+wInfo.minDamage+" @ "+wInfo.minDamageRange+"m", true);
 			if(wInfo.pellets > 1){
-				resEmbed.addField("Pellets", wInfo.pellets, true);
-				resEmbed.addField("Pellet Spread", wInfo.pelletSpread, true);
+				resEmbed.addField(i18n.__({phrase: "Pellets", locale: locale}), wInfo.pellets, true);
+				resEmbed.addField(i18n.__({phrase: "Pellet Spread", locale: locale}), wInfo.pelletSpread, true);
 			}
 			if(typeof(wInfo.speed) !== 'undefined'){
-				resEmbed.addField("Muzzle Vel", wInfo.speed+" m/s", true);
+				resEmbed.addField(i18n.__({phrase: "Muzzle Velocity", locale: locale}), 
+				i18n.__mf({phrase: "{speed} m/s", locale: locale}, {speed: wInfo.speed}), true);
 			}
 		}
 
 		if(typeof(wInfo.indirectDamage) !== 'undefined' && wInfo.directDamage !== 'undefined'){ //checking for damage equality is pretty much just ruling out the Tomoe
-			resEmbed.addField("Direct Damage", wInfo.directDamage, true);
+			resEmbed.addField(i18n.__({phrase: "Direct Damage", locale: locale}), wInfo.directDamage, true);
 			if(wInfo.indirectDamage != 0){
-				resEmbed.addField("Indirect Damage", wInfo.indirectDamage, true);
+				resEmbed.addField(i18n.__({phrase: "Indirect Damage", locale: locale}), wInfo.indirectDamage, true);
 			}
 		}
 		else if(typeof(wInfo.damage) !== 'undefined' && typeof(wInfo.maxDamage) == 'undefined'){
-			resEmbed.addField("Damage", wInfo.damage, true);
+			resEmbed.addField("*CoF shown Stand/Crouch/Walk/Sprint/Fall/Crouch Walk*", wInfo.damage, true);
 		}
 
 		let hipCOFMin = ["?","?","?","?","?","?"];
@@ -150,19 +159,19 @@ module.exports = {
 
 		//Checking for vertical recoil here and below keeps things like med kits from displaying irrelevant stats
 		if(typeof(wInfo.adsCofRecoil) !== 'undefined' && typeof(wInfo.hipCofRecoil) !== 'undefined' && typeof(wInfo.verticalRecoil) !== 'undefined'){ 
-			resEmbed.addField("Bloom (hip/ADS)", wInfo.hipCofRecoil+"/"+wInfo.adsCofRecoil, true);
+			resEmbed.addField(i18n.__({phrase: "Bloom (hip/ADS)", locale: locale}), wInfo.hipCofRecoil+"/"+wInfo.adsCofRecoil, true);
 		}
 		else if(typeof(wInfo.hipCofRecoil) !== 'undefined' && typeof(wInfo.verticalRecoil) !== 'undefined'){
-			resEmbed.addField("Bloom (hip)", wInfo.hipCofRecoil, true);
+			resEmbed.addField(i18n.__({phrase: "Bloom (hip)", locale: locale}), wInfo.hipCofRecoil, true);
 		}
-		wInfo.verticalRecoil && resEmbed.addField("Vertical Recoil", wInfo.verticalRecoil, true);
-		wInfo.recoilAngleMin && wInfo.recoilAngleMax && resEmbed.addField("Recoil Angle (min/max)", wInfo.recoilAngleMin+"/"+wInfo.recoilAngleMax, true);
-		wInfo.recoilHorizontalMin && wInfo.recoilHorizontalMax && resEmbed.addField("Horizontal Recoil (min/max)", wInfo.recoilHorizontalMin+"/"+wInfo.recoilHorizontalMax, true);
-		wInfo.recoilHorizontalTolerance && resEmbed.addField("Horizontal Tolerance", wInfo.recoilHorizontalTolerance, true);
-		wInfo.firstShotMultiplier && resEmbed.addField("First Shot Multiplier", wInfo.firstShotMultiplier+"x", true);
-		wInfo.fireModes?.length && resEmbed.addField("Fire modes", `${wInfo.fireModes}`.replace(/,/g, '\n'), true);
-		wInfo.headshotMultiplier && resEmbed.addField("Headshot Multiplier", Number(wInfo.headshotMultiplier)+1+"x", true);
-		wInfo.defZoom && wInfo.defZoom != 1 && resEmbed.addField("Iron Sights Zoom", wInfo.defZoom+"x", true);
+		wInfo.verticalRecoil && resEmbed.addField(i18n.__({phrase: "Vertical Recoil", locale: locale}), wInfo.verticalRecoil, true);
+		wInfo.recoilAngleMin && wInfo.recoilAngleMax && resEmbed.addField(i18n.__({phrase: "Recoil Angle (min/max)", locale: locale}), wInfo.recoilAngleMin+"/"+wInfo.recoilAngleMax, true);
+		wInfo.recoilHorizontalMin && wInfo.recoilHorizontalMax && resEmbed.addField(i18n.__({phrase: "Horizontal Recoil (min/max)", locale: locale}), wInfo.recoilHorizontalMin+"/"+wInfo.recoilHorizontalMax, true);
+		wInfo.recoilHorizontalTolerance && resEmbed.addField(i18n.__({phrase: "Horizontal Tolerance", locale: locale}), wInfo.recoilHorizontalTolerance, true);
+		wInfo.firstShotMultiplier && resEmbed.addField(i18n.__({phrase: "First Shot Multiplier", locale: locale}), wInfo.firstShotMultiplier+"x", true);
+		wInfo.fireModes?.length && resEmbed.addField(i18n.__({phrase: "Fire Modes", locale: locale}), `${wInfo.fireModes}`.replace(/,/g, '\n'), true);
+		wInfo.headshotMultiplier && resEmbed.addField(i18n.__({phrase: "Headshot Multiplier", locale: locale}), Number(wInfo.headshotMultiplier)+1+"x", true);
+		wInfo.defZoom && wInfo.defZoom != 1 && resEmbed.addField(i18n.__({phrase: "Iron Sights Zoom", locale: locale}), wInfo.defZoom+"x", true);
 
 		if(typeof(wInfo.verticalRecoil) !== 'undefined'){
 			if(typeof(wInfo.standingCofMin) !== 'undefined'){
@@ -192,7 +201,7 @@ module.exports = {
 		}
 			
 		if(typeof(wInfo.adsMoveSpeed) !== 'undefined'){
-			resEmbed.addField("ADS Move Speed", wInfo.adsMoveSpeed, true);
+			resEmbed.addField(i18n.__({phrase: "ADS Move Speed", locale: locale}), wInfo.adsMoveSpeed, true);
 			if(typeof(wInfo.standingCofMinADS) !== 'undefined'){
 				adsCOFMin[0] = wInfo.standingCofMinADS;
 				adsCOFMax[0] = wInfo.standingCofMaxADS;
@@ -224,39 +233,39 @@ module.exports = {
 				resEmbed.addField('\u200b', '\u200b')
 			}
 			else{
-				resEmbed.addField("-------------------", "*CoF shown Stand/Crouch/Walk/Sprint/Fall/Crouch Walk*");
+				resEmbed.addField("-------------------", i18n.__({phrase: "*CoF shown Stand/Crouch/Walk/Sprint/Fall/Crouch Walk*", locale: locale}));
 			}
 		}
 
 		if(CoFUpdated(hipCOFMin)){
 			if(standingOnly(hipCOFMin)){
-				resEmbed.addField("Hipfire CoF Min", hipCOFMin[0], true);
-				resEmbed.addField("Hipfire CoF Max", hipCOFMax[0], true);
+				resEmbed.addField(i18n.__({phrase: "Hipfire CoF Min", locale: locale}), hipCOFMin[0], true);
+				resEmbed.addField(i18n.__({phrase: "Hipfire CoF Max", locale: locale}), hipCOFMax[0], true);
 				resEmbed.addField('\u200b', '\u200b', true)
 			}
 			else{
-				resEmbed.addField("Hipfire CoF Min", hipCOFMin[0]+"/"+hipCOFMin[1]+"/"+hipCOFMin[2]+"/"+hipCOFMin[3]+"/"+hipCOFMin[4]+"/"+hipCOFMin[5], true);
-				resEmbed.addField("Hipfire CoF Max", hipCOFMax[0]+"/"+hipCOFMax[1]+"/"+hipCOFMax[2]+"/"+hipCOFMax[3]+"/"+hipCOFMax[4]+"/"+hipCOFMax[5], true);
+				resEmbed.addField(i18n.__({phrase: "Hipfire CoF Min", locale: locale}), hipCOFMin[0]+"/"+hipCOFMin[1]+"/"+hipCOFMin[2]+"/"+hipCOFMin[3]+"/"+hipCOFMin[4]+"/"+hipCOFMin[5], true);
+				resEmbed.addField(i18n.__({phrase: "Hipfire CoF Max", locale: locale}), hipCOFMax[0]+"/"+hipCOFMax[1]+"/"+hipCOFMax[2]+"/"+hipCOFMax[3]+"/"+hipCOFMax[4]+"/"+hipCOFMax[5], true);
 				resEmbed.addField('\u200b', '\u200b', true)
 			}
 		}
 
 		if(CoFUpdated(adsCOFMin)){
 			if(standingOnly(adsCOFMin)){
-				resEmbed.addField("ADS CoF Min", adsCOFMin[0], true);
-				resEmbed.addField("ADS CoF Max", adsCOFMax[0], true);
+				resEmbed.addField(i18n.__({phrase: "ADS CoF Min", locale: locale}), adsCOFMin[0], true);
+				resEmbed.addField(i18n.__({phrase: "ADS CoF Max", locale: locale}), adsCOFMax[0], true);
 				resEmbed.addField('\u200b', '\u200b', true)
 			}
 			else{
-				resEmbed.addField("ADS CoF Min", adsCOFMin[0]+"/"+adsCOFMin[1]+"/"+adsCOFMin[2]+"/"+adsCOFMin[3]+"/"+adsCOFMin[4]+"/"+adsCOFMin[5], true);
-				resEmbed.addField("ADS CoF Max", adsCOFMax[0]+"/"+adsCOFMax[1]+"/"+adsCOFMax[2]+"/"+adsCOFMax[3]+"/"+adsCOFMax[4]+"/"+adsCOFMax[5], true);
+				resEmbed.addField(i18n.__({phrase: "ADS CoF Min", locale: locale}), adsCOFMin[0]+"/"+adsCOFMin[1]+"/"+adsCOFMin[2]+"/"+adsCOFMin[3]+"/"+adsCOFMin[4]+"/"+adsCOFMin[5], true);
+				resEmbed.addField(i18n.__({phrase: "ADS CoF Max", locale: locale}), adsCOFMax[0]+"/"+adsCOFMax[1]+"/"+adsCOFMax[2]+"/"+adsCOFMax[3]+"/"+adsCOFMax[4]+"/"+adsCOFMax[5], true);
 				resEmbed.addField('\u200b', '\u200b', true)
 			}
 			
 		}
 
 		resEmbed.setDescription(wInfo.description);
-		resEmbed.setFooter("ID: "+wInfo.id+" | Command currently in Beta");
+		resEmbed.setFooter({text: i18n.__({phrase: "Weapon ID", locale: locale})+": "+wInfo.id});
 
 		return resEmbed;
 	},

@@ -73,7 +73,7 @@ const serverStatus = async function(serverID){
 		resEmbed.addField("Alerts", "No active alerts", true);
 	}
 	resEmbed.setTimestamp();
-	resEmbed.setFooter("Updated every 5 minutes • Population from Fisu • Alerts from PS2Alerts");
+	resEmbed.setFooter({text: "Updated every 5 minutes • Population from Fisu • Alerts from PS2Alerts"});
 	resEmbed.setColor("BLUE");
 
 	return resEmbed;
@@ -164,7 +164,7 @@ const outfitStatus = async function(outfitID, platform, pgClient){
 	}
 
 	resEmbed.setTimestamp();
-	resEmbed.setFooter("Updated every 5 minutes");
+	resEmbed.setFooter({text: "Updated every 5 minutes"});
 
 	return resEmbed;
 }

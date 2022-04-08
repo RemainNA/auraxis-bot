@@ -25,4 +25,5 @@ jobs:
       - run: |
           touch .env
           echo token = ${{ secrets.token }} >> .env
+          echo clientID = ${{ secrets.clientID }} >> .env
       - run: node registerCommands.js

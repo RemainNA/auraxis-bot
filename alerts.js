@@ -4,6 +4,7 @@ const Discord = require('discord.js');
 const alerts = require('./static/alerts.json');
 const got = require('got');
 const { serverNames, serverIDs, badQuery } = require('./utils');
+const i18n = require('i18n');
 
 const popLevels = {
 	1: "Dead",
@@ -13,7 +14,7 @@ const popLevels = {
 	5: "Prime"
 }
 
-const alertInfo = async function(server){
+const alertInfo = async function(server, locale='en-US'){
 	try{
 		let uri = 'https://api.ps2alerts.com/instances/active?world='+server;
 		let response = await got(uri).json();
@@ -21,10 +22,10 @@ const alertInfo = async function(server){
 			throw response.error;
 		}
 		if(response.statusCode == 404){
-			throw "API Unreachable";
+			throw i18n.__({phrase: "API Unreachable", locale: locale});
 		}
 		if(response.length == 0){
-			throw `No active alerts on ${serverNames[server]}`;
+			throw i18n.__mf({phrase: "No active alerts on {server}", locale: locale}, {server: i18n.__({phrase: serverNames[server], locale: locale})});
 		}
 		let allAlerts = []
 		for(let alert of response){
@@ -64,7 +65,7 @@ const alertInfo = async function(server){
 }
 
 module.exports = {
-	activeAlerts: async function(server){
+	activeAlerts: async function(server, locale="en-US"){
 		if(badQuery(server)){
 			throw "Server search contains disallowed characters";
 		}
@@ -83,17 +84,18 @@ module.exports = {
 		}
 		let sendEmbed = new Discord.MessageEmbed();
 		sendEmbed.setTitle(serverNames[serverID]+" alerts");
-		sendEmbed.setFooter("Data from ps2alerts.com");
+		sendEmbed.setFooter({text: i18n.__mf({phrase: "Data from {site}", locale: locale}, {site: "ps2alerts.com"})});
 		sendEmbed.setTimestamp();
 		for(const x in alertObj){
 			sendEmbed.addField(alertObj[x].name, "["+alertObj[x].description+"](https://ps2alerts.com/alert/"+alertObj[x].instanceId+"?utm_source=auraxis-bot&utm_medium=discord&utm_campaign=partners)");
-			sendEmbed.addField("Time since start", `Started at <t:${alertObj[x].timeStart}:t>`, true);
-			sendEmbed.addField("Time left", `Ends <t:${alertObj[x].timeEnd}:R>`, true);
-			sendEmbed.addField("Activity Level", popLevels[alertObj[x].bracket], true)
-			sendEmbed.addField('Territory Control', `\
-			\n<:VS:818766983918518272> **VS**: ${alertObj[x].vs}%\
-			\n<:NC:818767043138027580> **NC**: ${alertObj[x].nc}%\
-			\n<:TR:818988588049629256> **TR**: ${alertObj[x].tr}%`)
+			sendEmbed.addField(i18n.__({phrase: "Start time", locale: locale}), `<t:${alertObj[x].timeStart}:t>`, true);
+			sendEmbed.addField(i18n.__({phrase: "Time left", locale: locale}), 
+			i18n.__mf({phrase: "Ends {time}", locale: locale}, {time: `<t:${alertObj[x].timeEnd}:R>`}), true);
+			sendEmbed.addField(i18n.__({phrase: "Activity Level", locale: locale}), i18n.__({phrase: popLevels[alertObj[x].bracket], locale: locale}), true)
+			sendEmbed.addField(i18n.__({phrase: "Territory Control", locale: locale}), `\
+			\n<:VS:818766983918518272> **${i18n.__({phrase: "VS", locale: locale})}**: ${alertObj[x].vs}%\
+			\n<:NC:818767043138027580> **${i18n.__({phrase: "NC", locale: locale})}**: ${alertObj[x].nc}%\
+			\n<:TR:818988588049629256> **${i18n.__({phrase: "TR", locale: locale})}**: ${alertObj[x].tr}%`)
 			if(x != alertObj.length-1){
 				sendEmbed.addField('\u200b', '\u200b');
 			}

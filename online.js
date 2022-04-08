@@ -1,7 +1,8 @@
 const Discord = require('discord.js');
 const { badQuery, censusRequest } = require('./utils.js');
+const i18n = require('i18n');
 
-const onlineInfo = async function(oTag, platform, outfitID = null){
+const onlineInfo = async function(oTag, platform, outfitID = null, locale = "en-US"){
 	let url = `/outfit?alias_lower=${oTag}&c:resolve=member_online_status,rank,member_character_name&c:join=character^on:leader_character_id^to:character_id&c:join=characters_world^on:leader_character_id^to:character_id`;
 	if(outfitID != null){
 		url = `/outfit/${outfitID}?c:resolve=member_online_status,rank,member_character_name&c:join=character^on:leader_character_id^to:character_id&c:join=characters_world^on:leader_character_id^to:character_id`
@@ -71,16 +72,17 @@ const totalLength = function(arr){
 }
 
 module.exports = {
-	online: async function(oTag, platform, outfitID = null){
+	online: async function(oTag, platform, outfitID = null, locale = "en-US"){
 		if(badQuery(oTag)){
-			throw "Outfit search contains disallowed characters";
+			throw i18n.__({phrase: "Outfit search contains disallowed characters", locale: locale});
 		}
 
-		let oInfo = await onlineInfo(oTag, platform, outfitID);
+		let oInfo = await onlineInfo(oTag, platform, outfitID, locale);
 		let resEmbed = new Discord.MessageEmbed();
 
 		resEmbed.setTitle(oInfo.name);
-		resEmbed.setDescription(oInfo.alias+"\n"+oInfo.onlineCount+"/"+oInfo.memberCount+" online");
+		resEmbed.setDescription(oInfo.alias+"\n"+i18n.__mf({phrase: "{online}/{total} online", locale: locale}, 
+		{online: oInfo.onlineCount, total: oInfo.memberCount}));
 		resEmbed.setTimestamp();
 		if(platform == 'ps2:v2'){
 			resEmbed.setURL('http://ps2.fisu.pw/outfit/?name='+oInfo.alias);
@@ -105,7 +107,7 @@ module.exports = {
 				resEmbed.setColor('GREY');
 		}
 		if(oInfo.onlineCount == "Online member count unavailable"){
-			resEmbed.addField(oInfo.onlineCount, "-", true);
+			resEmbed.addField(i18n.__({phrase: oInfo.onlineCount, locale: locale}), "-", true);
 			resEmbed.setDescription(oInfo.alias+"\n"+"?/"+oInfo.memberCount+" online");
 
 			return resEmbed;
@@ -116,7 +118,7 @@ module.exports = {
 					resEmbed.addField(oInfo.rankNames[i]+" ("+oInfo.onlineMembers[i].length+")", `${oInfo.onlineMembers[i]}`.replace(/,/g, '\n'), true);
 				}
 				else{
-					resEmbed.addField(oInfo.rankNames[i]+" ("+oInfo.onlineMembers[i].length+")", "Too many to display", true);
+					resEmbed.addField(oInfo.rankNames[i]+" ("+oInfo.onlineMembers[i].length+")", i18n.__({phrase: "Too many to display", locale: locale}), true);
 				}
 			}
 		}
