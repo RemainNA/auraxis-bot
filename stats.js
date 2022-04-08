@@ -3,7 +3,8 @@
 const Discord = require('discord.js');
 const weaponsJSON = require('./static/weapons.json');
 const sanction = require('./static/sanction.json');
-const { badQuery, censusRequest } = require('./utils.js');
+const { badQuery, censusRequest, localeNumber } = require('./utils.js');
+const i18n = require('i18n');
 
 const getWeaponId = async function(name, searchSpace, cName=""){
 	//Check if ID matches
@@ -100,14 +101,14 @@ const partialMatches = async function(query){
 	return matches;
 }
 
-const characterInfo = async function(cName, wName, platform){
+const characterInfo = async function(cName, wName, platform, locale="en-US"){
 	let response =  await censusRequest(platform, 'character_list', `/character?name.first_lower=${cName}&c:resolve=weapon_stat_by_faction,weapon_stat`);
     if(response.length == 0){
-        throw `${cName} not found`;
+        throw i18n.__mf({phrase: "{name} not found", locale: locale}, {name: cName});
 	}
 	let data = response[0];
 	if(typeof(data.stats) === 'undefined' || typeof(data.stats.weapon_stat) === 'undefined' || typeof(data.stats.weapon_stat_by_faction) === 'undefined'){
-		throw "Unable to retrieve weapon stats";
+		throw i18n.__({phrase: "Unable to retrieve weapon stats", locale: locale});
 	}
 	let resObj = {
 		name: data.name.first,
@@ -129,7 +130,7 @@ const characterInfo = async function(cName, wName, platform){
 	}
 
 	if(validIds.length == 0){
-		throw `${wName} not found for ${data.name.first}`;
+		throw i18n.__mf({phrase: "{weapon} not found for {name}", locale: locale}, {weapon: wName, name: data.name.first});
 	}
 
 	let wInfo = await getWeaponId(wName, validIds, data.name.first);
@@ -197,9 +198,9 @@ const characterInfo = async function(cName, wName, platform){
 }
 
 module.exports = {
-	lookup: async function(cName, wName, platform){
+	lookup: async function(cName, wName, platform, locale="en-US"){
 		if(badQuery(cName)){
-			throw "Character search contains disallowed characters";
+			throw i18n.__({phrase: "Character search contains disallowed characters", locale: locale});
 		}
 		if(wName.indexOf("[") > -1){
 			// Account for autocomplete breaking
@@ -207,7 +208,7 @@ module.exports = {
 			wName = splitList[splitList.length-1].split("]")[0];
 		}
 		if(badQuery(wName)){
-			throw "Weapon search contains disallowed characters";
+			throw i18n.__({phrase: "Weapon search contains disallowed characters", locale: locale});
 		}
 
 		let cInfo = await characterInfo(cName, wName, platform);
@@ -231,22 +232,17 @@ module.exports = {
 		let hsr = totalHeadshots/totalKills;
 		let ahr = Math.floor(accuracy*hsr*10000);
 		let spm = Number.parseFloat(cInfo.score/(cInfo.playTime/60));
-		resEmbed.addField("Kills", totalKills.toLocaleString(), true);
-		resEmbed.addField("Deaths", parseInt(cInfo.deaths).toLocaleString(), true);
-		resEmbed.addField("KD", Number.parseFloat(totalKills/cInfo.deaths).toPrecision(3), true);
-		resEmbed.addField("Accuracy", (accuracy*100).toPrecision(3)+"%", true);
-		totalHeadshots && resEmbed.addField("HSR", (hsr*100).toPrecision(3)+"%", true);
-		ahr && resEmbed.addField("AHR Score", `${ahr}`, true);
-		totalVehicleKills && resEmbed.addField("Vehicle Kills", parseInt(totalVehicleKills).toLocaleString(), true);
-		resEmbed.addField("Playtime", hours+" hours, "+minutes+" minutes", true);
-		resEmbed.addField("KPM", Number.parseFloat(totalKills/(cInfo.playTime/60)).toPrecision(3), true);
-		resEmbed.addField("Avg Damage/Kill", Math.floor(totalDamage/totalKills).toLocaleString(), true);
-		if(spm > 1000){
-			resEmbed.addField("Score (SPM)", parseInt(cInfo.score).toLocaleString()+" ("+Math.floor(spm)+")", true);
-		}
-		else{
-			resEmbed.addField("Score (SPM)", parseInt(cInfo.score).toLocaleString()+" ("+spm.toPrecision(3)+")", true);
-		}
+		resEmbed.addField(i18n.__({phrase: "Kills", locale: locale}), totalKills.toLocaleString(locale), true);
+		resEmbed.addField(i18n.__({phrase: "Deaths", locale: locale}), parseInt(cInfo.deaths).toLocaleString(locale), true);
+		resEmbed.addField(i18n.__({phrase: "K/D", locale: locale}), localeNumber(totalKills/cInfo.deaths, locale), true);
+		resEmbed.addField(i18n.__({phrase: "Accuracy", locale: locale}), localeNumber(accuracy*100, locale)+"%", true);
+		totalHeadshots && resEmbed.addField(i18n.__({phrase: "HSR", locale: locale}), localeNumber(hsr*100, locale)+"%", true);
+		ahr && resEmbed.addField(i18n.__({phrase: "AHR Score", locale: locale}), `${ahr}`, true);
+		totalVehicleKills && resEmbed.addField(i18n.__({phrase: "Vehicle Kills", locale: locale}), parseInt(totalVehicleKills).toLocaleString(locale), true);
+		resEmbed.addField(i18n.__({phrase: "Playtime", locale: locale}), hours+" hours, "+minutes+" minutes", true);
+		resEmbed.addField(i18n.__({phrase: "KPM", locale: locale}), localeNumber(totalKills/(cInfo.playTime/60), locale), true);
+		resEmbed.addField(i18n.__({phrase: "Avg Damage/Kill", locale: locale}), Math.floor(totalDamage/totalKills).toLocaleString(locale), true);
+		resEmbed.addField(i18n.__({phrase: "Score (SPM)", locale: locale}), parseInt(cInfo.score).toLocaleString(locale)+" ("+localeNumber(spm, locale)+")", true);
 		switch(cInfo.faction){
 			case "1":
 				resEmbed.setColor('PURPLE');
@@ -263,7 +259,7 @@ module.exports = {
 		if(wInfo.image_id != -1 && wInfo.image_id != undefined){
 			resEmbed.setThumbnail('http://census.daybreakgames.com/files/ps2/images/static/'+wInfo.image_id+'.png');
 		}
-		resEmbed.setFooter({text: "Weapon ID: "+wInfo.id});
+		resEmbed.setFooter({text: i18n.__({phrase: "Weapon ID", locale: locale})+": "+wInfo.id});
 
 		return resEmbed;
 	},

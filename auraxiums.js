@@ -2,13 +2,15 @@
 
 const {censusRequest} = require('./utils.js');
 const Discord = require('discord.js');
+const i18n = require('i18n');
+const { I18n } = require('i18n');
 
-const getAuraxiumList = async function(cName, platform){
+const getAuraxiumList = async function(cName, platform, locale='en-US'){
     // Calculates the number of Auraxium medals a specified character has
     let response = await censusRequest(platform, 'character_list', `/character?name.first_lower=${cName}&c:join=characters_achievement^list:1^terms:earned_count=1^outer:0^hide:character_id%27earned_count%27start%27finish%27last_save%27last_save_date%27start_date(achievement^terms:repeatable=0^outer:0^show:name.en%27description.en)`);
     let medalList = [];
 	if(response.length == 0){
-		throw `${cName} not found`
+		throw i18n.__mf({phrase: "{name} not found", locale: locale}, {name: cName});
 	}
     let achievementList = response[0].character_id_join_characters_achievement;
     for(const x of achievementList){
@@ -34,15 +36,15 @@ const getAuraxiumList = async function(cName, platform){
 }
 
 module.exports = {
-	medals: async function(cName, platform, expanded=false){
-		const medalList = await getAuraxiumList(cName.toLowerCase(), platform);
+	medals: async function(cName, platform, expanded=false, locale='en-US'){
+		const medalList = await getAuraxiumList(cName.toLowerCase(), platform, locale);
 
 		let resEmbed = new Discord.MessageEmbed();
-		resEmbed.setTitle(`${medalList.name} Auraxiums`);
+		resEmbed.setTitle(i18n.__mf({phrase: "{name} Auraxiums", locale: locale}, {name: medalList.name}));
 		let textList = "";
 		let remaining = medalList.medals.length;
 		if(remaining == 0){
-			throw `${medalList.name} has no Auraxium medals`
+			throw i18n.__mf({phrase: "{name} has no Auraxium medals", locale: locale}, {name: medalList.name})
 		}
 		if(expanded){
 			let continued = false;
@@ -55,7 +57,7 @@ module.exports = {
 					textList = currentItem;
 				}
 				else if(continued && (textList.length + currentItem.length) > 1024){
-					resEmbed.addField("Continued...", textList);
+					resEmbed.addField(i18n.__({phrase: "Continued...", locale: locale}), textList);
 					textList = currentItem;
 				}
 				else{
@@ -63,7 +65,7 @@ module.exports = {
 				}
 			}
 			if(continued){
-				resEmbed.addField("Continued...", textList);
+				resEmbed.addField(i18n.__({phrase: "Continued...", locale: locale}), textList);
 			}
 			else{
 				resEmbed.setDescription(textList);
@@ -77,7 +79,7 @@ module.exports = {
 			}
 			for(const medal of medalList.medals){
 				if(max == 0){
-					textList += `And ${remaining} more`;
+					textList += i18n.__mf({phrase: "And {num} more", locale: locale}, {num: remaining});
 					break;
 				}
 				textList += `<t:${medal[1]/1000}:d>: ${medal[0]}\n`;
@@ -114,7 +116,7 @@ module.exports = {
 			row.addComponents(
 				new Discord.MessageButton()
 					.setCustomId(`auraxiums%${medalList.name}%${platform}`)
-					.setLabel('View all')
+					.setLabel(i18n.__({phrase: "View all", locale: locale}))
 					.setStyle('PRIMARY')
 			);
 			return [resEmbed, [row]]

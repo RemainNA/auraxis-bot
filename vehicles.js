@@ -1,9 +1,11 @@
 // This file defines functions to look up a player's stats with a given vehicle
 
 const Discord = require('discord.js');
-const {censusRequest} = require('./utils.js');
+const {censusRequest, localeNumber} = require('./utils.js');
 const vehicles = require('./static/parsedVehicles.json');
 const {getWeaponName} = require('./character.js');
+const i18n = require('i18n');
+const utils = require('pg/lib/utils');
 
 const vehicleOverview = async function(cName, vehicleID, platform){
 	const response = await censusRequest(platform, 'character_list', `/character?name.first_lower=${cName.toLowerCase()}&c:resolve=weapon_stat_by_faction,weapon_stat`);
@@ -67,7 +69,7 @@ const vehicleOverview = async function(cName, vehicleID, platform){
 }
 
 module.exports = {
-	vehicle: async function(cName, vehicleID, platform){
+	vehicle: async function(cName, vehicleID, platform, locale="en-US"){
 		let vehicleName = "";
 		let imageID = -1;
 		if(vehicleID.indexOf("[") > -1){
@@ -96,7 +98,8 @@ module.exports = {
 
 		const vInfo = await vehicleOverview(cName, vehicleID, platform);
 		if(vInfo.score == 0 && vInfo.playTime == 0){
-			throw `${vInfo.charName} has not used the ${vehicleName}`;
+			throw i18n.__mf({phrase: "{name} has not used the {vehicle}", locale: locale}, 
+				{name: vInfo.charName, vehicle: vehicleName});
 		}
 		let resEmbed = new Discord.MessageEmbed();
 
@@ -119,16 +122,23 @@ module.exports = {
 
 		const hoursPlayed = Math.floor(vInfo.playTime/3600);
 		const minutesPlayed = Math.floor(vInfo.playTime/60 - hoursPlayed*60);
-		resEmbed.addField("Playtime", `${hoursPlayed}h ${minutesPlayed}m`, true);
-		resEmbed.addField("Score (SPM)", `${vInfo.score.toLocaleString()} (${(vInfo.score/vInfo.playTime*60).toPrecision(4).toLocaleString()})`, true);
-		resEmbed.addField("Weapon kills", vInfo.weaponKills.toLocaleString(), true);
-		resEmbed.addField("Road kills", (vInfo.totalKills-vInfo.weaponKills).toLocaleString(), true);
-		resEmbed.addField("Total KPM", (vInfo.totalKills/vInfo.playTime*60).toPrecision(3), true);
-		resEmbed.addField("Vehicle kills (KPM)", `${vInfo.vehicleKills.toLocaleString()} (${(vInfo.vehicleKills/vInfo.playTime*60).toPrecision(3)})`, true);
-		resEmbed.addField("Deaths", vInfo.totalDeaths.toLocaleString(), true);
+		resEmbed.addField(i18n.__({phrase: "Playtime", locale: locale}), 
+			i18n.__mf({phrase: "{hour}h, {minute}m", locale: locale}, {hour: hoursPlayed, minute: minutesPlayed}), true);
+		resEmbed.addField(i18n.__({phrase: "Score (SPM)", locale: locale}), 
+			`${vInfo.score.toLocaleString(locale)} (${localeNumber(vInfo.score/vInfo.playTime*60, locale)})`, true);
+		resEmbed.addField(i18n.__({phrase: "Weapon Kills", locale: locale}), 
+			vInfo.weaponKills.toLocaleString(locale), true);
+		resEmbed.addField(i18n.__({phrase: "Road Kills", locale: locale}), 
+			(vInfo.totalKills-vInfo.weaponKills).toLocaleString(locale), true);
+		resEmbed.addField(i18n.__({phrase: "Total KPM", locale: locale}), 
+			localeNumber(vInfo.totalKills/vInfo.playTime*60, locale), true);
+		resEmbed.addField(i18n.__({phrase: "Vehicle Kills (KPM)", locale: locale}), 
+			`${vInfo.vehicleKills.toLocaleString(locale)} (${localeNumber(vInfo.vehicleKills/vInfo.playTime*60, locale)})`, true);
+		resEmbed.addField(i18n.__({phrase: "Deaths", locale: locale}), 
+			vInfo.totalDeaths.toLocaleString(locale), true);
 		if(vInfo.topWeaponID != -1){
 			const topWeaponName = await getWeaponName(vInfo.topWeaponID, platform);
-			resEmbed.addField("Top Weapon (kills)", `${topWeaponName} (${vInfo.topWeaponKills.toLocaleString()})`, true);
+			resEmbed.addField(i18n.__({phrase: "Top Weapon (kills)", locale: locale}), `${topWeaponName} (${vInfo.topWeaponKills.toLocaleString(locale)})`, true);
 		}
 
 		return resEmbed;

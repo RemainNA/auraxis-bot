@@ -3,11 +3,12 @@
 const {censusRequest} = require('./utils.js');
 const Discord = require('discord.js');
 const directives = require('./static/directives.json');
+const i18n = require('i18n');
 
-const getDirectiveList = async function(cName, platform){
+const getDirectiveList = async function(cName, platform, locale="en-US"){
 	let nameResponse = await censusRequest(platform, 'character_list', `/character?name.first_lower=${cName}`);
 	if(nameResponse.length == 0){
-        throw `${cName} not found`;
+        throw i18n.__mf({phrase: "{name} not found", locale: locale}, {name: cName});
     }
 	const characterId = nameResponse[0].character_id;
 	let response = await censusRequest(platform, 'characters_directive_tree_list', `characters_directive_tree?character_id=${characterId}&c:limit=500`);
@@ -27,14 +28,14 @@ const getDirectiveList = async function(cName, platform){
 }
 
 module.exports = {
-	directives: async function(cName, platform, expanded=false){
-		const directiveList = await getDirectiveList(cName.toLowerCase(), platform);
+	directives: async function(cName, platform, expanded=false, locale="en-US"){
+		const directiveList = await getDirectiveList(cName.toLowerCase(), platform, locale);
 		let resEmbed = new Discord.MessageEmbed();
-		resEmbed.setTitle(`${directiveList.name} Directives`);
+		resEmbed.setTitle(i18n.__mf({phrase: "{name} Directives", locale: locale}, {name: directiveList.name}));
 		let textList = "";
 		let remaining = directiveList.directives.length;
 		if(remaining == 0){
-			throw `${directiveList.name} has not completed any directives`
+			throw i18n.__mf({phrase: "{name} has not completed any directives", locale: locale}, {name: directiveList.name})
 		}
 		if(expanded){
 			remaining = 0
@@ -51,7 +52,7 @@ module.exports = {
 			}
 			for(const dir of directiveList.directives){
 				if(max == 0){
-					textList += `And ${remaining} more`;
+					textList += i18n.__mf({phrase: "And {num} more", locale: locale}, {num: remaining});
 					break;
 				}
 				if(dir[0] in directives){
@@ -92,7 +93,7 @@ module.exports = {
 			row.addComponents(
 				new Discord.MessageButton()
 					.setCustomId(`directives%${directiveList.name}%${platform}`)
-					.setLabel('View all')
+					.setLabel(i18n.__({phrase: "View all", locale: locale}))
 					.setStyle('PRIMARY')
 			);
 			return [resEmbed, [row]]

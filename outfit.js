@@ -1,26 +1,27 @@
 const Discord = require('discord.js');
-const { serverNames, badQuery, censusRequest } = require('./utils.js');
+const { serverNames, badQuery, censusRequest, localeNumber } = require('./utils.js');
 const bases = require('./static/bases.json');
+const i18n = require('i18n');
 
-const basicInfo = async function(oTag, platform, oID){
+const basicInfo = async function(oTag, platform, oID, locale="en-US"){
 	let url = `/outfit?alias_lower=${oTag}&c:resolve=member_online_status&c:join=character^on:leader_character_id^to:character_id&c:join=character^on:members.character_id^to:character_id^hide:certs&c:join=characters_world^on:leader_character_id^to:character_id`;
 	if(oID != null){
 		url = `/outfit/${oID}?c:resolve=member_online_status&c:join=character^on:leader_character_id^to:character_id&c:join=character^on:members.character_id^to:character_id^hide:certs&c:join=characters_world^on:leader_character_id^to:character_id`;
 	}
 	let response = await censusRequest(platform, 'outfit_list', url);
 	if(response.length == 0){
-		throw `${oTag} not found`;
+		throw i18n.__mf({phrase: '{name} not found', locale: locale}, {name: oTag});
 	}
 	let data = response[0];
 	if(typeof(data.leader_character_id_join_character) === 'undefined'){
-		throw 'Outfit found, but some information is missing.  Please try again or contact the developer if the issue persists.'
+		throw i18n.__({phrase: 'Outfit found, but some information is missing.  Please try again or contact the developer if the issue persists.', locale: locale});
 	}
 	let resObj = {
 		name: data.name,
 		alias: data.alias,
 		faction: data.leader_character_id_join_character.faction_id,
 		owner: data.leader_character_id_join_character.name.first,
-		memberCount: data.member_count,
+		memberCount: Number.parseInt(data.member_count),
 		worldId: -1,
 		onlineDay: 0,
 		onlineWeek: 0,
@@ -34,7 +35,7 @@ const basicInfo = async function(oTag, platform, oID){
 
 	onlineServiceAvailable = true;
 	if(data.members != undefined && data.members[0].online_status == "service_unavailable"){
-		resObj["onlineMembers"] = "Online member count unavailable";
+		resObj["onlineMembers"] = i18n.__({phrase: "Online member count unavailable", locale: locale});
 		onlineServiceAvailable = false;
 	}
 	else{
@@ -102,9 +103,9 @@ const generateReport = function(outfits, start, end){
 }
 
 module.exports = {
-	outfit: async function(oTag, platform, pgClient, oID = null){
+	outfit: async function(oTag, platform, pgClient, oID = null, locale = "en-US"){
 		if(badQuery(oTag)){
-			throw "Outfit search contains disallowed characters";
+			throw i18n.__({phrase: "Outfit search contains disallowed characters", locale: locale});
 		}
 
 		const oInfo = await basicInfo(oTag, platform, oID);
@@ -125,42 +126,42 @@ module.exports = {
 				resEmbed.setURL('http://ps4eu.ps2.fisu.pw/outfit/?name='+oInfo.alias);
 			}
 		}
-		resEmbed.addField("Founded", `<t:${oInfo.timeCreated}:D>`, true)
-		resEmbed.addField("Members", oInfo.memberCount, true);
-		let dayPc = Number.parseFloat((oInfo.onlineDay/oInfo.memberCount)*100).toPrecision(3);
-		let weekPc = Number.parseFloat((oInfo.onlineWeek/oInfo.memberCount)*100).toPrecision(3);
-		let monthPc = Number.parseFloat((oInfo.onlineMonth/oInfo.memberCount)*100).toPrecision(3);
-		resEmbed.addField("Online", `${oInfo.onlineMembers}`, true);
-		resEmbed.addField("Last day", oInfo.onlineDay+" ("+dayPc+"%)", true);
-		resEmbed.addField("Last week", oInfo.onlineWeek+" ("+weekPc+"%)", true);
-		resEmbed.addField("Last month", oInfo.onlineMonth+" ("+monthPc+"%)", true);
-		resEmbed.addField("Server", serverNames[Number(oInfo.worldId)], true);
+		resEmbed.addField(i18n.__({phrase: "Founded", locale: locale}), `<t:${oInfo.timeCreated}:D>`, true)
+		resEmbed.addField(i18n.__({phrase: "Members", locale: locale}), localeNumber(oInfo.memberCount, locale), true);
+		const dayPc = localeNumber((oInfo.onlineDay/oInfo.memberCount)*100, locale);
+		const weekPc = localeNumber((oInfo.onlineWeek/oInfo.memberCount)*100, locale);
+		const monthPc = localeNumber((oInfo.onlineMonth/oInfo.memberCount)*100, locale);
+		resEmbed.addField(i18n.__({phrase: "Online", locale: locale}), `${oInfo.onlineMembers}`, true);
+		resEmbed.addField(i18n.__({phrase: "Last day", locale: locale}), localeNumber(oInfo.onlineDay, locale)+" ("+dayPc+"%)", true);
+		resEmbed.addField(i18n.__({phrase: "Last week", locale: locale}), localeNumber(oInfo.onlineWeek, locale)+" ("+weekPc+"%)", true);
+		resEmbed.addField(i18n.__({phrase: "Last month", locale: locale}), localeNumber(oInfo.onlineMonth, locale)+" ("+monthPc+"%)", true);
+		resEmbed.addField(i18n.__({phrase: "Server", locale: locale}), i18n.__({phrase: serverNames[Number(oInfo.worldId)], locale: locale}), true);
 
 		switch (oInfo.faction){
 			case "1":
-				resEmbed.addField('Faction', '<:VS:818766983918518272> VS', true);
+				resEmbed.addField(i18n.__({phrase: "Faction", locale: locale}), `<:VS:818766983918518272> ${i18n.__({phrase: "VS", locale: locale})}`, true);
 				resEmbed.setColor('PURPLE');
 				break;
 			case "2":
-				resEmbed.addField('Faction', '<:NC:818767043138027580> NC', true);
+				resEmbed.addField(i18n.__({phrase: "Faction", locale: locale}), `<:NC:818767043138027580> ${i18n.__({phrase: "NC", locale: locale})}`, true);
 				resEmbed.setColor('BLUE');
 				break;
 			case "3":
-				resEmbed.addField('Faction', '<:TR:818988588049629256> TR', true);
+				resEmbed.addField(i18n.__({phrase: "Faction", locale: locale}), `<:TR:818988588049629256> ${i18n.__({phrase: "TR", locale: locale})}`, true);
 				resEmbed.setColor('RED');
 				break;
 			default:
-				resEmbed.addField('Faction', '<:NS:819511690726866986> NSO', true);
+				resEmbed.addField(i18n.__({phrase: "Faction", locale: locale}), `<:NS:819511690726866986> ${i18n.__({phrase: "NSO", locale: locale})}`, true);
 				resEmbed.setColor('GREY');
 		}
 		if(platform == "ps2:v2"){
-			resEmbed.addField("Owner", "["+oInfo.owner+"]("+"https://ps2.fisu.pw/player/?name="+oInfo.owner+")", true);
+			resEmbed.addField(i18n.__({phrase: 'Owner', locale: locale}), "["+oInfo.owner+"]("+"https://ps2.fisu.pw/player/?name="+oInfo.owner+")", true);
 		}
 		else if(platform == "ps2ps4us:v2"){
-			resEmbed.addField("Owner", "["+oInfo.owner+"]("+"https://ps4us.ps2.fisu.pw/player/?name="+oInfo.owner+")", true);
+			resEmbed.addField(i18n.__({phrase: 'Owner', locale: locale}), "["+oInfo.owner+"]("+"https://ps4us.ps2.fisu.pw/player/?name="+oInfo.owner+")", true);
 		}
 		else if(platform == "ps2ps4eu:v2"){
-			resEmbed.addField("Owner", "["+oInfo.owner+"]("+"https://ps4eu.ps2.fisu.pw/player/?name="+oInfo.owner+")", true);
+			resEmbed.addField(i18n.__({phrase: 'Owner', locale: locale}), "["+oInfo.owner+"]("+"https://ps4eu.ps2.fisu.pw/player/?name="+oInfo.owner+")", true);
 		}
 		let auraxium = 0;
 		let synthium = 0;
@@ -209,14 +210,14 @@ module.exports = {
 			resEmbed.addField('<:Auraxium:818766792376713249>', `+${auraxium/5}/min`, true);
 			resEmbed.addField('<:Synthium:818766858865475584>', `+${synthium/5}/min`, true);
 			resEmbed.addField('<:Polystellarite:818766888238448661>', `+${polystellarite/5}/min`, true);
-			resEmbed.addField('Bases owned', `${ownedNames}`.replace(/,/g, '\n'));
+			resEmbed.addField(i18n.__({phrase: 'Bases owned', locale: locale}), `${ownedNames}`.replace(/,/g, '\n'));
 		}
 
 		const row = new Discord.MessageActionRow();
 		row.addComponents(
 			new Discord.MessageButton()
 				.setStyle('PRIMARY')
-				.setLabel("View online")
+				.setLabel(i18n.__({phrase: 'View online', locale: locale}))
 				.setCustomId(`online%${oInfo.outfitID}%${platform}`)
 		)
 		if(platform == "ps2:v2"){
@@ -226,11 +227,11 @@ module.exports = {
 				new Discord.MessageButton()
 					.setStyle('LINK')
 					.setURL(generateReport([oInfo.outfitID], now-3600, now))
-					.setLabel("Past 1 hour report"),
+					.setLabel(i18n.__({phrase: 'Past 1 hour report', locale: locale})),
 				new Discord.MessageButton()
 					.setStyle('LINK')
 					.setURL(generateReport([oInfo.outfitID], now-7200, now))
-					.setLabel("Past 2 hour report")
+					.setLabel(i18n.__({phrase: 'Past 2 hour report', locale: locale}))
 			)
 		}
 

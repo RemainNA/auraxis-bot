@@ -8,7 +8,7 @@ const decals = require('./static/decals.json');
 const sanction = require('./static/sanction.json');
 const got = require('got');
 const i18n = require('i18n');
-const { serverNames, badQuery, censusRequest } = require('./utils');
+const { serverNames, badQuery, censusRequest, localeNumber } = require('./utils');
 
 const basicInfo = async function(cName, platform){
     // Main function for character lookup.  Pulls most stats and calls other functions for medals/top weapon info
@@ -382,7 +382,7 @@ module.exports = {
 
         // Score, SPM
         if(cInfo.stat_history){
-            resEmbed.addField(i18n.__({phrase: 'Score (SPM)', locale: locale}), parseInt(cInfo.score).toLocaleString(locale)+" ("+Number.parseFloat(cInfo.score/cInfo.playTime).toPrecision(4)+")", true);
+            resEmbed.addField(i18n.__({phrase: 'Score (SPM)', locale: locale}), parseInt(cInfo.score).toLocaleString(locale)+" ("+localeNumber(cInfo.score/cInfo.playTime, locale)+")", true);
         }
 
         // Server
@@ -396,13 +396,9 @@ module.exports = {
         
         // KD, KPM
         if(cInfo.stat_history){
-            resEmbed.addField(i18n.__({phrase: 'K/D', locale: locale}), Number.parseFloat(cInfo.kills/cInfo.deaths).toPrecision(3), true);
-            resEmbed.addField(i18n.__({phrase: 'KPM', locale: locale}), Number.parseFloat(cInfo.kills/cInfo.playTime).toPrecision(3), true);
-            let sign = "";
-            if((cInfo.kills-cInfo.deaths) > 0){
-                sign = "+";
-            }
-            resEmbed.addField(i18n.__({phrase: 'K-D Diff', locale: locale}), `${Number.parseInt(cInfo.kills).toLocaleString(locale)} - ${Number.parseInt(cInfo.deaths).toLocaleString(locale)} = ${sign}${(cInfo.kills-cInfo.deaths).toLocaleString(locale)}`, true);
+            resEmbed.addField(i18n.__({phrase: 'K/D', locale: locale}), localeNumber(cInfo.kills/cInfo.deaths, locale), true);
+            resEmbed.addField(i18n.__({phrase: 'KPM', locale: locale}), localeNumber(cInfo.kills/cInfo.playTime, locale), true);
+            resEmbed.addField(i18n.__({phrase: 'K-D Diff', locale: locale}), `${Number.parseInt(cInfo.kills).toLocaleString(locale)} - ${Number.parseInt(cInfo.deaths).toLocaleString(locale)} = ${(cInfo.kills-cInfo.deaths).toLocaleString(locale, {signDisplay: "exceptZero"})}`, true);
         }
 
         // IVI Score
@@ -540,18 +536,14 @@ module.exports = {
         else{ //NSO
             resEmbed.setColor('GREY');
         }
-        resEmbed.addField(i18n.__({phrase: 'Score (SPM)', locale: locale}), `${cInfo.score.toLocaleString(locale)} (${(cInfo.score/(cInfo.time/60)).toPrecision(4)})`, true);
+        resEmbed.addField(i18n.__({phrase: 'Score (SPM)', locale: locale}), `${cInfo.score.toLocaleString(locale)} (${localeNumber(cInfo.score/(cInfo.time/60), locale)})`, true);
         const hours = Math.floor(cInfo.time/60/60);
         const minutes = Math.floor(cInfo.time/60 - hours*60);
         resEmbed.addField(i18n.__({phrase: 'Playtime', locale: locale}), i18n.__mf({phrase: "{hour} hours, {minute} minutes", locale: locale}, {hour: hours, minute: minutes}), true);
-        resEmbed.addField(i18n.__({phrase: 'Certs Gained', locale: locale}), cInfo.certs.toLocaleString(), true);
-        resEmbed.addField(i18n.__({phrase: 'K/D', locale: locale}), Number.parseFloat(cInfo.kills/cInfo.deaths).toPrecision(3), true);
-        let sign = '';
-        if((cInfo.kills-cInfo.deaths) > 0){
-            sign = '+';
-        }
-        resEmbed.addField(i18n.__({phrase: 'K-D Diff', locale: locale}), `${(cInfo.kills).toLocaleString(locale)} - ${(cInfo.deaths).toLocaleString(locale)} = ${sign}${(cInfo.kills-cInfo.deaths).toLocaleString(locale)}`, true);
-        resEmbed.addField(i18n.__({phrase: 'KPM', locale: locale}), (cInfo.kills/(cInfo.time/60)).toPrecision(3), true);
+        resEmbed.addField(i18n.__({phrase: 'Certs Gained', locale: locale}), cInfo.certs.toLocaleString(locale), true);
+        resEmbed.addField(i18n.__({phrase: 'K/D', locale: locale}), localeNumber(cInfo.kills/cInfo.deaths, locale), true);
+        resEmbed.addField(i18n.__({phrase: 'K-D Diff', locale: locale}), `${(cInfo.kills).toLocaleString(locale)} - ${(cInfo.deaths).toLocaleString(locale)} = ${(cInfo.kills-cInfo.deaths).toLocaleString(locale, {signDisplay: "exceptZero"})}`, true);
+        resEmbed.addField(i18n.__({phrase: 'KPM', locale: locale}), localeNumber(cInfo.kills/(cInfo.time/60), locale), true);
         return resEmbed;     
     },
 

@@ -91,11 +91,26 @@ async function censusRequest(platform, key, extension){
 	}
 }
 
+function localeNumber(n, locale){
+	// Standardize numbers across commands, shorten bulky function call
+	if(n >= 1000){
+		return n.toLocaleString(locale, {maximumFractionDigits: 0});
+	}
+	if(n >= 100){
+		return n.toLocaleString(locale, {maximumFractionDigits: 1});
+	}
+	if(n > 1){
+		return n.toLocaleString(locale, {maximumFractionDigits: 2});
+	}
+	return n.toLocaleString(locale, {maximumFractionDigits: 3});
+}
+
 module.exports = {
 	servers: servers,
 	continents: continents,
 	serverNames: serverNames,
 	serverIDs: serverIDs,
 	badQuery: badQuery,
-	censusRequest: censusRequest
+	censusRequest: censusRequest,
+	localeNumber: localeNumber
 }

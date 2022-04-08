@@ -2,18 +2,19 @@
 
 const Discord = require('discord.js');
 const { censusRequest, badQuery } = require('./utils.js');
+const i18n = require('i18n');
 
-const basicInfo = async function(cName, platform){
+const basicInfo = async function(cName, platform, locale="en-US"){
 	let response = await censusRequest(platform, 'character_list', `/character?name.first_lower=${cName}&c:resolve=item_full&c:lang=en`);
     if(response.length == 0){
-        throw `${cName} not found`;
+        throw i18n.__mf({phrase: "{name} not found", locale: locale}, {name: cName});
 	}
 	let data = response[0];
 	if(data.faction_id == "4"){
-		throw "NSO not supported";
+		throw i18n.__({phrase: "NSO is not supported", locale: locale});
 	}
 	if(data.prestige_level == "0"){
-		throw `${data.name.first} has not yet unlocked ASP`;
+		throw i18n.__mf({phrase: "{name} has not yet unlocked ASP", locale: locale}, {name: data.name.first});
 	}
 	let br = Number(data.battle_rank.value);
 	let availableTokens = 1 + Math.floor(br/25) + 4 * (Number.parseInt(data.prestige_level) - 1);
@@ -43,7 +44,7 @@ const basicInfo = async function(cName, platform){
 		}
 	}
 	if(!aspTitle){
-		throw `${cName} has not yet unlocked ASP`;
+		throw i18n.__mf({phrase: "{name} has not yet unlocked ASP", locale: locale}, {name: data.name.first});
 	}
 	let preBR = 100;
 	if(decals.length != 0){
@@ -61,11 +62,11 @@ const basicInfo = async function(cName, platform){
 }
 
 module.exports = {
-	originalBR: async function(cName, platform){
+	originalBR: async function(cName, platform, locale="en-US"){
 		if(badQuery(cName)){
-			throw "Character search contains disallowed characters";
+			throw i18n.__({phrase: "Character search contains disallowed characters", locale: locale});
 		}
-		let cInfo = await basicInfo(cName, platform);
+		let cInfo = await basicInfo(cName, platform, locale);
 
 		let resEmbed = new Discord.MessageEmbed();
 		if (cInfo.faction == "1"){ //vs
@@ -81,17 +82,17 @@ module.exports = {
             resEmbed.setColor('GREY');
 		}
 		resEmbed.setTitle(cInfo.name);
-		resEmbed.setDescription("BR pre ASP: "+cInfo.preBR);
+		resEmbed.setDescription(`${i18n.__({phrase: "BR pre ASP", locale: locale})}: ${cInfo.preBR}`);
 		if(cInfo.unlocks.length == 0){
 			cInfo.unlocks = "None";
 		}
 		else{
 			cInfo.unlocks = cInfo.unlocks.substring(0,(cInfo.unlocks.length-6));
 		}
-		resEmbed.addField("Available Points", `${cInfo.availableTokens}`);
-		resEmbed.addField("ASP Skills", cInfo.unlocks);
+		resEmbed.addField(i18n.__({phrase: "Available Points", locale: locale}), `${cInfo.availableTokens}`);
+		resEmbed.addField(i18n.__({phrase: "ASP Skills", locale: locale}), cInfo.unlocks);
 		if(cInfo.unlocksContinued != ""){
-			resEmbed.addField("ASP Skills Continued", cInfo.unlocksContinued.substring(0,(cInfo.unlocksContinued.length-6)));
+			resEmbed.addField(i18n.__({phrase: "ASP Skills Continued", locale: locale}), cInfo.unlocksContinued.substring(0,(cInfo.unlocksContinued.length-6)));
 		}
 		resEmbed.setThumbnail("http://census.daybreakgames.com/files/ps2/images/static/88688.png");
 
