@@ -81,10 +81,6 @@ const updateAlert = async function(info, pgClient, discordClient, isComplete){
 const editMessage = async function(embed, messageId, channelId, discordClient){
 	try {
 		const resChann = await discordClient.channels.fetch(channelId)
-
-		if(resChann.deleted){
-			return;
-		}
 		if (['GUILD_TEXT','GUILD_NEWS'].includes(resChann.type) && resChann.permissionsFor(resChann.guild.me).has(Discord.Permissions.FLAGS.VIEW_CHANNEL)) {
 			const resMsg = await resChann.messages.fetch(messageId);
 			await resMsg.edit({embeds: [embed]});
