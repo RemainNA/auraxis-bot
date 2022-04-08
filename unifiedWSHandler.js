@@ -446,7 +446,7 @@ const captureContributions = async function(outfitID, baseID, timestamp, platfor
         const onlineEvents = await Promise.allSettled(Array.from(online, x => 
             censusRequest(platform, 'characters_event_list', `characters_event?id=${x}&type=FACILITY_CHARACTER&c:resolve=character_name`)));
         for(const event of onlineEvents){
-            if(event.status == "fulfilled" && event.value[0].facility_id == baseID && event.value[0].timestamp == timestamp){
+            if(event.status == "fulfilled" && event.value[0]?.facility_id == baseID && event.value[0].timestamp == timestamp){
                 contributions.push(event.value[0]?.character.name.first);
             }
         }
