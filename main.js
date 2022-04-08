@@ -10,7 +10,8 @@ const pg = require('pg');
 const i18n = require('i18n');
 i18n.configure({
 	directory: './locales/responses',
-	defaultLocale: 'en-us',
+	defaultLocale: 'en-US',
+	retryInDefaultLocale: true,
 	updateFiles: false,
 	objectNotation: true
 })
