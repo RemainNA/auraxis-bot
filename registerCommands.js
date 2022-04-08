@@ -1,7 +1,15 @@
-const Discord = require('discord.js');
+const { REST } = require('@discordjs/rest');
+const { Routes } = require('discord-api-types/v9');
+
 require('dotenv').config();
 
-const client = new Discord.Client({intents: [Discord.Intents.FLAGS.GUILD_MESSAGES, Discord.Intents.FLAGS.DIRECT_MESSAGES, Discord.Intents.FLAGS.GUILDS]});
+const i18n = require('i18n');
+i18n.configure({
+	directory: './locales/commands',
+	defaultLocale: 'en-us',
+	updateFiles: false,
+	objectNotation: true
+})
 
 const allOption = {
 	name: 'All',
@@ -70,13 +78,13 @@ const data = [
 		description: "Look up a character's stats and basic information",
 		options: [{
 			name: 'name',
-			type: 'STRING',
+			type: '3',
 			description: 'Character name, or multiple separated by spaces',
 			required: true,
 		},
 		{
 			name: 'platform',
-			type: 'STRING',
+			type: '3',
 			description: "Which platform is the character on?  Defaults to PC",
 			required: false,
 			choices: platforms
@@ -87,20 +95,20 @@ const data = [
 		description: "Look up a character's stats, either with the specified weapon or overall",
 		options: [{
 			name: 'name',
-			type: 'STRING',
+			type: '3',
 			description: 'Character name',
 			required: true,
 		},
 		{
 			name: 'weapon',
-			type: 'STRING',
+			type: '3',
 			description: 'Weapon name or id, can search with a partial name',
 			autocomplete: true,
 			required: false,
 		},
 		{
 			name: 'platform',
-			type: 'STRING',
+			type: '3',
 			description: "Which platform is the character on?  Defaults to PC",
 			required: false,
 			choices: platforms
@@ -111,13 +119,13 @@ const data = [
 		description: "Look up an outfit's basic information, including recent activity and bases owned",
 		options: [{
 			name: 'tag',
-			type: 'STRING',
+			type: '3',
 			description: 'Outfit tag or tags separated by spaces, no brackets',
 			required: true,
 		},
 		{
 			name: 'platform',
-			type: 'STRING',
+			type: '3',
 			description: "Which platform is the outfit on?  Defaults to PC",
 			required: false,
 			choices: platforms
@@ -128,13 +136,13 @@ const data = [
 		description: "Look up currently online members for a given outfit",
 		options: [{
 			name: 'tag',
-			type: 'STRING',
+			type: '3',
 			description: 'Outfit tag or tags separated by spaces, no brackets',
 			required: true,
 		},
 		{
 			name: 'platform',
-			type: 'STRING',
+			type: '3',
 			description: "Which platform is the outfit on?  Defaults to PC",
 			required: false,
 			choices: platforms
@@ -146,11 +154,11 @@ const data = [
 		options: [{
 			name: "alerts",
 			description: "Receive alert notifications when an alert starts on a server",
-			type: 'SUB_COMMAND',
+			type: '1',
 			options: [{
 				name: 'server',
 				description: 'Server name',
-				type: 'STRING',
+				type: '3',
 				required: true,
 				choices: servers
 			}
@@ -159,16 +167,16 @@ const data = [
 		{
 			name: "activity",
 			description: "Receive notifications whenever an outfit member logs in or out",
-			type: 'SUB_COMMAND',
+			type: '1',
 			options: [{
 				name: 'tag',
-				type: 'STRING',
+				type: '3',
 				description: 'Tag of outfit to subscribe to, no brackets',
 				required: true
 			},
 			{
 				name: 'platform',
-				type: 'STRING',
+				type: '3',
 				description: "Which platform is the outfit on?  Defaults to PC",
 				required: false,
 				choices: platforms
@@ -178,16 +186,16 @@ const data = [
 		{
 			name: "captures",
 			description: "Receive a notification whenever an outfit captures a base",
-			type: 'SUB_COMMAND',
+			type: '1',
 			options: [{
 				name: 'tag',
-				type: 'STRING',
+				type: '3',
 				description: 'Tag of outfit to subscribe to, no brackets',
 				required: true
 			},
 			{
 				name: 'platform',
-				type: 'STRING',
+				type: '3',
 				description: "Which platform is the outfit on?  Defaults to PC",
 				required: false,
 				choices: platforms
@@ -197,11 +205,11 @@ const data = [
 		{
 			name: "unlocks",
 			description: "Receive a notification when a continent unlocks on a server",
-			type: 'SUB_COMMAND',
+			type: '1',
 			options: [{
 				name: 'server',
 				description: 'Server name',
-				type: 'STRING',
+				type: '3',
 				required: true,
 				choices: servers
 			}
@@ -210,10 +218,10 @@ const data = [
 		{
 			name: "twitter",
 			description: "Receive a notification whenever a user posts or retweets",
-			type: 'SUB_COMMAND',
+			type: '1',
 			options: [{
 				name: 'user',
-				type: 'STRING',
+				type: '3',
 				description: "Twitter user",
 				required: true,
 				choices: [
@@ -237,11 +245,11 @@ const data = [
 		options: [{
 			name: "alerts",
 			description: "Remove active alert subscriptions",
-			type: 'SUB_COMMAND',
+			type: '1',
 			options: [{
 				name: 'server',
 				description: 'Server name',
-				type: 'STRING',
+				type: '3',
 				required: true,
 				choices: servers
 			}
@@ -250,16 +258,16 @@ const data = [
 		{
 			name: "activity",
 			description: "Remove active outfit activity subscriptions",
-			type: 'SUB_COMMAND',
+			type: '1',
 			options: [{
 				name: 'tag',
-				type: 'STRING',
+				type: '3',
 				description: 'Tag of outfit to remove, no brackets',
 				required: true
 			},
 			{
 				name: 'platform',
-				type: 'STRING',
+				type: '3',
 				description: "Which platform is the outfit on?  Defaults to PC",
 				required: false,
 				choices: platforms
@@ -269,16 +277,16 @@ const data = [
 		{
 			name: "captures",
 			description: "Remove active outfit base capture subscriptions",
-			type: 'SUB_COMMAND',
+			type: '1',
 			options: [{
 				name: 'tag',
-				type: 'STRING',
+				type: '3',
 				description: 'Tag of outfit to remove.  No brackets',
 				required: true
 			},
 			{
 				name: 'platform',
-				type: 'STRING',
+				type: '3',
 				description: "Which platform is the outfit on?  Defaults to PC",
 				required: false,
 				choices: platforms
@@ -288,11 +296,11 @@ const data = [
 		{
 			name: "unlocks",
 			description: "Remove active continent unlock subscriptions",
-			type: 'SUB_COMMAND',
+			type: '1',
 			options: [{
 				name: 'server',
 				description: 'Server name',
-				type: 'STRING',
+				type: '3',
 				required: true,
 				choices: servers
 			}
@@ -301,10 +309,10 @@ const data = [
 		{
 			name: "twitter",
 			description: "Remove active Twitter subscriptions",
-			type: 'SUB_COMMAND',
+			type: '1',
 			options: [{
 				name: 'user',
-				type: 'STRING',
+				type: '3',
 				description: "User's name",
 				required: true,
 				choices: [
@@ -323,7 +331,7 @@ const data = [
 		{
 			name: "all",
 			description: "Remove all active subscriptions and settings from the channel",
-			type: 'SUB_COMMAND'
+			type: '1'
 		}
 		]
 	},
@@ -334,21 +342,21 @@ const data = [
 			{
 				name: 'view',
 				description: 'View current subscription settings',
-				type: 'SUB_COMMAND'
+				type: '1'
 			},
 			{
 				name: 'audit',
 				description: 'Check for errors in subscription settings',
-				type: 'SUB_COMMAND'
+				type: '1'
 			},
 			{
 				name: 'continent',
 				description: 'Enable or disable alert and unlock notifications for a given continent',
-				type: 'SUB_COMMAND',
+				type: '1',
 				options: [{
 					name: 'continent',
 					description: 'The continent to change the setting for',
-					type: 'STRING',
+					type: '3',
 					required: true,
 					choices: [
 						{
@@ -384,7 +392,7 @@ const data = [
 				{
 					name: 'setting',
 					description: "Show alerts and unlocks for specified continent",
-					type: 'STRING',
+					type: '3',
 					required: true,
 					choices: [
 						{
@@ -401,11 +409,11 @@ const data = [
 			{
 				name: 'autodelete',
 				description: 'Automatically delete alerts and outfit activity notifications',
-				type: 'SUB_COMMAND',
+				type: '1',
 				options: [{
 						name: 'setting',
 						description: 'Delete notifications in this channel',
-						type: 'STRING',
+						type: '3',
 						required: true,
 						choices: [
 						{
@@ -426,7 +434,7 @@ const data = [
 		description: "Look up the current population of a server",
 		options: [{
 			name: 'server',
-			type: 'STRING',
+			type: '3',
 			description: 'Server name',
 			required: true,
 			choices: servers.concat([allOption])
@@ -437,7 +445,7 @@ const data = [
 		description: "Look up the current territory control of a server",
 		options: [{
 			name: 'server',
-			type: 'STRING',
+			type: '3',
 			description: 'Server name',
 			required: true,
 			choices: servers
@@ -448,7 +456,7 @@ const data = [
 		description: "Look up ongoing alerts on a server",
 		options: [{
 			name: 'server',
-			type: 'STRING',
+			type: '3',
 			description: 'Server name',
 			required: true,
 			choices: serversNoJaeger
@@ -463,7 +471,7 @@ const data = [
 		description: "Look up weapon stats",
 		options: [{
 			name: 'query',
-			type: 'STRING',
+			type: '3',
 			description: 'Weapon name, partial name, or id',
 			autocomplete: true,
 			required: true,
@@ -474,7 +482,7 @@ const data = [
 		description: "Look up a list of weapons matching your search",
 		options: [{
 			name: 'query',
-			type: 'STRING',
+			type: '3',
 			description: 'Weapon name or partial name',
 			required: true,
 		}]
@@ -484,7 +492,7 @@ const data = [
 		description: "Look up implant information",
 		options: [{
 			name: 'query',
-			type: 'STRING',
+			type: '3',
 			description: 'Implant name or partial name',
 			autocomplete: true,
 			required: true,
@@ -495,13 +503,13 @@ const data = [
 		description: "Look up ASP specific information for a character",
 		options: [{
 			name: 'name',
-			type: 'STRING',
+			type: '3',
 			description: 'Character name',
 			required: true,
 		},
 		{
 			name: 'platform',
-			type: 'STRING',
+			type: '3',
 			description: "Which platform is the character on?  Defaults to PC",
 			required: false,
 			choices: platforms
@@ -513,10 +521,10 @@ const data = [
 		options: [{
 			name: "server",
 			description: "Create an automatically updating dashboard displaying server status",
-			type: 'SUB_COMMAND',
+			type: '1',
 			options: [{
 				name: 'server',
-				type: 'STRING',
+				type: '3',
 				description: 'Server name',
 				required: true,
 				choices: servers
@@ -525,16 +533,16 @@ const data = [
 		{
 			name: "outfit",
 			description: "Create an automatically updating dashboard displaying outfit status",
-			type: 'SUB_COMMAND',
+			type: '1',
 			options: [{
 				name: 'tag',
-				type: 'STRING',
+				type: '3',
 				description: 'Outfit tag',
 				required: true
 			},
 			{
 				name: 'platform',
-				type: 'STRING',
+				type: '3',
 				description: "Which platform is the outfit on?  Defaults to PC",
 				required: false,
 				choices: platforms
@@ -549,17 +557,17 @@ const data = [
 		options: [{
 			name: "server",
 			description: "Create an automatically updating voice channel displaying server info",
-			type: 'SUB_COMMAND',
+			type: '1',
 			options: [{
 				name: 'server',
-				type: 'STRING',
+				type: '3',
 				description: 'Server name',
 				required: true,
 				choices: servers
 			},
 			{
 				name: 'type',
-				type: 'STRING',
+				type: '3',
 				description: 'Type of tracker channel',
 				required: true,
 				choices:[
@@ -577,16 +585,16 @@ const data = [
 			{
 				name: "outfit",
 				description: "Create an automatically updating voice channel displaying outfit online count",
-				type: 'SUB_COMMAND',
+				type: '1',
 				options: [{
 					name: 'tag',
-					type: 'STRING',
+					type: '3',
 					description: 'Outfit tag',
 					required: true
 				},
 				{
 					name: 'platform',
-					type: 'STRING',
+					type: '3',
 					description: "Which platform is the outfit on?  Defaults to PC",
 					required: false,
 					choices: platforms
@@ -600,13 +608,13 @@ const data = [
 		description: "Lookup a list of a character's Auraxium medals",
 		options: [{
 			name: 'name',
-			type: 'STRING',
+			type: '3',
 			description: 'Character name',
 			required: true,
 		},
 		{
 			name: 'platform',
-			type: 'STRING',
+			type: '3',
 			description: "Which platform is the character on?  Defaults to PC",
 			required: false,
 			choices: platforms
@@ -617,7 +625,7 @@ const data = [
 		description: "Lookup current leaderboard",
 		options: [{
 			name: 'type',
-			type: 'STRING',
+			type: '3',
 			description: 'Type of leaderboard to look up',
 			required: true,
 			choices: [{
@@ -639,7 +647,7 @@ const data = [
 		},
 		{
 			name: 'period',
-			type: 'STRING',
+			type: '3',
 			description: 'Time period of the leaderboard',
 			required: true,
 			choices: [{
@@ -665,7 +673,7 @@ const data = [
 		},
 		{
 			name: 'server',
-			type: 'STRING',
+			type: '3',
 			description: 'Server name',
 			required: false,
 			choices: servers
@@ -676,13 +684,13 @@ const data = [
 		description: "Lookup a list of a character's Auraxium medals",
 		options: [{
 			name: 'name',
-			type: 'STRING',
+			type: '3',
 			description: 'Character name',
 			required: true,
 		},
 		{
 			name: 'platform',
-			type: 'STRING',
+			type: '3',
 			description: "Which platform is the character on?  Defaults to PC",
 			required: false,
 			choices: platforms
@@ -693,20 +701,20 @@ const data = [
 		description: "Lookup a character's stats with a given vehicle",
 		options: [{
 			name: 'name',
-			type: 'STRING',
+			type: '3',
 			description: 'Character name',
 			required: true,
 		},
 		{
 			name: 'vehicle',
-			type: 'STRING',
+			type: '3',
 			description: 'Vehicle name',
 			autocomplete: true,
 			required: true,
 		},
 		{
 			name: 'platform',
-			type: 'STRING',
+			type: '3',
 			description: "Which platform is the character on?  Defaults to PC",
 			required: false,
 			choices: platforms
@@ -714,16 +722,17 @@ const data = [
 	}
 ]
 
-client.on("ready", async () => {
-	if (!client.application?.owner) await client.application?.fetch();
+const rest = new REST({ version: '9'}).setToken(process.env.token);
+
+(async () => {
 	try{
-		const commands = await client.application?.commands.set(data);
+		await rest.put(
+			Routes.applicationCommands(process.env.clientID),
+			{ body: commands },
+		);
+		console.log('done');
 	}
 	catch(err){
-		console.log(err);
+		console.log(err)
 	}
-	console.log("done")
-	process.exit();
-})
-
-client.login(process.env.token);
+}) ();
