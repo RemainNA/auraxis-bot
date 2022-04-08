@@ -555,7 +555,7 @@ client.on('interactionCreate', async interaction => {
 		}
 		catch(err){
 			if(typeof(err) !== 'string'){
-				console.log(`Error in ${interaction.commandName}`);
+				console.log(`Error in ${interaction.commandName} ${interaction.locale}`);
 				if(err.code == 10062){ //"Unknown interaction"
 					console.log("Unknown interaction");
 					console.log(interaction.options);
@@ -621,7 +621,7 @@ client.on('interactionCreate', async interaction => {
 		}
 		catch(err){
 			if(typeof(err) !== 'string'){
-				console.log(`Error in ${interaction.customId} button`);
+				console.log(`Error in ${interaction.customId} button ${interaction.locale}`);
 				if(err.code == 10062){ //"Unknown interaction"
 					console.log("Unknown interaction");
 					return;
