@@ -155,6 +155,10 @@ const checkPermissions = async function(channel, user){
 	if(channel.type == 'DM'){
 		return true;
 	}
+	else if(channel.isThread()){
+		const parentChannel = channel.parent;
+		return (await parentChannel.permissionsFor(parentChannel.guild.members.cache.get(user.id)).has(Discord.Permissions.FLAGS.MANAGE_CHANNELS));
+	}
 	else if(channel.type == 'GUILD_TEXT' || channel.type == 'GUILD_NEWS'){
 		return (await channel.permissionsFor(channel.guild.members.cache.get(user.id)).has(Discord.Permissions.FLAGS.MANAGE_CHANNELS));
 	}
