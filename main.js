@@ -13,7 +13,10 @@ i18n.configure({
 	defaultLocale: 'en-US',
 	retryInDefaultLocale: true,
 	updateFiles: false,
-	objectNotation: true
+	objectNotation: true,
+	missingKeyFn: function (locale, value) {
+		return value
+	  },
 })
 
 // commands
