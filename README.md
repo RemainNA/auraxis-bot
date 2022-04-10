@@ -18,7 +18,7 @@ If you would like to deploy your own version of the bot, it is designed to run o
 
 ## Exclamation command deprecation
 
-At the end of April Auraxis Bot will no longer support exclamation commands (e.g. !population), and all users must use slash commands.  This is a Discord level decision, and I cannot change it.  If they are currently enabled in your server (type / to see if they appear) then you are all set!  Otherwise please re-authorize the bot using the [invite link](https://discord.com/api/oauth2/authorize?client_id=437756856774033408&permissions=1330192&scope=bot%20applications.commands).  *You do not need to kick then reinvite the bot*.
+At the end of April Auraxis Bot will no longer support exclamation commands (e.g. !population), and all users must use slash commands.  If they are currently enabled in your server (type / to see if they appear) then you are all set!  Otherwise please re-authorize the bot using the [invite link](https://discord.com/api/oauth2/authorize?client_id=437756856774033408&permissions=1330192&scope=bot%20applications.commands).  *You do not need to kick then reinvite the bot*.
 
 If you are a server owner and need exclamation commands for any reason (bot automations, etc.) please contact me at the locations below.
 

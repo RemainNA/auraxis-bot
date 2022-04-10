@@ -152,7 +152,7 @@ const links = '\n\
 [Invite bot](https://discord.com/api/oauth2/authorize?client_id=437756856774033408&permissions=1330192&scope=bot%20applications.commands)\n\
 [Donate on Ko-fi](https://ko-fi.com/remainna)'
 
-const deprecationNotice = 'Exclamation commands will be disabled at the end of April, please switch over to slash commands.  View the FAQ in !help for more info.';
+const deprecationNotice = 'Exclamation commands will be disabled at the end of **this month**, please switch over to slash commands.  View the FAQ in !help for more info.';
 
 const checkPermissions = async function(channel, user){
 	if(channel.type == 'DM'){
