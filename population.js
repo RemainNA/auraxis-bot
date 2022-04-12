@@ -98,9 +98,9 @@ module.exports = {
 			sendEmbed.setTitle(i18n.__mf({phrase: "{server} population - {total}", locale: locale}, {server: i18n.__({phrase: normalized, locale: locale}), total: total.toLocaleString(locale)}));
 			total = Math.max(total, 1);
 			const vsPc = localeNumber((res.vs/total)*100, locale);
-			const ncPc = localeNumber((res.vs/total)*100, locale);
-			const trPc = localeNumber((res.vs/total)*100, locale);
-			const nsPc = localeNumber((res.vs/total)*100, locale);
+			const ncPc = localeNumber((res.nc/total)*100, locale);
+			const trPc = localeNumber((res.tr/total)*100, locale);
+			const nsPc = localeNumber((res.ns/total)*100, locale);
 			sendEmbed.setDescription(`\
 			\n<:VS:818766983918518272> **${i18n.__({phrase: 'VS', locale: locale})}**: ${res.vs}  |  ${vsPc}%\
 			\n<:NC:818767043138027580> **${i18n.__({phrase: 'NC', locale: locale})}**: ${res.nc}  |  ${ncPc}%\
