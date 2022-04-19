@@ -27,8 +27,8 @@ module.exports = {
 				if(response.length == 0){
 					continue;
 				}
-				await pgClient.query("UPDATE outfitactivity SET alias = $1 WHERE id = $2;", [response[0].alias, id[0]]);
-				await pgClient.query("UPDATE outfitcaptures SET alias = $1 WHERE id = $2;", [response[0].alias, id[0]]);	
+				await pgClient.query("UPDATE outfitactivity SET alias = $1, name = $2 WHERE id = $3;", [response[0].alias, response[0].name, id[0]]);
+				await pgClient.query("UPDATE outfitcaptures SET alias = $1, name = $2 WHERE id = $3;", [response[0].alias, response[0].name, id[0]]);	
 			}
 			catch(err){
 				console.log('Outfit maintenance error');
