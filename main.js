@@ -193,7 +193,8 @@ client.on('interactionCreate', async interaction => {
 				\n[${i18n.__({phrase: "GitHub page & FAQ", locale: locale})}](https://github.com/RemainNA/auraxis-bot)\
 				\n[${i18n.__({phrase: "Support server", locale: locale})}](https://discord.gg/Kf5P6Ut)\
 				\n[${i18n.__({phrase: "Invite bot", locale: locale})}](https://discord.com/api/oauth2/authorize?client_id=437756856774033408&permissions=1330192&scope=bot%20applications.commands)\
-				\n[${i18n.__({phrase: "Donate on Ko-fi", locale: locale})}](https://ko-fi.com/remainna)`
+				\n[${i18n.__({phrase: "Donate on Ko-fi", locale: locale})}](https://ko-fi.com/remainna)\
+				\n[${i18n.__({phrase: "Translate on Crowdin", locale: locale})}](https://crowdin.com/project/auraxis-bot)`
 				helpEmbed.addField(i18n.__({phrase: "Links", locale: locale}), links);
 				helpEmbed.setFooter({text: i18n.__({phrase: "<> = Optional, [] = Required", locale: locale})});
 				await interaction.reply({embeds: [helpEmbed]});

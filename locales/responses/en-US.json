@@ -220,9 +220,10 @@
 	"Commands": "Commands",
 	"Requires Manage Channel permission": "Requires Manage Channel permission",
 	"GitHub page & FAQ": "GitHub page & FAQ",
-	"Support server": "Supper server",
+	"Support server": "Support server",
 	"Invite bot": "Invite bot",
 	"Donate on Ko-fi": "Donate on Ko-fi",
+	"Translate on Crowdin": "Translate on Crowdin",
 	"Links": "Links",
 	"<> = Optional, [] = Required": "<> = Optional, [] = Required"
 }
