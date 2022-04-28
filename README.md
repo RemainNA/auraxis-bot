@@ -26,6 +26,20 @@ If you are a server owner and need exclamation commands for any reason (bot auto
 
 For feedback or error reports, the best ways to contact are reddit (/u/RemainNA), Discord (RemainNA#0159), and the Auraxis bot [Discord server](https://discord.gg/Kf5P6Ut).
 
+## Localization
+
+Localization of the bot is managed through [Crowdin](https://crwd.in/auraxis-bot).  Please join there and the Discord server listed above to contribute translations.
+
+If you notice a translation error please report it in the support server.
+
+Thank you to the following translators for their contributions!
+
+- Dutch: brakenium#9467
+- German: Gretchen
+- Korean: AlexKoala#0253
+- Russian: Simacrus#9560
+- Spanish: [1ITL] Facer
+
 ## Support development
 
 There are three main ways to support development:
