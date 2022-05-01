@@ -223,6 +223,7 @@
 	"Support server": "Ondersteuningsserver",
 	"Invite bot": "Bot uitnodigen",
 	"Donate on Ko-fi": "Doneer op Ko-fi",
+	"Translate on Crowdin": "Translate on Crowdin",
 	"Links": "Koppelingen",
 	"<> = Optional, [] = Required": "<> = Optioneel, [] = Vereist"
 }

@@ -223,6 +223,7 @@
 	"Support server": "Сервер разработчика",
 	"Invite bot": "Пригласить бота",
 	"Donate on Ko-fi": "Пожертвовать на Кофе",
+	"Translate on Crowdin": "Translate on Crowdin",
 	"Links": "Ссылки",
 	"<> = Optional, [] = Required": "<> = Необязательно, [] = Обязательно"
 }

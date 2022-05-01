@@ -223,6 +223,7 @@
 	"Support server": "슈퍼 서버",
 	"Invite bot": "봇 초대하기",
 	"Donate on Ko-fi": "Ko-fi에서 후원하기",
+	"Translate on Crowdin": "Crowdin에서 번역하기",
 	"Links": "링크",
 	"<> = Optional, [] = Required": "<> = 선택, [] = 필수"
 }
