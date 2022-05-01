@@ -30,7 +30,7 @@ const serverStatus = async function(serverID){
 
 	// Territory
 	const territory = await territoryInfo(serverID);
-	let territoryField = "";
+	let territoryField = "*Bases owned*\n";
 
 	for (const continent of continents){
 		const totalTer = territory[continent].vs + territory[continent].nc + territory[continent].tr;
