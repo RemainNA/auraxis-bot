@@ -161,6 +161,10 @@ module.exports = {
 					catch(err){
 						console.log(`Error updating outfit tracker ${row.outfitid}`);
 						console.log(err);
+						if(err == " not found"){
+							await pgClient.query("DELETE FROM outfittracker WHERE outfitid = $1;", [row.outfitid]);
+							console.log(`Deleted ${row.outfitid} from tracker table`)
+						}
 					}
 					
 				}
