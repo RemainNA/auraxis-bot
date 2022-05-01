@@ -110,12 +110,6 @@ module.exports = {
     },
 
     subscribeAlert: async function(pgClient, channel, server){
-        if(badQuery(server)){
-			throw "Server search contains disallowed characters";
-		}
-        if(!servers.includes(server)){
-            throw `${server} not recognized`;
-        }
         let count = await pgClient.query("SELECT count(*) FROM alerts WHERE channel=$1 AND world=$2;", [channel, server]);
         if(count.rows[0].count == 0){
             pgClient.query("INSERT INTO alerts (channel, world) VALUES ($1, $2);", [channel, server]);
@@ -133,12 +127,6 @@ module.exports = {
     },
 
     unsubscribeAlert: async function(pgClient, channel, server){
-        if(badQuery(server)){
-			throw "Server search contains disallowed characters";
-		}
-        if(!servers.includes(server)){
-            throw `${server} not recognized`;
-        }
         let count = await pgClient.query("SELECT COUNT(*) FROM alerts WHERE channel = $1 AND world=$2", [channel, server]);
         if(count.rows[0].count == 0){
             throw `Not subscribed to ${standardizeName(server)} alerts`;

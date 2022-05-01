@@ -1,7 +1,7 @@
 // This file defines functions for retrieving population by faction for a given server/world
 const Discord = require('discord.js');
 const got = require('got')
-const {servers, serverIDs, serverNames, badQuery, localeNumber} = require('./utils.js');
+const {servers, serverIDs, serverNames, localeNumber} = require('./utils.js');
 const i18n = require('i18n');
 
 const getPopulation = async function(world){
@@ -59,9 +59,6 @@ const fisuPopulation = function(serverID){
 
 module.exports = {
 	lookup: async function(server, locale="en-US"){
-		if(badQuery(server)){
-			throw "Server search contains disallowed characters";
-		}
 
 		if(server == 'all'){
 			let resEmbed = new Discord.MessageEmbed();

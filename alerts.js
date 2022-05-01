@@ -3,7 +3,7 @@
 const Discord = require('discord.js');
 const alerts = require('./static/alerts.json');
 const got = require('got');
-const { serverNames, serverIDs, badQuery } = require('./utils');
+const { serverNames, serverIDs } = require('./utils');
 const i18n = require('i18n');
 
 const popLevels = {
@@ -66,14 +66,6 @@ const alertInfo = async function(server, locale='en-US'){
 
 module.exports = {
 	activeAlerts: async function(server, locale="en-US"){
-		if(badQuery(server)){
-			throw "Server search contains disallowed characters";
-		}
-
-		if(!(server in serverIDs)){
-			throw `${server} not found.`;
-		}
-
 		const serverID = serverIDs[server];
 		let alertObj = "";
 		try{

@@ -1,7 +1,7 @@
 // This file defines functions used in finding and returning the current territory control on a given server, broken up by continent
 
 const Discord = require('discord.js');
-const { serverNames, serverIDs, badQuery, censusRequest, continents, localeNumber } = require('./utils');
+const { serverNames, serverIDs, censusRequest, continents, localeNumber } = require('./utils');
 const i18n = require('i18n');
 
 const fisuTerritory = function(serverID){
@@ -144,13 +144,6 @@ module.exports = {
     },
 
     territory: async function(serverName, locale="en-US"){
-        if(badQuery(serverName)){
-			throw "Server search contains disallowed characters";
-        }
-
-        if (!(serverName in serverIDs)){
-            throw `${serverName} not found`;
-        }
 
         const serverID = serverIDs[serverName];
         let terObj = await this.territoryInfo(serverID);
