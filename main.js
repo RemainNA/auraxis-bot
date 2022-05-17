@@ -192,32 +192,40 @@ client.on('interactionCreate', async interaction => {
 				break;
 
 			case 'character':
-				if(options.getString('name').split(' ').length > 10){
-					await interaction.reply({content: "This command supports a maximum of 10 characters per query", ephemeral: true});
+				let firstCharacter = true;
+				const characterNames = options.getString('name').toLowerCase().replace(/\s\s+/g, ' ').split(' ');
+				if(characterNames.length > 10){
+					await interaction.reply({
+						content: i18n.__({phrase: "This commands supports a maximum of 10 characters per query", locale: interaction.locale}),
+						ephemeral: true
+					});
+					break;
 				}
-				else if(options.getString('name').split(' ').length > 1){
-					res = [];
-					await interaction.deferReply(); //Give the bot time to look up the results
-					for(const c of options.getString('name').toLowerCase().replace(/\s\s+/g, ' ').split(' ')){
-						try{
-							const cRes = await char.character(c, options.getString('platform') || 'ps2:v2');
-							res.push(cRes[0]);
+				await interaction.deferReply();
+				const characterLookups = await Promise.allSettled(Array.from(characterNames, x => 
+					char.character(x, options.getString('platform') || 'ps2:v2', interaction.locale)));
+				for(const res of characterLookups){
+					let toSend = "";
+					if(res.status == "rejected"){
+						if(typeof(res.reason) == 'string'){
+							toSend = res.reason;
 						}
-						catch(err){
-							errorList.push(c);
+						else{
+							toSend = "Error occurred when handling command";
+							console.log(`Character error ${interaction.locale}`);
+							console.log(res.reason);
 						}
-					}
-					if(errorList.length > 0){
-						await interaction.editReply({content: `Error with ${errorList}`, embeds:res});
 					}
 					else{
-						await interaction.editReply({embeds:res});
+						toSend = {embeds: [res.value[0]], components: res.value[1]}
 					}
-				}
-				else{
-					await interaction.deferReply(); //Give the bot time to look up the results
-					res = await char.character(options.getString('name').toLowerCase(), options.getString('platform') || 'ps2:v2', interaction.locale);
-					await interaction.editReply({embeds:[res[0]], components: res[1]});
+					if(firstCharacter){
+						await interaction.editReply(toSend);
+						firstCharacter = false;
+					}
+					else{
+						await interaction.followUp(toSend);
+					}
 				}
 				break;			
 
@@ -234,77 +242,78 @@ client.on('interactionCreate', async interaction => {
 				break;
 
 			case 'outfit':
-				if(options.getString('tag').split(' ').length > 10){
-					await interaction.reply({content: i18n.__({phrase: "This command supports a maximum of 10 outfits per query", locale: interaction.locale}), ephemeral: true});
+				let firstOutfit = true;
+				const outfitTags = options.getString('tag').toLowerCase().replace(/\s\s+/g, ' ').split(' ');
+				if(outfitTags.length > 10){
+					await interaction.reply({
+						content: i18n.__({phrase: "This commands supports a maximum of 10 outfits per query", locale: interaction.locale}),
+						ephemeral: true
+					});
+					break;
 				}
-				else if(options.getString('tag').split(' ').length > 1){
-					res = [];
-					await interaction.deferReply(); //Give the bot time to look up the results
-					for(const t of options.getString('tag').toLowerCase().replace(/\s\s+/g, ' ').split(' ')){
-						if(t.length > 4){
-							errorList.push(t);
-							continue;
+				await interaction.deferReply();
+				const outfitLookups = await Promise.allSettled(Array.from(outfitTags, x => 
+					outfit.outfit(x, options.getString('platform') || 'ps2:v2', SQLclient, null, interaction.locale)));
+				for(const res of outfitLookups){
+					let toSend = "";
+					if(res.status == "rejected"){
+						if(typeof(res.reason) == 'string'){
+							toSend = res.reason;
 						}
-						try{
-							const outfitRes = await outfit.outfit(t, options.getString('platform') || 'ps2:v2', SQLclient, null, interaction.locale);
-							res.push(outfitRes[0]);
+						else{
+							toSend = "Error occurred when handling command";
+							console.log(`Outfit error ${interaction.locale}`);
+							console.log(res.reason);
 						}
-						catch(err){
-							errorList.push(t);
-						}
-					}
-					if(errorList.length > 0){
-						await interaction.editReply({content: `Error with ${errorList}`, embeds:res});
 					}
 					else{
-						await interaction.editReply({embeds:res});
+						toSend = {embeds: [res.value[0]], components: res.value[1]}
 					}
-				}
-				else{
-					if(options.getString('tag').length > 4){
-						await interaction.reply({content: i18n.__mf({phrase: "{tag} is longer than 4 letters, please enter a tag", locale: interaction.locale}, {tag: options.getString('tag')}), ephemeral: true});
-						return;
+					if(firstOutfit){
+						await interaction.editReply(toSend);
+						firstOutfit = false;
 					}
-					await interaction.deferReply(); //Give the bot time to look up the results
-					res = await outfit.outfit(options.getString('tag').toLowerCase(), options.getString('platform') || 'ps2:v2', SQLclient, null, interaction.locale);
-					await interaction.editReply({embeds:[res[0]], components: res[1]});
+					else{
+						await interaction.followUp(toSend);
+					}
 				}
 				break;
 
 			case 'online':
-				if(options.getString('tag').split(' ').length > 10){
-					await interaction.reply({content: "This command supports a maximum of 10 outfits per query", ephemeral: true});
+				let firstOnline = true;
+				const onlineTags = options.getString('tag').toLowerCase().replace(/\s\s+/g, ' ').split(' ');
+				if(onlineTags.length > 10){
+					await interaction.reply({
+						content: i18n.__({phrase: "This commands supports a maximum of 10 outfits per query", locale: interaction.locale}),
+						ephemeral: true
+					});
+					break;
 				}
-				else if(options.getString('tag').split(' ').length > 1){
-					res = [];
-					await interaction.deferReply(); //Give the bot time to look up the results
-					for(const t of options.getString('tag').toLowerCase().replace(/\s\s+/g, ' ').split(' ')){
-						if(t.length > 4){
-							errorList.push(t);
-							continue;
+				await interaction.deferReply();
+				const onlineLookups = await Promise.allSettled(Array.from(onlineTags, x => 
+					online.online(x, options.getString('platform') || 'ps2:v2', null, interaction.locale)));
+				for(const res of onlineLookups){
+					let toSend = "";
+					if(res.status == "rejected"){
+						if(typeof(res.reason) == 'string'){
+							toSend = res.reason;
 						}
-						try{
-							res.push(await online.online(t, options.getString('platform') || 'ps2:v2', null, interaction.locale));
+						else{
+							toSend = "Error occurred when handling command";
+							console.log(`Outfit online error ${interaction.locale}`);
+							console.log(res.reason);
 						}
-						catch(err){
-							errorList.push(t);
-						}
-					}
-					if(errorList.length > 0){
-						await interaction.editReply({content: `Error with ${errorList}`, embeds:res});
 					}
 					else{
-						await interaction.editReply({embeds:res});
+						toSend = {embeds: [res.value]}
 					}
-				}
-				else{
-					if(options.getString('tag').length > 4){
-						await interaction.reply({content: i18n.__mf({phrase: "{tag} is longer than 4 letters, please enter a tag", locale: interaction.locale}, {tag: options.getString('tag')}), ephemeral: true});
-						return;
+					if(firstOnline){
+						await interaction.editReply(toSend);
+						firstOnline = false;
 					}
-					await interaction.deferReply(); //Give the bot time to look up the results
-					res = await online.online(options.getString('tag').toLowerCase(), options.getString('platform') || 'ps2:v2', null, interaction.locale);
-					await interaction.editReply({embeds:[res]});
+					else{
+						await interaction.followUp(toSend);
+					}
 				}
 				break;
 
