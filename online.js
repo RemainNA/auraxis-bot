@@ -76,6 +76,9 @@ module.exports = {
 		if(badQuery(oTag)){
 			throw i18n.__({phrase: "Outfit search contains disallowed characters", locale: locale});
 		}
+		if(oTag.length > 4){
+			throw i18n.__mf({phrase: "{tag} is longer than 4 letters, please enter a tag", locale: locale}, {tag: oTag});
+		}
 
 		let oInfo = await onlineInfo(oTag, platform, outfitID, locale);
 		let resEmbed = new Discord.MessageEmbed();
