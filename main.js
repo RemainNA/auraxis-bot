@@ -211,7 +211,7 @@ client.on('interactionCreate', async interaction => {
 							toSend = res.reason;
 						}
 						else{
-							toSend = "Error occurred when handling command";
+							toSend = i18n.__({phrase: "Error occurred when handling command", locale: interaction.locale});
 							console.log(`Character error ${interaction.locale}`);
 							console.log(res.reason);
 						}
@@ -261,7 +261,7 @@ client.on('interactionCreate', async interaction => {
 							toSend = res.reason;
 						}
 						else{
-							toSend = "Error occurred when handling command";
+							toSend = i18n.__({phrase: "Error occurred when handling command", locale: interaction.locale});
 							console.log(`Outfit error ${interaction.locale}`);
 							console.log(res.reason);
 						}
@@ -299,7 +299,7 @@ client.on('interactionCreate', async interaction => {
 							toSend = res.reason;
 						}
 						else{
-							toSend = "Error occurred when handling command";
+							toSend = i18n.__({phrase: "Error occurred when handling command", locale: interaction.locale});
 							console.log(`Outfit online error ${interaction.locale}`);
 							console.log(res.reason);
 						}
@@ -577,10 +577,10 @@ client.on('interactionCreate', async interaction => {
 				}
 				console.log(err);
 				if(interaction.deferred){
-					await interaction.editReply("Error occurred when handling command");
+					await interaction.editReply(i18n.__({phrase: "Error occurred when handling command", locale: interaction.locale}));
 				}
 				else{
-					await interaction.reply("Error occurred when handling command");
+					await interaction.reply(i18n.__({phrase: "Error occurred when handling command", locale: interaction.locale}));
 				}
 			}
 			else{
@@ -641,10 +641,10 @@ client.on('interactionCreate', async interaction => {
 				}
 				console.log(err);
 				if(interaction.deferred){
-					await interaction.editReply("Error occurred when handling command");
+					await interaction.editReply(i18n.__({phrase: "Error occurred when handling command", locale: interaction.locale}));
 				}
 				else{
-					await interaction.reply({content: "Error occurred when handling command", ephemeral: true});
+					await interaction.reply({content: i18n.__({phrase: "Error occurred when handling command", locale: interaction.locale}), ephemeral: true});
 				}
 			}
 			else{
