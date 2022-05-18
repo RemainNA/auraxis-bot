@@ -225,5 +225,7 @@
 	"Donate on Ko-fi": "Donar en Ko-fi",
 	"Translate on Crowdin": "Traducir en Crowdin",
 	"Links": "Enlaces",
-	"<> = Optional, [] = Required": "<> = Opcional, [] = Obligatorio"
+	"<> = Optional, [] = Required": "<> = Opcional, [] = Obligatorio",
+	"Error occurred when handling command": "Se ha producido un error al gestionar el comando",
+	"This command supports a maximum of 10 characters per query": "Este comando admite un máximo de 10 caracteres por consulta"
 }
