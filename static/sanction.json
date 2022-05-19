@@ -239,6 +239,26 @@
         "name": "Quasar VM1",
         "sanction": "max"
     },
+    "6011526": {
+        "category": "Amphibious Rifle",
+        "name": "UBR-100 Frogman",
+        "sanction": "infantry"
+    },
+    "6011527": {
+        "category": "Amphibious Rifle",
+        "name": "UBR-150 Sea Lion",
+        "sanction": "infantry"
+    },
+    "6011528": {
+        "category": "Amphibious Rifle",
+        "name": "UBR-300 Swordfish",
+        "sanction": "infantry"
+    },
+    "6011538": {
+        "category": "Amphibious Sidearm",
+        "name": "UBP-1 Starfish",
+        "sanction": "infantry"
+    },
     "6004869": {
         "category": "ANT Harvesting Tool",
         "name": "WLT-ARX Mining Laser",
@@ -498,6 +518,86 @@
         "category": "ANT Top Turret",
         "name": "WLT-Yellowjacket Mining Laser",
         "sanction": "none"
+    },
+    "6004294": {
+        "category": "Anti-Materiel Rifle",
+        "name": "AM7-XOXO",
+        "sanction": "infantry"
+    },
+    "6013464": {
+        "category": "Anti-Materiel Rifle",
+        "name": "DAGR-81",
+        "sanction": "infantry"
+    },
+    "6013463": {
+        "category": "Anti-Materiel Rifle",
+        "name": "LA60 Masthead",
+        "sanction": "infantry"
+    },
+    "6013466": {
+        "category": "Anti-Materiel Rifle",
+        "name": "NE-36 Linecutter",
+        "sanction": "infantry"
+    },
+    "6002943": {
+        "category": "Anti-Materiel Rifle",
+        "name": "NS-AM7 AE/NC Archer",
+        "sanction": "infantry"
+    },
+    "6002930": {
+        "category": "Anti-Materiel Rifle",
+        "name": "NS-AM7 AE/TR Archer",
+        "sanction": "infantry"
+    },
+    "802771": {
+        "category": "Anti-Materiel Rifle",
+        "name": "NS-AM7 Archer",
+        "sanction": "infantry"
+    },
+    "6002918": {
+        "category": "Anti-Materiel Rifle",
+        "name": "NS-AM7 VS/AE Archer",
+        "sanction": "infantry"
+    },
+    "802910": {
+        "category": "Anti-Materiel Rifle",
+        "name": "NS-AM7B Archer",
+        "sanction": "infantry"
+    },
+    "802921": {
+        "category": "Anti-Materiel Rifle",
+        "name": "NS-AM7G Archer",
+        "sanction": "infantry"
+    },
+    "6004992": {
+        "category": "Anti-Materiel Rifle",
+        "name": "NS-AM8 Shortbow",
+        "sanction": "infantry"
+    },
+    "6008496": {
+        "category": "Anti-Materiel Rifle",
+        "name": "PSA-01 Hammerhead AMR",
+        "sanction": "infantry"
+    },
+    "6013465": {
+        "category": "Anti-Materiel Rifle",
+        "name": "VX4-3 Slicer",
+        "sanction": "infantry"
+    },
+    "6013480": {
+        "category": "Assault Rifle",
+        "name": "\"\"\"Apex\"\" NC1 Gauss Rifle\"",
+        "sanction": "infantry"
+    },
+    "6013476": {
+        "category": "Assault Rifle",
+        "name": "\"\"\"Apex\"\" Pulsar VS1\"",
+        "sanction": "infantry"
+    },
+    "6013477": {
+        "category": "Assault Rifle",
+        "name": "\"\"\"Apex\"\" T1 Cycler\"",
+        "sanction": "infantry"
     },
     "6009864": {
         "category": "Assault Rifle",
@@ -6979,11 +7079,6 @@
         "name": "VE-S Canis",
         "sanction": "infantry"
     },
-    "6004294": {
-        "category": "Sniper Rifle",
-        "name": "AM7-XOXO",
-        "sanction": "infantry"
-    },
     "24002": {
         "category": "Sniper Rifle",
         "name": "Impetus",
@@ -6994,49 +7089,9 @@
         "name": "KSR-35",
         "sanction": "infantry"
     },
-    "6002943": {
-        "category": "Sniper Rifle",
-        "name": "NS-AM7 AE/NC Archer",
-        "sanction": "infantry"
-    },
-    "6002930": {
-        "category": "Sniper Rifle",
-        "name": "NS-AM7 AE/TR Archer",
-        "sanction": "infantry"
-    },
-    "802771": {
-        "category": "Sniper Rifle",
-        "name": "NS-AM7 Archer",
-        "sanction": "infantry"
-    },
-    "6002918": {
-        "category": "Sniper Rifle",
-        "name": "NS-AM7 VS/AE Archer",
-        "sanction": "infantry"
-    },
-    "802910": {
-        "category": "Sniper Rifle",
-        "name": "NS-AM7B Archer",
-        "sanction": "infantry"
-    },
-    "802921": {
-        "category": "Sniper Rifle",
-        "name": "NS-AM7G Archer",
-        "sanction": "infantry"
-    },
-    "6004992": {
-        "category": "Sniper Rifle",
-        "name": "NS-AM8 Shortbow",
-        "sanction": "infantry"
-    },
     "26002": {
         "category": "Sniper Rifle",
         "name": "Phantom VA23",
-        "sanction": "infantry"
-    },
-    "6008496": {
-        "category": "Sniper Rifle",
-        "name": "PSA-01 Hammerhead AMR",
         "sanction": "infantry"
     },
     "88": {
@@ -7478,26 +7533,6 @@
         "category": "Sunderer Rear Gunner",
         "name": "V42 Pariah-S",
         "sanction": "gunner"
-    },
-    "6011538": {
-        "category": "Underwater Weapons",
-        "name": "UBP-1 Starfish",
-        "sanction": "infantry"
-    },
-    "6011526": {
-        "category": "Underwater Weapons",
-        "name": "UBR-100 Frogman",
-        "sanction": "infantry"
-    },
-    "6011527": {
-        "category": "Underwater Weapons",
-        "name": "UBR-150 Sea Lion",
-        "sanction": "infantry"
-    },
-    "6011528": {
-        "category": "Underwater Weapons",
-        "name": "UBR-300 Swordfish",
-        "sanction": "infantry"
     },
     "6553": {
         "category": "Valkyrie Nose Gunner",
