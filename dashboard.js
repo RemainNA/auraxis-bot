@@ -242,7 +242,7 @@ module.exports = {
 					console.log(`Error updating outfit dashboard ${row.platform}: ${row.outfitid}`);
 					console.log(err);
 					if(err == " not found"){
-						await pgClient.query("DELETE FROM dashboard WHERE outfitid = $1;", [row.outfitid]);
+						await pgClient.query("DELETE FROM outfitDashboard WHERE outfitID = $1;", [row.outfitid]);
 						console.log(`Deleted ${row.outfitid} from table`);
 					}
 				}
