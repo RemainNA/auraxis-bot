@@ -554,6 +554,7 @@ const data = [
 	{
 		name: 'tracker',
 		description: "Create an automatically updating voice channel",
+		dm_permission: false,
 		options: [{
 			name: "server",
 			description: "Create an automatically updating voice channel displaying server info",
@@ -728,7 +729,7 @@ const rest = new REST({ version: '9'}).setToken(process.env.token);
 	try{
 		await rest.put(
 			Routes.applicationCommands(process.env.clientID),
-			{ body: commands },
+			{ body: data },
 		);
 		console.log('done');
 	}
