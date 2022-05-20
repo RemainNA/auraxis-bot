@@ -392,7 +392,8 @@ module.exports = {
         const hours = Math.floor(cInfo.playTime/60);
         const minutesPlayed = cInfo.playTime - hours*60;
         resEmbed.addField(i18n.__({phrase: 'Playtime', locale: locale}), 
-        `${i18n.__mf({phrase: "{hour} hours, {minute} minutes", locale: locale}, {hour: hours, minute: minutesPlayed})}`, true);
+        `${i18n.__mf({phrase: "{hour} hours, {minute} minutes", locale: locale}, 
+        {hour: localeNumber(hours, locale), minute: minutesPlayed})}`, true);
         
         // KD, KPM
         if(cInfo.stat_history){
@@ -464,7 +465,7 @@ module.exports = {
         // Top Weapon, Auraxium medals
         if(cInfo.stats){
             if(cInfo.topWeaponName != "Error"){
-                resEmbed.addField(i18n.__({phrase: 'Top Weapon (kills)', locale: locale}), cInfo.topWeaponName+" ("+cInfo.mostKills.toLocaleString(locale)+")", true);
+                resEmbed.addField(i18n.__({phrase: 'Top Weapon (kills)', locale: locale}), cInfo.topWeaponName+" ("+localeNumber(cInfo.mostKills, locale)+")", true);
             }
             if(cInfo.auraxCount != "Error"){
                 resEmbed.addField(i18n.__({phrase: 'Auraxium Medals', locale: locale}), `${cInfo.auraxCount}`, true);
@@ -497,7 +498,7 @@ module.exports = {
                     break;
             }
             resEmbed.addField(i18n.__({phrase: 'Most Played Class (time)', locale: locale}), 
-            `${className} (${i18n.__mf({phrase: "{hour}h, {minute}m", locale: locale}, {hour: classHours, minute: classMinutes})})`, true);
+            `${className} (${i18n.__mf({phrase: "{hour}h, {minute}m", locale: locale}, {hour: localeNumber(classHours, locale), minute: classMinutes})})`, true);
         }
 
         // Favorite vehicle
@@ -507,7 +508,7 @@ module.exports = {
             try{
                 let vehicleName = await getVehicleName(cInfo.favoriteVehicle);
                 resEmbed.addField(i18n.__({phrase: 'Most Played Vehicle (time)', locale: locale}), 
-                `${i18n.__({phrase: vehicleName, locale: locale})} (${i18n.__mf({phrase: "{hour}h, {minute}m", locale: locale}, {hour: vehicleHours, minute: vehicleMinutes})})`, true);
+                `${i18n.__({phrase: vehicleName, locale: locale})} (${i18n.__mf({phrase: "{hour}h, {minute}m", locale: locale}, {hour: localeNumber(vehicleHours, locale), minute: vehicleMinutes})})`, true);
             }
             catch(err){
                 //Fail silently
@@ -539,7 +540,7 @@ module.exports = {
         resEmbed.addField(i18n.__({phrase: 'Score (SPM)', locale: locale}), `${cInfo.score.toLocaleString(locale)} (${localeNumber(cInfo.score/(cInfo.time/60), locale)})`, true);
         const hours = Math.floor(cInfo.time/60/60);
         const minutes = Math.floor(cInfo.time/60 - hours*60);
-        resEmbed.addField(i18n.__({phrase: 'Playtime', locale: locale}), i18n.__mf({phrase: "{hour} hours, {minute} minutes", locale: locale}, {hour: hours, minute: minutes}), true);
+        resEmbed.addField(i18n.__({phrase: 'Playtime', locale: locale}), i18n.__mf({phrase: "{hour} hours, {minute} minutes", locale: locale}, {hour: localeNumber(hours, locale), minute: minutes}), true);
         resEmbed.addField(i18n.__({phrase: 'Certs Gained', locale: locale}), cInfo.certs.toLocaleString(locale), true);
         resEmbed.addField(i18n.__({phrase: 'K/D', locale: locale}), localeNumber(cInfo.kills/cInfo.deaths, locale), true);
         resEmbed.addField(i18n.__({phrase: 'K-D Diff', locale: locale}), `${(cInfo.kills).toLocaleString(locale)} - ${(cInfo.deaths).toLocaleString(locale)} = ${(cInfo.kills-cInfo.deaths).toLocaleString(locale, {signDisplay: "exceptZero"})}`, true);
