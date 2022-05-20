@@ -103,7 +103,7 @@ module.exports = {
 			if(typeof(wInfo.ammo) !== 'undefined' && wInfo.ammo != 1){
 				resEmbed.addField(i18n.__({phrase: "Ammo", locale: locale}), 
 				i18n.__mf({phrase: "{m} magazine", locale: locale}, {m: wInfo.clip})+"\n"+
-				i18n.__mf({phrase: "{c} capacity", locale: locale}, {m: wInfo.ammo}), true);
+				i18n.__mf({phrase: "{c} capacity", locale: locale}, {c: wInfo.ammo}), true);
 			}
 			else{
 				resEmbed.addField(i18n.__({phrase: "Magazine", locale: locale}), wInfo.clip, true);
@@ -149,7 +149,7 @@ module.exports = {
 			}
 		}
 		else if(typeof(wInfo.damage) !== 'undefined' && typeof(wInfo.maxDamage) == 'undefined'){
-			resEmbed.addField("*CoF shown Stand/Crouch/Walk/Sprint/Fall/Crouch Walk*", wInfo.damage, true);
+			resEmbed.addField(i18n.__({phrase: "Damage", locale: locale}), wInfo.damage, true);
 		}
 
 		let hipCOFMin = ["?","?","?","?","?","?"];
