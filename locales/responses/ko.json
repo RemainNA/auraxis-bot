@@ -225,5 +225,7 @@
 	"Donate on Ko-fi": "Ko-fi에서 후원하기",
 	"Translate on Crowdin": "Crowdin에서 번역하기",
 	"Links": "링크",
-	"<> = Optional, [] = Required": "<> = 선택, [] = 필수"
+	"<> = Optional, [] = Required": "<> = 선택, [] = 필수",
+	"Error occurred when handling command": "명령어를 처리하던 중 오류 발생",
+	"This command supports a maximum of 10 characters per query": "이 명령어는 한 번에 최대 10개의 캐릭터를 검색할 수 있습니다"
 }

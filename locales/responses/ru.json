@@ -225,5 +225,7 @@
 	"Donate on Ko-fi": "Пожертвовать на Кофе",
 	"Translate on Crowdin": "Translate on Crowdin",
 	"Links": "Ссылки",
-	"<> = Optional, [] = Required": "<> = Необязательно, [] = Обязательно"
+	"<> = Optional, [] = Required": "<> = Необязательно, [] = Обязательно",
+	"Error occurred when handling command": "Error occurred when handling command",
+	"This command supports a maximum of 10 characters per query": "This command supports a maximum of 10 characters per query"
 }
