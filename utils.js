@@ -87,6 +87,9 @@ async function censusRequest(platform, key, extension){
 		if(err.code == 'ECONNRESET'){
 			throw "Census API error: ECONNRESET"
 		}
+		if(err.code == 'ECONNREFUSED'){
+			throw "Census API error: ECONNREFUSED"
+		}
 		throw err;
 	}
 }
