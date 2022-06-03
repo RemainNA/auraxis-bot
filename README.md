@@ -16,12 +16,6 @@ The bot is designed to be simple to use.  Once added to your server with the [in
 
 If you would like to deploy your own version of the bot, it is designed to run on Heroku.  When running locally a `.env` file is used for the environment variables, including the Discord Token, Daybreak Census API service ID, Postgres URL (optional), and Twitter API credentials (optional).  Subscription functionality will be disabled if a database URL is not present.
 
-## Exclamation command deprecation
-
-At the end of April Auraxis Bot will no longer support exclamation commands (e.g. !population), and all users must use slash commands.  If they are currently enabled in your server (type / to see if they appear) then you are all set!  Otherwise please re-authorize the bot using the [invite link](https://discord.com/api/oauth2/authorize?client_id=437756856774033408&permissions=1330192&scope=bot%20applications.commands).  *You do not need to kick then reinvite the bot*.
-
-If you are a server owner and need exclamation commands for any reason (bot automations, etc.) please contact me at the locations below.
-
 ## Contact
 
 For feedback or error reports, the best ways to contact are reddit (/u/RemainNA), Discord (RemainNA#0159), and the Auraxis bot [Discord server](https://discord.gg/Kf5P6Ut).
