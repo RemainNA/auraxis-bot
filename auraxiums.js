@@ -3,7 +3,6 @@
 const {censusRequest} = require('./utils.js');
 const Discord = require('discord.js');
 const i18n = require('i18n');
-const { I18n } = require('i18n');
 
 const getAuraxiumList = async function(cName, platform, locale='en-US'){
     // Calculates the number of Auraxium medals a specified character has
