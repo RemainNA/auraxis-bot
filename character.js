@@ -156,7 +156,7 @@ const basicInfo = async function(cName, platform){
         for(const id in sanctionedStats){
             if(sanctionedStats[id].kills && sanctionedStats[id].kills > 50){
                 infantryKills += sanctionedStats[id].kills;
-                infantryHeadshots += sanctionedStats[id].headshots;
+                infantryHeadshots += sanctionedStats[id].headshots || 0;
                 infantryShots += sanctionedStats[id].shots;
                 infantryHits += sanctionedStats[id].hits;
             }
