@@ -586,17 +586,17 @@
     },
     "6013480": {
         "category": "Assault Rifle",
-        "name": "\"\"\"Apex\"\" NC1 Gauss Rifle\"",
+        "name": "\"Apex\" NC1 Gauss Rifle",
         "sanction": "infantry"
     },
     "6013476": {
         "category": "Assault Rifle",
-        "name": "\"\"\"Apex\"\" Pulsar VS1\"",
+        "name": "\"Apex\" Pulsar VS1",
         "sanction": "infantry"
     },
     "6013477": {
         "category": "Assault Rifle",
-        "name": "\"\"\"Apex\"\" T1 Cycler\"",
+        "name": "\"Apex\" T1 Cycler",
         "sanction": "infantry"
     },
     "6009864": {
@@ -696,7 +696,7 @@
     },
     "6009604": {
         "category": "Assault Rifle",
-        "name": "\"NS-11 \"\"Endeavor\"\" Assault Rifle\"",
+        "name": "NS-11 \"Endeavor\" Assault Rifle",
         "sanction": "infantry"
     },
     "70998": {
@@ -706,7 +706,7 @@
     },
     "6003571": {
         "category": "Assault Rifle",
-        "name": "\"NS-11A \"\"Heatwave\"\"\"",
+        "name": "NS-11A \"Heatwave\"",
         "sanction": "infantry"
     },
     "802099": {
@@ -726,12 +726,12 @@
     },
     "6008645": {
         "category": "Assault Rifle",
-        "name": "\"NSX \"\"Ivory\"\" Yumi\"",
+        "name": "NSX \"Ivory\" Yumi",
         "sanction": "infantry"
     },
     "6008665": {
         "category": "Assault Rifle",
-        "name": "\"NSX \"\"Networked\"\" Yumi\"",
+        "name": "NSX \"Networked\" Yumi",
         "sanction": "infantry"
     },
     "804246": {
@@ -846,17 +846,17 @@
     },
     "6003600": {
         "category": "AV MAX (Left)",
-        "name": "\"NS-20 \"\"Heatwave\"\" Gorgon\"",
+        "name": "NS-20 \"Heatwave\" Gorgon",
         "sanction": "max"
     },
     "6003601": {
         "category": "AV MAX (Left)",
-        "name": "\"NS-20 \"\"Heatwave\"\" Gorgon\"",
+        "name": "NS-20 \"Heatwave\" Gorgon",
         "sanction": "max"
     },
     "6003603": {
         "category": "AV MAX (Left)",
-        "name": "\"NS-20 \"\"Heatwave\"\" Gorgon\"",
+        "name": "NS-20 \"Heatwave\" Gorgon",
         "sanction": "max"
     },
     "804652": {
@@ -936,17 +936,17 @@
     },
     "6003599": {
         "category": "AV MAX (Right)",
-        "name": "\"NS-20 \"\"Heatwave\"\" Gorgon\"",
+        "name": "NS-20 \"Heatwave\" Gorgon",
         "sanction": "max"
     },
     "6003602": {
         "category": "AV MAX (Right)",
-        "name": "\"NS-20 \"\"Heatwave\"\" Gorgon\"",
+        "name": "NS-20 \"Heatwave\" Gorgon",
         "sanction": "max"
     },
     "6003604": {
         "category": "AV MAX (Right)",
-        "name": "\"NS-20 \"\"Heatwave\"\" Gorgon\"",
+        "name": "NS-20 \"Heatwave\" Gorgon",
         "sanction": "max"
     },
     "804653": {
@@ -1341,7 +1341,7 @@
     },
     "6009656": {
         "category": "Carbine",
-        "name": "\"NS-11 \"\"Endeavor\"\" Carbine\"",
+        "name": "NS-11 \"Endeavor\" Carbine",
         "sanction": "infantry"
     },
     "75005": {
@@ -5126,7 +5126,7 @@
     },
     "804113": {
         "category": "Knife",
-        "name": "\"NS-TMC-01 \"\"His Regards\"\"\"",
+        "name": "NS-TMC-01 \"His Regards\"",
         "sanction": "none"
     },
     "6005743": {
@@ -5541,22 +5541,22 @@
     },
     "6011563": {
         "category": "LMG",
-        "name": "\"\"\"Treasured\"\" LA-1 Anchor\"",
+        "name": "\"Treasured\" LA-1 Anchor",
         "sanction": "infantry"
     },
     "6011564": {
         "category": "LMG",
-        "name": "\"\"\"Treasured\"\" MSW-R\"",
+        "name": "\"Treasured\" MSW-R",
         "sanction": "infantry"
     },
     "6011562": {
         "category": "LMG",
-        "name": "\"\"\"Treasured\"\" Orion VS54\"",
+        "name": "\"Treasured\" Orion VS54",
         "sanction": "infantry"
     },
     "6011565": {
         "category": "LMG",
-        "name": "\"\"\"Treasured\"\" XMG-100\"",
+        "name": "\"Treasured\" XMG-100",
         "sanction": "infantry"
     },
     "1894": {
@@ -5636,7 +5636,7 @@
     },
     "6009672": {
         "category": "LMG",
-        "name": "\"NS-15 \"\"Endeavor\"\" Machinegun\"",
+        "name": "NS-15 \"Endeavor\" Machinegun",
         "sanction": "infantry"
     },
     "803699": {
@@ -5676,12 +5676,12 @@
     },
     "6008644": {
         "category": "LMG",
-        "name": "\"NSX \"\"Ivory\"\" Naginata\"",
+        "name": "NSX \"Ivory\" Naginata",
         "sanction": "infantry"
     },
     "6008668": {
         "category": "LMG",
-        "name": "\"NSX \"\"Networked\"\" Naginata\"",
+        "name": "NSX \"Networked\" Naginata",
         "sanction": "infantry"
     },
     "804249": {
@@ -5736,7 +5736,7 @@
     },
     "1924": {
         "category": "LMG",
-        "name": "\"T9A \"\"Butcher\"\"\"",
+        "name": "T9A \"Butcher\"",
         "sanction": "infantry"
     },
     "7256": {
@@ -5911,7 +5911,7 @@
     },
     "6006090": {
         "category": "Pistol",
-        "name": "\"\"\"Jackpot\"\" Cerberus\"",
+        "name": "\"Jackpot\" Cerberus",
         "sanction": "infantry"
     },
     "21": {
@@ -5931,7 +5931,7 @@
     },
     "6006092": {
         "category": "Pistol",
-        "name": "\"LA3 \"\"Jackpot\"\" Desperado\"",
+        "name": "LA3 \"Jackpot\" Desperado",
         "sanction": "infantry"
     },
     "7389": {
@@ -5961,7 +5961,7 @@
     },
     "6009652": {
         "category": "Pistol",
-        "name": "\"NS-357 \"\"Endeavor\"\" Underboss\"",
+        "name": "NS-357 \"Endeavor\" Underboss",
         "sanction": "infantry"
     },
     "6003943": {
@@ -5991,7 +5991,7 @@
     },
     "6011930": {
         "category": "Pistol",
-        "name": "\"NS-44 \"\"Jackpot\"\" Commissioner\"",
+        "name": "NS-44 \"Jackpot\" Commissioner",
         "sanction": "infantry"
     },
     "75063": {
@@ -6031,7 +6031,7 @@
     },
     "6002661": {
         "category": "Pistol",
-        "name": "\"NS-44L \"\"Ravenous\"\" Blackhand\"",
+        "name": "NS-44L \"Ravenous\" Blackhand",
         "sanction": "infantry"
     },
     "802733": {
@@ -6066,7 +6066,7 @@
     },
     "6003704": {
         "category": "Pistol",
-        "name": "\"NS-45 \"\"Brass\"\" Pilot\"",
+        "name": "NS-45 \"Brass\" Pilot",
         "sanction": "infantry"
     },
     "6003665": {
@@ -6081,17 +6081,17 @@
     },
     "6004413": {
         "category": "Pistol",
-        "name": "\"NS-61 \"\"Ivory\"\" Emissary\"",
+        "name": "NS-61 \"Ivory\" Emissary",
         "sanction": "infantry"
     },
     "6008666": {
         "category": "Pistol",
-        "name": "\"NS-61 \"\"Networked\"\" Emissary\"",
+        "name": "NS-61 \"Networked\" Emissary",
         "sanction": "infantry"
     },
     "6002640": {
         "category": "Pistol",
-        "name": "\"NS-61 \"\"Ravenous\"\" Emissary\"",
+        "name": "NS-61 \"Ravenous\" Emissary",
         "sanction": "infantry"
     },
     "804138": {
@@ -6161,7 +6161,7 @@
     },
     "6006091": {
         "category": "Pistol",
-        "name": "\"TX2 \"\"Jackpot\"\" Emperor\"",
+        "name": "TX2 \"Jackpot\" Emperor",
         "sanction": "infantry"
     },
     "7400": {
@@ -6446,17 +6446,17 @@
     },
     "6003611": {
         "category": "Rocket Launcher",
-        "name": "\"NS \"\"Heatwave\"\" Decimator\"",
+        "name": "NS \"Heatwave\" Decimator",
         "sanction": "none"
     },
     "6004407": {
         "category": "Rocket Launcher",
-        "name": "\"NS \"\"Jackpot\"\" Decimator\"",
+        "name": "NS \"Jackpot\" Decimator",
         "sanction": "none"
     },
     "6011773": {
         "category": "Rocket Launcher",
-        "name": "\"NS \"\"Tigerstrike\"\" Decimator\"",
+        "name": "NS \"Tigerstrike\" Decimator",
         "sanction": "none"
     },
     "50561": {
@@ -6501,7 +6501,7 @@
     },
     "6002637": {
         "category": "Rocket Launcher",
-        "name": "\"NS-R3 \"\"Ravenous\"\" Swarm\"",
+        "name": "NS-R3 \"Ravenous\" Swarm",
         "sanction": "none"
     },
     "802969": {
@@ -6561,7 +6561,7 @@
     },
     "6009973": {
         "category": "Scout Rifle",
-        "name": "\"AF-18 \"\"Hazmat\"\" Stalker\"",
+        "name": "AF-18 \"Hazmat\" Stalker",
         "sanction": "infantry"
     },
     "7358": {
@@ -6581,7 +6581,7 @@
     },
     "6009972": {
         "category": "Scout Rifle",
-        "name": "\"Artemis \"\"Hazmat\"\" VX26\"",
+        "name": "Artemis \"Hazmat\" VX26",
         "sanction": "infantry"
     },
     "7372": {
@@ -6636,17 +6636,17 @@
     },
     "6009974": {
         "category": "Scout Rifle",
-        "name": "\"NSX \"\"Hazmat\"\" Tomoe\"",
+        "name": "NSX \"Hazmat\" Tomoe",
         "sanction": "infantry"
     },
     "6008654": {
         "category": "Scout Rifle",
-        "name": "\"NSX \"\"Ivory\"\" Tomoe\"",
+        "name": "NSX \"Ivory\" Tomoe",
         "sanction": "infantry"
     },
     "6008669": {
         "category": "Scout Rifle",
-        "name": "\"NSX \"\"Networked\"\" Tomoe\"",
+        "name": "NSX \"Networked\" Tomoe",
         "sanction": "infantry"
     },
     "6011155": {
@@ -6671,7 +6671,7 @@
     },
     "6009971": {
         "category": "Scout Rifle",
-        "name": "\"SOAS-20 \"\"Hazmat\"\"\"",
+        "name": "SOAS-20 \"Hazmat\"",
         "sanction": "infantry"
     },
     "6004009": {
@@ -6736,7 +6736,7 @@
     },
     "6009866": {
         "category": "Shotgun",
-        "name": "\"NS \"\"Lucky\"\" Baron G5\"",
+        "name": "NS \"Lucky\" Baron G5",
         "sanction": "none"
     },
     "75083": {
@@ -6961,7 +6961,7 @@
     },
     "6009623": {
         "category": "SMG",
-        "name": "\"NS-7 \"\"Endeavor\"\" PDW\"",
+        "name": "NS-7 \"Endeavor\" PDW",
         "sanction": "infantry"
     },
     "7494": {
@@ -6981,12 +6981,12 @@
     },
     "6008660": {
         "category": "SMG",
-        "name": "\"NSX \"\"Ivory\"\" Tengu\"",
+        "name": "NSX \"Ivory\" Tengu",
         "sanction": "infantry"
     },
     "6008671": {
         "category": "SMG",
-        "name": "\"NSX \"\"Networked\"\" Tengu\"",
+        "name": "NSX \"Networked\" Tengu",
         "sanction": "infantry"
     },
     "6011153": {
@@ -7151,12 +7151,12 @@
     },
     "6008652": {
         "category": "Sniper Rifle",
-        "name": "\"NSX \"\"Ivory\"\" Daimyo\"",
+        "name": "NSX \"Ivory\" Daimyo",
         "sanction": "sniper"
     },
     "6008670": {
         "category": "Sniper Rifle",
-        "name": "\"NSX \"\"Networked\"\" Daimyo\"",
+        "name": "NSX \"Networked\" Daimyo",
         "sanction": "sniper"
     },
     "804255": {
