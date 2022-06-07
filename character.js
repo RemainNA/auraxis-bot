@@ -248,15 +248,15 @@ const getVehicleName = async function(ID, platform){
 
 const getAuraxiumCount = async function(cName, platform){
     // Calculates the number of Auraxium medals a specified character has
-    let response = await censusRequest(platform, 'character_list', `/character?name.first_lower=${cName}&c:join=characters_achievement^list:1^terms:earned_count=1^outer:0^hide:character_id%27earned_count%27start%27finish%27last_save%27last_save_date%27start_date(achievement^terms:repeatable=0^outer:0^show:name.en%27description.en)`);
+    let response = await censusRequest(platform, 'character_list', `/character?name.first_lower=${cName}&c:join=characters_achievement^list:1^outer:0^hide:character_id%27earned_count%27start%27finish%27last_save%27last_save_date%27start_date(achievement^terms:repeatable=0^outer:0^show:name.en%27description.en)`);
     let medalCount = 0;
     if(typeof(response) === 'undefined' || typeof(response[0]) === 'undefined'){
         return "Error"; // TODO: Verify if resolve is correct
     }
     let achievementList = response[0].character_id_join_characters_achievement;
-    for(const x in achievementList){
-        achievement = achievementList[x].achievement_id_join_achievement;
-        if(achievement != undefined){
+    for(const x of achievementList){
+        achievement = x.achievement_id_join_achievement;
+        if(achievement != undefined && x.finish_date != "1970-01-01 00:00:00.0"){
             if(achievement.description == undefined){
                 if(achievement.name.en.indexOf("Auraxium") > -1){
                     medalCount++;
