@@ -108,6 +108,19 @@ function localeNumber(n, locale){
 	return n.toLocaleString(locale, {maximumFractionDigits: 3});
 }
 
+function factionColor(faction){
+	switch (faction){
+		case "1":
+			return 'PURPLE'
+		case "2":
+			return 'BLUE';
+		case "3":
+			return 'RED';
+		default:
+			return 'GREY';
+	}
+}
+
 module.exports = {
 	servers: servers,
 	continents: continents,
@@ -115,5 +128,6 @@ module.exports = {
 	serverIDs: serverIDs,
 	badQuery: badQuery,
 	censusRequest: censusRequest,
-	localeNumber: localeNumber
+	localeNumber: localeNumber,
+	factionColor: factionColor
 }

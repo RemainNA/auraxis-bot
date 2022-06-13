@@ -7,7 +7,7 @@ const config = require('./subscriptionConfig.js');
 const territory = require('./territory.js');
 const alerts = require('./static/alerts.json');
 const bases = require('./static/bases.json');
-const {serverNames, censusRequest} = require('./utils.js');
+const {serverNames, censusRequest, factionColor} = require('./utils.js');
 
 const wait = require('util').promisify(setTimeout);
 
@@ -36,18 +36,7 @@ const logEvent = async function(payload, environment, pgClient, discordClient){
             let sendEmbed = new MessageEmbed();
             sendEmbed.setTitle(result.rows[0].alias+' '+playerEvent);
             sendEmbed.setDescription(char.name.first);
-            if (char.faction_id == "1"){ //vs
-                sendEmbed.setColor('PURPLE');
-            }
-            else if (char.faction_id == "2"){ //nc
-                sendEmbed.setColor('BLUE');
-            }
-            else if (char.faction_id == "3"){ //tr
-                sendEmbed.setColor('RED');
-            }
-            else{ //nso
-                sendEmbed.setColor('GREY');
-            }
+            sendEmbed.setColor(factionColor(chara.faction_id))
             for (let row of result.rows){
                 discordClient.channels.fetch(row.channel)
                     .then(resChann => {
@@ -351,15 +340,7 @@ const baseEvent = async function(payload, environment, pgClient, discordClient){
         let base = await baseInfo(payload.facility_id, environment);
         sendEmbed.setTitle("["+result.rows[0].alias+"] "+result.rows[0].name+' captured '+base.name);
         sendEmbed.setTimestamp();
-        if(payload.new_faction_id == "1"){ //Color cannot be dependent on outfit due to NSO outfits
-            sendEmbed.setColor("PURPLE");
-        }
-        else if(payload.new_faction_id == "2"){
-            sendEmbed.setColor("BLUE");
-        }
-        else if(payload.new_faction_id == "3"){
-            sendEmbed.setColor("RED");
-        }
+        sendEmbed.setColor(factionColor(payload.new_faction_id)) //Color cannot be dependent on outfit due to NSO outfits
         if(payload.zone_id == "2"){
             sendEmbed.addField("Continent", "Indar", true);
         }

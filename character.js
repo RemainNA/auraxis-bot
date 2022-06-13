@@ -8,7 +8,7 @@ const decals = require('./static/decals.json');
 const sanction = require('./static/sanction.json');
 const got = require('got');
 const i18n = require('i18n');
-const { serverNames, badQuery, censusRequest, localeNumber } = require('./utils');
+const { serverNames, badQuery, censusRequest, localeNumber, factionColor } = require('./utils');
 
 const basicInfo = async function(cName, platform){
     // Main function for character lookup.  Pulls most stats and calls other functions for medals/top weapon info
@@ -525,18 +525,7 @@ module.exports = {
         const resEmbed = new Discord.MessageEmbed();
         resEmbed.setTitle(cInfo.name);
         resEmbed.setDescription(i18n.__mf({phrase: '{day} day stats ending <t{end}d>', locale: locale}, {day: days, end: `:${cInfo.lastSave}:`}));
-        if (cInfo.faction == "1"){ //vs
-            resEmbed.setColor('PURPLE');
-        }
-        else if (cInfo.faction == "2"){ //nc
-            resEmbed.setColor('BLUE');
-        }
-        else if (cInfo.faction == "3"){ //tr
-            resEmbed.setColor('RED');
-        }
-        else{ //NSO
-            resEmbed.setColor('GREY');
-        }
+        resEmbed.setColor(factionColor(cInfo.faction))
         resEmbed.addField(i18n.__({phrase: 'Score (SPM)', locale: locale}), `${cInfo.score.toLocaleString(locale)} (${localeNumber(cInfo.score/(cInfo.time/60), locale)})`, true);
         const hours = Math.floor(cInfo.time/60/60);
         const minutes = Math.floor(cInfo.time/60 - hours*60);
