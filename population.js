@@ -1,22 +1,21 @@
 // This file defines functions for retrieving population by faction for a given server/world
 const Discord = require('discord.js');
-const got = require('got')
-const {servers, serverIDs, serverNames, localeNumber} = require('./utils.js');
+const {servers, serverIDs, serverNames, localeNumber, getJSON} = require('./utils.js');
 const i18n = require('i18n');
 
 const getPopulation = async function(world){
 	let url = '';
 	if(world == 2000){
-		url = 'http://ps4eu.ps2.fisu.pw/api/population/?world=2000';
+		url = 'https://ps4eu.ps2.fisu.pw/api/population/?world=2000';
 	}
 	else if(world == 1000){
-		url = 'http://ps4us.ps2.fisu.pw/api/population/?world=1000';
+		url = 'https://ps4us.ps2.fisu.pw/api/population/?world=1000';
 	}
 	else{
-		url = 'http://ps2.fisu.pw/api/population/?world='+world;
+		url = `https://ps2.fisu.pw/api/population/?world=${world}`;
 	}
 	try{
-		let response = await got(url).json();
+		const response = await getJSON(url);
 		if(typeof(response.error) !== 'undefined'){
 			throw response.error;
 		}

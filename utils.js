@@ -1,5 +1,5 @@
 //This file defines commonly used components to cut down on code reuse
-const got = require('got');
+const https = require('https')
 
 const servers = [
 	"connery",
@@ -53,7 +53,7 @@ async function censusRequest(platform, key, extension){
 	// Allows for easily changing https to http if there is an error
 	const uri = `https://census.daybreakgames.com/s:${process.env.serviceID}/get/${platform}/${extension}`;
 	try{
-		const response = await got(uri).json();
+		const response = await getJSON(uri);
 		if(typeof(response.error) !== 'undefined'){
 			if(response.error == 'service_unavailable'){
 				throw "Census API currently unavailable";
@@ -108,6 +108,23 @@ function localeNumber(n, locale){
 	return n.toLocaleString(locale, {maximumFractionDigits: 3});
 }
 
+
+function getJSON(uri) {
+	return new Promise((resolve, reject) => {
+		https.get(uri, res => {
+			const data = []
+			res.on('data', chunk => {
+				data.push(chunk)
+			});
+			res.on('end', () =>{
+				const json = JSON.parse(data.join(''))
+				json.statusCode = res.statusCode;
+				resolve(json)
+			});
+		}).on('error', e => reject(e));
+	});
+}
+
 module.exports = {
 	servers: servers,
 	continents: continents,
@@ -115,5 +132,6 @@ module.exports = {
 	serverIDs: serverIDs,
 	badQuery: badQuery,
 	censusRequest: censusRequest,
-	localeNumber: localeNumber
+	localeNumber: localeNumber,
+	getJSON: getJSON
 }

@@ -6,9 +6,8 @@ const weapons = require('./static/weapons.json');
 const vehicles = require('./static/vehicles.json');
 const decals = require('./static/decals.json');
 const sanction = require('./static/sanction.json');
-const got = require('got');
 const i18n = require('i18n');
-const { serverNames, badQuery, censusRequest, localeNumber } = require('./utils');
+const { serverNames, badQuery, censusRequest, localeNumber, getJSON } = require('./utils');
 
 const basicInfo = async function(cName, platform){
     // Main function for character lookup.  Pulls most stats and calls other functions for medals/top weapon info
@@ -222,8 +221,8 @@ const getWeaponName = async function(ID, platform){
     if(response.length==1){
         return response.item_list[0].name.en;
     }
-    let URI = 'https://ps2.fisu.pw/api/weapons/?id='+ID; //Fallback Fisu URI
-    let fisuResponse = await got(URI).json();
+    let URI = `https://ps2.fisu.pw/api/weapons/?id=${ID}`; //Fallback Fisu URI
+    let fisuResponse = await getJSON(URI);
     if(typeof(fisuResponse[ID]) !== 'undefined'){
         return fisuResponse[ID].name;
     }
