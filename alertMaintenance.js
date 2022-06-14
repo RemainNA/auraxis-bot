@@ -1,9 +1,8 @@
 // This file defines functions to update previously sent alert notifications
 
 const Discord = require('discord.js');
-const got = require('got');
 const alerts = require('./static/alerts.json');
-const {serverNames} = require('./utils.js');
+const {serverNames, getJSON} = require('./utils.js');
 const {popLevels} = require('./alerts.js')
 
 const winnerFaction = {
@@ -111,7 +110,7 @@ module.exports = {
 		let rows = await pgClient.query("SELECT DISTINCT alertID, error FROM alertMaintenance");
 
 		for(let row of rows.rows){
-			got(`https://api.ps2alerts.com/instances/${row.alertid}`).json()
+			await getJSON(`https://api.ps2alerts.com/instances/${row.alertid}`)
 				.then(response => {
 					updateAlert(response, pgClient, discordClient, response.timeEnded != null)
 					.catch(err => {
