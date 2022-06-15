@@ -117,9 +117,17 @@ function getJSON(uri) {
 				data.push(chunk)
 			});
 			res.on('end', () =>{
-				const json = JSON.parse(data.join(''))
-				json.statusCode = res.statusCode;
-				resolve(json)
+				try {
+					const json = JSON.parse(data.join(''))
+					json.statusCode = res.statusCode;
+					if(json.statusCode !== 200) {
+						reject('Error during web request')
+					}
+					resolve(json)
+				} catch (error) {
+					console.log(data.toString())
+					reject('JSON parse Error')
+				}
 			});
 		}).on('error', e => reject(e));
 	});

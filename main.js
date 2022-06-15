@@ -51,16 +51,8 @@ const character = require('./character.js');
 
 require('dotenv').config();
 
-let runningOnline = false;
-let twitterAvail = false;
-
-if(typeof(process.env.DATABASE_URL) !== 'undefined'){
-	runningOnline = true;
-}
-
-if(typeof(process.env.TWITTER_CONSUMER_KEY) !== 'undefined'){
-	twitterAvail = true;
-}
+const runningOnline = typeof(process.env.DATABASE_URL) !== 'undefined';
+const twitterAvail = typeof(process.env.TWITTER_CONSUMER_KEY) !== 'undefined';
 
 const intentsList = [
 	Discord.Intents.FLAGS.GUILD_MESSAGES,

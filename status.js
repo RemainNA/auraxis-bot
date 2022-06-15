@@ -22,30 +22,8 @@ const info = async function(){
 	}
 	
 	for(const world of data){
-		if(world.name.toLowerCase().includes("connery")){
-			status["Connery"] = world.last_reported_state;
-		}
-		else if(world.name.toLowerCase().includes("miller")){
-			status["Miller"] = world.last_reported_state;
-		}
-		else if(world.name.toLowerCase().includes("cobalt")){
-			status["Cobalt"] = world.last_reported_state;
-		}
-		else if(world.name.toLowerCase().includes("emerald")){
-			status["Emerald"] = world.last_reported_state;
-		}
-		else if(world.name.toLowerCase().includes("soltech")){
-			status["SolTech"] = world.last_reported_state;
-		}
-		else if(world.name.toLowerCase().includes("jaeger")){
-			status["Jaeger"] = world.last_reported_state;
-		}
-		else if(world.name.toLowerCase().includes("genudine")){
-			status["Genudine"] = world.last_reported_state;
-		}
-		else if(world.name.toLowerCase().includes("ceres")){
-			status["Ceres"] = world.last_reported_state;
-		}
+		const server = world.name.split(' ')[0]
+		status[server] = world.last_reported_state;
 	}
 
 	return status;
@@ -53,11 +31,11 @@ const info = async function(){
 
 module.exports = {
 	servers: async function(locale="en-US"){
-		let status = await info();
-		let resEmbed = new Discord.MessageEmbed();
+		const status = await info();
+		const resEmbed = new Discord.MessageEmbed();
 		resEmbed.setTitle(i18n.__({phrase: 'Server Status', locale: locale}));
-		for(const i in status){
-			resEmbed.addField(i18n.__({phrase: i, locale: locale}), i18n.__({phrase: status[i], locale: locale}), true);
+		for(const server in status){
+			resEmbed.addField(i18n.__({phrase: server, locale: locale}), i18n.__({phrase: status[server], locale: locale}), true);
 		}
 		resEmbed.setTimestamp();
 		return resEmbed;

@@ -4,28 +4,10 @@ const {badQuery} = require('./utils.js');
 
 const implantInfo = async function(name){
 	//Check if ID matches
-	if(typeof(implantsJSON[name]) !== 'undefined'){
+	if(name in implantsJSON){
 		let returnObj = implantsJSON[name];
 		returnObj.name = name;
 		return returnObj;
-	}
-
-	//Lower case name match
-	for(const implant in implantsJSON){
-		if(implant.toLowerCase() == name.toLowerCase()){
-			let returnObj = implantsJSON[implant];
-			returnObj.name = implant;
-			return returnObj;
-		}
-	}
-
-	//Partial match
-	for(const implant in implantsJSON){
-		if(implant.toLowerCase().indexOf(name.toLowerCase()) > -1){
-			let returnObj = implantsJSON[implant];
-			returnObj.name = implant;
-			return returnObj;
-		}
 	}
 
 	throw `${name} not found.`;
@@ -34,9 +16,8 @@ const implantInfo = async function(name){
 const partialMatches = async function(query){
 	let matches = [];
 	query = query.replace(/[“”]/g, '"').toLowerCase();
-
 	for(const implant in implantsJSON){
-		if(implant.toLowerCase().indexOf(query) > -1){
+		if(implant.toLowerCase().startsWith(query)){
 			matches.push({name: implant, value: implant});
 		}
 		if(matches.length >= 25){
