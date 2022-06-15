@@ -1,7 +1,7 @@
 // This file implements a function which finds and returns the max BR a character reached before joining ASP, and tracks their ASP unlocks and tokens
 
 const Discord = require('discord.js');
-const { censusRequest, badQuery, factionColor } = require('./utils.js');
+const { censusRequest, badQuery, faction } = require('./utils.js');
 const i18n = require('i18n');
 
 const basicInfo = async function(cName, platform, locale="en-US"){
@@ -69,7 +69,7 @@ module.exports = {
 		let cInfo = await basicInfo(cName, platform, locale);
 
 		let resEmbed = new Discord.MessageEmbed();
-		resEmbed.setColor(factionColor(cInfo.faction))
+		resEmbed.setColor(faction(cInfo.faction).color)
 		resEmbed.setTitle(cInfo.name);
 		resEmbed.setDescription(`${i18n.__({phrase: "BR pre ASP", locale: locale})}: ${cInfo.preBR}`);
 		if(cInfo.unlocks.length == 0){

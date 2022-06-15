@@ -1,6 +1,6 @@
 // This file defines functions to look up a list of a character's completed directives
 
-const {censusRequest, factionColor} = require('./utils.js');
+const {censusRequest, faction} = require('./utils.js');
 const Discord = require('discord.js');
 const directives = require('./static/directives.json');
 const i18n = require('i18n');
@@ -66,7 +66,7 @@ module.exports = {
 			}
 			resEmbed.setDescription(textList);
 		}
-		resEmbed.setColor(factionColor(directiveList.faction))
+		resEmbed.setColor(faction(directiveList.faction).color)
 		resEmbed.setThumbnail('https://census.daybreakgames.com/files/ps2/images/static/84283.png');
 		if(platform == 'ps2:v2'){
 			resEmbed.setURL(`https://ps2.fisu.pw/directive/?name=${directiveList[0]}`)

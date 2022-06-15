@@ -8,7 +8,7 @@ const {territoryInfo, continentBenefit} = require('./territory.js');
 const {onlineInfo, totalLength} = require('./online.js');
 const {ownedBases, centralBases} = require('./outfit.js');
 const bases = require('./static/bases.json');
-const {serverNames, serverIDs, servers, continents, factionColor} = require('./utils.js');
+const {serverNames, serverIDs, servers, continents, faction} = require('./utils.js');
 
 const serverStatus = async function(serverID){
 	let resEmbed = new MessageEmbed();
@@ -98,7 +98,7 @@ const outfitStatus = async function(outfitID, platform, pgClient){
 		resEmbed.setTitle(oInfo.name);
 	}
 	resEmbed.setDescription(`${oInfo.onlineCount}/${oInfo.memberCount} online`);
-	resEmbed.setColor(factionColor(oInfo.faction))
+	resEmbed.setColor(faction(oInfo.faction).color)
 
 	if(oInfo.onlineCount == "Online member count unavailable"){
 		resEmbed.addField("Online member count unavailable", "-");

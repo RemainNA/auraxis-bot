@@ -1,7 +1,7 @@
 // This file defines several functions used in subscribing or unsubscribing to server alerts and outfit activity
 
 const config = require('./subscriptionConfig.js');
-const { servers, censusRequest, badQuery } = require('./utils.js')
+const { censusRequest, badQuery, faction } = require('./utils.js')
 
 const standardizeName = function(server){
     switch(server.toLowerCase()){
@@ -73,18 +73,7 @@ module.exports = {
         if(count.rows[0].count > 0){
             throw `Already subscribed to ${outfit.alias}`;
         }
-        if(outfit.faction == "1"){
-            color = 'PURPLE';
-        }
-        else if(outfit.faction == "2"){
-            color = 'BLUE';
-        }
-        else if(outfit.faction == "3"){
-            color = 'RED';
-        }
-        else{
-            color = 'GREY';
-        }
+        color = faction(outfit.faction).color
         pgClient.query("INSERT INTO outfitactivity (id, alias, color, channel, platform) VALUES ($1, $2, $3, $4, $5)", [outfit.ID, outfit.alias, color, channel, platform]);
         try{
             await config.initializeConfig(channel, pgClient)

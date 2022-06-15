@@ -108,16 +108,16 @@ function localeNumber(n, locale){
 	return n.toLocaleString(locale, {maximumFractionDigits: 3});
 }
 
-function factionColor(faction){
-	switch (faction){
+function faction(factionID){
+	switch (factionID){
 		case "1":
-			return 'PURPLE'
+			return {color: 'PURPLE', decal: '<:VS:818766983918518272>', initial: 'VS'};
 		case "2":
-			return 'BLUE';
+			return {color: 'BLUE', decal: '<:NC:818767043138027580>', initial: 'NC'};
 		case "3":
-			return 'RED';
+			return {color: 'RED', decal: '<:TR:818988588049629256>', initial: 'TR'};
 		default:
-			return 'GREY';
+			return {color: 'GREY', decal: '<:NS:819511690726866986>', initial: 'NSO'};
 	}
 }
 
@@ -129,5 +129,5 @@ module.exports = {
 	badQuery: badQuery,
 	censusRequest: censusRequest,
 	localeNumber: localeNumber,
-	factionColor: factionColor
+	faction: faction
 }

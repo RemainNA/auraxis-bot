@@ -3,7 +3,7 @@
 const Discord = require('discord.js');
 const weaponsJSON = require('./static/weapons.json');
 const sanction = require('./static/sanction.json');
-const { badQuery, censusRequest, localeNumber, factionColor } = require('./utils.js');
+const { badQuery, censusRequest, localeNumber, faction } = require('./utils.js');
 const i18n = require('i18n');
 
 const getWeaponId = async function(name, searchSpace, cName=""){
@@ -243,7 +243,7 @@ module.exports = {
 		resEmbed.addField(i18n.__({phrase: "KPM", locale: locale}), localeNumber(totalKills/(cInfo.playTime/60), locale), true);
 		resEmbed.addField(i18n.__({phrase: "Avg Damage/Kill", locale: locale}), Math.floor(totalDamage/totalKills).toLocaleString(locale), true);
 		resEmbed.addField(i18n.__({phrase: "Score (SPM)", locale: locale}), parseInt(cInfo.score).toLocaleString(locale)+" ("+localeNumber(spm, locale)+")", true);
-		resEmbed.setColor(factionColor(cInfo.faction))
+		resEmbed.setColor(faction(cInfo.faction).color)
 		if(wInfo.image_id != -1 && wInfo.image_id != undefined){
 			resEmbed.setThumbnail('http://census.daybreakgames.com/files/ps2/images/static/'+wInfo.image_id+'.png');
 		}

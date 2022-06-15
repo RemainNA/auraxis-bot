@@ -1,5 +1,5 @@
 const Discord = require('discord.js');
-const { badQuery, censusRequest, factionColor} = require('./utils.js');
+const { badQuery, censusRequest, faction} = require('./utils.js');
 const i18n = require('i18n');
 
 const onlineInfo = async function(oTag, platform, outfitID = null, locale = "en-US"){
@@ -96,7 +96,7 @@ module.exports = {
 		else if(platform == 'ps2ps4eu:v2'){
 			resEmbed.setURL('http://ps4eu.ps2.fisu.pw/outfit/?name='+oInfo.alias);
 		}
-		resEmbed.setColor(factionColor(oInfo.faction))
+		resEmbed.setColor(faction(oInfo.faction).color)
 		if(oInfo.onlineCount == "Online member count unavailable"){
 			resEmbed.addField(i18n.__({phrase: oInfo.onlineCount, locale: locale}), "-", true);
 			resEmbed.setDescription(oInfo.alias+"\n"+"?/"+oInfo.memberCount+" online");
