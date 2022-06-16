@@ -1,6 +1,6 @@
 // This file defines functions to look up a list of a character's auraxium medals
 
-const {censusRequest} = require('./utils.js');
+const {censusRequest, faction} = require('./utils.js');
 const Discord = require('discord.js');
 const sanction = require('./static/sanction.json');
 const { localeNumber } = require('./utils.js');
@@ -143,19 +143,7 @@ module.exports = {
 				resEmbed.addField(i18n.__({phrase: "Possible medals (kills)", locale: locale}), textList);
 			}
 		}
-		
-		if (medalList.faction == "1"){ //vs
-            resEmbed.setColor('PURPLE');
-        }
-        else if (medalList.faction == "2"){ //nc
-            resEmbed.setColor('BLUE');
-        }
-        else if (medalList.faction == "3"){ //tr
-            resEmbed.setColor('RED');
-        }
-        else{ //NSO
-            resEmbed.setColor('GREY');
-        }
+		resEmbed.setColor(faction(medalList.faction).color)
 		resEmbed.setThumbnail('https://census.daybreakgames.com/files/ps2/images/static/3068.png');
 		if(platform == 'ps2:v2'){
 			resEmbed.setURL(`https://ps2.fisu.pw/player/?name=${medalList.name}&show=weapons`)

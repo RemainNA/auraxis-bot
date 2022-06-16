@@ -7,7 +7,7 @@ const config = require('./subscriptionConfig.js');
 const territory = require('./territory.js');
 const alerts = require('./static/alerts.json');
 const bases = require('./static/bases.json');
-const {serverNames, censusRequest} = require('./utils.js');
+const {serverNames, censusRequest, faction} = require('./utils.js');
 
 const wait = require('util').promisify(setTimeout);
 
@@ -36,18 +36,7 @@ const logEvent = async function(payload, environment, pgClient, discordClient){
             let sendEmbed = new MessageEmbed();
             sendEmbed.setTitle(result.rows[0].alias+' '+playerEvent);
             sendEmbed.setDescription(char.name.first);
-            if (char.faction_id == "1"){ //vs
-                sendEmbed.setColor('PURPLE');
-            }
-            else if (char.faction_id == "2"){ //nc
-                sendEmbed.setColor('BLUE');
-            }
-            else if (char.faction_id == "3"){ //tr
-                sendEmbed.setColor('RED');
-            }
-            else{ //nso
-                sendEmbed.setColor('GREY');
-            }
+            sendEmbed.setColor(faction(char.faction_id).color)
             for (let row of result.rows){
                 discordClient.channels.fetch(row.channel)
                     .then(resChann => {
@@ -354,15 +343,7 @@ const baseEvent = async function(payload, environment, pgClient, discordClient){
         let base = await baseInfo(payload.facility_id, environment);
         sendEmbed.setTitle("["+result.rows[0].alias+"] "+result.rows[0].name+' captured '+base.name);
         sendEmbed.setTimestamp();
-        if(payload.new_faction_id == "1"){ //Color cannot be dependent on outfit due to NSO outfits
-            sendEmbed.setColor("PURPLE");
-        }
-        else if(payload.new_faction_id == "2"){
-            sendEmbed.setColor("BLUE");
-        }
-        else if(payload.new_faction_id == "3"){
-            sendEmbed.setColor("RED");
-        }
+        sendEmbed.setColor(faction(payload.new_faction_id).color) //Color cannot be dependent on outfit due to NSO outfits
         if(payload.zone_id == "2"){
             sendEmbed.addField("Continent", "Indar", true);
         }
@@ -390,15 +371,10 @@ const baseEvent = async function(payload, environment, pgClient, discordClient){
             sendEmbed.addField("Facility Type", base.type, true);
             sendEmbed.addField("Outfit Resources", "Unknown", true);
         }
-        if(payload.old_faction_id == "1"){
-            sendEmbed.addField("Captured From", "<:VS:818766983918518272> VS", true);
-        }
-        else if(payload.old_faction_id == "2"){
-            sendEmbed.addField("Captured From", "<:NC:818767043138027580> NC", true);
-        }
-        else if(payload.old_faction_id == "3"){
-            sendEmbed.addField("Captured From", "<:TR:818988588049629256> TR", true);
-        }
+
+        const factionInfo = faction(payload.old_faction_id)
+        sendEmbed.addField("Captured From", `${factionInfo.decal} ${factionInfo.initial}`, true);
+        
         const contributions = await captureContributions(payload.outfit_id, payload.facility_id, payload.timestamp, environment);
         if(contributions.length > 0){
             sendEmbed.addField("<:Merit:890295314337136690> Contributors", `${contributions}`.replace(/,/g, ', '), true);

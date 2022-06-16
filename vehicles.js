@@ -1,7 +1,7 @@
 // This file defines functions to look up a player's stats with a given vehicle
 
 const Discord = require('discord.js');
-const {censusRequest, localeNumber} = require('./utils.js');
+const {censusRequest, localeNumber, faction} = require('./utils.js');
 const vehicles = require('./static/parsedVehicles.json');
 const {getWeaponName} = require('./character.js');
 const i18n = require('i18n');
@@ -106,20 +106,7 @@ module.exports = {
 		resEmbed.setTitle(vInfo.charName);
 		resEmbed.setDescription(vehicleName);
 		resEmbed.setThumbnail(`http://census.daybreakgames.com/files/ps2/images/static/${imageID}.png`)
-		// Faction, embed color
-        if (vInfo.faction == "1"){ //vs
-            resEmbed.setColor('PURPLE');
-        }
-        else if (vInfo.faction == "2"){ //nc
-            resEmbed.setColor('BLUE');
-        }
-        else if (vInfo.faction == "3"){ //tr
-            resEmbed.setColor('RED');
-        }
-        else{ //NSO
-            resEmbed.setColor('GREY');
-        }
-
+		resEmbed.setColor(faction(vInfo.faction).color)
 		const hoursPlayed = Math.floor(vInfo.playTime/3600);
 		const minutesPlayed = Math.floor(vInfo.playTime/60 - hoursPlayed*60);
 		resEmbed.addField(i18n.__({phrase: "Playtime", locale: locale}), 

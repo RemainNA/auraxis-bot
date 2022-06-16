@@ -1,5 +1,5 @@
 const Discord = require('discord.js');
-const { serverNames, badQuery, censusRequest, localeNumber } = require('./utils.js');
+const { serverNames, badQuery, censusRequest, localeNumber, faction } = require('./utils.js');
 const bases = require('./static/bases.json');
 const i18n = require('i18n');
 
@@ -140,23 +140,10 @@ module.exports = {
 		resEmbed.addField(i18n.__({phrase: "Last month", locale: locale}), localeNumber(oInfo.onlineMonth, locale)+" ("+monthPc+"%)", true);
 		resEmbed.addField(i18n.__({phrase: "Server", locale: locale}), i18n.__({phrase: serverNames[Number(oInfo.worldId)], locale: locale}), true);
 
-		switch (oInfo.faction){
-			case "1":
-				resEmbed.addField(i18n.__({phrase: "Faction", locale: locale}), `<:VS:818766983918518272> ${i18n.__({phrase: "VS", locale: locale})}`, true);
-				resEmbed.setColor('PURPLE');
-				break;
-			case "2":
-				resEmbed.addField(i18n.__({phrase: "Faction", locale: locale}), `<:NC:818767043138027580> ${i18n.__({phrase: "NC", locale: locale})}`, true);
-				resEmbed.setColor('BLUE');
-				break;
-			case "3":
-				resEmbed.addField(i18n.__({phrase: "Faction", locale: locale}), `<:TR:818988588049629256> ${i18n.__({phrase: "TR", locale: locale})}`, true);
-				resEmbed.setColor('RED');
-				break;
-			default:
-				resEmbed.addField(i18n.__({phrase: "Faction", locale: locale}), `<:NS:819511690726866986> ${i18n.__({phrase: "NSO", locale: locale})}`, true);
-				resEmbed.setColor('GREY');
-		}
+		const factionInfo = faction(oInfo.faction)
+		resEmbed.addField(i18n.__({phrase: "Faction", locale: locale}), `${factionInfo.decal} ${i18n.__({phrase: factionInfo.initial, locale: locale})}`, true);
+		resEmbed.setColor(factionInfo.color);
+
 		if(platform == "ps2:v2"){
 			resEmbed.addField(i18n.__({phrase: 'Owner', locale: locale}), "["+oInfo.owner+"]("+"https://ps2.fisu.pw/player/?name="+oInfo.owner+")", true);
 		}
