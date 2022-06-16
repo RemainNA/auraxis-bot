@@ -422,7 +422,8 @@ module.exports = {
         resEmbed.addField(i18n.__({phrase: 'Last Login', locale: locale}), `<t:${cInfo.lastLogin}:R>`, true);
 
         const factionInfo = faction(cInfo.faction);
-        resEmbed.addField(i18n.__({phrase: 'Faction', locale: locale}), `${factionInfo.decal} ${i18n.__({phrase: `${factionInfo.initial}`, locale: locale})}`, true);
+        resEmbed.addField(i18n.__({phrase: 'Faction', locale: locale}), `${factionInfo.decal} ${i18n.__({phrase: factionInfo.initial, locale: locale})}`, true);
+
         resEmbed.setColor(factionInfo.color);
 
         // Outfit info
