@@ -141,7 +141,7 @@ module.exports = {
 		resEmbed.addField(i18n.__({phrase: "Server", locale: locale}), i18n.__({phrase: serverNames[Number(oInfo.worldId)], locale: locale}), true);
 
 		const factionInfo = faction(oInfo.faction)
-		resEmbed.addField(i18n.__({phrase: "Faction", locale: locale}), `${factionInfo.decal} ${i18n.__({phrase: `${factionInfo.initial}`, locale: locale})}`, true);
+		resEmbed.addField(i18n.__({phrase: "Faction", locale: locale}), `${factionInfo.decal} ${i18n.__({phrase: factionInfo.initial, locale: locale})}`, true);
 		resEmbed.setColor(factionInfo.color);
 
 		if(platform == "ps2:v2"){
