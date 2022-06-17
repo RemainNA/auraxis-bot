@@ -1,6 +1,6 @@
 // This file defines functions to look up a list of a character's auraxium medals
 
-const {censusRequest, faction} = require('./utils.js');
+const {censusRequest, faction, platformURL} = require('./utils.js');
 const Discord = require('discord.js');
 const sanction = require('./static/sanction.json');
 const { localeNumber } = require('./utils.js');
@@ -145,15 +145,7 @@ module.exports = {
 		}
 		resEmbed.setColor(faction(medalList.faction).color)
 		resEmbed.setThumbnail('https://census.daybreakgames.com/files/ps2/images/static/3068.png');
-		if(platform == 'ps2:v2'){
-			resEmbed.setURL(`https://ps2.fisu.pw/player/?name=${medalList.name}&show=weapons`)
-		}
-		else if(platform == 'ps2ps4us:v2'){
-			resEmbed.setURL(`https://ps4us.ps2.fisu.pw/player/?name=${medalList.name}&show=weapons`)
-		}
-		else if(platform == 'ps2ps4eu:v2'){
-			resEmbed.setURL(`https://ps4eu.ps2.fisu.pw/player/?name=${medalList.name}&show=weapons`)
-		}
+		resEmbed.setURL(`${platformURL[platform]}/player/?name=${medalList.name}&show=weapons`)
 		if(remaining > 0){
 			const row = new Discord.MessageActionRow()
 			row.addComponents(

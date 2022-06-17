@@ -1,5 +1,5 @@
 const Discord = require('discord.js');
-const { serverNames, badQuery, censusRequest, localeNumber, faction } = require('./utils.js');
+const { serverNames, platformURL, badQuery, censusRequest, localeNumber, faction } = require('./utils.js');
 const bases = require('./static/bases.json');
 const i18n = require('i18n');
 
@@ -119,15 +119,7 @@ module.exports = {
 		resEmbed.setTitle(oInfo.name);
 		if(oInfo.alias != ""){
 			resEmbed.setDescription(oInfo.alias);
-			if(platform == 'ps2:v2'){
-				resEmbed.setURL('http://ps2.fisu.pw/outfit/?name='+oInfo.alias);
-			}
-			else if(platform == 'ps2ps4us:v2'){
-				resEmbed.setURL('http://ps4us.ps2.fisu.pw/outfit/?name='+oInfo.alias);
-			}
-			else if(platform == 'ps2ps4eu:v2'){
-				resEmbed.setURL('http://ps4eu.ps2.fisu.pw/outfit/?name='+oInfo.alias);
-			}
+			resEmbed.setURL(`${platformURL[platform]}/outfit/?name='${oInfo.alias}`)
 		}
 		resEmbed.addField(i18n.__({phrase: "Founded", locale: locale}), `<t:${oInfo.timeCreated}:D>`, true)
 		resEmbed.addField(i18n.__({phrase: "Members", locale: locale}), localeNumber(oInfo.memberCount, locale), true);
@@ -144,15 +136,7 @@ module.exports = {
 		resEmbed.addField(i18n.__({phrase: "Faction", locale: locale}), `${factionInfo.decal} ${i18n.__({phrase: factionInfo.initial, locale: locale})}`, true);
 		resEmbed.setColor(factionInfo.color);
 
-		if(platform == "ps2:v2"){
-			resEmbed.addField(i18n.__({phrase: 'Owner', locale: locale}), "["+oInfo.owner+"]("+"https://ps2.fisu.pw/player/?name="+oInfo.owner+")", true);
-		}
-		else if(platform == "ps2ps4us:v2"){
-			resEmbed.addField(i18n.__({phrase: 'Owner', locale: locale}), "["+oInfo.owner+"]("+"https://ps4us.ps2.fisu.pw/player/?name="+oInfo.owner+")", true);
-		}
-		else if(platform == "ps2ps4eu:v2"){
-			resEmbed.addField(i18n.__({phrase: 'Owner', locale: locale}), "["+oInfo.owner+"]("+"https://ps4eu.ps2.fisu.pw/player/?name="+oInfo.owner+")", true);
-		}
+		resEmbed.addField(i18n.__({phrase: 'Owner', locale: locale}), `[${oInfo.owner}](${platformURL[platform]}/player/?name=${oInfo.owner})`, true);
 		let auraxium = 0;
 		let synthium = 0;
 		let polystellarite = 0;

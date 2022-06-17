@@ -1,5 +1,5 @@
 const Discord = require('discord.js');
-const { badQuery, censusRequest, faction} = require('./utils.js');
+const { badQuery, censusRequest, faction, platformURL} = require('./utils.js');
 const i18n = require('i18n');
 
 const onlineInfo = async function(oTag, platform, outfitID = null, locale = "en-US"){
@@ -11,13 +11,7 @@ const onlineInfo = async function(oTag, platform, outfitID = null, locale = "en-
 	if(response.length == 0){
 		throw `${oTag} not found`;
 	}
-	let urlBase = 'https://ps2.fisu.pw/player/?name=';
-	if(platform == 'ps2ps4us:v2'){
-		urlBase = 'https://ps4us.ps2.fisu.pw/player/?name=';
-	}
-	else if(platform == 'ps2ps4eu:v2'){
-		urlBase = 'https://ps4eu.ps2.fisu.pw/player/?name=';
-	}
+	const urlBase = `${platformURL[platform]}/player/?name=`
 	let data = response[0];
 	let resObj = {
 		name: data.name,

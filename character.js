@@ -8,7 +8,7 @@ const decals = require('./static/decals.json');
 const sanction = require('./static/sanction.json');
 const got = require('got');
 const i18n = require('i18n');
-const { serverNames, badQuery, censusRequest, localeNumber, faction } = require('./utils');
+const { serverNames, badQuery, censusRequest, localeNumber, faction, platformURL } = require('./utils');
 
 const basicInfo = async function(cName, platform){
     // Main function for character lookup.  Pulls most stats and calls other functions for medals/top weapon info
@@ -339,15 +339,7 @@ module.exports = {
         if(cInfo.title != null){
             resEmbed.setDescription(cInfo.title);
         }
-        if(platform == 'ps2:v2'){
-            resEmbed.setURL('http://ps2.fisu.pw/player/?name='+cName);
-        }
-        else if(platform == 'ps2ps4us:v2'){
-            resEmbed.setURL('http://ps4us.ps2.fisu.pw/player/?name='+cName);
-        }
-        else if(platform == 'ps2ps4eu:v2'){
-            resEmbed.setURL('http://ps4eu.ps2.fisu.pw/player/?name='+cName);
-        }
+        resEmbed.setURL(`${platformURL[platform]}/player/?name=${cName}`);
         
         // BR & ASP
         if(cInfo.prestige > 0){

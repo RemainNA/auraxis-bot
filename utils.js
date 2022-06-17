@@ -43,6 +43,12 @@ const serverIDs = {
     "ceres": 2000
 }
 
+const platformURL = {
+	'ps2:v2': 'https://ps2.fisu.pw',
+	'ps2ps4us:v2': 'https://ps4us.ps2.fisu.pw',
+	'ps2ps4eu:v2': 'https://ps4eu.ps2.fisu.pw'
+}
+
 function badQuery(input){
 	// This is its own function so a single list of disallowed characters can be maintained
 	return input.match(/[<@>!+&?%*#$^()_:/\\,`~[\]{}|+=]/g);
@@ -126,6 +132,7 @@ module.exports = {
 	continents: continents,
 	serverNames: serverNames,
 	serverIDs: serverIDs,
+	platformURL: platformURL,
 	badQuery: badQuery,
 	censusRequest: censusRequest,
 	localeNumber: localeNumber,

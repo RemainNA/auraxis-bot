@@ -8,7 +8,7 @@ const {territoryInfo, continentBenefit} = require('./territory.js');
 const {onlineInfo, totalLength} = require('./online.js');
 const {ownedBases, centralBases} = require('./outfit.js');
 const bases = require('./static/bases.json');
-const {serverNames, serverIDs, servers, continents, faction} = require('./utils.js');
+const {serverNames, serverIDs, servers, continents, faction, platformURL} = require('./utils.js');
 
 const serverStatus = async function(serverID){
 	let resEmbed = new MessageEmbed();
@@ -84,15 +84,7 @@ const outfitStatus = async function(outfitID, platform, pgClient){
 	let resEmbed = new MessageEmbed();
 	if(oInfo.alias != ""){
 		resEmbed.setTitle(`[${oInfo.alias}] ${oInfo.name}`);
-		if(platform == 'ps2:v2'){
-			resEmbed.setURL(`http://ps2.fisu.pw/outfit/?name=${oInfo.alias}`);
-		}
-		else if(platform == 'ps2ps4us:v2'){
-			resEmbed.setURL(`http://ps4us.ps2.fisu.pw/outfit/?name=${oInfo.alias}`);
-		}
-		else if(platform == 'ps2ps4eu:v2'){
-			resEmbed.setURL(`http://ps4eu.ps2.fisu.pw/outfit/?name=${oInfo.alias}`);
-		}
+		resEmbed.setURL(`${platformURL[platform]}/outfit/?name=${oInfo.alias}`);
 	}
 	else{
 		resEmbed.setTitle(oInfo.name);

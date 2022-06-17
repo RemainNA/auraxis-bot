@@ -1,6 +1,6 @@
 // This file defines functions to look up a list of a character's completed directives
 
-const {censusRequest, faction} = require('./utils.js');
+const {censusRequest, faction, platformURL} = require('./utils.js');
 const Discord = require('discord.js');
 const directives = require('./static/directives.json');
 const i18n = require('i18n');
@@ -68,15 +68,7 @@ module.exports = {
 		}
 		resEmbed.setColor(faction(directiveList.faction).color)
 		resEmbed.setThumbnail('https://census.daybreakgames.com/files/ps2/images/static/84283.png');
-		if(platform == 'ps2:v2'){
-			resEmbed.setURL(`https://ps2.fisu.pw/directive/?name=${directiveList[0]}`)
-		}
-		else if(platform == 'ps2ps4us:v2'){
-			resEmbed.setURL(`https://ps4us.ps2.fisu.pw/directive/?name=${directiveList[0]}`)
-		}
-		else if(platform == 'ps2ps4eu:v2'){
-			resEmbed.setURL(`https://ps4eu.ps2.fisu.pw/directive/?name=${directiveList[0]}`)
-		}
+		resEmbed.setURL(`${platformURL[platform]}/directive/?name=${directiveList[0]}`)
 		if(remaining > 0){
 			const row = new Discord.MessageActionRow()
 			row.addComponents(
