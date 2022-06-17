@@ -420,14 +420,8 @@ module.exports = {
 
         // Outfit info
         if(cInfo.inOutfit){
-            if(cInfo.outfitAlias != "" && platform == 'ps2:v2'){
-                resEmbed.addField(i18n.__({phrase: 'Outfit', locale: locale}), '[['+cInfo.outfitAlias+']](https://ps2.fisu.pw/outfit/?name='+cInfo.outfitAlias+') '+cInfo.outfitName, true);
-            }
-            else if(cInfo.outfitAlias != "" && platform == 'ps2ps4us:v2'){
-                resEmbed.addField(i18n.__({phrase: 'Outfit', locale: locale}), '[['+cInfo.outfitAlias+']](https://ps4us.ps2.fisu.pw/outfit/?name='+cInfo.outfitAlias+') '+cInfo.outfitName, true);
-            }
-            else if(cInfo.outfitAlias != "" && platform == 'ps2ps4eu:v2'){
-                resEmbed.addField(i18n.__({phrase: 'Outfit', locale: locale}), '[['+cInfo.outfitAlias+']](https://ps4eu.ps2.fisu.pw/outfit/?name='+cInfo.outfitAlias+') '+cInfo.outfitName, true);
+            if(cInfo.outfitAlias != ""){
+                resEmbed.addField(i18n.__({phrase: 'Outfit', locale: locale}), `[[${cInfo.outfitAlias}]](${platformURL[platform]}/outfit/?name=${cInfo.outfitAlias}) ${cInfo.outfitName}`, true);
             }
             else{
                 resEmbed.addField(i18n.__({phrase: 'Outfit', locale: locale}), cInfo.outfitName, true);

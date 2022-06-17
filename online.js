@@ -81,15 +81,7 @@ module.exports = {
 		resEmbed.setDescription(oInfo.alias+"\n"+i18n.__mf({phrase: "{online}/{total} online", locale: locale}, 
 		{online: oInfo.onlineCount, total: oInfo.memberCount}));
 		resEmbed.setTimestamp();
-		if(platform == 'ps2:v2'){
-			resEmbed.setURL('http://ps2.fisu.pw/outfit/?name='+oInfo.alias);
-		}
-		else if(platform == 'ps2ps4us:v2'){
-			resEmbed.setURL('http://ps4us.ps2.fisu.pw/outfit/?name='+oInfo.alias);
-		}
-		else if(platform == 'ps2ps4eu:v2'){
-			resEmbed.setURL('http://ps4eu.ps2.fisu.pw/outfit/?name='+oInfo.alias);
-		}
+		resEmbed.setURL(`${platformURL[platform]}/outfit/?name=${oInfo.alias}`)
 		resEmbed.setColor(faction(oInfo.faction).color)
 		if(oInfo.onlineCount == "Online member count unavailable"){
 			resEmbed.addField(i18n.__({phrase: oInfo.onlineCount, locale: locale}), "-", true);
