@@ -108,7 +108,7 @@ module.exports = {
 			if(continued){
 				resEmbed.addField(i18n.__({phrase: "Continued...", locale: locale}), textList);
 			}
-			else{
+			else if(textList != ""){
 				resEmbed.addField(i18n.__({phrase: "Possible medals (kills)", locale: locale}), textList);
 			}
 		}
