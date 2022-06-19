@@ -3,7 +3,7 @@
 const {getPopulation} = require('./population.js');
 const {territoryInfo} = require('./territory.js');
 const {onlineInfo} = require('./online.js');
-const {serverNames, serverIDs, servers, continents} = require('./utils.js');
+const {serverNames, serverIDs, servers, continents, faction} = require('./utils.js');
 
 const populationName = async function(serverID){
 	const population = await getPopulation(serverID);
@@ -24,7 +24,7 @@ const territoryName = async function(serverID){
 
 const outfitName = async function(outfitID, platform){
 	const oInfo = await onlineInfo("", platform, outfitID);
-	return `${oInfo.alias}: ${oInfo.onlineCount} online`;
+	return `${faction(oInfo.faction).tracker} ${oInfo.alias}: ${oInfo.onlineCount} online`;
 }
 
 const updateChannelName = async function(name, channelID, discordClient, pgClient){
