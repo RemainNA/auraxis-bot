@@ -32,14 +32,14 @@ const implantInfo = async function(name){
 }
 
 const partialMatches = async function(query){
-	let matches = [];
+	const matches = [];
 	query = query.replace(/[“”]/g, '"').toLowerCase();
 
 	for(const implant in implantsJSON){
-		if(implant.toLowerCase().indexOf(query) > -1){
+		if(implant.toLowerCase().startsWith(query)){
 			matches.push({name: implant, value: implant});
 		}
-		if(matches.length >= 25){
+		if(matches.length === 25){
 			break;
 		}
 	}
@@ -53,12 +53,12 @@ module.exports = {
 			throw "Search contains disallowed characters";
 		}
 		
-		let iInfo = await implantInfo(name);
+		const iInfo = await implantInfo(name);
 
-		let resEmbed = new Discord.MessageEmbed();
+		const resEmbed = new Discord.MessageEmbed();
 		resEmbed.setTitle(iInfo.name);
-		resEmbed.setThumbnail('http://census.daybreakgames.com/files/ps2/images/static/'+iInfo.image+'.png');
-		if(typeof(iInfo.desc) !== 'undefined'){
+		resEmbed.setThumbnail(`http://census.daybreakgames.com/files/ps2/images/static/'${iInfo.image}.png`);
+		if(iInfo.desc !== undefined){
 			resEmbed.addField("Description", iInfo.desc);
 		}
 		else{
