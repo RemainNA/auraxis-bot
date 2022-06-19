@@ -228,5 +228,6 @@
 	"<> = Optional, [] = Required": "<> = Optional, [] = Required",
 	"Error occurred when handling command": "Error occurred when handling command",
 	"This command supports a maximum of 10 characters per query": "This command supports a maximum of 10 characters per query",
-	"Possible medals (kills)": "Possible medals (kills)"
+	"Possible medals (kills)": "Possible medals (kills)",
+	"insufficientPermissions": "Auraxis Bot does not have permission to post in this channel, please fix permissions to enable subscriptions!"
 }

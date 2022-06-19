@@ -392,6 +392,9 @@ client.on('interactionCreate', async interaction => {
 				default:
 					interaction.editReply("Unknown command error");
 				}
+				if(interaction.replied){
+					await subscription.permissionCheck(interaction, client.user.id, interaction.locale);
+				}
 				
 				break;
 

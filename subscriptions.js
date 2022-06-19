@@ -2,6 +2,8 @@
 
 const config = require('./subscriptionConfig.js');
 const { censusRequest, badQuery, faction } = require('./utils.js')
+const { Permissions } = require('discord.js');
+const i18n = require('i18n');
 
 const standardizeName = function(server){
     switch(server.toLowerCase()){
@@ -255,5 +257,20 @@ module.exports = {
         }
 
         return "Unsubscribed channel from all lists";
+    },
+
+    permissionCheck: async function(interaction, user, locale="en-US"){
+        if(interaction.channel.type == 'DM'){
+            return;
+        }
+        let channel = interaction.channel;
+        if(channel.isThread()){
+            channel = interaction.channel.parent;
+        }
+        if(!await channel.permissionsFor(user).has([Permissions.FLAGS.VIEW_CHANNEL, Permissions.FLAGS.SEND_MESSAGES])){
+            await interaction.followUp({
+                content: i18n.__({phrase: "insufficientPermissions", locale: locale})
+            })
+        }
     }
 }
