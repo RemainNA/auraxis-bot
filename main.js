@@ -483,7 +483,7 @@ client.on('interactionCreate', async interaction => {
 						break;
 	
 					case 'outfit':
-						res = await trackers.createOutfit(options.getString('tag').toLowerCase(), options.getString('platform') || 'ps2:v2', interaction.guild, client, SQLclient);
+						res = await trackers.createOutfit(options.getString('tag').toLowerCase(), options.getString('platform') || 'ps2:v2', options.getBoolean('show-faction'), interaction.guild, client, SQLclient);
 						await interaction.editReply(res);
 						break;
 	

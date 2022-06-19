@@ -599,6 +599,12 @@ const data = [
 					required: true
 				},
 				{
+					name: 'show-faction',
+					type: '5',
+					description: 'Display a faction indicator in channel name? ex: 🟣/🔵/🔴/⚪',
+					required: true
+				},
+				{
 					name: 'platform',
 					type: '3',
 					description: "Which platform is the outfit on?  Defaults to PC",

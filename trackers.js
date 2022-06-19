@@ -24,7 +24,10 @@ const territoryName = async function(serverID){
 
 const outfitName = async function(outfitID, platform){
 	const oInfo = await onlineInfo("", platform, outfitID);
-	return `${faction(oInfo.faction).tracker} ${oInfo.alias}: ${oInfo.onlineCount} online`;
+	return {
+		faction: `${faction(oInfo.faction).tracker} ${oInfo.alias}: ${oInfo.onlineCount} online`,
+		noFaction: `${oInfo.alias}: ${oInfo.onlineCount} online`
+	}
 }
 
 const updateChannelName = async function(name, channelID, discordClient, pgClient){
@@ -88,11 +91,17 @@ module.exports = {
 		}
 	},
 
-	createOutfit: async function(tag, platform, guild, discordClient, pgClient){
+	createOutfit: async function(tag, platform, showFaction, guild, discordClient, pgClient){
 		try{
 			const oInfo = await onlineInfo(tag, platform);
-			const name = `${oInfo.alias}: ${oInfo.onlineCount} online`;
-			
+			let name = await outfitName(oInfo.outfitID, platform);
+			if(showFaction){
+				name = name.faction;
+			}
+			else{
+				name = name.noFaction;
+			}
+						
 			let newChannel = await guild.channels.create(name, {type: 'GUILD_VOICE', reason: 'New tracker channel', permissionOverwrites: [
 				{
 					id: guild.id,
@@ -105,10 +114,10 @@ module.exports = {
 				}
 			]});
 
-			await pgClient.query("INSERT INTO outfittracker (channel, outfitid, platform) VALUES ($1, $2, $3);",
-			[newChannel.id, oInfo.outfitID, platform]);
+			await pgClient.query("INSERT INTO outfittracker (channel, outfitid, showfaction, platform) VALUES ($1, $2, $3, $4);",
+			[newChannel.id, oInfo.outfitID, showFaction, platform]);
 
-			return `Tracker channel created as ${newChannel.toString()}. This channel will automatically update once every 10 minutes. If you move the channel or edit permissions make sure to keep the "Manage Channel" and "Connect" permissions enabled for Auraxis Bot.`;
+			return `Tracker channel created as ${newChannel}. This channel will automatically update once every 10 minutes. If you move the channel or edit permissions make sure to keep the "Manage Channel" and "Connect" permissions enabled for Auraxis Bot.`;
 		}
 		catch(err){
 			if(err.message == "Missing Permissions"){
@@ -153,9 +162,14 @@ module.exports = {
 				for(const row of outfits.rows){
 					try{
 						const oName = await outfitName(row.outfitid, row.platform);
-						const channels = await pgClient.query("SELECT channel FROM outfittracker WHERE outfitid = $1 AND platform = $2;", [row.outfitid, row.platform]);
+						const channels = await pgClient.query("SELECT channel, showfaction FROM outfittracker WHERE outfitid = $1 AND platform = $2;", [row.outfitid, row.platform]);
 						for(channelRow of channels.rows){
-							await updateChannelName(oName, channelRow.channel, discordClient, pgClient);
+							if(channelRow.showfaction){
+								await updateChannelName(oName.faction, channelRow.channel, discordClient, pgClient);
+							}
+							else{
+								await updateChannelName(oName.noFaction, channelRow.channel, discordClient, pgClient);
+							}
 						}
 					}
 					catch(err){

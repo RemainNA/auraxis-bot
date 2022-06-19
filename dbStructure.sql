@@ -77,7 +77,8 @@ CREATE TABLE IF NOT EXISTS tracker(
 CREATE TABLE IF NOT EXISTS outfitTracker(
 	channel TEXT NOT NULL,
 	outfitid TEXT NOT NULL,
-	platform TEXT NOT NULL
+	platform TEXT NOT NULL,
+	showfaction BOOLEAN DEFAULT FALSE
 );
 
 CREATE TABLE IF NOT EXISTS bases(
