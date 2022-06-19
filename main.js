@@ -127,10 +127,8 @@ const listOfCommands =
 /status\n\
 /weapon [weapon name/id]\n\
 /weaponSearch [name]\n\
-/implant [implant name]"
-
-const commandsManageChannels = 
-"/(un)subscribe alerts [server]\n\
+/implant [implant name]\n\
+/(un)subscribe alerts [server]\n\
 /(un)subscribe activity [tag] <platform>\n\
 /(un)subscribe captures [tag] <platform>\n\
 /(un)subscribe unlocks [server]\n\
@@ -145,28 +143,11 @@ const commandsManageChannels =
 /dashboard server [server]\n\
 /dashboard outfit [tag] <platform>"
 
-const checkPermissions = async function(channel, user){
-	if(channel.type == 'DM'){
-		return true;
-	}
-	else if(channel.isThread()){
-		const parentChannel = channel.parent;
-		return (await parentChannel.permissionsFor(parentChannel.guild.members.cache.get(user.id)).has(Discord.Permissions.FLAGS.MANAGE_CHANNELS));
-	}
-	else if(channel.type == 'GUILD_TEXT' || channel.type == 'GUILD_NEWS'){
-		return (await channel.permissionsFor(channel.guild.members.cache.get(user.id)).has(Discord.Permissions.FLAGS.MANAGE_CHANNELS));
-	}
-	else{
-		return false;
-	}
-}
-
 client.on('interactionCreate', async interaction => {
 	if(interaction.isCommand()){
 		const options = interaction.options;
 		try{
 			let res = "";
-			let manageChannel = false;
 			let errorList = [];
 			switch(interaction.commandName){
 			case 'ping':
@@ -179,7 +160,6 @@ client.on('interactionCreate', async interaction => {
 				helpEmbed.setTitle("Auraxis bot");
 				helpEmbed.setColor("BLUE");
 				helpEmbed.addField(i18n.__({phrase: "Commands", locale: locale}), listOfCommands);
-				helpEmbed.addField(i18n.__({phrase: "Requires Manage Channel permission", locale: locale}), commandsManageChannels);
 				const links = `\
 				\n[${i18n.__({phrase: "GitHub page & FAQ", locale: locale})}](https://github.com/RemainNA/auraxis-bot)\
 				\n[${i18n.__({phrase: "Support server", locale: locale})}](https://discord.gg/Kf5P6Ut)\
@@ -318,11 +298,6 @@ client.on('interactionCreate', async interaction => {
 				break;
 
 			case 'config':
-				manageChannel = await checkPermissions(interaction.channel, interaction.user);
-				if(!manageChannel){
-					await interaction.reply({content: "Managing subscriptions is only available to users with the Manage Channel permission", ephemeral: true})
-					return;
-				}
 				await interaction.deferReply();
 				switch(options.getSubcommand()){
 				case 'view':
@@ -357,11 +332,6 @@ client.on('interactionCreate', async interaction => {
 				break;
 
 			case 'subscribe':
-				manageChannel = await checkPermissions(interaction.channel, interaction.user);
-				if(!manageChannel){
-					await interaction.reply({content: "Managing subscriptions is only available to users with the Manage Channel permission", ephemeral: true})
-					return;
-				}
 				await interaction.deferReply();
 				switch(options.getSubcommand()){
 				case 'alerts':
@@ -399,11 +369,6 @@ client.on('interactionCreate', async interaction => {
 				break;
 
 			case 'unsubscribe':
-				manageChannel = await checkPermissions(interaction.channel, interaction.user);
-				if(!manageChannel){
-					await interaction.reply({content: "Managing subscriptions is only available to users with the Manage Channel permission", ephemeral: true})
-					return;
-				}
 				await interaction.deferReply();
 				switch(options.getSubcommand()){
 				case 'alerts':
@@ -488,11 +453,6 @@ client.on('interactionCreate', async interaction => {
 				break;
 
 			case 'dashboard':
-				manageChannel = await checkPermissions(interaction.channel, interaction.user);
-				if(!manageChannel){
-					await interaction.reply({content: "Only users with the Manage Channel permission can create dashboards", ephemeral: true})
-					return;
-				}
 				await interaction.deferReply();
 				switch(options.getSubcommand()){
 				case 'server':
@@ -514,11 +474,6 @@ client.on('interactionCreate', async interaction => {
 			case 'tracker':
 				if(interaction.channel.type == 'DM'){
 					await interaction.reply({content: "Cannot create trackers in DMs", ephemeral: true})
-				}
-				manageChannel = await checkPermissions(interaction.channel, interaction.user);
-				if(!manageChannel){
-					await interaction.reply({content: "Only users with the Manage Channel permission can create dashboards", ephemeral: true})
-					return;
 				}
 				await interaction.deferReply();
 				switch(options.getSubcommand()){
