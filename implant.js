@@ -10,15 +10,6 @@ const implantInfo = async function(name){
 		return returnObj;
 	}
 
-	// //Lower case name match
-	// for(const implant in implantsJSON){
-	// 	if(implant.toLowerCase() == name.toLowerCase()){
-	// 		let returnObj = implantsJSON[implant];
-	// 		returnObj.name = implant;
-	// 		return returnObj;
-	// 	}
-	// }
-
 	//Partial match
 	for(const implant in implantsJSON){
 		if(implant.toLowerCase().includes(name.toLowerCase())){
