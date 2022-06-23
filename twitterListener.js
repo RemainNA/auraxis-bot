@@ -81,7 +81,11 @@ function streamConnect(token, SQLclient, channels) {
 	const stream = got.stream(streamURL, {
 		headers: {
 			Authorization: `Bearer ${token}`
-	}});
+		},
+		timeout: {
+			response: 20000
+		}
+	});
 
     stream.on('data', data => {
 		try {
@@ -108,7 +112,7 @@ function streamConnect(token, SQLclient, channels) {
 			}
 		}
     }).on('error', error => {
-		if (error.code !== 'ECONNRESET') {
+		if (error.code !== 'ETIMEDOUT') {
 			console.log(error.code);
 		}
         else {
