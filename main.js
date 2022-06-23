@@ -85,7 +85,8 @@ client.on('ready', async () => {
 
 		listener.start(SQLclient, client);
 		if(twitterAvail){
-			twitterListener.start(SQLclient, client);
+			twitterListener.init();
+			twitterListener.connect(SQLclient, client.channels);
 		}
 		outfitMaintenance.update(SQLclient);
 		alertMaintenance.update(SQLclient, client);

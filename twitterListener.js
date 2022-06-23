@@ -1,6 +1,8 @@
 // This file defines functions which establish a connection to the Twitter API and listen for tweets from certain accounts.
+// Most of the code for this file came from
+// https://github.com/twitterdev/Twitter-API-v2-sample-code/blob/main/Filtered-Stream/filtered_stream.js
 
-const needle = require('needle');
+const got = require('got');
 const messageHandler = require('./messageHandler.js');
 const subscriptions = require('./subscriptions.js');
 
@@ -10,7 +12,6 @@ const rulesURL = 'https://api.twitter.com/2/tweets/search/stream/rules'
 const streamURL = 'https://api.twitter.com/2/tweets/search/stream?expansions=referenced_tweets.id';
 
 let timeout = 0;
-let firstRun = true;
 
 // Edit rules as desired here below
 const rules = [
@@ -21,9 +22,9 @@ const rules = [
 
 async function getAllRules() {
 
-    const response = await needle('get', rulesURL, { headers: {
+    const response = await got(rulesURL, { headers: {
         "authorization": `Bearer ${token}`
-    }})
+    }});
 
     if (response.statusCode !== 200) {
         throw response.body;
@@ -35,8 +36,8 @@ async function getAllRules() {
 async function deleteAllRules(rules) {
 
     if (!Array.isArray(rules.data)) {
-        return null;
-      }
+        return;
+    }
 
     const ids = rules.data.map(rule => rule.id);
 
@@ -46,18 +47,16 @@ async function deleteAllRules(rules) {
         }
     }
 
-    const response = await needle('post', rulesURL, data, {headers: {
+    const response = await got(rulesURL, {json: data, headers: {
         "content-type": "application/json",
         "authorization": `Bearer ${token}`
-    }}) 
+    }});
 
     if (response.statusCode !== 200) {
         throw new Error(response.body);
-        return null;
     }
     
     return (response.body);
-
 }
 
 async function setRules() {
@@ -66,97 +65,91 @@ async function setRules() {
         "add": rules
       }
 
-    const response = await needle('post', rulesURL, data, {headers: {
+	const response = await got.post( rulesURL, {json: data, headers: {
         "content-type": "application/json",
         "authorization": `Bearer ${token}`
-    }}) 
+    }});
 
     if (response.statusCode !== 201) {
         throw new Error(response.body);
-        return null;
     }
     
     return (response.body);
-
 }
 
-function streamConnect(token, SQLclient, discordClient) {
-    const stream = needle.get(streamURL, {
-        headers: { 
-            Authorization: `Bearer ${token}`
-        },
-        timeout: 20000
-	});
-	
+function streamConnect(token, SQLclient, channels) {
+	const stream = got.stream(streamURL, {
+		headers: {
+			Authorization: `Bearer ${token}`
+	}});
 
     stream.on('data', data => {
-    try {
-		const jsonObj = JSON.parse(data);
-		let type = "tweet";
-		if(typeof(jsonObj.data.referenced_tweets)!== 'undefined'){
-			switch(jsonObj.data.referenced_tweets[0].type){
-				case "replied_to":
-					type = "reply";
-					break;
-				case "quoted":
-					type = "qrt";
-					break;
-				case "retweeted":
-					type = "rt";
-					break;
+		try {
+			const jsonObj = JSON.parse(data);
+			let type = "tweet";
+			if(jsonObj.data.referenced_tweets !== undefined){
+				switch(jsonObj.data.referenced_tweets[0].type){
+					case "replied_to":
+						type = "reply";
+						break;
+					case "quoted":
+						type = "qrt";
+						break;
+					case "retweeted":
+						type = "rt";
+						break;
+				}
+			}
+			postMessage(SQLclient, channels, jsonObj.matching_rules[0].tag, jsonObj.data.id, type)
+				.catch(err => console.log(err));
+		} catch (e) {
+			if (data.detail === 'This stream is currently at the maximum allowed connection limit.') {
+				console.log(data.detail);
 			}
 		}
-		postMessage(SQLclient, discordClient, jsonObj.matching_rules[0].tag, jsonObj.data.id, type)
-			.catch(err => console.log(err));
-
-		
-    } catch (e) {
-		// Ignore heartbeats
-    }
     }).on('error', error => {
-        if (error.code === 'ETIMEDOUT') {
-            stream.emit('timeout');
+		if (error.code !== 'ECONNRESET') {
+			console.log(error.code);
 		}
-		else{
-			console.log(error);
+        else {
+			stream.emit('timeout');
 		}
-	}).on('done', () => {
-		console.log('Twitter done');
-		stream.emit('streamDone');
+	}).on('end', () => {
+		console.log('Twitter Stream End');
+		stream.emit('streamEnd');
 	});
 	
 	console.log("Connected to Twitter Stream");
 
     return stream;
-    
 }
 
-async function postMessage(SQLclient, discordClient, tag, id, type){
-	let queryText = "SELECT * FROM news WHERE source = $1";
-	let queryValues = [tag+"-twitter"];
-	let url = "https://twitter.com/"+tag+"/status/"+id;
-	let baseText = "**New Tweet from "+tag+"**\n";
+async function postMessage(SQLclient, channels, tag, id, type){
+	const queryText = "SELECT * FROM news WHERE source = $1";
+	const queryValues = [`${tag}-twitter`];
+	const url = `https://twitter.com/${tag}/status/${id}`;
+	let baseText = `**New Tweet from ${tag}**\n`;
 	switch(type){
 		case "reply":
 			return;
 		case "qrt":
-			baseText = "**New Quote Tweet from "+tag+"**\n";
+			baseText = `**New Quote Tweet from ${tag}**\n`;
 			break;
 		case "rt":
-			baseText = "**New Retweet from "+tag+"**\n";
+			baseText = `**New Retweet from ${tag}**\n`;
 			break;
 	}
 
-	let result = await SQLclient.query(queryText, queryValues);
-	for(let row of result.rows){
-		discordClient.channels.fetch(row.channel).then(resChann => {
-			if(typeof(resChann.guild) !== 'undefined'){
+	const result = await SQLclient.query(queryText, queryValues);
+	for(const row of result.rows){
+		channels.fetch(row.channel).then(resChann => {
+			if(resChann.guild !== undefined){
 				if(resChann.permissionsFor(resChann.guild.me).has(['SEND_MESSAGES','VIEW_CHANNEL'])){
-					messageHandler.send(resChann, baseText+url, "Twitter message");
+					messageHandler.send(resChann, `${baseText}${url}`, "Twitter message");
 				}
 				else{
 					subscriptions.unsubscribeAll(SQLclient, row.channel);
-					console.log('Unsubscribed from '+row.channel);
+					console.log(`Unsubscribed from ${row.channel}`);
 				}
 			}
 			else{ // DM
@@ -164,10 +157,10 @@ async function postMessage(SQLclient, discordClient, tag, id, type){
 			}
 		})
 		.catch(error => {
-			if(typeof(error.code) !== 'undefined'){
+			if(error.code !== undefined){
 				if(error.code == 10003){ //Unknown channel error, thrown when the channel is deleted
 					subscriptions.unsubscribeAll(SQLclient, row.channel);
-					console.log('Unsubscribed from '+row.channel);
+					console.log(`Unsubscribed from ${row.channel}`);
 				}
 				else{
 					console.log(error);
@@ -181,47 +174,41 @@ async function postMessage(SQLclient, discordClient, tag, id, type){
 }
 
 module.exports = {
-	start: async function (SQLclient, discordClient) {
-		if(firstRun){
-			// Only set rules the first run, ignore reconnects
-			let currentRules;
-  
-			try {
-				// Gets the complete list of rules currently applied to the stream
-				currentRules = await getAllRules();
-				
-				// Delete all rules. Comment the line below if you want to keep your existing rules.
-				await deleteAllRules(currentRules);
+	init: async function () {
+		try {
+			// Gets the complete list of rules currently applied to the stream
+			const currentRules = await getAllRules();
 			
-				// Add rules to the stream. Comment the line below if you don't want to add new rules.
-				await setRules();
-			
-			} 
-			catch (e) {
-				console.log("Twitter init issue");
-				console.log(e);
-			}
-
-			firstRun = false;
-		}
+			// Delete all rules. Comment the line below if you want to keep your existing rules.
+			await deleteAllRules(currentRules);
 		
+			// Add rules to the stream. Comment the line below if you don't want to add new rules.
+			await setRules();
+		
+		} 
+		catch (e) {
+			console.log("Twitter init issue");
+			console.log(e);
+		}
+	},
+	connect: async function (SQLclient, channels) {
 		// Listen to the stream.
 		// This reconnection logic will attempt to reconnect when a disconnection is detected.
 		// To avoid rate limits, this logic implements exponential backoff, so the wait time
 		// will increase if the client cannot reconnect to the stream.
 	
-		const filteredStream = streamConnect(token, SQLclient, discordClient)
+		const filteredStream = streamConnect(token, SQLclient, channels)
 		filteredStream.on('timeout', () => {
 			// Reconnect on error
 			console.log('A twitter connection error occurred. Reconnecting…');
 			setTimeout(() => {
 				timeout++;
-				this.start(SQLclient, discordClient);
+				this.connect(SQLclient, channels);
 			}, 1000 * (2 ** timeout));
-		}).on('streamDone', () => {
+		}).on('streamEnd', () => {
 			setTimeout(() => {
 				timeout++;
-				this.start(SQLclient, discordClient);
+				this.connect(SQLclient, channels);
 			},1000 * (2 ** timeout));
 		})
 	}
