@@ -83,7 +83,7 @@
 	"TR": "TR",
 	"NSO": "NSO",
 	"No stats in this time period": "Нет статистики за этот период",
-	"{day} day stats ending <t{end}d>": "{day} окончание статистики <t{end}d>",
+	"{day} day stats ending <t{end}d>": "{day} day stats ending <t{end}d>",
 	"Certs Gained": "Полученные Сертификаты",
 	"{server} population - {total}": " {server} популяция - {total}",
 	"Total population - {total}": "Общая популяция - {total}",
@@ -95,7 +95,8 @@
 	"-20% Air Vehicle Nanite cost": "-20% Нанитов от стоимости Воздушной Техники",
 	"No benefit": "Нет выгоды",
 	"{continent} territory": "{continent} территория",
-	"Owned by the {faction}": "Захвачено фракций {faction}",
+	"Locked {timestamp}": "Locked {timestamp}",
+	"Unlocked {timestamp}": "Unlocked {timestamp}",
 	"{name} not found": "{name} не найдено",
 	"NSO is not supported": "NSO не поддерживается",
 	"{name} has not yet unlocked ASP": "{name} навыки УСП не разблокированы",
@@ -227,5 +228,13 @@
 	"Links": "Ссылки",
 	"<> = Optional, [] = Required": "<> = Необязательно, [] = Обязательно",
 	"Error occurred when handling command": "Error occurred when handling command",
-	"This command supports a maximum of 10 characters per query": "This command supports a maximum of 10 characters per query"
+	"This command supports a maximum of 10 characters per query": "This command supports a maximum of 10 characters per query",
+	"Possible medals (kills)": "Possible medals (kills)",
+	"insufficientPermissions": "Auraxis Bot does not have permission to post in this channel, please fix permissions to enable subscriptions!",
+	"unsubscribedAll": "Unsubscribed channel from all lists",
+	"notSubscribedUnlocks": "Not subscribed to {server} unlocks",
+	"unsubscribeUnlocks": "Unsubscribed channel from {server} unlocks",
+	"alreadySubscribedUnlocks": "Already subscribed to {server} unlocks",
+	"subscribedUnlocks": "Subscribed to {server} unlocks.  Configure which continents are shown using /config continents",
+	"subscribedUnlocksConfigFailed": "Subscribed to {server} unlocks.  Configuration step failed, using default config."
 }

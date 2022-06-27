@@ -95,7 +95,8 @@
 	"-20% Air Vehicle Nanite cost": "-20% Air Vehicle Nanite cost",
 	"No benefit": "No benefit",
 	"{continent} territory": "{continent} territory",
-	"Owned by the {faction}": "Owned by the {faction}",
+	"Locked {timestamp}": "Locked {timestamp}",
+	"Unlocked {timestamp}": "Unlocked {timestamp}",
 	"{name} not found": "{name} not found",
 	"NSO is not supported": "NSO is not supported",
 	"{name} has not yet unlocked ASP": "{name} has not yet unlocked ASP",
@@ -229,5 +230,11 @@
 	"Error occurred when handling command": "Error occurred when handling command",
 	"This command supports a maximum of 10 characters per query": "This command supports a maximum of 10 characters per query",
 	"Possible medals (kills)": "Possible medals (kills)",
-	"insufficientPermissions": "Auraxis Bot does not have permission to post in this channel, please fix permissions to enable subscriptions!"
+	"insufficientPermissions": "Auraxis Bot does not have permission to post in this channel, please fix permissions to enable subscriptions!",
+	"unsubscribedAll": "Unsubscribed channel from all lists",
+	"notSubscribedUnlocks": "Not subscribed to {server} unlocks",
+	"unsubscribeUnlocks": "Unsubscribed channel from {server} unlocks",
+	"alreadySubscribedUnlocks": "Already subscribed to {server} unlocks",
+	"subscribedUnlocks": "Subscribed to {server} unlocks.  Configure which continents are shown using /config continents",
+	"subscribedUnlocksConfigFailed": "Subscribed to {server} unlocks.  Configuration step failed, using default config."
 }

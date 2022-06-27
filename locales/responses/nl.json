@@ -83,7 +83,7 @@
 	"TR": "AR",
 	"NSO": "NSW",
 	"No stats in this time period": "Geen statistieken in deze tijdsperiode",
-	"{day} day stats ending <t{end}d>": "{day} statistieken eindigen op <t{end}d>",
+	"{day} day stats ending <t{end}d>": "{day} day stats ending <t{end}d>",
 	"Certs Gained": "Certificaten Verkregen",
 	"{server} population - {total}": "{server} bevolking - {total}",
 	"Total population - {total}": "Totale bevolking - {total}",
@@ -95,7 +95,8 @@
 	"-20% Air Vehicle Nanite cost": "-20% Lucht Voertuig Nanite kosten",
 	"No benefit": "Geen voordeel",
 	"{continent} territory": "{continent} grondgebied",
-	"Owned by the {faction}": "Eigendom van de {faction}",
+	"Locked {timestamp}": "Locked {timestamp}",
+	"Unlocked {timestamp}": "Unlocked {timestamp}",
 	"{name} not found": "{name} niet gevonden",
 	"NSO is not supported": "NSW wordt niet ondersteund",
 	"{name} has not yet unlocked ASP": "{name} heeft ASP nog niet vrijgespeeld",
@@ -227,5 +228,13 @@
 	"Links": "Koppelingen",
 	"<> = Optional, [] = Required": "<> = Optioneel, [] = Vereist",
 	"Error occurred when handling command": "Error occurred when handling command",
-	"This command supports a maximum of 10 characters per query": "This command supports a maximum of 10 characters per query"
+	"This command supports a maximum of 10 characters per query": "This command supports a maximum of 10 characters per query",
+	"Possible medals (kills)": "Possible medals (kills)",
+	"insufficientPermissions": "Auraxis Bot does not have permission to post in this channel, please fix permissions to enable subscriptions!",
+	"unsubscribedAll": "Unsubscribed channel from all lists",
+	"notSubscribedUnlocks": "Not subscribed to {server} unlocks",
+	"unsubscribeUnlocks": "Unsubscribed channel from {server} unlocks",
+	"alreadySubscribedUnlocks": "Already subscribed to {server} unlocks",
+	"subscribedUnlocks": "Subscribed to {server} unlocks.  Configure which continents are shown using /config continents",
+	"subscribedUnlocksConfigFailed": "Subscribed to {server} unlocks.  Configuration step failed, using default config."
 }

@@ -83,7 +83,7 @@
 	"TR": "RT",
 	"NSO": "NSO",
 	"No stats in this time period": "No hay estadísticas en este periodo de tiempo",
-	"{day} day stats ending <t{end}d>": "Estadísticas de hace {day} día/s a partir de la última sesión del <t{end}d>.",
+	"{day} day stats ending <t{end}d>": "{day} day stats ending <t{end}d>",
 	"Certs Gained": "Certificados obtenidos",
 	"{server} population - {total}": "{server} población - {total}",
 	"Total population - {total}": "Población total - {total}",
@@ -95,7 +95,8 @@
 	"-20% Air Vehicle Nanite cost": "-20% de coste de nanites de vehículo aéreo",
 	"No benefit": "Sin beneficio",
 	"{continent} territory": "{continent} territorio",
-	"Owned by the {faction}": "Propiedad de la {faction}",
+	"Locked {timestamp}": "Locked {timestamp}",
+	"Unlocked {timestamp}": "Unlocked {timestamp}",
 	"{name} not found": "{name} no encontrado",
 	"NSO is not supported": "No se admite NSO",
 	"{name} has not yet unlocked ASP": "{name} aún no ha desbloqueado el PAE",
@@ -227,5 +228,13 @@
 	"Links": "Enlaces",
 	"<> = Optional, [] = Required": "<> = Opcional, [] = Obligatorio",
 	"Error occurred when handling command": "Se ha producido un error al gestionar el comando",
-	"This command supports a maximum of 10 characters per query": "Este comando admite un máximo de 10 caracteres por consulta"
+	"This command supports a maximum of 10 characters per query": "Este comando admite un máximo de 10 caracteres por consulta",
+	"Possible medals (kills)": "Possible medals (kills)",
+	"insufficientPermissions": "Auraxis Bot does not have permission to post in this channel, please fix permissions to enable subscriptions!",
+	"unsubscribedAll": "Unsubscribed channel from all lists",
+	"notSubscribedUnlocks": "Not subscribed to {server} unlocks",
+	"unsubscribeUnlocks": "Unsubscribed channel from {server} unlocks",
+	"alreadySubscribedUnlocks": "Already subscribed to {server} unlocks",
+	"subscribedUnlocks": "Subscribed to {server} unlocks.  Configure which continents are shown using /config continents",
+	"subscribedUnlocksConfigFailed": "Subscribed to {server} unlocks.  Configuration step failed, using default config."
 }
