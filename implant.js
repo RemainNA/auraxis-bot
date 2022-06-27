@@ -4,25 +4,16 @@ const {badQuery} = require('./utils.js');
 
 const implantInfo = async function(name){
 	//Check if ID matches
-	if(typeof(implantsJSON[name]) !== 'undefined'){
-		let returnObj = implantsJSON[name];
+	if(implantsJSON[name] !== undefined){
+		const returnObj = implantsJSON[name];
 		returnObj.name = name;
 		return returnObj;
 	}
 
-	//Lower case name match
-	for(const implant in implantsJSON){
-		if(implant.toLowerCase() == name.toLowerCase()){
-			let returnObj = implantsJSON[implant];
-			returnObj.name = implant;
-			return returnObj;
-		}
-	}
-
 	//Partial match
 	for(const implant in implantsJSON){
-		if(implant.toLowerCase().indexOf(name.toLowerCase()) > -1){
-			let returnObj = implantsJSON[implant];
+		if(implant.toLowerCase().includes(name.toLowerCase())){
+			const returnObj = implantsJSON[implant];
 			returnObj.name = implant;
 			return returnObj;
 		}
@@ -32,14 +23,14 @@ const implantInfo = async function(name){
 }
 
 const partialMatches = async function(query){
-	let matches = [];
+	const matches = [];
 	query = query.replace(/[“”]/g, '"').toLowerCase();
 
 	for(const implant in implantsJSON){
-		if(implant.toLowerCase().indexOf(query) > -1){
+		if(implant.toLowerCase().includes(query)){
 			matches.push({name: implant, value: implant});
 		}
-		if(matches.length >= 25){
+		if(matches.length === 25){
 			break;
 		}
 	}
@@ -53,12 +44,12 @@ module.exports = {
 			throw "Search contains disallowed characters";
 		}
 		
-		let iInfo = await implantInfo(name);
+		const iInfo = await implantInfo(name);
 
-		let resEmbed = new Discord.MessageEmbed();
+		const resEmbed = new Discord.MessageEmbed();
 		resEmbed.setTitle(iInfo.name);
-		resEmbed.setThumbnail('http://census.daybreakgames.com/files/ps2/images/static/'+iInfo.image+'.png');
-		if(typeof(iInfo.desc) !== 'undefined'){
+		resEmbed.setThumbnail(`http://census.daybreakgames.com/files/ps2/images/static/'${iInfo.image}.png`);
+		if(iInfo.desc !== undefined){
 			resEmbed.addField("Description", iInfo.desc);
 		}
 		else{
