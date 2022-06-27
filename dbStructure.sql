@@ -102,7 +102,13 @@ CREATE TABLE IF NOT EXISTS openContinents(
 	amerish BOOLEAN DEFAULT FALSE,
 	esamir BOOLEAN DEFAULT FALSE,
 	oshur BOOLEAN DEFAULT FALSE,
-	koltyr BOOLEAN DEFAULT FALSE
+	koltyr BOOLEAN DEFAULT FALSE,
+	indarchange TIMESTAMPTZ,
+	hossinchange TIMESTAMPTZ,
+	amerishchange TIMESTAMPTZ,
+	esamirchange TIMESTAMPTZ,
+	oshurchange TIMESTAMPTZ,
+	koltyrchange TIMESTAMPTZ
 );
 
 INSERT INTO opencontinents (world) VALUES ('connery');

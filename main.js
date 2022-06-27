@@ -415,7 +415,7 @@ client.on('interactionCreate', async interaction => {
 
 			case 'territory':
 				await interaction.deferReply();
-				res = await territory.territory(options.getString("server"), interaction.locale);
+				res = await territory.territory(options.getString("server"), SQLclient, interaction.locale);
 				await interaction.editReply({embeds: [res]});
 				break;
 

@@ -109,7 +109,7 @@ function localeNumber(n, locale){
 }
 
 function faction(factionID){
-	switch (factionID){
+	switch (String(factionID)){
 		case "1":
 			return {color: 'PURPLE', decal: '<:VS:818766983918518272>', initial: 'VS', tracker: '🟣'};
 		case "2":

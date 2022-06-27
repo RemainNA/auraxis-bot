@@ -10,7 +10,7 @@ const {ownedBases, centralBases} = require('./outfit.js');
 const bases = require('./static/bases.json');
 const {serverNames, serverIDs, servers, continents, faction} = require('./utils.js');
 
-const serverStatus = async function(serverID){
+const serverStatus = async function(serverID, pgClient){
 	let resEmbed = new MessageEmbed();
 	resEmbed.setTitle(`${serverNames[serverID]} Dashboard`);
 
@@ -30,6 +30,7 @@ const serverStatus = async function(serverID){
 
 	// Territory
 	const territory = await territoryInfo(serverID);
+	const recordedStatus = await pgClient.query("SELECT * FROM openContinents WHERE world = $1;", [serverNames[serverID].toLowerCase()]);
 	let territoryField = "*Bases owned*\n";
 
 	for (const continent of continents){
@@ -37,20 +38,17 @@ const serverStatus = async function(serverID){
 		if(totalTer == 0){
 			continue; // This accounts for Esamir being disabled on PS4
 		}
+		const timestamp = Date.parse(recordedStatus.rows[0][`${continent.toLowerCase()}change`])/1000;
 		const vsPc = Number.parseFloat((territory[continent].vs/totalTer)*100).toPrecision(3);
 		const ncPc = Number.parseFloat((territory[continent].nc/totalTer)*100).toPrecision(3);
 		const trPc = Number.parseFloat((territory[continent].tr/totalTer)*100).toPrecision(3);
-		if(territory[continent].locked == 1){
-			territoryField += `**${continent}** <:VS:818766983918518272>\nOwned by the VS: ${continentBenefit(continent)}\n\n`;
-		}
-		else if(territory[continent].locked == 2){
-			territoryField += `**${continent}** <:NC:818767043138027580>\nOwned by the NC: ${continentBenefit(continent)}\n\n`;
-		}
-		else if(territory[continent].locked == 3){
-			territoryField += `**${continent}** <:TR:818988588049629256>\nOwned by the TR: ${continentBenefit(continent)}\n\n`;
+		const owningFaction = faction(territory[continent].locked);
+		if(territory[continent].locked != -1){
+			territoryField += `**${continent}** ${owningFaction.decal}\nLocked <t:${timestamp}:R>\n${continentBenefit(continent)}\n\n`;
 		}
 		else{
 			territoryField += `**${continent}**\
+			\nUnlocked <t:${timestamp}:R>\
 			\n<:VS:818766983918518272> **VS**: ${territory[continent].vs}  |  ${vsPc}%\
 			\n<:NC:818767043138027580> **NC**: ${territory[continent].nc}  |  ${ncPc}%\
 			\n<:TR:818988588049629256> **TR**: ${territory[continent].tr}  |  ${trPc}%\n\n`
@@ -177,7 +175,7 @@ const editMessage = async function(channelID, messageID, newDash, pgClient, disc
 
 module.exports = {
 	createServer: async function(channel, serverName, pgClient){
-		const resEmbed = await serverStatus(serverIDs[serverName]);
+		const resEmbed = await serverStatus(serverIDs[serverName], pgClient);
 		const messageID = await messageHandler.send(channel, {embeds: [resEmbed]}, "Create server dashboard", true);
 		if(messageID == -1){
 			throw "Error creating dashboard, please check that the bot has permission to post in this channel.";
@@ -204,7 +202,7 @@ module.exports = {
 	update: async function(pgClient, discordClient){
 		for(const serverName of servers){
 			try{
-				const status = await serverStatus(serverIDs[serverName]);
+				const status = await serverStatus(serverIDs[serverName], pgClient);
 				const channels = await pgClient.query('SELECT * FROM dashboard WHERE world = $1;', [serverName]);
 				for(const row of channels.rows){
 					await editMessage(row.channel, row.messageid, status, pgClient, discordClient);

@@ -52,6 +52,7 @@ module.exports = {
 	check: async function(pgClient, discordClient){
 		for(const server of servers){
 			try{
+				const now = new Date().toISOString();
 				const territory = await territoryInfo(serverIDs[server]);
 				const currentStatus = await pgClient.query("SELECT * FROM openContinents WHERE world = $1;", [server]);
 				await pgClient.query("UPDATE openContinents SET indar = $1, hossin = $2, amerish = $3, esamir = $4, oshur = $5, koltyr = $6 WHERE world = $7;",
@@ -78,6 +79,10 @@ module.exports = {
 							console.log(err);
 						}
 						trackers.update(pgClient, discordClient, true); //Update trackers with new continent
+					}
+					if(territory[cont].locked == -1 != currentStatus.rows[0][cont.toLowerCase()]){
+						// Update timestamp if there is a change
+						await pgClient.query(`UPDATE openContinents SET ${cont.toLowerCase()}change = $1 WHERE world = $2;`, [now, server]);
 					}
 				}
 			}

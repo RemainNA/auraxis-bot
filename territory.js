@@ -1,7 +1,7 @@
 // This file defines functions used in finding and returning the current territory control on a given server, broken up by continent
 
 const Discord = require('discord.js');
-const { serverNames, serverIDs, censusRequest, continents, localeNumber } = require('./utils');
+const { serverNames, serverIDs, censusRequest, continents, localeNumber, faction } = require('./utils');
 const i18n = require('i18n');
 
 const fisuTerritory = function(serverID){
@@ -143,7 +143,7 @@ module.exports = {
         return {Indar: IndarObj, Hossin: HossinObj, Amerish: AmerishObj, Esamir: EsamirObj, Oshur: OshurObj, Koltyr: KoltyrObj};
     },
 
-    territory: async function(serverName, locale="en-US"){
+    territory: async function(serverName, pgClient, locale="en-US"){
 
         const serverID = serverIDs[serverName];
         let terObj = await this.territoryInfo(serverID);
@@ -151,25 +151,23 @@ module.exports = {
         resEmbed.setTitle(i18n.__mf({phrase: "{continent} territory", locale: locale}, {continent: i18n.__({phrase: serverNames[serverID], locale: locale})}));
         resEmbed.setTimestamp();
         resEmbed.setURL(fisuTerritory(serverID));
+        const recordedStatus = await pgClient.query("SELECT * FROM openContinents WHERE world = $1;", [serverName]);
         for(let continent of continents){
             let Total = terObj[continent].vs + terObj[continent].nc + terObj[continent].tr;
             if(Total == 0){
                 continue; // This accounts for Esamir being disabled on PS4
             }
+            const timestamp = Date.parse(recordedStatus.rows[0][`${continent.toLowerCase()}change`])/1000;
             const vsPc = localeNumber((terObj[continent].vs/Total)*100, locale);
             const ncPc = localeNumber((terObj[continent].nc/Total)*100, locale);
             const trPc = localeNumber((terObj[continent].tr/Total)*100, locale);
-            if(terObj[continent].locked == 1){
-                resEmbed.addField(`${i18n.__({phrase: continent, locale: locale})} <:VS:818766983918518272> `, i18n.__mf({phrase: "Owned by the {faction}", locale: locale}, {faction: i18n.__({phrase: "VS", locale: locale})})+": "+continentBenefit(continent, locale));
-            }
-            else if(terObj[continent].locked == 2){
-                resEmbed.addField(`${i18n.__({phrase: continent, locale: locale})} <:NC:818767043138027580> `, i18n.__mf({phrase: "Owned by the {faction}", locale: locale}, {faction: i18n.__({phrase: "NC", locale: locale})})+": "+continentBenefit(continent, locale));
-            }
-            else if(terObj[continent].locked == 3){
-                resEmbed.addField(`${i18n.__({phrase: continent, locale: locale})} <:TR:818988588049629256> `, i18n.__mf({phrase: "Owned by the {faction}", locale: locale}, {faction: i18n.__({phrase: "TR", locale: locale})})+": "+continentBenefit(continent, locale));
+            const owningFaction = faction(terObj[continent].locked);
+            if(terObj[continent].locked != -1){
+                resEmbed.addField(`${i18n.__({phrase: continent, locale: locale})} ${owningFaction.decal}`, i18n.__mf({phrase: "Locked {timestamp}", locale: locale}, {timestamp: `<t:${timestamp}:R>`})+"\n"+continentBenefit(continent, locale));
             }
             else{
                 resEmbed.addField(i18n.__({phrase: continent, locale: locale}), `\
+                \n${i18n.__mf({phrase: "Unlocked {timestamp}", locale: locale}, {timestamp: `<t:${timestamp}:R>`})}\
                 \n<:VS:818766983918518272> **${i18n.__({phrase: "VS", locale: locale})}**: ${terObj[continent].vs}  |  ${vsPc}%\
                 \n<:NC:818767043138027580> **${i18n.__({phrase: "NC", locale: locale})}**: ${terObj[continent].nc}  |  ${ncPc}%\
                 \n<:TR:818988588049629256> **${i18n.__({phrase: "TR", locale: locale})}**: ${terObj[continent].tr}  |  ${trPc}%`)
