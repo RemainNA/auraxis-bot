@@ -111,7 +111,7 @@ module.exports = {
         if(count.rows[0].count > 0){
             throw `Already subscribed to ${outfit.alias}`;
         }
-        color = faction(outfit.faction).color
+        const color = faction(outfit.faction).color
         pgClient.query("INSERT INTO outfitactivity (id, alias, color, channel, platform) VALUES ($1, $2, $3, $4, $5)", [outfit.ID, outfit.alias, color, channel, platform]);
         try{
             await config.initializeConfig(channel, pgClient)

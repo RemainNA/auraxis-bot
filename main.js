@@ -78,6 +78,8 @@ const client = new Discord.Client({intents: intentsList, allowedMentions: {parse
 // https://discordapp.com/developers/applications/me
 const token = process.env.token;
 
+let SQLclient = undefined;
+
 client.on('ready', async () => {
 	console.log('Running on '+client.guilds.cache.size+' servers!');
 	if(runningOnline){
@@ -153,7 +155,7 @@ client.on('interactionCreate', async interaction => {
 	if(interaction.isCommand()){
 		const options = interaction.options;
 		try{
-			let res = "";
+			let res = {};
 			let errorList = [];
 			switch(interaction.commandName){
 			case 'ping':
@@ -191,7 +193,7 @@ client.on('interactionCreate', async interaction => {
 				const characterLookups = await Promise.allSettled(Array.from(characterNames, x => 
 					char.character(x, options.getString('platform') || 'ps2:v2', interaction.locale)));
 				for(const res of characterLookups){
-					let toSend = "";
+					let toSend = {};
 					if(res.status == "rejected"){
 						if(typeof(res.reason) == 'string'){
 							toSend = res.reason;

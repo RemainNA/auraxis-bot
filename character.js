@@ -78,7 +78,7 @@ const basicInfo = async function(cName, platform){
             for (let stat of data.stats.weapon_stat_by_faction){
                 if (stat.stat_name == "weapon_kills"){
                     if(stat.item_id != "0"){
-                    itemKills = Number(stat.value_vs) + Number(stat.value_nc) + Number(stat.value_tr);
+                    let itemKills = Number(stat.value_vs) + Number(stat.value_nc) + Number(stat.value_tr);
                         if (itemKills > mostKills){
                             mostKills = itemKills;
                             topID = stat.item_id;
@@ -304,7 +304,7 @@ const getAuraxiumCount = async function(cName, platform){
     }
     let achievementList = response[0].character_id_join_characters_achievement;
     for(const x of achievementList){
-        achievement = x.achievement_id_join_achievement;
+        const achievement = x.achievement_id_join_achievement;
         if(achievement != undefined && x.finish_date != "1970-01-01 00:00:00.0"){
             if(achievement.description == undefined){
                 if(achievement.name.en.indexOf("Auraxium") > -1){
@@ -556,7 +556,7 @@ module.exports = {
             const vehicleHours = Math.floor(cInfo.topVehicleTime/60/60);
             const vehicleMinutes = Math.floor(cInfo.topVehicleTime/60 - vehicleHours*60);
             try{
-                let vehicleName = await getVehicleName(cInfo.favoriteVehicle);
+                let vehicleName = await getVehicleName(cInfo.favoriteVehicle, platform);
                 resEmbed.addField(i18n.__({phrase: 'Most Played Vehicle (time)', locale: locale}), 
                 `${i18n.__({phrase: vehicleName, locale: locale})} (${i18n.__mf({phrase: "{hour}h, {minute}m", locale: locale}, {hour: localeNumber(vehicleHours, locale), minute: vehicleMinutes})})`, true);
             }

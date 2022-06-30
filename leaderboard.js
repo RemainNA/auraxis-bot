@@ -17,7 +17,7 @@ const i18n = require('i18n');
  * @param {string} limit - the number of players to return
  * @returns {string} the url census request to use
  */
-constructExtension = function(name, period, world, limit){
+const constructExtension = function(name, period, world, limit){
 	if(world == undefined){
 		return `leaderboard/?name=${name}&period=${period}&c:limit=${limit}&c:resolve=character_name`
 	}

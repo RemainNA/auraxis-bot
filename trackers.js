@@ -133,7 +133,7 @@ module.exports = {
 	 * @param {string} tag - the tag of the outfit to check
 	 * @param {string} platform - the platform of the outfit
 	 * @param {boolean} showFaction - if true, show faction indicator in tracker
-	 * @param {string} guild - the discord guild
+	 * @param guild - the discord guild
 	 * @param {discord.client} discordClient - the discord Client
 	 * @param {pg.Client} pgClient - the postgres client
 	 * @returns 
@@ -216,7 +216,7 @@ module.exports = {
 					try{
 						const oName = await outfitName(row.outfitid, row.platform);
 						const channels = await pgClient.query("SELECT channel, showfaction FROM outfittracker WHERE outfitid = $1 AND platform = $2;", [row.outfitid, row.platform]);
-						for(channelRow of channels.rows){
+						for(const channelRow of channels.rows){
 							if(channelRow.showfaction){
 								await updateChannelName(oName.faction, channelRow.channel, discordClient, pgClient);
 							}

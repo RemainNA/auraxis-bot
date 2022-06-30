@@ -23,19 +23,19 @@ let euTimeout = 0;
  * @param {discord.Client} discordClient - discord client to use
  */
 function listen(pgClient, discordClient){
-    pcLogin = '{"service":"event","action":"subscribe","worlds":["1","10","13","17","19","40"],"eventNames":["PlayerLogin","PlayerLogout"]}';
-    pcAlerts = '{"service":"event","action":"subscribe","worlds":["1","10","13","17","19","40"],"eventNames":["MetagameEvent","FacilityControl"]}';
-    usLogin = '{"service":"event","action":"subscribe","worlds":["1000"],"eventNames":["PlayerLogin","PlayerLogout"]}';
-    usAlerts = '{"service":"event","action":"subscribe","worlds":["1000"],"eventNames":["MetagameEvent","FacilityControl"]}';
-    euLogin = '{"service":"event","action":"subscribe","worlds":["2000"],"eventNames":["PlayerLogin","PlayerLogout"]}';
-    euAlerts = '{"service":"event","action":"subscribe","worlds":["2000"],"eventNames":["MetagameEvent","FacilityControl"]}';
-    pcURI = 'wss://push.planetside2.com/streaming?environment=ps2&service-id=s:'+process.env.serviceID;
-    usURI = 'wss://push.planetside2.com/streaming?environment=ps2ps4us&service-id=s:'+process.env.serviceID;
-    euURI = 'wss://push.planetside2.com/streaming?environment=ps2ps4eu&service-id=s:'+process.env.serviceID;
+    const pcLogin = '{"service":"event","action":"subscribe","worlds":["1","10","13","17","19","40"],"eventNames":["PlayerLogin","PlayerLogout"]}';
+    const pcAlerts = '{"service":"event","action":"subscribe","worlds":["1","10","13","17","19","40"],"eventNames":["MetagameEvent","FacilityControl"]}';
+    const usLogin = '{"service":"event","action":"subscribe","worlds":["1000"],"eventNames":["PlayerLogin","PlayerLogout"]}';
+    const usAlerts = '{"service":"event","action":"subscribe","worlds":["1000"],"eventNames":["MetagameEvent","FacilityControl"]}';
+    const euLogin = '{"service":"event","action":"subscribe","worlds":["2000"],"eventNames":["PlayerLogin","PlayerLogout"]}';
+    const euAlerts = '{"service":"event","action":"subscribe","worlds":["2000"],"eventNames":["MetagameEvent","FacilityControl"]}';
+    const pcURI = 'wss://push.planetside2.com/streaming?environment=ps2&service-id=s:'+process.env.serviceID;
+    const usURI = 'wss://push.planetside2.com/streaming?environment=ps2ps4us&service-id=s:'+process.env.serviceID;
+    const euURI = 'wss://push.planetside2.com/streaming?environment=ps2ps4eu&service-id=s:'+process.env.serviceID;
 
     // PC Client
     if(!pcRunning){
-        pcClient = new WebSocket(pcURI);
+        const pcClient = new WebSocket(pcURI);
 
         pcClient.on('open', function open(){
             console.log('Connected to PC Stream API')
@@ -69,7 +69,7 @@ function listen(pgClient, discordClient){
     
     // US Client
     if(!usRunning){
-        usClient = new WebSocket(usURI);
+        const usClient = new WebSocket(usURI);
 
         usClient.on('open', function open(){
             console.log('Connected to PS4 US Stream API')
@@ -103,7 +103,7 @@ function listen(pgClient, discordClient){
     
     // EU Client
     if(!euRunning){
-        euClient = new WebSocket(euURI);
+        const euClient = new WebSocket(euURI);
 
         euClient.on('open', function open(){
             console.log('Connected to PS4 EU Stream API')

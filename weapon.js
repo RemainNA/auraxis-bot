@@ -149,7 +149,7 @@ module.exports = {
 				}
 				else{
 					// Some weapons with magazines don't have long/short reloads, e.g. P2-120 HEAT
-					const reload = localeNumber(wInfo.reload/1000);
+					const reload = localeNumber(wInfo.reload/1000, locale);
 					resEmbed.addField(i18n.__({phrase: "Reload", locale: locale}), 
 					i18n.__mf({phrase: "{time}s", locale: locale}, {time: reload}), true);
 				}

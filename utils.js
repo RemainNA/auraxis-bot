@@ -68,7 +68,7 @@ const serverIDs = {
  */
 function badQuery(input){
 	// This is its own function so a single list of disallowed characters can be maintained
-	return input.match(/[<@>!+&?%*#$^()_:/\\,`~[\]{}|+=]/g);
+	return input.match(/[<@>!+&?%*#$^()_:/\\,`~[\]{}|+=]/g) !== null;
 }
 
 /**

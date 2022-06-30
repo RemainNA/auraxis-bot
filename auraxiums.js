@@ -29,7 +29,7 @@ const getAuraxiumList = async function(cName, platform, locale='en-US'){
 	}
     let achievementList = response[0].character_id_join_characters_achievement;
     for(const x of achievementList){
-        achievement = x.achievement_id_join_achievement;
+        const achievement = x.achievement_id_join_achievement;
         if(achievement != undefined && x.finish_date != "1970-01-01 00:00:00.0"){
             if(achievement.description == undefined){
                 if(achievement.name.en.indexOf("Auraxium") > -1){

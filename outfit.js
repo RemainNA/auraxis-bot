@@ -46,7 +46,7 @@ const basicInfo = async function(oTag, platform, oID, locale="en-US"){
 		resObj.worldId = data.leader_character_id_join_characters_world.world_id;
 	}
 
-	onlineServiceAvailable = true;
+	let onlineServiceAvailable = true;
 	if(data.members != undefined && data.members[0].online_status == "service_unavailable"){
 		resObj["onlineMembers"] = i18n.__({phrase: "Online member count unavailable", locale: locale});
 		onlineServiceAvailable = false;
@@ -55,7 +55,7 @@ const basicInfo = async function(oTag, platform, oID, locale="en-US"){
 		resObj["onlineMembers"] = 0;
 	}
 	
-	now = Math.round(Date.now() / 1000); //Current Unix epoch
+	const now = Math.round(Date.now() / 1000); //Current Unix epoch
 
 	for(const i in data.members){
 		if(data.members[i].online_status > 0 && onlineServiceAvailable){
@@ -87,7 +87,7 @@ const basicInfo = async function(oTag, platform, oID, locale="en-US"){
 /**
  * Get the bases an outfit owns
  * @param {string} outfitID - outfit ID to query the database with
- * @param {string} worldID - the server ID the outfit is on
+ * @param {number} worldID - the server ID the outfit is on
  * @param {pg.Client} pgClient - Postgres client to use
  * @returns Array of owned bases
  */
