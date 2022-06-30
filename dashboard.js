@@ -28,10 +28,10 @@ const serverStatus = async function(serverID, pgClient){
 	// Population
 	const population = await getPopulation(serverID); 
 	const totalPop = population.vs + population.nc + population.tr + population.ns;
-	const vsPc = Number.parseFloat((population.vs/totalPop)*100).toPrecision(3);
-	const ncPc = Number.parseFloat((population.nc/totalPop)*100).toPrecision(3);
-	const trPc = Number.parseFloat((population.tr/totalPop)*100).toPrecision(3);
-	const nsPc = Number.parseFloat((population.ns/totalPop)*100).toPrecision(3);
+	const vsPc = ((population.vs/totalPop)*100).toPrecision(3);
+	const ncPc = ((population.nc/totalPop)*100).toPrecision(3);
+	const trPc = ((population.tr/totalPop)*100).toPrecision(3);
+	const nsPc = ((population.ns/totalPop)*100).toPrecision(3);
 	const populationField = `\
 	\n<:VS:818766983918518272> **VS**: ${population.vs}  |  ${vsPc}%\
 	\n<:NC:818767043138027580> **NC**: ${population.nc}  |  ${ncPc}%\
@@ -50,9 +50,9 @@ const serverStatus = async function(serverID, pgClient){
 			continue; // This accounts for Esamir being disabled on PS4
 		}
 		const timestamp = Date.parse(recordedStatus.rows[0][`${continent.toLowerCase()}change`])/1000;
-		const vsPc = Number.parseFloat((territory[continent].vs/totalTer)*100).toPrecision(3);
-		const ncPc = Number.parseFloat((territory[continent].nc/totalTer)*100).toPrecision(3);
-		const trPc = Number.parseFloat((territory[continent].tr/totalTer)*100).toPrecision(3);
+		const vsPc = ((territory[continent].vs/totalTer)*100).toPrecision(3);
+		const ncPc = ((territory[continent].nc/totalTer)*100).toPrecision(3);
+		const trPc = ((territory[continent].tr/totalTer)*100).toPrecision(3);
 		const owningFaction = faction(territory[continent].locked);
 		if(territory[continent].locked != -1){
 			territoryField += `**${continent}** ${owningFaction.decal}\nLocked <t:${timestamp}:R>\n${continentBenefit(continent)}\n\n`;
@@ -116,7 +116,7 @@ const outfitStatus = async function(outfitID, platform, pgClient){
 	resEmbed.setDescription(`${oInfo.onlineCount}/${oInfo.memberCount} online`);
 	resEmbed.setColor(faction(oInfo.faction).color)
 
-	if(oInfo.onlineCount == "Online member count unavailable"){
+	if(oInfo.onlineCount === -1){
 		resEmbed.addField("Online member count unavailable", "-");
 		resEmbed.setDescription(`?/${oInfo.memberCount} online`);
 	}

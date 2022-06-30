@@ -269,16 +269,16 @@ module.exports = {
 		let ahr = Math.floor(accuracy*hsr*10000);
 		let spm = Number.parseFloat(cInfo.score/(cInfo.playTime/60));
 		resEmbed.addField(i18n.__({phrase: "Kills", locale: locale}), totalKills.toLocaleString(locale), true);
-		resEmbed.addField(i18n.__({phrase: "Deaths", locale: locale}), parseInt(cInfo.deaths).toLocaleString(locale), true);
+		resEmbed.addField(i18n.__({phrase: "Deaths", locale: locale}), cInfo.deaths.toLocaleString(locale), true);
 		resEmbed.addField(i18n.__({phrase: "K/D", locale: locale}), localeNumber(totalKills/cInfo.deaths, locale), true);
 		resEmbed.addField(i18n.__({phrase: "Accuracy", locale: locale}), localeNumber(accuracy*100, locale)+"%", true);
 		totalHeadshots && resEmbed.addField(i18n.__({phrase: "HSR", locale: locale}), localeNumber(hsr*100, locale)+"%", true);
 		ahr && resEmbed.addField(i18n.__({phrase: "AHR Score", locale: locale}), `${ahr}`, true);
-		totalVehicleKills && resEmbed.addField(i18n.__({phrase: "Vehicle Kills", locale: locale}), parseInt(totalVehicleKills).toLocaleString(locale), true);
+		totalVehicleKills && resEmbed.addField(i18n.__({phrase: "Vehicle Kills", locale: locale}), totalVehicleKills.toLocaleString(locale), true);
 		resEmbed.addField(i18n.__({phrase: "Playtime", locale: locale}), hours+" hours, "+minutes+" minutes", true);
 		resEmbed.addField(i18n.__({phrase: "KPM", locale: locale}), localeNumber(totalKills/(cInfo.playTime/60), locale), true);
 		resEmbed.addField(i18n.__({phrase: "Avg Damage/Kill", locale: locale}), Math.floor(totalDamage/totalKills).toLocaleString(locale), true);
-		resEmbed.addField(i18n.__({phrase: "Score (SPM)", locale: locale}), parseInt(cInfo.score).toLocaleString(locale)+" ("+localeNumber(spm, locale)+")", true);
+		resEmbed.addField(i18n.__({phrase: "Score (SPM)", locale: locale}), cInfo.score.toLocaleString(locale)+" ("+localeNumber(spm, locale)+")", true);
 		resEmbed.setColor(faction(cInfo.faction).color)
 		if(wInfo.image_id != -1 && wInfo.image_id != undefined){
 			resEmbed.setThumbnail('http://census.daybreakgames.com/files/ps2/images/static/'+wInfo.image_id+'.png');

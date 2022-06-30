@@ -24,7 +24,7 @@ const popLevels = {
 
 /**
  * Get information for active alert on `server`
- * @param {string} server - the server to get the alerts for
+ * @param {number} server - the server to get the alerts for
  * @param {string} locale - the locale to use for messages
  * @returns all  currently active alerts on `server`
  */
@@ -99,8 +99,6 @@ module.exports = {
 		sendEmbed.setFooter({text: i18n.__mf({phrase: "Data from {site}", locale: locale}, {site: "ps2alerts.com"})});
 		sendEmbed.setTimestamp();
 		for(const x in alertObj){
-			console.log(x)
-			console.log(alertObj)
 			sendEmbed.addField(alertObj[x].name, "["+alertObj[x].description+"](https://ps2alerts.com/alert/"+alertObj[x].instanceId+"?utm_source=auraxis-bot&utm_medium=discord&utm_campaign=partners)");
 			sendEmbed.addField(i18n.__({phrase: "Start time", locale: locale}), `<t:${alertObj[x].timeStart}:t>`, true);
 			sendEmbed.addField(i18n.__({phrase: "Time left", locale: locale}), 

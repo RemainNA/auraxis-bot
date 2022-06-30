@@ -30,7 +30,7 @@ const environmentToPlatform = {
 
 /**
  * Tracks player login and logout events
- * @param {object} payload - The payload from the Stream API
+ * @param payload - The payload from the Stream API
  * @param {string} environment - which enviorment to query for
  * @param {pg.Client} pgClient - postgres client to use
  * @param {Discord.Client} discordClient - discord client to use
@@ -108,7 +108,7 @@ const logEvent = async function(payload, environment, pgClient, discordClient){
 
 /**
  * Get the name and description of the alert from payload and environment
- * @param {object} payload - The payload from the Stream API
+ * @param payload - The payload from the Stream API
  * @param {string} environment - which enviorment to query for
  * @returns {Promise<{name: string, description: string}>} - The name and description of the alert
  */
@@ -171,7 +171,7 @@ const trackedAlerts = [
 
 /**
  * Sends an alert embed to all channels that are subscribed to `/alerts`
- * @param {object} payload - The payload from the Stream API
+ * @param payload - The payload from the Stream API
  * @param {string} environment - which enviorment to query for
  * @param {pg.Client} pgClient - postgres client to use
  * @param {discord.Client} discordClient - discord client to use
@@ -239,12 +239,9 @@ const alertEvent = async function(payload, environment, pgClient, discordClient)
             }
             if(showTerritory && terObj != "" && continent != "Koltyr"){
                 let Total = terObj[continent].vs + terObj[continent].nc + terObj[continent].tr;
-                let vsPc = (terObj[continent].vs/Total)*100;
-                vsPc = Number.parseFloat(vsPc).toPrecision(3);
-                let ncPc = (terObj[continent].nc/Total)*100;
-                ncPc = Number.parseFloat(ncPc).toPrecision(3);
-                let trPc = (terObj[continent].tr/Total)*100;
-                trPc = Number.parseFloat(trPc).toPrecision(3);
+                let vsPc = ((terObj[continent].vs/Total)*100).toPrecision(3);
+                let ncPc = ((terObj[continent].nc/Total)*100).toPrecision(3);
+                let trPc = ((terObj[continent].tr/Total)*100).toPrecision(3);
                 sendEmbed.addField('Territory Control', `\
                 \n<:VS:818766983918518272> **VS**: ${terObj[continent].vs}  |  ${vsPc}%\
                 \n<:NC:818767043138027580> **NC**: ${terObj[continent].nc}  |  ${ncPc}%\
@@ -368,7 +365,7 @@ const centralBases = [
 
 /**
  * Send base event notification to all subscribed channels whenever a tracked outfit captures a base
- * @param {object} payload - the payload from the event
+ * @param payload - the payload from the event
  * @param {string} environment - the environment the outfit is in
  * @param {pg.Client} pgClient - postgres client to use
  * @param {discord.Client} discordClient - discord client to use
@@ -497,8 +494,8 @@ const captureContributions = async function(outfitID, baseID, timestamp, platfor
 
 /**
  * Checks for equality between object properties
- * @param {object} a - first object
- * @param {object} b - second object
+ * @param a - first object
+ * @param b - second object
  * @returns {boolean} true if the objects properties are equal, false otherwise
  */
 const objectEquality = function(a, b){

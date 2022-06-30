@@ -15,7 +15,7 @@ const i18n = require('i18n');
  * @param {string} platform - platform the outfit is on
  * @param {string | null} outfitID - outfit ID to check
  * @param {string} locale - locale to use
- * @returns a object containing the current online membeers of the outfit
+ * @returns a object containing the current online membeers of the outfit. If online member count is unavailable, object.OnlineCount will be -1.
  */
 const onlineInfo = async function(oTag, platform, outfitID = null, locale = "en-US"){
 	let url = `/outfit?alias_lower=${oTag}&c:resolve=member_online_status,rank,member_character_name&c:join=character^on:leader_character_id^to:character_id&c:join=characters_world^on:leader_character_id^to:character_id`;
@@ -46,7 +46,7 @@ const onlineInfo = async function(oTag, platform, outfitID = null, locale = "en-
 		resObj.faction = data.leader_character_id_join_character.faction_id;
 	}
 	if(data.members[0].online_status == "service_unavailable"){
-		resObj.onlineCount = "Online member count unavailable";
+		resObj.onlineCount = -1;
 		return resObj;
 	}
 	if(typeof(data.members[0].name) === 'undefined'){
@@ -96,7 +96,7 @@ module.exports = {
 	 * Get the online members of an outfit
 	 * @param {string} oTag - outfit tag to check
 	 * @param {string} platform - platform the outfit is on
-	 * @param {string} outfitID - outfit ID to check
+	 * @param {string | null} outfitID - outfit ID to check
 	 * @param {string} locale - locale to use
 	 * @returns a discord embed of the online members of the outfit
 	 */
@@ -125,8 +125,8 @@ module.exports = {
 			resEmbed.setURL('http://ps4eu.ps2.fisu.pw/outfit/?name='+oInfo.alias);
 		}
 		resEmbed.setColor(faction(oInfo.faction).color)
-		if(oInfo.onlineCount == "Online member count unavailable"){
-			resEmbed.addField(i18n.__({phrase: oInfo.onlineCount, locale: locale}), "-", true);
+		if(oInfo.onlineCount === -1){
+			resEmbed.addField(i18n.__({phrase: "Online member count unavailable", locale: locale}), "-", true);
 			resEmbed.setDescription(oInfo.alias+"\n"+"?/"+oInfo.memberCount+" online");
 
 			return resEmbed;
