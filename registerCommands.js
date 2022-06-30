@@ -1,3 +1,9 @@
+// @ts-check
+/**
+ * Run this file with `node registerCommands.js` to register all commands for the  discord bot
+ * @ts-check
+ * @module registerCommands
+ */
 const { REST } = require('@discordjs/rest');
 const { Routes } = require('discord-api-types/v9');
 
@@ -11,11 +17,17 @@ i18n.configure({
 	objectNotation: true
 })
 
+/**
+ * all server options
+ */
 const allOption = {
 	name: 'All',
 	value: 'all'
 }
 
+/**
+ * Different platforms PS2 servers are on
+ */
 const platforms = [
 	{
 		name: 'PC',
@@ -31,6 +43,9 @@ const platforms = [
 	}
 ]
 
+/**
+ * All servers excpet for Jaeger
+ */
 const serversNoJaeger = [
 	{
 		name: "Connery",
@@ -62,8 +77,14 @@ const serversNoJaeger = [
 	}
 ]
 
+/**
+ * All servers
+ */
 const servers = serversNoJaeger.concat([{name:"Jaeger", value: "jaeger"}]);
 
+/**
+ * All possible commands
+ */
 const data = [
 	{
 		name: 'ping',

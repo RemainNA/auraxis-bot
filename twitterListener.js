@@ -1,6 +1,11 @@
-// This file defines functions which establish a connection to the Twitter API and listen for tweets from certain accounts.
-// Most of the code for this file came from
-// https://github.com/twitterdev/Twitter-API-v2-sample-code/blob/main/Filtered-Stream/filtered_stream.js
+// @ts-check
+/**
+ * This file defines functions which establish a connection to the Twitter API and listen for tweets from certain accounts.
+ * Most of the code for this file came from
+ * https://github.com/twitterdev/Twitter-API-v2-sample-code/blob/main/Filtered-Stream/filtered_stream.js
+ * @ts-check
+ * @module twitterListener
+ */
 
 const got = require('got');
 const messageHandler = require('./messageHandler.js');
@@ -20,6 +25,10 @@ const rules = [
 	{ 'value': 'from:247430686', 'tag': 'planetside2' },
   ];
 
+/**
+ * Get the rules currently set in the Twitter API.
+ * @returns An array of objects containing the rules that are currently set
+ */
 async function getAllRules() {
 
     const response = await got(rulesURL, { headers: {
@@ -33,6 +42,11 @@ async function getAllRules() {
     return response.body;
 }
 
+/**
+ * Delete currently set rules.
+ * @param rules - An array of objects containing the rules that are currently set
+ * @returns the response from the Twitter API
+ */
 async function deleteAllRules(rules) {
 
     if (!Array.isArray(rules.data)) {
@@ -59,6 +73,10 @@ async function deleteAllRules(rules) {
     return (response.body);
 }
 
+/**
+ * set the rules in the Twitter API.
+ * @returns The response from the Twitter API
+ */
 async function setRules() {
 
     const data = {
@@ -77,6 +95,13 @@ async function setRules() {
     return (response.body);
 }
 
+/**
+ * 
+ * @param {string} token - The bearer token for the Twitter API
+ * @param {pg.Client} SQLclient - the PostgreSQL client to use
+ * @param {discord.client.channels} channels - the discord channels to send messages to
+ * @returns {Stream} A stream of tweets from the Twitter API
+ */
 function streamConnect(token, SQLclient, channels) {
 	const stream = got.stream(streamURL, {
 		headers: {
@@ -128,6 +153,14 @@ function streamConnect(token, SQLclient, channels) {
     return stream;
 }
 
+/**
+ * Send new twitter messages to subscribed discord channels
+ * @param {pg.Client} SQLclient - the PostgreSQL client to use
+ * @param {discord.client.channels} channels - the discord channels to send messages to
+ * @param {*} tag - the tag of the tweet
+ * @param {*} id - the id of the tweet
+ * @param {*} type - the type of the tweet
+ */
 async function postMessage(SQLclient, channels, tag, id, type){
 	const queryText = "SELECT * FROM news WHERE source = $1";
 	const queryValues = [`${tag}-twitter`];
@@ -178,6 +211,9 @@ async function postMessage(SQLclient, channels, tag, id, type){
 }
 
 module.exports = {
+	/**
+	 * initialize the Twitter API rules
+	 */
 	init: async function () {
 		try {
 			// Gets the complete list of rules currently applied to the stream
@@ -195,6 +231,11 @@ module.exports = {
 			console.log(e);
 		}
 	},
+	/**
+	 * Connect to the Twitter API stream and send new tweets to subscribed discord channels
+	 * @param {pg.Client} SQLclient - the PostgreSQL client to use
+	 * @param {discord.client.channels} channels - the discord channels to send messages to
+	 */
 	connect: async function (SQLclient, channels) {
 		// Listen to the stream.
 		// This reconnection logic will attempt to reconnect when a disconnection is detected.

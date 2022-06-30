@@ -1,4 +1,9 @@
-// This file implements functions which parse messages from the Stream API and send messages to the appropriate channels based on subscription status.
+// @ts-check
+/**
+ * This file implements functions which parse messages from the Stream API and send messages to the appropriate channels based on subscription status.
+ * @ts-check
+ * @module unifiedWSHandler
+ */
 
 const {MessageEmbed, Permissions} = require('discord.js');
 const messageHandler = require('./messageHandler.js');
@@ -11,19 +16,32 @@ const {serverNames, censusRequest, faction} = require('./utils.js');
 
 const wait = require('util').promisify(setTimeout);
 
+/**
+ * @example
+ * "ps2:v2": "pc" 
+ * "ps2ps4us:v2": "ps4us"
+ * "ps2ps4eu:v2": "ps4eu"
+ */
 const environmentToPlatform = {
     "ps2:v2": "pc",
     "ps2ps4us:v2": "ps4us",
     "ps2ps4eu:v2": "ps4eu"
 }
 
+/**
+ * Tracks player login and logout events
+ * @param {object} payload - The payload from the Stream API
+ * @param {string} environment - which enviorment to query for
+ * @param {pg.Client} pgClient - postgres client to use
+ * @param {Discord.Client} discordClient - discord client to use
+ */
 const logEvent = async function(payload, environment, pgClient, discordClient){
     let response = await censusRequest(environment, 'character_list', `/character/${payload.character_id}?c:resolve=outfit_member`);
     let platform = environmentToPlatform[environment];
     let playerEvent = payload.event_name.substring(6);
     if(response[0].outfit_member != null){
         let char = response[0];
-        let result = "";
+        let result = {};
         try{
             result = await pgClient.query("SELECT a.id, a.color, a.alias, a.channel, a.platform, c.autoDelete\
             FROM outfitActivity a LEFT JOIN subscriptionConfig c ON a.channel = c.channel\
@@ -88,6 +106,12 @@ const logEvent = async function(payload, environment, pgClient, discordClient){
     }
 }
 
+/**
+ * Get the name and description of the alert from payload and environment
+ * @param {object} payload - The payload from the Stream API
+ * @param {string} environment - which enviorment to query for
+ * @returns {Promise<{name: string, description: string}>} - The name and description of the alert
+ */
 const alertInfo = async function(payload, environment){
     if(typeof(alerts[payload.metagame_event_id]) !== 'undefined'){
         let resObj = {
@@ -107,6 +131,9 @@ const alertInfo = async function(payload, environment){
     }
 }
 
+/**
+ * alerts for each continent
+ */
 const trackedAlerts = [
     147,
     148,
@@ -142,6 +169,13 @@ const trackedAlerts = [
     226
 ];
 
+/**
+ * Sends an alert embed to all channels that are subscribed to `/alerts`
+ * @param {object} payload - The payload from the Stream API
+ * @param {string} environment - which enviorment to query for
+ * @param {pg.Client} pgClient - postgres client to use
+ * @param {discord.Client} discordClient - discord client to use
+ */
 const alertEvent = async function(payload, environment, pgClient, discordClient){
     if(payload.metagame_event_state_name == "started"){
         let server = serverNames[payload.world_id];
@@ -306,6 +340,9 @@ const alertEvent = async function(payload, environment, pgClient, discordClient)
     }
 }
 
+/**
+ * "outpost type": "resource generated (resource emoji)"
+ */
 const outfitResources = {
     "Small Outpost": "5 Auraxium <:Auraxium:818766792376713249>",
     "Large Outpost": "25 Auraxium <:Auraxium:818766792376713249>",
@@ -319,6 +356,9 @@ const outfitResources = {
     "Central base": "2 Polystellarite <:Polystellarite:818766888238448661>"
 }
 
+/**
+ * the base id for the central base on each continent
+ */
 const centralBases = [
     '6200', // The Crown
     '222280', // The Ascent
@@ -326,6 +366,14 @@ const centralBases = [
     '298000' // Nason's Defiance
 ]
 
+/**
+ * Send base event notification to all subscribed channels whenever a tracked outfit captures a base
+ * @param {object} payload - the payload from the event
+ * @param {string} environment - the environment the outfit is in
+ * @param {pg.Client} pgClient - postgres client to use
+ * @param {discord.Client} discordClient - discord client to use
+ * @returns 
+ */
 const baseEvent = async function(payload, environment, pgClient, discordClient){
     if(payload.new_faction_id == payload.old_faction_id){
         return; //Ignore defended bases
@@ -408,6 +456,14 @@ const baseEvent = async function(payload, environment, pgClient, discordClient){
     }
 }
 
+/**
+ * Get the players who contributed to the capture of a base
+ * @param {*} outfitID - the outfit id of the outfit that capture the base
+ * @param {*} baseID - the base id of the base that was captured
+ * @param {*} timestamp - the timestamp of the capture
+ * @param {*} platform - the platform the outfit is on
+ * @returns an array of outfit members that contributed to the capture
+ */
 const captureContributions = async function(outfitID, baseID, timestamp, platform){
     try{
         const response = await censusRequest(platform, 'outfit_list', `/outfit/${outfitID}?c:resolve=member_online_status`);
@@ -439,6 +495,12 @@ const captureContributions = async function(outfitID, baseID, timestamp, platfor
     
 }
 
+/**
+ * Checks for equality between object properties
+ * @param {object} a - first object
+ * @param {object} b - second object
+ * @returns {boolean} true if the objects properties are equal, false otherwise
+ */
 const objectEquality = function(a, b){
     if(typeof(a.character_id) !== 'undefined' && typeof(b.character_id) !== 'undefined'){
         return a.character_id == b.character_id && a.event_name == b.event_name;
@@ -452,6 +514,12 @@ const objectEquality = function(a, b){
     return false
 }
 
+/**
+ * Get basic information on a facility
+ * @param {string} facilityID - the facility id to get information of
+ * @param {string} environment - environment to check in
+ * @returns {Promise<{continent: string, name: string, type: string}>} 
+ */
 const baseInfo = async function(facilityID, environment){
     if(typeof(bases[facilityID]) !== 'undefined'){
         return bases[facilityID];
@@ -474,8 +542,18 @@ const baseInfo = async function(facilityID, environment){
     
 }
 
+/**
+ * a queue of events to be processed
+ */
 const queue = ["","","","",""];
 module.exports = {
+    /**
+     * Send an alert event and base event to all subscribed channels
+     * @param {*} payload - the payload of the event
+     * @param {*} environment - the environment the event was sent from
+     * @param {*} pgClient - the postgres client to use
+     * @param {*} discordClient - the discord client to use
+     */
     router: async function(payload, environment, pgClient, discordClient){
         for(let message of queue){
             if(objectEquality(message, payload)){

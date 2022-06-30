@@ -1,4 +1,9 @@
-//This file implements functions to look up currently active alerts from the ps2 alerts website
+// @ts-check
+/**
+ * This file implements functions to look up currently active alerts from the ps2 alerts website
+ * @ts-check
+ * @module alerts
+ */
 
 const Discord = require('discord.js');
 const alerts = require('./static/alerts.json');
@@ -6,6 +11,9 @@ const got = require('got');
 const { serverNames, serverIDs } = require('./utils');
 const i18n = require('i18n');
 
+/**
+ * The possible population levels of a server
+ */
 const popLevels = {
 	1: "Dead",
 	2: "Low",
@@ -14,6 +22,12 @@ const popLevels = {
 	5: "Prime"
 }
 
+/**
+ * Get information for active alert on `server`
+ * @param {string} server - the server to get the alerts for
+ * @param {string} locale - the locale to use for messages
+ * @returns all  currently active alerts on `server`
+ */
 const alertInfo = async function(server, locale='en-US'){
 	try{
 		let uri = 'https://api.ps2alerts.com/instances/active?world='+server;
@@ -65,9 +79,15 @@ const alertInfo = async function(server, locale='en-US'){
 }
 
 module.exports = {
+	/**
+	 * Create a discord embed of all active alerts on `server`
+	 * @param {string} server - the server to get the alerts for
+	 * @param {string} locale - the locale to use for messages
+	 * @returns a discord embed of all active alerts on `server`
+	 */
 	activeAlerts: async function(server, locale="en-US"){
 		const serverID = serverIDs[server];
-		let alertObj = "";
+		let alertObj = {};
 		try{
 			alertObj = await alertInfo(serverID);
 		}
@@ -79,6 +99,8 @@ module.exports = {
 		sendEmbed.setFooter({text: i18n.__mf({phrase: "Data from {site}", locale: locale}, {site: "ps2alerts.com"})});
 		sendEmbed.setTimestamp();
 		for(const x in alertObj){
+			console.log(x)
+			console.log(alertObj)
 			sendEmbed.addField(alertObj[x].name, "["+alertObj[x].description+"](https://ps2alerts.com/alert/"+alertObj[x].instanceId+"?utm_source=auraxis-bot&utm_medium=discord&utm_campaign=partners)");
 			sendEmbed.addField(i18n.__({phrase: "Start time", locale: locale}), `<t:${alertObj[x].timeStart}:t>`, true);
 			sendEmbed.addField(i18n.__({phrase: "Time left", locale: locale}), 

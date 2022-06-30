@@ -1,7 +1,22 @@
+// @ts-check
+/**
+ * Handles the `/online` command
+ * @ts-check
+ * @module online
+ */
+
 const Discord = require('discord.js');
 const { badQuery, censusRequest, faction} = require('./utils.js');
 const i18n = require('i18n');
 
+/**
+ * Get who is online in `oTag`
+ * @param {string} oTag - outfit tag to check
+ * @param {string} platform - platform the outfit is on
+ * @param {string | null} outfitID - outfit ID to check
+ * @param {string} locale - locale to use
+ * @returns a object containing the current online membeers of the outfit
+ */
 const onlineInfo = async function(oTag, platform, outfitID = null, locale = "en-US"){
 	let url = `/outfit?alias_lower=${oTag}&c:resolve=member_online_status,rank,member_character_name&c:join=character^on:leader_character_id^to:character_id&c:join=characters_world^on:leader_character_id^to:character_id`;
 	if(outfitID != null){
@@ -63,6 +78,11 @@ const onlineInfo = async function(oTag, platform, outfitID = null, locale = "en-
 	return resObj;
 }
 
+/**
+ * Used to get the number total number of characters from online outfit members
+ * @param {string[]} arr - array of online members
+ * @returns the amount of characters in the array
+ */
 const totalLength = function(arr){
 	let len = 0;
 	for(const i in arr){
@@ -72,6 +92,14 @@ const totalLength = function(arr){
 }
 
 module.exports = {
+	/**
+	 * Get the online members of an outfit
+	 * @param {string} oTag - outfit tag to check
+	 * @param {string} platform - platform the outfit is on
+	 * @param {string} outfitID - outfit ID to check
+	 * @param {string} locale - locale to use
+	 * @returns a discord embed of the online members of the outfit
+	 */
 	online: async function(oTag, platform, outfitID = null, locale = "en-US"){
 		if(badQuery(oTag)){
 			throw i18n.__({phrase: "Outfit search contains disallowed characters", locale: locale});

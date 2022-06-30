@@ -1,9 +1,20 @@
-// This file defines functions for retrieving population by faction for a given server/world
+// @ts-check
+/**
+ * This file defines functions for retrieving population by faction for a given server/world
+ * @ts-check
+ * @module population
+ */
+
 const Discord = require('discord.js');
 const got = require('got')
 const {servers, serverIDs, serverNames, localeNumber} = require('./utils.js');
 const i18n = require('i18n');
 
+/**
+ * Get the faction per population of a server
+ * @param {number} world - the server to get the population of
+ * @returns an object showing the total population of the server by faction
+ */
 const getPopulation = async function(world){
 	let url = '';
 	if(world == 2000){
@@ -45,6 +56,11 @@ const getPopulation = async function(world){
 	}
 }
 
+/**
+ * Get the fisu URL to the faction population of a server
+ * @param {number} serverID - the server to get the population of
+ * @returns the fisu url to the server's population
+ */
 const fisuPopulation = function(serverID){
 	if(serverID == 2000){
 		return 'http://ps4eu.ps2.fisu.pw/activity/?world=2000';
@@ -58,6 +74,12 @@ const fisuPopulation = function(serverID){
 }
 
 module.exports = {
+	/**
+	 * Create a discord embed showing the population of a server
+	 * @param {string} server - the server to get the population of 
+	 * @param {string} locale - the locale to use for the response
+	 * @returns a discord embed of the population of the server 
+	 */
 	lookup: async function(server, locale="en-US"){
 
 		if(server == 'all'){

@@ -1,10 +1,22 @@
-// This file defines functions to look up a list of a character's completed directives
+// @ts-check
+/**
+ * This file defines functions to look up a list of a character's completed directives
+ * @ts-check
+ * @module directives
+ */
 
 const {censusRequest, faction} = require('./utils.js');
 const Discord = require('discord.js');
 const directives = require('./static/directives.json');
 const i18n = require('i18n');
 
+/**
+ * Get the list of completed directives for a character
+ * @param {string} cName - the name of the character to look up
+ * @param {string} platform - the platform of the character
+ * @param {string} locale - the locale to use 
+ * @returns the list of completed directives and when they were completed
+ */
 const getDirectiveList = async function(cName, platform, locale="en-US"){
 	let nameResponse = await censusRequest(platform, 'character_list', `/character?name.first_lower=${cName}`);
 	if(nameResponse.length == 0){
@@ -20,6 +32,7 @@ const getDirectiveList = async function(cName, platform, locale="en-US"){
 	}
 
 	directiveList.sort((a,b) => b[1] - a[1]);
+	console.log(directiveList);
 	return {
 		name: nameResponse[0].name.first, 
 		faction: nameResponse[0].faction_id, 
@@ -28,6 +41,14 @@ const getDirectiveList = async function(cName, platform, locale="en-US"){
 }
 
 module.exports = {
+	/**
+	 * Send a message with the list of completed directives for a character
+	 * @param {string} cName - the name of the character to look up
+	 * @param {string} platform - the platform of the character
+	 * @param {boolean} expanded - whether to show the full list of directives or just the first few
+	 * @param {string} locale - the locale to use 
+	 * @returns a discord embed with the list of completed directives, when they were completed, and a fisu link to the character's directives
+	 */
 	directives: async function(cName, platform, expanded=false, locale="en-US"){
 		const directiveList = await getDirectiveList(cName.toLowerCase(), platform, locale);
 		let resEmbed = new Discord.MessageEmbed();

@@ -1,4 +1,9 @@
-// This file implements a function with three event listeners, one for each platform.  The event listeners pass all messages with payloads on to the handler function.
+// @ts-check
+/**
+ * This file implements a function with three event listeners, one for each platform.  The event listeners pass all messages with payloads on to the handler function.
+ * @ts-check
+ * @module unifiedWSListener
+ */
 
 const WebSocket = require('ws');
 const handler = require('./unifiedWSHandler');
@@ -11,6 +16,12 @@ let pcTimeout = 0;
 let usTimeout = 0;
 let euTimeout = 0;
 
+/**
+ * Create and start the event listeners for the three platforms
+ * Will automatically restart the listeners on an error
+ * @param {pg.Client} pgClient - postgresql client used to connect to the database
+ * @param {discord.Client} discordClient - discord client to use
+ */
 function listen(pgClient, discordClient){
     pcLogin = '{"service":"event","action":"subscribe","worlds":["1","10","13","17","19","40"],"eventNames":["PlayerLogin","PlayerLogout"]}';
     pcAlerts = '{"service":"event","action":"subscribe","worlds":["1","10","13","17","19","40"],"eventNames":["MetagameEvent","FacilityControl"]}';
@@ -125,6 +136,11 @@ function listen(pgClient, discordClient){
 }
 
 module.exports = {
+    /**
+     * Create and start the event listeners for the three platforms
+     * @param {pg.Client} pgClient - postgresql client used to connect to the database
+     * @param {discord.Client} discordClient - discord client to use
+     */
     start: function(pgClient, discordClient){
         listen(pgClient, discordClient);   
     }

@@ -1,8 +1,21 @@
+// @ts-check
+/**
+ * Look up basic information about an outfit
+ * @ts-check
+ * @module outfit
+ */
 const Discord = require('discord.js');
 const { serverNames, badQuery, censusRequest, localeNumber, faction } = require('./utils.js');
 const bases = require('./static/bases.json');
 const i18n = require('i18n');
 
+/**
+ * Get basic information about an outfit, online members, owned bases etc.
+ * @param {string} oTag - outfit tag to query the PS2 Census API with
+ * @param {string} platform - which platform to request, eg. ps2:v2, ps2ps4us:v2, or ps2ps4eu:v2
+ * @param {string} oID - outfit ID to query the PS2 Census API with 
+ * @param {string} locale - locale to use e.g. en-US
+ */
 const basicInfo = async function(oTag, platform, oID, locale="en-US"){
 	let url = `/outfit?alias_lower=${oTag}&c:resolve=member_online_status&c:join=character^on:leader_character_id^to:character_id&c:join=character^on:members.character_id^to:character_id^hide:certs&c:join=characters_world^on:leader_character_id^to:character_id`;
 	if(oID != null){
@@ -71,6 +84,13 @@ const basicInfo = async function(oTag, platform, oID, locale="en-US"){
 	return resObj;
 }
 
+/**
+ * Get the bases an outfit owns
+ * @param {string} outfitID - outfit ID to query the database with
+ * @param {string} worldID - the server ID the outfit is on
+ * @param {pg.Client} pgClient - Postgres client to use
+ * @returns Array of owned bases
+ */
 const ownedBases = async function(outfitID, worldID, pgClient){
 	let oBases = [];
 	try{
@@ -86,6 +106,9 @@ const ownedBases = async function(outfitID, worldID, pgClient){
 	}
 }
 
+/**
+ * The central bases for each continent
+ */
 const centralBases = [
     6200, // The Crown
     222280, // The Ascent
@@ -93,6 +116,13 @@ const centralBases = [
     298000 // Nason's Defiance
 ]
 
+/**
+ * Generate an outfit report on https://wt.honu.pw/report
+ * @param {string[]} outfits - the outfits to include in the report
+ * @param {number} start - start time of the repot
+ * @param {number} end - end time of the report
+ * @returns the URL to the report
+ */
 const generateReport = function(outfits, start, end){
 	let reportString = `${start},${end};`;
 	for(const outfit of outfits){
@@ -103,6 +133,15 @@ const generateReport = function(outfits, start, end){
 }
 
 module.exports = {
+	/**
+	 * Generate a discord embed overview of an outfit
+ 	 * @param {string} oTag - outfit tag to query the PS2 Census API with
+ 	 * @param {string} platform - which platform to request, eg. ps2:v2, ps2ps4us:v2, or ps2ps4eu:v2
+ 	 * @param {pg.Client} pgClient - Postgres client to use
+ 	 * @param {string | null} oID - outfit ID to query the PS2 Census API with 
+ 	 * @param {string} locale - locale to use e.g. en-US
+	 * @returns a discord embed object and an Array of buttons
+	 */
 	outfit: async function(oTag, platform, pgClient, oID = null, locale = "en-US"){
 		if(badQuery(oTag)){
 			throw i18n.__({phrase: "Outfit search contains disallowed characters", locale: locale});

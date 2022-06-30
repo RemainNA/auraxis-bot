@@ -1,9 +1,18 @@
-// This file implements functions to look up and report server status
+// @ts-check
+/**
+ * This file implements functions to look up and report server status
+ * @ts-check
+ * @module status
+ */
 
 const Discord = require('discord.js');
 const { censusRequest } = require('./utils.js');
 const i18n = require('i18n');
 
+/**
+ * Get the population status of each server
+ * @returns a discord embed of the current population status for each server
+ */
 const info = async function(){
 	let status = {
 		'Connery': 'Unknown',
@@ -52,6 +61,11 @@ const info = async function(){
 }
 
 module.exports = {
+	/**
+	 * Get a discord message of the status of each PS2 server
+	 * @param {string} locale - The locale to use
+	 * @returns a discord message of the status of each PS2 server
+	 */
 	servers: async function(locale="en-US"){
 		let status = await info();
 		let resEmbed = new Discord.MessageEmbed();

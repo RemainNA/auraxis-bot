@@ -1,10 +1,20 @@
-// This file defines functionality to parse weapons.json and return the relevant info
+// @ts-check
+/**
+ * This file defines functionality to parse weapons.json and return the relevant info
+ * @ts-check
+ * @module weaponInfo
+ */
 
 const Discord = require('discord.js');
 const weaponsJSON = require('./static/weapons.json');
 const {badQuery, localeNumber} = require('./utils.js');
 const i18n = require('i18n');
 
+/**
+ * Checks if any CoF values has been updated
+ * @param {string[]} CoF - list of CoF values for a weapon
+ * @returns true if any CoF does not equal "?"
+ */
 function CoFUpdated(CoF){
 	for(let x of CoF){
 		if(x != "?"){
@@ -14,10 +24,20 @@ function CoFUpdated(CoF){
 	return false;
 }
 
+/**
+ * Only checks if standing Cof is updated
+ * @param {string[]} CoF - list of CoF values for a weapon
+ * @returns true if only standing Cof does not equal "?"
+ */
 function standingOnly(CoF){
 	return CoF[0] != "?" && CoF[1] == "?" && CoF[2] == "?" && CoF[3] == "?" && CoF[4] == "?" && CoF[5] == "?";
 }
 
+/**
+ * Get weapon statistics for a weapon
+ * @param {string} name - name or ID of weapon to get info for
+ * @returns return weapon statistics as JSON
+ */
 const weaponInfo = async function(name){
 
 	name = name.replace(/[“”]/g, '"');
@@ -50,6 +70,11 @@ const weaponInfo = async function(name){
 	throw `${name} not found.`;
 }
 
+/**
+ * Checks if `query` is in any weapon name. Used to create a list of possible weapons to suggest to the user
+ * @param {string} query - query to check
+ * @returns a list of weapons names that contain `query`
+ */
 const partialMatches = async function(query){
 	let matches = [];
 	query = query.replace(/[“”]/g, '"').toLowerCase();
@@ -67,6 +92,12 @@ const partialMatches = async function(query){
 }
 
 module.exports = {
+	/**
+	 * Create a discord embed displaying weapon statistics
+	 * @param {string} name - name of weapon to show
+ 	 * @param {string} locale - locale to use e.g. en-US
+	 * @returns a discord embed of weapon stats, a description, and it's ID
+	 */
 	lookup: async function(name, locale="en-US"){
 		if(name.indexOf("[") > -1){
 			// Account for autocomplete breaking

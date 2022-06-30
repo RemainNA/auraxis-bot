@@ -1,7 +1,18 @@
-// This file implements functionality to configure subscriptions and the /config command
+// @ts-check
+/**
+ * This file implements functionality to configure subscriptions and the /config command
+ * @ts-check
+ * @module subscriptionConfig 
+ */
 
 const Discord = require('discord.js');
 
+/**
+ * Get the status of alert subscriptions for a `continent`
+ * @param {string} continent - The continent to check the status of
+ * @param {boolean} shown - whether alerts on a continent are being shown
+ * @returns A string containing the subscription status of the continent
+ */
 const getAlertStatus = function(continent, shown){
 	if(["Indar", "Hossin", "Amerish", "Esamir", "Oshur"].includes(continent)){
 		if(shown){
@@ -22,6 +33,9 @@ const getAlertStatus = function(continent, shown){
 	
 }
 
+/**
+ * all different continents
+ */
 const continents = [
 	"koltyr",
 	"indar",
@@ -33,6 +47,12 @@ const continents = [
 ]
 
 module.exports = {
+	/**
+	 * Gets the current configuration of subscriptions in a channel
+	 * @param {string} channel - the id of the channel to query 
+	 * @param {*} pgClient - the postgres client
+	 * @returns a discord message containing the current status of subscriptions
+	 */
 	displayConfig: async function(channel, pgClient){
 		try{
 			let res = await pgClient.query("SELECT * FROM subscriptionConfig WHERE channel=$1", [channel]);
@@ -67,6 +87,12 @@ module.exports = {
 		}
 	},
 
+	/**
+	 * Initializes the subscription config for a channel
+	 * @param {string} channel - the id of the channel to initialize
+	 * @param {pg.Client} pgClient - the postgres client
+	 * @returns the results of the initialization
+	 */
 	initializeConfig: async function(channel, pgClient){
 		try{
 			await pgClient.query("INSERT INTO subscriptionConfig (channel) VALUES ($1)\
@@ -80,6 +106,13 @@ module.exports = {
 		}
 	},
 
+	/**
+	 * Set the status of alerts on a continent
+	 * @param {string} continent - the continent to set the status of
+	 * @param {string} setting - if continent subscscriptions are being shown or not
+	 * @param {string} channel - the channel to set the status of
+	 * @param {pg.Client} pgClient - the postgres client
+	 */
 	setContinent: async function(continent, setting, channel, pgClient){
 		let res = await pgClient.query("SELECT * FROM subscriptionConfig WHERE channel = $1", [channel])
 		if (res.rows.length == 0){
@@ -157,6 +190,13 @@ module.exports = {
 		}
 	},
 
+	/**
+	 * Configure the autodelete setting for a channel
+	 * @param {string} message - the message to parse
+	 * @param {string} channel - the channel to set the autodelete setting for
+	 * @param {pg.Client} pgClient - the postgres client
+	 * @returns the status of autodelete
+	 */
 	setAutoDelete: async function(message, channel, pgClient){
 		let res = await pgClient.query("SELECT * FROM subscriptionConfig WHERE channel = $1", [channel])
 		if (res.rows.length == 0){
@@ -177,6 +217,12 @@ module.exports = {
 		}
 	},
 
+	/**
+	 * Audit the configuration for a channel
+	 * @param {string} channel - the channel to audit
+	 * @param {pg.Client} pgClient - the postgres client
+	 * @returns the staus of the channel's configuration
+	 */
 	audit: async function(channel, pgClient){
 		try{
 			const alerts = await pgClient.query("SELECT * FROM alerts WHERE channel = $1", [channel]);

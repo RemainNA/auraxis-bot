@@ -1,4 +1,9 @@
-// This file defines functions to look up a player's stats with a given vehicle
+// @ts-check
+/**
+ * This file defines functions to look up a player's stats with a given vehicle
+ * @ts-check
+ * @module vehicles
+ */
 
 const Discord = require('discord.js');
 const {censusRequest, localeNumber, faction} = require('./utils.js');
@@ -7,6 +12,13 @@ const {getWeaponName} = require('./character.js');
 const i18n = require('i18n');
 const utils = require('pg/lib/utils');
 
+/**
+ * Get a overview of a characters stats with a vechicle
+ * @param {string} cName - character name to look up
+ * @param {string} vehicleID - vehicle ID to look up
+ * @param {string} platform - which platform to request, eg. ps2:v2, ps2ps4us:v2, or ps2ps4eu:v2
+ * @returns an object containing the character's stats with the given vehicle
+ */
 const vehicleOverview = async function(cName, vehicleID, platform){
 	const response = await censusRequest(platform, 'character_list', `/character?name.first_lower=${cName.toLowerCase()}&c:resolve=weapon_stat_by_faction,weapon_stat`);
 	if(response.length == 0){
@@ -69,6 +81,14 @@ const vehicleOverview = async function(cName, vehicleID, platform){
 }
 
 module.exports = {
+	/**
+	 * Create an discord embed of a characters stats with a vehicle
+	 * @param {string} cName - character name to look up
+	 * @param {string} vehicleID - vehicle ID to look up
+	 * @param {string} platform - which platform to request, eg. ps2:v2, ps2ps4us:v2, or ps2ps4eu:v2 
+ 	 * @param {string} locale - locale to use e.g. en-US
+	 * @returns discord embed of character stats with a vehicle
+	 */
 	vehicle: async function(cName, vehicleID, platform, locale="en-US"){
 		let vehicleName = "";
 		let imageID = -1;
@@ -131,6 +151,11 @@ module.exports = {
 		return resEmbed;
 	},
 
+	/**
+	 * Checks if `query` is in any vehicle name
+	 * @param {string} query - query to search for	
+ 	 * @returns a list of vehicle names and ID that contain `query`
+	 */
 	partialMatches: async function(query){
 		let matches = [];
 		query = query.replace(/[“”]/g, '"').toLowerCase();

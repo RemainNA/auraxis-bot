@@ -1,9 +1,21 @@
-// This file implements a function which finds and returns the max BR a character reached before joining ASP, and tracks their ASP unlocks and tokens
+// @ts-check
+/**
+ * This file implements a function which finds and returns the max BR a character reached before joining ASP, and tracks their ASP unlocks and tokens
+ * @ts-check
+ * @module preASP
+ */
 
 const Discord = require('discord.js');
 const { censusRequest, badQuery, faction } = require('./utils.js');
 const i18n = require('i18n');
 
+/**
+ * Get basic information about a character's ASP unlocks and BR
+ * @param {string} cName - character name to check
+ * @param {string} platform  - what platform the character is on
+ * @param {string} locale -  locale to use
+ * @returns an object containing the ASP information about a character
+ */
 const basicInfo = async function(cName, platform, locale="en-US"){
 	let response = await censusRequest(platform, 'character_list', `/character?name.first_lower=${cName}&c:resolve=item_full&c:lang=en`);
     if(response.length == 0){
@@ -62,6 +74,13 @@ const basicInfo = async function(cName, platform, locale="en-US"){
 }
 
 module.exports = {
+	/**
+	 * Get ASP information about a character
+	 * @param {*} cName - character name to search
+	 * @param {*} platform - platform character is on
+	 * @param {*} locale - locale to use
+	 * @returns a discord embed of the character's ASP information
+	 */
 	originalBR: async function(cName, platform, locale="en-US"){
 		if(badQuery(cName)){
 			throw i18n.__({phrase: "Character search contains disallowed characters", locale: locale});

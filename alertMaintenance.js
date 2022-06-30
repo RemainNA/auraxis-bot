@@ -1,17 +1,30 @@
-// This file defines functions to update previously sent alert notifications
+// @ts-check
+/**
+ * This file defines functions to update previously sent alert notifications
+ * @module alertMaintenance
+ */
 
 const Discord = require('discord.js');
 const got = require('got');
 const alerts = require('./static/alerts.json');
 const {serverNames} = require('./utils.js');
 const {popLevels} = require('./alerts.js')
-
+/**
+ * faction winners
+ */
 const winnerFaction = {
 	1: "<:VS:818766983918518272> VS win",
 	2: "<:NC:818767043138027580> NC win",
 	3: "<:TR:818988588049629256> TR win",
 }
 
+/**
+ * Creates a new discord embed for updating the alert
+ * @param info - alert info from PS2Alerts
+ * @param {pg.Client} pgClient - postgres client
+ * @param {Discord.Client} discordClient - discord client
+ * @param {boolean} isComplete - true if alert is complete
+ */
 const updateAlert = async function(info, pgClient, discordClient, isComplete){
 	let messageEmbed = new Discord.MessageEmbed();
 	messageEmbed.setTimestamp();
@@ -78,6 +91,13 @@ const updateAlert = async function(info, pgClient, discordClient, isComplete){
 	})
 }
 
+/**
+ * 
+ * @param {Discord.MessageEmbed} embed - embed to edit
+ * @param {string} messageId - message id to edit
+ * @param {string} channelId - channel id to edit	
+ * @param {Discord.Client} discordClient - discord client
+ */
 const editMessage = async function(embed, messageId, channelId, discordClient){
 	try {
 		const resChann = await discordClient.channels.fetch(channelId)
@@ -95,6 +115,13 @@ const editMessage = async function(embed, messageId, channelId, discordClient){
 	}
 }
 
+/**
+ * Deletes alert if there is no longer a message to update it.
+ * If there is no error message for `row` will log error
+ * @param row - alert information from PS2Alerts
+ * @param {pg.Client} pgClient - postgres client
+ * @param {string} err - error message 
+ */
 const checkError = async function(row, pgClient, err){
 	if(row.error){
 		pgClient.query("DELETE FROM alertMaintenance WHERE alertID = $1;", [row.alertid]);
@@ -107,6 +134,11 @@ const checkError = async function(row, pgClient, err){
 }
 
 module.exports = {
+	/**
+	 * Update alert info in the database and edit discord messages
+	 * @param {pg.Client} pgClient - postgres client
+	 * @param {Discord.Client} discordClient - discord client
+	 */
 	update: async function(pgClient, discordClient){
 		let rows = await pgClient.query("SELECT DISTINCT alertID, error FROM alertMaintenance");
 

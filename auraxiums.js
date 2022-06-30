@@ -1,4 +1,9 @@
-// This file defines functions to look up a list of a character's auraxium medals
+// @ts-check
+/**
+ * This file defines functions to look up a list of a character's auraxium medals
+ * @ts-check
+ * @module auraxiums
+ */
 
 const {censusRequest, faction} = require('./utils.js');
 const Discord = require('discord.js');
@@ -6,6 +11,13 @@ const sanction = require('./static/sanction.json');
 const { localeNumber } = require('./utils.js');
 const i18n = require('i18n');
 
+/**
+ * Get a list of a character's Auraxium medals
+ * @param {string} cName - The name of the character
+ * @param {string} platform - platform of the character
+ * @param {string} locale - The locale to use for the response 
+ * @returns an object containing the character's name, faction, medals, and possible medals
+ */
 const getAuraxiumList = async function(cName, platform, locale='en-US'){
     // Calculates the number of Auraxium medals a specified character has
     let response = await censusRequest(platform, 'character_list', `/character?name.first_lower=${cName}&c:join=characters_achievement^list:1^outer:0^hide:character_id%27earned_count%27start%27finish%27last_save%27last_save_date%27start_date(achievement^terms:repeatable=0^outer:0^show:name.en%27description.en)&c:resolve=weapon_stat_by_faction`);
@@ -52,6 +64,14 @@ const getAuraxiumList = async function(cName, platform, locale='en-US'){
 }
 
 module.exports = {
+	/**
+	 * Create a discord embed with a list of a character's Auraxium medals
+	 * @param {string} cName - The name of the character
+	 * @param {string} platform - platform of the character
+	 * @param {boolean} expanded - Whether to show the full list of possible medals
+	 * @param {string} locale - The locale to use for the response 
+	 * @returns a discord message containing the character's name, faction, medals, and possible medals
+	 */
 	medals: async function(cName, platform, expanded=false, locale='en-US'){
 		const medalList = await getAuraxiumList(cName.toLowerCase(), platform, locale);
 

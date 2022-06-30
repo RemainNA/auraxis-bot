@@ -1,4 +1,9 @@
-// This file implements functions to look up a character's stats with a specific weapon
+// @ts-check
+/**
+ * This file implements functions to look up a character's stats with a specific weapon
+ * @ts-check
+ * @module stats
+ */
 
 const Discord = require('discord.js');
 const weaponsJSON = require('./static/weapons.json');
@@ -6,6 +11,13 @@ const sanction = require('./static/sanction.json');
 const { badQuery, censusRequest, localeNumber, faction } = require('./utils.js');
 const i18n = require('i18n');
 
+/**
+ * Get weapon name and id
+ * @param {string} name - The name of the weapon or  weapon ID
+ * @param searchSpace - A list of ID's to search
+ * @param {string} cName - The name of the character to check the weapon stats for
+ * @returns the weapon that matches `name`
+ */
 const getWeaponId = async function(name, searchSpace, cName=""){
 	//Check if ID matches
 
@@ -60,6 +72,9 @@ const getWeaponId = async function(name, searchSpace, cName=""){
 	
 }
 
+/**
+ * The different factions pools for weapons
+ */
 const factions = {
 	"0": "Common pool",
 	"1": "VS",
@@ -68,6 +83,11 @@ const factions = {
 	"4": "NSO"
 }
 
+/**
+ * Get a list of partial matches for a weapon name
+ * @param {string} query - The query to search for 
+ * @returns a list of  objects with the name and ID of the weapon
+ */
 const partialMatches = async function(query){
 	let matches = [];
 	let included = [];
@@ -101,6 +121,14 @@ const partialMatches = async function(query){
 	return matches;
 }
 
+/**
+ * Get character's stats with a specific weapon
+ * @param {string} cName - The name of the character to get the stats for
+ * @param {string} wName - The name of the weapon to get the stats for
+ * @param {string} platform - The platform to get the stats for
+ * @param {string} locale - The locale to get the stats for
+ * @returns character information for a specific weapon
+ */
 const characterInfo = async function(cName, wName, platform, locale="en-US"){
 	let response =  await censusRequest(platform, 'character_list', `/character?name.first_lower=${cName}&c:resolve=weapon_stat_by_faction,weapon_stat`);
     if(response.length == 0){
@@ -198,6 +226,14 @@ const characterInfo = async function(cName, wName, platform, locale="en-US"){
 }
 
 module.exports = {
+	/**
+	 * Look up weapon stats for a specific character and get a discord embed in return
+	 * @param {string} cName - The name of the character to get the stats for
+	 * @param {string} wName - The name of the weapon to get the stats for
+	 * @param {string} platform - The platform to get the stats for
+	 * @param {string} locale - the locale to use 
+	 * @returns a discord embed for a character weapons stats
+	 */
 	lookup: async function(cName, wName, platform, locale="en-US"){
 		if(badQuery(cName)){
 			throw i18n.__({phrase: "Character search contains disallowed characters", locale: locale});

@@ -1,10 +1,20 @@
-// This file defines several functions used in subscribing or unsubscribing to server alerts and outfit activity
+// @ts-check
+/**
+ * This file defines several functions used in subscribing or unsubscribing to server alerts and outfit activity
+ * @ts-check
+ * @module subscriptions
+ */
 
 const config = require('./subscriptionConfig.js');
 const { censusRequest, badQuery, faction } = require('./utils.js')
 const { Permissions } = require('discord.js');
 const i18n = require('i18n');
 
+/**
+ * Case insensitive way of getting server names
+ * @param {string} server - server name to standardize
+ * @returns capitalized server name
+ */
 const standardizeName = function(server){
     switch(server.toLowerCase()){
         case "connery":
@@ -26,6 +36,12 @@ const standardizeName = function(server){
     }
 }
 
+/**
+ * Get an overview of outfit information
+ * @param {string} tag - the tag of the outfit  to check
+ * @param {string} platform - the platform of the outfit
+ * @returns {Promise<{ID: string, faction: string, alias: string, name: string}>}
+ */
 const outfitInfo = async function(tag, platform){
     const response = await censusRequest(platform, 'outfit_list', `/outfit?alias_lower=${tag.toLowerCase()}&c:join=character^on:leader_character_id^to:character_id`);
     if(typeof(response[0]) != undefined && response[0]){
@@ -41,6 +57,11 @@ const outfitInfo = async function(tag, platform){
     throw `${tag} not found`;
 }
 
+/**
+ * Get the encoding scheme of twitter users in the database
+ *  @param {string} user - twitter user to check, is case insensitive
+ * @returns the encoding scheme of the user
+ */
 const twitterUsers = function(user){
     switch(user.toLowerCase()){
         case "remainna":
@@ -54,6 +75,13 @@ const twitterUsers = function(user){
     }
 }
 
+/**
+ * environment: platform
+ * @example
+ * "ps2:v2": "pc",
+ * "ps2ps4us:v2": "ps4us",
+ * "ps2ps4eu:v2": "ps4eu"
+ */
 const environmentToPlatform = {
     "ps2:v2": "pc",
     "ps2ps4us:v2": "ps4us",
@@ -61,6 +89,14 @@ const environmentToPlatform = {
 }
 
 module.exports = {
+    /**
+     * Subscribes to outfit member login and logouts
+     * @param {pg.Client} pgClient - Postgres client to use
+     * @param {string} channel - the id of the channel to update
+     * @param {string} tag - the tag of the outfit to subscribe to
+     * @param {string} environment - the platform of the outfit 
+     * @returns a message of the outcome of the subscription
+     */
     subscribeActivity: async function(pgClient, channel, tag, environment){
         //pgClient is the pgClient object from main
         //channel is the discord channel ID
@@ -86,6 +122,14 @@ module.exports = {
         }
     },
 
+    /**
+     * Unsubscribes from outfit member login and logouts
+     * @param {pg.Client} pgClient - Postgres client to use
+     * @param {string} channel - the id of the channel to unsubscribe from
+     * @param {string} tag - the tag of the outfit to unsubscribe from
+     * @param {string} environment - the platform of the outfit 
+     * @returns a message of the outcome of the unsubscription
+     */
     unsubscribeActivity: async function(pgClient, channel, tag, environment){
         if(badQuery(tag)){
 			throw "Outfit search contains disallowed characters";
@@ -100,6 +144,13 @@ module.exports = {
         return `Unsubscribed from ${outfit.alias} activity`;
     },
 
+    /**
+     * Subscribe to alerts on a server
+     * @param {*} pgClient - Postgres client to use
+     * @param {*} channel - the id of the channel to send messages to
+     * @param {*} server - the server of the alerts to get
+     * @returns a message of the outcome of the subscription
+     */
     subscribeAlert: async function(pgClient, channel, server){
         let count = await pgClient.query("SELECT count(*) FROM alerts WHERE channel=$1 AND world=$2;", [channel, server]);
         if(count.rows[0].count == 0){
@@ -117,6 +168,13 @@ module.exports = {
         throw `Already subscribed to ${standardizeName(server)} alerts`;
     },
 
+    /**
+     * Unsubscribe from alerts on a Server
+     * @param {pg.Client} pgClient - Postgres client to use 
+     * @param {string} channel - the id of the channel to unsubscribe from
+     * @param {string} server - the server of the alerts to unsubscribe from
+     * @returns the message of the outcome of the unsubscription
+     */
     unsubscribeAlert: async function(pgClient, channel, server){
         let count = await pgClient.query("SELECT COUNT(*) FROM alerts WHERE channel = $1 AND world=$2", [channel, server]);
         if(count.rows[0].count == 0){
@@ -128,6 +186,14 @@ module.exports = {
         return `Unsubscribed from ${standardizeName(server)} alerts`;
     },
 
+    /**
+     * Get updates on when an outfit captures a base
+     * @param {pg.Client} pgClient - Postgres client to use
+     * @param {string} channel - the id of the channel to send messages to
+     * @param {string} tag - the tag of the outfit
+     * @param {string} environment - the platform of the outfit 
+     * @returns the message of the outcome of the subscription
+     */
     subscribeCaptures: async function(pgClient, channel, tag, environment){
         if(badQuery(tag)){
 			throw "Outfit search contains disallowed characters";
@@ -148,6 +214,14 @@ module.exports = {
         }
     },
 
+    /**
+     * Unsubscribe from updates on when an outfit captures a base
+     * @param {pg.Client} pgClient - Postgres client to use
+     * @param {string} channel - the id of the channel to unsubscribe from
+     * @param {string} tag - the tag of the outfit
+     * @param {string} environment - the platform of the outfit 
+     * @returns the message of the outcome of the unsubscription
+     */
     unsubscribeCaptures: async function(pgClient, channel, tag, environment){
         if(badQuery(tag)){
 			throw "Outfit search contains disallowed characters";
@@ -162,6 +236,13 @@ module.exports = {
         return `Unsubscribed from ${outfit.alias} captures`;
     },
 
+    /**
+     * Subscribes to updates when a tracked twitter user posts a tweet
+     * @param {pg.Client} pgClient - Postgres client to use 
+     * @param {string} channelId - the id of the channel to send messages to
+     * @param {string} user - the twitter user to subscribe to
+     * @returns the message of the outcome of the subscription
+     */
     subscribeTwitter: async function(pgClient, channelId, user){
         if(badQuery(user)){
 			throw "User contains disallowed characters";
@@ -191,6 +272,13 @@ module.exports = {
         throw "Already subscribed to "+user+" Twitter";
     },
 
+    /**
+     * Unsubscribe from updates when a tracked twitter user posts a tweet
+     * @param {pg.Client} pgClient - Postgres client to use
+     * @param {string} channelId - the id of the channel to unsubscribe from
+     * @param {string} user - the twitter user to unsubscribe from
+     * @returns the message of the outcome of the unsubscription
+     */
     unsubscribeTwitter: async function(pgClient, channelId, user){
         if(badQuery(user)){
 			throw "User contains disallowed characters";
@@ -214,6 +302,13 @@ module.exports = {
         throw `Not subscribed to ${user} Twitter`;
     },
 
+    /**
+     * Subscribes to updates when a continent is unlocked on a server
+     * @param {pg.Client} pgClient - Postgres client to use
+     * @param {string} channel - the id of the channel to send messages to
+     * @param {string} server - the server to subscribe to
+     * @returns the message of the outcome of the subscription
+     */
     subscribeUnlocks: async function(pgClient, channel, server){
         let count = await pgClient.query("SELECT count(*) FROM unlocks WHERE channel=$1 AND world=$2;", [channel, server]);
         if(count.rows[0].count == 0){
@@ -230,6 +325,13 @@ module.exports = {
         throw `Already subscribed to ${standardizeName(server)} unlocks`;
     },
 
+    /**
+     * Unsubscribe from updates when a continent is unlocked on a server
+     * @param {pg.Client} pgClient - Postgres client to use
+     * @param {string} channel - the id of the channel to unsubscribe from
+     * @param {string} server - the server to unsubscribe from
+     * @returns the outcome of the unsubscription
+     */
     unsubscribeUnlocks: async function(pgClient, channel, server){
         let count = await pgClient.query("SELECT COUNT(*) FROM unlocks WHERE channel = $1 AND world=$2", [channel, server]);
         if(count.rows[0].count == 0){
@@ -241,6 +343,12 @@ module.exports = {
         return `Unsubscribed from ${standardizeName(server)} unlocks`;
     },
 
+    /**
+     * Unsubscribe from all subscriptions
+     * @param {pg.Client} pgClient - Postgres client to use
+     * @param {string} channelId - the id of the channel to unsubscribe from
+     * @returns a message of the outcome of the unsubscription
+     */
     unsubscribeAll: async function(pgClient, channelId){
         const commands = [
             "DELETE FROM alerts WHERE channel = $1",
@@ -259,6 +367,12 @@ module.exports = {
         return "Unsubscribed channel from all lists";
     },
 
+    /**
+     * Ensure that the channel has the correct permissions to allow the bot to send messages
+     * @param interaction - the interaction to check
+     * @param {Discord.Client.User} user - the user to check
+     * @param {string} locale - the locale of the channel 
+     */
     permissionCheck: async function(interaction, user, locale="en-US"){
         if(interaction.channel.type == 'DM'){
             return;

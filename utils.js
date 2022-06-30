@@ -1,6 +1,15 @@
-//This file defines commonly used components to cut down on code reuse
+// @ts-check
+/**
+ * This file defines commonly used components to cut down on code reuse
+ * @ts-check
+ * @module utils
+ */
+
 const got = require('got');
 
+/**
+ * A list of the different servers all lowercase
+ */
 const servers = [
 	"connery",
     "miller",
@@ -12,6 +21,9 @@ const servers = [
     "ceres"
 ]
 
+/**
+ * A list of the different continents all capitalized
+ */
 const continents = [
 	"Indar",
 	"Hossin",
@@ -21,6 +33,9 @@ const continents = [
 	"Koltyr"
 ]
 
+/**
+ * `serverID`: `serverName`
+ */
 const serverNames = {
 	1: "Connery",
 	10: "Miller",
@@ -32,6 +47,9 @@ const serverNames = {
 	2000: "Ceres"
 }
 
+/**
+ * `serverName`: `serverID`
+ */
 const serverIDs = {
     "connery": 1,
     "miller": 10,
@@ -43,11 +61,23 @@ const serverIDs = {
     "ceres": 2000
 }
 
+/**
+ * Checks for disallowed characters in `input`
+ * @param {string} input - string to check
+ * @returns {boolean} true if input contains a disallowed character
+ */
 function badQuery(input){
 	// This is its own function so a single list of disallowed characters can be maintained
 	return input.match(/[<@>!+&?%*#$^()_:/\\,`~[\]{}|+=]/g);
 }
 
+/**
+ * Send a request to the PS2 census API
+ * @param {string} platform - which environment to request, eg. ps2:v2, ps2ps4us:v2, or ps2ps4eu:v2
+ * @param {string} key - what information you want to get from the API
+ * @param {string} extension - the URL extension to request
+ * @returns results of the request encoded in JSON
+ */
 async function censusRequest(platform, key, extension){
 	// Places boilerplate error checking in one location and standardizes it
 	// Allows for easily changing https to http if there is an error
@@ -94,6 +124,12 @@ async function censusRequest(platform, key, extension){
 	}
 }
 
+/**
+ * Translate number to locale
+ * @param {number} n - number to convert
+ * @param {string} locale - locale to use e.g. en-US
+ * @returns {string} locale-formatted number
+ */
 function localeNumber(n, locale){
 	// Standardize numbers across commands, shorten bulky function call
 	if(n >= 1000){
@@ -108,7 +144,19 @@ function localeNumber(n, locale){
 	return n.toLocaleString(locale, {maximumFractionDigits: 3});
 }
 
+/**
+ * Get basic information of a faction
+ * @param {string} factionID - faction ID to get information of
+ * @returns {faction} `faction` object
+ */
 function faction(factionID){
+	/**
+	 * @typedef {Object} faction
+	 * @property {string} color - faction color
+	 * @property {string} decal - faction decal
+	 * @property {string} initial - faction initial
+	 * @property {string} tracker - faction color emoji	
+	 */
 	switch (String(factionID)){
 		case "1":
 			return {color: 'PURPLE', decal: '<:VS:818766983918518272>', initial: 'VS', tracker: '🟣'};

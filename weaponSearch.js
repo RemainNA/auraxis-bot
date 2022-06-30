@@ -1,10 +1,19 @@
-// This file defines functionality to search through known weapons and return matching results
+// @ts-check
+/**
+ * This file defines functionality to search through known weapons and return matching results
+ * @module weaponSearch
+ */
 
 const Discord = require('discord.js');
 const weaponsJSON = require('./static/weapons.json');
 const {badQuery} = require('./utils.js');
 
 module.exports = {
+	/**
+	 * Look up a weapon by name and return a list of matching results
+	 * @param {string} name - The name of the weapon to search for
+	 * @returns a discord embed of matching results
+	 */
 	lookup: async function(name){
 		if(badQuery(name)){
 			throw  "Weapon search contains disallowed characters";

@@ -1,4 +1,9 @@
-//This file implements functions to create and update server dashboards, showing population, territory control, and active alerts
+// @ts-check
+/**
+ * This file implements functions to create and update server dashboards, showing population, territory control, and active alerts
+ * @ts-check
+ * @module dashboard
+ */
 
 const {MessageEmbed} = require('discord.js');
 const messageHandler = require('./messageHandler.js');
@@ -10,6 +15,12 @@ const {ownedBases, centralBases} = require('./outfit.js');
 const bases = require('./static/bases.json');
 const {serverNames, serverIDs, servers, continents, faction} = require('./utils.js');
 
+/**
+ * Creates a server dashboard for the given serverID that keeps track of the population, territory control, and active alerts
+ * @param {number} serverID - The server ID 
+ * @param {pg.Client} pgClient - The postgres client 
+ * @returns the server dashboard embed
+ */
 const serverStatus = async function(serverID, pgClient){
 	let resEmbed = new MessageEmbed();
 	resEmbed.setTitle(`${serverNames[serverID]} Dashboard`);
@@ -77,6 +88,13 @@ const serverStatus = async function(serverID, pgClient){
 	return resEmbed;
 }
 
+/**
+ * Create a outfit dashboard that shows the bases owned by the outfit and current members online
+ * @param {string} outfitID - The outfit ID
+ * @param {string} platform - The platform
+ * @param {pg.Client} pgClient - The postgres client
+ * @returns the outfit dashboard embed
+ */
 const outfitStatus = async function(outfitID, platform, pgClient){
 	const oInfo = await onlineInfo("", platform, outfitID);
 	let resEmbed = new MessageEmbed();
@@ -154,6 +172,14 @@ const outfitStatus = async function(outfitID, platform, pgClient){
 	return resEmbed;
 }
 
+/**
+ * Edit dashboard embeds with new data
+ * @param {string} channelID - The channel ID where the current dashboard is
+ * @param {string} messageID - The message ID of the current dashboard
+ * @param {Discord.MessageEmbed} newDash - The new dashboard
+ * @param {pg.Client} pgClient = The postgres client
+ * @param {discord.Client} discordClient - The discord client 
+ */
 const editMessage = async function(channelID, messageID, newDash, pgClient, discordClient){
 	try{
 		const channel = await discordClient.channels.fetch(channelID);
@@ -174,6 +200,13 @@ const editMessage = async function(channelID, messageID, newDash, pgClient, disc
 }
 
 module.exports = {
+	/**
+	 * Creates a dashboard for a server
+	 * @param {discord.Client.Channel} channel - The channel to send the message to
+	 * @param {string} serverName - The server name
+	 * @param {pg.Client} pgClient - The postgres client 
+	 * @returns the status of the creation of the dashboard
+	 */
 	createServer: async function(channel, serverName, pgClient){
 		const resEmbed = await serverStatus(serverIDs[serverName], pgClient);
 		const messageID = await messageHandler.send(channel, {embeds: [resEmbed]}, "Create server dashboard", true);
@@ -186,6 +219,14 @@ module.exports = {
 		return "Dashboard successfully created.  It will be automatically updated every 5 minutes.";
 	},
 
+	/**
+	 * Creates a dashboard for an outfit
+	 * @param {discord.Client.Channel} channel - The channel to send the message to
+	 * @param {string} oTag - The tag of the outfit
+	 * @param {string} platform - The platform of the outfit
+	 * @param {pg.Client} pgClient - The postgres client
+	 * @returns 
+	 */
 	createOutfit: async function(channel, oTag, platform, pgClient){
 		const oInfo = await onlineInfo(oTag, platform);
 		const resEmbed = await outfitStatus(oInfo.outfitID, platform, pgClient);
@@ -199,6 +240,11 @@ module.exports = {
 		return "Dashboard successfully created.  It will be automatically updated every 5 minutes.";
 	},
 
+	/**
+	 * Updates current dashboards in discord channels
+	 * @param {pg.Client} pgClient - The postgres client
+	 * @param {discord.Client} discordClient - The discord client 
+	 */
 	update: async function(pgClient, discordClient){
 		for(const serverName of servers){
 			try{

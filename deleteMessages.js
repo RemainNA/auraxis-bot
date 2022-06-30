@@ -1,5 +1,16 @@
-// This file implements methods to list messages marked for deletion, and then delete them
+// @ts-check
+/**
+ * This file implements methods to list messages marked for deletion, and then delete them
+ * @ts-check
+ * @module deleteMessages
+ */
 
+/**
+ * Returns a list of discord messages marked for deletion
+ * @param {string} channelId - The channel to delete messages from
+ * @param {pg.Client} pgClient - The postgres client
+ * @param {discord.Client} discordClient - The discord client
+ */
 async function retrieveMessages(channelId, pgClient, discordClient){
 	const now = new Date();
 	try{
@@ -16,6 +27,12 @@ async function retrieveMessages(channelId, pgClient, discordClient){
 	}
 }
 
+/**
+ * Deletes discord messages marked for deletion
+ * @param {discord.Client.Channel} channel - The channel to delete messages from
+ * @param {string} message - The message to delete
+ * @param {*} pgClient - The postgres client
+ */
 async function deleteMessage(channel, message, pgClient){
 	try{
 		let msg = await channel.messages.fetch(message);
@@ -35,6 +52,11 @@ async function deleteMessage(channel, message, pgClient){
 }
 
 module.exports = {
+	/**
+	 * delete discord messages marked for deletion
+	 * @param {pg.Client} pgClient - The postgres client
+	 * @param {discord.Client} discordClient - The discord client 
+	 */
 	run: async function(pgClient, discordClient){
 		const now = new Date();
 		try{

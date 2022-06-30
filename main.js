@@ -1,4 +1,9 @@
-// This file implements the main event listener of the bot, which picks up messages, parses them for commands, and calls the appropriate functions.
+// @ts-check
+/**
+ * This file implements the main event listener of the bot, which picks up messages, parses them for commands, and calls the appropriate functions.
+ * @ts-check
+ * @module main
+ */
 
 // Import the discord.js module
 const Discord = require('discord.js');

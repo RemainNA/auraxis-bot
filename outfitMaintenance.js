@@ -1,7 +1,19 @@
-// This file defines functions to keep outfit info up to date in subscriptions
+// @ts-check
+/**
+ * This file defines functions to keep outfit info up to date in subscriptions
+ * @ts-check
+ * @module outfitMaintenance
+ */
 
 const {censusRequest} = require('./utils.js');
 
+/**
+ * `platform`: `environment`
+ * @example
+ * "pc": "ps2:v2"
+ * "ps4us": "ps2ps4us:v2"
+ * "ps4eu": "ps2ps4eu:v2"
+ */
 const platformToEnvironment = {
     "pc": "ps2:v2",
     "ps4us": "ps2ps4us:v2",
@@ -9,6 +21,10 @@ const platformToEnvironment = {
 }
 
 module.exports = {
+	/**
+	 * Update outfit login/logouts and outfit captures for current subscribed channels
+	 * @param {pg.Client} pgClient - Postgres client to use
+	 */
 	update: async function(pgClient){
 		let outfitIDs = [];
 		const activity = await pgClient.query("SELECT DISTINCT id, platform FROM outfitactivity;");

@@ -1,5 +1,11 @@
-// This file implements functions to look up a character's basic information, the number of Auraxium medals they have, and their top weapon
-// All three platforms are supported, but must be specified in the "platform" parameter
+// @ts-check
+/**
+ * This file implements functions to look up a character's basic information, the number of Auraxium medals they have, and their top weapon 
+ * All three platforms are supported, but must be specified in the "platform" parameter
+ * @ts-check
+ * @module character
+ */
+
 
 const Discord = require('discord.js');
 const weapons = require('./static/weapons.json');
@@ -10,6 +16,12 @@ const got = require('got');
 const i18n = require('i18n');
 const { serverNames, badQuery, censusRequest, localeNumber, faction } = require('./utils');
 
+/**
+ * Get basic character information
+ * @param {string} cName - The name of the character
+ * @param {string} platform - The platform of the character
+ * @returns an object containing the character's basic information
+ */
 const basicInfo = async function(cName, platform){
     // Main function for character lookup.  Pulls most stats and calls other functions for medals/top weapon info
     let response =  await censusRequest(platform, 'character_list', `/character?name.first_lower=${cName}&c:resolve=outfit_member_extended,online_status,world,stat_history,weapon_stat_by_faction,weapon_stat&c:join=title,characters_stat^list:1`)
@@ -182,6 +194,12 @@ const basicInfo = async function(cName, platform){
     return resObj;
 }
 
+/**
+ * Checks if character has ASP
+ * @param {string} cName - Character name
+ * @param {string} platform - platform character is on
+ * @returns true if character is ASP
+ */
 const checkASP = async function(cName, platform){
     let response = await censusRequest(platform, 'character_list', `/character?name.first_lower=${cName}&c:resolve=item_full&c:lang=en`);
     let data = response[0];
@@ -195,6 +213,14 @@ const checkASP = async function(cName, platform){
     return aspTitle;
 }
 
+/**
+ * Get all the characters kills for sanctioned weapons
+ * @param sanctionedStats - Object containing stats for IVI 
+ * @param {string} id - item id
+ * @param {string} key - key to add to object
+ * @param {number} value - value to add to sanctionedStats 
+ * @returns all the kills,
+ */
 const populateStats = function(sanctionedStats, id, key, value){
     if(id in sanctionedStats){
         sanctionedStats[id][key] = value;
@@ -206,6 +232,11 @@ const populateStats = function(sanctionedStats, id, key, value){
     return sanctionedStats;
 }
 
+/**
+ * Only certain weapons are infantry sanctioned and count for characters stats. Checks if weapon is infantry sanctioned
+ * @param {string} ID - item id 
+ * @returns true if weapon ID is sanctioned
+ */
 const includeInIVI = function(ID){
     if(ID in sanction && sanction[ID].sanction == "infantry"){
         return true;
@@ -213,6 +244,12 @@ const includeInIVI = function(ID){
     return false;
 }
 
+/**
+ * get weapon name from item id
+ * @param {number} ID - item id 
+ * @param {string} platform - platform to request
+ * @returns {Promise<string>} the weapon name
+ */
 const getWeaponName = async function(ID, platform){
     // Returns the name of the weapon ID specified.  If the Census API is unreachable it will fall back to the fisu api
     if(typeof(weapons[ID]) !== 'undefined'){
@@ -234,6 +271,12 @@ const getWeaponName = async function(ID, platform){
     throw "Not found";
 }
 
+/**
+ * Get vehicle name from vehicle id
+ * @param {string} ID - item id
+ * @param {string} platform - platform to request
+ * @returns the vechicle name
+ */
 const getVehicleName = async function(ID, platform){
     if(typeof(vehicles[ID]) !== 'undefined'){
         return vehicles[ID].name;
@@ -246,6 +289,12 @@ const getVehicleName = async function(ID, platform){
     throw "Not found";
 }
 
+/**
+ * Get the number of auraxium's a character has
+ * @param {string} cName 
+ * @param {string} platform 
+ * @returns the number of auraxium's
+ */
 const getAuraxiumCount = async function(cName, platform){
     // Calculates the number of Auraxium medals a specified character has
     let response = await censusRequest(platform, 'character_list', `/character?name.first_lower=${cName}&c:join=characters_achievement^list:1^outer:0^hide:character_id%27earned_count%27start%27finish%27last_save%27last_save_date%27start_date(achievement^terms:repeatable=0^outer:0^show:name.en%27description.en)`);
@@ -270,6 +319,13 @@ const getAuraxiumCount = async function(cName, platform){
     return medalCount;
 }
 
+/**
+ * Get recent stats of a character
+ * @param {string} cID - character id
+ * @param {string} platform - platform to request
+ * @param {string} days - number of days to look back
+ * @returns the recent stats of the character from that time frame
+ */
 const recentStatsInfo =  async function(cID, platform, days){
     const response = await censusRequest(platform, 'character_list', `/character/${cID}?c:resolve=stat_history&c:join=title,characters_stat^list:1`);
     const data = response[0];
@@ -310,6 +366,13 @@ const recentStatsInfo =  async function(cID, platform, days){
 }
 
 module.exports = {
+    /**
+     * Create a discord embed of an overview of a character lifetime stats
+     * @param {string} cName - character name
+     * @param {string} platform - platform to request
+     * @param {string} locale - locale to use
+     * @returns a discord embed with the character info
+     */
     character: async function(cName, platform, locale="en-US"){
         // Calls function to get basic info, extracts info from returned object and constructs the Discord embed to send
         if(badQuery(cName)){
@@ -504,6 +567,14 @@ module.exports = {
         return [resEmbed, [row]];
     },
 
+    /**
+     * Get the recent stats of a player
+     * @param {string} cID - Character ID
+     * @param {string} platform - Platform
+     * @param {string} days - Number of days to look back
+     * @param {string} locale - Locale to use
+     * @returns a discord embed of  the character's recent stats
+     */
     recentStats: async function(cID, platform, days, locale="en-US"){
         const cInfo = await recentStatsInfo(cID, platform, days);
         if(cInfo.time == 0){

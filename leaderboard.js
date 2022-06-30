@@ -1,9 +1,22 @@
-// This file defines functions to query the PS2 leaderboard
+// @ts-check
+/**
+ * This file defines functions to query the PS2 leaderboard
+ * @ts-check
+ * @module leaderboard
+ */
 
 const {censusRequest, serverIDs, serverNames} = require('./utils.js');
 const Discord = require('discord.js');
 const i18n = require('i18n');
 
+/**
+ * Get the right URL extension for the PS2 census API
+ * @param {string} name - the type of leaderboard to query
+ * @param {string} period - the time period to query
+ * @param {string} world - which server to query
+ * @param {string} limit - the number of players to return
+ * @returns {string} the url census request to use
+ */
 constructExtension = function(name, period, world, limit){
 	if(world == undefined){
 		return `leaderboard/?name=${name}&period=${period}&c:limit=${limit}&c:resolve=character_name`
@@ -13,6 +26,15 @@ constructExtension = function(name, period, world, limit){
 
 
 module.exports = {
+	/**
+	 * Creates a discord embed of the  leaderboard for a given type, time period, and server
+	 * @param {string} name - the type of leaderboard to query
+	 * @param {string} period - the time period to query
+	 * @param {string} server - the server to query
+	 * @param {string} limit - the number of players to return
+	 * @param {string} locale - the locale to use
+	 * @returns a discord embed of the current leaderboard on the given server
+	 */
 	lookup: async function(name, period, server, limit, locale='en-US'){
 		let platform = 'ps2:v2';
 		if(server == 'genudine'){
