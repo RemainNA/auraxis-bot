@@ -458,10 +458,10 @@ const baseEvent = async function(payload, environment, pgClient, discordClient){
 
 /**
  * Get the players who contributed to the capture of a base
- * @param {*} outfitID - the outfit id of the outfit that capture the base
- * @param {*} baseID - the base id of the base that was captured
- * @param {*} timestamp - the timestamp of the capture
- * @param {*} platform - the platform the outfit is on
+ * @param {string} outfitID - the outfit id of the outfit that capture the base
+ * @param {string} baseID - the base id of the base that was captured
+ * @param {string} timestamp - the timestamp of the capture
+ * @param {string} platform - the platform the outfit is on
  * @returns an array of outfit members that contributed to the capture
  */
 const captureContributions = async function(outfitID, baseID, timestamp, platform){
@@ -549,10 +549,10 @@ const queue = ["","","","",""];
 module.exports = {
     /**
      * Send an alert event and base event to all subscribed channels
-     * @param {*} payload - the payload of the event
-     * @param {*} environment - the environment the event was sent from
-     * @param {*} pgClient - the postgres client to use
-     * @param {*} discordClient - the discord client to use
+     * @param payload - the payload of the event
+     * @param {string} environment - the environment the event was sent from
+     * @param {pg.Client} pgClient - the postgres client to use
+     * @param {discord.Client} discordClient - the discord client to use
      */
     router: async function(payload, environment, pgClient, discordClient){
         for(let message of queue){

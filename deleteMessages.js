@@ -31,7 +31,7 @@ async function retrieveMessages(channelId, pgClient, discordClient){
  * Deletes discord messages marked for deletion
  * @param {discord.Client.Channel} channel - The channel to delete messages from
  * @param {string} message - The message to delete
- * @param {*} pgClient - The postgres client
+ * @param {pg.Client} pgClient - The postgres client
  */
 async function deleteMessage(channel, message, pgClient){
 	try{

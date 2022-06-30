@@ -157,9 +157,9 @@ function streamConnect(token, SQLclient, channels) {
  * Send new twitter messages to subscribed discord channels
  * @param {pg.Client} SQLclient - the PostgreSQL client to use
  * @param {discord.client.channels} channels - the discord channels to send messages to
- * @param {*} tag - the tag of the tweet
- * @param {*} id - the id of the tweet
- * @param {*} type - the type of the tweet
+ * @param {string} tag - the tag of the tweet
+ * @param {string} id - the id of the tweet
+ * @param {string} type - the type of the tweet
  */
 async function postMessage(SQLclient, channels, tag, id, type){
 	const queryText = "SELECT * FROM news WHERE source = $1";

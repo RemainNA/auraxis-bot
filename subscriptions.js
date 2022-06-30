@@ -146,9 +146,9 @@ module.exports = {
 
     /**
      * Subscribe to alerts on a server
-     * @param {*} pgClient - Postgres client to use
-     * @param {*} channel - the id of the channel to send messages to
-     * @param {*} server - the server of the alerts to get
+     * @param {pg.Client} pgClient - Postgres client to use
+     * @param {string} channel - the id of the channel to send messages to
+     * @param {string} server - the server of the alerts to get
      * @returns a message of the outcome of the subscription
      */
     subscribeAlert: async function(pgClient, channel, server){

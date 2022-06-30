@@ -76,9 +76,9 @@ const basicInfo = async function(cName, platform, locale="en-US"){
 module.exports = {
 	/**
 	 * Get ASP information about a character
-	 * @param {*} cName - character name to search
-	 * @param {*} platform - platform character is on
-	 * @param {*} locale - locale to use
+	 * @param {string} cName - character name to search
+	 * @param {string} platform - platform character is on
+	 * @param {string} locale - locale to use
 	 * @returns a discord embed of the character's ASP information
 	 */
 	originalBR: async function(cName, platform, locale="en-US"){

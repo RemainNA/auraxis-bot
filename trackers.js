@@ -84,11 +84,11 @@ const updateChannelName = async function(name, channelID, discordClient, pgClien
 module.exports = {
 	/**
 	 * Used to create tracker channels for server population and territory
-	 * @param {*} type - the type of tracker to create
-	 * @param {*} serverName - the server to check
-	 * @param {*} guild - the discord guild
-	 * @param {*} discordClient - the discord Client
-	 * @param {*} pgClient - the postgres client
+	 * @param {string} type - the type of tracker to create
+	 * @param {string} serverName - the server to check
+	 * @param guild - the discord guild
+	 * @param {discord.Client} discordClient - the discord Client
+	 * @param {pg.Client} pgClient - the postgres client
 	 * @returns A string saying  the tracker channel was created
 	 */
 	create: async function(type, serverName, guild, discordClient, pgClient){

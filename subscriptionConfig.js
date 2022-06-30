@@ -50,7 +50,7 @@ module.exports = {
 	/**
 	 * Gets the current configuration of subscriptions in a channel
 	 * @param {string} channel - the id of the channel to query 
-	 * @param {*} pgClient - the postgres client
+	 * @param {pg.Client} pgClient - the postgres client
 	 * @returns a discord message containing the current status of subscriptions
 	 */
 	displayConfig: async function(channel, pgClient){
