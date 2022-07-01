@@ -22,7 +22,7 @@ module.exports = {
 		let found = [];
 		for(const id in weaponsJSON){
 			if(weaponsJSON[id].name.toLowerCase().includes(name)){
-				let info = `${weaponsJSON[id].name} [${id}]`
+				let info = `${weaponsJSON[id].name} [${id}]`;
 				if((curLength+info.length) > 1020){
 					found.push("...");
 					break;

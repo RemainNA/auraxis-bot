@@ -2,6 +2,9 @@
  * This file implements functionality to configure subscriptions and the /config command
  * @module subscriptionConfig 
  */
+/**
+ * @typedef {import('pg').Client} pg.Client
+ */
 
 const Discord = require('discord.js');
 
@@ -94,8 +97,8 @@ module.exports = {
 	initializeConfig: async function(channel, pgClient){
 		try{
 			await pgClient.query("INSERT INTO subscriptionConfig (channel) VALUES ($1)\
-		ON CONFLICT(channel) DO NOTHING;", [channel])
-			return "Configuration step succeeded."
+		ON CONFLICT(channel) DO NOTHING;", [channel]);
+			return "Configuration step succeeded.";
 		}
 		catch(err){
 			console.log("Error when initializing subscription config");
@@ -123,31 +126,31 @@ module.exports = {
 			switch(continent){
 				case "koltyr":
 					pgClient.query("UPDATE subscriptionConfig SET koltyr = true WHERE channel = $1;", [channel])
-						.catch(err => {throw(err)})
+						.catch(err => {throw(err)});
 					return("Koltyr alerts will be displayed");
 				case "indar":
 					pgClient.query("UPDATE subscriptionConfig SET indar = true WHERE channel = $1;", [channel])
-						.catch(err => {throw(err)})
+						.catch(err => {throw(err)});
 					return("Indar alerts and unlocks will be displayed");
 				case "hossin":
 					pgClient.query("UPDATE subscriptionConfig SET hossin = true WHERE channel = $1;", [channel])
-						.catch(err => {throw(err)})
+						.catch(err => {throw(err)});
 					return("Hossin alerts and unlocks will be displayed");
 				case "amerish":
 					pgClient.query("UPDATE subscriptionConfig SET amerish = true WHERE channel = $1;", [channel])
-						.catch(err => {throw(err)})
+						.catch(err => {throw(err)});
 					return("Amerish alerts and unlocks will be displayed");
 				case "esamir":
 					pgClient.query("UPDATE subscriptionConfig SET esamir = true WHERE channel = $1;", [channel])
-						.catch(err => {throw(err)})
+						.catch(err => {throw(err)});
 					return("Esamir alerts and unlocks will be displayed");
 				case "oshur":
 					pgClient.query("UPDATE subscriptionConfig SET oshur = true WHERE channel = $1;", [channel])
-						.catch(err => {throw(err)})
+						.catch(err => {throw(err)});
 					return("Oshur alerts and unlocks will be displayed");
 				case "other":
 					pgClient.query("UPDATE subscriptionConfig SET other = true WHERE channel = $1;", [channel])
-						.catch(err => {throw(err)})
+						.catch(err => {throw(err)});
 					return("Other alerts will be displayed");
 			}
 		}
@@ -155,7 +158,7 @@ module.exports = {
 			switch(continent){
 				case "koltyr":
 					pgClient.query("UPDATE subscriptionConfig SET koltyr = false WHERE channel = $1;", [channel])
-						.catch(err => {throw(err)})
+						.catch(err => {throw(err)});
 					return("Koltyr alerts will not be displayed");
 				case "indar":
 					pgClient.query("UPDATE subscriptionConfig SET indar = false WHERE channel = $1;", [channel])
@@ -179,12 +182,12 @@ module.exports = {
 					return("Oshur alerts and unlocks will not be displayed");
 				case "other":
 					pgClient.query("UPDATE subscriptionConfig SET other = false WHERE channel = $1;", [channel])
-						.catch(err => {throw(err)})
+						.catch(err => {throw(err)});
 					return("Other alerts will not be displayed");
 			}
 		}
 		else{
-			throw("Setting unrecognized.  Options are enable or disable.")
+			throw("Setting unrecognized.  Options are enable or disable.");
 		}
 	},
 
@@ -202,12 +205,12 @@ module.exports = {
 		}
 		if(message.trim().toLowerCase() == 'enable'){
 			pgClient.query("UPDATE subscriptionConfig SET autoDelete = true WHERE channel = $1;", [channel])
-				.catch(err => {throw(err)})
+				.catch(err => {throw(err)});
 			return("Alerts and outfit activity notifications will be automatically deleted");
 		}
 		else if(message.trim().toLowerCase() == 'disable'){
 			pgClient.query("UPDATE subscriptionConfig SET autoDelete = false WHERE channel = $1;", [channel])
-				.catch(err => {throw(err)})
+				.catch(err => {throw(err)});
 			return("Alerts and outfit activity notifications will not be automatically deleted");
 		}
 		else{
@@ -253,7 +256,7 @@ module.exports = {
 				status += "Configuration settings created";
 			}
 			else{
-				status += "No issues found"
+				status += "No issues found";
 			}
 			return status;
 		}
@@ -263,8 +266,8 @@ module.exports = {
 			}
 			else{
 				console.log("Subscription config error");
-				console.log(err)
-				throw("Error when performing subscription configuration audit")
+				console.log(err);
+				throw("Error when performing subscription configuration audit");
 			}
 		}
 	}

@@ -23,7 +23,7 @@ const { serverNames, badQuery, censusRequest, localeNumber, faction } = require(
  */
 const basicInfo = async function(cName, platform){
     // Main function for character lookup.  Pulls most stats and calls other functions for medals/top weapon info
-    let response =  await censusRequest(platform, 'character_list', `/character?name.first_lower=${cName}&c:resolve=outfit_member_extended,online_status,world,stat_history,weapon_stat_by_faction,weapon_stat&c:join=title,characters_stat^list:1`)
+    let response =  await censusRequest(platform, 'character_list', `/character?name.first_lower=${cName}&c:resolve=outfit_member_extended,online_status,world,stat_history,weapon_stat_by_faction,weapon_stat&c:join=title,characters_stat^list:1`);
     if(response.length == 0){
         throw `${cName} not found`;
     }
@@ -43,7 +43,7 @@ const basicInfo = async function(cName, platform){
         inOutfit: false,
         stats: false,
         stat_history: false
-    }
+    };
     if(platform != 'ps2:v2' && data.faction_id != 4){
         try{
             let manualPrestige = await checkASP(cName, platform);
@@ -70,7 +70,7 @@ const basicInfo = async function(cName, platform){
         resObj.stats = true;
         let topID = 0;
         let mostKills = 0;
-        let sanctionedStats = {}
+        let sanctionedStats = {};
 
         // Find most used weapon
         if(typeof(data.stats.weapon_stat_by_faction) !== 'undefined'){
@@ -342,7 +342,7 @@ const recentStatsInfo =  async function(cID, platform, days){
         score: 0,
         certs: 0,
         battle_rank: 0
-    }
+    };
     if(data.stats?.stat_history == undefined){
         throw "Unable to retrieve stat history";
     }
@@ -508,7 +508,7 @@ module.exports = {
                     .setCustomId(`outfit%${cInfo.outfitID}%${platform}`)
                     .setLabel(i18n.__({phrase: 'View outfit', locale: locale}))
                     .setStyle('PRIMARY')
-            )
+            );
         }
 
         // Top Weapon, Auraxium medals
@@ -528,22 +528,22 @@ module.exports = {
             let className = " ";
             switch(cInfo.topClass){
                 case "1":
-                    className = i18n.__({phrase: 'Infiltrator', locale: locale})
+                    className = i18n.__({phrase: 'Infiltrator', locale: locale});
                     break;
                 case "3":
-                    className = i18n.__({phrase: 'Light Assault', locale: locale})
+                    className = i18n.__({phrase: 'Light Assault', locale: locale});
                     break;
                 case "4":
-                    className = i18n.__({phrase: 'Medic', locale: locale})
+                    className = i18n.__({phrase: 'Medic', locale: locale});
                     break;
                 case "5":
-                    className = i18n.__({phrase: 'Engineer', locale: locale})
+                    className = i18n.__({phrase: 'Engineer', locale: locale});
                     break;
                 case "6":
-                    className = i18n.__({phrase: 'Heavy Assault', locale: locale})
+                    className = i18n.__({phrase: 'Heavy Assault', locale: locale});
                     break;
                 case "7":
-                    className = i18n.__({phrase: 'MAX', locale: locale})
+                    className = i18n.__({phrase: 'MAX', locale: locale});
                     break;
             }
             resEmbed.addField(i18n.__({phrase: 'Most Played Class (time)', locale: locale}), 
@@ -582,7 +582,7 @@ module.exports = {
         const resEmbed = new Discord.MessageEmbed();
         resEmbed.setTitle(cInfo.name);
         resEmbed.setDescription(i18n.__mf({phrase: '{day} day stats ending <t{end}d>', locale: locale}, {day: days, end: `:${cInfo.lastSave}:`}));
-        resEmbed.setColor(faction(cInfo.faction).color)
+        resEmbed.setColor(faction(cInfo.faction).color);
         resEmbed.addField(i18n.__({phrase: 'Score (SPM)', locale: locale}), `${cInfo.score.toLocaleString(locale)} (${localeNumber(cInfo.score/(cInfo.time/60), locale)})`, true);
         const hours = Math.floor(cInfo.time/60/60);
         const minutes = Math.floor(cInfo.time/60 - hours*60);

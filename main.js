@@ -112,7 +112,7 @@ client.on('ready', async () => {
 		}, 600000) //Update trackers every 10 minutes
 	}
 
-	client.user.setActivity('/help')
+	client.user.setActivity('/help');
 });
 
 const listOfCommands = 
@@ -203,7 +203,7 @@ client.on('interactionCreate', async interaction => {
 						}
 					}
 					else{
-						toSend = {embeds: [res.value[0]], components: res.value[1]}
+						toSend = {embeds: [res.value[0]], components: res.value[1]};
 					}
 					if(firstCharacter){
 						await interaction.editReply(toSend);
@@ -253,7 +253,7 @@ client.on('interactionCreate', async interaction => {
 						}
 					}
 					else{
-						toSend = {embeds: [res.value[0]], components: res.value[1]}
+						toSend = {embeds: [res.value[0]], components: res.value[1]};
 					}
 					if(firstOutfit){
 						await interaction.editReply(toSend);
@@ -291,7 +291,7 @@ client.on('interactionCreate', async interaction => {
 						}
 					}
 					else{
-						toSend = {embeds: [res.value]}
+						toSend = {embeds: [res.value]};
 					}
 					if(firstOnline){
 						await interaction.editReply(toSend);

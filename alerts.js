@@ -19,7 +19,7 @@ const popLevels = {
 	3: "Medium",
 	4: "High",
 	5: "Prime"
-}
+};
 
 /**
  * Get information for active alert on `server`
@@ -40,7 +40,7 @@ const alertInfo = async function(server, locale='en-US'){
 		if(response.length == 0){
 			throw i18n.__mf({phrase: "No active alerts on {server}", locale: locale}, {server: i18n.__({phrase: serverNames[server], locale: locale})});
 		}
-		let allAlerts = []
+		let allAlerts = [];
 		for(let alert of response){
 			if(typeof(alerts[alert.censusMetagameEventType]) === 'undefined'){
 				console.log("Unable to find alert info for id "+alert.censusMetagameEventType);
@@ -61,7 +61,7 @@ const alertInfo = async function(server, locale='en-US'){
 				timeStart: start/1000,
 				instanceId: alert.instanceId,
 				bracket: alert.bracket
-			}
+			};
 			allAlerts.push(resObj);
 		}
 		
@@ -69,7 +69,7 @@ const alertInfo = async function(server, locale='en-US'){
 	}
 	catch(err){
 		if(typeof(err) == 'string'){
-			throw err
+			throw err;
 		}
 		else{
 			throw `Error retrieving alert information: ${err.message}`;
@@ -102,11 +102,11 @@ module.exports = {
 			sendEmbed.addField(i18n.__({phrase: "Start time", locale: locale}), `<t:${alertObj[x].timeStart}:t>`, true);
 			sendEmbed.addField(i18n.__({phrase: "Time left", locale: locale}), 
 			i18n.__mf({phrase: "Ends {time}", locale: locale}, {time: `<t:${alertObj[x].timeEnd}:R>`}), true);
-			sendEmbed.addField(i18n.__({phrase: "Activity Level", locale: locale}), i18n.__({phrase: popLevels[alertObj[x].bracket], locale: locale}), true)
+			sendEmbed.addField(i18n.__({phrase: "Activity Level", locale: locale}), i18n.__({phrase: popLevels[alertObj[x].bracket], locale: locale}), true);
 			sendEmbed.addField(i18n.__({phrase: "Territory Control", locale: locale}), `\
 			\n<:VS:818766983918518272> **${i18n.__({phrase: "VS", locale: locale})}**: ${alertObj[x].vs}%\
 			\n<:NC:818767043138027580> **${i18n.__({phrase: "NC", locale: locale})}**: ${alertObj[x].nc}%\
-			\n<:TR:818988588049629256> **${i18n.__({phrase: "TR", locale: locale})}**: ${alertObj[x].tr}%`)
+			\n<:TR:818988588049629256> **${i18n.__({phrase: "TR", locale: locale})}**: ${alertObj[x].tr}%`);
 			if(x != alertObj.length-1){
 				sendEmbed.addField('\u200b', '\u200b');
 			}

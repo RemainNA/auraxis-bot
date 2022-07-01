@@ -99,7 +99,7 @@ module.exports = {
 	lookup: async function(name, locale="en-US"){
 		if(name.indexOf("[") > -1){
 			// Account for autocomplete breaking
-			const splitList = name.split("[")
+			const splitList = name.split("[");
 			name = splitList[splitList.length-1].split("]")[0];
 		}
 		if(badQuery(name)){
@@ -259,7 +259,7 @@ module.exports = {
 
 		if(CoFUpdated(hipCOFMin) || CoFUpdated(adsCOFMin)){
 			if(standingOnly(hipCOFMin) || standingOnly(adsCOFMin)){
-				resEmbed.addField('\u200b', '\u200b')
+				resEmbed.addField('\u200b', '\u200b');
 			}
 			else{
 				resEmbed.addField("-------------------", i18n.__({phrase: "*CoF shown Stand/Crouch/Walk/Sprint/Fall/Crouch Walk*", locale: locale}));
@@ -270,12 +270,12 @@ module.exports = {
 			if(standingOnly(hipCOFMin)){
 				resEmbed.addField(i18n.__({phrase: "Hipfire CoF Min", locale: locale}), hipCOFMin[0], true);
 				resEmbed.addField(i18n.__({phrase: "Hipfire CoF Max", locale: locale}), hipCOFMax[0], true);
-				resEmbed.addField('\u200b', '\u200b', true)
+				resEmbed.addField('\u200b', '\u200b', true);
 			}
 			else{
 				resEmbed.addField(i18n.__({phrase: "Hipfire CoF Min", locale: locale}), hipCOFMin[0]+"/"+hipCOFMin[1]+"/"+hipCOFMin[2]+"/"+hipCOFMin[3]+"/"+hipCOFMin[4]+"/"+hipCOFMin[5], true);
 				resEmbed.addField(i18n.__({phrase: "Hipfire CoF Max", locale: locale}), hipCOFMax[0]+"/"+hipCOFMax[1]+"/"+hipCOFMax[2]+"/"+hipCOFMax[3]+"/"+hipCOFMax[4]+"/"+hipCOFMax[5], true);
-				resEmbed.addField('\u200b', '\u200b', true)
+				resEmbed.addField('\u200b', '\u200b', true);
 			}
 		}
 
@@ -283,12 +283,12 @@ module.exports = {
 			if(standingOnly(adsCOFMin)){
 				resEmbed.addField(i18n.__({phrase: "ADS CoF Min", locale: locale}), adsCOFMin[0], true);
 				resEmbed.addField(i18n.__({phrase: "ADS CoF Max", locale: locale}), adsCOFMax[0], true);
-				resEmbed.addField('\u200b', '\u200b', true)
+				resEmbed.addField('\u200b', '\u200b', true);
 			}
 			else{
 				resEmbed.addField(i18n.__({phrase: "ADS CoF Min", locale: locale}), adsCOFMin[0]+"/"+adsCOFMin[1]+"/"+adsCOFMin[2]+"/"+adsCOFMin[3]+"/"+adsCOFMin[4]+"/"+adsCOFMin[5], true);
 				resEmbed.addField(i18n.__({phrase: "ADS CoF Max", locale: locale}), adsCOFMax[0]+"/"+adsCOFMax[1]+"/"+adsCOFMax[2]+"/"+adsCOFMax[3]+"/"+adsCOFMax[4]+"/"+adsCOFMax[5], true);
-				resEmbed.addField('\u200b', '\u200b', true)
+				resEmbed.addField('\u200b', '\u200b', true);
 			}
 			
 		}

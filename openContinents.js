@@ -2,6 +2,10 @@
  * This file implements functions to check which continents are open, update base ownership, and send unlock notifications
  * @module openContinents
  */
+/**
+ * @typedef {import('pg').Client} pg.Client
+ * @typedef {import('discord.js').Client} discord.Client
+ */
 
 const {territoryInfo} = require('./territory.js');
 const {serverIDs, serverNames, servers, continents} = require('./utils.js');
@@ -94,7 +98,7 @@ module.exports = {
 							}
 						}
 						catch(err){
-							console.log("Unlock error")
+							console.log("Unlock error");
 							console.log(err);
 						}
 						trackers.update(pgClient, discordClient, true); //Update trackers with new continent

@@ -38,18 +38,18 @@ const getPopulation = async function(world){
 			tr: response.result[0].tr,
 			ns: response.result[0].ns,
 			world: world
-		}
+		};
 		return resObj;
 	}
 	catch(err){
 		if(typeof(err) === 'string'){
-			throw(err)
+			throw(err);
 		}
 		else if(err.code == 'ECONNREFUSED'){
-			throw("ECONNREFUSED")
+			throw("ECONNREFUSED");
 		}
 		else{
-			throw("Error retrieving population statistics.")
+			throw("Error retrieving population statistics.");
 		}
 	}
 }
@@ -103,7 +103,7 @@ module.exports = {
 			resEmbed.setTitle(i18n.__mf({phrase: "Total population - {total}", locale: locale}, {total: total.toLocaleString(locale)}));
 			resEmbed.setFooter({text: i18n.__mf({phrase: "Data from {site}", locale: locale}, {site: "ps2.fisu.pw"})});
 			resEmbed.setTimestamp();
-			return resEmbed
+			return resEmbed;
 		}
 		else{
 			const serverID = serverIDs[server];

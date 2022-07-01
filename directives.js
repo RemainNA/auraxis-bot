@@ -54,7 +54,7 @@ module.exports = {
 		let textList = "";
 		let remaining = directiveList.directives.length;
 		if(remaining == 0){
-			throw i18n.__mf({phrase: "{name} has not completed any directives", locale: locale}, {name: directiveList.name})
+			throw i18n.__mf({phrase: "{name} has not completed any directives", locale: locale}, {name: directiveList.name});
 		}
 		if(expanded){
 			remaining = 0
@@ -88,13 +88,13 @@ module.exports = {
 		resEmbed.setColor(faction(directiveList.faction).color)
 		resEmbed.setThumbnail('https://census.daybreakgames.com/files/ps2/images/static/84283.png');
 		if(platform == 'ps2:v2'){
-			resEmbed.setURL(`https://ps2.fisu.pw/directive/?name=${directiveList[0]}`)
+			resEmbed.setURL(`https://ps2.fisu.pw/directive/?name=${directiveList[0]}`);
 		}
 		else if(platform == 'ps2ps4us:v2'){
-			resEmbed.setURL(`https://ps4us.ps2.fisu.pw/directive/?name=${directiveList[0]}`)
+			resEmbed.setURL(`https://ps4us.ps2.fisu.pw/directive/?name=${directiveList[0]}`);
 		}
 		else if(platform == 'ps2ps4eu:v2'){
-			resEmbed.setURL(`https://ps4eu.ps2.fisu.pw/directive/?name=${directiveList[0]}`)
+			resEmbed.setURL(`https://ps4eu.ps2.fisu.pw/directive/?name=${directiveList[0]}`);
 		}
 		if(remaining > 0){
 			const row = new Discord.MessageActionRow()
@@ -104,7 +104,7 @@ module.exports = {
 					.setLabel(i18n.__({phrase: "View all", locale: locale}))
 					.setStyle('PRIMARY')
 			);
-			return [resEmbed, [row]]
+			return [resEmbed, [row]];
 		}
 		else{
 			return [resEmbed, []];

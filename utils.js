@@ -17,7 +17,7 @@ const servers = [
     "soltech",
     "genudine",
     "ceres"
-]
+];
 
 /**
  * A list of the different continents all capitalized
@@ -29,7 +29,7 @@ const continents = [
 	"Esamir",
 	"Oshur",
 	"Koltyr"
-]
+];
 
 /**
  * `serverID`: `serverName`
@@ -43,7 +43,7 @@ const serverNames = {
 	40: "SolTech",
 	1000: "Genudine",
 	2000: "Ceres"
-}
+};
 
 /**
  * `serverName`: `serverID`
@@ -57,7 +57,7 @@ const serverIDs = {
     "soltech": 40,
     "genudine": 1000,
     "ceres": 2000
-}
+};
 
 /**
  * Checks for disallowed characters in `input`
@@ -110,13 +110,13 @@ async function censusRequest(platform, key, extension){
             throw "Census API unreachable: 404";
         }
 		if(err.name == 'ParseError'){
-			throw "Census API unavailable: Redirect"
+			throw "Census API unavailable: Redirect";
 		}
 		if(err.code == 'ECONNRESET'){
-			throw "Census API error: ECONNRESET"
+			throw "Census API error: ECONNRESET";
 		}
 		if(err.code == 'ECONNREFUSED'){
-			throw "Census API error: ECONNREFUSED"
+			throw "Census API error: ECONNREFUSED";
 		}
 		throw err;
 	}

@@ -144,9 +144,9 @@ const characterInfo = async function(cName, wName, platform, locale="en-US"){
 		hits: 0,
 		playTime: 0,
 		score: 0
-	}
+	};
 
-	let validIds = []
+	let validIds = [];
 
 	// This for loop determines the search space, limited to what weapons the character has actually used
 	for(let weapon of data.stats.weapon_stat_by_faction){
@@ -238,7 +238,7 @@ module.exports = {
 		}
 		if(wName.indexOf("[") > -1){
 			// Account for autocomplete breaking
-			const splitList = wName.split("[")
+			const splitList = wName.split("[");
 			wName = splitList[splitList.length-1].split("]")[0];
 		}
 		if(badQuery(wName)){

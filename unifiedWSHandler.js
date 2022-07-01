@@ -2,6 +2,10 @@
  * This file implements functions which parse messages from the Stream API and send messages to the appropriate channels based on subscription status.
  * @module unifiedWSHandler
  */
+/**
+ * @typedef {import('pg').Client} pg.Client
+ * @typedef {import('discord.js').Client} discord.Client
+ */
 
 const {MessageEmbed, Permissions} = require('discord.js');
 const messageHandler = require('./messageHandler.js');
@@ -31,7 +35,7 @@ const environmentToPlatform = {
  * @param payload - The payload from the Stream API
  * @param {string} environment - which enviorment to query for
  * @param {pg.Client} pgClient - postgres client to use
- * @param {Discord.Client} discordClient - discord client to use
+ * @param {discord.Client} discordClient - discord client to use
  */
 const logEvent = async function(payload, environment, pgClient, discordClient){
     let response = await censusRequest(environment, 'character_list', `/character/${payload.character_id}?c:resolve=outfit_member`);
@@ -52,7 +56,7 @@ const logEvent = async function(payload, environment, pgClient, discordClient){
             let sendEmbed = new MessageEmbed();
             sendEmbed.setTitle(result.rows[0].alias+' '+playerEvent);
             sendEmbed.setDescription(char.name.first);
-            sendEmbed.setColor(faction(char.faction_id).color)
+            sendEmbed.setColor(faction(char.faction_id).color);
             for (let row of result.rows){
                 discordClient.channels.fetch(row.channel)
                     .then(resChann => {
@@ -63,9 +67,9 @@ const logEvent = async function(payload, environment, pgClient, discordClient){
                                     if(messageId != -1 && row.autodelete == true){
                                         const in5minutes = new Date((new Date()).getTime() + 300000);
                                         pgClient.query("INSERT INTO toDelete (channel, messageID, timeToDelete) VALUES ($1, $2, $3)", [row.channel, messageId, in5minutes])
-                                            .catch(err => {console.log(err);})
+                                            .catch(err => {console.log(err);});
                                     }
-                                })
+                                });
                                 
                             }
                             else{
@@ -79,7 +83,7 @@ const logEvent = async function(payload, environment, pgClient, discordClient){
                                 if(messageId != -1 && row.autodelete === true){
                                     const in5minutes = new Date((new Date()).getTime() + 30000);
                                     pgClient.query("INSERT INTO toDelete (channel, messageID, timeToDelete) VALUES ($1, $2, $3)", [row.channel, messageId, in5minutes])
-                                        .catch(err => {console.log(err);})
+                                        .catch(err => {console.log(err);});
                                 }
                                 else if(messageId == -1){
                                     subscriptions.unsubscribeAll(pgClient, row.channel);
@@ -98,7 +102,7 @@ const logEvent = async function(payload, environment, pgClient, discordClient){
                         else{
                             console.log(error);
                         }
-                    })
+                    });
             }
         }
     }
@@ -115,7 +119,7 @@ const alertInfo = async function(payload, environment){
         let resObj = {
             name: alerts[payload.metagame_event_id].name,
             description: alerts[payload.metagame_event_id].description
-        }
+        };
         return resObj;
     }
     let response = await censusRequest(environment, "metagame_event_list", `/metagame_event/${payload.metagame_event_id}`);
@@ -126,7 +130,7 @@ const alertInfo = async function(payload, environment){
     return  {
         name: response[0].name.en,
         description: response[0].description.en
-    }
+    };
 }
 
 /**
@@ -206,8 +210,8 @@ const alertEvent = async function(payload, environment, pgClient, discordClient)
             catch{
                 
             }
-            let continent = "Other"
-            let showTerritory = false
+            let continent = "Other";
+            let showTerritory = false;
             if(response.name.toLowerCase().indexOf("indar") > -1){
                 continent = "Indar";
                 showTerritory = true;
@@ -243,7 +247,7 @@ const alertEvent = async function(payload, environment, pgClient, discordClient)
                 sendEmbed.addField('Territory Control', `\
                 \n<:VS:818766983918518272> **VS**: ${terObj[continent].vs}  |  ${vsPc}%\
                 \n<:NC:818767043138027580> **NC**: ${terObj[continent].nc}  |  ${ncPc}%\
-                \n<:TR:818988588049629256> **TR**: ${terObj[continent].tr}  |  ${trPc}%`)
+                \n<:TR:818988588049629256> **TR**: ${terObj[continent].tr}  |  ${trPc}%`);
             }
             else if(showTerritory){
                 let vsPc = Number.parseFloat(payload.faction_vs).toPrecision(3);
@@ -252,7 +256,7 @@ const alertEvent = async function(payload, environment, pgClient, discordClient)
                 sendEmbed.addField('Territory Control', `\
                 \n<:VS:818766983918518272> **VS**: ${vsPc}%\
                 \n<:NC:818767043138027580> **NC**: ${ncPc}%\
-                \n<:TR:818988588049629256> **TR**: ${trPc}%`)
+                \n<:TR:818988588049629256> **TR**: ${trPc}%`);
             }
             let rows = await pgClient.query("SELECT a.channel, c.Koltyr, c.Indar, c.Hossin, c.Amerish, c.Esamir, c.Oshur, c.Other, c.autoDelete\
             FROM alerts a LEFT JOIN subscriptionConfig c on a.channel = c.channel\
@@ -272,21 +276,21 @@ const alertEvent = async function(payload, environment, pgClient, discordClient)
                                 .then(messageId => {
                                     if(messageId != -1 && trackedAlerts.indexOf(Number(payload.metagame_event_id)) > -1){
                                         pgClient.query("INSERT INTO alertMaintenance (alertID, messageID, channelID) VALUES ($1, $2, $3);", [`${payload.world_id}-${payload.instance_id}`, messageId, row.channel])
-                                            .catch(err => {console.log(err);})
+                                            .catch(err => {console.log(err);});
                                     }
                                     if(messageId != -1 && row.autodelete === true){
                                         const in50minutes = new Date((new Date()).getTime() + 3000000);
                                         const in95minutes = new Date((new Date()).getTime() + 5700000);
                                         if(['Indar', 'Hossin', 'Esamir', 'Amerish', 'Oshur'].includes(continent) && response.name.indexOf("Unstable Meltdown") == -1){
                                             pgClient.query("INSERT INTO toDelete (channel, messageID, timeToDelete) VALUES ($1, $2, $3)", [row.channel, messageId, in95minutes])
-                                            .catch(err => {console.log(err);})
+                                            .catch(err => {console.log(err);});
                                         }
                                         else{
                                             pgClient.query("INSERT INTO toDelete (channel, messageID, timeToDelete) VALUES ($1, $2, $3)", [row.channel, messageId, in50minutes])
-                                            .catch(err => {console.log(err);})
+                                            .catch(err => {console.log(err);});
                                         }    
                                     }
-                                })
+                                });
                             }
                             else{
                                 subscriptions.unsubscribeAll(pgClient, row.channel);
@@ -305,18 +309,18 @@ const alertEvent = async function(payload, environment, pgClient, discordClient)
                                     const in95minutes = new Date((new Date()).getTime() + 5700000);
                                     if(['Indar', 'Hossin', 'Esamir', 'Amerish', 'Oshur'].includes(continent) && response.name.indexOf("Unstable Meltdown") == -1){
                                         pgClient.query("INSERT INTO toDelete (channel, messageID, timeToDelete) VALUES ($1, $2, $3)", [row.channel, messageId, in95minutes])
-                                        .catch(err => {console.log(err);})
+                                        .catch(err => {console.log(err);});
                                     }
                                     else{
                                         pgClient.query("INSERT INTO toDelete (channel, messageID, timeToDelete) VALUES ($1, $2, $3)", [row.channel, messageId, in50minutes])
-                                        .catch(err => {console.log(err);})
+                                        .catch(err => {console.log(err);});
                                     }    
                                 }
                                 else if(messageId == -1){
                                     subscriptions.unsubscribeAll(pgClient, row.channel);
                                     console.log('Unsubscribed from '+row.channel);
                                 }
-                            })
+                            });
                         } 
                     })
                     .catch(error => {
@@ -329,7 +333,7 @@ const alertEvent = async function(payload, environment, pgClient, discordClient)
                         else{
                             console.log(error);
                         }
-                    })
+                    });
             }
         }
     }
@@ -349,7 +353,7 @@ const outfitResources = {
     "Interlink": "8 Synthium <:Synthium:818766858865475584>",
     "Trident": "1 Polystellarite <:Polystellarite:818766888238448661>",
     "Central base": "2 Polystellarite <:Polystellarite:818766888238448661>"
-}
+};
 
 /**
  * the base id for the central base on each continent
@@ -359,7 +363,7 @@ const centralBases = [
     '222280', // The Ascent
     '254000', // Eisa
     '298000' // Nason's Defiance
-]
+];
 
 /**
  * Send base event notification to all subscribed channels whenever a tracked outfit captures a base
@@ -415,7 +419,7 @@ const baseEvent = async function(payload, environment, pgClient, discordClient){
             sendEmbed.addField("Outfit Resources", "Unknown", true);
         }
 
-        const factionInfo = faction(payload.old_faction_id)
+        const factionInfo = faction(payload.old_faction_id);
         sendEmbed.addField("Captured From", `${factionInfo.decal} ${factionInfo.initial}`, true);
         
         const contributions = await captureContributions(payload.outfit_id, payload.facility_id, payload.timestamp, environment);
@@ -446,7 +450,7 @@ const baseEvent = async function(payload, environment, pgClient, discordClient){
                 else{
                     console.log(error);
                 }
-            })
+            });
         }
     }
 }
@@ -462,15 +466,15 @@ const baseEvent = async function(payload, environment, pgClient, discordClient){
 const captureContributions = async function(outfitID, baseID, timestamp, platform){
     try{
         const response = await censusRequest(platform, 'outfit_list', `/outfit/${outfitID}?c:resolve=member_online_status`);
-        let contributions = []
-        let online = []
+        let contributions = [];
+        let online = [];
         if(response[0]?.members[0].online_status == "service_unavailable"){
             return ["Unable to determine contributors"];
         }
         await wait(2000); // Just waiting to make sure all values fill in in the characters_event collection
         for(const member of response[0].members){
             if(member.online_status > 0){
-                online.push(member.character_id)
+                online.push(member.character_id);
             }
         }
         const onlineEvents = await Promise.allSettled(Array.from(online, x => 
@@ -506,7 +510,7 @@ const objectEquality = function(a, b){
     else if(typeof(a.facility_id) !== 'undefined' && typeof(b.facility_id) !== 'undefined'){
         return a.facility_id == b.facility_id && a.world_id == b.world_id && a.duration_held == b.duration_held;
     }
-    return false
+    return false;
 }
 
 /**

@@ -4,6 +4,10 @@
  * https://github.com/twitterdev/Twitter-API-v2-sample-code/blob/main/Filtered-Stream/filtered_stream.js
  * @module twitterListener
  */
+/**
+ * @typedef {import('pg').Client} pg.Client
+ * @typedef {import('discord.js').Channel} discord.channels
+ */
 
 const got = require('got');
 const messageHandler = require('./messageHandler.js');
@@ -57,7 +61,7 @@ async function deleteAllRules(rules) {
         "delete": {
             "ids": ids
         }
-    }
+    };
 
     const response = await got(rulesURL, {json: data, headers: {
         "content-type": "application/json",
@@ -79,7 +83,7 @@ async function setRules() {
 
     const data = {
         "add": rules
-      }
+      };
 
 	const response = await got.post( rulesURL, {json: data, headers: {
         "content-type": "application/json",
@@ -97,7 +101,7 @@ async function setRules() {
  * 
  * @param {string} token - The bearer token for the Twitter API
  * @param {pg.Client} SQLclient - the PostgreSQL client to use
- * @param {discord.client.channels} channels - the discord channels to send messages to
+ * @param {discord.channels} channels - the discord channels to send messages to
  * @returns {Stream} A stream of tweets from the Twitter API
  */
 function streamConnect(token, SQLclient, channels) {
@@ -154,7 +158,7 @@ function streamConnect(token, SQLclient, channels) {
 /**
  * Send new twitter messages to subscribed discord channels
  * @param {pg.Client} SQLclient - the PostgreSQL client to use
- * @param {discord.client.channels} channels - the discord channels to send messages to
+ * @param {discord.channels} channels - the discord channels to send messages to
  * @param {string} tag - the tag of the tweet
  * @param {string} id - the id of the tweet
  * @param {string} type - the type of the tweet
@@ -253,6 +257,6 @@ module.exports = {
 				timeout++;
 				this.connect(SQLclient, channels);
 			},1000 * (2 ** timeout));
-		})
+		});
 	}
 }

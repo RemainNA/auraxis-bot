@@ -2,7 +2,10 @@
  * This file defines functions to update previously sent alert notifications
  * @module alertMaintenance
  */
-
+/**
+ * @typedef {import('discord.js').Client} discord.Client
+ * @typedef {import('pg').Client} pg.Client
+ */
 const Discord = require('discord.js');
 const got = require('got');
 const alerts = require('./static/alerts.json');
@@ -21,13 +24,13 @@ const winnerFaction = {
  * Creates a new discord embed for updating the alert
  * @param info - alert info from PS2Alerts
  * @param {pg.Client} pgClient - postgres client
- * @param {Discord.Client} discordClient - discord client
+ * @param {discord.Client} discordClient - discord client
  * @param {boolean} isComplete - true if alert is complete
  */
 const updateAlert = async function(info, pgClient, discordClient, isComplete){
 	let messageEmbed = new Discord.MessageEmbed();
 	messageEmbed.setTimestamp();
-	messageEmbed.setFooter({text: "Data from ps2alerts.com"})
+	messageEmbed.setFooter({text: "Data from ps2alerts.com"});
 	let alertName = alerts[info.censusMetagameEventType].name;
 	messageEmbed.setTitle(alertName);
 	if (alertName.includes('Enlightenment')){
@@ -79,12 +82,12 @@ const updateAlert = async function(info, pgClient, discordClient, isComplete){
 			editMessage(messageEmbed, row.messageid, row.channelid, discordClient)
 				.then(function(){
 					if(isComplete){
-						pgClient.query("DELETE FROM alertMaintenance WHERE alertID = $1;", [info.instanceId])
+						pgClient.query("DELETE FROM alertMaintenance WHERE alertID = $1;", [info.instanceId]);
 					}
 				})
 				.catch(err => {
 					console.log("Error editing message");
-					console.log(err)
+					console.log(err);
 				})
 		}
 	})
@@ -99,7 +102,7 @@ const updateAlert = async function(info, pgClient, discordClient, isComplete){
  */
 const editMessage = async function(embed, messageId, channelId, discordClient){
 	try {
-		const resChann = await discordClient.channels.fetch(channelId)
+		const resChann = await discordClient.channels.fetch(channelId);
 		if (['GUILD_TEXT','GUILD_NEWS'].includes(resChann.type) && resChann.permissionsFor(resChann.guild.me).has(Discord.Permissions.FLAGS.VIEW_CHANNEL)) {
 			const resMsg = await resChann.messages.fetch(messageId);
 			await resMsg.edit({embeds: [embed]});

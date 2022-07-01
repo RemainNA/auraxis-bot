@@ -2,6 +2,11 @@
  * This file implements methods to list messages marked for deletion, and then delete them
  * @module deleteMessages
  */
+/**
+ * @typedef {import('pg').Client} pg.Client
+ * @typedef {import('discord.js').Client} discord.Client
+ * @typedef {import('discord.js').TextBasedChannel} discord.TextBasedChannel
+ */
 
 /**
  * Returns a list of discord messages marked for deletion
@@ -27,7 +32,7 @@ async function retrieveMessages(channelId, pgClient, discordClient){
 
 /**
  * Deletes discord messages marked for deletion
- * @param {discord.Client.Channel} channel - The channel to delete messages from
+ * @param {discord.TextBasedChannel} channel - The channel to delete messages from
  * @param {string} message - The message to delete
  * @param {pg.Client} pgClient - The postgres client
  */

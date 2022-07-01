@@ -2,6 +2,10 @@
  * This file defines several functions used in subscribing or unsubscribing to server alerts and outfit activity
  * @module subscriptions
  */
+/**
+ * @typedef {import('pg').Client} pg.Client
+ * @typedef {import('discord.js').User} discord.User 
+ */
 
 const config = require('./subscriptionConfig.js');
 const { censusRequest, badQuery, faction } = require('./utils.js')
@@ -48,7 +52,7 @@ const outfitInfo = async function(tag, platform){
             faction: response[0].leader_character_id_join_character.faction_id,
             alias: response[0].alias,
             name: response[0].name
-        }
+        };
         return resObj;
     }
 
@@ -63,13 +67,13 @@ const outfitInfo = async function(tag, platform){
 const twitterUsers = function(user){
     switch(user.toLowerCase()){
         case "remainna":
-            return "Remain_NA-twitter"
+            return "Remain_NA-twitter";
         case "wrel":
-            return "WrelPlays-twitter"
+            return "WrelPlays-twitter";
         case "planetside":
-            return "planetside2-twitter"
+            return "planetside2-twitter";
         default:
-            return false
+            return false;
     }
 }
 
@@ -155,7 +159,7 @@ module.exports = {
             pgClient.query("INSERT INTO alerts (channel, world) VALUES ($1, $2);", [channel, server]);
 
             try{
-                await config.initializeConfig(channel, pgClient)
+                await config.initializeConfig(channel, pgClient);
                 return `Subscribed to ${standardizeName(server)} alerts`;
             }
             catch(err){
@@ -259,7 +263,7 @@ module.exports = {
                 throw error;
             }
             try{
-                await config.initializeConfig(channelId, pgClient)
+                await config.initializeConfig(channelId, pgClient);
                 return `Subscribed to ${user} Twitter`;
             }
             catch(err){
@@ -355,11 +359,11 @@ module.exports = {
             "DELETE FROM news WHERE channel = $1",
             "DELETE FROM subscriptionConfig WHERE channel = $1",
             "DELETE FROM unlocks WHERE channel = $1"
-        ]
+        ];
 
         for(const command of commands){
             pgClient.query(command, [channelId])
-                .catch(err => console.log(err))
+                .catch(err => console.log(err));
         }
 
         return "Unsubscribed channel from all lists";
@@ -368,7 +372,7 @@ module.exports = {
     /**
      * Ensure that the channel has the correct permissions to allow the bot to send messages
      * @param interaction - the interaction to check
-     * @param {Discord.Client.User} user - the user to check
+     * @param {discord.User} user - the user to check
      * @param {string} locale - the locale of the channel 
      */
     permissionCheck: async function(interaction, user, locale="en-US"){
@@ -382,7 +386,7 @@ module.exports = {
         if(!await channel.permissionsFor(user).has([Permissions.FLAGS.VIEW_CHANNEL, Permissions.FLAGS.SEND_MESSAGES])){
             await interaction.followUp({
                 content: i18n.__({phrase: "insufficientPermissions", locale: locale})
-            })
+            });
         }
     }
 }

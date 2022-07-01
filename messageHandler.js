@@ -2,11 +2,13 @@
  * This file defines methods for sending messages, and handles errors that occur in that process.
  * @module messageHandler
  */
-
+/**
+ * @typedef {import('discord.js').TextChannel} discord.Channel
+ */
 module.exports = {
     /**
      * Send embed message to a channel
-     * @param {discord.Client.Channel} channel - the channel to send the message to
+     * @param {discord.Channel} channel - the channel to send the message to
      * @param message - the message to send
      * @param {string} context - the context of the error
      * @param {boolean} embed - whether or not the message is an embed
@@ -46,7 +48,7 @@ module.exports = {
 
     /**
      * Logs errors where which function the error occured in
-     * @param {discord.Client.Channel} channel - the channel to send the error message to
+     * @param {discord.Channel} channel - the channel to send the error message to
      * @param {string} err - the error to send
      * @param {string} context - the context of the error and 
      */

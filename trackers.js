@@ -2,6 +2,10 @@
  * This file implements functions to create and update server tracker channels, showing total population and active continents
  * @module tracker
  */
+/**
+ * @typedef {import('pg').Client} pg.Client
+ * @typedef {import('discord.js').Client} discord.Client
+ */
 
 const {getPopulation} = require('./population.js');
 const {territoryInfo} = require('./territory.js');
@@ -46,14 +50,14 @@ const outfitName = async function(outfitID, platform){
 	return {
 		faction: `${faction(oInfo.faction).tracker} ${oInfo.alias}: ${oInfo.onlineCount} online`,
 		noFaction: `${oInfo.alias}: ${oInfo.onlineCount} online`
-	}
+	};
 }
 
 /**
  * Update channels names of channels the are trackers
  * @param {string} name - the name to update the channel with
  * @param {string} channelID - the channel to update
- * @param {discord.client} discordClient - the discord Client
+ * @param {discord.Client} discordClient - the discord Client
  * @param {pg.Client} pgClient - the postgres client
  */
 const updateChannelName = async function(name, channelID, discordClient, pgClient){
@@ -132,7 +136,7 @@ module.exports = {
 	 * @param {string} platform - the platform of the outfit
 	 * @param {boolean} showFaction - if true, show faction indicator in tracker
 	 * @param guild - the discord guild
-	 * @param {discord.client} discordClient - the discord Client
+	 * @param {discord.Client} discordClient - the discord Client
 	 * @param {pg.Client} pgClient - the postgres client
 	 * @returns 
 	 */
@@ -177,7 +181,7 @@ module.exports = {
 	/**
 	 * Used to update the tracker channels
 	 * @param {pg.Client} pgClient - the postgres client
-	 * @param {discord.client} discordClient - the discord Client
+	 * @param {discord.Client} discordClient - the discord Client
 	 * @param {boolean} continentOnly - if false only update population and outfits
 	 */
 	update: async function(pgClient, discordClient, continentOnly = false){
@@ -228,7 +232,7 @@ module.exports = {
 						console.log(err);
 						if(err == " not found"){
 							await pgClient.query("DELETE FROM outfittracker WHERE outfitid = $1;", [row.outfitid]);
-							console.log(`Deleted ${row.outfitid} from tracker table`)
+							console.log(`Deleted ${row.outfitid} from tracker table`);
 						}
 					}
 					

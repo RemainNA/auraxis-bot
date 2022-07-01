@@ -2,6 +2,9 @@
  * This file defines functions used in finding and returning the current territory control on a given server, broken up by continent
  * @module territory
  */
+/**
+ * @typedef {import('pg').Client} pg.Client
+ */
 
 const Discord = require('discord.js');
 const { serverNames, serverIDs, censusRequest, continents, localeNumber, faction } = require('./utils');
@@ -196,7 +199,7 @@ module.exports = {
                 \n${i18n.__mf({phrase: "Unlocked {timestamp}", locale: locale}, {timestamp: `<t:${timestamp}:R>`})}\
                 \n<:VS:818766983918518272> **${i18n.__({phrase: "VS", locale: locale})}**: ${terObj[continent].vs}  |  ${vsPc}%\
                 \n<:NC:818767043138027580> **${i18n.__({phrase: "NC", locale: locale})}**: ${terObj[continent].nc}  |  ${ncPc}%\
-                \n<:TR:818988588049629256> **${i18n.__({phrase: "TR", locale: locale})}**: ${terObj[continent].tr}  |  ${trPc}%`)
+                \n<:TR:818988588049629256> **${i18n.__({phrase: "TR", locale: locale})}**: ${terObj[continent].tr}  |  ${trPc}%`);
             }
         }
 

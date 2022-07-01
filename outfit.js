@@ -40,7 +40,7 @@ const basicInfo = async function(oTag, platform, oID, locale="en-US"){
 		onlineMonth: 0,
 		outfitID: data.outfit_id,
 		timeCreated: data.time_created
-	}
+	};
 	if(typeof(data.leader_character_id_join_characters_world) !== 'undefined'){
 		resObj.worldId = data.leader_character_id_join_characters_world.world_id;
 	}
@@ -167,7 +167,7 @@ module.exports = {
 				resEmbed.setURL('http://ps4eu.ps2.fisu.pw/outfit/?name='+oInfo.alias);
 			}
 		}
-		resEmbed.addField(i18n.__({phrase: "Founded", locale: locale}), `<t:${oInfo.timeCreated}:D>`, true)
+		resEmbed.addField(i18n.__({phrase: "Founded", locale: locale}), `<t:${oInfo.timeCreated}:D>`, true);
 		resEmbed.addField(i18n.__({phrase: "Members", locale: locale}), localeNumber(oInfo.memberCount, locale), true);
 		const dayPc = localeNumber((oInfo.onlineDay/oInfo.memberCount)*100, locale);
 		const weekPc = localeNumber((oInfo.onlineWeek/oInfo.memberCount)*100, locale);
@@ -178,7 +178,7 @@ module.exports = {
 		resEmbed.addField(i18n.__({phrase: "Last month", locale: locale}), localeNumber(oInfo.onlineMonth, locale)+" ("+monthPc+"%)", true);
 		resEmbed.addField(i18n.__({phrase: "Server", locale: locale}), i18n.__({phrase: serverNames[Number(oInfo.worldId)], locale: locale}), true);
 
-		const factionInfo = faction(oInfo.faction)
+		const factionInfo = faction(oInfo.faction);
 		resEmbed.addField(i18n.__({phrase: "Faction", locale: locale}), `${factionInfo.decal} ${i18n.__({phrase: factionInfo.initial, locale: locale})}`, true);
 		resEmbed.setColor(factionInfo.color);
 
@@ -247,7 +247,7 @@ module.exports = {
 				.setStyle('PRIMARY')
 				.setLabel(i18n.__({phrase: 'View online', locale: locale}))
 				.setCustomId(`online%${oInfo.outfitID}%${platform}`)
-		)
+		);
 		if(platform == "ps2:v2"){
 			const now = Math.round(Date.now() / 1000);
 
@@ -260,7 +260,7 @@ module.exports = {
 					.setStyle('LINK')
 					.setURL(generateReport([oInfo.outfitID], now-7200, now))
 					.setLabel(i18n.__({phrase: 'Past 2 hour report', locale: locale}))
-			)
+			);
 		}
 
 		return [resEmbed, [row]];

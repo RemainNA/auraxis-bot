@@ -21,7 +21,7 @@ const info = async function(){
 		'Jaeger': 'Unknown',
 		'Genudine': 'Unknown',
 		'Ceres': 'Unknown'
-	}
+	};
 
 	const data = await censusRequest('global', 'game_server_status_list', '/game_server_status?game_code=ps2&c:limit=100');
     if(typeof(data) === 'undefined'){

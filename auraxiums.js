@@ -1,6 +1,5 @@
 /**
  * This file defines functions to look up a list of a character's auraxium medals
- * @ts-check
  * @module auraxiums
  */
 
@@ -79,11 +78,11 @@ module.exports = {
 		let textList = "";
 		let remaining = medalList.medals.length + medalList.possibleMedals.length;
 		if(remaining == 0){
-			throw i18n.__mf({phrase: "{name} has no Auraxium medals", locale: locale}, {name: medalList.name})
+			throw i18n.__mf({phrase: "{name} has no Auraxium medals", locale: locale}, {name: medalList.name});
 		}
 		if(expanded){
 			let continued = false;
-			remaining = 0
+			remaining = 0;
 			for(const medal of medalList.medals){
 				const currentItem = `<t:${medal[1]/1000}:d>: ${medal[0]}\n`;
 				if(!continued && (textList.length + currentItem.length) > 4000){
@@ -144,7 +143,7 @@ module.exports = {
 				}
 				textList += `<t:${medal[1]/1000}:d>: ${medal[0]}\n`;
 				remaining -= 1;
-				max -= 1
+				max -= 1;
 			}
 			resEmbed.setDescription(textList);
 			textList = "";
@@ -157,7 +156,7 @@ module.exports = {
 					}
 					textList += `${medal}\n`;
 					remaining -= 1;
-					max -= 1
+					max -= 1;
 				}
 				resEmbed.addField(i18n.__({phrase: "Possible medals (kills)", locale: locale}), textList);
 			}
@@ -165,13 +164,13 @@ module.exports = {
 		resEmbed.setColor(faction(medalList.faction).color)
 		resEmbed.setThumbnail('https://census.daybreakgames.com/files/ps2/images/static/3068.png');
 		if(platform == 'ps2:v2'){
-			resEmbed.setURL(`https://ps2.fisu.pw/player/?name=${medalList.name}&show=weapons`)
+			resEmbed.setURL(`https://ps2.fisu.pw/player/?name=${medalList.name}&show=weapons`);
 		}
 		else if(platform == 'ps2ps4us:v2'){
-			resEmbed.setURL(`https://ps4us.ps2.fisu.pw/player/?name=${medalList.name}&show=weapons`)
+			resEmbed.setURL(`https://ps4us.ps2.fisu.pw/player/?name=${medalList.name}&show=weapons`);
 		}
 		else if(platform == 'ps2ps4eu:v2'){
-			resEmbed.setURL(`https://ps4eu.ps2.fisu.pw/player/?name=${medalList.name}&show=weapons`)
+			resEmbed.setURL(`https://ps4eu.ps2.fisu.pw/player/?name=${medalList.name}&show=weapons`);
 		}
 		if(remaining > 0){
 			const row = new Discord.MessageActionRow()
@@ -181,7 +180,7 @@ module.exports = {
 					.setLabel(i18n.__({phrase: "View all", locale: locale}))
 					.setStyle('PRIMARY')
 			);
-			return [resEmbed, [row]]
+			return [resEmbed, [row]];
 		}
 		else{
 			return [resEmbed, []];

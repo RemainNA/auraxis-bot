@@ -2,6 +2,10 @@
  * This file implements a function with three event listeners, one for each platform.  The event listeners pass all messages with payloads on to the handler function.
  * @module unifiedWSListener
  */
+/**
+ * @typedef {import('pg').Client} pg.Client
+ * @typedef {import('discord.js').Client} discord.Client
+ */
 
 const WebSocket = require('ws');
 const handler = require('./unifiedWSHandler');
@@ -36,7 +40,7 @@ function listen(pgClient, discordClient){
         const pcClient = new WebSocket(pcURI);
 
         pcClient.on('open', function open(){
-            console.log('Connected to PC Stream API')
+            console.log('Connected to PC Stream API');
             pcClient.send(pcLogin);
             pcClient.send(pcAlerts);
             pcRunning = true;
@@ -70,7 +74,7 @@ function listen(pgClient, discordClient){
         const usClient = new WebSocket(usURI);
 
         usClient.on('open', function open(){
-            console.log('Connected to PS4 US Stream API')
+            console.log('Connected to PS4 US Stream API');
             usClient.send(usLogin);
             usClient.send(usAlerts);
             usRunning = true;
@@ -104,7 +108,7 @@ function listen(pgClient, discordClient){
         const euClient = new WebSocket(euURI);
 
         euClient.on('open', function open(){
-            console.log('Connected to PS4 EU Stream API')
+            console.log('Connected to PS4 EU Stream API');
             euClient.send(euLogin);
             euClient.send(euAlerts);
             euRunning = true;

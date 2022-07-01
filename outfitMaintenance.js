@@ -2,6 +2,9 @@
  * This file defines functions to keep outfit info up to date in subscriptions
  * @module outfitMaintenance
  */
+/**
+ * @typedef {import('pg').Client} pg.Client
+ */
 
 const {censusRequest} = require('./utils.js');
 

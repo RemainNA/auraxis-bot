@@ -2,6 +2,12 @@
  * This file implements functions to create and update server dashboards, showing population, territory control, and active alerts
  * @module dashboard
  */
+/**
+ * @typedef {import('pg').Client} pg.Client
+ * @typedef {import('discord.js').Client} discord.Client
+ * @typedef {import('discord.js').MessageEmbed} discord.MessageEmbed
+ * @typedef {import('discord.js').Channel} discord.Channel
+*/
 
 const {MessageEmbed} = require('discord.js');
 const messageHandler = require('./messageHandler.js');
@@ -60,7 +66,7 @@ const serverStatus = async function(serverID, pgClient){
 			\nUnlocked <t:${timestamp}:R>\
 			\n<:VS:818766983918518272> **VS**: ${territory[continent].vs}  |  ${vsPc}%\
 			\n<:NC:818767043138027580> **NC**: ${territory[continent].nc}  |  ${ncPc}%\
-			\n<:TR:818988588049629256> **TR**: ${territory[continent].tr}  |  ${trPc}%\n\n`
+			\n<:TR:818988588049629256> **TR**: ${territory[continent].tr}  |  ${trPc}%\n\n`;
 		}
 	}
 
@@ -112,7 +118,7 @@ const outfitStatus = async function(outfitID, platform, pgClient){
 		resEmbed.setTitle(oInfo.name);
 	}
 	resEmbed.setDescription(`${oInfo.onlineCount}/${oInfo.memberCount} online`);
-	resEmbed.setColor(faction(oInfo.faction).color)
+	resEmbed.setColor(faction(oInfo.faction).color);
 
 	if(oInfo.onlineCount === -1){
 		resEmbed.addField("Online member count unavailable", "-");
@@ -174,7 +180,7 @@ const outfitStatus = async function(outfitID, platform, pgClient){
  * Edit dashboard embeds with new data
  * @param {string} channelID - The channel ID where the current dashboard is
  * @param {string} messageID - The message ID of the current dashboard
- * @param {Discord.MessageEmbed} newDash - The new dashboard
+ * @param {discord.MessageEmbed} newDash - The new dashboard
  * @param {pg.Client} pgClient = The postgres client
  * @param {discord.Client} discordClient - The discord client 
  */
@@ -200,7 +206,7 @@ const editMessage = async function(channelID, messageID, newDash, pgClient, disc
 module.exports = {
 	/**
 	 * Creates a dashboard for a server
-	 * @param {discord.Client.Channel} channel - The channel to send the message to
+	 * @param {discord.Channel} channel - The channel to send the message to
 	 * @param {string} serverName - The server name
 	 * @param {pg.Client} pgClient - The postgres client 
 	 * @returns the status of the creation of the dashboard
@@ -219,7 +225,7 @@ module.exports = {
 
 	/**
 	 * Creates a dashboard for an outfit
-	 * @param {discord.Client.Channel} channel - The channel to send the message to
+	 * @param {discord.Channel} channel - The channel to send the message to
 	 * @param {string} oTag - The tag of the outfit
 	 * @param {string} platform - The platform of the outfit
 	 * @param {pg.Client} pgClient - The postgres client

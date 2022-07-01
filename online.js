@@ -18,7 +18,7 @@ const i18n = require('i18n');
 const onlineInfo = async function(oTag, platform, outfitID = null, locale = "en-US"){
 	let url = `/outfit?alias_lower=${oTag}&c:resolve=member_online_status,rank,member_character_name&c:join=character^on:leader_character_id^to:character_id&c:join=characters_world^on:leader_character_id^to:character_id`;
 	if(outfitID != null){
-		url = `/outfit/${outfitID}?c:resolve=member_online_status,rank,member_character_name&c:join=character^on:leader_character_id^to:character_id&c:join=characters_world^on:leader_character_id^to:character_id`
+		url = `/outfit/${outfitID}?c:resolve=member_online_status,rank,member_character_name&c:join=character^on:leader_character_id^to:character_id&c:join=characters_world^on:leader_character_id^to:character_id`;
 	}
 	let response = await censusRequest(platform, 'outfit_list', url);
 	if(response.length == 0){
@@ -39,7 +39,7 @@ const onlineInfo = async function(oTag, platform, outfitID = null, locale = "en-
 		onlineCount: 0,
 		world: data.leader_character_id_join_characters_world.world_id,
 		outfitID: data.outfit_id
-	}
+	};
 	if(typeof(data.leader_character_id_join_character) !== 'undefined'){
 		resObj.faction = data.leader_character_id_join_character.faction_id;
 	}

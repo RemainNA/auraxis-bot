@@ -41,11 +41,11 @@ const basicInfo = async function(cName, platform, locale="en-US"){
 			//record unlocked ASP items
 			if((tokens.length + data.items[x].name.en.length + data.items[x].description.en.length + 8) > 1024){
 				tokensContinued += `${data.items[x].name.en}: ${data.items[x].description.en}\n`;
-				tokensContinued += '----\n'
+				tokensContinued += '----\n';
 			}
 			else{
 				tokens += `${data.items[x].name.en}: ${data.items[x].description.en}\n`;
-				tokens += '----\n'
+				tokens += '----\n';
 			}		
 			availableTokens -= 1;
 		}
@@ -67,7 +67,7 @@ const basicInfo = async function(cName, platform, locale="en-US"){
 		unlocks: tokens,
 		unlocksContinued: tokensContinued,
 		availableTokens: availableTokens
-	}
+	};
 	return retInfo;
 }
 
@@ -86,7 +86,7 @@ module.exports = {
 		let cInfo = await basicInfo(cName, platform, locale);
 
 		let resEmbed = new Discord.MessageEmbed();
-		resEmbed.setColor(faction(cInfo.faction).color)
+		resEmbed.setColor(faction(cInfo.faction).color);
 		resEmbed.setTitle(cInfo.name);
 		resEmbed.setDescription(`${i18n.__({phrase: "BR pre ASP", locale: locale})}: ${cInfo.preBR}`);
 		if(cInfo.unlocks.length == 0){

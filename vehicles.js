@@ -75,7 +75,7 @@ const vehicleOverview = async function(cName, vehicleID, platform){
 		score: score,
 		topWeaponID: topWeaponID,
 		topWeaponKills: topWeaponKills
-	}
+	};
 }
 
 module.exports = {
@@ -92,7 +92,7 @@ module.exports = {
 		let imageID = -1;
 		if(vehicleID.indexOf("[") > -1){
 			// Account for autocomplete breaking
-			const splitList = vehicleID.split("[")
+			const splitList = vehicleID.split("[");
 			vehicleID = splitList[splitList.length-1].split("]")[0];
 		}
 		if(vehicleID in vehicles){
@@ -123,8 +123,8 @@ module.exports = {
 
 		resEmbed.setTitle(vInfo.charName);
 		resEmbed.setDescription(vehicleName);
-		resEmbed.setThumbnail(`http://census.daybreakgames.com/files/ps2/images/static/${imageID}.png`)
-		resEmbed.setColor(faction(vInfo.faction).color)
+		resEmbed.setThumbnail(`http://census.daybreakgames.com/files/ps2/images/static/${imageID}.png`);
+		resEmbed.setColor(faction(vInfo.faction).color);
 		const hoursPlayed = Math.floor(vInfo.playTime/3600);
 		const minutesPlayed = Math.floor(vInfo.playTime/60 - hoursPlayed*60);
 		resEmbed.addField(i18n.__({phrase: "Playtime", locale: locale}), 

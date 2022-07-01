@@ -17,9 +17,9 @@ const i18n = require('i18n');
  */
 const constructExtension = function(name, period, world, limit){
 	if(world == undefined){
-		return `leaderboard/?name=${name}&period=${period}&c:limit=${limit}&c:resolve=character_name`
+		return `leaderboard/?name=${name}&period=${period}&c:limit=${limit}&c:resolve=character_name`;
 	}
-	return `leaderboard/?name=${name}&period=${period}&world=${world}&c:limit=${limit}&c:resolve=character_name`
+	return `leaderboard/?name=${name}&period=${period}&world=${world}&c:limit=${limit}&c:resolve=character_name`;
 }
 
 
@@ -36,10 +36,10 @@ module.exports = {
 	lookup: async function(name, period, server, limit, locale='en-US'){
 		let platform = 'ps2:v2';
 		if(server == 'genudine'){
-			platform = 'ps2ps4us:v2'
+			platform = 'ps2ps4us:v2';
 		}
 		else if(server == 'ceres'){
-			platform = 'ps2ps4eu:v2'
+			platform = 'ps2ps4eu:v2';
 		}
 		const data = await censusRequest(platform, 'leaderboard_list', constructExtension(name, period, serverIDs[server], limit));
 
@@ -49,11 +49,11 @@ module.exports = {
 			{period: i18n.__({phrase: period, locale: locale}), type: i18n.__({phrase: name, locale: locale})}));
 		}
 		else{
-			const serverName = i18n.__({phrase: serverNames[serverIDs[server]], locale: locale})
+			const serverName = i18n.__({phrase: serverNames[serverIDs[server]], locale: locale});
 			resEmbed.setTitle(i18n.__mf({phrase: "{server} {period} {type} leaderboard", locale: locale}, 
 			{server: serverName, period: i18n.__({phrase: period, locale: locale}), type: i18n.__({phrase: name, locale: locale})}));
 		}
-		let textList = ''
+		let textList = '';
 		let place = 1;
 		if(name == 'Time'){
 			for(const entry of data){
@@ -61,19 +61,19 @@ module.exports = {
 					// 86400 is the number of seconds in a day
 					const days = Math.floor(entry.value/86400);
 					const hours = Math.floor((entry.value - days*86400)/3600);
-					textList += `${place}. ${entry.name.first}: ${i18n.__mf({phrase: "{days}d {hours}h", locale: locale}, {days: days, hours: hours})}\n`
+					textList += `${place}. ${entry.name.first}: ${i18n.__mf({phrase: "{days}d {hours}h", locale: locale}, {days: days, hours: hours})}\n`;
 				}
 				else{
 					const hours = Math.floor(entry.value/3600);
 					const minutes = Math.floor((entry.value - hours*3600)/60);
-					textList += `${place}. ${entry.name.first}: ${i18n.__mf({phrase: "{hour}h {minute}m", locale: locale}, {hour: hours, minute: minutes})}m\n`
+					textList += `${place}. ${entry.name.first}: ${i18n.__mf({phrase: "{hour}h {minute}m", locale: locale}, {hour: hours, minute: minutes})}m\n`;
 				}
 				place += 1;
 			}
 		}
 		else{
 			for(const entry of data){
-				textList += `${place}. ${entry.name.first}: ${parseInt(entry.value).toLocaleString(locale)}\n`
+				textList += `${place}. ${entry.name.first}: ${parseInt(entry.value).toLocaleString(locale)}\n`;
 				place += 1;
 			}
 		}
