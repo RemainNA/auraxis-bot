@@ -1,9 +1,7 @@
-// @ts-check
 /**
  * This file defines functions which establish a connection to the Twitter API and listen for tweets from certain accounts.
  * Most of the code for this file came from
  * https://github.com/twitterdev/Twitter-API-v2-sample-code/blob/main/Filtered-Stream/filtered_stream.js
- * @ts-check
  * @module twitterListener
  */
 

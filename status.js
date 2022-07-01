@@ -1,7 +1,5 @@
-// @ts-check
 /**
  * This file implements functions to look up and report server status
- * @ts-check
  * @module status
  */
 

@@ -1,4 +1,3 @@
-// @ts-check
 /**
  * This file implements functions to look up currently active alerts from the ps2 alerts website
  * @ts-check

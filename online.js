@@ -1,7 +1,5 @@
-// @ts-check
 /**
  * Handles the `/online` command
- * @ts-check
  * @module online
  */
 

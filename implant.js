@@ -1,7 +1,5 @@
-// @ts-check
 /**
  * Search up implant information
- * @ts-check
  * @module implant
  */
 const Discord = require('discord.js');

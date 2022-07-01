@@ -1,7 +1,5 @@
-// @ts-check
 /**
  * This file implements functions to create and update server dashboards, showing population, territory control, and active alerts
- * @ts-check
  * @module dashboard
  */
 

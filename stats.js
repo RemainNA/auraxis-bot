@@ -1,7 +1,5 @@
-// @ts-check
 /**
  * This file implements functions to look up a character's stats with a specific weapon
- * @ts-check
  * @module stats
  */
 
@@ -267,7 +265,7 @@ module.exports = {
 		let accuracy = cInfo.hits/cInfo.fireCount;
 		let hsr = totalHeadshots/totalKills;
 		let ahr = Math.floor(accuracy*hsr*10000);
-		let spm = Number.parseFloat(cInfo.score/(cInfo.playTime/60));
+		let spm = cInfo.score/(cInfo.playTime/60);
 		resEmbed.addField(i18n.__({phrase: "Kills", locale: locale}), totalKills.toLocaleString(locale), true);
 		resEmbed.addField(i18n.__({phrase: "Deaths", locale: locale}), cInfo.deaths.toLocaleString(locale), true);
 		resEmbed.addField(i18n.__({phrase: "K/D", locale: locale}), localeNumber(totalKills/cInfo.deaths, locale), true);

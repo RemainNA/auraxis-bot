@@ -1,7 +1,5 @@
-// @ts-check
 /**
  * This file defines functions to look up a list of a character's completed directives
- * @ts-check
  * @module directives
  */
 

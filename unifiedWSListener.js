@@ -1,7 +1,5 @@
-// @ts-check
 /**
  * This file implements a function with three event listeners, one for each platform.  The event listeners pass all messages with payloads on to the handler function.
- * @ts-check
  * @module unifiedWSListener
  */
 

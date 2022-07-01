@@ -1,7 +1,5 @@
-// @ts-check
 /**
  * This file defines functions to look up a player's stats with a given vehicle
- * @ts-check
  * @module vehicles
  */
 

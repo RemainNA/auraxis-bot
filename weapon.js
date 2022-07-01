@@ -1,7 +1,5 @@
-// @ts-check
 /**
  * This file defines functionality to parse weapons.json and return the relevant info
- * @ts-check
  * @module weaponInfo
  */
 

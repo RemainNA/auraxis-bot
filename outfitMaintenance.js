@@ -1,7 +1,5 @@
-// @ts-check
 /**
  * This file defines functions to keep outfit info up to date in subscriptions
- * @ts-check
  * @module outfitMaintenance
  */
 

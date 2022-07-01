@@ -1,7 +1,5 @@
-// @ts-check
 /**
  * This file implements functions to create and update server tracker channels, showing total population and active continents
- * @ts-check
  * @module tracker
  */
 

@@ -1,7 +1,5 @@
-// @ts-check
 /**
  * Run this file with `node registerCommands.js` to register all commands for the  discord bot
- * @ts-check
  * @module registerCommands
  */
 const { REST } = require('@discordjs/rest');

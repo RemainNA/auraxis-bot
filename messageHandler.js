@@ -1,7 +1,5 @@
-// @ts-check
 /**
  * This file defines methods for sending messages, and handles errors that occur in that process.
- * @ts-check
  * @module messageHandler
  */
 

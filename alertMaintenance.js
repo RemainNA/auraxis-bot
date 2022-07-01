@@ -1,4 +1,3 @@
-// @ts-check
 /**
  * This file defines functions to update previously sent alert notifications
  * @module alertMaintenance

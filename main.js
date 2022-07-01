@@ -1,7 +1,5 @@
-// @ts-check
 /**
  * This file implements the main event listener of the bot, which picks up messages, parses them for commands, and calls the appropriate functions.
- * @ts-check
  * @module main
  */
 
@@ -281,7 +279,7 @@ client.on('interactionCreate', async interaction => {
 				const onlineLookups = await Promise.allSettled(Array.from(onlineTags, x => 
 					online.online(x, options.getString('platform') || 'ps2:v2', null, interaction.locale)));
 				for(const res of onlineLookups){
-					let toSend = "";
+					let toSend = undefined;
 					if(res.status == "rejected"){
 						if(typeof(res.reason) == 'string'){
 							toSend = res.reason;

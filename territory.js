@@ -1,7 +1,5 @@
-// @ts-check
 /**
  * This file defines functions used in finding and returning the current territory control on a given server, broken up by continent
- * @ts-check
  * @module territory
  */
 

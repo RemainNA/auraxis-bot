@@ -1,7 +1,5 @@
-// @ts-check
 /**
  * This file implements functions to check which continents are open, update base ownership, and send unlock notifications
- * @ts-check
  * @module openContinents
  */
 
@@ -30,7 +28,7 @@ const contIDs = {
  * @param {string} server - continent the server is in
  * @param {string} channelID - subscribed channel  ID
  * @param {pg.Client} pgClient - postgres client to use
- * @param {discord.Channel} discordClient - discord client to use
+ * @param {discord.Client} discordClient - discord client to use
  */
 const notifyUnlock = async function(cont, server, channelID, pgClient, discordClient){
 	try{

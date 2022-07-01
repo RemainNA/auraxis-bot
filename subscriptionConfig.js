@@ -1,7 +1,5 @@
-// @ts-check
 /**
  * This file implements functionality to configure subscriptions and the /config command
- * @ts-check
  * @module subscriptionConfig 
  */
 

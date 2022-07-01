@@ -1,4 +1,3 @@
-// @ts-check
 /**
  * This file implements functions to look up a character's basic information, the number of Auraxium medals they have, and their top weapon 
  * All three platforms are supported, but must be specified in the "platform" parameter

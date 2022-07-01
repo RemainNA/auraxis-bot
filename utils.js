@@ -1,7 +1,5 @@
-// @ts-check
 /**
  * This file defines commonly used components to cut down on code reuse
- * @ts-check
  * @module utils
  */
 

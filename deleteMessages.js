@@ -1,7 +1,5 @@
-// @ts-check
 /**
  * This file implements methods to list messages marked for deletion, and then delete them
- * @ts-check
  * @module deleteMessages
  */
 

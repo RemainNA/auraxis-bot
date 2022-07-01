@@ -1,8 +1,7 @@
-// @ts-check
 /**
  * Look up basic information about an outfit
- * @ts-check
  * @module outfit
+ * @typedef { import('pg').Client} pg.Client
  */
 const Discord = require('discord.js');
 const { serverNames, badQuery, censusRequest, localeNumber, faction } = require('./utils.js');
@@ -13,7 +12,7 @@ const i18n = require('i18n');
  * Get basic information about an outfit, online members, owned bases etc.
  * @param {string} oTag - outfit tag to query the PS2 Census API with
  * @param {string} platform - which platform to request, eg. ps2:v2, ps2ps4us:v2, or ps2ps4eu:v2
- * @param {string} oID - outfit ID to query the PS2 Census API with 
+ * @param {string | null} oID - outfit ID to query the PS2 Census API with 
  * @param {string} locale - locale to use e.g. en-US
  */
 const basicInfo = async function(oTag, platform, oID, locale="en-US"){

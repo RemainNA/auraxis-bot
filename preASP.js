@@ -1,7 +1,5 @@
-// @ts-check
 /**
  * This file implements a function which finds and returns the max BR a character reached before joining ASP, and tracks their ASP unlocks and tokens
- * @ts-check
  * @module preASP
  */
 

@@ -1,7 +1,5 @@
-// @ts-check
 /**
  * This file defines several functions used in subscribing or unsubscribing to server alerts and outfit activity
- * @ts-check
  * @module subscriptions
  */
 

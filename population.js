@@ -1,7 +1,5 @@
-// @ts-check
 /**
  * This file defines functions for retrieving population by faction for a given server/world
- * @ts-check
  * @module population
  */
 

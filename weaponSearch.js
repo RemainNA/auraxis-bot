@@ -1,4 +1,3 @@
-// @ts-check
 /**
  * This file defines functionality to search through known weapons and return matching results
  * @module weaponSearch

@@ -1,7 +1,5 @@
-// @ts-check
 /**
  * This file defines functions to query the PS2 leaderboard
- * @ts-check
  * @module leaderboard
  */
 

@@ -1,4 +1,3 @@
-// @ts-check
 /**
  * This file defines functions to look up a list of a character's auraxium medals
  * @ts-check
