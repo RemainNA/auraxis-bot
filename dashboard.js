@@ -59,11 +59,11 @@ const serverStatus = async function(serverID, pgClient){
 		const trPc = ((territory[continent].tr/totalTer)*100).toPrecision(3);
 		const owningFaction = faction(territory[continent].locked);
 		if(territory[continent].locked != -1){
-			territoryField += `**${continent}** ${owningFaction.decal}\nLocked <t:${timestamp}:R>\n${continentBenefit(continent)}\n\n`;
+			territoryField += `**${continent}** ${owningFaction.decal}\nLocked <t:${timestamp}:t> (<t:${timestamp}:R>)\n${continentBenefit(continent)}\n\n`;
 		}
 		else{
 			territoryField += `**${continent}**\
-			\nUnlocked <t:${timestamp}:R>\
+			\nUnlocked <t:${timestamp}:t> (<t:${timestamp}:R>)\
 			\n<:VS:818766983918518272> **VS**: ${territory[continent].vs}  |  ${vsPc}%\
 			\n<:NC:818767043138027580> **NC**: ${territory[continent].nc}  |  ${ncPc}%\
 			\n<:TR:818988588049629256> **TR**: ${territory[continent].tr}  |  ${trPc}%\n\n`;
