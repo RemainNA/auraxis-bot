@@ -92,6 +92,8 @@
     "type": "type",
     "Type of tracker channel": "Type of tracker channel",
     "Create an automatically updating voice channel displaying outfit online count": "Create an automatically updating voice channel displaying outfit online count",
+    "show-faction": "show-faction",
+    "show-faction-description": "Display a faction indicator in channel name? ex: 🟣/🔵/🔴/⚪",
     "auraxiums": "auraxiums",
     "Lookup a list of a character's Auraxium medals": "Lookup a list of a character's Auraxium medals",
     "leaderboard": "leaderboard",
