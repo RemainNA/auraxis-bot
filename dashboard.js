@@ -33,6 +33,13 @@ const serverStatus = async function(serverID, pgClient){
 	const recordedStatus = await pgClient.query("SELECT * FROM openContinents WHERE world = $1;", [serverNames[serverID].toLowerCase()]);
 	let territoryField = "*Bases owned*\n";
 
+	let openContinents = 0;
+	for (const continent of continents){
+		if(territory[continent].locked == -1){
+			openContinents += 1;
+		}
+	}
+
 	for (const continent of continents){
 		const totalTer = territory[continent].vs + territory[continent].nc + territory[continent].tr;
 		if(totalTer == 0){
@@ -46,9 +53,16 @@ const serverStatus = async function(serverID, pgClient){
 		if(territory[continent].locked != -1){
 			territoryField += `**${continent}** ${owningFaction.decal}\nLocked <t:${timestamp}:t> (<t:${timestamp}:R>)\n${continentBenefit(continent)}\n\n`;
 		}
-		else{
+		else if (openContinents < 5){
 			territoryField += `**${continent}**\
 			\nUnlocked <t:${timestamp}:t> (<t:${timestamp}:R>)\
+			\n<:VS:818766983918518272> **VS**: ${territory[continent].vs}  |  ${vsPc}%\
+			\n<:NC:818767043138027580> **NC**: ${territory[continent].nc}  |  ${ncPc}%\
+			\n<:TR:818988588049629256> **TR**: ${territory[continent].tr}  |  ${trPc}%\n\n`
+		}
+		else{
+			territoryField += `**${continent}**\
+			\nUnlocked <t:${timestamp}:R>\
 			\n<:VS:818766983918518272> **VS**: ${territory[continent].vs}  |  ${vsPc}%\
 			\n<:NC:818767043138027580> **NC**: ${territory[continent].nc}  |  ${ncPc}%\
 			\n<:TR:818988588049629256> **TR**: ${territory[continent].tr}  |  ${trPc}%\n\n`
