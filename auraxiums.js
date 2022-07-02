@@ -15,6 +15,7 @@ const i18n = require('i18n');
  * @param {string} platform - platform of the character
  * @param {string} locale - The locale to use for the response 
  * @returns an object containing the character's name, faction, medals, and possible medals
+ * @throws if `cName` is not a valid character name
  */
 const getAuraxiumList = async function(cName, platform, locale='en-US'){
     // Calculates the number of Auraxium medals a specified character has
@@ -69,6 +70,7 @@ module.exports = {
 	 * @param {boolean} expanded - Whether to show the full list of possible medals
 	 * @param {string} locale - The locale to use for the response 
 	 * @returns a discord message containing the character's name, faction, medals, and possible medals
+	 * @throws if `cName` has no Auraxium medals
 	 */
 	medals: async function(cName, platform, expanded=false, locale='en-US'){
 		const medalList = await getAuraxiumList(cName.toLowerCase(), platform, locale);

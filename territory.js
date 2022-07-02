@@ -67,6 +67,7 @@ module.exports = {
      * Gets current continent info on a server
      * @param {number} serverID 
      * @returns an object containing the current continent info on the server
+     * @throws if there are API errors
      */
     territoryInfo: async function(serverID){
         let platform = 'ps2:v2';

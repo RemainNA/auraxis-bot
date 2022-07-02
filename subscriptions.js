@@ -43,6 +43,7 @@ const standardizeName = function(server){
  * @param {string} tag - the tag of the outfit  to check
  * @param {string} platform - the platform of the outfit
  * @returns {Promise<{ID: string, faction: string, alias: string, name: string}>}
+ * @throws if `tag` is not a valid outfit tag
  */
 const outfitInfo = async function(tag, platform){
     const response = await censusRequest(platform, 'outfit_list', `/outfit?alias_lower=${tag.toLowerCase()}&c:join=character^on:leader_character_id^to:character_id`);
@@ -98,6 +99,7 @@ module.exports = {
      * @param {string} tag - the tag of the outfit to subscribe to
      * @param {string} environment - the platform of the outfit 
      * @returns a message of the outcome of the subscription
+     * @throws if `tag` contains invalid characters
      */
     subscribeActivity: async function(pgClient, channel, tag, environment){
         //pgClient is the pgClient object from main
@@ -131,6 +133,7 @@ module.exports = {
      * @param {string} tag - the tag of the outfit to unsubscribe from
      * @param {string} environment - the platform of the outfit 
      * @returns a message of the outcome of the unsubscription
+     * @throws if `tag` contains invalid characters or if the outfit is not subscribed to
      */
     unsubscribeActivity: async function(pgClient, channel, tag, environment){
         if(badQuery(tag)){
@@ -152,6 +155,7 @@ module.exports = {
      * @param {string} channel - the id of the channel to send messages to
      * @param {string} server - the server of the alerts to get
      * @returns a message of the outcome of the subscription
+     * @throws if already subscribed to the `server` alert
      */
     subscribeAlert: async function(pgClient, channel, server){
         let count = await pgClient.query("SELECT count(*) FROM alerts WHERE channel=$1 AND world=$2;", [channel, server]);
@@ -176,6 +180,7 @@ module.exports = {
      * @param {string} channel - the id of the channel to unsubscribe from
      * @param {string} server - the server of the alerts to unsubscribe from
      * @returns the message of the outcome of the unsubscription
+     * @throws if not subscribed to the `server` alert
      */
     unsubscribeAlert: async function(pgClient, channel, server){
         let count = await pgClient.query("SELECT COUNT(*) FROM alerts WHERE channel = $1 AND world=$2", [channel, server]);
@@ -195,6 +200,7 @@ module.exports = {
      * @param {string} tag - the tag of the outfit
      * @param {string} environment - the platform of the outfit 
      * @returns the message of the outcome of the subscription
+     * @throws if `tag` contains invalid characters or if the outfit is already subscribed to
      */
     subscribeCaptures: async function(pgClient, channel, tag, environment){
         if(badQuery(tag)){
@@ -223,6 +229,7 @@ module.exports = {
      * @param {string} tag - the tag of the outfit
      * @param {string} environment - the platform of the outfit 
      * @returns the message of the outcome of the unsubscription
+     * @throws if `tag` contains invalid characters or if the outfit is not subscribed to
      */
     unsubscribeCaptures: async function(pgClient, channel, tag, environment){
         if(badQuery(tag)){
@@ -244,6 +251,7 @@ module.exports = {
      * @param {string} channelId - the id of the channel to send messages to
      * @param {string} user - the twitter user to subscribe to
      * @returns the message of the outcome of the subscription
+     * @throws if `user` contains invalid characters or if there is a query error or already subscribed to the twitter user
      */
     subscribeTwitter: async function(pgClient, channelId, user){
         if(badQuery(user)){
@@ -280,6 +288,7 @@ module.exports = {
      * @param {string} channelId - the id of the channel to unsubscribe from
      * @param {string} user - the twitter user to unsubscribe from
      * @returns the message of the outcome of the unsubscription
+     * @throws if `user` contains invalid characters or if the twitter user is not subscribed to
      */
     unsubscribeTwitter: async function(pgClient, channelId, user){
         if(badQuery(user)){
@@ -310,6 +319,7 @@ module.exports = {
      * @param {string} channel - the id of the channel to send messages to
      * @param {string} server - the server to subscribe to
      * @returns the message of the outcome of the subscription
+     * @throws if already subscribed to `server`
      */
     subscribeUnlocks: async function(pgClient, channel, server){
         let count = await pgClient.query("SELECT count(*) FROM unlocks WHERE channel=$1 AND world=$2;", [channel, server]);
@@ -333,6 +343,7 @@ module.exports = {
      * @param {string} channel - the id of the channel to unsubscribe from
      * @param {string} server - the server to unsubscribe from
      * @returns the outcome of the unsubscription
+     * @throws if not subscribed to `server`
      */
     unsubscribeUnlocks: async function(pgClient, channel, server){
         let count = await pgClient.query("SELECT COUNT(*) FROM unlocks WHERE channel = $1 AND world=$2", [channel, server]);

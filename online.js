@@ -14,6 +14,7 @@ const i18n = require('i18n');
  * @param {string | null} outfitID - outfit ID to check
  * @param {string} locale - locale to use
  * @returns a object containing the current online membeers of the outfit. If online member count is unavailable, object.OnlineCount will be -1.
+ * @throws if outfit tag cannot be found or there was an API error
  */
 const onlineInfo = async function(oTag, platform, outfitID = null, locale = "en-US"){
 	let url = `/outfit?alias_lower=${oTag}&c:resolve=member_online_status,rank,member_character_name&c:join=character^on:leader_character_id^to:character_id&c:join=characters_world^on:leader_character_id^to:character_id`;
@@ -97,6 +98,7 @@ module.exports = {
 	 * @param {string | null} outfitID - outfit ID to check
 	 * @param {string} locale - locale to use
 	 * @returns a discord embed of the online members of the outfit
+	 * @throws if `oTag` contains invalid characters or was incorrectly formatted
 	 */
 	online: async function(oTag, platform, outfitID = null, locale = "en-US"){
 		if(badQuery(oTag)){

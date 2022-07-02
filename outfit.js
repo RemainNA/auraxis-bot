@@ -14,6 +14,7 @@ const i18n = require('i18n');
  * @param {string} platform - which platform to request, eg. ps2:v2, ps2ps4us:v2, or ps2ps4eu:v2
  * @param {string | null} oID - outfit ID to query the PS2 Census API with 
  * @param {string} locale - locale to use e.g. en-US
+ * @throws if outfit could not be found or if there was an error gathering outfit information
  */
 const basicInfo = async function(oTag, platform, oID, locale="en-US"){
 	let url = `/outfit?alias_lower=${oTag}&c:resolve=member_online_status&c:join=character^on:leader_character_id^to:character_id&c:join=character^on:members.character_id^to:character_id^hide:certs&c:join=characters_world^on:leader_character_id^to:character_id`;
@@ -140,6 +141,7 @@ module.exports = {
  	 * @param {string | null} oID - outfit ID to query the PS2 Census API with 
  	 * @param {string} locale - locale to use e.g. en-US
 	 * @returns a discord embed object and an Array of buttons
+	 * @throw if `oTag` contains invalid characters or it too long
 	 */
 	outfit: async function(oTag, platform, pgClient, oID = null, locale = "en-US"){
 		if(badQuery(oTag)){

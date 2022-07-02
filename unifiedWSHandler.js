@@ -36,6 +36,7 @@ const environmentToPlatform = {
  * @param {string} environment - which enviorment to query for
  * @param {pg.Client} pgClient - postgres client to use
  * @param {discord.Client} discordClient - discord client to use
+ * @throws if there are error in logEvent
  */
 const logEvent = async function(payload, environment, pgClient, discordClient){
     let response = await censusRequest(environment, 'character_list', `/character/${payload.character_id}?c:resolve=outfit_member`);
@@ -113,6 +114,7 @@ const logEvent = async function(payload, environment, pgClient, discordClient){
  * @param payload - The payload from the Stream API
  * @param {string} environment - which enviorment to query for
  * @returns {Promise<{name: string, description: string}>} - The name and description of the alert
+ * @throws if there are error retrieving alert notfications
  */
 const alertInfo = async function(payload, environment){
     if(typeof(alerts[payload.metagame_event_id]) !== 'undefined'){
@@ -517,7 +519,8 @@ const objectEquality = function(a, b){
  * Get basic information on a facility
  * @param {string} facilityID - the facility id to get information of
  * @param {string} environment - environment to check in
- * @returns {Promise<{continent: string, name: string, type: string}>} 
+ * @returns {Promise<{continent: string, name: string, type: string}>} - the continent, name, and type of the facility
+ * @throws if the facility is not found or there are errors when retrieving the information
  */
 const baseInfo = async function(facilityID, environment){
     if(typeof(bases[facilityID]) !== 'undefined'){

@@ -10,6 +10,7 @@ const i18n = require('i18n');
 /**
  * Get the population status of each server
  * @returns a discord embed of the current population status for each server
+ * @throws if there are API errors
  */
 const info = async function(){
 	let status = {

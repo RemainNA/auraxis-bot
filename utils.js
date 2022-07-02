@@ -75,6 +75,7 @@ function badQuery(input){
  * @param {string} key - what information you want to get from the API
  * @param {string} extension - the URL extension to request
  * @returns results of the request encoded in JSON
+ * @throws if there are Census API errors
  */
 async function censusRequest(platform, key, extension){
 	// Places boilerplate error checking in one location and standardizes it

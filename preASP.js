@@ -13,6 +13,7 @@ const i18n = require('i18n');
  * @param {string} platform  - what platform the character is on
  * @param {string} locale -  locale to use
  * @returns an object containing the ASP information about a character
+ * @throw if `cName` is not a valid character name, are NSO are have no ASP
  */
 const basicInfo = async function(cName, platform, locale="en-US"){
 	let response = await censusRequest(platform, 'character_list', `/character?name.first_lower=${cName}&c:resolve=item_full&c:lang=en`);
@@ -78,6 +79,7 @@ module.exports = {
 	 * @param {string} platform - platform character is on
 	 * @param {string} locale - locale to use
 	 * @returns a discord embed of the character's ASP information
+	 * @throw if `cName` contains invalid characters
 	 */
 	originalBR: async function(cName, platform, locale="en-US"){
 		if(badQuery(cName)){

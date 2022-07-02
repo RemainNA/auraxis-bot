@@ -15,6 +15,7 @@ const i18n = require('i18n');
  * @param searchSpace - A list of ID's to search
  * @param {string} cName - The name of the character to check the weapon stats for
  * @returns the weapon that matches `name`
+ * @throws if `cName` is not a valid character or `name` is not a valid weapon
  */
 const getWeaponId = async function(name, searchSpace, cName=""){
 	//Check if ID matches
@@ -126,6 +127,7 @@ const partialMatches = async function(query){
  * @param {string} platform - The platform to get the stats for
  * @param {string} locale - The locale to get the stats for
  * @returns character information for a specific weapon
+ * @throws if `cName` is not a valid character or `wName` is not a valid weapon
  */
 const characterInfo = async function(cName, wName, platform, locale="en-US"){
 	let response =  await censusRequest(platform, 'character_list', `/character?name.first_lower=${cName}&c:resolve=weapon_stat_by_faction,weapon_stat`);
@@ -231,6 +233,7 @@ module.exports = {
 	 * @param {string} platform - The platform to get the stats for
 	 * @param {string} locale - the locale to use 
 	 * @returns a discord embed for a character weapons stats
+	 * @throws if `cName` or `wName` contains invalid characters
 	 */
 	lookup: async function(cName, wName, platform, locale="en-US"){
 		if(badQuery(cName)){

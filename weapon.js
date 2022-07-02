@@ -35,6 +35,7 @@ function standingOnly(CoF){
  * Get weapon statistics for a weapon
  * @param {string} name - name or ID of weapon to get info for
  * @returns return weapon statistics as JSON
+ * @throws if weapon not found
  */
 const weaponInfo = async function(name){
 
@@ -95,6 +96,7 @@ module.exports = {
 	 * @param {string} name - name of weapon to show
  	 * @param {string} locale - locale to use e.g. en-US
 	 * @returns a discord embed of weapon stats, a description, and it's ID
+	 * @throws if `name` contains invalid characters
 	 */
 	lookup: async function(name, locale="en-US"){
 		if(name.indexOf("[") > -1){

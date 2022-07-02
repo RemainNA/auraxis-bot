@@ -20,6 +20,7 @@ const { serverNames, badQuery, censusRequest, localeNumber, faction } = require(
  * @param {string} cName - The name of the character
  * @param {string} platform - The platform of the character
  * @returns an object containing the character's basic information
+ * @throws if the character is not found
  */
 const basicInfo = async function(cName, platform){
     // Main function for character lookup.  Pulls most stats and calls other functions for medals/top weapon info
@@ -248,6 +249,7 @@ const includeInIVI = function(ID){
  * @param {number} ID - item id 
  * @param {string} platform - platform to request
  * @returns {Promise<string>} the weapon name
+ * @throws if weapon cannot be found
  */
 const getWeaponName = async function(ID, platform){
     // Returns the name of the weapon ID specified.  If the Census API is unreachable it will fall back to the fisu api
@@ -275,6 +277,7 @@ const getWeaponName = async function(ID, platform){
  * @param {string} ID - item id
  * @param {string} platform - platform to request
  * @returns the vechicle name
+ * @throws if vehicle cannot be found
  */
 const getVehicleName = async function(ID, platform){
     if(typeof(vehicles[ID]) !== 'undefined'){
@@ -324,6 +327,7 @@ const getAuraxiumCount = async function(cName, platform){
  * @param {string} platform - platform to request
  * @param {string} days - number of days to look back
  * @returns the recent stats of the character from that time frame
+ * @throws if unable to get stats
  */
 const recentStatsInfo =  async function(cID, platform, days){
     const response = await censusRequest(platform, 'character_list', `/character/${cID}?c:resolve=stat_history&c:join=title,characters_stat^list:1`);
@@ -371,6 +375,7 @@ module.exports = {
      * @param {string} platform - platform to request
      * @param {string} locale - locale to use
      * @returns a discord embed with the character info
+     * @throws if `cName` contains invalid characters
      */
     character: async function(cName, platform, locale="en-US"){
         // Calls function to get basic info, extracts info from returned object and constructs the Discord embed to send
@@ -573,6 +578,7 @@ module.exports = {
      * @param {string} days - Number of days to look back
      * @param {string} locale - Locale to use
      * @returns a discord embed of  the character's recent stats
+     * @throws if there are no stats in the time period `days`
      */
     recentStats: async function(cID, platform, days, locale="en-US"){
         const cInfo = await recentStatsInfo(cID, platform, days);

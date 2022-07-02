@@ -16,6 +16,7 @@ const utils = require('pg/lib/utils');
  * @param {string} vehicleID - vehicle ID to look up
  * @param {string} platform - which platform to request, eg. ps2:v2, ps2ps4us:v2, or ps2ps4eu:v2
  * @returns an object containing the character's stats with the given vehicle
+ * @throws if cannot find character, no vehicle found, or if the character has never used the vehicle
  */
 const vehicleOverview = async function(cName, vehicleID, platform){
 	const response = await censusRequest(platform, 'character_list', `/character?name.first_lower=${cName.toLowerCase()}&c:resolve=weapon_stat_by_faction,weapon_stat`);

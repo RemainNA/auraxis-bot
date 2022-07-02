@@ -91,7 +91,8 @@ module.exports = {
 	 * @param guild - the discord guild
 	 * @param {discord.Client} discordClient - the discord Client
 	 * @param {pg.Client} pgClient - the postgres client
-	 * @returns A string saying  the tracker channel was created
+	 * @returns A string saying the tracker channel was created
+	 * @throws if bot is missing permissions to create channels
 	 */
 	create: async function(type, serverName, guild, discordClient, pgClient){
 		try{
@@ -138,7 +139,8 @@ module.exports = {
 	 * @param guild - the discord guild
 	 * @param {discord.Client} discordClient - the discord Client
 	 * @param {pg.Client} pgClient - the postgres client
-	 * @returns 
+	 * @returns a string saying the tracker channel for outfits was created
+	 * @throws if bot is missing permissions to create channels
 	 */
 	createOutfit: async function(tag, platform, showFaction, guild, discordClient, pgClient){
 		try{

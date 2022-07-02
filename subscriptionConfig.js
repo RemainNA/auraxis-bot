@@ -110,6 +110,7 @@ module.exports = {
 	 * @param {string} channel - the id of the channel to initialize
 	 * @param {pg.Client} pgClient - the postgres client
 	 * @returns the results of the initialization
+	 * @throws if there is a configuration error
 	 */
 	initializeConfig: async function(channel, pgClient){
 		try{
@@ -130,6 +131,7 @@ module.exports = {
 	 * @param {string} setting - if continent subscscriptions are being shown or not
 	 * @param {string} channel - the channel to set the status of
 	 * @param {pg.Client} pgClient - the postgres client
+	 * @throws if there is a query error
 	 */
 	setContinent: async function(continent, setting, channel, pgClient){
 		let res = await pgClient.query("SELECT * FROM subscriptionConfig WHERE channel = $1", [channel])
@@ -214,6 +216,7 @@ module.exports = {
 	 * @param {string} channel - the channel to set the autodelete setting for
 	 * @param {pg.Client} pgClient - the postgres client
 	 * @returns the status of autodelete
+	 * @throws if there are query errors
 	 */
 	setAutoDelete: async function(message, channel, pgClient){
 		let res = await pgClient.query("SELECT * FROM subscriptionConfig WHERE channel = $1", [channel])
@@ -256,6 +259,7 @@ module.exports = {
 	 * @param {string} channel - the channel to audit
 	 * @param {pg.Client} pgClient - the postgres client
 	 * @returns the staus of the channel's configuration
+	 * @throws if there is a configuration error
 	 */
 	audit: async function(channel, pgClient){
 		try{

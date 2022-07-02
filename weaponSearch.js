@@ -12,6 +12,7 @@ module.exports = {
 	 * Look up a weapon by name and return a list of matching results
 	 * @param {string} name - The name of the weapon to search for
 	 * @returns a discord embed of matching results
+	 * @throws if the query is not a valid weapon or contains invalid characters
 	 */
 	lookup: async function(name){
 		if(badQuery(name)){

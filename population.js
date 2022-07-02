@@ -12,6 +12,7 @@ const i18n = require('i18n');
  * Get the faction per population of a server
  * @param {number} world - the server to get the population of
  * @returns an object showing the total population of the server by faction
+ * @throw if there are API errors
  */
 const getPopulation = async function(world){
 	let url = '';

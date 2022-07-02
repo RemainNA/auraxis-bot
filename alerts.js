@@ -26,6 +26,7 @@ const popLevels = {
  * @param {number} server - the server to get the alerts for
  * @param {string} locale - the locale to use for messages
  * @returns all  currently active alerts on `server`
+ * @throws if error retrieving alerts from ps2alerts
  */
 const alertInfo = async function(server, locale='en-US'){
 	try{
@@ -83,6 +84,7 @@ module.exports = {
 	 * @param {string} server - the server to get the alerts for
 	 * @param {string} locale - the locale to use for messages
 	 * @returns a discord embed of all active alerts on `server`
+	 * @throws if error retrieving alerts from ps2alerts
 	 */
 	activeAlerts: async function(server, locale="en-US"){
 		const serverID = serverIDs[server];

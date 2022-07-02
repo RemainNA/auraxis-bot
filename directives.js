@@ -14,6 +14,7 @@ const i18n = require('i18n');
  * @param {string} platform - the platform of the character
  * @param {string} locale - the locale to use 
  * @returns the list of completed directives and when they were completed
+ * @throws if `cName` is not a valid character name
  */
 const getDirectiveList = async function(cName, platform, locale="en-US"){
 	let nameResponse = await censusRequest(platform, 'character_list', `/character?name.first_lower=${cName}`);
@@ -46,6 +47,7 @@ module.exports = {
 	 * @param {boolean} expanded - whether to show the full list of directives or just the first few
 	 * @param {string} locale - the locale to use 
 	 * @returns a discord embed with the list of completed directives, when they were completed, and a fisu link to the character's directives
+	 * @throws if `cName` has no completed directives
 	 */
 	directives: async function(cName, platform, expanded=false, locale="en-US"){
 		const directiveList = await getDirectiveList(cName.toLowerCase(), platform, locale);

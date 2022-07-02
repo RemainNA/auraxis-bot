@@ -10,6 +10,7 @@ const {badQuery} = require('./utils.js');
  * Get implant information from implant.json
  * @param {string} name - the name of the implant to look up
  * @returns the implant information for `name`
+ * @throws if `name` is not a valid implant
  */
 const implantInfo = async function(name){
 	//Check if ID matches
@@ -57,6 +58,7 @@ module.exports = {
 	 * Creates a new embed with the implant information
 	 * @param {string} name - the name of the implant to look up
 	 * @returns a new embed with the implant information
+	 * @throw if `name` contains invalid characters
 	 */
 	lookup: async function(name){
 		if(badQuery(name)){

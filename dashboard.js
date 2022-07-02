@@ -210,6 +210,7 @@ module.exports = {
 	 * @param {string} serverName - The server name
 	 * @param {pg.Client} pgClient - The postgres client 
 	 * @returns the status of the creation of the dashboard
+	 * @throws if bot has insufficient permissions to post messages
 	 */
 	createServer: async function(channel, serverName, pgClient){
 		const resEmbed = await serverStatus(serverIDs[serverName], pgClient);
@@ -229,7 +230,8 @@ module.exports = {
 	 * @param {string} oTag - The tag of the outfit
 	 * @param {string} platform - The platform of the outfit
 	 * @param {pg.Client} pgClient - The postgres client
-	 * @returns 
+	 * @returns the status of the creation of the dashboard
+	 * @throws if bot has insufficient permissions to post messages
 	 */
 	createOutfit: async function(channel, oTag, platform, pgClient){
 		const oInfo = await onlineInfo(oTag, platform);

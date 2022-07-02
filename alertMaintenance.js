@@ -26,6 +26,7 @@ const winnerFaction = {
  * @param {pg.Client} pgClient - postgres client
  * @param {discord.Client} discordClient - discord client
  * @param {boolean} isComplete - true if alert is complete
+ * @throws if error retrieving territory control for an alert
  */
 const updateAlert = async function(info, pgClient, discordClient, isComplete){
 	let messageEmbed = new Discord.MessageEmbed();
