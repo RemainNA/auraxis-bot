@@ -42,7 +42,7 @@ module.exports = {
 			let row = res.rows[0];
 			let resEmbed = new Discord.MessageEmbed();
 			resEmbed.setTitle("Subscription config");
-			let alertStatus = "NB: If this channel is not subscribed to alerts you can ignore this section\n";
+			let alertStatus = "NB: If this channel is not subscribed to alerts you can ignore the following two sections\n";
 			alertStatus += getAlertStatus("Koltyr", row.koltyr)+"\n";
 			alertStatus += getAlertStatus("Indar", row.indar)+"\n";
 			alertStatus += getAlertStatus("Hossin", row.hossin)+"\n";
@@ -51,6 +51,23 @@ module.exports = {
 			alertStatus += getAlertStatus("Oshur", row.oshur)+"\n";
 			alertStatus += getAlertStatus("Other", row.other);
 			resEmbed.addField("Continents", alertStatus);
+
+			let territoryStatus = "";
+			if(row.territory){
+				territoryStatus += ":white_check_mark: Territory alerts are displayed\n" 
+			}
+			else{
+				territoryStatus += ":x: Territory alerts are not displayed\n" 
+			}
+			if(row.nonterritory){
+				territoryStatus += ":white_check_mark: Non-territory alerts are displayed" 
+			}
+			else{
+				territoryStatus += ":x: Non-territory alerts are not displayed" 
+			}
+
+			resEmbed.addField("Alert types", territoryStatus);
+
 			if(row.autodelete){
 				resEmbed.addField("Auto Delete", ":white_check_mark: Alert and outfit activity notifications are automatically deleted");
 			}
@@ -175,6 +192,22 @@ module.exports = {
 		else{
 			throw("Setting unrecognized.  Options are enable or disable.");
 		}
+	},
+
+	setAlertTypes: async function(type, setting, channel, pgClient){
+		let response = "";
+		if(type == 'territory'){
+			await pgClient.query("UPDATE subscriptionConfig SET territory = $1 WHERE channel = $2;", [setting, channel]);
+			response += "Territory alerts will"
+		}
+		else{
+			await pgClient.query("UPDATE subscriptionConfig SET nonterritory = $1 WHERE channel = $2;", [setting, channel]);
+			response += "Non-territory alerts will"
+		}
+		if(setting){
+			return response + " be displayed"
+		}
+		return response + " not be displayed"
 	},
 
 	audit: async function(channel, pgClient){

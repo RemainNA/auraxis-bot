@@ -429,6 +429,33 @@ const data = [
 						}
 					]
 				}]
+			},
+			{
+				name: 'alert-types',
+				description: 'Whether to show different types of alerts',
+				type: '1',
+				options: [{
+					name: 'type',
+					description: 'The type of alert',
+					type: '3',
+					required: true,
+					choices: [
+						{
+							name: 'Territory alerts',
+							value: 'territory'
+						},
+						{
+							name: 'Non-territory alerts',
+							value: 'nonterritory'
+						},
+					]
+				},
+				{
+					name: 'setting',
+					type: '5',
+					description: 'Whether to display the selected type of alert',
+					required: true
+				}]
 			}
 		]
 	},

@@ -325,6 +325,11 @@ client.on('interactionCreate', async interaction => {
 					res = await subscriptionConfig.setAutoDelete(options.getString("setting"), interaction.channelId, SQLclient);
 					await interaction.editReply(res);
 					break;
+
+				case 'alert-types':
+					res = await subscriptionConfig.setAlertTypes(options.getString("type"), options.getBoolean("setting"), interaction.channelId, SQLclient);
+					await interaction.editReply(res);
+					break;
 				
 				default:
 					interaction.editReply("Unknown command error");

@@ -179,6 +179,10 @@ Attempts to fix issues with configuration options if they are missing.
 
 Enables or disables displaying alerts and unlocks for the given continent, or "other" for alerts such as Outfit Wars.
 
+### /config alert-type [type] [setting]
+
+Enables or disables displaying territory or non-territory alerts.
+
 ### /config autodelete [enable/disable]
 
 Enables or disables automatically deleting alert notifications 5 minutes after they complete, and outfit activity notifications 5 minutes after they occur.
