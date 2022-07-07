@@ -1,4 +1,7 @@
-// This file implements the main event listener of the bot, which picks up messages, parses them for commands, and calls the appropriate functions.
+/**
+ * This file implements the main event listener of the bot, which picks up messages, parses them for commands, and calls the appropriate functions.
+ * @module main
+ */
 
 // Import the discord.js module
 const Discord = require('discord.js');
@@ -73,6 +76,8 @@ const client = new Discord.Client({intents: intentsList, allowedMentions: {parse
 // https://discordapp.com/developers/applications/me
 const token = process.env.token;
 
+let SQLclient = undefined;
+
 client.on('ready', async () => {
 	console.log('Running on '+client.guilds.cache.size+' servers!');
 	if(runningOnline){
@@ -107,7 +112,7 @@ client.on('ready', async () => {
 		}, 600000) //Update trackers every 10 minutes
 	}
 
-	client.user.setActivity('/help')
+	client.user.setActivity('/help');
 });
 
 const listOfCommands = 
@@ -148,7 +153,7 @@ client.on('interactionCreate', async interaction => {
 	if(interaction.isCommand()){
 		const options = interaction.options;
 		try{
-			let res = "";
+			let res = {};
 			let errorList = [];
 			switch(interaction.commandName){
 			case 'ping':
@@ -186,7 +191,7 @@ client.on('interactionCreate', async interaction => {
 				const characterLookups = await Promise.allSettled(Array.from(characterNames, x => 
 					char.character(x, options.getString('platform') || 'ps2:v2', interaction.locale)));
 				for(const res of characterLookups){
-					let toSend = "";
+					let toSend = {};
 					if(res.status == "rejected"){
 						if(typeof(res.reason) == 'string'){
 							toSend = res.reason;
@@ -198,7 +203,7 @@ client.on('interactionCreate', async interaction => {
 						}
 					}
 					else{
-						toSend = {embeds: [res.value[0]], components: res.value[1]}
+						toSend = {embeds: [res.value[0]], components: res.value[1]};
 					}
 					if(firstCharacter){
 						await interaction.editReply(toSend);
@@ -248,7 +253,7 @@ client.on('interactionCreate', async interaction => {
 						}
 					}
 					else{
-						toSend = {embeds: [res.value[0]], components: res.value[1]}
+						toSend = {embeds: [res.value[0]], components: res.value[1]};
 					}
 					if(firstOutfit){
 						await interaction.editReply(toSend);
@@ -274,7 +279,7 @@ client.on('interactionCreate', async interaction => {
 				const onlineLookups = await Promise.allSettled(Array.from(onlineTags, x => 
 					online.online(x, options.getString('platform') || 'ps2:v2', null, interaction.locale)));
 				for(const res of onlineLookups){
-					let toSend = "";
+					let toSend = undefined;
 					if(res.status == "rejected"){
 						if(typeof(res.reason) == 'string'){
 							toSend = res.reason;
@@ -286,7 +291,7 @@ client.on('interactionCreate', async interaction => {
 						}
 					}
 					else{
-						toSend = {embeds: [res.value]}
+						toSend = {embeds: [res.value]};
 					}
 					if(firstOnline){
 						await interaction.editReply(toSend);

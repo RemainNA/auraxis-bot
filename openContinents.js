@@ -1,4 +1,11 @@
-//This file implements functions to check which continents are open, update base ownership, and send unlock notifications
+/**
+ * This file implements functions to check which continents are open, update base ownership, and send unlock notifications
+ * @module openContinents
+ */
+/**
+ * @typedef {import('pg').Client} pg.Client
+ * @typedef {import('discord.js').Client} discord.Client
+ */
 
 const {territoryInfo} = require('./territory.js');
 const {serverIDs, serverNames, servers, continents} = require('./utils.js');
@@ -7,6 +14,9 @@ const {unsubscribeAll} = require('./subscriptions.js');
 const {Permissions} = require('discord.js');
 const trackers = require('./trackers.js');
 
+/**
+ * continentName: continentId
+ */
 const contIDs = {
 	"Indar": "2",
 	"Hossin": "4",
@@ -16,6 +26,14 @@ const contIDs = {
 	"Koltyr": "14"
 }
 
+/**
+ * Send a notification to subscribed channels that a continent has been opened
+ * @param {string} cont - continent name that is open
+ * @param {string} server - continent the server is in
+ * @param {string} channelID - subscribed channel  ID
+ * @param {pg.Client} pgClient - postgres client to use
+ * @param {discord.Client} discordClient - discord client to use
+ */
 const notifyUnlock = async function(cont, server, channelID, pgClient, discordClient){
 	try{
 		const channel = await discordClient.channels.fetch(channelID);
@@ -49,6 +67,11 @@ const notifyUnlock = async function(cont, server, channelID, pgClient, discordCl
 }
 
 module.exports = {
+	/**
+	 * Send a notification to subscribed channels that a continent has been opened
+	 * @param {pg.Client} pgClient - postgres client to use
+	 * @param {discord.Client} discordClient - discord client to use
+	 */
 	check: async function(pgClient, discordClient){
 		for(const server of servers){
 			try{
@@ -75,7 +98,7 @@ module.exports = {
 							}
 						}
 						catch(err){
-							console.log("Unlock error")
+							console.log("Unlock error");
 							console.log(err);
 						}
 						trackers.update(pgClient, discordClient, true); //Update trackers with new continent

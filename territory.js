@@ -1,9 +1,20 @@
-// This file defines functions used in finding and returning the current territory control on a given server, broken up by continent
+/**
+ * This file defines functions used in finding and returning the current territory control on a given server, broken up by continent
+ * @module territory
+ */
+/**
+ * @typedef {import('pg').Client} pg.Client
+ */
 
 const Discord = require('discord.js');
 const { serverNames, serverIDs, censusRequest, continents, localeNumber, faction } = require('./utils');
 const i18n = require('i18n');
 
+/**
+ * Used to get the correct fisu world control URL
+ * @param {number} serverID - the server to check
+ * @returns a fisu url for the correct platform for territory control on the server
+ */
 const fisuTerritory = function(serverID){
     if (serverID < 1000){
         return `https://ps2.fisu.pw/control/?world=${serverID}`;
@@ -17,6 +28,12 @@ const fisuTerritory = function(serverID){
     return null;
 }
 
+/**
+ * Get the benefit of a continent in the correct locale
+ * @param {string} continent - the continent to check
+ * @param {string} locale - the locale to use 
+ * @returns A string of the  benefit of the continent
+ */
 const continentBenefit = function(continent, locale="en-US"){
     switch (continent){
         case "Indar":
@@ -46,6 +63,12 @@ const continentBenefit = function(continent, locale="en-US"){
 // TR: 3
 
 module.exports = {
+    /**
+     * Gets current continent info on a server
+     * @param {number} serverID 
+     * @returns an object containing the current continent info on the server
+     * @throws if there are API errors
+     */
     territoryInfo: async function(serverID){
         let platform = 'ps2:v2';
         if(serverID == 1000){
@@ -143,6 +166,13 @@ module.exports = {
         return {Indar: IndarObj, Hossin: HossinObj, Amerish: AmerishObj, Esamir: EsamirObj, Oshur: OshurObj, Koltyr: KoltyrObj};
     },
 
+    /**
+     * Get the current continent info on a server to post in discord
+     * @param {string} serverName - name of the server
+     * @param {pg.Client} pgClient - postgres client
+     * @param {string} locale - locale to use for translations
+     * @returns A discord embed with the current continent info
+     */
     territory: async function(serverName, pgClient, locale="en-US"){
 
         const serverID = serverIDs[serverName];
@@ -170,7 +200,7 @@ module.exports = {
                 \n${i18n.__mf({phrase: "Unlocked {timestamp} ({relative})", locale: locale}, {timestamp: `<t:${timestamp}:t>`, relative: `<t:${timestamp}:R>`})}\
                 \n<:VS:818766983918518272> **${i18n.__({phrase: "VS", locale: locale})}**: ${terObj[continent].vs}  |  ${vsPc}%\
                 \n<:NC:818767043138027580> **${i18n.__({phrase: "NC", locale: locale})}**: ${terObj[continent].nc}  |  ${ncPc}%\
-                \n<:TR:818988588049629256> **${i18n.__({phrase: "TR", locale: locale})}**: ${terObj[continent].tr}  |  ${trPc}%`)
+                \n<:TR:818988588049629256> **${i18n.__({phrase: "TR", locale: locale})}**: ${terObj[continent].tr}  |  ${trPc}%`);
             }
         }
 

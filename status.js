@@ -1,9 +1,17 @@
-// This file implements functions to look up and report server status
+/**
+ * This file implements functions to look up and report server status
+ * @module status
+ */
 
 const Discord = require('discord.js');
 const { censusRequest } = require('./utils.js');
 const i18n = require('i18n');
 
+/**
+ * Get the population status of each server
+ * @returns a discord embed of the current population status for each server
+ * @throws if there are API errors
+ */
 const info = async function(){
 	let status = {
 		'Connery': 'Unknown',
@@ -14,7 +22,7 @@ const info = async function(){
 		'Jaeger': 'Unknown',
 		'Genudine': 'Unknown',
 		'Ceres': 'Unknown'
-	}
+	};
 
 	const data = await censusRequest('global', 'game_server_status_list', '/game_server_status?game_code=ps2&c:limit=100');
     if(typeof(data) === 'undefined'){
@@ -52,6 +60,11 @@ const info = async function(){
 }
 
 module.exports = {
+	/**
+	 * Get a discord message of the status of each PS2 server
+	 * @param {string} locale - The locale to use
+	 * @returns a discord message of the status of each PS2 server
+	 */
 	servers: async function(locale="en-US"){
 		let status = await info();
 		let resEmbed = new Discord.MessageEmbed();

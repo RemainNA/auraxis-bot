@@ -1,11 +1,25 @@
+/**
+ * Handles the `/online` command
+ * @module online
+ */
+
 const Discord = require('discord.js');
 const { badQuery, censusRequest, faction} = require('./utils.js');
 const i18n = require('i18n');
 
+/**
+ * Get who is online in `oTag`
+ * @param {string} oTag - outfit tag to check
+ * @param {string} platform - platform the outfit is on
+ * @param {string | null} outfitID - outfit ID to check
+ * @param {string} locale - locale to use
+ * @returns a object containing the current online membeers of the outfit. If online member count is unavailable, object.OnlineCount will be -1.
+ * @throws if outfit tag cannot be found or there was an API error
+ */
 const onlineInfo = async function(oTag, platform, outfitID = null, locale = "en-US"){
 	let url = `/outfit?alias_lower=${oTag}&c:resolve=member_online_status,rank,member_character_name&c:join=character^on:leader_character_id^to:character_id&c:join=characters_world^on:leader_character_id^to:character_id`;
 	if(outfitID != null){
-		url = `/outfit/${outfitID}?c:resolve=member_online_status,rank,member_character_name&c:join=character^on:leader_character_id^to:character_id&c:join=characters_world^on:leader_character_id^to:character_id`
+		url = `/outfit/${outfitID}?c:resolve=member_online_status,rank,member_character_name&c:join=character^on:leader_character_id^to:character_id&c:join=characters_world^on:leader_character_id^to:character_id`;
 	}
 	let response = await censusRequest(platform, 'outfit_list', url);
 	if(response.length == 0){
@@ -26,12 +40,12 @@ const onlineInfo = async function(oTag, platform, outfitID = null, locale = "en-
 		onlineCount: 0,
 		world: data.leader_character_id_join_characters_world.world_id,
 		outfitID: data.outfit_id
-	}
+	};
 	if(typeof(data.leader_character_id_join_character) !== 'undefined'){
 		resObj.faction = data.leader_character_id_join_character.faction_id;
 	}
 	if(data.members[0].online_status == "service_unavailable"){
-		resObj.onlineCount = "Online member count unavailable";
+		resObj.onlineCount = -1;
 		return resObj;
 	}
 	if(typeof(data.members[0].name) === 'undefined'){
@@ -63,6 +77,11 @@ const onlineInfo = async function(oTag, platform, outfitID = null, locale = "en-
 	return resObj;
 }
 
+/**
+ * Used to get the number total number of characters from online outfit members
+ * @param {string[]} arr - array of online members
+ * @returns the amount of characters in the array
+ */
 const totalLength = function(arr){
 	let len = 0;
 	for(const i in arr){
@@ -72,6 +91,15 @@ const totalLength = function(arr){
 }
 
 module.exports = {
+	/**
+	 * Get the online members of an outfit
+	 * @param {string} oTag - outfit tag to check
+	 * @param {string} platform - platform the outfit is on
+	 * @param {string | null} outfitID - outfit ID to check
+	 * @param {string} locale - locale to use
+	 * @returns a discord embed of the online members of the outfit
+	 * @throws if `oTag` contains invalid characters or was incorrectly formatted
+	 */
 	online: async function(oTag, platform, outfitID = null, locale = "en-US"){
 		if(badQuery(oTag)){
 			throw i18n.__({phrase: "Outfit search contains disallowed characters", locale: locale});
@@ -97,8 +125,8 @@ module.exports = {
 			resEmbed.setURL('http://ps4eu.ps2.fisu.pw/outfit/?name='+oInfo.alias);
 		}
 		resEmbed.setColor(faction(oInfo.faction).color)
-		if(oInfo.onlineCount == "Online member count unavailable"){
-			resEmbed.addField(i18n.__({phrase: oInfo.onlineCount, locale: locale}), "-", true);
+		if(oInfo.onlineCount === -1){
+			resEmbed.addField(i18n.__({phrase: "Online member count unavailable", locale: locale}), "-", true);
 			resEmbed.setDescription(oInfo.alias+"\n"+"?/"+oInfo.memberCount+" online");
 
 			return resEmbed;

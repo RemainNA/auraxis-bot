@@ -1,8 +1,21 @@
+/**
+ * Look up basic information about an outfit
+ * @module outfit
+ * @typedef { import('pg').Client} pg.Client
+ */
 const Discord = require('discord.js');
 const { serverNames, badQuery, censusRequest, localeNumber, faction } = require('./utils.js');
 const bases = require('./static/bases.json');
 const i18n = require('i18n');
 
+/**
+ * Get basic information about an outfit, online members, owned bases etc.
+ * @param {string} oTag - outfit tag to query the PS2 Census API with
+ * @param {string} platform - which platform to request, eg. ps2:v2, ps2ps4us:v2, or ps2ps4eu:v2
+ * @param {string | null} oID - outfit ID to query the PS2 Census API with 
+ * @param {string} locale - locale to use e.g. en-US
+ * @throws if outfit could not be found or if there was an error gathering outfit information
+ */
 const basicInfo = async function(oTag, platform, oID, locale="en-US"){
 	let url = `/outfit?alias_lower=${oTag}&c:resolve=member_online_status&c:join=character^on:leader_character_id^to:character_id&c:join=character^on:members.character_id^to:character_id^hide:certs&c:join=characters_world^on:leader_character_id^to:character_id`;
 	if(oID != null){
@@ -28,12 +41,12 @@ const basicInfo = async function(oTag, platform, oID, locale="en-US"){
 		onlineMonth: 0,
 		outfitID: data.outfit_id,
 		timeCreated: data.time_created
-	}
+	};
 	if(typeof(data.leader_character_id_join_characters_world) !== 'undefined'){
 		resObj.worldId = data.leader_character_id_join_characters_world.world_id;
 	}
 
-	onlineServiceAvailable = true;
+	let onlineServiceAvailable = true;
 	if(data.members != undefined && data.members[0].online_status == "service_unavailable"){
 		resObj["onlineMembers"] = i18n.__({phrase: "Online member count unavailable", locale: locale});
 		onlineServiceAvailable = false;
@@ -42,7 +55,7 @@ const basicInfo = async function(oTag, platform, oID, locale="en-US"){
 		resObj["onlineMembers"] = 0;
 	}
 	
-	now = Math.round(Date.now() / 1000); //Current Unix epoch
+	const now = Math.round(Date.now() / 1000); //Current Unix epoch
 
 	for(const i in data.members){
 		if(data.members[i].online_status > 0 && onlineServiceAvailable){
@@ -71,6 +84,13 @@ const basicInfo = async function(oTag, platform, oID, locale="en-US"){
 	return resObj;
 }
 
+/**
+ * Get the bases an outfit owns
+ * @param {string} outfitID - outfit ID to query the database with
+ * @param {number} worldID - the server ID the outfit is on
+ * @param {pg.Client} pgClient - Postgres client to use
+ * @returns Array of owned bases
+ */
 const ownedBases = async function(outfitID, worldID, pgClient){
 	let oBases = [];
 	try{
@@ -86,6 +106,9 @@ const ownedBases = async function(outfitID, worldID, pgClient){
 	}
 }
 
+/**
+ * The central bases for each continent
+ */
 const centralBases = [
     6200, // The Crown
     222280, // The Ascent
@@ -93,6 +116,13 @@ const centralBases = [
     298000 // Nason's Defiance
 ]
 
+/**
+ * Generate an outfit report on https://wt.honu.pw/report
+ * @param {string[]} outfits - the outfits to include in the report
+ * @param {number} start - start time of the repot
+ * @param {number} end - end time of the report
+ * @returns the URL to the report
+ */
 const generateReport = function(outfits, start, end){
 	let reportString = `${start},${end};`;
 	for(const outfit of outfits){
@@ -103,6 +133,16 @@ const generateReport = function(outfits, start, end){
 }
 
 module.exports = {
+	/**
+	 * Generate a discord embed overview of an outfit
+ 	 * @param {string} oTag - outfit tag to query the PS2 Census API with
+ 	 * @param {string} platform - which platform to request, eg. ps2:v2, ps2ps4us:v2, or ps2ps4eu:v2
+ 	 * @param {pg.Client} pgClient - Postgres client to use
+ 	 * @param {string | null} oID - outfit ID to query the PS2 Census API with 
+ 	 * @param {string} locale - locale to use e.g. en-US
+	 * @returns a discord embed object and an Array of buttons
+	 * @throw if `oTag` contains invalid characters or it too long
+	 */
 	outfit: async function(oTag, platform, pgClient, oID = null, locale = "en-US"){
 		if(badQuery(oTag)){
 			throw i18n.__({phrase: "Outfit search contains disallowed characters", locale: locale});
@@ -129,7 +169,7 @@ module.exports = {
 				resEmbed.setURL('http://ps4eu.ps2.fisu.pw/outfit/?name='+oInfo.alias);
 			}
 		}
-		resEmbed.addField(i18n.__({phrase: "Founded", locale: locale}), `<t:${oInfo.timeCreated}:D>`, true)
+		resEmbed.addField(i18n.__({phrase: "Founded", locale: locale}), `<t:${oInfo.timeCreated}:D>`, true);
 		resEmbed.addField(i18n.__({phrase: "Members", locale: locale}), localeNumber(oInfo.memberCount, locale), true);
 		const dayPc = localeNumber((oInfo.onlineDay/oInfo.memberCount)*100, locale);
 		const weekPc = localeNumber((oInfo.onlineWeek/oInfo.memberCount)*100, locale);
@@ -140,7 +180,7 @@ module.exports = {
 		resEmbed.addField(i18n.__({phrase: "Last month", locale: locale}), localeNumber(oInfo.onlineMonth, locale)+" ("+monthPc+"%)", true);
 		resEmbed.addField(i18n.__({phrase: "Server", locale: locale}), i18n.__({phrase: serverNames[Number(oInfo.worldId)], locale: locale}), true);
 
-		const factionInfo = faction(oInfo.faction)
+		const factionInfo = faction(oInfo.faction);
 		resEmbed.addField(i18n.__({phrase: "Faction", locale: locale}), `${factionInfo.decal} ${i18n.__({phrase: factionInfo.initial, locale: locale})}`, true);
 		resEmbed.setColor(factionInfo.color);
 
@@ -209,7 +249,7 @@ module.exports = {
 				.setStyle('PRIMARY')
 				.setLabel(i18n.__({phrase: 'View online', locale: locale}))
 				.setCustomId(`online%${oInfo.outfitID}%${platform}`)
-		)
+		);
 		if(platform == "ps2:v2"){
 			const now = Math.round(Date.now() / 1000);
 
@@ -222,7 +262,7 @@ module.exports = {
 					.setStyle('LINK')
 					.setURL(generateReport([oInfo.outfitID], now-7200, now))
 					.setLabel(i18n.__({phrase: 'Past 2 hour report', locale: locale}))
-			)
+			);
 		}
 
 		return [resEmbed, [row]];

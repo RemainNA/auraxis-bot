@@ -1,4 +1,7 @@
-// This file implements functions to look up a character's stats with a specific weapon
+/**
+ * This file implements functions to look up a character's stats with a specific weapon
+ * @module stats
+ */
 
 const Discord = require('discord.js');
 const weaponsJSON = require('./static/weapons.json');
@@ -6,6 +9,14 @@ const sanction = require('./static/sanction.json');
 const { badQuery, censusRequest, localeNumber, faction } = require('./utils.js');
 const i18n = require('i18n');
 
+/**
+ * Get weapon name and id
+ * @param {string} name - The name of the weapon or  weapon ID
+ * @param searchSpace - A list of ID's to search
+ * @param {string} cName - The name of the character to check the weapon stats for
+ * @returns the weapon that matches `name`
+ * @throws if `cName` is not a valid character or `name` is not a valid weapon
+ */
 const getWeaponId = async function(name, searchSpace, cName=""){
 	//Check if ID matches
 
@@ -60,6 +71,9 @@ const getWeaponId = async function(name, searchSpace, cName=""){
 	
 }
 
+/**
+ * The different factions pools for weapons
+ */
 const factions = {
 	"0": "Common pool",
 	"1": "VS",
@@ -68,6 +82,11 @@ const factions = {
 	"4": "NSO"
 }
 
+/**
+ * Get a list of partial matches for a weapon name
+ * @param {string} query - The query to search for 
+ * @returns a list of  objects with the name and ID of the weapon
+ */
 const partialMatches = async function(query){
 	let matches = [];
 	let included = [];
@@ -101,6 +120,15 @@ const partialMatches = async function(query){
 	return matches;
 }
 
+/**
+ * Get character's stats with a specific weapon
+ * @param {string} cName - The name of the character to get the stats for
+ * @param {string} wName - The name of the weapon to get the stats for
+ * @param {string} platform - The platform to get the stats for
+ * @param {string} locale - The locale to get the stats for
+ * @returns character information for a specific weapon
+ * @throws if `cName` is not a valid character or `wName` is not a valid weapon
+ */
 const characterInfo = async function(cName, wName, platform, locale="en-US"){
 	let response =  await censusRequest(platform, 'character_list', `/character?name.first_lower=${cName}&c:resolve=weapon_stat_by_faction,weapon_stat`);
     if(response.length == 0){
@@ -118,9 +146,9 @@ const characterInfo = async function(cName, wName, platform, locale="en-US"){
 		hits: 0,
 		playTime: 0,
 		score: 0
-	}
+	};
 
-	let validIds = []
+	let validIds = [];
 
 	// This for loop determines the search space, limited to what weapons the character has actually used
 	for(let weapon of data.stats.weapon_stat_by_faction){
@@ -198,13 +226,22 @@ const characterInfo = async function(cName, wName, platform, locale="en-US"){
 }
 
 module.exports = {
+	/**
+	 * Look up weapon stats for a specific character and get a discord embed in return
+	 * @param {string} cName - The name of the character to get the stats for
+	 * @param {string} wName - The name of the weapon to get the stats for
+	 * @param {string} platform - The platform to get the stats for
+	 * @param {string} locale - the locale to use 
+	 * @returns a discord embed for a character weapons stats
+	 * @throws if `cName` or `wName` contains invalid characters
+	 */
 	lookup: async function(cName, wName, platform, locale="en-US"){
 		if(badQuery(cName)){
 			throw i18n.__({phrase: "Character search contains disallowed characters", locale: locale});
 		}
 		if(wName.indexOf("[") > -1){
 			// Account for autocomplete breaking
-			const splitList = wName.split("[")
+			const splitList = wName.split("[");
 			wName = splitList[splitList.length-1].split("]")[0];
 		}
 		if(badQuery(wName)){
@@ -231,18 +268,18 @@ module.exports = {
 		let accuracy = cInfo.hits/cInfo.fireCount;
 		let hsr = totalHeadshots/totalKills;
 		let ahr = Math.floor(accuracy*hsr*10000);
-		let spm = Number.parseFloat(cInfo.score/(cInfo.playTime/60));
+		let spm = cInfo.score/(cInfo.playTime/60);
 		resEmbed.addField(i18n.__({phrase: "Kills", locale: locale}), totalKills.toLocaleString(locale), true);
-		resEmbed.addField(i18n.__({phrase: "Deaths", locale: locale}), parseInt(cInfo.deaths).toLocaleString(locale), true);
+		resEmbed.addField(i18n.__({phrase: "Deaths", locale: locale}), cInfo.deaths.toLocaleString(locale), true);
 		resEmbed.addField(i18n.__({phrase: "K/D", locale: locale}), localeNumber(totalKills/cInfo.deaths, locale), true);
 		resEmbed.addField(i18n.__({phrase: "Accuracy", locale: locale}), localeNumber(accuracy*100, locale)+"%", true);
 		totalHeadshots && resEmbed.addField(i18n.__({phrase: "HSR", locale: locale}), localeNumber(hsr*100, locale)+"%", true);
 		ahr && resEmbed.addField(i18n.__({phrase: "AHR Score", locale: locale}), `${ahr}`, true);
-		totalVehicleKills && resEmbed.addField(i18n.__({phrase: "Vehicle Kills", locale: locale}), parseInt(totalVehicleKills).toLocaleString(locale), true);
+		totalVehicleKills && resEmbed.addField(i18n.__({phrase: "Vehicle Kills", locale: locale}), totalVehicleKills.toLocaleString(locale), true);
 		resEmbed.addField(i18n.__({phrase: "Playtime", locale: locale}), hours+" hours, "+minutes+" minutes", true);
 		resEmbed.addField(i18n.__({phrase: "KPM", locale: locale}), localeNumber(totalKills/(cInfo.playTime/60), locale), true);
 		resEmbed.addField(i18n.__({phrase: "Avg Damage/Kill", locale: locale}), Math.floor(totalDamage/totalKills).toLocaleString(locale), true);
-		resEmbed.addField(i18n.__({phrase: "Score (SPM)", locale: locale}), parseInt(cInfo.score).toLocaleString(locale)+" ("+localeNumber(spm, locale)+")", true);
+		resEmbed.addField(i18n.__({phrase: "Score (SPM)", locale: locale}), cInfo.score.toLocaleString(locale)+" ("+localeNumber(spm, locale)+")", true);
 		resEmbed.setColor(faction(cInfo.faction).color)
 		if(wInfo.image_id != -1 && wInfo.image_id != undefined){
 			resEmbed.setThumbnail('http://census.daybreakgames.com/files/ps2/images/static/'+wInfo.image_id+'.png');

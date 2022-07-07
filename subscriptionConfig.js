@@ -1,7 +1,19 @@
-// This file implements functionality to configure subscriptions and the /config command
+/**
+ * This file implements functionality to configure subscriptions and the /config command
+ * @module subscriptionConfig 
+ */
+/**
+ * @typedef {import('pg').Client} pg.Client
+ */
 
 const Discord = require('discord.js');
 
+/**
+ * Get the status of alert subscriptions for a `continent`
+ * @param {string} continent - The continent to check the status of
+ * @param {boolean} shown - whether alerts on a continent are being shown
+ * @returns A string containing the subscription status of the continent
+ */
 const getAlertStatus = function(continent, shown){
 	if(["Indar", "Hossin", "Amerish", "Esamir", "Oshur"].includes(continent)){
 		if(shown){
@@ -22,6 +34,9 @@ const getAlertStatus = function(continent, shown){
 	
 }
 
+/**
+ * all different continents
+ */
 const continents = [
 	"koltyr",
 	"indar",
@@ -33,6 +48,12 @@ const continents = [
 ]
 
 module.exports = {
+	/**
+	 * Gets the current configuration of subscriptions in a channel
+	 * @param {string} channel - the id of the channel to query 
+	 * @param {pg.Client} pgClient - the postgres client
+	 * @returns a discord message containing the current status of subscriptions
+	 */
 	displayConfig: async function(channel, pgClient){
 		try{
 			let res = await pgClient.query("SELECT * FROM subscriptionConfig WHERE channel=$1", [channel]);
@@ -84,11 +105,18 @@ module.exports = {
 		}
 	},
 
+	/**
+	 * Initializes the subscription config for a channel
+	 * @param {string} channel - the id of the channel to initialize
+	 * @param {pg.Client} pgClient - the postgres client
+	 * @returns the results of the initialization
+	 * @throws if there is a configuration error
+	 */
 	initializeConfig: async function(channel, pgClient){
 		try{
 			await pgClient.query("INSERT INTO subscriptionConfig (channel) VALUES ($1)\
-		ON CONFLICT(channel) DO NOTHING;", [channel])
-			return "Configuration step succeeded."
+		ON CONFLICT(channel) DO NOTHING;", [channel]);
+			return "Configuration step succeeded.";
 		}
 		catch(err){
 			console.log("Error when initializing subscription config");
@@ -97,6 +125,14 @@ module.exports = {
 		}
 	},
 
+	/**
+	 * Set the status of alerts on a continent
+	 * @param {string} continent - the continent to set the status of
+	 * @param {string} setting - if continent subscscriptions are being shown or not
+	 * @param {string} channel - the channel to set the status of
+	 * @param {pg.Client} pgClient - the postgres client
+	 * @throws if there is a query error
+	 */
 	setContinent: async function(continent, setting, channel, pgClient){
 		let res = await pgClient.query("SELECT * FROM subscriptionConfig WHERE channel = $1", [channel])
 		if (res.rows.length == 0){
@@ -109,31 +145,31 @@ module.exports = {
 			switch(continent){
 				case "koltyr":
 					pgClient.query("UPDATE subscriptionConfig SET koltyr = true WHERE channel = $1;", [channel])
-						.catch(err => {throw(err)})
+						.catch(err => {throw(err)});
 					return("Koltyr alerts will be displayed");
 				case "indar":
 					pgClient.query("UPDATE subscriptionConfig SET indar = true WHERE channel = $1;", [channel])
-						.catch(err => {throw(err)})
+						.catch(err => {throw(err)});
 					return("Indar alerts and unlocks will be displayed");
 				case "hossin":
 					pgClient.query("UPDATE subscriptionConfig SET hossin = true WHERE channel = $1;", [channel])
-						.catch(err => {throw(err)})
+						.catch(err => {throw(err)});
 					return("Hossin alerts and unlocks will be displayed");
 				case "amerish":
 					pgClient.query("UPDATE subscriptionConfig SET amerish = true WHERE channel = $1;", [channel])
-						.catch(err => {throw(err)})
+						.catch(err => {throw(err)});
 					return("Amerish alerts and unlocks will be displayed");
 				case "esamir":
 					pgClient.query("UPDATE subscriptionConfig SET esamir = true WHERE channel = $1;", [channel])
-						.catch(err => {throw(err)})
+						.catch(err => {throw(err)});
 					return("Esamir alerts and unlocks will be displayed");
 				case "oshur":
 					pgClient.query("UPDATE subscriptionConfig SET oshur = true WHERE channel = $1;", [channel])
-						.catch(err => {throw(err)})
+						.catch(err => {throw(err)});
 					return("Oshur alerts and unlocks will be displayed");
 				case "other":
 					pgClient.query("UPDATE subscriptionConfig SET other = true WHERE channel = $1;", [channel])
-						.catch(err => {throw(err)})
+						.catch(err => {throw(err)});
 					return("Other alerts will be displayed");
 			}
 		}
@@ -141,7 +177,7 @@ module.exports = {
 			switch(continent){
 				case "koltyr":
 					pgClient.query("UPDATE subscriptionConfig SET koltyr = false WHERE channel = $1;", [channel])
-						.catch(err => {throw(err)})
+						.catch(err => {throw(err)});
 					return("Koltyr alerts will not be displayed");
 				case "indar":
 					pgClient.query("UPDATE subscriptionConfig SET indar = false WHERE channel = $1;", [channel])
@@ -165,15 +201,23 @@ module.exports = {
 					return("Oshur alerts and unlocks will not be displayed");
 				case "other":
 					pgClient.query("UPDATE subscriptionConfig SET other = false WHERE channel = $1;", [channel])
-						.catch(err => {throw(err)})
+						.catch(err => {throw(err)});
 					return("Other alerts will not be displayed");
 			}
 		}
 		else{
-			throw("Setting unrecognized.  Options are enable or disable.")
+			throw("Setting unrecognized.  Options are enable or disable.");
 		}
 	},
 
+	/**
+	 * Configure the autodelete setting for a channel
+	 * @param {string} message - the message to parse
+	 * @param {string} channel - the channel to set the autodelete setting for
+	 * @param {pg.Client} pgClient - the postgres client
+	 * @returns the status of autodelete
+	 * @throws if there are query errors
+	 */
 	setAutoDelete: async function(message, channel, pgClient){
 		let res = await pgClient.query("SELECT * FROM subscriptionConfig WHERE channel = $1", [channel])
 		if (res.rows.length == 0){
@@ -181,12 +225,12 @@ module.exports = {
 		}
 		if(message.trim().toLowerCase() == 'enable'){
 			pgClient.query("UPDATE subscriptionConfig SET autoDelete = true WHERE channel = $1;", [channel])
-				.catch(err => {throw(err)})
+				.catch(err => {throw(err)});
 			return("Alerts and outfit activity notifications will be automatically deleted");
 		}
 		else if(message.trim().toLowerCase() == 'disable'){
 			pgClient.query("UPDATE subscriptionConfig SET autoDelete = false WHERE channel = $1;", [channel])
-				.catch(err => {throw(err)})
+				.catch(err => {throw(err)});
 			return("Alerts and outfit activity notifications will not be automatically deleted");
 		}
 		else{
@@ -194,6 +238,14 @@ module.exports = {
 		}
 	},
 
+	/**
+	 * Set which alert type do display or not display for a channel
+	 * @param {string} type - the type of alert to set, territoy or non-territory
+	 * @param {string} setting - enable or disable displaying alerts
+	 * @param {string} channel - the channel to set alert visibility for
+	 * @param {pg.Client} pgClient - the postgres client
+	 * @returns a message indicating the status of the setting
+	 */
 	setAlertTypes: async function(type, setting, channel, pgClient){
 		let response = "";
 		if(type == 'territory'){
@@ -210,6 +262,13 @@ module.exports = {
 		return response + " not be displayed"
 	},
 
+	/**
+	 * Audit the configuration for a channel
+	 * @param {string} channel - the channel to audit
+	 * @param {pg.Client} pgClient - the postgres client
+	 * @returns the staus of the channel's configuration
+	 * @throws if there is a configuration error
+	 */
 	audit: async function(channel, pgClient){
 		try{
 			const alerts = await pgClient.query("SELECT * FROM alerts WHERE channel = $1", [channel]);
@@ -242,7 +301,7 @@ module.exports = {
 				status += "Configuration settings created";
 			}
 			else{
-				status += "No issues found"
+				status += "No issues found";
 			}
 			return status;
 		}
@@ -252,8 +311,8 @@ module.exports = {
 			}
 			else{
 				console.log("Subscription config error");
-				console.log(err)
-				throw("Error when performing subscription configuration audit")
+				console.log(err);
+				throw("Error when performing subscription configuration audit");
 			}
 		}
 	}

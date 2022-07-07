@@ -1,16 +1,33 @@
-//This file implements functions to create and update server tracker channels, showing total population and active continents
+/**
+ * This file implements functions to create and update server tracker channels, showing total population and active continents
+ * @module tracker
+ */
+/**
+ * @typedef {import('pg').Client} pg.Client
+ * @typedef {import('discord.js').Client} discord.Client
+ */
 
 const {getPopulation} = require('./population.js');
 const {territoryInfo} = require('./territory.js');
 const {onlineInfo} = require('./online.js');
 const {serverNames, serverIDs, servers, continents, faction} = require('./utils.js');
 
+/**
+ * Get a string of the name and total population of a server
+ * @param {number} serverID - the server to check population
+ * @returns the name and population of the server
+ */
 const populationName = async function(serverID){
 	const population = await getPopulation(serverID);
 	const total = population.vs + population.nc + population.tr + population.ns;
 	return `${serverNames[serverID]}: ${total} online`;
 }
 
+/**
+ * Get open continents on serveer
+ * @param {number} serverID - the server to check open continents
+ * @returns which continents are open on the  server
+ */
 const territoryName = async function(serverID){
 	const territory = await territoryInfo(serverID);
 	let openList = [];
@@ -22,14 +39,27 @@ const territoryName = async function(serverID){
 	return `${serverNames[serverID]}: ${openList}`;
 }
 
+/**
+ * Get the number of online members in an outfit
+ * @param {string} outfitID - the outfit to check
+ * @param {string} platform -  the platform of the outfit
+ * @returns an object conontaining the number of online members in the outfit
+ */
 const outfitName = async function(outfitID, platform){
 	const oInfo = await onlineInfo("", platform, outfitID);
 	return {
 		faction: `${faction(oInfo.faction).tracker} ${oInfo.alias}: ${oInfo.onlineCount} online`,
 		noFaction: `${oInfo.alias}: ${oInfo.onlineCount} online`
-	}
+	};
 }
 
+/**
+ * Update channels names of channels the are trackers
+ * @param {string} name - the name to update the channel with
+ * @param {string} channelID - the channel to update
+ * @param {discord.Client} discordClient - the discord Client
+ * @param {pg.Client} pgClient - the postgres client
+ */
 const updateChannelName = async function(name, channelID, discordClient, pgClient){
 	try{
 		let channel = await discordClient.channels.fetch(channelID);
@@ -54,6 +84,16 @@ const updateChannelName = async function(name, channelID, discordClient, pgClien
 }
 
 module.exports = {
+	/**
+	 * Used to create tracker channels for server population and territory
+	 * @param {string} type - the type of tracker to create
+	 * @param {string} serverName - the server to check
+	 * @param guild - the discord guild
+	 * @param {discord.Client} discordClient - the discord Client
+	 * @param {pg.Client} pgClient - the postgres client
+	 * @returns A string saying the tracker channel was created
+	 * @throws if bot is missing permissions to create channels
+	 */
 	create: async function(type, serverName, guild, discordClient, pgClient){
 		try{
 			let name = "";
@@ -91,6 +131,17 @@ module.exports = {
 		}
 	},
 
+	/**
+	 * Used to create tracker channels for outfits
+	 * @param {string} tag - the tag of the outfit to check
+	 * @param {string} platform - the platform of the outfit
+	 * @param {boolean} showFaction - if true, show faction indicator in tracker
+	 * @param guild - the discord guild
+	 * @param {discord.Client} discordClient - the discord Client
+	 * @param {pg.Client} pgClient - the postgres client
+	 * @returns a string saying the tracker channel for outfits was created
+	 * @throws if bot is missing permissions to create channels
+	 */
 	createOutfit: async function(tag, platform, showFaction, guild, discordClient, pgClient){
 		try{
 			const oInfo = await onlineInfo(tag, platform);
@@ -129,6 +180,12 @@ module.exports = {
 		}
 	},
 
+	/**
+	 * Used to update the tracker channels
+	 * @param {pg.Client} pgClient - the postgres client
+	 * @param {discord.Client} discordClient - the discord Client
+	 * @param {boolean} continentOnly - if false only update population and outfits
+	 */
 	update: async function(pgClient, discordClient, continentOnly = false){
 		for(const serverName of servers){
 			if(!continentOnly){
@@ -163,7 +220,7 @@ module.exports = {
 					try{
 						const oName = await outfitName(row.outfitid, row.platform);
 						const channels = await pgClient.query("SELECT channel, showfaction FROM outfittracker WHERE outfitid = $1 AND platform = $2;", [row.outfitid, row.platform]);
-						for(channelRow of channels.rows){
+						for(const channelRow of channels.rows){
 							if(channelRow.showfaction){
 								await updateChannelName(oName.faction, channelRow.channel, discordClient, pgClient);
 							}
@@ -177,7 +234,7 @@ module.exports = {
 						console.log(err);
 						if(err == " not found"){
 							await pgClient.query("DELETE FROM outfittracker WHERE outfitid = $1;", [row.outfitid]);
-							console.log(`Deleted ${row.outfitid} from tracker table`)
+							console.log(`Deleted ${row.outfitid} from tracker table`);
 						}
 					}
 					

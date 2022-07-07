@@ -1,7 +1,17 @@
+/**
+ * Search up implant information
+ * @module implant
+ */
 const Discord = require('discord.js');
 const implantsJSON = require('./static/implants.json');
 const {badQuery} = require('./utils.js');
 
+/**
+ * Get implant information from implant.json
+ * @param {string} name - the name of the implant to look up
+ * @returns the implant information for `name`
+ * @throws if `name` is not a valid implant
+ */
 const implantInfo = async function(name){
 	//Check if ID matches
 	if(implantsJSON[name] !== undefined){
@@ -22,6 +32,11 @@ const implantInfo = async function(name){
 	throw `${name} not found.`;
 }
 
+/**
+ * Search for partial matches of implants
+ * @param {string} query - the query to search for
+ * @returns list of possible matches implant
+ */
 const partialMatches = async function(query){
 	const matches = [];
 	query = query.replace(/[“”]/g, '"').toLowerCase();
@@ -39,6 +54,12 @@ const partialMatches = async function(query){
 }
 
 module.exports = {
+	/**
+	 * Creates a new embed with the implant information
+	 * @param {string} name - the name of the implant to look up
+	 * @returns a new embed with the implant information
+	 * @throw if `name` contains invalid characters
+	 */
 	lookup: async function(name){
 		if(badQuery(name)){
 			throw "Search contains disallowed characters";

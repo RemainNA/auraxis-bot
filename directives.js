@@ -1,10 +1,21 @@
-// This file defines functions to look up a list of a character's completed directives
+/**
+ * This file defines functions to look up a list of a character's completed directives
+ * @module directives
+ */
 
 const {censusRequest, faction} = require('./utils.js');
 const Discord = require('discord.js');
 const directives = require('./static/directives.json');
 const i18n = require('i18n');
 
+/**
+ * Get the list of completed directives for a character
+ * @param {string} cName - the name of the character to look up
+ * @param {string} platform - the platform of the character
+ * @param {string} locale - the locale to use 
+ * @returns the list of completed directives and when they were completed
+ * @throws if `cName` is not a valid character name
+ */
 const getDirectiveList = async function(cName, platform, locale="en-US"){
 	let nameResponse = await censusRequest(platform, 'character_list', `/character?name.first_lower=${cName}`);
 	if(nameResponse.length == 0){
@@ -20,6 +31,7 @@ const getDirectiveList = async function(cName, platform, locale="en-US"){
 	}
 
 	directiveList.sort((a,b) => b[1] - a[1]);
+	console.log(directiveList);
 	return {
 		name: nameResponse[0].name.first, 
 		faction: nameResponse[0].faction_id, 
@@ -28,6 +40,15 @@ const getDirectiveList = async function(cName, platform, locale="en-US"){
 }
 
 module.exports = {
+	/**
+	 * Send a message with the list of completed directives for a character
+	 * @param {string} cName - the name of the character to look up
+	 * @param {string} platform - the platform of the character
+	 * @param {boolean} expanded - whether to show the full list of directives or just the first few
+	 * @param {string} locale - the locale to use 
+	 * @returns a discord embed with the list of completed directives, when they were completed, and a fisu link to the character's directives
+	 * @throws if `cName` has no completed directives
+	 */
 	directives: async function(cName, platform, expanded=false, locale="en-US"){
 		const directiveList = await getDirectiveList(cName.toLowerCase(), platform, locale);
 		let resEmbed = new Discord.MessageEmbed();
@@ -35,7 +56,7 @@ module.exports = {
 		let textList = "";
 		let remaining = directiveList.directives.length;
 		if(remaining == 0){
-			throw i18n.__mf({phrase: "{name} has not completed any directives", locale: locale}, {name: directiveList.name})
+			throw i18n.__mf({phrase: "{name} has not completed any directives", locale: locale}, {name: directiveList.name});
 		}
 		if(expanded){
 			remaining = 0
@@ -69,13 +90,13 @@ module.exports = {
 		resEmbed.setColor(faction(directiveList.faction).color)
 		resEmbed.setThumbnail('https://census.daybreakgames.com/files/ps2/images/static/84283.png');
 		if(platform == 'ps2:v2'){
-			resEmbed.setURL(`https://ps2.fisu.pw/directive/?name=${directiveList[0]}`)
+			resEmbed.setURL(`https://ps2.fisu.pw/directive/?name=${directiveList[0]}`);
 		}
 		else if(platform == 'ps2ps4us:v2'){
-			resEmbed.setURL(`https://ps4us.ps2.fisu.pw/directive/?name=${directiveList[0]}`)
+			resEmbed.setURL(`https://ps4us.ps2.fisu.pw/directive/?name=${directiveList[0]}`);
 		}
 		else if(platform == 'ps2ps4eu:v2'){
-			resEmbed.setURL(`https://ps4eu.ps2.fisu.pw/directive/?name=${directiveList[0]}`)
+			resEmbed.setURL(`https://ps4eu.ps2.fisu.pw/directive/?name=${directiveList[0]}`);
 		}
 		if(remaining > 0){
 			const row = new Discord.MessageActionRow()
@@ -85,7 +106,7 @@ module.exports = {
 					.setLabel(i18n.__({phrase: "View all", locale: locale}))
 					.setStyle('PRIMARY')
 			);
-			return [resEmbed, [row]]
+			return [resEmbed, [row]];
 		}
 		else{
 			return [resEmbed, []];

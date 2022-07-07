@@ -1,9 +1,19 @@
-// This file defines functions for retrieving population by faction for a given server/world
+/**
+ * This file defines functions for retrieving population by faction for a given server/world
+ * @module population
+ */
+
 const Discord = require('discord.js');
 const got = require('got')
 const {servers, serverIDs, serverNames, localeNumber} = require('./utils.js');
 const i18n = require('i18n');
 
+/**
+ * Get the faction per population of a server
+ * @param {number} world - the server to get the population of
+ * @returns an object showing the total population of the server by faction
+ * @throw if there are API errors
+ */
 const getPopulation = async function(world){
 	let url = '';
 	if(world == 2000){
@@ -29,22 +39,27 @@ const getPopulation = async function(world){
 			tr: response.result[0].tr,
 			ns: response.result[0].ns,
 			world: world
-		}
+		};
 		return resObj;
 	}
 	catch(err){
 		if(typeof(err) === 'string'){
-			throw(err)
+			throw(err);
 		}
 		else if(err.code == 'ECONNREFUSED'){
-			throw("ECONNREFUSED")
+			throw("ECONNREFUSED");
 		}
 		else{
-			throw("Error retrieving population statistics.")
+			throw("Error retrieving population statistics.");
 		}
 	}
 }
 
+/**
+ * Get the fisu URL to the faction population of a server
+ * @param {number} serverID - the server to get the population of
+ * @returns the fisu url to the server's population
+ */
 const fisuPopulation = function(serverID){
 	if(serverID == 2000){
 		return 'http://ps4eu.ps2.fisu.pw/activity/?world=2000';
@@ -58,6 +73,12 @@ const fisuPopulation = function(serverID){
 }
 
 module.exports = {
+	/**
+	 * Create a discord embed showing the population of a server
+	 * @param {string} server - the server to get the population of 
+	 * @param {string} locale - the locale to use for the response
+	 * @returns a discord embed of the population of the server 
+	 */
 	lookup: async function(server, locale="en-US"){
 
 		if(server == 'all'){
@@ -83,7 +104,7 @@ module.exports = {
 			resEmbed.setTitle(i18n.__mf({phrase: "Total population - {total}", locale: locale}, {total: total.toLocaleString(locale)}));
 			resEmbed.setFooter({text: i18n.__mf({phrase: "Data from {site}", locale: locale}, {site: "ps2.fisu.pw"})});
 			resEmbed.setTimestamp();
-			return resEmbed
+			return resEmbed;
 		}
 		else{
 			const serverID = serverIDs[server];

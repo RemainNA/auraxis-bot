@@ -1,10 +1,18 @@
-// This file defines functionality to parse weapons.json and return the relevant info
+/**
+ * This file defines functionality to parse weapons.json and return the relevant info
+ * @module weaponInfo
+ */
 
 const Discord = require('discord.js');
 const weaponsJSON = require('./static/weapons.json');
 const {badQuery, localeNumber} = require('./utils.js');
 const i18n = require('i18n');
 
+/**
+ * Checks if any CoF values has been updated
+ * @param {string[]} CoF - list of CoF values for a weapon
+ * @returns true if any CoF does not equal "?"
+ */
 function CoFUpdated(CoF){
 	for(let x of CoF){
 		if(x != "?"){
@@ -14,10 +22,21 @@ function CoFUpdated(CoF){
 	return false;
 }
 
+/**
+ * Only checks if standing Cof is updated
+ * @param {string[]} CoF - list of CoF values for a weapon
+ * @returns true if only standing Cof does not equal "?"
+ */
 function standingOnly(CoF){
 	return CoF[0] != "?" && CoF[1] == "?" && CoF[2] == "?" && CoF[3] == "?" && CoF[4] == "?" && CoF[5] == "?";
 }
 
+/**
+ * Get weapon statistics for a weapon
+ * @param {string} name - name or ID of weapon to get info for
+ * @returns return weapon statistics as JSON
+ * @throws if weapon not found
+ */
 const weaponInfo = async function(name){
 
 	name = name.replace(/[“”]/g, '"');
@@ -50,6 +69,11 @@ const weaponInfo = async function(name){
 	throw `${name} not found.`;
 }
 
+/**
+ * Checks if `query` is in any weapon name. Used to create a list of possible weapons to suggest to the user
+ * @param {string} query - query to check
+ * @returns a list of weapons names that contain `query`
+ */
 const partialMatches = async function(query){
 	let matches = [];
 	query = query.replace(/[“”]/g, '"').toLowerCase();
@@ -67,10 +91,17 @@ const partialMatches = async function(query){
 }
 
 module.exports = {
+	/**
+	 * Create a discord embed displaying weapon statistics
+	 * @param {string} name - name of weapon to show
+ 	 * @param {string} locale - locale to use e.g. en-US
+	 * @returns a discord embed of weapon stats, a description, and it's ID
+	 * @throws if `name` contains invalid characters
+	 */
 	lookup: async function(name, locale="en-US"){
 		if(name.indexOf("[") > -1){
 			// Account for autocomplete breaking
-			const splitList = name.split("[")
+			const splitList = name.split("[");
 			name = splitList[splitList.length-1].split("]")[0];
 		}
 		if(badQuery(name)){
@@ -118,7 +149,7 @@ module.exports = {
 				}
 				else{
 					// Some weapons with magazines don't have long/short reloads, e.g. P2-120 HEAT
-					const reload = localeNumber(wInfo.reload/1000);
+					const reload = localeNumber(wInfo.reload/1000, locale);
 					resEmbed.addField(i18n.__({phrase: "Reload", locale: locale}), 
 					i18n.__mf({phrase: "{time}s", locale: locale}, {time: reload}), true);
 				}
@@ -230,7 +261,7 @@ module.exports = {
 
 		if(CoFUpdated(hipCOFMin) || CoFUpdated(adsCOFMin)){
 			if(standingOnly(hipCOFMin) || standingOnly(adsCOFMin)){
-				resEmbed.addField('\u200b', '\u200b')
+				resEmbed.addField('\u200b', '\u200b');
 			}
 			else{
 				resEmbed.addField("-------------------", i18n.__({phrase: "*CoF shown Stand/Crouch/Walk/Sprint/Fall/Crouch Walk*", locale: locale}));
@@ -241,12 +272,12 @@ module.exports = {
 			if(standingOnly(hipCOFMin)){
 				resEmbed.addField(i18n.__({phrase: "Hipfire CoF Min", locale: locale}), hipCOFMin[0], true);
 				resEmbed.addField(i18n.__({phrase: "Hipfire CoF Max", locale: locale}), hipCOFMax[0], true);
-				resEmbed.addField('\u200b', '\u200b', true)
+				resEmbed.addField('\u200b', '\u200b', true);
 			}
 			else{
 				resEmbed.addField(i18n.__({phrase: "Hipfire CoF Min", locale: locale}), hipCOFMin[0]+"/"+hipCOFMin[1]+"/"+hipCOFMin[2]+"/"+hipCOFMin[3]+"/"+hipCOFMin[4]+"/"+hipCOFMin[5], true);
 				resEmbed.addField(i18n.__({phrase: "Hipfire CoF Max", locale: locale}), hipCOFMax[0]+"/"+hipCOFMax[1]+"/"+hipCOFMax[2]+"/"+hipCOFMax[3]+"/"+hipCOFMax[4]+"/"+hipCOFMax[5], true);
-				resEmbed.addField('\u200b', '\u200b', true)
+				resEmbed.addField('\u200b', '\u200b', true);
 			}
 		}
 
@@ -254,12 +285,12 @@ module.exports = {
 			if(standingOnly(adsCOFMin)){
 				resEmbed.addField(i18n.__({phrase: "ADS CoF Min", locale: locale}), adsCOFMin[0], true);
 				resEmbed.addField(i18n.__({phrase: "ADS CoF Max", locale: locale}), adsCOFMax[0], true);
-				resEmbed.addField('\u200b', '\u200b', true)
+				resEmbed.addField('\u200b', '\u200b', true);
 			}
 			else{
 				resEmbed.addField(i18n.__({phrase: "ADS CoF Min", locale: locale}), adsCOFMin[0]+"/"+adsCOFMin[1]+"/"+adsCOFMin[2]+"/"+adsCOFMin[3]+"/"+adsCOFMin[4]+"/"+adsCOFMin[5], true);
 				resEmbed.addField(i18n.__({phrase: "ADS CoF Max", locale: locale}), adsCOFMax[0]+"/"+adsCOFMax[1]+"/"+adsCOFMax[2]+"/"+adsCOFMax[3]+"/"+adsCOFMax[4]+"/"+adsCOFMax[5], true);
-				resEmbed.addField('\u200b', '\u200b', true)
+				resEmbed.addField('\u200b', '\u200b', true);
 			}
 			
 		}
