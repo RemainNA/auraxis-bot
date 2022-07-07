@@ -6,19 +6,18 @@
  */
 /**
  * @typedef {import('pg').Client} pg.Client
- * @typedef {import('discord.js').Channel} discord.channels
+ * @typedef {import('discord.js').ChannelManager} discord.channels
+ * @typedef {import('got').GotReturn} Request
  */
 
-const got = require('got');
+const {default: got} = require('got');
 const messageHandler = require('./messageHandler.js');
 const subscriptions = require('./subscriptions.js');
 
 const token = process.env.TWITTER_BEARER_TOKEN;  
 
 const rulesURL = 'https://api.twitter.com/2/tweets/search/stream/rules'
-const streamURL = 'https://api.twitter.com/2/tweets/search/stream?expansions=referenced_tweets.id';
-
-let timeout = 0;
+const streamURL = 'https://api.twitter.com/2/tweets/search/stream?tweet.fields=created_at,in_reply_to_user_id,author_id&expansions=referenced_tweets.id';
 
 // Edit rules as desired here below
 const rules = [
@@ -98,11 +97,11 @@ async function setRules() {
 }
 
 /**
- * 
+ * Connect to the Twitter API stream and send new tweets to subscribed discord channels
  * @param {string} token - The bearer token for the Twitter API
  * @param {pg.Client} SQLclient - the PostgreSQL client to use
  * @param {discord.channels} channels - the discord channels to send messages to
- * @returns {Stream} A stream of tweets from the Twitter API
+ * @returns {Request} A stream of tweets from the Twitter API
  */
 function streamConnect(token, SQLclient, channels) {
 	const stream = got.stream(streamURL, {
@@ -117,21 +116,7 @@ function streamConnect(token, SQLclient, channels) {
     stream.on('data', data => {
 		try {
 			const jsonObj = JSON.parse(data);
-			let type = "tweet";
-			if(jsonObj.data.referenced_tweets !== undefined){
-				switch(jsonObj.data.referenced_tweets[0].type){
-					case "replied_to":
-						type = "reply";
-						break;
-					case "quoted":
-						type = "qrt";
-						break;
-					case "retweeted":
-						type = "rt";
-						break;
-				}
-			}
-			postMessage(SQLclient, channels, jsonObj.matching_rules[0].tag, jsonObj.data.id, type)
+			postMessage(SQLclient, channels, jsonObj)
 				.catch(err => console.log(err));
 		} catch (e) {
 			if (data.detail === 'This stream is currently at the maximum allowed connection limit.') {
@@ -157,29 +142,29 @@ function streamConnect(token, SQLclient, channels) {
 
 /**
  * Send new twitter messages to subscribed discord channels
- * @param {pg.Client} SQLclient - the PostgreSQL client to use
- * @param {discord.channels} channels - the discord channels to send messages to
- * @param {string} tag - the tag of the tweet
- * @param {string} id - the id of the tweet
- * @param {string} type - the type of the tweet
+ * @param {pg.Client} SQLclient - Used to query the DB to find the discord channels to send messages to
+ * @param {discord.channels} channels - channel manager used to fetch discord channel object based on their ids stored in the DB
+ * @param {{data: {id: string, author_id: string, in_reply_to_user_id: string, referenced_tweets?: any[]}, matching_rules: any[]}} jsonObj - the JSON object from the Twitter API
  */
-async function postMessage(SQLclient, channels, tag, id, type){
-	const queryText = "SELECT * FROM news WHERE source = $1";
-	const queryValues = [`${tag}-twitter`];
-	const url = `https://twitter.com/${tag}/status/${id}`;
+async function postMessage(SQLclient, channels, jsonObj){
+	const tag = jsonObj.matching_rules[0].tag;
 	let baseText = `**New Tweet from ${tag}**\n`;
-	switch(type){
-		case "reply":
-			return;
-		case "qrt":
-			baseText = `**New Quote Tweet from ${tag}**\n`;
-			break;
-		case "rt":
-			baseText = `**New Retweet from ${tag}**\n`;
-			break;
+	const type = jsonObj.data.referenced_tweets?.[0].type;
+	if (type === 'quoted') {
+		baseText = `**New Quote Tweet from ${tag}**\n`;
 	}
-
-	const result = await SQLclient.query(queryText, queryValues);
+	else if (type === 'retweeted') {
+		baseText = `**New Retweet from ${tag}**\n`;
+	}
+	else if (jsonObj.data.author_id === jsonObj.data.in_reply_to_user_id) {
+		baseText = `**New Self-Reply from ${tag}**\n`;
+	}
+	else if (type === 'replied_to'){
+		return;
+	}
+	
+	const url = `https://twitter.com/${tag}/status/${jsonObj.data.id}`;
+	const result = await SQLclient.query('SELECT * FROM news WHERE source = $1', [`${tag}-twitter`]);
 	for(const row of result.rows){
 		channels.fetch(row.channel).then(resChann => {
 			if(resChann.guild !== undefined){
@@ -214,7 +199,7 @@ async function postMessage(SQLclient, channels, tag, id, type){
 
 module.exports = {
 	/**
-	 * initialize the Twitter API rules
+	 * Initialize the Twitter API rules to use for the stream
 	 */
 	init: async function () {
 		try {
@@ -235,10 +220,11 @@ module.exports = {
 	},
 	/**
 	 * Connect to the Twitter API stream and send new tweets to subscribed discord channels
-	 * @param {pg.Client} SQLclient - the PostgreSQL client to use
-	 * @param {discord.client.channels} channels - the discord channels to send messages to
+	 * @param {pg.Client} SQLclient - Used to query the DB to find the discord channels to send messages to
+	 * @param {discord.channels} channels - channel manager used to fetch discord channel object based on their ids stored in the DB
+	 * @param {number} timeout - the growth factor for the reconnection logic when the stream times out
 	 */
-	connect: async function (SQLclient, channels) {
+	connect: async function (SQLclient, channels, timeout=0) {
 		// Listen to the stream.
 		// This reconnection logic will attempt to reconnect when a disconnection is detected.
 		// To avoid rate limits, this logic implements exponential backoff, so the wait time
@@ -250,12 +236,12 @@ module.exports = {
 			console.log('A twitter connection error occurred. Reconnecting…');
 			setTimeout(() => {
 				timeout++;
-				this.connect(SQLclient, channels);
+				this.connect(SQLclient, channels, timeout);
 			}, 1000 * (2 ** timeout));
 		}).on('streamEnd', () => {
 			setTimeout(() => {
 				timeout++;
-				this.connect(SQLclient, channels);
+				this.connect(SQLclient, channels, timeout);
 			},1000 * (2 ** timeout));
 		});
 	}
