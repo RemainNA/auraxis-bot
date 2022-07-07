@@ -31,7 +31,6 @@ const getDirectiveList = async function(cName, platform, locale="en-US"){
 	}
 
 	directiveList.sort((a,b) => b[1] - a[1]);
-	console.log(directiveList);
 	return {
 		name: nameResponse[0].name.first, 
 		faction: nameResponse[0].faction_id, 
