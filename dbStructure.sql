@@ -27,6 +27,12 @@ CREATE TABLE IF NOT EXISTS news(
 	source TEXT
 );
 
+CREATE TABLE IF NOT EXISTS latestTweets(
+	userid TEXT,
+	username TEXT,
+	tweetid TEXT
+);
+
 CREATE TABLE IF NOT EXISTS alertmaintenance(
 	alertid TEXT NOT NULL,
 	messageid TEXT PRIMARY KEY NOT NULL,
@@ -121,3 +127,6 @@ INSERT INTO opencontinents (world) VALUES ('jaeger');
 INSERT INTO opencontinents (world) VALUES ('soltech');
 INSERT INTO opencontinents (world) VALUES ('genudine');
 INSERT INTO opencontinents (world) VALUES ('ceres');
+
+INSERT INTO latestTweets (userID, username) VALUES ('829358606', 'WrelPlays');
+INSERT INTO latestTweets (userID, username) VALUES ('247430686', 'planetside2');

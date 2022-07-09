@@ -17,7 +17,7 @@ const subscriptions = require('./subscriptions.js');
 const token = process.env.TWITTER_BEARER_TOKEN;  
 
 const rulesURL = 'https://api.twitter.com/2/tweets/search/stream/rules'
-const streamURL = 'https://api.twitter.com/2/tweets/search/stream?tweet.fields=created_at,in_reply_to_user_id,author_id&expansions=referenced_tweets.id';
+const streamURL = 'https://api.twitter.com/2/tweets/search/stream?&user.fields=username&tweet.fields=in_reply_to_user_id&expansions=referenced_tweets.id,author_id';
 
 // Edit rules as desired here below
 const rules = [
@@ -141,13 +141,14 @@ function streamConnect(token, SQLclient, channels) {
 }
 
 /**
- * Send new twitter messages to subscribed discord channels
+ * Send new twitter messages to subscribed discord channels, on each new sent tweet  it is stord as the latest tweet for the user
  * @param {pg.Client} SQLclient - Used to query the DB to find the discord channels to send messages to
  * @param {discord.channels} channels - channel manager used to fetch discord channel object based on their ids stored in the DB
- * @param {{data: {id: string, author_id: string, in_reply_to_user_id: string, referenced_tweets?: any[]}, matching_rules: any[]}} jsonObj - the JSON object from the Twitter API
+ * @param {{data: {id: string, author_id: string, in_reply_to_user_id: string, referenced_tweets?: any[]}, includes: {users: {username: string}[]}}} jsonObj - the JSON object from the Twitter API
  */
 async function postMessage(SQLclient, channels, jsonObj){
-	const tag = jsonObj.matching_rules[0].tag;
+	SQLclient.query('UPDATE latestTweets SET tweetid = $1 WHERE userid = $2', [jsonObj.data.id, jsonObj.data.author_id]);
+	const tag = jsonObj.includes.users[0].username;
 	let baseText = `**New Tweet from ${tag}**\n`;
 	const type = jsonObj.data.referenced_tweets?.[0].type;
 	if (type === 'quoted') {
@@ -244,5 +245,31 @@ module.exports = {
 				this.connect(SQLclient, channels, timeout);
 			},1000 * (2 ** timeout));
 		});
+	},
+	/**
+	 * Update the latest tweets in the database and post missed tweets to subscribed discord channels
+	 * @param {pg.Client} SQLclient - Used to query the DB to update the latest tweetID and post missed tweets to subscribed discord channels
+	 * @param {discord.channels} channels - channel manager used to fetch discord channel object based on their ids stored in the DB
+	 */
+	latestTweet: async function(SQLclient, channels) {
+		const res = await SQLclient.query('SELECT userid, tweetid FROM latestTweets');
+		for (const user of res.rows) {
+			try {
+				const response = await got(`https://api.twitter.com/2/users/${user.userid}/tweets?&since_id=${user.tweetid}&user.fields=username&tweet.fields=in_reply_to_user_id&expansions=referenced_tweets.id,author_id`, 
+				{
+					headers: {
+						"authorization": `Bearer ${token}`
+					}
+				});
+				const json = JSON.parse(response.body);
+				if (json.meta.result_count !== 0) {
+					for (const tweet of json.data) {
+						postMessage(SQLclient, channels, {includes: json.includes, data: tweet});
+					}
+				}
+			} catch (e) { console.log('Malformed URL request - Table: latestTweets, Column: tweetid or userid is null'); }
+		}
+		// wait 20 minutes and do again
+		setTimeout(() => this.latestTweet(SQLclient, channels), 1200000);
 	}
 }
