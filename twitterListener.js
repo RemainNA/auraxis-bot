@@ -262,14 +262,12 @@ module.exports = {
 					}
 				});
 				const json = JSON.parse(response.body);
-				if (json.meta.result_count !== 0) {
-					for (const tweet of json.data) {
-						postMessage(SQLclient, channels, {includes: json.includes, data: tweet});
-					}
-				}
+				const tweets = json.data?.reverse();
+				tweets?.forEach(tweet => {
+					postMessage(SQLclient, channels, {includes: json.includes, data: tweet});
+				});
 			} catch (e) { console.log('Malformed URL request - Table: latestTweets, Column: tweetid or userid is null'); }
 		}
-		// wait 20 minutes and do again
 		setTimeout(() => this.latestTweet(SQLclient, channels), 1200000);
 	}
 }
