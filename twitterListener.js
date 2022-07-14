@@ -220,19 +220,17 @@ module.exports = {
 	latestTweet: async function(SQLclient, channels) {
 		const res = await SQLclient.query('SELECT userid, tweetid FROM latestTweets');
 		for (const user of res.rows) {
-			try {
-				const response = await got(`https://api.twitter.com/2/users/${user.userid}/tweets?&since_id=${user.tweetid}&user.fields=username&tweet.fields=in_reply_to_user_id&expansions=referenced_tweets.id,author_id`, 
-				{
-					headers: {
-						"authorization": `Bearer ${token}`
-					}
-				});
-				const json = JSON.parse(response.body);
-				const tweets = json.data?.reverse();
-				tweets?.forEach(tweet => {
-					postMessage(SQLclient, channels, {includes: json.includes, data: tweet});
-				});
-			} catch (e) { console.log('Malformed URL request - Table: latestTweets, Column: tweetid or userid is null'); }
+			const response = await got(`https://api.twitter.com/2/users/${user.userid}/tweets?&since_id=${user.tweetid}&user.fields=username&tweet.fields=in_reply_to_user_id&expansions=referenced_tweets.id,author_id`, 
+			{
+				headers: {
+					"authorization": `Bearer ${token}`
+				}
+			});
+			const json = JSON.parse(response.body);
+			const tweets = json.data?.reverse();
+			tweets?.forEach(tweet => {
+				postMessage(SQLclient, channels, {includes: json.includes, data: tweet});
+			});
 		}
 		setTimeout(() => this.latestTweet(SQLclient, channels), 1200000);
 	}

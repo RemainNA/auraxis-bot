@@ -128,5 +128,6 @@ INSERT INTO opencontinents (world) VALUES ('soltech');
 INSERT INTO opencontinents (world) VALUES ('genudine');
 INSERT INTO opencontinents (world) VALUES ('ceres');
 
-INSERT INTO latestTweets (userID, username) VALUES ('829358606', 'WrelPlays');
-INSERT INTO latestTweets (userID, username) VALUES ('247430686', 'planetside2');
+-- Manually insert the latest tweetid from tracked users for latestTweets() in twitterListener.js
+-- INSERT INTO latestTweets (userID, username) VALUES ('829358606', 'WrelPlays');
+-- INSERT INTO latestTweets (userID, username) VALUES ('247430686', 'planetside2');
