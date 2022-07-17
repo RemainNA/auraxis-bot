@@ -3,7 +3,7 @@
  * @module utils
  */
 
-const got = require('got');
+const {default: got} = require('got');
 
 /**
  * A list of the different servers all lowercase
@@ -151,7 +151,7 @@ function localeNumber(n, locale){
 function faction(factionID){
 	/**
 	 * @typedef {Object} faction
-	 * @property {string} color - faction color
+	 * @property {import('discord.js').ColorResolvable} color - faction color
 	 * @property {string} decal - faction decal
 	 * @property {string} initial - faction initial
 	 * @property {string} tracker - faction color emoji	

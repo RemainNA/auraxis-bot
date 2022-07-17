@@ -7,7 +7,7 @@
  * @typedef {import('pg').Client} pg.Client
  */
 const Discord = require('discord.js');
-const got = require('got');
+const {default: got} = require('got');
 const alerts = require('./static/alerts.json');
 const {serverNames} = require('./utils.js');
 const {popLevels} = require('./alerts.js')
