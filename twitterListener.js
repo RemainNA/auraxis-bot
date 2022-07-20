@@ -115,7 +115,7 @@ async function postMessage(SQLclient, channels, jsonObj){
 	
 	const url = `https://twitter.com/${tag}/status/${jsonObj.data.id}`;
 	const result = await SQLclient.query('SELECT * FROM news WHERE source = $1', [`${tag}-twitter`]);
-	for(const row of result.rows){
+	result.rows.forEach(async (row) => {
 		try {
 			const resChann = await channels.fetch(row.channel);
 			if (resChann.type === 'DM'){
@@ -138,7 +138,7 @@ async function postMessage(SQLclient, channels, jsonObj){
 				console.log(error);
 			}
 		}
-	}
+	});
 }
 
 module.exports = {
