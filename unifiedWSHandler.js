@@ -58,7 +58,7 @@ const logEvent = async function(payload, environment, pgClient, discordClient){
             sendEmbed.setTitle(result.rows[0].alias+' '+playerEvent);
             sendEmbed.setDescription(char.name.first);
             sendEmbed.setColor(faction(char.faction_id).color);
-            for (const row of result.rows){
+            result.rows.forEach(async (row) => {
                 try {
                     const resChann = await discordClient.channels.fetch(row.channel);
                     if(resChann.type === 'DM') { // DM
@@ -69,7 +69,7 @@ const logEvent = async function(payload, environment, pgClient, discordClient){
                             catch (err) { console.log(err); }
                         }
                         else if(messageId == -1){
-                            await subscriptions.unsubscribeAll(pgClient, row.channel);
+                            subscriptions.unsubscribeAll(pgClient, row.channel);
                             console.log(`Unsubscribed from ${row.channel}`);
                         }
                     }                        
@@ -82,7 +82,7 @@ const logEvent = async function(payload, environment, pgClient, discordClient){
                         }
                     }
                     else{
-                        await subscriptions.unsubscribeAll(pgClient, row.channel);
+                        subscriptions.unsubscribeAll(pgClient, row.channel);
                         console.log(`Unsubscribed from ${row.channel}`);
                     } 
                 }
@@ -91,11 +91,11 @@ const logEvent = async function(payload, environment, pgClient, discordClient){
                         console.log(error);
                     }
                     else if(error.code == 10003){ //Unknown channel error, thrown when the channel is deleted
-                        await subscriptions.unsubscribeAll(pgClient, row.channel);
+                        subscriptions.unsubscribeAll(pgClient, row.channel);
                         console.log(`Unsubscribed from ${row.channel}`);
                     }
                 }
-            }
+            });
         }
     }
 }
@@ -251,15 +251,15 @@ const alertEvent = async function(payload, environment, pgClient, discordClient)
                 \n<:NC:818767043138027580> **NC**: ${ncPc}%\
                 \n<:TR:818988588049629256> **TR**: ${trPc}%`);
             }
-            let rows = await pgClient.query("SELECT a.channel, c.Koltyr, c.Indar, c.Hossin, c.Amerish, c.Esamir, c.Oshur, c.Other, c.autoDelete\
+            const result = await pgClient.query("SELECT a.channel, c.Koltyr, c.Indar, c.Hossin, c.Amerish, c.Esamir, c.Oshur, c.Other, c.autoDelete\
             FROM alerts a LEFT JOIN subscriptionConfig c on a.channel = c.channel\
             WHERE a.world = $1;", [server.toLowerCase()]);
-            for (const row of rows.rows){
+            result.rows.forEach(async (row) => {
                 if(row[continent.toLowerCase()] == null){
                     config.initializeConfig(row.channel, pgClient);
                 }
                 else if(row[continent.toLowerCase()] == false){
-                    continue;
+                    return;
                 }
                 try {
                     const resChann = await discordClient.channels.fetch(row.channel);
@@ -273,16 +273,16 @@ const alertEvent = async function(payload, environment, pgClient, discordClient)
                             const in50minutes = new Date((new Date()).getTime() + 3000000);
                             const in95minutes = new Date((new Date()).getTime() + 5700000);
                             if(['Indar', 'Hossin', 'Esamir', 'Amerish', 'Oshur'].includes(continent) && response.name.indexOf("Unstable Meltdown") == -1){
-                                try { pgClient.query("INSERT INTO toDelete (channel, messageID, timeToDelete) VALUES ($1, $2, $3)", [row.channel, messageId, in95minutes]); }
+                                try { await pgClient.query("INSERT INTO toDelete (channel, messageID, timeToDelete) VALUES ($1, $2, $3)", [row.channel, messageId, in95minutes]); }
                                 catch (err) { console.log(err); }
                             }
                             else{
-                                try { pgClient.query("INSERT INTO toDelete (channel, messageID, timeToDelete) VALUES ($1, $2, $3)", [row.channel, messageId, in50minutes]); }
+                                try { await pgClient.query("INSERT INTO toDelete (channel, messageID, timeToDelete) VALUES ($1, $2, $3)", [row.channel, messageId, in50minutes]); }
                                 catch (err) { console.log(err); }
                             }    
                         }
                         else if(messageId == -1){
-                            await subscriptions.unsubscribeAll(pgClient, row.channel);
+                            subscriptions.unsubscribeAll(pgClient, row.channel);
                             console.log(`Unsubscribed from ${row.channel}`);
                         }
                     }
@@ -296,17 +296,17 @@ const alertEvent = async function(payload, environment, pgClient, discordClient)
                             const in50minutes = new Date((new Date()).getTime() + 3000000);
                             const in95minutes = new Date((new Date()).getTime() + 5700000);
                             if(['Indar', 'Hossin', 'Esamir', 'Amerish', 'Oshur'].includes(continent) && response.name.indexOf("Unstable Meltdown") == -1){
-                                try { pgClient.query("INSERT INTO toDelete (channel, messageID, timeToDelete) VALUES ($1, $2, $3)", [row.channel, messageId, in95minutes]); }
+                                try { await pgClient.query("INSERT INTO toDelete (channel, messageID, timeToDelete) VALUES ($1, $2, $3)", [row.channel, messageId, in95minutes]); }
                                 catch (err) { console.log(err); }
                             }
                             else{
-                                try { pgClient.query("INSERT INTO toDelete (channel, messageID, timeToDelete) VALUES ($1, $2, $3)", [row.channel, messageId, in50minutes]); }
+                                try { await pgClient.query("INSERT INTO toDelete (channel, messageID, timeToDelete) VALUES ($1, $2, $3)", [row.channel, messageId, in50minutes]); }
                                 catch (err) { console.log(err); }
                             }
                         }
                     }
                     else{
-                        await subscriptions.unsubscribeAll(pgClient, row.channel);
+                        subscriptions.unsubscribeAll(pgClient, row.channel);
                         console.log(`Unsubscribed from ${row.channel}`);
                     } 
                 }
@@ -315,11 +315,11 @@ const alertEvent = async function(payload, environment, pgClient, discordClient)
                         console.log(error);
                     }
                     else if(error.code == 10003){ //Unknown channel error, thrown when the channel is deleted
-                        await subscriptions.unsubscribeAll(pgClient, row.channel);
+                        subscriptions.unsubscribeAll(pgClient, row.channel);
                         console.log(`Unsubscribed from ${row.channel}`);
                     }
                 }
-            }
+            });
         }
     }
 }
@@ -411,7 +411,7 @@ const baseEvent = async function(payload, environment, pgClient, discordClient){
         if(contributions.length > 0){
             sendEmbed.addField("<:Merit:890295314337136690> Contributors", `${contributions}`.replace(/,/g, ', '), true);
         }
-        for (const row of result.rows){
+        result.rows.forEach(async (row) => {
             try {
                 const resChann = await discordClient.channels.fetch(row.channel);
                 if(resChann.type === 'DM'){ // DM
@@ -434,7 +434,7 @@ const baseEvent = async function(payload, environment, pgClient, discordClient){
                     console.log(`Unsubscribed from ${row.channel}`);
                 }
             }
-        }
+        });
     }
 }
 
