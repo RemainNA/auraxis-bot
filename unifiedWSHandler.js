@@ -260,14 +260,16 @@ const alertEvent = async function(payload, environment, pgClient, discordClient)
                 \n<:NC:818767043138027580> **NC**: ${ncPc}%\
                 \n<:TR:818988588049629256> **TR**: ${trPc}%`);
             }
-            let rows = await pgClient.query("SELECT a.channel, c.Koltyr, c.Indar, c.Hossin, c.Amerish, c.Esamir, c.Oshur, c.Other, c.autoDelete\
+            const  rows = await pgClient.query("SELECT a.channel, c.Koltyr, c.Indar, c.Hossin, c.Amerish, c.Esamir, c.Oshur, c.Other, c.autoDelete, c.territory, c.nonTerritory\
             FROM alerts a LEFT JOIN subscriptionConfig c on a.channel = c.channel\
             WHERE a.world = $1;", [server.toLowerCase()]);
             for (let row of rows.rows){
                 if(row[continent.toLowerCase()] == null){
+                    // If config is not successfully set then display alert and attempt to initialize config
                     config.initializeConfig(row.channel, pgClient);
                 }
-                else if(row[continent.toLowerCase()] == false){
+                else if(!row[continent.toLowerCase()] || (showTerritory && !row['territory']) || (!showTerritory && !row['nonterritory'])){
+                    // Skip alerts configured to not show
                     continue;
                 }
                 discordClient.channels.fetch(row.channel)
