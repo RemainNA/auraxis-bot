@@ -9,11 +9,16 @@ const i18n = require('i18n');
 
 /**
  * Get the population status of each server
- * @returns a discord embed of the current population status for each server
+ * @returns an object contianing the population status of each server
  * @throws if there are API errors
  */
-const info = async function(){
-	let status = {
+async function info(){	
+	const data = await censusRequest('global', 'game_server_status_list', '/game_server_status?game_code=ps2&c:limit=100');
+    if(data === undefined){
+		throw "API Error";
+	}
+
+	const status = {
 		'Connery': 'Unknown',
 		'Miller': 'Unknown',
 		'Cobalt': 'Unknown',
@@ -23,37 +28,14 @@ const info = async function(){
 		'Genudine': 'Unknown',
 		'Ceres': 'Unknown'
 	};
-
-	const data = await censusRequest('global', 'game_server_status_list', '/game_server_status?game_code=ps2&c:limit=100');
-    if(typeof(data) === 'undefined'){
-        throw "API Error";
-	}
 	
 	for(const world of data){
-		if(world.name.toLowerCase().includes("connery")){
-			status["Connery"] = world.last_reported_state;
-		}
-		else if(world.name.toLowerCase().includes("miller")){
-			status["Miller"] = world.last_reported_state;
-		}
-		else if(world.name.toLowerCase().includes("cobalt")){
-			status["Cobalt"] = world.last_reported_state;
-		}
-		else if(world.name.toLowerCase().includes("emerald")){
-			status["Emerald"] = world.last_reported_state;
-		}
-		else if(world.name.toLowerCase().includes("soltech")){
-			status["SolTech"] = world.last_reported_state;
-		}
-		else if(world.name.toLowerCase().includes("jaeger")){
-			status["Jaeger"] = world.last_reported_state;
-		}
-		else if(world.name.toLowerCase().includes("genudine")){
-			status["Genudine"] = world.last_reported_state;
-		}
-		else if(world.name.toLowerCase().includes("ceres")){
-			status["Ceres"] = world.last_reported_state;
-		}
+		/**
+		 * the server name format by the census API is inconsistent
+		 * but the first word is always the server name.
+		 */
+		const server = world.name.split(' ')[0];
+		status[server] = world.last_reported_state;
 	}
 
 	return status;
@@ -61,16 +43,16 @@ const info = async function(){
 
 module.exports = {
 	/**
-	 * Get a discord message of the status of each PS2 server
+	 * Creates a discord embed of the current population status of each server
 	 * @param {string} locale - The locale to use
 	 * @returns a discord message of the status of each PS2 server
 	 */
 	servers: async function(locale="en-US"){
-		let status = await info();
-		let resEmbed = new Discord.MessageEmbed();
-		resEmbed.setTitle(i18n.__({phrase: 'Server Status', locale: locale}));
-		for(const i in status){
-			resEmbed.addField(i18n.__({phrase: i, locale: locale}), i18n.__({phrase: status[i], locale: locale}), true);
+		const status = await info();
+		const resEmbed = new Discord.MessageEmbed()
+			.setTitle(i18n.__({phrase: 'Server Status', locale: locale}));
+		for(const server in status){
+			resEmbed.addField(i18n.__({phrase: server, locale: locale}), i18n.__({phrase: status[server], locale: locale}), true);
 		}
 		resEmbed.setTimestamp();
 		return resEmbed;
