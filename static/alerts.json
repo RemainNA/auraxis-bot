@@ -367,6 +367,10 @@
         "description": "Take readings of aerial anomalies. Aircraft are free during this event.",
         "name": "Oshur Aerial Anomalies"
     },
+    "233": {
+        "description": "Kill as many enemies as possible",
+        "name": "Maximum Pressure"
+    },
     "3": {
         "description": "Capture Amerish within the time limit",
         "name": "Seeing Green"
