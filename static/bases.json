@@ -1536,7 +1536,7 @@
     },
     "400370": {
         "continent": "344",
-        "name": "Oshur Northern Flotilla",
+        "name": "Oshur Northeast Flotilla",
         "type": "Warpgate"
     },
     "400364": {
@@ -1571,7 +1571,7 @@
     },
     "400359": {
         "continent": "344",
-        "name": "Terran Genetics Inc",
+        "name": "Terran Genetics Inc.",
         "type": "Small Outpost"
     },
     "400357": {
@@ -1601,7 +1601,7 @@
     },
     "400355": {
         "continent": "344",
-        "name": "Emerald Research Co",
+        "name": "Emerald Research Co.",
         "type": "Small Outpost"
     },
     "400354": {
@@ -1632,11 +1632,11 @@
     "400350": {
         "continent": "344",
         "name": "K&H Tech Station",
-        "type": "Construction Outpost"
+        "type": "Small Outpost"
     },
     "400369": {
         "continent": "344",
-        "name": "Oshur Southwest Flotilla",
+        "name": "Oshur Northwest Flotilla",
         "type": "Warpgate"
     },
     "400349": {
@@ -1752,7 +1752,7 @@
     "400329": {
         "continent": "344",
         "name": "Mirror Bay Watchtower",
-        "type": "Small Outpost"
+        "type": "Large Outpost"
     },
     "400331": {
         "continent": "344",
@@ -1781,7 +1781,7 @@
     },
     "400371": {
         "continent": "344",
-        "name": "Oshur Southeast Flotilla",
+        "name": "Oshur South Flotilla",
         "type": "Warpgate"
     },
     "400392": {
@@ -1793,5 +1793,80 @@
         "continent": "344",
         "name": "Pilay Interlink",
         "type": "Interlink"
+    },
+    "400409": {
+        "continent": "344",
+        "name": "Seapost L8 - Cliffdive",
+        "type": "Small Outpost"
+    },
+    "400410": {
+        "continent": "344",
+        "name": "Seapost J7 - Garden",
+        "type": "Small Outpost"
+    },
+    "400411": {
+        "continent": "344",
+        "name": "Seapost J8 - Delve",
+        "type": "Small Outpost"
+    },
+    "400412": {
+        "continent": "344",
+        "name": "Seapost I11 - Stones",
+        "type": "Small Outpost"
+    },
+    "400413": {
+        "continent": "344",
+        "name": "Seapost G11 - Reef",
+        "type": "Small Outpost"
+    },
+    "400414": {
+        "continent": "344",
+        "name": "Seapost H10 - Debris",
+        "type": "Small Outpost"
+    },
+    "400415": {
+        "continent": "344",
+        "name": "Seapost G8 - Pipeline",
+        "type": "Small Outpost"
+    },
+    "400416": {
+        "continent": "344",
+        "name": "Seapost D8 - Collapse",
+        "type": "Small Outpost"
+    },
+    "400417": {
+        "continent": "344",
+        "name": "Seapost G6 - Trenches",
+        "type": "Small Outpost"
+    },
+    "400418": {
+        "continent": "344",
+        "name": "Seapost G4",
+        "type": "Small Outpost"
+    },
+    "400421": {
+        "continent": "344",
+        "name": "Seapost E12",
+        "type": "Small Outpost"
+    },
+    "400424": {
+        "continent": "344",
+        "name": "Seapost M9",
+        "type": "Small Outpost"
+    },
+    "400426": {
+        "continent": "344",
+        "name": "Seapost L5",
+        "type": "Small Outpost"
+    },
+    "400427": {
+        "continent": "344",
+        "name": "Bathala Garden",
+        "type": "Construction Outpost"
+    },
+    "400428": {
+        "continent": "344",
+        "name": "HMS Technologies",
+        "type": "Small Outpost"
     }
 }

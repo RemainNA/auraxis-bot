@@ -254,6 +254,16 @@
         "name": "UBR-300 Swordfish",
         "sanction": "infantry"
     },
+    "6013842": {
+        "category": "Amphibious Rifle",
+        "name": "UBR-300 Swordfish-P",
+        "sanction": "infantry"
+    },
+    "6013833": {
+        "category": "Amphibious Sidearm",
+        "name": "UBP-1 \"Steel\" Starfish",
+        "sanction": "infantry"
+    },
     "6011538": {
         "category": "Amphibious Sidearm",
         "name": "UBP-1 Starfish",
@@ -1823,6 +1833,76 @@
         "category": "Colossus Rear Right Weapon",
         "name": "M60 Pug",
         "sanction": "none"
+    },
+    "6013625": {
+        "category": "Corsair Front Gunner",
+        "name": "C2-20 HCG",
+        "sanction": "gunner"
+    },
+    "6013341": {
+        "category": "Corsair Front Gunner",
+        "name": "Dingo ML-6",
+        "sanction": "gunner"
+    },
+    "6013616": {
+        "category": "Corsair Front Gunner",
+        "name": "M18 Palisade-C",
+        "sanction": "gunner"
+    },
+    "6013335": {
+        "category": "Corsair Front Gunner",
+        "name": "M20 Basilisk",
+        "sanction": "gunner"
+    },
+    "6013336": {
+        "category": "Corsair Front Gunner",
+        "name": "M20 Basilisk",
+        "sanction": "gunner"
+    },
+    "6013339": {
+        "category": "Corsair Front Gunner",
+        "name": "M60-G Bulldog",
+        "sanction": "gunner"
+    },
+    "6013623": {
+        "category": "Corsair Front Gunner",
+        "name": "N30 Trawler-C",
+        "sanction": "gunner"
+    },
+    "6013627": {
+        "category": "Corsair Front Gunner",
+        "name": "V42 Pariah-C",
+        "sanction": "gunner"
+    },
+    "6013626": {
+        "category": "Corsair Top Gunner",
+        "name": "C2-20 HCG",
+        "sanction": "gunner"
+    },
+    "6013342": {
+        "category": "Corsair Top Gunner",
+        "name": "Dingo ML-6",
+        "sanction": "gunner"
+    },
+    "6013617": {
+        "category": "Corsair Top Gunner",
+        "name": "M18 Palisade-C",
+        "sanction": "gunner"
+    },
+    "6013340": {
+        "category": "Corsair Top Gunner",
+        "name": "M60-G Bulldog",
+        "sanction": "gunner"
+    },
+    "6013624": {
+        "category": "Corsair Top Gunner",
+        "name": "N30 Trawler-C",
+        "sanction": "gunner"
+    },
+    "6013628": {
+        "category": "Corsair Top Gunner",
+        "name": "V42 Pariah-C",
+        "sanction": "gunner"
     },
     "2310": {
         "category": "Crossbow",
@@ -4859,6 +4939,31 @@
         "name": "Xiphos Anti-Personnel Tower",
         "sanction": "none"
     },
+    "6011792": {
+        "category": "Infantry Gear",
+        "name": "Diver Propulsion Device 1",
+        "sanction": "none"
+    },
+    "6011793": {
+        "category": "Infantry Gear",
+        "name": "Diver Propulsion Device 2",
+        "sanction": "none"
+    },
+    "6011794": {
+        "category": "Infantry Gear",
+        "name": "Diver Propulsion Device 3",
+        "sanction": "none"
+    },
+    "6011795": {
+        "category": "Infantry Gear",
+        "name": "Diver Propulsion Device 4",
+        "sanction": "none"
+    },
+    "6011796": {
+        "category": "Infantry Gear",
+        "name": "Diver Propulsion Device 5",
+        "sanction": "none"
+    },
     "554": {
         "category": "Infantry Weapons",
         "name": "MANA Anti-Personnel Turret",
@@ -7703,6 +7808,31 @@
         "category": "Vanguard Primary Weapon",
         "name": "Titan-150 HESH",
         "sanction": "armor"
+    },
+    "6013591": {
+        "category": "Vehicle Abilities",
+        "name": "Catapult System",
+        "sanction": "none"
+    },
+    "6013729": {
+        "category": "Vehicle Abilities",
+        "name": "Catapult System",
+        "sanction": "none"
+    },
+    "6013730": {
+        "category": "Vehicle Abilities",
+        "name": "Catapult System",
+        "sanction": "none"
+    },
+    "6013731": {
+        "category": "Vehicle Abilities",
+        "name": "Catapult System",
+        "sanction": "none"
+    },
+    "6013732": {
+        "category": "Vehicle Abilities",
+        "name": "Catapult System",
+        "sanction": "none"
     },
     "6008733": {
         "category": "Vehicle Abilities",
