@@ -251,7 +251,7 @@ const alertEvent = async function(payload, environment, pgClient, discordClient)
                 \n<:NC:818767043138027580> **NC**: ${ncPc}%\
                 \n<:TR:818988588049629256> **TR**: ${trPc}%`);
             }
-            const  rows = await pgClient.query("SELECT a.channel, c.Koltyr, c.Indar, c.Hossin, c.Amerish, c.Esamir, c.Oshur, c.Other, c.autoDelete, c.territory, c.nonTerritory\
+            const  result = await pgClient.query("SELECT a.channel, c.Koltyr, c.Indar, c.Hossin, c.Amerish, c.Esamir, c.Oshur, c.Other, c.autoDelete, c.territory, c.nonTerritory\
             FROM alerts a LEFT JOIN subscriptionConfig c on a.channel = c.channel\
             WHERE a.world = $1;", [server.toLowerCase()]);
             result.rows.forEach(async (row) => {
@@ -549,20 +549,24 @@ module.exports = {
         queue.shift();
 
         if(payload.character_id != null){
-            try { await logEvent(payload, environment, pgClient, discordClient) }
-            catch (error) {
+            logEvent(payload, environment, pgClient, discordClient)
+            .catch(error => {
                 if(typeof(error) == "string" && error != "Census API currently unavailable" && error != "Census API unavailable: Redirect"){
                     console.log(`Login error: ${error}`);
                 }
-            }
+            });
         }
         else if(payload.metagame_event_state_name != null){
-            try { await alertEvent(payload, environment, pgClient, discordClient) }
-            catch (error) { console.log(error); } 
+            alertEvent(payload, environment, pgClient, discordClient)
+            .catch(error => {
+                console.log(error);
+            }); 
         }
         else if(payload.duration_held != null){
-            try { await baseEvent(payload, environment, pgClient, discordClient) }
-            catch (error) { console.log(error); } 
+            baseEvent(payload, environment, pgClient, discordClient)
+            .catch(error => {
+                console.log(error);
+            }); 
         }
     }
 }

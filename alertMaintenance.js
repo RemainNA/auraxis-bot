@@ -75,7 +75,6 @@ const updateAlert = async function(info, pgClient, discordClient, isComplete){
 			}
 		}
 	}
-
 	try {
 		const response = await pgClient.query("SELECT messageID, channelID FROM alertMaintenance WHERE alertID = $1;", [info.instanceId]);
 		await Promise.allSettled(response.rows.map(async row => {
@@ -103,16 +102,14 @@ const editMessage = async function(embed, messageId, channelId, discordClient){
 		const resChann = await discordClient.channels.fetch(channelId);
 		if (['GUILD_TEXT','GUILD_NEWS'].includes(resChann.type) && resChann.permissionsFor(resChann.guild.me).has(Discord.Permissions.FLAGS.VIEW_CHANNEL)) {
 			const resMsg = await resChann.messages.fetch(messageId);
-			await resMsg.edit({embeds: [embed]});
+			resMsg.edit({embeds: [embed]});
 		}
 		else if(resChann.type == 'DM'){
 			const resMsg = await resChann.messages.fetch(messageId);
-			await resMsg.edit({embeds: [embed]});
+			resMsg.edit({embeds: [embed]});
 		}
 	}
-	catch(err) {
-		// ignore, will be cleaned up on alert end
-	}
+	catch(err) { /** ignore, will be cleaned up on alert end*/ }
 }
 
 /**
