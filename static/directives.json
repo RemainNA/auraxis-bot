@@ -219,8 +219,24 @@
         "name": "Exceptional IV",
         "image": "79737"
     },
+    "95": {
+        "name": "Javelin",
+        "image": "93910"
+    },
+    "96": {
+        "name": "Dervish",
+        "image": "93589"
+    },
+    "97": {
+        "name": "Chimera",
+        "image": "93577"
+    },
     "102": {
         "name": "Exceptional V",
         "image": "79737"
+    },
+    "113": {
+        "name": "Corsair",
+        "image": "95007"
     }
 }
