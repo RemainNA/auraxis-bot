@@ -533,33 +533,39 @@ client.on('interactionCreate', async interaction => {
 			
 		}
 		catch(err){
-			if(typeof(err) !== 'string'){
-				console.log(`Error in ${interaction.commandName} ${interaction.locale}`);
-				if(err.code == 10062){ //"Unknown interaction"
-					console.log("Unknown interaction");
-					console.log(interaction.options);
-					return;
-				}
-				else if(err.code == 10008){ //"Unknown Message"
-					console.log("Unknown Message");
-					console.log(interaction.options);
-					return;
-				}
-				console.log(err);
-				if(interaction.deferred){
-					await interaction.editReply(i18n.__({phrase: "Error occurred when handling command", locale: interaction.locale}));
+			try{
+				if(typeof(err) !== 'string'){
+					console.log(`Error in ${interaction.commandName} ${interaction.locale}`);
+					if(err.code == 10062){ //"Unknown interaction"
+						console.log("Unknown interaction");
+						console.log(interaction.options);
+						return;
+					}
+					else if(err.code == 10008){ //"Unknown Message"
+						console.log("Unknown Message");
+						console.log(interaction.options);
+						return;
+					}
+					console.log(err);
+					if(interaction.deferred){
+						await interaction.editReply(i18n.__({phrase: "Error occurred when handling command", locale: interaction.locale}));
+					}
+					else{
+						await interaction.reply(i18n.__({phrase: "Error occurred when handling command", locale: interaction.locale}));
+					}
 				}
 				else{
-					await interaction.reply(i18n.__({phrase: "Error occurred when handling command", locale: interaction.locale}));
+					if(interaction.deferred){
+						await interaction.editReply(err);
+					}
+					else{
+						await interaction.reply(err);
+					}
 				}
 			}
-			else{
-				if(interaction.deferred){
-					await interaction.editReply(err);
-				}
-				else{
-					await interaction.reply(err);
-				}
+			catch(err){
+				console.log("Error handling slash command error");
+				console.log(err);
 			}
 		}
 	}
@@ -599,31 +605,37 @@ client.on('interactionCreate', async interaction => {
 			}
 		}
 		catch(err){
-			if(typeof(err) !== 'string'){
-				console.log(`Error in ${interaction.customId} button ${interaction.locale}`);
-				if(err.code == 10062){ //"Unknown interaction"
-					console.log("Unknown interaction");
-					return;
-				}
-				else if(err.code == 10008){ //"Unknown Message"
-					console.log("Unknown Message");
-					return;
-				}
-				console.log(err);
-				if(interaction.deferred){
-					await interaction.editReply(i18n.__({phrase: "Error occurred when handling command", locale: interaction.locale}));
+			try{
+				if(typeof(err) !== 'string'){
+					console.log(`Error in ${interaction.customId} button ${interaction.locale}`);
+					if(err.code == 10062){ //"Unknown interaction"
+						console.log("Unknown interaction");
+						return;
+					}
+					else if(err.code == 10008){ //"Unknown Message"
+						console.log("Unknown Message");
+						return;
+					}
+					console.log(err);
+					if(interaction.deferred){
+						await interaction.editReply(i18n.__({phrase: "Error occurred when handling command", locale: interaction.locale}));
+					}
+					else{
+						await interaction.reply({content: i18n.__({phrase: "Error occurred when handling command", locale: interaction.locale}), ephemeral: true});
+					}
 				}
 				else{
-					await interaction.reply({content: i18n.__({phrase: "Error occurred when handling command", locale: interaction.locale}), ephemeral: true});
+					if(interaction.deferred){
+						await interaction.editReply(err);
+					}
+					else{
+						await interaction.reply({content: err, ephemeral: true});
+					}
 				}
 			}
-			else{
-				if(interaction.deferred){
-					await interaction.editReply(err);
-				}
-				else{
-					await interaction.reply({content: err, ephemeral: true});
-				}
+			catch(err){
+				console.log("Error handling button error");
+				console.log(err);
 			}
 		}
 	}
