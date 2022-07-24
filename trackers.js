@@ -24,7 +24,7 @@ const populationName = async function(serverID){
 }
 
 /**
- * Get open continents on serveer
+ * Get open continents on server
  * @param {number} serverID - the server to check open continents
  * @returns which continents are open on the  server
  */

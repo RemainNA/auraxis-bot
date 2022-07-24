@@ -6,7 +6,7 @@
  * @typedef {import('pg').Client} pg.Client
  * @typedef {import('discord.js').Client} discord.Client
  * @typedef {import('discord.js').MessageEmbed} discord.MessageEmbed
- * @typedef {import('discord.js').Channel} discord.Channel
+ * @typedef {import('discord.js').TextBasedChannel} discord.Channel
 */
 
 const {MessageEmbed, MessageManager} = require('discord.js');

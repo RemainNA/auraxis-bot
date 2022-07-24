@@ -23,7 +23,7 @@ const platformToEnvironment = {
 
 module.exports = {
 	/**
-	 * Update outfit login/logouts and outfit captures for current subscribed channels
+	 * Update current outfit tag/name to new tag/name if it has changed
 	 * @param {pg.Client} pgClient - Postgres client to use
 	 */
 	update: async function(pgClient){

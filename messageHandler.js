@@ -3,7 +3,7 @@
  * @module messageHandler
  */
 /**
- * @typedef {import('discord.js').TextChannel} discord.Channel
+ * @typedef {import('discord.js').TextBasedChannel} discord.Channel
  */
 module.exports = {
     /**

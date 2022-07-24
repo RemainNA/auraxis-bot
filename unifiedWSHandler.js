@@ -533,7 +533,7 @@ const baseInfo = async function(facilityID, environment){
 const queue = ["","","","",""];
 module.exports = {
     /**
-     * Send an alert event and base event to all subscribed channels
+     * Send an alert, base, login or logout event to all subscribed channels
      * @param payload - the payload of the event
      * @param {string} environment - the environment the event was sent from
      * @param {pg.Client} pgClient - the postgres client to use
