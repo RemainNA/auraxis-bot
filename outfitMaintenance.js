@@ -38,20 +38,20 @@ module.exports = {
 				outfitIDs.push([outfit.id, outfit.platform]);
 			}
 		}
-		for(const id of outfitIDs){
+		outfitIDs.forEach(async (id)=> {
 			try{
 				const response = await censusRequest(platformToEnvironment[id[1]], 'outfit_list', `/outfit/${id[0]}`);
 				if(response.length == 0){
-					continue;
+					return;
 				}
-				await pgClient.query("UPDATE outfitactivity SET alias = $1 WHERE id = $2;", [response[0].alias, id[0]]);
-				await pgClient.query("UPDATE outfitcaptures SET alias = $1, name = $2 WHERE id = $3;", [response[0].alias, response[0].name, id[0]]);	
+				pgClient.query("UPDATE outfitactivity SET alias = $1 WHERE id = $2;", [response[0].alias, id[0]]);
+				pgClient.query("UPDATE outfitcaptures SET alias = $1, name = $2 WHERE id = $3;", [response[0].alias, response[0].name, id[0]]);	
 			}
 			catch(err){
 				console.log('Outfit maintenance error');
 				console.log(id);
 				console.log(err);
 			}
-		}
+		});
 	}
 }

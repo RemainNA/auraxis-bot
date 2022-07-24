@@ -9,7 +9,7 @@
  * @typedef {import('discord.js').Channel} discord.Channel
 */
 
-const {MessageEmbed} = require('discord.js');
+const {MessageEmbed, MessageManager} = require('discord.js');
 const messageHandler = require('./messageHandler.js');
 const {getPopulation} = require('./population.js');
 const {alertInfo, popLevels} = require('./alerts.js');
@@ -232,7 +232,7 @@ module.exports = {
 		if(messageID == -1){
 			throw "Error creating dashboard, please check that the bot has permission to post in this channel.";
 		}
-		await pgClient.query("INSERT INTO dashboard (concatkey, channel, messageid, world) VALUES ($1, $2, $3, $4)\
+		pgClient.query("INSERT INTO dashboard (concatkey, channel, messageid, world) VALUES ($1, $2, $3, $4)\
 		ON CONFLICT(concatkey) DO UPDATE SET messageid = $3;",
 		[`${channel.id}-${serverName}`, channel.id, messageID, serverName]);
 		return "Dashboard successfully created.  It will be automatically updated every 5 minutes.";
@@ -254,7 +254,7 @@ module.exports = {
 		if(messageID == -1){
 			throw "Error creating dashboard, please check that the bot has permission to post in this channel.";
 		}
-		await pgClient.query("INSERT INTO outfitDashboard (concatkey, channel, messageid, outfitID, platform) VALUES ($1, $2, $3, $4, $5)\
+		pgClient.query("INSERT INTO outfitDashboard (concatkey, channel, messageid, outfitID, platform) VALUES ($1, $2, $3, $4, $5)\
 		ON CONFLICT(concatkey) DO UPDATE SET messageid = $3;",
 		[`${channel.id}-${oInfo.outfitID}`, channel.id, messageID, oInfo.outfitID, platform]);
 		return "Dashboard successfully created.  It will be automatically updated every 5 minutes.";
@@ -266,38 +266,38 @@ module.exports = {
 	 * @param {discord.Client} discordClient - The discord client 
 	 */
 	update: async function(pgClient, discordClient){
-		for(const serverName of servers){
+		servers.forEach(async (serverName) => {
 			try{
 				const status = await serverStatus(serverIDs[serverName], pgClient);
 				const channels = await pgClient.query('SELECT * FROM dashboard WHERE world = $1;', [serverName]);
 				for(const row of channels.rows){
-					await editMessage(row.channel, row.messageid, status, pgClient, discordClient);
+					editMessage(row.channel, row.messageid, status, pgClient, discordClient);
 				}
 			}
 			catch(err){
 				console.log(`Error updating ${serverName} dashboard`);
 				console.log(err);
 			}
-		}
+		});
 		try{
 			const outfits = await pgClient.query('SELECT DISTINCT outfitID, platform FROM outfitDashboard;');
-			for(const row of outfits.rows){
+			outfits.rows.forEach(async (row) => {
 				try{
 					const status = await outfitStatus(row.outfitid, row.platform, pgClient);
 					const channels = await pgClient.query('SELECT * FROM outfitdashboard WHERE outfitid = $1 AND platform = $2', [row.outfitid, row.platform]);
 					for(const channelRow of channels.rows){
-						await editMessage(channelRow.channel, channelRow.messageid, status, pgClient, discordClient);
+						editMessage(channelRow.channel, channelRow.messageid, status, pgClient, discordClient);
 					}
 				}
 				catch(err){
 					console.log(`Error updating outfit dashboard ${row.platform}: ${row.outfitid}`);
 					console.log(err);
 					if(err == " not found"){
-						await pgClient.query("DELETE FROM outfitDashboard WHERE outfitID = $1;", [row.outfitid]);
+						pgClient.query("DELETE FROM outfitDashboard WHERE outfitID = $1;", [row.outfitid]);
 						console.log(`Deleted ${row.outfitid} from table`);
 					}
 				}
-			}
+			});
 		}
 		catch(err){
 			console.log(`Error pulling outfit dashboards`);

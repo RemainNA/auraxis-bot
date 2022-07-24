@@ -77,12 +77,12 @@ const updateAlert = async function(info, pgClient, discordClient, isComplete){
 	}
 	try {
 		const response = await pgClient.query("SELECT messageID, channelID FROM alertMaintenance WHERE alertID = $1;", [info.instanceId]);
-		await Promise.allSettled(response.rows.map(async row => {
+		response.rows.forEach(async row => {
 			editMessage(messageEmbed, row.messageid, row.channelid, discordClient);
 			if(isComplete){
 				pgClient.query("DELETE FROM alertMaintenance WHERE alertID = $1;", [info.instanceId]);
 			}
-		}));
+		});
 	}
 	catch (err) {
 		console.log("Error editing message");

@@ -116,7 +116,7 @@ module.exports = {
 				}
 			]});
 
-			await pgClient.query("INSERT INTO tracker (channel, trackerType, world) VALUES ($1, $2, $3);",
+			pgClient.query("INSERT INTO tracker (channel, trackerType, world) VALUES ($1, $2, $3);",
 			[newChannel.id, type, serverName]);
 
 			return `Tracker channel created as ${newChannel.toString()}. This channel will automatically update once every 10 minutes. If you move the channel or edit permissions make sure to keep the "Manage Channel" and "Connect" permissions enabled for Auraxis Bot.`;
@@ -165,7 +165,7 @@ module.exports = {
 				}
 			]});
 
-			await pgClient.query("INSERT INTO outfittracker (channel, outfitid, showfaction, platform) VALUES ($1, $2, $3, $4);",
+			pgClient.query("INSERT INTO outfittracker (channel, outfitid, showfaction, platform) VALUES ($1, $2, $3, $4);",
 			[newChannel.id, oInfo.outfitID, showFaction, platform]);
 
 			return `Tracker channel created as ${newChannel}. This channel will automatically update once every 10 minutes. If you move the channel or edit permissions make sure to keep the "Manage Channel" and "Connect" permissions enabled for Auraxis Bot.`;
@@ -187,13 +187,13 @@ module.exports = {
 	 * @param {boolean} continentOnly - if false only update population and outfits
 	 */
 	update: async function(pgClient, discordClient, continentOnly = false){
-		for(const serverName of servers){
+		servers.forEach(async (serverName) => {
 			if(!continentOnly){
 				try{
 					const popName = await populationName(serverIDs[serverName]);
 					const channels = await pgClient.query("SELECT channel FROM tracker WHERE trackertype = $1 AND world = $2;", ["population", serverName]);
 					for(const row of channels.rows){
-						await updateChannelName(popName, row.channel, discordClient, pgClient);
+						updateChannelName(popName, row.channel, discordClient, pgClient);
 					}
 				}
 				catch(err){
@@ -205,27 +205,27 @@ module.exports = {
 				const terName = await territoryName(serverIDs[serverName]);
 				const channels = await pgClient.query("SELECT channel FROM tracker WHERE trackertype = $1 AND world = $2;", ["territory", serverName]);
 				for(const row of channels.rows){
-					await updateChannelName(terName, row.channel, discordClient, pgClient);
+					updateChannelName(terName, row.channel, discordClient, pgClient);
 				}
 			}
 			catch(err){
 				console.log(`Error updating ${serverName} territory tracker`);
 				console.log(err);
 			}
-		}
+		});
 		if(!continentOnly){
 			try{
 				const outfits = await pgClient.query("SELECT DISTINCT outfitid, platform FROM outfittracker;");
-				for(const row of outfits.rows){
+				outfits.rows.forEach(async (row) => {
 					try{
 						const oName = await outfitName(row.outfitid, row.platform);
 						const channels = await pgClient.query("SELECT channel, showfaction FROM outfittracker WHERE outfitid = $1 AND platform = $2;", [row.outfitid, row.platform]);
 						for(const channelRow of channels.rows){
 							if(channelRow.showfaction){
-								await updateChannelName(oName.faction, channelRow.channel, discordClient, pgClient);
+								updateChannelName(oName.faction, channelRow.channel, discordClient, pgClient);
 							}
 							else{
-								await updateChannelName(oName.noFaction, channelRow.channel, discordClient, pgClient);
+								updateChannelName(oName.noFaction, channelRow.channel, discordClient, pgClient);
 							}
 						}
 					}
@@ -233,12 +233,12 @@ module.exports = {
 						console.log(`Error updating outfit tracker ${row.outfitid}`);
 						console.log(err);
 						if(err == " not found"){
-							await pgClient.query("DELETE FROM outfittracker WHERE outfitid = $1;", [row.outfitid]);
+							pgClient.query("DELETE FROM outfittracker WHERE outfitid = $1;", [row.outfitid]);
 							console.log(`Deleted ${row.outfitid} from tracker table`);
 						}
 					}
 					
-				}
+				});
 			}catch(err){
 				console.log(`Error pulling outfit trackers`);
 				console.log(err);
