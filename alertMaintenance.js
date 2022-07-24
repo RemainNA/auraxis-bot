@@ -95,7 +95,7 @@ const updateAlert = async function(info, pgClient, discordClient, isComplete){
 }
 
 /**
- * 
+ * Edits existing alert message with new information
  * @param {Discord.MessageEmbed} embed - embed to edit
  * @param {string} messageId - message id to edit
  * @param {string} channelId - channel id to edit	
