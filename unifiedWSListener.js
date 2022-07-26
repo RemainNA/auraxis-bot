@@ -47,7 +47,7 @@ function listen(pgClient, discordClient){
         })
 
         pcClient.on('message', function incoming(data){
-            let parsed = JSON.parse(data);
+            const parsed = JSON.parse(data.toString());
             if(parsed.payload != null){
                 handler.router(parsed.payload, "ps2:v2", pgClient, discordClient);
             }
@@ -81,7 +81,7 @@ function listen(pgClient, discordClient){
         })
 
         usClient.on('message', function incoming(data){
-            let parsed = JSON.parse(data);
+            const parsed = JSON.parse(data.toString());
             if(parsed.payload != null){
                 handler.router(parsed.payload, "ps2ps4us:v2", pgClient, discordClient);
             }
@@ -115,7 +115,7 @@ function listen(pgClient, discordClient){
         })
 
         euClient.on('message', function incoming(data){
-            let parsed = JSON.parse(data);
+            const parsed = JSON.parse(data.toString());
             if(parsed.payload != null){
                 handler.router(parsed.payload, "ps2ps4eu:v2", pgClient, discordClient);
             }
