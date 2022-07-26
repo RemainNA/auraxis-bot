@@ -3,7 +3,7 @@
  * @module population
  */
 
-const Discord = require('discord.js');
+const {MessageEmbed: EmbedBuilder} = require('discord.js');
 const got = require('got')
 const {servers, serverIDs, serverNames, localeNumber} = require('./utils.js');
 const i18n = require('i18n');
@@ -82,7 +82,7 @@ module.exports = {
 	lookup: async function(server, locale="en-US"){
 
 		if(server == 'all'){
-			let resEmbed = new Discord.MessageEmbed();
+			const resEmbed = new EmbedBuilder();
 			let total = 0;
 			//Construct an array of promises and await them all in parallel
 			const results = await Promise.all(Array.from(servers, x=> getPopulation(serverIDs[x])))
@@ -98,7 +98,7 @@ module.exports = {
 				\n<:TR:818988588049629256> **${i18n.__({phrase: 'TR', locale: locale})}**: ${pop.tr}  |  ${trPc}%\
 				\n<:NS:819511690726866986> **${i18n.__({phrase: 'NSO', locale: locale})}**: ${pop.ns}  |  ${nsPc}%`
 				const populationTitle = i18n.__mf({phrase: "{server} population - {total}", locale: locale}, {server: i18n.__({phrase: serverNames[pop.world], locale: locale}), total: serverTotal})
-				resEmbed.addField(populationTitle, populationField, true);
+				resEmbed.addFields({name: populationTitle, value: populationField, inline: true});
 				total += serverTotal;
 			}
 			resEmbed.setTitle(i18n.__mf({phrase: "Total population - {total}", locale: locale}, {total: total.toLocaleString(locale)}));
@@ -111,7 +111,7 @@ module.exports = {
 			const normalized = serverNames[serverID];
 			const res = await getPopulation(serverID);
 
-			let sendEmbed = new Discord.MessageEmbed();
+			const sendEmbed = new EmbedBuilder();
 			let total = Number(res.vs) + Number(res.nc) + Number(res.tr) + Number(res.ns);
 			sendEmbed.setTitle(i18n.__mf({phrase: "{server} population - {total}", locale: locale}, {server: i18n.__({phrase: normalized, locale: locale}), total: total.toLocaleString(locale)}));
 			total = Math.max(total, 1);

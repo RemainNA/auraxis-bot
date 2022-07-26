@@ -4,7 +4,8 @@
  */
 
 const {censusRequest, faction} = require('./utils.js');
-const Discord = require('discord.js');
+const {MessageEmbed: EmbedBuilder, MessageActionRow: ActionRowBuilder, MessageButton: ButtonBuilder} = require('discord.js');
+const { ButtonStyle } = require('discord-api-types/v10');
 const sanction = require('./static/sanction.json');
 const { localeNumber } = require('./utils.js');
 const i18n = require('i18n');
@@ -75,7 +76,7 @@ module.exports = {
 	medals: async function(cName, platform, expanded=false, locale='en-US'){
 		const medalList = await getAuraxiumList(cName.toLowerCase(), platform, locale);
 
-		let resEmbed = new Discord.MessageEmbed();
+		const resEmbed = new EmbedBuilder();
 		resEmbed.setTitle(i18n.__mf({phrase: "{name} Auraxiums", locale: locale}, {name: medalList.name}));
 		let textList = "";
 		let remaining = medalList.medals.length + medalList.possibleMedals.length;
@@ -93,7 +94,7 @@ module.exports = {
 					textList = currentItem;
 				}
 				else if(continued && (textList.length + currentItem.length) > 1024){
-					resEmbed.addField(i18n.__({phrase: "Continued...", locale: locale}), textList);
+					resEmbed.addFields({name: i18n.__({phrase: "Continued...", locale: locale}), value: textList});
 					textList = currentItem;
 				}
 				else{
@@ -101,7 +102,7 @@ module.exports = {
 				}
 			}
 			if(continued){
-				resEmbed.addField(i18n.__({phrase: "Continued...", locale: locale}), textList);
+				resEmbed.addFields({name: i18n.__({phrase: "Continued...", locale: locale}), value: textList});
 			}
 			else{
 				resEmbed.setDescription(textList);
@@ -114,11 +115,11 @@ module.exports = {
 				const currentItem = `${medal}\n`;
 				if(!continued && (textList.length + currentItem.length) > 1024){
 					continued = true;
-					resEmbed.addField(i18n.__({phrase: "Possible medals (kills)", locale: locale}), textList);
+					resEmbed.addFields({value: i18n.__({phrase: "Possible medals (kills)", locale: locale}), name: textList});
 					textList = currentItem;
 				}
 				else if(continued && (textList.length + currentItem.length) > 1024){
-					resEmbed.addField(i18n.__({phrase: "Continued...", locale: locale}), textList);
+					resEmbed.addFields({name: i18n.__({phrase: "Continued...", locale: locale}), value: textList});
 					textList = currentItem;
 				}
 				else{
@@ -126,10 +127,10 @@ module.exports = {
 				}
 			}
 			if(continued){
-				resEmbed.addField(i18n.__({phrase: "Continued...", locale: locale}), textList);
+				resEmbed.addFields({name: i18n.__({phrase: "Continued...", locale: locale}), value: textList});
 			}
 			else if(textList != ""){
-				resEmbed.addField(i18n.__({phrase: "Possible medals (kills)", locale: locale}), textList);
+				resEmbed.addFields({value: i18n.__({phrase: "Possible medals (kills)", locale: locale}), name: textList});
 			}
 		}
 		else{
@@ -160,7 +161,7 @@ module.exports = {
 					remaining -= 1;
 					max -= 1;
 				}
-				resEmbed.addField(i18n.__({phrase: "Possible medals (kills)", locale: locale}), textList);
+				resEmbed.addFields({value: i18n.__({phrase: "Possible medals (kills)", locale: locale}), name: textList});
 			}
 		}
 		resEmbed.setColor(faction(medalList.faction).color)
@@ -175,12 +176,12 @@ module.exports = {
 			resEmbed.setURL(`https://ps4eu.ps2.fisu.pw/player/?name=${medalList.name}&show=weapons`);
 		}
 		if(remaining > 0){
-			const row = new Discord.MessageActionRow()
+			const row = new ActionRowBuilder()
 			row.addComponents(
-				new Discord.MessageButton()
+				new ButtonBuilder()
 					.setCustomId(`auraxiums%${medalList.name}%${platform}`)
 					.setLabel(i18n.__({phrase: "View all", locale: locale}))
-					.setStyle('PRIMARY')
+					.setStyle(ButtonStyle.Primary)
 			);
 			return [resEmbed, [row]];
 		}

@@ -7,7 +7,8 @@
  * @typedef {import('discord.js').Client} discord.Client
  */
 
-const {MessageEmbed, Permissions} = require('discord.js');
+const {MessageEmbed: EmbedBuilder} = require('discord.js');
+const {PermissionFlagsBits} = require('discord-api-types/v10');
 const messageHandler = require('./messageHandler.js');
 const subscriptions = require('./subscriptions.js');
 const config = require('./subscriptionConfig.js');
@@ -54,7 +55,7 @@ const logEvent = async function(payload, environment, pgClient, discordClient){
             throw `Error in logEvent: ${error}`;
         }
         if (result.rows.length > 0){
-            let sendEmbed = new MessageEmbed();
+            const sendEmbed = new EmbedBuilder();
             sendEmbed.setTitle(result.rows[0].alias+' '+playerEvent);
             sendEmbed.setDescription(char.name.first);
             sendEmbed.setColor(faction(char.faction_id).color);
@@ -62,7 +63,7 @@ const logEvent = async function(payload, environment, pgClient, discordClient){
                 discordClient.channels.fetch(row.channel)
                     .then(resChann => {
                         if(typeof(resChann.guild) !== 'undefined'){
-                            if(resChann.permissionsFor(resChann.guild.me).has([Permissions.FLAGS.SEND_MESSAGES, Permissions.FLAGS.VIEW_CHANNEL, Permissions.FLAGS.EMBED_LINKS])){
+                            if(resChann.permissionsFor(resChann.guild.me).has([PermissionFlagsBits.SendMessages, PermissionFlagsBits.ViewChannel, PermissionFlagsBits.EmbedLinks])){
                                 messageHandler.send(resChann, {embeds: [sendEmbed]}, "Log event")
                                 .then(messageId => {
                                     if(messageId != -1 && row.autodelete == true){
@@ -185,7 +186,7 @@ const alertEvent = async function(payload, environment, pgClient, discordClient)
         let server = serverNames[payload.world_id];
         let response = await alertInfo(payload, environment);
         if(typeof(response.name) != undefined && response.name){
-            let sendEmbed = new MessageEmbed();
+            const sendEmbed = new EmbedBuilder();
             sendEmbed.setTitle(response.name);
             if(trackedAlerts.indexOf(Number(payload.metagame_event_id)) == -1){
                 sendEmbed.setDescription(response.description);
@@ -203,8 +204,10 @@ const alertEvent = async function(payload, environment, pgClient, discordClient)
             else if (response.name.includes('Superiority')){
                 sendEmbed.setColor('RED');
             }
-            sendEmbed.addField('Server', server, true);
-            sendEmbed.addField('Status', `Started <t:${Math.floor(Date.now()/1000)}:R>`, true);
+            sendEmbed.addFields([
+                {name: 'Server', value: server, inline: true},
+                {name: 'Status', value: `Started <t:${Math.floor(Date.now()/1000)}:R>`, inline: true}
+            ]);
             let terObj = {};
             try{
                 terObj = await territory.territoryInfo(payload.world_id);
@@ -246,19 +249,19 @@ const alertEvent = async function(payload, environment, pgClient, discordClient)
                 let vsPc = ((terObj[continent].vs/Total)*100).toPrecision(3);
                 let ncPc = ((terObj[continent].nc/Total)*100).toPrecision(3);
                 let trPc = ((terObj[continent].tr/Total)*100).toPrecision(3);
-                sendEmbed.addField('Territory Control', `\
+                sendEmbed.addFields({name: 'Territory Control', value: `\
                 \n<:VS:818766983918518272> **VS**: ${terObj[continent].vs}  |  ${vsPc}%\
                 \n<:NC:818767043138027580> **NC**: ${terObj[continent].nc}  |  ${ncPc}%\
-                \n<:TR:818988588049629256> **TR**: ${terObj[continent].tr}  |  ${trPc}%`);
+                \n<:TR:818988588049629256> **TR**: ${terObj[continent].tr}  |  ${trPc}%`});
             }
             else if(showTerritory){
                 let vsPc = Number.parseFloat(payload.faction_vs).toPrecision(3);
                 let ncPc = Number.parseFloat(payload.faction_nc).toPrecision(3);
                 let trPc = Number.parseFloat(payload.faction_tr).toPrecision(3);
-                sendEmbed.addField('Territory Control', `\
+                sendEmbed.addFields({name: 'Territory Control', value: `\
                 \n<:VS:818766983918518272> **VS**: ${vsPc}%\
                 \n<:NC:818767043138027580> **NC**: ${ncPc}%\
-                \n<:TR:818988588049629256> **TR**: ${trPc}%`);
+                \n<:TR:818988588049629256> **TR**: ${trPc}%`});
             }
             const  rows = await pgClient.query("SELECT a.channel, c.Koltyr, c.Indar, c.Hossin, c.Amerish, c.Esamir, c.Oshur, c.Other, c.autoDelete, c.territory, c.nonTerritory\
             FROM alerts a LEFT JOIN subscriptionConfig c on a.channel = c.channel\
@@ -275,7 +278,7 @@ const alertEvent = async function(payload, environment, pgClient, discordClient)
                 discordClient.channels.fetch(row.channel)
                     .then(resChann => {
                         if(typeof(resChann.guild) !== 'undefined'){
-                            if(resChann.permissionsFor(resChann.guild.me).has([Permissions.FLAGS.SEND_MESSAGES, Permissions.FLAGS.VIEW_CHANNEL, Permissions.FLAGS.EMBED_LINKS])){
+                            if(resChann.permissionsFor(resChann.guild.me).has([PermissionFlagsBits.SendMessages, PermissionFlagsBits.ViewChannel, PermissionFlagsBits.EmbedLinks])){
                                 messageHandler.send(resChann, {embeds: [sendEmbed]}, "Alert notification")
                                 .then(messageId => {
                                     if(messageId != -1 && trackedAlerts.indexOf(Number(payload.metagame_event_id)) > -1){
@@ -390,50 +393,50 @@ const baseEvent = async function(payload, environment, pgClient, discordClient){
     //check if outfit is in db, construct and send info w/ facility id
     let result = await pgClient.query("SELECT * FROM outfitcaptures WHERE id=$1 AND platform = $2;", [payload.outfit_id, platform]);
     if(result.rowCount > 0){
-        let sendEmbed = new MessageEmbed();
+        let sendEmbed = new EmbedBuilder();
         let base = await baseInfo(payload.facility_id, environment);
         sendEmbed.setTitle("["+result.rows[0].alias+"] "+result.rows[0].name+' captured '+base.name);
         sendEmbed.setTimestamp();
         sendEmbed.setColor(faction(payload.new_faction_id).color) //Color cannot be dependent on outfit due to NSO outfits
         if(payload.zone_id == "2"){
-            sendEmbed.addField("Continent", "Indar", true);
+            sendEmbed.addFields({ name: "Continent", value: "Indar", inline: true});
         }
         else if(payload.zone_id == "4"){
-            sendEmbed.addField("Continent", "Hossin", true);
+            sendEmbed.addFields({ name: "Continent", value: "Hossin", inline: true});
         }
         else if(payload.zone_id == "6"){
-            sendEmbed.addField("Continent", "Amerish", true);
+            sendEmbed.addFields({ name: "Continent", value: "Amerish", inline: true});
         }
         else if(payload.zone_id == "8"){
-            sendEmbed.addField("Continent", "Esamir", true);
+            sendEmbed.addFields({ name: "Continent", value: "Esamir", inline: true});
         }
         else if(payload.zone_id == "344"){
-            sendEmbed.addField("Continent", "Oshur", true);
+            sendEmbed.addFields({ name: "Continent", value: "Oshur", inline: true});
         }
         if(centralBases.includes(payload.facility_id)){
-            sendEmbed.addField("Facility Type", base.type+"\n(Central base)", true);
-            sendEmbed.addField("Outfit Resources", "2 Polystellarite <:Polystellarite:818766888238448661>", true);
+            sendEmbed.addFields({ name: "Facility Type", value: base.type+"\n(Central base)", inline: true});
+            sendEmbed.addFields({ name: "Outfit Resources", value: "2 Polystellarite <:Polystellarite:818766888238448661>", inline: true});
         }
         else if(base.type in outfitResources){
-            sendEmbed.addField("Facility Type", base.type, true);
-            sendEmbed.addField("Outfit Resources", outfitResources[base.type], true);
+            sendEmbed.addFields({ name: "Facility Type", value: base.type, inline: true});
+            sendEmbed.addFields({ name: "Outfit Resources", value: outfitResources[base.type], inline: true});
         }
         else{
-            sendEmbed.addField("Facility Type", base.type, true);
-            sendEmbed.addField("Outfit Resources", "Unknown", true);
+            sendEmbed.addFields({ name: "Facility Type", value: base.type, inline: true});
+            sendEmbed.addFields({ name: "Outfit Resources", value: "Unknown", inline: true});
         }
 
         const factionInfo = faction(payload.old_faction_id);
-        sendEmbed.addField("Captured From", `${factionInfo.decal} ${factionInfo.initial}`, true);
+        sendEmbed.addFields({ name: "Captured From", value: `${factionInfo.decal} ${factionInfo.initial}`, inline: true});
         
         const contributions = await captureContributions(payload.outfit_id, payload.facility_id, payload.timestamp, environment);
         if(contributions.length > 0){
-            sendEmbed.addField("<:Merit:890295314337136690> Contributors", `${contributions}`.replace(/,/g, ', '), true);
+            sendEmbed.addFields({ name: "<:Merit:890295314337136690> Contributors", value: `${contributions}`.replace(/,/g, ', '), inline: true});
         }
         for (let row of result.rows){
             discordClient.channels.fetch(row.channel).then(resChann => {
                 if(typeof(resChann.guild) !== 'undefined'){
-                    if(resChann.permissionsFor(resChann.guild.me).has([Permissions.FLAGS.SEND_MESSAGES, Permissions.FLAGS.VIEW_CHANNEL, Permissions.FLAGS.EMBED_LINKS])){
+                    if(resChann.permissionsFor(resChann.guild.me).has([PermissionFlagsBits.SendMessages, PermissionFlagsBits.ViewChannel, PermissionFlagsBits.EmbedLinks])){
                         messageHandler.send(resChann, {embeds: [sendEmbed]}, "Base capture event");
                     }
                     else{

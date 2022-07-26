@@ -4,7 +4,8 @@
  */
 
 const {censusRequest, faction} = require('./utils.js');
-const Discord = require('discord.js');
+const {MessageEmbed: EmbedBuilder, MessageActionRow: ActionRowBuilder, MessageButton: ButtonBuilder} = require('discord.js');
+const { ButtonStyle } = require('discord-api-types/v10');
 const directives = require('./static/directives.json');
 const i18n = require('i18n');
 
@@ -50,7 +51,7 @@ module.exports = {
 	 */
 	directives: async function(cName, platform, expanded=false, locale="en-US"){
 		const directiveList = await getDirectiveList(cName.toLowerCase(), platform, locale);
-		let resEmbed = new Discord.MessageEmbed();
+		const resEmbed = new EmbedBuilder();
 		resEmbed.setTitle(i18n.__mf({phrase: "{name} Directives", locale: locale}, {name: directiveList.name}));
 		let textList = "";
 		let remaining = directiveList.directives.length;
@@ -98,12 +99,12 @@ module.exports = {
 			resEmbed.setURL(`https://ps4eu.ps2.fisu.pw/directive/?name=${directiveList[0]}`);
 		}
 		if(remaining > 0){
-			const row = new Discord.MessageActionRow()
+			const row = new ActionRowBuilder()
 			row.addComponents(
-				new Discord.MessageButton()
+				new ButtonBuilder()
 					.setCustomId(`directives%${directiveList.name}%${platform}`)
 					.setLabel(i18n.__({phrase: "View all", locale: locale}))
-					.setStyle('PRIMARY')
+					.setStyle(ButtonStyle.Primary)
 			);
 			return [resEmbed, [row]];
 		}

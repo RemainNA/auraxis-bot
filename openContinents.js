@@ -11,7 +11,7 @@ const {territoryInfo} = require('./territory.js');
 const {serverIDs, serverNames, servers, continents} = require('./utils.js');
 const {send} = require('./messageHandler.js');
 const {unsubscribeAll} = require('./subscriptions.js');
-const {Permissions} = require('discord.js');
+const { PermissionFlagsBits } = require('discord-api-types/v10');
 const trackers = require('./trackers.js');
 
 /**
@@ -38,7 +38,7 @@ const notifyUnlock = async function(cont, server, channelID, pgClient, discordCl
 	try{
 		const channel = await discordClient.channels.fetch(channelID);
 		if(typeof(channel.guild) !== 'undefined'){
-			if(channel.permissionsFor(channel.guild.me).has([Permissions.FLAGS.SEND_MESSAGES, Permissions.FLAGS.VIEW_CHANNEL, Permissions.FLAGS.EMBED_LINKS])){
+			if(channel.permissionsFor(channel.guild.me).has([PermissionFlagsBits.SendMessages, PermissionFlagsBits.ViewChannel, PermissionFlagsBits.EmbedLinks])){
 				await send(channel, `${cont} on ${server} is now open!`, "Continent unlock");
 			}
 			else{

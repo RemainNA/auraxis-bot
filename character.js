@@ -6,7 +6,8 @@
  */
 
 
-const Discord = require('discord.js');
+const {MessageEmbed: EmbedBuilder, MessageActionRow: ActionRowBuilder, MessageButton: ButtonBuilder} = require('discord.js');
+const { ButtonStyle } = require('discord-api-types/v10');
 const weapons = require('./static/weapons.json');
 const vehicles = require('./static/vehicles.json');
 const decals = require('./static/decals.json');
@@ -384,21 +385,21 @@ module.exports = {
 		}
         
         const cInfo = await basicInfo(cName, platform);
-        let resEmbed = new Discord.MessageEmbed();
-        const row = new Discord.MessageActionRow()
+        const resEmbed = new EmbedBuilder();
+        const row = new ActionRowBuilder()
         row.addComponents(
-            new Discord.MessageButton()
+            new ButtonBuilder()
                 .setCustomId(`recentStats%30%${cInfo.characterID}%${platform}`)
                 .setLabel(i18n.__({phrase: '30 day stats', locale: locale}))
-                .setStyle('PRIMARY'),
-            new Discord.MessageButton()
+                .setStyle(ButtonStyle.Primary),
+            new ButtonBuilder()
                 .setCustomId(`recentStats%7%${cInfo.characterID}%${platform}`)
                 .setLabel(i18n.__({phrase: '7 day stats', locale: locale}))
-                .setStyle('PRIMARY'),
-            new Discord.MessageButton()
+                .setStyle(ButtonStyle.Primary),
+            new ButtonBuilder()
                 .setCustomId(`recentStats%1%${cInfo.characterID}%${platform}`)
                 .setLabel(i18n.__({phrase: '1 day stats', locale: locale}))
-                .setStyle('PRIMARY')
+                .setStyle(ButtonStyle.Primary)
         );
 
         // Username, title, fisu url
@@ -418,10 +419,10 @@ module.exports = {
         
         // BR & ASP
         if(cInfo.prestige > 0){
-            resEmbed.addField(i18n.__({phrase: 'BR', locale: locale}), cInfo.br+"~"+cInfo.prestige, true);
+            resEmbed.addFields({name: i18n.__({phrase: 'BR', locale: locale}), value: cInfo.br+"~"+cInfo.prestige, inline: true});
         }
         else{
-            resEmbed.addField(i18n.__({phrase: 'BR', locale: locale}), cInfo.br, true);
+            resEmbed.addFields({name: i18n.__({phrase: 'BR', locale: locale}), value: cInfo.br, inline: true});
         }
 
         // Decal thumbnail
@@ -449,80 +450,82 @@ module.exports = {
 
         // Score, SPM
         if(cInfo.stat_history){
-            resEmbed.addField(i18n.__({phrase: 'Score (SPM)', locale: locale}), parseInt(cInfo.score).toLocaleString(locale)+" ("+localeNumber(cInfo.score/cInfo.playTime, locale)+")", true);
+            resEmbed.addFields({name: i18n.__({phrase: 'Score (SPM)', locale: locale}), value: parseInt(cInfo.score).toLocaleString(locale)+" ("+localeNumber(cInfo.score/cInfo.playTime, locale)+")", inline: true});
         }
 
         // Server
-        resEmbed.addField(i18n.__({phrase: 'Server', locale: locale}), i18n.__({phrase: serverNames[Number(cInfo.server)], locale: locale}), true);
+        resEmbed.addFields({name: i18n.__({phrase: 'Server', locale: locale}), value: i18n.__({phrase: serverNames[Number(cInfo.server)], locale: locale}), inline: true});
 
         // Playtime
         const hours = Math.floor(cInfo.playTime/60);
         const minutesPlayed = cInfo.playTime - hours*60;
-        resEmbed.addField(i18n.__({phrase: 'Playtime', locale: locale}), 
+        resEmbed.addFields({name: i18n.__({phrase: 'Playtime', locale: locale}), value:
         `${i18n.__mf({phrase: "{hour} hours, {minute} minutes", locale: locale}, 
-        {hour: localeNumber(hours, locale), minute: minutesPlayed})}`, true);
+        {hour: localeNumber(hours, locale), minute: minutesPlayed})}`, inline: true});
         
         // KD, KPM
         if(cInfo.stat_history){
-            resEmbed.addField(i18n.__({phrase: 'K/D', locale: locale}), localeNumber(cInfo.kills/cInfo.deaths, locale), true);
-            resEmbed.addField(i18n.__({phrase: 'KPM', locale: locale}), localeNumber(cInfo.kills/cInfo.playTime, locale), true);
-            resEmbed.addField(i18n.__({phrase: 'K-D Diff', locale: locale}), `${Number.parseInt(cInfo.kills).toLocaleString(locale)} - ${Number.parseInt(cInfo.deaths).toLocaleString(locale)} = ${(cInfo.kills-cInfo.deaths).toLocaleString(locale, {signDisplay: "exceptZero"})}`, true);
+            resEmbed.addFields([
+                {name: i18n.__({phrase: 'K/D', locale: locale}), value: localeNumber(cInfo.kills/cInfo.deaths, locale), inline: true},
+                {name: i18n.__({phrase: 'KPM', locale: locale}), value: localeNumber(cInfo.kills/cInfo.playTime, locale), inline: true},
+                {name: i18n.__({phrase: 'K-D Diff', locale: locale}), value: `${Number.parseInt(cInfo.kills).toLocaleString(locale)} - ${Number.parseInt(cInfo.deaths).toLocaleString(locale)} = ${(cInfo.kills-cInfo.deaths).toLocaleString(locale, {signDisplay: "exceptZero"})}`, inline: true}
+            ]);
         }
 
         // IVI Score
         if(typeof(cInfo.infantryHeadshots) !== 'undefined' && typeof(cInfo.infantryHits) !== 'undefined'){
             let accuracy = cInfo.infantryHits/cInfo.infantryShots;
             let hsr = cInfo.infantryHeadshots/cInfo.infantryKills;
-            resEmbed.addField(i18n.__({phrase: 'IVI Score', locale: locale}), `${Math.round(accuracy*hsr*10000)}`, true);
+            resEmbed.addFields({name: i18n.__({phrase: 'IVI Score', locale: locale}), value: `${Math.round(accuracy*hsr*10000)}`, inline: true});
         }
 
         // Online status
         if (cInfo.online == "service_unavailable"){
-            resEmbed.addField(i18n.__({phrase: 'Online', locale: locale}), 'Service unavailable', true);
+            resEmbed.addFields({ name: i18n.__({phrase: 'Online', locale: locale}), value: 'Service unavailable', inline: true});
         }
         else if (cInfo.online >= 1){
-            resEmbed.addField(i18n.__({phrase: 'Online', locale: locale}), ':white_check_mark:', true);
+            resEmbed.addFields({name: i18n.__({phrase: 'Online', locale: locale}), value: ':white_check_mark:', inline: true});
         }
         else{
-            resEmbed.addField(i18n.__({phrase: 'Online', locale: locale}), ':x:', true);
+            resEmbed.addFields({name: i18n.__({phrase: 'Online', locale: locale}), value: ':x:', inline: true});
         }
-        resEmbed.addField(i18n.__({phrase: 'Last Login', locale: locale}), `<t:${cInfo.lastLogin}:R>`, true);
+        resEmbed.addFields({name: i18n.__({phrase: 'Last Login', locale: locale}), value: `<t:${cInfo.lastLogin}:R>`, inline: true});
 
         const factionInfo = faction(cInfo.faction);
-        resEmbed.addField(i18n.__({phrase: 'Faction', locale: locale}), `${factionInfo.decal} ${i18n.__({phrase: factionInfo.initial, locale: locale})}`, true);
+        resEmbed.addFields({name: i18n.__({phrase: 'Faction', locale: locale}), value: `${factionInfo.decal} ${i18n.__({phrase: factionInfo.initial, locale: locale})}`, inline: true});
 
         resEmbed.setColor(factionInfo.color);
 
         // Outfit info
         if(cInfo.inOutfit){
             if(cInfo.outfitAlias != "" && platform == 'ps2:v2'){
-                resEmbed.addField(i18n.__({phrase: 'Outfit', locale: locale}), '[['+cInfo.outfitAlias+']](https://ps2.fisu.pw/outfit/?name='+cInfo.outfitAlias+') '+cInfo.outfitName, true);
+                resEmbed.addFields({ name: i18n.__({phrase: 'Outfit', locale: locale}), value: '[['+cInfo.outfitAlias+']](https://ps2.fisu.pw/outfit/?name='+cInfo.outfitAlias+') '+cInfo.outfitName, inline: true});
             }
             else if(cInfo.outfitAlias != "" && platform == 'ps2ps4us:v2'){
-                resEmbed.addField(i18n.__({phrase: 'Outfit', locale: locale}), '[['+cInfo.outfitAlias+']](https://ps4us.ps2.fisu.pw/outfit/?name='+cInfo.outfitAlias+') '+cInfo.outfitName, true);
+                resEmbed.addFields({name: i18n.__({phrase: 'Outfit', locale: locale}), value: '[['+cInfo.outfitAlias+']](https://ps4us.ps2.fisu.pw/outfit/?name='+cInfo.outfitAlias+') '+cInfo.outfitName, inline: true});
             }
             else if(cInfo.outfitAlias != "" && platform == 'ps2ps4eu:v2'){
-                resEmbed.addField(i18n.__({phrase: 'Outfit', locale: locale}), '[['+cInfo.outfitAlias+']](https://ps4eu.ps2.fisu.pw/outfit/?name='+cInfo.outfitAlias+') '+cInfo.outfitName, true);
+                resEmbed.addFields({name: i18n.__({phrase: 'Outfit', locale: locale}), value: '[['+cInfo.outfitAlias+']](https://ps4eu.ps2.fisu.pw/outfit/?name='+cInfo.outfitAlias+') '+cInfo.outfitName, inline: true});
             }
             else{
-                resEmbed.addField(i18n.__({phrase: 'Outfit', locale: locale}), cInfo.outfitName, true);
+                resEmbed.addFields({name: i18n.__({phrase: 'Outfit', locale: locale}), value: cInfo.outfitName, inline: true});
             }
-            resEmbed.addField(i18n.__({phrase: 'Outfit Rank', locale: locale}), `${cInfo.outfitRank} (${cInfo.outfitRankOrdinal})`, true);
+            resEmbed.addFields({name: i18n.__({phrase: 'Outfit Rank', locale: locale}), value: `${cInfo.outfitRank} (${cInfo.outfitRankOrdinal})`, inline: true});
             row.addComponents(
-                new Discord.MessageButton()
+                new ButtonBuilder()
                     .setCustomId(`outfit%${cInfo.outfitID}%${platform}`)
                     .setLabel(i18n.__({phrase: 'View outfit', locale: locale}))
-                    .setStyle('PRIMARY')
+                    .setStyle(ButtonStyle.Primary)
             );
         }
 
         // Top Weapon, Auraxium medals
         if(cInfo.stats){
             if(cInfo.topWeaponName != "Error"){
-                resEmbed.addField(i18n.__({phrase: 'Top Weapon (kills)', locale: locale}), cInfo.topWeaponName+" ("+localeNumber(cInfo.mostKills, locale)+")", true);
+                resEmbed.addFields({name: i18n.__({phrase: 'Top Weapon (kills)', locale: locale}), value: cInfo.topWeaponName+" ("+localeNumber(cInfo.mostKills, locale)+")", inline: true});
             }
             if(cInfo.auraxCount != "Error"){
-                resEmbed.addField(i18n.__({phrase: 'Auraxium Medals', locale: locale}), `${cInfo.auraxCount}`, true);
+                resEmbed.addFields({name: i18n.__({phrase: 'Auraxium Medals', locale: locale}), value: `${cInfo.auraxCount}`, inline: true});
             }
         }
 
@@ -551,8 +554,8 @@ module.exports = {
                     className = i18n.__({phrase: 'MAX', locale: locale});
                     break;
             }
-            resEmbed.addField(i18n.__({phrase: 'Most Played Class (time)', locale: locale}), 
-            `${className} (${i18n.__mf({phrase: "{hour}h, {minute}m", locale: locale}, {hour: localeNumber(classHours, locale), minute: classMinutes})})`, true);
+            resEmbed.addFields({name: i18n.__({phrase: 'Most Played Class (time)', locale: locale}), value:
+            `${className} (${i18n.__mf({phrase: "{hour}h, {minute}m", locale: locale}, {hour: localeNumber(classHours, locale), minute: classMinutes})})`, inline: true});
         }
 
         // Favorite vehicle
@@ -561,8 +564,8 @@ module.exports = {
             const vehicleMinutes = Math.floor(cInfo.topVehicleTime/60 - vehicleHours*60);
             try{
                 let vehicleName = await getVehicleName(cInfo.favoriteVehicle, platform);
-                resEmbed.addField(i18n.__({phrase: 'Most Played Vehicle (time)', locale: locale}), 
-                `${i18n.__({phrase: vehicleName, locale: locale})} (${i18n.__mf({phrase: "{hour}h, {minute}m", locale: locale}, {hour: localeNumber(vehicleHours, locale), minute: vehicleMinutes})})`, true);
+                resEmbed.addFields({name: i18n.__({phrase: 'Most Played Vehicle (time)', locale: locale}), value:
+                `${i18n.__({phrase: vehicleName, locale: locale})} (${i18n.__mf({phrase: "{hour}h, {minute}m", locale: locale}, {hour: localeNumber(vehicleHours, locale), minute: vehicleMinutes})})`, inline: true});
             }
             catch(err){
                 //Fail silently
@@ -585,18 +588,20 @@ module.exports = {
         if(cInfo.time == 0){
             throw i18n.__({phrase: 'No stats in this time period', locale: locale});
         }
-        const resEmbed = new Discord.MessageEmbed();
+        const resEmbed = new EmbedBuilder();
         resEmbed.setTitle(cInfo.name);
         resEmbed.setDescription(i18n.__mf({phrase: '{day} day stats ending <t{end}d>', locale: locale}, {day: days, end: `:${cInfo.lastSave}:`}));
         resEmbed.setColor(faction(cInfo.faction).color);
-        resEmbed.addField(i18n.__({phrase: 'Score (SPM)', locale: locale}), `${cInfo.score.toLocaleString(locale)} (${localeNumber(cInfo.score/(cInfo.time/60), locale)})`, true);
+        resEmbed.addFields({name: i18n.__({phrase: 'Score (SPM)', locale: locale}), value: `${cInfo.score.toLocaleString(locale)} (${localeNumber(cInfo.score/(cInfo.time/60), locale)})`, inline: true});
         const hours = Math.floor(cInfo.time/60/60);
         const minutes = Math.floor(cInfo.time/60 - hours*60);
-        resEmbed.addField(i18n.__({phrase: 'Playtime', locale: locale}), i18n.__mf({phrase: "{hour} hours, {minute} minutes", locale: locale}, {hour: localeNumber(hours, locale), minute: minutes}), true);
-        resEmbed.addField(i18n.__({phrase: 'Certs Gained', locale: locale}), cInfo.certs.toLocaleString(locale), true);
-        resEmbed.addField(i18n.__({phrase: 'K/D', locale: locale}), localeNumber(cInfo.kills/cInfo.deaths, locale), true);
-        resEmbed.addField(i18n.__({phrase: 'K-D Diff', locale: locale}), `${(cInfo.kills).toLocaleString(locale)} - ${(cInfo.deaths).toLocaleString(locale)} = ${(cInfo.kills-cInfo.deaths).toLocaleString(locale, {signDisplay: "exceptZero"})}`, true);
-        resEmbed.addField(i18n.__({phrase: 'KPM', locale: locale}), localeNumber(cInfo.kills/(cInfo.time/60), locale), true);
+        resEmbed.addFields([
+            {name: i18n.__({phrase: 'Playtime', locale: locale}), value: i18n.__mf({phrase: "{hour} hours, {minute} minutes", locale: locale}, {hour: localeNumber(hours, locale), minute: minutes}), inline: true},
+            {name: i18n.__({phrase: 'Certs Gained', locale: locale}), value: cInfo.certs.toLocaleString(locale), inline: true},
+            {name: i18n.__({phrase: 'K/D', locale: locale}), value: localeNumber(cInfo.kills/cInfo.deaths, locale), inline: true},
+            {name: i18n.__({phrase: 'K-D Diff', locale: locale}), value: `${(cInfo.kills).toLocaleString(locale)} - ${(cInfo.deaths).toLocaleString(locale)} = ${(cInfo.kills-cInfo.deaths).toLocaleString(locale, {signDisplay: "exceptZero"})}`, inline: true},
+            {name: i18n.__({phrase: 'KPM', locale: locale}), value: localeNumber(cInfo.kills/(cInfo.time/60), locale), inline: true}
+        ]);
         return resEmbed;     
     },
 

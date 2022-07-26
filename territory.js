@@ -6,7 +6,7 @@
  * @typedef {import('pg').Client} pg.Client
  */
 
-const Discord = require('discord.js');
+const {MessageEmbed: EmbedBuilder} = require('discord.js');
 const { serverNames, serverIDs, censusRequest, continents, localeNumber, faction } = require('./utils');
 const i18n = require('i18n');
 
@@ -177,7 +177,7 @@ module.exports = {
 
         const serverID = serverIDs[serverName];
         let terObj = await this.territoryInfo(serverID);
-        let resEmbed = new Discord.MessageEmbed();
+        const resEmbed = new EmbedBuilder();
         resEmbed.setTitle(i18n.__mf({phrase: "{continent} territory", locale: locale}, {continent: i18n.__({phrase: serverNames[serverID], locale: locale})}));
         resEmbed.setTimestamp();
         resEmbed.setURL(fisuTerritory(serverID));
@@ -193,14 +193,14 @@ module.exports = {
             const trPc = localeNumber((terObj[continent].tr/Total)*100, locale);
             const owningFaction = faction(terObj[continent].locked);
             if(terObj[continent].locked != -1){
-                resEmbed.addField(`${i18n.__({phrase: continent, locale: locale})} ${owningFaction.decal}`, i18n.__mf({phrase: "Locked {timestamp} ({relative})", locale: locale}, {timestamp: `<t:${timestamp}:t>`, relative: `<t:${timestamp}:R>`})+"\n"+continentBenefit(continent, locale));
+                resEmbed.addFields({name: `${i18n.__({phrase: continent, locale: locale})} ${owningFaction.decal}`, value: i18n.__mf({phrase: "Locked {timestamp} ({relative})", locale: locale}, {timestamp: `<t:${timestamp}:t>`, relative: `<t:${timestamp}:R>`})+"\n"+continentBenefit(continent, locale)});
             }
             else{
-                resEmbed.addField(i18n.__({phrase: continent, locale: locale}), `\
+                resEmbed.addFields({name: i18n.__({phrase: continent, locale: locale}), value: `\
                 \n${i18n.__mf({phrase: "Unlocked {timestamp} ({relative})", locale: locale}, {timestamp: `<t:${timestamp}:t>`, relative: `<t:${timestamp}:R>`})}\
                 \n<:VS:818766983918518272> **${i18n.__({phrase: "VS", locale: locale})}**: ${terObj[continent].vs}  |  ${vsPc}%\
                 \n<:NC:818767043138027580> **${i18n.__({phrase: "NC", locale: locale})}**: ${terObj[continent].nc}  |  ${ncPc}%\
-                \n<:TR:818988588049629256> **${i18n.__({phrase: "TR", locale: locale})}**: ${terObj[continent].tr}  |  ${trPc}%`);
+                \n<:TR:818988588049629256> **${i18n.__({phrase: "TR", locale: locale})}**: ${terObj[continent].tr}  |  ${trPc}%`});
             }
         }
 

@@ -3,7 +3,7 @@
  * @module weaponSearch
  */
 
-const Discord = require('discord.js');
+const {MessageEmbed: EmbedBuilder} = require('discord.js');
 const weaponsJSON = require('./static/weapons.json');
 const {badQuery} = require('./utils.js');
 
@@ -37,9 +37,9 @@ module.exports = {
 		if(found.length == 0){
 			throw "No weapons found matching that query";
 		}
-		let resEmbed = new Discord.MessageEmbed();
+		const resEmbed = new EmbedBuilder();
 		resEmbed.setTitle("Weapon search results");
-		resEmbed.addField('\u200b', `${found}`.replace(/,/g, '\n'));
+		resEmbed.addFields({name: '\u200b', value: `${found}`.replace(/,/g, '\n')});
 
 		return resEmbed;
 	}

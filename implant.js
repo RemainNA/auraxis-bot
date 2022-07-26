@@ -2,7 +2,7 @@
  * Search up implant information
  * @module implant
  */
-const Discord = require('discord.js');
+const {MessageEmbed: EmbedBuilder} = require('discord.js'); 
 const implantsJSON = require('./static/implants.json');
 const {badQuery} = require('./utils.js');
 
@@ -67,18 +67,20 @@ module.exports = {
 		
 		const iInfo = await implantInfo(name);
 
-		const resEmbed = new Discord.MessageEmbed();
+		const resEmbed = new EmbedBuilder();
 		resEmbed.setTitle(iInfo.name);
 		resEmbed.setThumbnail(`http://census.daybreakgames.com/files/ps2/images/static/'${iInfo.image}.png`);
 		if(iInfo.desc !== undefined){
-			resEmbed.addField("Description", iInfo.desc);
+			resEmbed.addFields({name: "Description", value: iInfo.desc});
 		}
 		else{
-			resEmbed.addField("Rank 1", iInfo["1"]);
-			resEmbed.addField("Rank 2", iInfo["2"]);
-			resEmbed.addField("Rank 3", iInfo["3"]);
-			resEmbed.addField("Rank 4", iInfo["4"]);
-			resEmbed.addField("Rank 5", iInfo["5"]);
+			resEmbed.addFields([
+				{name: "Rank 1", value: iInfo["1"]},
+				{name: "Rank 2", value: iInfo["2"]},
+				{name: "Rank 3", value: iInfo["3"]},
+				{name: "Rank 4", value: iInfo["4"]},
+				{name: "Rank 5", value: iInfo["5"]}
+			]);
 		}
 
 		return resEmbed;

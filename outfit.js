@@ -3,7 +3,8 @@
  * @module outfit
  * @typedef { import('pg').Client} pg.Client
  */
-const Discord = require('discord.js');
+const { MessageEmbed: EmbedBuilder, MessageActionRow: ActionRowBuilder, MessageButton: ButtonBuilder } = require('discord.js');
+const { ButtonStyle } = require('discord-api-types/v10');
 const { serverNames, badQuery, censusRequest, localeNumber, faction } = require('./utils.js');
 const bases = require('./static/bases.json');
 const i18n = require('i18n');
@@ -154,7 +155,7 @@ module.exports = {
 		const oInfo = await basicInfo(oTag, platform, oID);
 		const oBases = await ownedBases(oInfo.outfitID, oInfo.worldId, pgClient);
 
-		let resEmbed = new Discord.MessageEmbed();
+		const resEmbed = new EmbedBuilder();
 
 		resEmbed.setTitle(oInfo.name);
 		if(oInfo.alias != ""){
@@ -169,29 +170,33 @@ module.exports = {
 				resEmbed.setURL('http://ps4eu.ps2.fisu.pw/outfit/?name='+oInfo.alias);
 			}
 		}
-		resEmbed.addField(i18n.__({phrase: "Founded", locale: locale}), `<t:${oInfo.timeCreated}:D>`, true);
-		resEmbed.addField(i18n.__({phrase: "Members", locale: locale}), localeNumber(oInfo.memberCount, locale), true);
+		resEmbed.addFields([
+			{name: i18n.__({phrase: "Founded", locale: locale}), value: `<t:${oInfo.timeCreated}:D>`, inline: true},
+			{name: i18n.__({phrase: "Members", locale: locale}), value: localeNumber(oInfo.memberCount, locale), inline: true}
+		]);
 		const dayPc = localeNumber((oInfo.onlineDay/oInfo.memberCount)*100, locale);
 		const weekPc = localeNumber((oInfo.onlineWeek/oInfo.memberCount)*100, locale);
 		const monthPc = localeNumber((oInfo.onlineMonth/oInfo.memberCount)*100, locale);
-		resEmbed.addField(i18n.__({phrase: "Online", locale: locale}), `${oInfo.onlineMembers}`, true);
-		resEmbed.addField(i18n.__({phrase: "Last day", locale: locale}), localeNumber(oInfo.onlineDay, locale)+" ("+dayPc+"%)", true);
-		resEmbed.addField(i18n.__({phrase: "Last week", locale: locale}), localeNumber(oInfo.onlineWeek, locale)+" ("+weekPc+"%)", true);
-		resEmbed.addField(i18n.__({phrase: "Last month", locale: locale}), localeNumber(oInfo.onlineMonth, locale)+" ("+monthPc+"%)", true);
-		resEmbed.addField(i18n.__({phrase: "Server", locale: locale}), i18n.__({phrase: serverNames[Number(oInfo.worldId)], locale: locale}), true);
+		resEmbed.addFields([
+			{name: i18n.__({phrase: "Online", locale: locale}), value: `${oInfo.onlineMembers}`, inline: true},
+			{name: i18n.__({phrase: "Last day", locale: locale}), value: localeNumber(oInfo.onlineDay, locale)+" ("+dayPc+"%)", inline: true},
+			{name: i18n.__({phrase: "Last week", locale: locale}), value: localeNumber(oInfo.onlineWeek, locale)+" ("+weekPc+"%)", inline: true},
+			{name: i18n.__({phrase: "Last month", locale: locale}), value: localeNumber(oInfo.onlineMonth, locale)+" ("+monthPc+"%)", inline: true},
+			{name: i18n.__({phrase: "Server", locale: locale}), value: i18n.__({phrase: serverNames[Number(oInfo.worldId)], locale: locale}), inline: true}
+		]);
 
 		const factionInfo = faction(oInfo.faction);
-		resEmbed.addField(i18n.__({phrase: "Faction", locale: locale}), `${factionInfo.decal} ${i18n.__({phrase: factionInfo.initial, locale: locale})}`, true);
+		resEmbed.addFields({name: i18n.__({phrase: "Faction", locale: locale}), value: `${factionInfo.decal} ${i18n.__({phrase: factionInfo.initial, locale: locale})}`, inline: true});
 		resEmbed.setColor(factionInfo.color);
 
 		if(platform == "ps2:v2"){
-			resEmbed.addField(i18n.__({phrase: 'Owner', locale: locale}), "["+oInfo.owner+"]("+"https://ps2.fisu.pw/player/?name="+oInfo.owner+")", true);
+			resEmbed.addFields({name: i18n.__({phrase: 'Owner', locale: locale}), value:"["+oInfo.owner+"]("+"https://ps2.fisu.pw/player/?name="+oInfo.owner+")", inline: true});
 		}
 		else if(platform == "ps2ps4us:v2"){
-			resEmbed.addField(i18n.__({phrase: 'Owner', locale: locale}), "["+oInfo.owner+"]("+"https://ps4us.ps2.fisu.pw/player/?name="+oInfo.owner+")", true);
+			resEmbed.addFields({name: i18n.__({phrase: 'Owner', locale: locale}), value:"["+oInfo.owner+"]("+"https://ps4us.ps2.fisu.pw/player/?name="+oInfo.owner+")", inline: true});
 		}
 		else if(platform == "ps2ps4eu:v2"){
-			resEmbed.addField(i18n.__({phrase: 'Owner', locale: locale}), "["+oInfo.owner+"]("+"https://ps4eu.ps2.fisu.pw/player/?name="+oInfo.owner+")", true);
+			resEmbed.addFields({name: i18n.__({phrase: 'Owner', locale: locale}), value:"["+oInfo.owner+"]("+"https://ps4eu.ps2.fisu.pw/player/?name="+oInfo.owner+")", inline: true});
 		}
 		let auraxium = 0;
 		let synthium = 0;
@@ -237,16 +242,18 @@ module.exports = {
 			}
 		}
 		if((auraxium + synthium + polystellarite) > 0){ //Recognized bases are owned
-			resEmbed.addField('<:Auraxium:818766792376713249>', `+${auraxium/5}/min`, true);
-			resEmbed.addField('<:Synthium:818766858865475584>', `+${synthium/5}/min`, true);
-			resEmbed.addField('<:Polystellarite:818766888238448661>', `+${polystellarite/5}/min`, true);
-			resEmbed.addField(i18n.__({phrase: 'Bases owned', locale: locale}), `${ownedNames}`.replace(/,/g, '\n'));
+			resEmbed.addFields([
+				{name: '<:Auraxium:818766792376713249>', value: `+${auraxium/5}/min`, inline: true},
+				{name: '<:Synthium:818766858865475584>', value: `+${synthium/5}/min`, inline: true},
+				{name: '<:Polystellarite:818766888238448661>', value: `+${polystellarite/5}/min`, inline: true},
+				{name: i18n.__({phrase: 'Bases owned', locale: locale}), value: `${ownedNames}`.replace(/,/g, '\n')}
+			]);
 		}
 
-		const row = new Discord.MessageActionRow();
+		const row = new ActionRowBuilder();
 		row.addComponents(
-			new Discord.MessageButton()
-				.setStyle('PRIMARY')
+			new ButtonBuilder()
+				.setStyle(ButtonStyle.Primary)
 				.setLabel(i18n.__({phrase: 'View online', locale: locale}))
 				.setCustomId(`online%${oInfo.outfitID}%${platform}`)
 		);
@@ -254,12 +261,12 @@ module.exports = {
 			const now = Math.round(Date.now() / 1000);
 
 			row.addComponents(
-				new Discord.MessageButton()
-					.setStyle('LINK')
+				new ButtonBuilder()
+					.setStyle(ButtonStyle.Link)
 					.setURL(generateReport([oInfo.outfitID], now-3600, now))
 					.setLabel(i18n.__({phrase: 'Past 1 hour report', locale: locale})),
-				new Discord.MessageButton()
-					.setStyle('LINK')
+				new ButtonBuilder()
+					.setStyle(ButtonStyle.Link)
 					.setURL(generateReport([oInfo.outfitID], now-7200, now))
 					.setLabel(i18n.__({phrase: 'Past 2 hour report', locale: locale}))
 			);

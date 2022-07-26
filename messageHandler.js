@@ -2,6 +2,7 @@
  * This file defines methods for sending messages, and handles errors that occur in that process.
  * @module messageHandler
  */
+const { PermissionFlagsBits } = require('discord-api-types/v10');
 /**
  * @typedef {import('discord.js').TextChannel} discord.Channel
  */
@@ -16,7 +17,7 @@ module.exports = {
      */
     send: async function(channel, message, context="default", embed=false){
         let res = -1;
-        if(embed && channel.type != 'DM' && !channel.permissionsFor(channel.guild.me).has('EMBED_LINKS')){
+        if(embed && channel.type != 'DM' && !channel.permissionsFor(channel.guild.me).has(PermissionFlagsBits.EmbedLinks)){
             channel.send('Please grant the "Embed Links" permission to use this command').then(function(result){
                 //message successfully sent, no action needed.
             }, function(err){

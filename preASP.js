@@ -3,7 +3,7 @@
  * @module preASP
  */
 
-const Discord = require('discord.js');
+const {MessageEmbed: EmbedBuilder} = require('discord.js');
 const { censusRequest, badQuery, faction } = require('./utils.js');
 const i18n = require('i18n');
 
@@ -87,7 +87,7 @@ module.exports = {
 		}
 		let cInfo = await basicInfo(cName, platform, locale);
 
-		let resEmbed = new Discord.MessageEmbed();
+		const resEmbed = new EmbedBuilder();
 		resEmbed.setColor(faction(cInfo.faction).color);
 		resEmbed.setTitle(cInfo.name);
 		resEmbed.setDescription(`${i18n.__({phrase: "BR pre ASP", locale: locale})}: ${cInfo.preBR}`);
@@ -97,10 +97,12 @@ module.exports = {
 		else{
 			cInfo.unlocks = cInfo.unlocks.substring(0,(cInfo.unlocks.length-6));
 		}
-		resEmbed.addField(i18n.__({phrase: "Available Points", locale: locale}), `${cInfo.availableTokens}`);
-		resEmbed.addField(i18n.__({phrase: "ASP Skills", locale: locale}), cInfo.unlocks);
+		resEmbed.addFields([
+			{name: i18n.__({phrase: "Available Points", locale: locale}), value: `${cInfo.availableTokens}`},
+			{name: i18n.__({phrase: "ASP Skills", locale: locale}), value: cInfo.unlocks}
+		]);
 		if(cInfo.unlocksContinued != ""){
-			resEmbed.addField(i18n.__({phrase: "ASP Skills Continued", locale: locale}), cInfo.unlocksContinued.substring(0,(cInfo.unlocksContinued.length-6)));
+			resEmbed.addFields({name: i18n.__({phrase: "ASP Skills Continued", locale: locale}), value: cInfo.unlocksContinued.substring(0,(cInfo.unlocksContinued.length-6))});
 		}
 		resEmbed.setThumbnail("http://census.daybreakgames.com/files/ps2/images/static/88688.png");
 

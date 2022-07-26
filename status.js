@@ -3,7 +3,7 @@
  * @module status
  */
 
-const Discord = require('discord.js');
+const {MessageEmbed: EmbedBuilder} = require('discord.js');
 const { censusRequest } = require('./utils.js');
 const i18n = require('i18n');
 
@@ -49,10 +49,10 @@ module.exports = {
 	 */
 	servers: async function(locale="en-US"){
 		const status = await info();
-		const resEmbed = new Discord.MessageEmbed()
+		const resEmbed = new EmbedBuilder()
 			.setTitle(i18n.__({phrase: 'Server Status', locale: locale}));
 		for(const server in status){
-			resEmbed.addField(i18n.__({phrase: server, locale: locale}), i18n.__({phrase: status[server], locale: locale}), true);
+			resEmbed.addFields({name: i18n.__({phrase: server, locale: locale}), value: i18n.__({phrase: status[server], locale: locale}), inline: true});
 		}
 		resEmbed.setTimestamp();
 		return resEmbed;

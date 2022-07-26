@@ -5,6 +5,8 @@
 
 // Import the discord.js module
 const Discord = require('discord.js');
+const {MessageEmbed: EmbedBuilder} = require('discord.js');
+const { GatewayIntentBits } = require('discord-api-types/v10');
 
 //PostgreSQL connection
 const pg = require('pg');
@@ -66,9 +68,9 @@ if(typeof(process.env.TWITTER_CONSUMER_KEY) !== 'undefined'){
 }
 
 const intentsList = [
-	Discord.Intents.FLAGS.GUILD_MESSAGES,
-	Discord.Intents.FLAGS.DIRECT_MESSAGES,
-	Discord.Intents.FLAGS.GUILDS
+	GatewayIntentBits.GuildMessages,
+	GatewayIntentBits.DirectMessages,
+	GatewayIntentBits.Guilds
 ]
 
 const client = new Discord.Client({intents: intentsList, allowedMentions: {parse: ['roles']}, partials: ['CHANNEL']});
@@ -163,17 +165,17 @@ client.on('interactionCreate', async interaction => {
 
 			case 'help':
 				const locale = interaction.locale;
-				let helpEmbed = new Discord.MessageEmbed();
+				const helpEmbed = new EmbedBuilder();
 				helpEmbed.setTitle("Auraxis bot");
 				helpEmbed.setColor("BLUE");
-				helpEmbed.addField(i18n.__({phrase: "Commands", locale: locale}), listOfCommands);
+				helpEmbed.addFields({name: i18n.__({phrase: "Commands", locale: locale}), value: listOfCommands});
 				const links = `\
 				\n[${i18n.__({phrase: "GitHub page & FAQ", locale: locale})}](https://github.com/RemainNA/auraxis-bot)\
 				\n[${i18n.__({phrase: "Support server", locale: locale})}](https://discord.gg/Kf5P6Ut)\
 				\n[${i18n.__({phrase: "Invite bot", locale: locale})}](https://discord.com/api/oauth2/authorize?client_id=437756856774033408&permissions=1330192&scope=bot%20applications.commands)\
 				\n[${i18n.__({phrase: "Donate on Ko-fi", locale: locale})}](https://ko-fi.com/remainna)\
 				\n[${i18n.__({phrase: "Translate on Crowdin", locale: locale})}](https://crowdin.com/project/auraxis-bot)`
-				helpEmbed.addField(i18n.__({phrase: "Links", locale: locale}), links);
+				helpEmbed.addFields({name: i18n.__({phrase: "Links", locale: locale}), value: links});
 				helpEmbed.setFooter({text: i18n.__({phrase: "<> = Optional, [] = Required", locale: locale})});
 				await interaction.reply({embeds: [helpEmbed]});
 				break;

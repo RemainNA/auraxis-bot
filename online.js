@@ -2,8 +2,7 @@
  * Handles the `/online` command
  * @module online
  */
-
-const Discord = require('discord.js');
+const {MessageEmbed: EmbedBuilder} = require('discord.js');
 const { badQuery, censusRequest, faction} = require('./utils.js');
 const i18n = require('i18n');
 
@@ -109,7 +108,7 @@ module.exports = {
 		}
 
 		let oInfo = await onlineInfo(oTag, platform, outfitID, locale);
-		let resEmbed = new Discord.MessageEmbed();
+		const resEmbed = new EmbedBuilder();
 
 		resEmbed.setTitle(oInfo.name);
 		resEmbed.setDescription(oInfo.alias+"\n"+i18n.__mf({phrase: "{online}/{total} online", locale: locale}, 
@@ -126,7 +125,7 @@ module.exports = {
 		}
 		resEmbed.setColor(faction(oInfo.faction).color)
 		if(oInfo.onlineCount === -1){
-			resEmbed.addField(i18n.__({phrase: "Online member count unavailable", locale: locale}), "-", true);
+			resEmbed.addFields({name: i18n.__({phrase: "Online member count unavailable", locale: locale}), value: "-", inline: true});
 			resEmbed.setDescription(oInfo.alias+"\n"+"?/"+oInfo.memberCount+" online");
 
 			return resEmbed;
@@ -134,10 +133,10 @@ module.exports = {
 		for(let i = 0; i < 8; i++){
 			if(oInfo.onlineMembers[i].length > 0){
 				if(totalLength(oInfo.onlineMembers[i]) <= 1024){
-					resEmbed.addField(oInfo.rankNames[i]+" ("+oInfo.onlineMembers[i].length+")", `${oInfo.onlineMembers[i]}`.replace(/,/g, '\n'), true);
+					resEmbed.addFields({name: oInfo.rankNames[i]+" ("+oInfo.onlineMembers[i].length+")", value: `${oInfo.onlineMembers[i]}`.replace(/,/g, '\n'), inline: true});
 				}
 				else{
-					resEmbed.addField(oInfo.rankNames[i]+" ("+oInfo.onlineMembers[i].length+")", i18n.__({phrase: "Too many to display", locale: locale}), true);
+					resEmbed.addFields({name: oInfo.rankNames[i]+" ("+oInfo.onlineMembers[i].length+")", value: i18n.__({phrase: "Too many to display", locale: locale}), inline: true});
 				}
 			}
 		}

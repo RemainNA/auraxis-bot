@@ -6,7 +6,7 @@
  * @typedef {import('pg').Client} pg.Client
  */
 
-const Discord = require('discord.js');
+const {MessageEmbed: EmbedBuilder} = require('discord.js');
 
 /**
  * Get the status of alert subscriptions for a `continent`
@@ -61,7 +61,7 @@ module.exports = {
 				return "This channel currently has no subscriptions";
 			}
 			let row = res.rows[0];
-			let resEmbed = new Discord.MessageEmbed();
+			const resEmbed = new EmbedBuilder();
 			resEmbed.setTitle("Subscription config");
 			let alertStatus = "NB: If this channel is not subscribed to alerts you can ignore the following two sections\n";
 			alertStatus += getAlertStatus("Koltyr", row.koltyr)+"\n";
@@ -71,7 +71,7 @@ module.exports = {
 			alertStatus += getAlertStatus("Esamir", row.esamir)+"\n";
 			alertStatus += getAlertStatus("Oshur", row.oshur)+"\n";
 			alertStatus += getAlertStatus("Other", row.other);
-			resEmbed.addField("Continents", alertStatus);
+			resEmbed.addFields({name: "Continents", value: alertStatus});
 
 			let territoryStatus = "";
 			if(row.territory){
@@ -87,13 +87,13 @@ module.exports = {
 				territoryStatus += ":x: Non-territory alerts are not displayed" 
 			}
 
-			resEmbed.addField("Alert types", territoryStatus);
+			resEmbed.addFields({name: "Alert types", value: territoryStatus});
 
 			if(row.autodelete){
-				resEmbed.addField("Auto Delete", ":white_check_mark: Alert and outfit activity notifications are automatically deleted");
+				resEmbed.addFields({name: "Auto Delete", value: ":white_check_mark: Alert and outfit activity notifications are automatically deleted"});
 			}
 			else{
-				resEmbed.addField("Auto Delete", ":x: Alert and outfit activity notifications are not automatically deleted");
+				resEmbed.addFields({name: "Auto Delete", value: ":x: Alert and outfit activity notifications are not automatically deleted"});
 			}
 			resEmbed.setColor("BLUE");
 			return resEmbed;
