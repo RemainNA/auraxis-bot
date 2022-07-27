@@ -13,7 +13,7 @@ i18n.configure({
 	defaultLocale: 'en-us',
 	updateFiles: false,
 	objectNotation: true
-})
+});
 
 /**
  * all server options
@@ -21,7 +21,7 @@ i18n.configure({
 const allOption = {
 	name: 'All',
 	value: 'all'
-}
+};
 
 /**
  * Different platforms PS2 servers are on
@@ -39,7 +39,7 @@ const platforms = [
 		name: 'PS4 EU',
 		value: 'ps2ps4eu:v2'
 	}
-]
+];
 
 /**
  * All servers excpet for Jaeger
@@ -73,12 +73,12 @@ const serversNoJaeger = [
 		name: "Ceres",
 		value: "ceres"
 	}
-]
+];
 
 /**
  * All servers
  */
-const servers = serversNoJaeger.concat([{name:"Jaeger", value: "jaeger"}]);
+const servers = serversNoJaeger.concat([{ name: "Jaeger", value: "jaeger" }]);
 
 /**
  * All possible commands
@@ -433,11 +433,11 @@ const data = [
 				description: 'Automatically delete alerts and outfit activity notifications',
 				type: '1',
 				options: [{
-						name: 'setting',
-						description: 'Delete notifications in this channel',
-						type: '3',
-						required: true,
-						choices: [
+					name: 'setting',
+					description: 'Delete notifications in this channel',
+					type: '3',
+					required: true,
+					choices: [
 						{
 							name: 'Enable',
 							value: 'enable'
@@ -622,7 +622,7 @@ const data = [
 				type: '3',
 				description: 'Type of tracker channel',
 				required: true,
-				choices:[
+				choices: [
 					{
 						name: 'Population',
 						value: 'population'
@@ -633,32 +633,32 @@ const data = [
 					}
 				]
 			}]
+		},
+		{
+			name: "outfit",
+			description: "Create an automatically updating voice channel displaying outfit online count",
+			type: '1',
+			options: [{
+				name: 'tag',
+				type: '3',
+				description: 'Outfit tag',
+				required: true
 			},
 			{
-				name: "outfit",
-				description: "Create an automatically updating voice channel displaying outfit online count",
-				type: '1',
-				options: [{
-					name: 'tag',
-					type: '3',
-					description: 'Outfit tag',
-					required: true
-				},
-				{
-					name: 'show-faction',
-					type: '5',
-					description: 'Display a faction indicator in channel name? ex: 🟣/🔵/🔴/⚪',
-					required: true
-				},
-				{
-					name: 'platform',
-					type: '3',
-					description: "Which platform is the outfit on?  Defaults to PC",
-					required: false,
-					choices: platforms
-				}
-				]
+				name: 'show-faction',
+				type: '5',
+				description: 'Display a faction indicator in channel name? ex: 🟣/🔵/🔴/⚪',
+				required: true
+			},
+			{
+				name: 'platform',
+				type: '3',
+				description: "Which platform is the outfit on?  Defaults to PC",
+				required: false,
+				choices: platforms
 			}
+			]
+		}
 		]
 	},
 	{
@@ -778,19 +778,19 @@ const data = [
 			choices: platforms
 		}]
 	}
-]
+];
 
-const rest = new REST({version: '10'}).setToken(process.env.token);
+const rest = new REST({ version: '10' }).setToken(process.env.token);
 
 (async () => {
-	try{
+	try {
 		await rest.put(
 			Routes.applicationCommands(process.env.clientID),
 			{ body: data },
 		);
 		console.log('done');
 	}
-	catch(err){
-		console.log(err)
+	catch (err) {
+		console.log(err);
 	}
-}) ();
+})();
