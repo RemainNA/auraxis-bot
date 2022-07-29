@@ -347,6 +347,10 @@
         "description": "Control territory to lock Oshur",
         "name": "Oshur Conquest"
     },
+    "227": {
+        "description": "Capture Nexus!",
+        "name": "OUTFIT WARS"
+    },
     "228": {
         "description": "Take readings of aerial anomalies. Aircraft are free during this event.",
         "name": "Indar Aerial Anomalies"
@@ -370,6 +374,10 @@
     "233": {
         "description": "Kill as many enemies as possible",
         "name": "Maximum Pressure"
+    },
+    "234": {
+        "description": "Prepare for the Outfit War!",
+        "name": "OUTFIT WARS (pre-match)"
     },
     "3": {
         "description": "Capture Amerish within the time limit",
