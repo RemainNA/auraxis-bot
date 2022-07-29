@@ -9,6 +9,7 @@
 const Discord = require('discord.js');
 const { serverNames, serverIDs, censusRequest, continents, localeNumber, faction } = require('./utils');
 const i18n = require('i18n');
+const ignoredRegions = require('./static/ignoredRegions.json');
 
 /**
  * Used to get the correct fisu world control URL
@@ -97,6 +98,7 @@ module.exports = {
             let vs = 0;
             let nc = 0;
             let tr = 0;
+            let unstable = false;
             for(const row of res.Regions.Row){
                 if(row.RowData.FactionId == "1"){
                     vs += 1;
@@ -107,25 +109,30 @@ module.exports = {
                 else if(row.RowData.FactionId == "3"){
                     tr += 1;
                 }
+                else if(!ignoredRegions.includes(row.RowData.RegionId)){
+                    // If faction is 0 and is not ignored mark continent as unstable
+                    // Some Oshur regions have no associated facilities and as such are ignored
+                    unstable = true;
+                }
             }
             switch(res.ZoneId){
                 case "2":
-                    IndarObj = {vs:vs, nc:nc, tr:tr, locked:-1};
+                    IndarObj = {vs:vs, nc:nc, tr:tr, locked:-1, unstable: unstable};
                     break;
                 case "4":
-                    HossinObj = {vs:vs, nc:nc, tr:tr, locked:-1};
+                    HossinObj = {vs:vs, nc:nc, tr:tr, locked:-1, unstable: unstable};
                     break;
                 case "6":
-                    AmerishObj = {vs:vs, nc:nc, tr:tr, locked:-1};
+                    AmerishObj = {vs:vs, nc:nc, tr:tr, locked:-1, unstable: unstable};
                     break;
                 case "8":
-                    EsamirObj = {vs:vs, nc:nc, tr:tr, locked:-1};
+                    EsamirObj = {vs:vs, nc:nc, tr:tr, locked:-1, unstable: unstable};
                     break;
                 case "14":
-                    KoltyrObj = {vs:vs, nc:nc, tr:tr, locked:-1};
+                    KoltyrObj = {vs:vs, nc:nc, tr:tr, locked:-1, unstable: unstable};
                     break;
                 case "344":
-                    OshurObj = {vs:vs, nc:nc, tr:tr, locked:-1};
+                    OshurObj = {vs:vs, nc:nc, tr:tr, locked:-1, unstable: unstable};
                     break;
             }
         }
@@ -194,6 +201,14 @@ module.exports = {
             const owningFaction = faction(terObj[continent].locked);
             if(terObj[continent].locked != -1){
                 resEmbed.addField(`${i18n.__({phrase: continent, locale: locale})} ${owningFaction.decal}`, i18n.__mf({phrase: "Locked {timestamp} ({relative})", locale: locale}, {timestamp: `<t:${timestamp}:t>`, relative: `<t:${timestamp}:R>`})+"\n"+continentBenefit(continent, locale));
+            }
+            else if(terObj[continent].unstable){
+                resEmbed.addField(i18n.__({phrase: continent, locale: locale})+' <:Unstable:1000661319663497217>', `\
+                \n${i18n.__mf({phrase: "Unlocked {timestamp} ({relative})", locale: locale}, {timestamp: `<t:${timestamp}:t>`, relative: `<t:${timestamp}:R>`})}\
+                \n*Currently unstable*\
+                \n<:VS:818766983918518272> **${i18n.__({phrase: "VS", locale: locale})}**: ${terObj[continent].vs}  |  ${vsPc}%\
+                \n<:NC:818767043138027580> **${i18n.__({phrase: "NC", locale: locale})}**: ${terObj[continent].nc}  |  ${ncPc}%\
+                \n<:TR:818988588049629256> **${i18n.__({phrase: "TR", locale: locale})}**: ${terObj[continent].tr}  |  ${trPc}%`);
             }
             else{
                 resEmbed.addField(i18n.__({phrase: continent, locale: locale}), `\
