@@ -14,11 +14,12 @@ const i18n = require('i18n');
  * The possible population levels of a server
  */
 const popLevels = {
-	1: "Dead",
-	2: "Low",
-	3: "Medium",
-	4: "High",
-	5: "Prime"
+	"-1": "Unknown",
+	"1": "Dead",
+	"2": "Low",
+	"3": "Medium",
+	"4": "High",
+	"5": "Prime"
 };
 
 /**
