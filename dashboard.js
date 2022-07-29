@@ -68,6 +68,14 @@ const serverStatus = async function(serverID, pgClient){
 		if(territory[continent].locked != -1){
 			territoryField += `**${continent}** ${owningFaction.decal}\nLocked <t:${timestamp}:t> (<t:${timestamp}:R>)\n${continentBenefit(continent)}\n\n`;
 		}
+		else if (openContinents < 5 && territory[continent].unstable){
+			territoryField += `**${continent}**  <:Unstable:1000661319663497217>\
+			\nUnlocked <t:${timestamp}:t> (<t:${timestamp}:R>)\
+			\n*Currently unstable*\
+			\n<:VS:818766983918518272> **VS**: ${territory[continent].vs}  |  ${vsPc}%\
+			\n<:NC:818767043138027580> **NC**: ${territory[continent].nc}  |  ${ncPc}%\
+			\n<:TR:818988588049629256> **TR**: ${territory[continent].tr}  |  ${trPc}%\n\n`;
+		}
 		else if (openContinents < 5){
 			territoryField += `**${continent}**\
 			\nUnlocked <t:${timestamp}:t> (<t:${timestamp}:R>)\
@@ -76,6 +84,7 @@ const serverStatus = async function(serverID, pgClient){
 			\n<:TR:818988588049629256> **TR**: ${territory[continent].tr}  |  ${trPc}%\n\n`;
 		}
 		else{
+			// Remove one of the timestamps when all continents open to use fewer characters
 			territoryField += `**${continent}**\
 			\nUnlocked <t:${timestamp}:R>\
 			\n<:VS:818766983918518272> **VS**: ${territory[continent].vs}  |  ${vsPc}%\
