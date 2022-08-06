@@ -11,7 +11,7 @@ const weapons = require('./static/weapons.json');
 const vehicles = require('./static/vehicles.json');
 const decals = require('./static/decals.json');
 const sanction = require('./static/sanction.json');
-const {default: got} = require('got');
+const got = require('got');
 const i18n = require('i18n');
 const { serverNames, badQuery, censusRequest, localeNumber, faction } = require('./utils');
 

@@ -94,14 +94,12 @@ client.on('ready', async () => {
 			twitterListener.connect(SQLclient, client.channels);
 			twitterListener.latestTweet(SQLclient, client.channels);
 		}
-		/** The bot cycles every 24 hours, so these will be called every 24 hours */
 		outfitMaintenance.update(SQLclient);
 		alertMaintenance.update(SQLclient, client);
 		deleteMessages.run(SQLclient, client);
 		openContinents.check(SQLclient, client);
 		trackers.update(SQLclient, client);
 		dashboard.update(SQLclient, client);
-
 		setInterval(function () { 
 			deleteMessages.run(SQLclient, client);
 			openContinents.check(SQLclient, client);

@@ -73,16 +73,16 @@ module.exports = {
 	 * @param {discord.Client} discordClient - discord client to use
 	 */
 	check: async function(pgClient, discordClient){
-		servers.forEach(async (server) => {
+		for(const server of servers){
 			try{
 				const now = new Date().toISOString();
 				const territory = await territoryInfo(serverIDs[server]);
 				const currentStatus = await pgClient.query("SELECT * FROM openContinents WHERE world = $1;", [server]);
-				pgClient.query("UPDATE openContinents SET indar = $1, hossin = $2, amerish = $3, esamir = $4, oshur = $5, koltyr = $6 WHERE world = $7;",
+				await pgClient.query("UPDATE openContinents SET indar = $1, hossin = $2, amerish = $3, esamir = $4, oshur = $5, koltyr = $6 WHERE world = $7;",
 				[territory["Indar"].locked == -1, territory["Hossin"].locked == -1, territory["Amerish"].locked == -1, territory["Esamir"].locked == -1, territory["Oshur"].locked == -1, territory["Koltyr"].locked == -1, server]);
-				continents.forEach(async (cont) => {
+				for(const cont of continents){
 					if(territory[cont].locked != -1){
-						pgClient.query("DELETE FROM bases WHERE continent = $1 AND world = $2;",
+						await pgClient.query("DELETE FROM bases WHERE continent = $1 AND world = $2;",
 						[contIDs[cont], serverIDs[server]]);
 					}
 					else if(!currentStatus.rows[0][cont.toLowerCase()]){
@@ -91,11 +91,11 @@ module.exports = {
 							const result = await pgClient.query("SELECT u.channel, c.Indar, c.Hossin, c.Amerish, c.Esamir, c.Oshur, c.Koltyr, c.autoDelete\
 							FROM unlocks u LEFT JOIN subscriptionConfig c on u.channel = c.channel\
 							WHERE u.world = $1;", [server]);
-							result.rows.forEach(async (row) => {
+							for (const row of result.rows){
 								if(row[cont.toLowerCase()]){
-									notifyUnlock(cont, serverNames[serverIDs[server]], row.channel, pgClient, discordClient);
+									await notifyUnlock(cont, serverNames[serverIDs[server]], row.channel, pgClient, discordClient);
 								}
-							});
+							}
 						}
 						catch(err){
 							console.log("Unlock error");
@@ -105,14 +105,14 @@ module.exports = {
 					}
 					if(territory[cont].locked == -1 != currentStatus.rows[0][cont.toLowerCase()]){
 						// Update timestamp if there is a change
-						pgClient.query(`UPDATE openContinents SET ${cont.toLowerCase()}change = $1 WHERE world = $2;`, [now, server]);
+						await pgClient.query(`UPDATE openContinents SET ${cont.toLowerCase()}change = $1 WHERE world = $2;`, [now, server]);
 					}
-				});
+				}
 			}
 			catch(err){
 				console.log("Error in openContinents");
 				console.log(err);
 			}
-		});
+		}
 	}
 }

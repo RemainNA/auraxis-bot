@@ -7,7 +7,7 @@
  * @typedef {import('pg').Client} pg.Client
  */
 const Discord = require('discord.js');
-const {default: got} = require('got');
+const got = require('got');
 const alerts = require('./static/alerts.json');
 const {serverNames} = require('./utils.js');
 const {popLevels} = require('./alerts.js')
@@ -75,23 +75,27 @@ const updateAlert = async function(info, pgClient, discordClient, isComplete){
 			}
 		}
 	}
-	try {
-		const response = await pgClient.query("SELECT messageID, channelID FROM alertMaintenance WHERE alertID = $1;", [info.instanceId]);
-		response.rows.forEach(async row => {
-			editMessage(messageEmbed, row.messageid, row.channelid, discordClient);
-			if(isComplete){
-				pgClient.query("DELETE FROM alertMaintenance WHERE alertID = $1;", [info.instanceId]);
-			}
-		});
-	}
-	catch (err) {
-		console.log("Error editing message");
-		console.log(err);
-	}
+
+
+	pgClient.query("SELECT messageID, channelID FROM alertMaintenance WHERE alertID = $1;", [info.instanceId])
+	.then(rows => {
+		for(let row of rows.rows){
+			editMessage(messageEmbed, row.messageid, row.channelid, discordClient)
+				.then(function(){
+					if(isComplete){
+						pgClient.query("DELETE FROM alertMaintenance WHERE alertID = $1;", [info.instanceId]);
+					}
+				})
+				.catch(err => {
+					console.log("Error editing message");
+					console.log(err);
+				})
+		}
+	})
 }
 
 /**
- * Edits existing alert message with new information
+ * 
  * @param {Discord.MessageEmbed} embed - embed to edit
  * @param {string} messageId - message id to edit
  * @param {string} channelId - channel id to edit	
@@ -102,14 +106,16 @@ const editMessage = async function(embed, messageId, channelId, discordClient){
 		const resChann = await discordClient.channels.fetch(channelId);
 		if (['GUILD_TEXT','GUILD_NEWS'].includes(resChann.type) && resChann.permissionsFor(resChann.guild.me).has(Discord.Permissions.FLAGS.VIEW_CHANNEL)) {
 			const resMsg = await resChann.messages.fetch(messageId);
-			resMsg.edit({embeds: [embed]});
+			await resMsg.edit({embeds: [embed]});
 		}
 		else if(resChann.type == 'DM'){
 			const resMsg = await resChann.messages.fetch(messageId);
-			resMsg.edit({embeds: [embed]});
+			await resMsg.edit({embeds: [embed]});
 		}
 	}
-	catch(err) { /** ignore, will be cleaned up on alert end*/ }
+	catch(err) {
+		// ignore, will be cleaned up on alert end
+	}
 }
 
 /**
@@ -137,24 +143,25 @@ module.exports = {
 	 * @param {Discord.Client} discordClient - discord client
 	 */
 	update: async function(pgClient, discordClient){
-		const result = await pgClient.query("SELECT DISTINCT alertID, error FROM alertMaintenance");
-		result.rows.forEach(async (row) => {
-			try {
-				const response = await got(`https://api.ps2alerts.com/instances/${row.alertid}`).json();
-				await updateAlert(response, pgClient, discordClient, response.timeEnded != null);
-			}
-			catch (err) {
-				if (typeof(err) !== 'string') {
+		let rows = await pgClient.query("SELECT DISTINCT alertID, error FROM alertMaintenance");
+
+		for(let row of rows.rows){
+			got(`https://api.ps2alerts.com/instances/${row.alertid}`).json()
+				.then(response => {
+					updateAlert(response, pgClient, discordClient, response.timeEnded != null)
+					.catch(err => {
+						if(err == "Error displaying territory"){
+							checkError(row, pgClient, err);
+						}
+						else{
+							console.log("Error occurred when updating alert");
+							console.log(err);
+						}
+					})
+				})
+				.catch(err => {
 					checkError(row, pgClient, "Error during web request");
-				}
-				else if(err == "Error displaying territory"){
-					checkError(row, pgClient, err);
-				}
-				else{
-					console.log("Error occurred when updating alert");
-					console.log(err);
-				}
+				});
 			}
-		});
 	}
 }

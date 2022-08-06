@@ -24,7 +24,7 @@ const populationName = async function(serverID){
 }
 
 /**
- * Get open continents on server
+ * Get open continents on serveer
  * @param {number} serverID - the server to check open continents
  * @returns which continents are open on the  server
  */
@@ -116,7 +116,7 @@ module.exports = {
 				}
 			]});
 
-			pgClient.query("INSERT INTO tracker (channel, trackerType, world) VALUES ($1, $2, $3);",
+			await pgClient.query("INSERT INTO tracker (channel, trackerType, world) VALUES ($1, $2, $3);",
 			[newChannel.id, type, serverName]);
 
 			return `Tracker channel created as ${newChannel.toString()}. This channel will automatically update once every 10 minutes. If you move the channel or edit permissions make sure to keep the "Manage Channel" and "Connect" permissions enabled for Auraxis Bot.`;
@@ -165,7 +165,7 @@ module.exports = {
 				}
 			]});
 
-			pgClient.query("INSERT INTO outfittracker (channel, outfitid, showfaction, platform) VALUES ($1, $2, $3, $4);",
+			await pgClient.query("INSERT INTO outfittracker (channel, outfitid, showfaction, platform) VALUES ($1, $2, $3, $4);",
 			[newChannel.id, oInfo.outfitID, showFaction, platform]);
 
 			return `Tracker channel created as ${newChannel}. This channel will automatically update once every 10 minutes. If you move the channel or edit permissions make sure to keep the "Manage Channel" and "Connect" permissions enabled for Auraxis Bot.`;
@@ -187,13 +187,13 @@ module.exports = {
 	 * @param {boolean} continentOnly - if false only update population and outfits
 	 */
 	update: async function(pgClient, discordClient, continentOnly = false){
-		servers.forEach(async (serverName) => {
+		for(const serverName of servers){
 			if(!continentOnly){
 				try{
 					const popName = await populationName(serverIDs[serverName]);
 					const channels = await pgClient.query("SELECT channel FROM tracker WHERE trackertype = $1 AND world = $2;", ["population", serverName]);
 					for(const row of channels.rows){
-						updateChannelName(popName, row.channel, discordClient, pgClient);
+						await updateChannelName(popName, row.channel, discordClient, pgClient);
 					}
 				}
 				catch(err){
@@ -205,27 +205,27 @@ module.exports = {
 				const terName = await territoryName(serverIDs[serverName]);
 				const channels = await pgClient.query("SELECT channel FROM tracker WHERE trackertype = $1 AND world = $2;", ["territory", serverName]);
 				for(const row of channels.rows){
-					updateChannelName(terName, row.channel, discordClient, pgClient);
+					await updateChannelName(terName, row.channel, discordClient, pgClient);
 				}
 			}
 			catch(err){
 				console.log(`Error updating ${serverName} territory tracker`);
 				console.log(err);
 			}
-		});
+		}
 		if(!continentOnly){
 			try{
 				const outfits = await pgClient.query("SELECT DISTINCT outfitid, platform FROM outfittracker;");
-				outfits.rows.forEach(async (row) => {
+				for(const row of outfits.rows){
 					try{
 						const oName = await outfitName(row.outfitid, row.platform);
 						const channels = await pgClient.query("SELECT channel, showfaction FROM outfittracker WHERE outfitid = $1 AND platform = $2;", [row.outfitid, row.platform]);
 						for(const channelRow of channels.rows){
 							if(channelRow.showfaction){
-								updateChannelName(oName.faction, channelRow.channel, discordClient, pgClient);
+								await updateChannelName(oName.faction, channelRow.channel, discordClient, pgClient);
 							}
 							else{
-								updateChannelName(oName.noFaction, channelRow.channel, discordClient, pgClient);
+								await updateChannelName(oName.noFaction, channelRow.channel, discordClient, pgClient);
 							}
 						}
 					}
@@ -233,12 +233,12 @@ module.exports = {
 						console.log(`Error updating outfit tracker ${row.outfitid}`);
 						console.log(err);
 						if(err == " not found"){
-							pgClient.query("DELETE FROM outfittracker WHERE outfitid = $1;", [row.outfitid]);
+							await pgClient.query("DELETE FROM outfittracker WHERE outfitid = $1;", [row.outfitid]);
 							console.log(`Deleted ${row.outfitid} from tracker table`);
 						}
 					}
 					
-				});
+				}
 			}catch(err){
 				console.log(`Error pulling outfit trackers`);
 				console.log(err);

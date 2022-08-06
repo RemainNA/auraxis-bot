@@ -6,7 +6,7 @@
 
 const Discord = require('discord.js');
 const alerts = require('./static/alerts.json');
-const {default: got} = require('got');
+const got = require('got');
 const { serverNames, serverIDs } = require('./utils');
 const i18n = require('i18n');
 

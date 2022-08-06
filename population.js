@@ -4,7 +4,7 @@
  */
 
 const Discord = require('discord.js');
-const {default: got} = require('got')
+const got = require('got')
 const {servers, serverIDs, serverNames, localeNumber} = require('./utils.js');
 const i18n = require('i18n');
 

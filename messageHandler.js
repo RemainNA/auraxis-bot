@@ -3,7 +3,7 @@
  * @module messageHandler
  */
 /**
- * @typedef {import('discord.js').TextBasedChannel} discord.Channel
+ * @typedef {import('discord.js').TextChannel} discord.Channel
  */
 module.exports = {
     /**
@@ -17,34 +17,30 @@ module.exports = {
     send: async function(channel, message, context="default", embed=false){
         let res = -1;
         if(embed && channel.type != 'DM' && !channel.permissionsFor(channel.guild.me).has('EMBED_LINKS')){
-            try {
-                await channel.send('Please grant the "Embed Links" permission to use this command');
+            channel.send('Please grant the "Embed Links" permission to use this command').then(function(result){
                 //message successfully sent, no action needed.
-            }
-            catch (err) {
-                console.log(`Error sending embed permission message in context: ${context}`);
-                if(err.message !== undefined){
+            }, function(err){
+                console.log("Error sending embed permission message in context: "+context);
+                if(typeof(err.message) !== 'undefined'){
                     console.log(err.message);
                 }
-                if(channel.guild !== undefined){
+                if(typeof(channel.guild) !== 'undefined'){
                     console.log(channel.guild.name);
                 }
-            }
+            });
         }
         else{
-            try {
-                const response = await channel.send(message);
-                return response.id;
-            }
-            catch (err) {
-                console.log(`Error sending message in context: ${context}`);
-                if(err.message !== undefined){
+            await channel.send(message).then(function(result){
+                res = result.id;
+            }, function(err){
+                console.log("Error sending message in context: "+context);
+                if(typeof(err.message) !== 'undefined'){
                     console.log(err.message);
                 }
-                if(channel.guild !== undefined){
+                if(typeof(channel.guild) !== 'undefined'){
                     console.log(channel.guild.name);
                 }
-            }
+            });
         }
 
         return res;
