@@ -88,12 +88,12 @@ module.exports = {
         if(typeof(response[0].Regions) === 'undefined'){
             throw "API response missing Regions field";
         }
-        let IndarObj = {vs:0, nc:0, tr:0, locked:-1};
-        let HossinObj = {vs:0, nc:0, tr:0, locked:-1};
-        let AmerishObj = {vs:0, nc:0, tr:0, locked:-1};
-        let EsamirObj = {vs:0, nc:0, tr:0, locked:-1};
-        let OshurObj = {vs:0, nc:0, tr:0, locked:-1};
-        let KoltyrObj = {vs:0, nc:0, tr:0, locked:-1};
+        let IndarObj = {vs:0, nc:0, tr:0, locked:-1, unstable:false};
+        let HossinObj = {vs:0, nc:0, tr:0, locked:-1, unstable:false};
+        let AmerishObj = {vs:0, nc:0, tr:0, locked:-1, unstable:false};
+        let EsamirObj = {vs:0, nc:0, tr:0, locked:-1, unstable:false};
+        let OshurObj = {vs:0, nc:0, tr:0, locked:-1, unstable:false};
+        let KoltyrObj = {vs:0, nc:0, tr:0, locked:-1, unstable:false};
         for(const res of response){
             let vs = 0;
             let nc = 0;
