@@ -25,15 +25,12 @@ let euTimeout = 0;
  * @param {discord.Client} discordClient - discord client to use
  */
 function listen(pgClient, discordClient){
-    const pcLogin = '{"service":"event","action":"subscribe","worlds":["1","10","13","17","19","40"],"eventNames":["PlayerLogin","PlayerLogout"]}';
-    const pcAlerts = '{"service":"event","action":"subscribe","worlds":["1","10","13","17","19","40"],"eventNames":["MetagameEvent","FacilityControl"]}';
-    const usLogin = '{"service":"event","action":"subscribe","worlds":["1000"],"eventNames":["PlayerLogin","PlayerLogout"]}';
-    const usAlerts = '{"service":"event","action":"subscribe","worlds":["1000"],"eventNames":["MetagameEvent","FacilityControl"]}';
-    const euLogin = '{"service":"event","action":"subscribe","worlds":["2000"],"eventNames":["PlayerLogin","PlayerLogout"]}';
-    const euAlerts = '{"service":"event","action":"subscribe","worlds":["2000"],"eventNames":["MetagameEvent","FacilityControl"]}';
-    const pcURI = 'wss://push.planetside2.com/streaming?environment=ps2&service-id=s:'+process.env.serviceID;
-    const usURI = 'wss://push.planetside2.com/streaming?environment=ps2ps4us&service-id=s:'+process.env.serviceID;
-    const euURI = 'wss://push.planetside2.com/streaming?environment=ps2ps4eu&service-id=s:'+process.env.serviceID;
+    const pcSubscriptions = '{"service":"event","action":"subscribe","worlds":["1","10","13","17","19","40"],"eventNames":["PlayerLogin","PlayerLogout","MetagameEvent","FacilityControl"]}';
+    const usSubscriptions = '{"service":"event","action":"subscribe","worlds":["1000"],"eventNames":["PlayerLogin","PlayerLogout","MetagameEvent","FacilityControl"]}';
+    const euSubscriptions = '{"service":"event","action":"subscribe","worlds":["2000"],"eventNames":["PlayerLogin","PlayerLogout","MetagameEvent","FacilityControl"]}';
+    const pcURI = `wss://push.nanite-systems.net/streaming?environment=ps2&service-id=s:${process.env.serviceID}`;
+    const usURI = `wss://push.nanite-systems.net/streaming?environment=ps2ps4us&service-id=s:${process.env.serviceID}`;
+    const euURI = `wss://push.nanite-systems.net/streaming?environment=ps2ps4eu&service-id=s:${process.env.serviceID}`;
 
     // PC Client
     if(!pcRunning){
@@ -41,8 +38,7 @@ function listen(pgClient, discordClient){
 
         pcClient.on('open', function open(){
             console.log('Connected to PC Stream API');
-            pcClient.send(pcLogin);
-            pcClient.send(pcAlerts);
+            pcClient.send(pcSubscriptions);
             pcRunning = true;
         })
 
@@ -75,8 +71,7 @@ function listen(pgClient, discordClient){
 
         usClient.on('open', function open(){
             console.log('Connected to PS4 US Stream API');
-            usClient.send(usLogin);
-            usClient.send(usAlerts);
+            usClient.send(usSubscriptions);
             usRunning = true;
         })
 
@@ -109,8 +104,7 @@ function listen(pgClient, discordClient){
 
         euClient.on('open', function open(){
             console.log('Connected to PS4 EU Stream API');
-            euClient.send(euLogin);
-            euClient.send(euAlerts);
+            euClient.send(euSubscriptions);
             euRunning = true;
         })
 
