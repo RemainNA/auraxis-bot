@@ -95,6 +95,10 @@
         "5": "Kills and revives restore 30% of your Nano-Regen Device energy, and reviving an ally increases your resistance to small arms damage by 25% for 3.5 seconds. <font color=\"#dc9c36\">Combat Medic only.</font>",
         "image": "88947"
     },
+    "Countershade": {
+      "desc": "Killing an enemy will conceal your radar signature from detection devices for 8 seconds.  Triggering this implant while underwater applies this effect until you resurface.",
+      "image": "95184"
+    },
     "Counter-Intelligence": {
         "desc": "You automatically spot targets who damage you, and while not inside a vehicle, you are also notified on the HUD when spotted by an enemy.<font color=\"#dc9c36\"> Works in vehicles. MAX units can equip.</font>",
         "image": "87521"
