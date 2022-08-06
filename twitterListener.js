@@ -96,6 +96,9 @@ async function setRules() {
  * @param jsonObj - the JSON object from the Twitter API
  */
 async function postMessage(SQLclient, channels, jsonObj){
+	if(jsonObj.data == undefined){
+		return;
+	}
 	SQLclient.query('UPDATE latestTweets SET tweetid = $1 WHERE userid = $2', [jsonObj.data.id, jsonObj.data.author_id]);
 	const tag = jsonObj.includes.users[0].username;
 	let baseText = `**New Tweet from ${tag}**\n`;
