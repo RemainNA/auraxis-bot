@@ -6169,6 +6169,11 @@
         "name": "NS-44P Commissioner",
         "sanction": "infantry"
     },
+    "6013893": {
+        "category": "Pistol",
+        "name": "NS-45 \"Assassin\" Pilot",
+        "sanction": "infantry"
+    },
     "6003704": {
         "category": "Pistol",
         "name": "NS-45 \"Brass\" Pilot",
@@ -7062,6 +7067,11 @@
     "6010117": {
         "category": "SMG",
         "name": "NS-66 Punisher SE",
+        "sanction": "infantry"
+    },
+    "6013894": {
+        "category": "SMG",
+        "name": "NS-7 \"Assassin\" PDW",
         "sanction": "infantry"
     },
     "6009623": {
