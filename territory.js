@@ -205,7 +205,7 @@ module.exports = {
             else if(terObj[continent].unstable){
                 resEmbed.addField(i18n.__({phrase: continent, locale: locale})+' <:Unstable:1000661319663497217>', `\
                 \n${i18n.__mf({phrase: "Unlocked {timestamp} ({relative})", locale: locale}, {timestamp: `<t:${timestamp}:t>`, relative: `<t:${timestamp}:R>`})}\
-                \n*Currently unstable*\
+                \n*${i18n.__({phrase: "currentlyUnstable", locale: locale})}*\
                 \n<:VS:818766983918518272> **${i18n.__({phrase: "VS", locale: locale})}**: ${terObj[continent].vs}  |  ${vsPc}%\
                 \n<:NC:818767043138027580> **${i18n.__({phrase: "NC", locale: locale})}**: ${terObj[continent].nc}  |  ${ncPc}%\
                 \n<:TR:818988588049629256> **${i18n.__({phrase: "TR", locale: locale})}**: ${terObj[continent].tr}  |  ${trPc}%`);
