@@ -140,6 +140,7 @@ const outfitStatus = async function(outfitID, platform, pgClient){
 	else{
 		resEmbed.setTitle(oInfo.name);
 	}
+	resEmbed.setThumbnail(`https://www.outfit-tracker.com/outfit-logo/${oInfo.outfitID}.png`);
 	resEmbed.setDescription(`${oInfo.onlineCount}/${oInfo.memberCount} online`);
 	resEmbed.setColor(faction(oInfo.faction).color);
 
@@ -194,7 +195,7 @@ const outfitStatus = async function(outfitID, platform, pgClient){
 	}
 
 	resEmbed.setTimestamp();
-	resEmbed.setFooter({text: "Updated every 5 minutes"});
+	resEmbed.setFooter({text: "Updated every 5 minutes • Outfit decals provided by outfit-tracker.com"});
 
 	return resEmbed;
 }

@@ -108,10 +108,12 @@ module.exports = {
 			throw i18n.__mf({phrase: "{tag} is longer than 4 letters, please enter a tag", locale: locale}, {tag: oTag});
 		}
 
-		let oInfo = await onlineInfo(oTag, platform, outfitID, locale);
+		const oInfo = await onlineInfo(oTag, platform, outfitID, locale);
 		let resEmbed = new Discord.MessageEmbed();
 
 		resEmbed.setTitle(oInfo.name);
+		resEmbed.setThumbnail(`https://www.outfit-tracker.com/outfit-logo/${oInfo.outfitID}.png`);
+		resEmbed.setFooter({text: i18n.__({phrase: "outfitDecalSource", locale: locale})});
 		resEmbed.setDescription(oInfo.alias+"\n"+i18n.__mf({phrase: "{online}/{total} online", locale: locale}, 
 		{online: oInfo.onlineCount, total: oInfo.memberCount}));
 		resEmbed.setTimestamp();
