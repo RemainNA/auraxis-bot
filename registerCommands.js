@@ -170,7 +170,6 @@ const data = [
 	{
 		name: 'subscribe',
 		description: "Subscribe to various different real time events",
-		default_member_permissions: '0',
 		options: [{
 			name: "alerts",
 			description: "Receive alert notifications when an alert starts on a server",
@@ -262,7 +261,6 @@ const data = [
 	{
 		name: 'unsubscribe',
 		description: "Subscribe to various different real time events",
-		default_member_permissions: '0',
 		options: [{
 			name: "alerts",
 			description: "Remove active alert subscriptions",
@@ -359,7 +357,6 @@ const data = [
 	{
 		name: 'config',
 		description: 'Modify subscription settings',
-		default_member_permissions: '0',
 		options: [
 			{
 				name: 'view',
@@ -567,7 +564,6 @@ const data = [
 	{
 		name: 'dashboard',
 		description: "Create an automatically updating dashboard",
-		default_member_permissions: '0',
 		options: [{
 			name: "server",
 			description: "Create an automatically updating dashboard displaying server status",
@@ -605,7 +601,6 @@ const data = [
 		name: 'tracker',
 		description: "Create an automatically updating voice channel",
 		dm_permission: false,
-		default_member_permissions: '0',
 		options: [{
 			name: "server",
 			description: "Create an automatically updating voice channel displaying server info",
