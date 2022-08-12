@@ -236,5 +236,10 @@
 	"unsubscribeUnlocks": "Unsubscribed channel from {server} unlocks",
 	"alreadySubscribedUnlocks": "Already subscribed to {server} unlocks",
 	"subscribedUnlocks": "Subscribed to {server} unlocks.  Configure which continents are shown using /config continents",
-	"subscribedUnlocksConfigFailed": "Subscribed to {server} unlocks.  Configuration step failed, using default config."
+	"subscribedUnlocksConfigFailed": "Subscribed to {server} unlocks.  Configuration step failed, using default config.",
+	"outfitDecalSource": "Outfit decals provided by outfit-tracker.com",
+	"usableUnderwater": "Usable in water",
+	"yes": "Yes",
+	"no": "No",
+	"currentlyUnstable": "Currently unstable"
 }
