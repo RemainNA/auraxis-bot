@@ -77,21 +77,13 @@ const updateAlert = async function(info, pgClient, discordClient, isComplete){
 	}
 
 
-	pgClient.query("SELECT messageID, channelID FROM alertMaintenance WHERE alertID = $1;", [info.instanceId])
-	.then(rows => {
-		for(let row of rows.rows){
-			editMessage(messageEmbed, row.messageid, row.channelid, discordClient)
-				.then(function(){
-					if(isComplete){
-						pgClient.query("DELETE FROM alertMaintenance WHERE alertID = $1;", [info.instanceId]);
-					}
-				})
-				.catch(err => {
-					console.log("Error editing message");
-					console.log(err);
-				})
-		}
-	})
+	const result = await pgClient.query("SELECT messageID, channelID FROM alertMaintenance WHERE alertID = $1;", [info.instanceId])
+	for (const row of result.rows) {
+		editMessage(messageEmbed, row.messageid, row.channelid, discordClient)
+	}
+	if(isComplete){
+		pgClient.query("DELETE FROM alertMaintenance WHERE alertID = $1;", [info.instanceId]);
+	}
 }
 
 /**
@@ -106,11 +98,11 @@ const editMessage = async function(embed, messageId, channelId, discordClient){
 		const resChann = await discordClient.channels.fetch(channelId);
 		if (['GUILD_TEXT','GUILD_NEWS'].includes(resChann.type) && resChann.permissionsFor(resChann.guild.me).has(Discord.Permissions.FLAGS.VIEW_CHANNEL)) {
 			const resMsg = await resChann.messages.fetch(messageId);
-			await resMsg.edit({embeds: [embed]});
+			resMsg.edit({embeds: [embed]});
 		}
 		else if(resChann.type == 'DM'){
 			const resMsg = await resChann.messages.fetch(messageId);
-			await resMsg.edit({embeds: [embed]});
+			resMsg.edit({embeds: [embed]});
 		}
 	}
 	catch(err) {
@@ -144,24 +136,23 @@ module.exports = {
 	 */
 	update: async function(pgClient, discordClient){
 		let rows = await pgClient.query("SELECT DISTINCT alertID, error FROM alertMaintenance");
-
-		for(let row of rows.rows){
-			got(`https://api.ps2alerts.com/instances/${row.alertid}`).json()
-				.then(response => {
-					updateAlert(response, pgClient, discordClient, response.timeEnded != null)
-					.catch(err => {
-						if(err == "Error displaying territory"){
-							checkError(row, pgClient, err);
-						}
-						else{
-							console.log("Error occurred when updating alert");
-							console.log(err);
-						}
-					})
-				})
-				.catch(err => {
-					checkError(row, pgClient, "Error during web request");
-				});
+		Promise.allSettled(rows.rows.map(async row => {
+			try {
+				const response = await got(`https://api.ps2alerts.com/instances/${row.alertid}`).json();
+				await updateAlert(response, pgClient, discordClient, response.timeEnded != null);
 			}
+			catch (err) {
+				if (typeof(err) !== 'string') {
+					checkError(row, pgClient, "Error during web request");
+				}
+				else if(err == "Error displaying territory"){
+					checkError(row, pgClient, err);
+				}
+				else{
+					console.log("Error occurred when updating alert");
+					console.log(err);
+				}
+			}
+		}));
 	}
 }
