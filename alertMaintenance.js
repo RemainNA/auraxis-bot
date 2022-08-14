@@ -28,11 +28,11 @@ const winnerFaction = {
  * @param {boolean} isComplete - true if alert is complete
  * @throws if error retrieving territory control for an alert
  */
-const updateAlert = async function(info, pgClient, discordClient, isComplete){
-	let messageEmbed = new Discord.MessageEmbed();
+async function updateAlert(info, pgClient, discordClient, isComplete){
+	const messageEmbed = new Discord.MessageEmbed();
 	messageEmbed.setTimestamp();
 	messageEmbed.setFooter({text: "Data from ps2alerts.com"});
-	let alertName = alerts[info.censusMetagameEventType].name;
+	const alertName = alerts[info.censusMetagameEventType].name;
 	messageEmbed.setTitle(alertName);
 	if (alertName.includes('Enlightenment')){
 		messageEmbed.setColor('PURPLE');
@@ -88,12 +88,12 @@ const updateAlert = async function(info, pgClient, discordClient, isComplete){
 
 /**
  * 
- * @param {Discord.MessageEmbed} embed - embed to edit
+ * @param {Discord.MessageEmbed} embed - embed to replace messageID with
  * @param {string} messageId - message id to edit
- * @param {string} channelId - channel id to edit	
+ * @param {string} channelId - channel id to edit message in
  * @param {Discord.Client} discordClient - discord client
  */
-const editMessage = async function(embed, messageId, channelId, discordClient){
+async function editMessage(embed, messageId, channelId, discordClient){
 	try {
 		const resChann = await discordClient.channels.fetch(channelId);
 		if (['GUILD_TEXT','GUILD_NEWS'].includes(resChann.type) && resChann.permissionsFor(resChann.guild.me).has(Discord.Permissions.FLAGS.VIEW_CHANNEL)) {
@@ -105,9 +105,7 @@ const editMessage = async function(embed, messageId, channelId, discordClient){
 			resMsg.edit({embeds: [embed]});
 		}
 	}
-	catch(err) {
-		// ignore, will be cleaned up on alert end
-	}
+	catch(err) { /**ignore, will be cleaned up on alert end*/ }
 }
 
 /**
@@ -117,7 +115,7 @@ const editMessage = async function(embed, messageId, channelId, discordClient){
  * @param {pg.Client} pgClient - postgres client
  * @param {string} err - error message 
  */
-const checkError = async function(row, pgClient, err){
+async function checkError(row, pgClient, err){
 	if(row.error){
 		pgClient.query("DELETE FROM alertMaintenance WHERE alertID = $1;", [row.alertid]);
 	}
@@ -135,8 +133,8 @@ module.exports = {
 	 * @param {Discord.Client} discordClient - discord client
 	 */
 	update: async function(pgClient, discordClient){
-		let rows = await pgClient.query("SELECT DISTINCT alertID, error FROM alertMaintenance");
-		Promise.allSettled(rows.rows.map(async row => {
+		const results = await pgClient.query("SELECT DISTINCT alertID, error FROM alertMaintenance");
+		Promise.allSettled(results.rows.map(async row => {
 			try {
 				const response = await got(`https://api.ps2alerts.com/instances/${row.alertid}`).json();
 				await updateAlert(response, pgClient, discordClient, response.timeEnded != null);
