@@ -58,53 +58,44 @@ const logEvent = async function(payload, environment, pgClient, discordClient){
             sendEmbed.setTitle(result.rows[0].alias+' '+playerEvent);
             sendEmbed.setDescription(char.name.first);
             sendEmbed.setColor(faction(char.faction_id).color);
-            for (let row of result.rows){
-                discordClient.channels.fetch(row.channel)
-                    .then(resChann => {
-                        if(typeof(resChann.guild) !== 'undefined'){
-                            if(resChann.permissionsFor(resChann.guild.me).has([Permissions.FLAGS.SEND_MESSAGES, Permissions.FLAGS.VIEW_CHANNEL, Permissions.FLAGS.EMBED_LINKS])){
-                                messageHandler.send(resChann, {embeds: [sendEmbed]}, "Log event")
-                                .then(messageId => {
-                                    if(messageId != -1 && row.autodelete == true){
-                                        const in5minutes = new Date((new Date()).getTime() + 300000);
-                                        pgClient.query("INSERT INTO toDelete (channel, messageID, timeToDelete) VALUES ($1, $2, $3)", [row.channel, messageId, in5minutes])
-                                            .catch(err => {console.log(err);});
-                                    }
-                                });
-                                
-                            }
-                            else{
-                                subscriptions.unsubscribeAll(pgClient, row.channel);
-                                console.log('Unsubscribed from '+row.channel);
-                            } 
+            Promise.allSettled(result.rows.map(async row => {
+                try {
+                    const resChann = await discordClient.channels.fetch(row.channel);
+                    if (resChann.type === 'DM'){ // DM
+                        const messageId = await messageHandler.send(resChann, {embeds: [sendEmbed]}, "Log event")
+                        if(messageId != -1 && row.autodelete === true){
+                            const in5minutes = new Date((new Date()).getTime() + 30000);
+                            pgClient.query("INSERT INTO toDelete (channel, messageID, timeToDelete) VALUES ($1, $2, $3)", [row.channel, messageId, in5minutes])
+                                .catch(err => {console.log(err);});
                         }
-                        else{ // DM
-                            messageHandler.send(resChann, {embeds: [sendEmbed]}, "Log event")
-                            .then(messageId => {
-                                if(messageId != -1 && row.autodelete === true){
-                                    const in5minutes = new Date((new Date()).getTime() + 30000);
-                                    pgClient.query("INSERT INTO toDelete (channel, messageID, timeToDelete) VALUES ($1, $2, $3)", [row.channel, messageId, in5minutes])
-                                        .catch(err => {console.log(err);});
-                                }
-                                else if(messageId == -1){
-                                    subscriptions.unsubscribeAll(pgClient, row.channel);
-                                    console.log('Unsubscribed from '+row.channel);
-                                }
-                            })
-                        }                        
-                    })
-                    .catch(error => {
-                        if(typeof(error.code) !== 'undefined'){
-                            if(error.code == 10003){ //Unknown channel error, thrown when the channel is deleted
-                                subscriptions.unsubscribeAll(pgClient, row.channel);
-                                console.log('Unsubscribed from '+row.channel);
-                            }
+                        else if(messageId == -1){
+                            subscriptions.unsubscribeAll(pgClient, row.channel);
+                            console.log(`Unsubscribed from ${row.channel}`);
                         }
-                        else{
-                            console.log(error);
+                    }                        
+                    else if(resChann.permissionsFor(resChann.guild.me).has([Permissions.FLAGS.SEND_MESSAGES, Permissions.FLAGS.VIEW_CHANNEL, Permissions.FLAGS.EMBED_LINKS])){
+                        const messageId = await messageHandler.send(resChann, {embeds: [sendEmbed]}, "Log event")
+                        if(messageId != -1 && row.autodelete == true){
+                            const in5minutes = new Date((new Date()).getTime() + 300000);
+                            pgClient.query("INSERT INTO toDelete (channel, messageID, timeToDelete) VALUES ($1, $2, $3)", [row.channel, messageId, in5minutes])
+                                .catch(err => {console.log(err);});
                         }
-                    });
-            }
+                    }
+                    else{
+                        subscriptions.unsubscribeAll(pgClient, row.channel);
+                        console.log('Unsubscribed from '+row.channel);
+                    } 
+                }
+                catch (error) {
+                    if (error.code === 'undefined') {
+                        console.log(error);
+                    }
+                    else if(error.code == 10003){ //Unknown channel error, thrown when the channel is deleted
+                        subscriptions.unsubscribeAll(pgClient, row.channel);
+                        console.log(`Unsubscribed from ${row.channel}`);
+                    }
+                }
+            }));
         }
     }
 }
@@ -263,82 +254,74 @@ const alertEvent = async function(payload, environment, pgClient, discordClient)
             const  rows = await pgClient.query("SELECT a.channel, c.Koltyr, c.Indar, c.Hossin, c.Amerish, c.Esamir, c.Oshur, c.Other, c.autoDelete, c.territory, c.nonTerritory\
             FROM alerts a LEFT JOIN subscriptionConfig c on a.channel = c.channel\
             WHERE a.world = $1;", [server.toLowerCase()]);
-            for (let row of rows.rows){
+            Promise.allSettled(rows.rows.map(async row => {
                 if(row[continent.toLowerCase()] == null){
                     // If config is not successfully set then display alert and attempt to initialize config
                     config.initializeConfig(row.channel, pgClient);
                 }
                 else if(!row[continent.toLowerCase()] || (showTerritory && !row['territory']) || (!showTerritory && !row['nonterritory'])){
                     // Skip alerts configured to not show
-                    continue;
+                    return;
                 }
-                discordClient.channels.fetch(row.channel)
-                    .then(resChann => {
-                        if(typeof(resChann.guild) !== 'undefined'){
-                            if(resChann.permissionsFor(resChann.guild.me).has([Permissions.FLAGS.SEND_MESSAGES, Permissions.FLAGS.VIEW_CHANNEL, Permissions.FLAGS.EMBED_LINKS])){
-                                messageHandler.send(resChann, {embeds: [sendEmbed]}, "Alert notification")
-                                .then(messageId => {
-                                    if(messageId != -1 && trackedAlerts.indexOf(Number(payload.metagame_event_id)) > -1){
-                                        pgClient.query("INSERT INTO alertMaintenance (alertID, messageID, channelID) VALUES ($1, $2, $3);", [`${payload.world_id}-${payload.instance_id}`, messageId, row.channel])
-                                            .catch(err => {console.log(err);});
-                                    }
-                                    if(messageId != -1 && row.autodelete === true){
-                                        const in50minutes = new Date((new Date()).getTime() + 3000000);
-                                        const in95minutes = new Date((new Date()).getTime() + 5700000);
-                                        if(['Indar', 'Hossin', 'Esamir', 'Amerish', 'Oshur'].includes(continent) && response.name.indexOf("Unstable Meltdown") == -1){
-                                            pgClient.query("INSERT INTO toDelete (channel, messageID, timeToDelete) VALUES ($1, $2, $3)", [row.channel, messageId, in95minutes])
-                                            .catch(err => {console.log(err);});
-                                        }
-                                        else{
-                                            pgClient.query("INSERT INTO toDelete (channel, messageID, timeToDelete) VALUES ($1, $2, $3)", [row.channel, messageId, in50minutes])
-                                            .catch(err => {console.log(err);});
-                                        }    
-                                    }
-                                });
+                try {
+                    const resChann = await discordClient.channels.fetch(row.channel);
+                    if (resChann.type === 'DM'){ // DM
+                        const messageId = await messageHandler.send(resChann, {embeds: [sendEmbed]}, "Alert notification");
+                        if(messageId != -1 && trackedAlerts.indexOf(Number(payload.metagame_event_id)) > -1){
+                            pgClient.query("INSERT INTO alertMaintenance (alertID, messageID, channelID) VALUES ($1, $2, $3);", [`${payload.world_id}-${payload.instance_id}`, messageId, row.channel])
+                                .catch(err => {console.log(err);});
+                        }
+                        if(messageId != -1 && row.autodelete === true){
+                            const in50minutes = new Date((new Date()).getTime() + 3000000);
+                            const in95minutes = new Date((new Date()).getTime() + 5700000);
+                            if(['Indar', 'Hossin', 'Esamir', 'Amerish', 'Oshur'].includes(continent) && response.name.indexOf("Unstable Meltdown") == -1){
+                                pgClient.query("INSERT INTO toDelete (channel, messageID, timeToDelete) VALUES ($1, $2, $3)", [row.channel, messageId, in95minutes])
+                                .catch(err => {console.log(err);});
                             }
                             else{
-                                subscriptions.unsubscribeAll(pgClient, row.channel);
-                                console.log('Unsubscribed from '+row.channel);
-                            } 
+                                pgClient.query("INSERT INTO toDelete (channel, messageID, timeToDelete) VALUES ($1, $2, $3)", [row.channel, messageId, in50minutes])
+                                .catch(err => {console.log(err);});
+                            }    
                         }
-                        else{ // DM
-                            messageHandler.send(resChann, {embeds: [sendEmbed]}, "Alert notification")
-                            .then(messageId => {
-                                if(messageId != -1 && trackedAlerts.indexOf(Number(payload.metagame_event_id)) > -1){
-                                    pgClient.query("INSERT INTO alertMaintenance (alertID, messageID, channelID) VALUES ($1, $2, $3);", [`${payload.world_id}-${payload.instance_id}`, messageId, row.channel])
-                                        .catch(err => {console.log(err);})
-                                }
-                                if(messageId != -1 && row.autodelete === true){
-                                    const in50minutes = new Date((new Date()).getTime() + 3000000);
-                                    const in95minutes = new Date((new Date()).getTime() + 5700000);
-                                    if(['Indar', 'Hossin', 'Esamir', 'Amerish', 'Oshur'].includes(continent) && response.name.indexOf("Unstable Meltdown") == -1){
-                                        pgClient.query("INSERT INTO toDelete (channel, messageID, timeToDelete) VALUES ($1, $2, $3)", [row.channel, messageId, in95minutes])
-                                        .catch(err => {console.log(err);});
-                                    }
-                                    else{
-                                        pgClient.query("INSERT INTO toDelete (channel, messageID, timeToDelete) VALUES ($1, $2, $3)", [row.channel, messageId, in50minutes])
-                                        .catch(err => {console.log(err);});
-                                    }    
-                                }
-                                else if(messageId == -1){
-                                    subscriptions.unsubscribeAll(pgClient, row.channel);
-                                    console.log('Unsubscribed from '+row.channel);
-                                }
-                            });
-                        } 
-                    })
-                    .catch(error => {
-                        if(typeof(error.code) !== 'undefined'){
-                            if(error.code == 10003){ //Unknown channel error, thrown when the channel is deleted
-                                subscriptions.unsubscribeAll(pgClient, row.channel);
-                                console.log('Unsubscribed from '+row.channel);
+                        else if(messageId == -1){
+                            subscriptions.unsubscribeAll(pgClient, row.channel);
+                            console.log(`Unsubscribed from ${row.channel}`);
+                        }
+                    } 
+                    else if(resChann.permissionsFor(resChann.guild.me).has([Permissions.FLAGS.SEND_MESSAGES, Permissions.FLAGS.VIEW_CHANNEL, Permissions.FLAGS.EMBED_LINKS])){
+                        const messageId = await messageHandler.send(resChann, {embeds: [sendEmbed]}, "Alert notification");
+                        if(messageId != -1 && trackedAlerts.indexOf(Number(payload.metagame_event_id)) > -1){
+                            pgClient.query("INSERT INTO alertMaintenance (alertID, messageID, channelID) VALUES ($1, $2, $3);", [`${payload.world_id}-${payload.instance_id}`, messageId, row.channel])
+                                .catch(err => {console.log(err);});
+                        }
+                        if(messageId != -1 && row.autodelete === true){
+                            const in50minutes = new Date((new Date()).getTime() + 3000000);
+                            const in95minutes = new Date((new Date()).getTime() + 5700000);
+                            if(['Indar', 'Hossin', 'Esamir', 'Amerish', 'Oshur'].includes(continent) && response.name.indexOf("Unstable Meltdown") == -1){
+                                pgClient.query("INSERT INTO toDelete (channel, messageID, timeToDelete) VALUES ($1, $2, $3)", [row.channel, messageId, in95minutes])
+                                .catch(err => {console.log(err);});
                             }
+                            else{
+                                pgClient.query("INSERT INTO toDelete (channel, messageID, timeToDelete) VALUES ($1, $2, $3)", [row.channel, messageId, in50minutes])
+                                .catch(err => {console.log(err);});
+                            }    
                         }
-                        else{
-                            console.log(error);
-                        }
-                    });
-            }
+                    }
+                    else{
+                        subscriptions.unsubscribeAll(pgClient, row.channel);
+                        console.log(`Unsubscribed from ${row.channel}`);
+                    } 
+                }
+                catch (error) {
+                    if (error.code === 'undefined') {
+                        console.log(error);
+                    }
+                    else if(error.code == 10003){ //Unknown channel error, thrown when the channel is deleted
+                        subscriptions.unsubscribeAll(pgClient, row.channel);
+                        console.log(`Unsubscribed from ${row.channel}`);
+                    }
+                }
+            }));
         }
     }
 }
@@ -430,32 +413,30 @@ const baseEvent = async function(payload, environment, pgClient, discordClient){
         if(contributions.length > 0){
             sendEmbed.addField("<:Merit:890295314337136690> Contributors", `${contributions}`.replace(/,/g, ', '), true);
         }
-        for (let row of result.rows){
-            discordClient.channels.fetch(row.channel).then(resChann => {
-                if(typeof(resChann.guild) !== 'undefined'){
-                    if(resChann.permissionsFor(resChann.guild.me).has([Permissions.FLAGS.SEND_MESSAGES, Permissions.FLAGS.VIEW_CHANNEL, Permissions.FLAGS.EMBED_LINKS])){
-                        messageHandler.send(resChann, {embeds: [sendEmbed]}, "Base capture event");
-                    }
-                    else{
-                        subscriptions.unsubscribeAll(pgClient, row.channel);
-                        console.log('Unsubscribed from '+row.channel);
-                    }
-                }
-                else{ // DM
+        Promise.allSettled(result.rows.map(async (row) => {
+            try {
+                const resChann = await discordClient.channels.fetch(row.channel);
+                if (resChann.type === 'DM'){ // DM
                     messageHandler.send(resChann, {embeds: [sendEmbed]}, "Base capture event");
                 }
-            }).catch(error => {
-                if(typeof(error.code) !== 'undefined'){
-                    if(error.code == 10003){ //Unknown channel error, thrown when the channel is deleted
-                        subscriptions.unsubscribeAll(pgClient, row.channel);
-                        console.log('Unsubscribed from '+row.channel);
-                    }
+                else if(resChann.permissionsFor(resChann.guild.me).has([Permissions.FLAGS.SEND_MESSAGES, Permissions.FLAGS.VIEW_CHANNEL, Permissions.FLAGS.EMBED_LINKS])){
+                    messageHandler.send(resChann, {embeds: [sendEmbed]}, "Base capture event");
                 }
                 else{
+                    subscriptions.unsubscribeAll(pgClient, row.channel);
+                    console.log('Unsubscribed from '+row.channel);
+                }
+            }
+            catch (error) {
+                if (error.code === 'undefined') {
                     console.log(error);
                 }
-            });
-        }
+                else if(error.code == 10003){ //Unknown channel error, thrown when the channel is deleted
+                    subscriptions.unsubscribeAll(pgClient, row.channel);
+                    console.log(`Unsubscribed from ${row.channel}`);
+                }
+            }
+        }));
     }
 }
 
