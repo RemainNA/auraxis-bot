@@ -12,38 +12,39 @@ module.exports = {
      * @param message - the message to send
      * @param {string} context - the context of the error
      * @param {boolean} embed - whether or not the message is an embed
-     * @returns the result of the message send
+     * @returns the result of the message send. If the bot does not have permission will return -1
      */
     send: async function(channel, message, context="default", embed=false){
-        let res = -1;
         if(embed && channel.type != 'DM' && !channel.permissionsFor(channel.guild.me).has('EMBED_LINKS')){
-            channel.send('Please grant the "Embed Links" permission to use this command').then(function(result){
-                //message successfully sent, no action needed.
-            }, function(err){
-                console.log("Error sending embed permission message in context: "+context);
-                if(typeof(err.message) !== 'undefined'){
+            try {
+                await channel.send('Please grant the "Embed Links" permission to use this command');
+            }
+            catch (err) {
+                console.log(`Error sending embed permission message in context: ${context}`);
+                if(err.message !== undefined){
                     console.log(err.message);
                 }
-                if(typeof(channel.guild) !== 'undefined'){
+                if(channel.guild !== undefined){
                     console.log(channel.guild.name);
                 }
-            });
+            }
         }
         else{
-            await channel.send(message).then(function(result){
-                res = result.id;
-            }, function(err){
-                console.log("Error sending message in context: "+context);
-                if(typeof(err.message) !== 'undefined'){
+            try {
+                const result = await channel.send(message);
+                return result.id
+            }
+            catch (err) {
+                console.log(`Error sending message in context: ${context}`);
+                if(err.message !== undefined){
                     console.log(err.message);
                 }
-                if(typeof(channel.guild) !== 'undefined'){
+                if(channel.guild !== undefined){
                     console.log(channel.guild.name);
                 }
-            });
+            }
         }
-
-        return res;
+        return -1;
     },
 
     /**
