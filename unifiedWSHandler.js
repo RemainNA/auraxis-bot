@@ -38,66 +38,68 @@ const environmentToPlatform = {
  * @param {discord.Client} discordClient - discord client to use
  * @throws if there are error in logEvent
  */
-const logEvent = async function(payload, environment, pgClient, discordClient){
-    let response = await censusRequest(environment, 'character_list', `/character/${payload.character_id}?c:resolve=outfit_member`);
-    let platform = environmentToPlatform[environment];
-    let playerEvent = payload.event_name.substring(6);
-    if(response[0].outfit_member != null){
-        let char = response[0];
-        let result = {};
-        try{
-            result = await pgClient.query("SELECT a.id, a.color, a.alias, a.channel, a.platform, c.autoDelete\
+async function logEvent(payload, environment, pgClient, discordClient){
+    const response = await censusRequest(environment, 'character_list', `/character/${payload.character_id}?c:resolve=outfit_member`);
+    if(response[0].outfit_member === undefined){
+        return;
+    }
+    const char = response[0];
+    let result = {};
+    try{
+        const platform = environmentToPlatform[environment];
+        result = await pgClient.query("SELECT a.id, a.color, a.alias, a.channel, a.platform, c.autoDelete\
             FROM outfitActivity a LEFT JOIN subscriptionConfig c ON a.channel = c.channel\
             WHERE a.id = $1 AND a.platform = $2;", [char.outfit_member.outfit_id, platform]);
-        }
-        catch(error){
-            throw `Error in logEvent: ${error}`;
-        }
-        if (result.rows.length > 0){
-            let sendEmbed = new MessageEmbed();
-            sendEmbed.setTitle(result.rows[0].alias+' '+playerEvent);
-            sendEmbed.setDescription(char.name.first);
-            sendEmbed.setColor(faction(char.faction_id).color);
-            Promise.allSettled(result.rows.map(async row => {
-                try {
-                    const resChann = await discordClient.channels.fetch(row.channel);
-                    if (resChann.type === 'DM'){ // DM
-                        const messageId = await messageHandler.send(resChann, {embeds: [sendEmbed]}, "Log event")
-                        if(messageId != -1 && row.autodelete === true){
-                            const in5minutes = new Date((new Date()).getTime() + 30000);
-                            pgClient.query("INSERT INTO toDelete (channel, messageID, timeToDelete) VALUES ($1, $2, $3)", [row.channel, messageId, in5minutes])
-                                .catch(err => {console.log(err);});
-                        }
-                        else if(messageId == -1){
-                            subscriptions.unsubscribeAll(pgClient, row.channel);
-                            console.log(`Unsubscribed from ${row.channel}`);
-                        }
-                    }                        
-                    else if(resChann.permissionsFor(resChann.guild.me).has([Permissions.FLAGS.SEND_MESSAGES, Permissions.FLAGS.VIEW_CHANNEL, Permissions.FLAGS.EMBED_LINKS])){
-                        const messageId = await messageHandler.send(resChann, {embeds: [sendEmbed]}, "Log event")
-                        if(messageId != -1 && row.autodelete == true){
-                            const in5minutes = new Date((new Date()).getTime() + 300000);
-                            pgClient.query("INSERT INTO toDelete (channel, messageID, timeToDelete) VALUES ($1, $2, $3)", [row.channel, messageId, in5minutes])
-                                .catch(err => {console.log(err);});
-                        }
-                    }
-                    else{
-                        subscriptions.unsubscribeAll(pgClient, row.channel);
-                        console.log('Unsubscribed from '+row.channel);
-                    } 
-                }
-                catch (error) {
-                    if (error.code === 'undefined') {
-                        console.log(error);
-                    }
-                    else if(error.code == 10003){ //Unknown channel error, thrown when the channel is deleted
-                        subscriptions.unsubscribeAll(pgClient, row.channel);
-                        console.log(`Unsubscribed from ${row.channel}`);
-                    }
-                }
-            }));
+        if (result.rows.length === 0){
+            return
         }
     }
+    catch(error){
+        throw `Error in logEvent: ${error}`;
+    }
+    const sendEmbed = new MessageEmbed();
+    const playerEvent = payload.event_name.substring(6);
+    sendEmbed.setTitle(`${result.rows[0].alias} ${playerEvent}`);
+    sendEmbed.setDescription(char.name.first);
+    sendEmbed.setColor(faction(char.faction_id).color);
+    Promise.allSettled(result.rows.map(async row => {
+        try {
+            const resChann = await discordClient.channels.fetch(row.channel);
+            if (resChann.type === 'DM'){ // DM
+                const messageId = await messageHandler.send(resChann, {embeds: [sendEmbed]}, "Log event");
+                if(messageId != -1 && row.autodelete === true){
+                    const in5minutes = new Date((new Date()).getTime() + 30000);
+                    pgClient.query("INSERT INTO toDelete (channel, messageID, timeToDelete) VALUES ($1, $2, $3)", [row.channel, messageId, in5minutes])
+                        .catch(err => {console.log(err);});
+                }
+                else if(messageId == -1){
+                    subscriptions.unsubscribeAll(pgClient, row.channel);
+                    console.log(`Unsubscribed from ${row.channel}`);
+                }
+            }                        
+            else if(resChann.permissionsFor(resChann.guild.me).has([Permissions.FLAGS.SEND_MESSAGES, Permissions.FLAGS.VIEW_CHANNEL, Permissions.FLAGS.EMBED_LINKS])){
+                const messageId = await messageHandler.send(resChann, {embeds: [sendEmbed]}, "Log event");
+                if(messageId != -1 && row.autodelete == true){
+                    const in5minutes = new Date((new Date()).getTime() + 300000);
+                    pgClient.query("INSERT INTO toDelete (channel, messageID, timeToDelete) VALUES ($1, $2, $3)", [row.channel, messageId, in5minutes])
+                        .catch(err => {console.log(err);});
+                }
+            }
+            else{
+                subscriptions.unsubscribeAll(pgClient, row.channel);
+                console.log(`Unsubscribed from ${row.channel}`);
+            } 
+        }
+        catch (error) {
+            if (error.code === undefined) {
+                console.log(error);
+            }
+            else if(error.code == 10003){ //Unknown channel error, thrown when the channel is deleted
+                subscriptions.unsubscribeAll(pgClient, row.channel);
+                console.log(`Unsubscribed from ${row.channel}`);
+            }
+        }
+    }));
 }
 
 /**
@@ -107,7 +109,7 @@ const logEvent = async function(payload, environment, pgClient, discordClient){
  * @returns {Promise<{name: string, description: string}>} - The name and description of the alert
  * @throws if there are error retrieving alert notfications
  */
-const alertInfo = async function(payload, environment){
+async function alertInfo(payload, environment){
     if(typeof(alerts[payload.metagame_event_id]) !== 'undefined'){
         let resObj = {
             name: alerts[payload.metagame_event_id].name,
@@ -171,159 +173,161 @@ const trackedAlerts = [
  * @param {pg.Client} pgClient - postgres client to use
  * @param {discord.Client} discordClient - discord client to use
  */
-const alertEvent = async function(payload, environment, pgClient, discordClient){
-    if(payload.metagame_event_state_name == "started"){
-        let server = serverNames[payload.world_id];
-        let response = await alertInfo(payload, environment);
-        if(typeof(response.name) != undefined && response.name){
-            let sendEmbed = new MessageEmbed();
-            sendEmbed.setTitle(response.name);
-            if(trackedAlerts.indexOf(Number(payload.metagame_event_id)) == -1){
-                sendEmbed.setDescription(response.description);
-            }
-            else{
-                sendEmbed.setDescription('['+response.description+'](https://ps2alerts.com/alert/'+payload.world_id+'-'+payload.instance_id+"?utm_source=auraxis-bot&utm_medium=discord&utm_campaign=partners)");
-            }
-            sendEmbed.setTimestamp();
-            if (response.name.includes('Enlightenment')){
-                sendEmbed.setColor('PURPLE');
-            }
-            else if (response.name.includes('Liberation')){
-                sendEmbed.setColor('BLUE');
-            }
-            else if (response.name.includes('Superiority')){
-                sendEmbed.setColor('RED');
-            }
-            sendEmbed.addField('Server', server, true);
-            sendEmbed.addField('Status', `Started <t:${Math.floor(Date.now()/1000)}:R>`, true);
-            let terObj = {};
-            try{
-                terObj = await territory.territoryInfo(payload.world_id);
-            }
-            catch{
-                
-            }
-            let continent = "Other";
-            let showTerritory = false;
-            if(response.name.toLowerCase().indexOf("indar") > -1){
-                continent = "Indar";
-                showTerritory = true;
-            }
-            else if(response.name.toLowerCase().indexOf("esamir") > -1){
-                continent = "Esamir";
-                showTerritory = true;
-            }
-            else if(response.name.toLowerCase().indexOf("amerish") > -1){
-                continent = "Amerish";
-                showTerritory = true;
-            }
-            else if(response.name.toLowerCase().indexOf("hossin") > -1){
-                continent = "Hossin";
-                showTerritory = true;
-            }
-            else if(response.name.toLowerCase().indexOf("oshur") > -1){
-                continent = "Oshur";
-                showTerritory = true;
-            }
-            else if(response.name.toLowerCase().indexOf("koltyr") > -1){
-                continent = "Koltyr";
-                showTerritory = true;
-            }
-            if(response.name.toLowerCase().indexOf("anomalies") > -1){
-                showTerritory = false;
-            }
-            if(showTerritory && terObj != "" && continent != "Koltyr"){
-                let Total = terObj[continent].vs + terObj[continent].nc + terObj[continent].tr;
-                let vsPc = ((terObj[continent].vs/Total)*100).toPrecision(3);
-                let ncPc = ((terObj[continent].nc/Total)*100).toPrecision(3);
-                let trPc = ((terObj[continent].tr/Total)*100).toPrecision(3);
-                sendEmbed.addField('Territory Control', `\
-                \n<:VS:818766983918518272> **VS**: ${terObj[continent].vs}  |  ${vsPc}%\
-                \n<:NC:818767043138027580> **NC**: ${terObj[continent].nc}  |  ${ncPc}%\
-                \n<:TR:818988588049629256> **TR**: ${terObj[continent].tr}  |  ${trPc}%`);
-            }
-            else if(showTerritory){
-                let vsPc = Number.parseFloat(payload.faction_vs).toPrecision(3);
-                let ncPc = Number.parseFloat(payload.faction_nc).toPrecision(3);
-                let trPc = Number.parseFloat(payload.faction_tr).toPrecision(3);
-                sendEmbed.addField('Territory Control', `\
-                \n<:VS:818766983918518272> **VS**: ${vsPc}%\
-                \n<:NC:818767043138027580> **NC**: ${ncPc}%\
-                \n<:TR:818988588049629256> **TR**: ${trPc}%`);
-            }
-            const  rows = await pgClient.query("SELECT a.channel, c.Koltyr, c.Indar, c.Hossin, c.Amerish, c.Esamir, c.Oshur, c.Other, c.autoDelete, c.territory, c.nonTerritory\
-            FROM alerts a LEFT JOIN subscriptionConfig c on a.channel = c.channel\
-            WHERE a.world = $1;", [server.toLowerCase()]);
-            Promise.allSettled(rows.rows.map(async row => {
-                if(row[continent.toLowerCase()] == null){
-                    // If config is not successfully set then display alert and attempt to initialize config
-                    config.initializeConfig(row.channel, pgClient);
+async function alertEvent(payload, environment, pgClient, discordClient){
+    if(payload.metagame_event_state_name !== "started"){
+        return;
+    }
+    const response = await alertInfo(payload, environment);
+    if(response.name === undefined){
+        return;
+    }
+    const sendEmbed = new MessageEmbed();
+    sendEmbed.setTitle(response.name);
+    if(trackedAlerts.indexOf(Number(payload.metagame_event_id)) == -1){
+        sendEmbed.setDescription(response.description);
+    }
+    else{
+        sendEmbed.setDescription(`[${response.description}](https://ps2alerts.com/alert/${payload.world_id}-${payload.instance_id}?utm_source=auraxis-bot&utm_medium=discord&utm_campaign=partners)`);
+    }
+    sendEmbed.setTimestamp();
+    if (response.name.includes('Enlightenment')){
+        sendEmbed.setColor('PURPLE');
+    }
+    else if (response.name.includes('Liberation')){
+        sendEmbed.setColor('BLUE');
+    }
+    else if (response.name.includes('Superiority')){
+        sendEmbed.setColor('RED');
+    }
+    const server = serverNames[payload.world_id];
+    sendEmbed.addField('Server', server, true);
+    sendEmbed.addField('Status', `Started <t:${Math.floor(Date.now()/1000)}:R>`, true);
+    let terObj = {};
+    try{
+        terObj = await territory.territoryInfo(payload.world_id);
+    }
+    catch{
+        
+    }
+    let continent = "Other";
+    let showTerritory = false;
+    if(response.name.toLowerCase().indexOf("indar") > -1){
+        continent = "Indar";
+        showTerritory = true;
+    }
+    else if(response.name.toLowerCase().indexOf("esamir") > -1){
+        continent = "Esamir";
+        showTerritory = true;
+    }
+    else if(response.name.toLowerCase().indexOf("amerish") > -1){
+        continent = "Amerish";
+        showTerritory = true;
+    }
+    else if(response.name.toLowerCase().indexOf("hossin") > -1){
+        continent = "Hossin";
+        showTerritory = true;
+    }
+    else if(response.name.toLowerCase().indexOf("oshur") > -1){
+        continent = "Oshur";
+        showTerritory = true;
+    }
+    else if(response.name.toLowerCase().indexOf("koltyr") > -1){
+        continent = "Koltyr";
+        showTerritory = true;
+    }
+    if(response.name.toLowerCase().indexOf("anomalies") > -1){
+        showTerritory = false;
+    }
+    if(showTerritory && terObj != "" && continent != "Koltyr"){
+        const Total = terObj[continent].vs + terObj[continent].nc + terObj[continent].tr;
+        const vsPc = ((terObj[continent].vs/Total)*100).toPrecision(3);
+        const ncPc = ((terObj[continent].nc/Total)*100).toPrecision(3);
+        const trPc = ((terObj[continent].tr/Total)*100).toPrecision(3);
+        sendEmbed.addField('Territory Control', `\
+        \n<:VS:818766983918518272> **VS**: ${terObj[continent].vs}  |  ${vsPc}%\
+        \n<:NC:818767043138027580> **NC**: ${terObj[continent].nc}  |  ${ncPc}%\
+        \n<:TR:818988588049629256> **TR**: ${terObj[continent].tr}  |  ${trPc}%`);
+    }
+    else if(showTerritory){
+        const vsPc = Number.parseFloat(payload.faction_vs).toPrecision(3);
+        const ncPc = Number.parseFloat(payload.faction_nc).toPrecision(3);
+        const trPc = Number.parseFloat(payload.faction_tr).toPrecision(3);
+        sendEmbed.addField('Territory Control', `\
+        \n<:VS:818766983918518272> **VS**: ${vsPc}%\
+        \n<:NC:818767043138027580> **NC**: ${ncPc}%\
+        \n<:TR:818988588049629256> **TR**: ${trPc}%`);
+    }
+    const  rows = await pgClient.query("SELECT a.channel, c.Koltyr, c.Indar, c.Hossin, c.Amerish, c.Esamir, c.Oshur, c.Other, c.autoDelete, c.territory, c.nonTerritory\
+    FROM alerts a LEFT JOIN subscriptionConfig c on a.channel = c.channel\
+    WHERE a.world = $1;", [server.toLowerCase()]);
+    Promise.allSettled(rows.rows.map(async row => {
+        if(row[continent.toLowerCase()] === undefined){
+            // If config is not successfully set then display alert and attempt to initialize config
+            config.initializeConfig(row.channel, pgClient);
+        }
+        else if(!row[continent.toLowerCase()] || (showTerritory && !row['territory']) || (!showTerritory && !row['nonterritory'])){
+            // Skip alerts configured to not show
+            return;
+        }
+        try {
+            const resChann = await discordClient.channels.fetch(row.channel);
+            if (resChann.type === 'DM'){ // DM
+                const messageId = await messageHandler.send(resChann, {embeds: [sendEmbed]}, "Alert notification");
+                if(messageId != -1 && trackedAlerts.indexOf(Number(payload.metagame_event_id)) > -1){
+                    pgClient.query("INSERT INTO alertMaintenance (alertID, messageID, channelID) VALUES ($1, $2, $3);", [`${payload.world_id}-${payload.instance_id}`, messageId, row.channel])
+                        .catch(err => {console.log(err);});
                 }
-                else if(!row[continent.toLowerCase()] || (showTerritory && !row['territory']) || (!showTerritory && !row['nonterritory'])){
-                    // Skip alerts configured to not show
-                    return;
-                }
-                try {
-                    const resChann = await discordClient.channels.fetch(row.channel);
-                    if (resChann.type === 'DM'){ // DM
-                        const messageId = await messageHandler.send(resChann, {embeds: [sendEmbed]}, "Alert notification");
-                        if(messageId != -1 && trackedAlerts.indexOf(Number(payload.metagame_event_id)) > -1){
-                            pgClient.query("INSERT INTO alertMaintenance (alertID, messageID, channelID) VALUES ($1, $2, $3);", [`${payload.world_id}-${payload.instance_id}`, messageId, row.channel])
-                                .catch(err => {console.log(err);});
-                        }
-                        if(messageId != -1 && row.autodelete === true){
-                            const in50minutes = new Date((new Date()).getTime() + 3000000);
-                            const in95minutes = new Date((new Date()).getTime() + 5700000);
-                            if(['Indar', 'Hossin', 'Esamir', 'Amerish', 'Oshur'].includes(continent) && response.name.indexOf("Unstable Meltdown") == -1){
-                                pgClient.query("INSERT INTO toDelete (channel, messageID, timeToDelete) VALUES ($1, $2, $3)", [row.channel, messageId, in95minutes])
-                                .catch(err => {console.log(err);});
-                            }
-                            else{
-                                pgClient.query("INSERT INTO toDelete (channel, messageID, timeToDelete) VALUES ($1, $2, $3)", [row.channel, messageId, in50minutes])
-                                .catch(err => {console.log(err);});
-                            }    
-                        }
-                        else if(messageId == -1){
-                            subscriptions.unsubscribeAll(pgClient, row.channel);
-                            console.log(`Unsubscribed from ${row.channel}`);
-                        }
-                    } 
-                    else if(resChann.permissionsFor(resChann.guild.me).has([Permissions.FLAGS.SEND_MESSAGES, Permissions.FLAGS.VIEW_CHANNEL, Permissions.FLAGS.EMBED_LINKS])){
-                        const messageId = await messageHandler.send(resChann, {embeds: [sendEmbed]}, "Alert notification");
-                        if(messageId != -1 && trackedAlerts.indexOf(Number(payload.metagame_event_id)) > -1){
-                            pgClient.query("INSERT INTO alertMaintenance (alertID, messageID, channelID) VALUES ($1, $2, $3);", [`${payload.world_id}-${payload.instance_id}`, messageId, row.channel])
-                                .catch(err => {console.log(err);});
-                        }
-                        if(messageId != -1 && row.autodelete === true){
-                            const in50minutes = new Date((new Date()).getTime() + 3000000);
-                            const in95minutes = new Date((new Date()).getTime() + 5700000);
-                            if(['Indar', 'Hossin', 'Esamir', 'Amerish', 'Oshur'].includes(continent) && response.name.indexOf("Unstable Meltdown") == -1){
-                                pgClient.query("INSERT INTO toDelete (channel, messageID, timeToDelete) VALUES ($1, $2, $3)", [row.channel, messageId, in95minutes])
-                                .catch(err => {console.log(err);});
-                            }
-                            else{
-                                pgClient.query("INSERT INTO toDelete (channel, messageID, timeToDelete) VALUES ($1, $2, $3)", [row.channel, messageId, in50minutes])
-                                .catch(err => {console.log(err);});
-                            }    
-                        }
+                if(messageId != -1 && row.autodelete === true){
+                    const in50minutes = new Date((new Date()).getTime() + 3000000);
+                    const in95minutes = new Date((new Date()).getTime() + 5700000);
+                    if(['Indar', 'Hossin', 'Esamir', 'Amerish', 'Oshur'].includes(continent) && response.name.indexOf("Unstable Meltdown") == -1){
+                        pgClient.query("INSERT INTO toDelete (channel, messageID, timeToDelete) VALUES ($1, $2, $3)", [row.channel, messageId, in95minutes])
+                        .catch(err => {console.log(err);});
                     }
                     else{
-                        subscriptions.unsubscribeAll(pgClient, row.channel);
-                        console.log(`Unsubscribed from ${row.channel}`);
-                    } 
+                        pgClient.query("INSERT INTO toDelete (channel, messageID, timeToDelete) VALUES ($1, $2, $3)", [row.channel, messageId, in50minutes])
+                        .catch(err => {console.log(err);});
+                    }    
                 }
-                catch (error) {
-                    if (error.code === 'undefined') {
-                        console.log(error);
-                    }
-                    else if(error.code == 10003){ //Unknown channel error, thrown when the channel is deleted
-                        subscriptions.unsubscribeAll(pgClient, row.channel);
-                        console.log(`Unsubscribed from ${row.channel}`);
-                    }
+                else if(messageId == -1){
+                    subscriptions.unsubscribeAll(pgClient, row.channel);
+                    console.log(`Unsubscribed from ${row.channel}`);
                 }
-            }));
+            } 
+            else if(resChann.permissionsFor(resChann.guild.me).has([Permissions.FLAGS.SEND_MESSAGES, Permissions.FLAGS.VIEW_CHANNEL, Permissions.FLAGS.EMBED_LINKS])){
+                const messageId = await messageHandler.send(resChann, {embeds: [sendEmbed]}, "Alert notification");
+                if(messageId != -1 && trackedAlerts.indexOf(Number(payload.metagame_event_id)) > -1){
+                    pgClient.query("INSERT INTO alertMaintenance (alertID, messageID, channelID) VALUES ($1, $2, $3);", [`${payload.world_id}-${payload.instance_id}`, messageId, row.channel])
+                        .catch(err => {console.log(err);});
+                }
+                if(messageId != -1 && row.autodelete === true){
+                    const in50minutes = new Date((new Date()).getTime() + 3000000);
+                    const in95minutes = new Date((new Date()).getTime() + 5700000);
+                    if(['Indar', 'Hossin', 'Esamir', 'Amerish', 'Oshur'].includes(continent) && response.name.indexOf("Unstable Meltdown") == -1){
+                        pgClient.query("INSERT INTO toDelete (channel, messageID, timeToDelete) VALUES ($1, $2, $3)", [row.channel, messageId, in95minutes])
+                        .catch(err => {console.log(err);});
+                    }
+                    else{
+                        pgClient.query("INSERT INTO toDelete (channel, messageID, timeToDelete) VALUES ($1, $2, $3)", [row.channel, messageId, in50minutes])
+                        .catch(err => {console.log(err);});
+                    }    
+                }
+            }
+            else{
+                subscriptions.unsubscribeAll(pgClient, row.channel);
+                console.log(`Unsubscribed from ${row.channel}`);
+            } 
         }
-    }
+        catch (error) {
+            if (error.code === undefined) {
+                console.log(error);
+            }
+            else if(error.code == 10003){ //Unknown channel error, thrown when the channel is deleted
+                subscriptions.unsubscribeAll(pgClient, row.channel);
+                console.log(`Unsubscribed from ${row.channel}`);
+            }
+        }
+    }));
 }
 
 /**
@@ -360,84 +364,85 @@ const centralBases = [
  * @param {discord.Client} discordClient - discord client to use
  * @returns 
  */
-const baseEvent = async function(payload, environment, pgClient, discordClient){
+async function baseEvent(payload, environment, pgClient, discordClient){
     if(payload.new_faction_id == payload.old_faction_id){
         return; //Ignore defended bases
     }
-    let platform = environmentToPlatform[environment];
     if(payload.zone_id == '2' || payload.zone_id == '4' || payload.zone_id == '6' || payload.zone_id == '8' || payload.zone_id == '344'){ //Don't track bases outside the main continents 
         await pgClient.query("INSERT INTO bases VALUES ($1, $2, $3, $4, $5, $6)\
         ON CONFLICT(concatKey) DO UPDATE SET outfit = $5, faction = $6;",
         [`${payload.world_id}-${payload.facility_id}`, payload.zone_id, payload.world_id, payload.facility_id, payload.outfit_id, payload.new_faction_id]);
     }
     //check if outfit is in db, construct and send info w/ facility id
-    let result = await pgClient.query("SELECT * FROM outfitcaptures WHERE id=$1 AND platform = $2;", [payload.outfit_id, platform]);
-    if(result.rowCount > 0){
-        let sendEmbed = new MessageEmbed();
-        let base = await baseInfo(payload.facility_id, environment);
-        sendEmbed.setTitle("["+result.rows[0].alias+"] "+result.rows[0].name+' captured '+base.name);
-        sendEmbed.setTimestamp();
-        sendEmbed.setColor(faction(payload.new_faction_id).color) //Color cannot be dependent on outfit due to NSO outfits
-        if(payload.zone_id == "2"){
-            sendEmbed.addField("Continent", "Indar", true);
-        }
-        else if(payload.zone_id == "4"){
-            sendEmbed.addField("Continent", "Hossin", true);
-        }
-        else if(payload.zone_id == "6"){
-            sendEmbed.addField("Continent", "Amerish", true);
-        }
-        else if(payload.zone_id == "8"){
-            sendEmbed.addField("Continent", "Esamir", true);
-        }
-        else if(payload.zone_id == "344"){
-            sendEmbed.addField("Continent", "Oshur", true);
-        }
-        if(centralBases.includes(payload.facility_id)){
-            sendEmbed.addField("Facility Type", base.type+"\n(Central base)", true);
-            sendEmbed.addField("Outfit Resources", "2 Polystellarite <:Polystellarite:818766888238448661>", true);
-        }
-        else if(base.type in outfitResources){
-            sendEmbed.addField("Facility Type", base.type, true);
-            sendEmbed.addField("Outfit Resources", outfitResources[base.type], true);
-        }
-        else{
-            sendEmbed.addField("Facility Type", base.type, true);
-            sendEmbed.addField("Outfit Resources", "Unknown", true);
-        }
-
-        const factionInfo = faction(payload.old_faction_id);
-        sendEmbed.addField("Captured From", `${factionInfo.decal} ${factionInfo.initial}`, true);
-        
-        const contributions = await captureContributions(payload.outfit_id, payload.facility_id, payload.timestamp, environment);
-        if(contributions.length > 0){
-            sendEmbed.addField("<:Merit:890295314337136690> Contributors", `${contributions}`.replace(/,/g, ', '), true);
-        }
-        Promise.allSettled(result.rows.map(async (row) => {
-            try {
-                const resChann = await discordClient.channels.fetch(row.channel);
-                if (resChann.type === 'DM'){ // DM
-                    messageHandler.send(resChann, {embeds: [sendEmbed]}, "Base capture event");
-                }
-                else if(resChann.permissionsFor(resChann.guild.me).has([Permissions.FLAGS.SEND_MESSAGES, Permissions.FLAGS.VIEW_CHANNEL, Permissions.FLAGS.EMBED_LINKS])){
-                    messageHandler.send(resChann, {embeds: [sendEmbed]}, "Base capture event");
-                }
-                else{
-                    subscriptions.unsubscribeAll(pgClient, row.channel);
-                    console.log('Unsubscribed from '+row.channel);
-                }
-            }
-            catch (error) {
-                if (error.code === 'undefined') {
-                    console.log(error);
-                }
-                else if(error.code == 10003){ //Unknown channel error, thrown when the channel is deleted
-                    subscriptions.unsubscribeAll(pgClient, row.channel);
-                    console.log(`Unsubscribed from ${row.channel}`);
-                }
-            }
-        }));
+    const platform = environmentToPlatform[environment];
+    const result = await pgClient.query("SELECT * FROM outfitcaptures WHERE id=$1 AND platform = $2;", [payload.outfit_id, platform]);
+    if(result.rowCount === 0){
+        return;
     }
+    const sendEmbed = new MessageEmbed();
+    const base = await baseInfo(payload.facility_id, environment);
+    sendEmbed.setTitle(`[${result.rows[0].alias}] ${result.rows[0].name} captured ${base.name}`);
+    sendEmbed.setTimestamp();
+    sendEmbed.setColor(faction(payload.new_faction_id).color) //Color cannot be dependent on outfit due to NSO outfits
+    if(payload.zone_id == "2"){
+        sendEmbed.addField("Continent", "Indar", true);
+    }
+    else if(payload.zone_id == "4"){
+        sendEmbed.addField("Continent", "Hossin", true);
+    }
+    else if(payload.zone_id == "6"){
+        sendEmbed.addField("Continent", "Amerish", true);
+    }
+    else if(payload.zone_id == "8"){
+        sendEmbed.addField("Continent", "Esamir", true);
+    }
+    else if(payload.zone_id == "344"){
+        sendEmbed.addField("Continent", "Oshur", true);
+    }
+    if(centralBases.includes(payload.facility_id)){
+        sendEmbed.addField("Facility Type", `${base.type}\n(Central base)`, true);
+        sendEmbed.addField("Outfit Resources", "2 Polystellarite <:Polystellarite:818766888238448661>", true);
+    }
+    else if(base.type in outfitResources){
+        sendEmbed.addField("Facility Type", base.type, true);
+        sendEmbed.addField("Outfit Resources", outfitResources[base.type], true);
+    }
+    else{
+        sendEmbed.addField("Facility Type", base.type, true);
+        sendEmbed.addField("Outfit Resources", "Unknown", true);
+    }
+
+    const factionInfo = faction(payload.old_faction_id);
+    sendEmbed.addField("Captured From", `${factionInfo.decal} ${factionInfo.initial}`, true);
+    
+    const contributions = await captureContributions(payload.outfit_id, payload.facility_id, payload.timestamp, environment);
+    if(contributions.length > 0){
+        sendEmbed.addField("<:Merit:890295314337136690> Contributors", `${contributions}`.replace(/,/g, ', '), true);
+    }
+    Promise.allSettled(result.rows.map(async (row) => {
+        try {
+            const resChann = await discordClient.channels.fetch(row.channel);
+            if (resChann.type === 'DM'){ // DM
+                messageHandler.send(resChann, {embeds: [sendEmbed]}, "Base capture event");
+            }
+            else if(resChann.permissionsFor(resChann.guild.me).has([Permissions.FLAGS.SEND_MESSAGES, Permissions.FLAGS.VIEW_CHANNEL, Permissions.FLAGS.EMBED_LINKS])){
+                messageHandler.send(resChann, {embeds: [sendEmbed]}, "Base capture event");
+            }
+            else{
+                subscriptions.unsubscribeAll(pgClient, row.channel);
+                console.log(`Unsubscribed from ${row.channel}`);
+            }
+        }
+        catch (error) {
+            if (error.code === undefined) {
+                console.log(error);
+            }
+            else if(error.code == 10003){ //Unknown channel error, thrown when the channel is deleted
+                subscriptions.unsubscribeAll(pgClient, row.channel);
+                console.log(`Unsubscribed from ${row.channel}`);
+            }
+        }
+    }));
 }
 
 /**
