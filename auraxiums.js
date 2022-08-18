@@ -37,8 +37,8 @@ const getAuraxiumList = async function(cName, platform, locale='en-US'){
                 }
             }
             else if(achievement.description.en == "1000 Enemies Killed"){
-                medalList.push([achievement.name.en, Date.parse(x.finish_date)]);
-				confirmedMedals.push(achievement.name.en);
+                medalList.push([achievement.name.en.split(":")[0], Date.parse(x.finish_date)]);
+				confirmedMedals.push(achievement.name.en.split(":")[0]);
             }
         }
     }
