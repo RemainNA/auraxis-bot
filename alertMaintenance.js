@@ -7,7 +7,7 @@
  * @typedef {import('pg').Client} pg.Client
  */
 const Discord = require('discord.js');
-const got = require('got');
+const {default: got} = require('got');
 const alerts = require('./static/alerts.json');
 const {serverNames} = require('./utils.js');
 const {popLevels} = require('./alerts.js')
@@ -87,7 +87,7 @@ async function updateAlert(info, pgClient, discordClient, isComplete){
 }
 
 /**
- * 
+ * Edits existing alert message with new information
  * @param {Discord.MessageEmbed} embed - embed to replace messageID with
  * @param {string} messageId - message id to edit
  * @param {string} channelId - channel id to edit message in
