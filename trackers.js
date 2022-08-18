@@ -43,10 +43,16 @@ const territoryName = async function(serverID){
  * Get the number of online members in an outfit
  * @param {string} outfitID - the outfit to check
  * @param {string} platform -  the platform of the outfit
- * @returns an object conontaining the number of online members in the outfit
+ * @returns an object containing the number of online members in the outfit
  */
 const outfitName = async function(outfitID, platform){
 	const oInfo = await onlineInfo("", platform, outfitID);
+	if(oInfo.onlineCount == -1){
+		return {
+			faction: `${faction(oInfo.faction).tracker} ${oInfo.alias}: ? online`,
+			noFaction: `${oInfo.alias}: ? online`
+		};
+	}
 	return {
 		faction: `${faction(oInfo.faction).tracker} ${oInfo.alias}: ${oInfo.onlineCount} online`,
 		noFaction: `${oInfo.alias}: ${oInfo.onlineCount} online`
