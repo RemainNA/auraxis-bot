@@ -28,11 +28,11 @@ const winnerFaction = {
  * @param {boolean} isComplete - true if alert is complete
  * @throws if error retrieving territory control for an alert
  */
-const updateAlert = async function(info, pgClient, discordClient, isComplete){
-	let messageEmbed = new Discord.MessageEmbed();
+async function updateAlert(info, pgClient, discordClient, isComplete){
+	const messageEmbed = new Discord.MessageEmbed();
 	messageEmbed.setTimestamp();
 	messageEmbed.setFooter({text: "Data from ps2alerts.com"});
-	let alertName = alerts[info.censusMetagameEventType].name;
+	const alertName = alerts[info.censusMetagameEventType].name;
 	messageEmbed.setTitle(alertName);
 	if (alertName.includes('Enlightenment')){
 		messageEmbed.setColor('PURPLE');
@@ -77,45 +77,35 @@ const updateAlert = async function(info, pgClient, discordClient, isComplete){
 	}
 
 
-	pgClient.query("SELECT messageID, channelID FROM alertMaintenance WHERE alertID = $1;", [info.instanceId])
-	.then(rows => {
-		for(let row of rows.rows){
-			editMessage(messageEmbed, row.messageid, row.channelid, discordClient)
-				.then(function(){
-					if(isComplete){
-						pgClient.query("DELETE FROM alertMaintenance WHERE alertID = $1;", [info.instanceId]);
-					}
-				})
-				.catch(err => {
-					console.log("Error editing message");
-					console.log(err);
-				})
-		}
-	})
+	const result = await pgClient.query("SELECT messageID, channelID FROM alertMaintenance WHERE alertID = $1;", [info.instanceId])
+	for (const row of result.rows) {
+		editMessage(messageEmbed, row.messageid, row.channelid, discordClient)
+	}
+	if(isComplete){
+		pgClient.query("DELETE FROM alertMaintenance WHERE alertID = $1;", [info.instanceId]);
+	}
 }
 
 /**
  * Edits existing alert message with new information
- * @param {Discord.MessageEmbed} embed - embed to edit
+ * @param {Discord.MessageEmbed} embed - embed to replace messageID with
  * @param {string} messageId - message id to edit
- * @param {string} channelId - channel id to edit	
+ * @param {string} channelId - channel id to edit message in
  * @param {Discord.Client} discordClient - discord client
  */
-const editMessage = async function(embed, messageId, channelId, discordClient){
+async function editMessage(embed, messageId, channelId, discordClient){
 	try {
 		const resChann = await discordClient.channels.fetch(channelId);
 		if (['GUILD_TEXT','GUILD_NEWS'].includes(resChann.type) && resChann.permissionsFor(resChann.guild.me).has(Discord.Permissions.FLAGS.VIEW_CHANNEL)) {
 			const resMsg = await resChann.messages.fetch(messageId);
-			await resMsg.edit({embeds: [embed]});
+			resMsg.edit({embeds: [embed]});
 		}
 		else if(resChann.type == 'DM'){
 			const resMsg = await resChann.messages.fetch(messageId);
-			await resMsg.edit({embeds: [embed]});
+			resMsg.edit({embeds: [embed]});
 		}
 	}
-	catch(err) {
-		// ignore, will be cleaned up on alert end
-	}
+	catch(err) { /**ignore, will be cleaned up on alert end*/ }
 }
 
 /**
@@ -125,7 +115,7 @@ const editMessage = async function(embed, messageId, channelId, discordClient){
  * @param {pg.Client} pgClient - postgres client
  * @param {string} err - error message 
  */
-const checkError = async function(row, pgClient, err){
+async function checkError(row, pgClient, err){
 	if(row.error){
 		pgClient.query("DELETE FROM alertMaintenance WHERE alertID = $1;", [row.alertid]);
 	}
@@ -143,25 +133,24 @@ module.exports = {
 	 * @param {Discord.Client} discordClient - discord client
 	 */
 	update: async function(pgClient, discordClient){
-		let rows = await pgClient.query("SELECT DISTINCT alertID, error FROM alertMaintenance");
-
-		for(let row of rows.rows){
-			got(`https://api.ps2alerts.com/instances/${row.alertid}`).json()
-				.then(response => {
-					updateAlert(response, pgClient, discordClient, response.timeEnded != null)
-					.catch(err => {
-						if(err == "Error displaying territory"){
-							checkError(row, pgClient, err);
-						}
-						else{
-							console.log("Error occurred when updating alert");
-							console.log(err);
-						}
-					})
-				})
-				.catch(err => {
-					checkError(row, pgClient, "Error during web request");
-				});
+		const results = await pgClient.query("SELECT DISTINCT alertID, error FROM alertMaintenance");
+		Promise.allSettled(results.rows.map(async row => {
+			try {
+				const response = await got(`https://api.ps2alerts.com/instances/${row.alertid}`).json();
+				await updateAlert(response, pgClient, discordClient, response.timeEnded != null);
 			}
+			catch (err) {
+				if (typeof(err) !== 'string') {
+					checkError(row, pgClient, "Error during web request");
+				}
+				else if(err == "Error displaying territory"){
+					checkError(row, pgClient, err);
+				}
+				else{
+					console.log("Error occurred when updating alert");
+					console.log(err);
+				}
+			}
+		}));
 	}
 }
