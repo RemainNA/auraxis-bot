@@ -241,7 +241,7 @@ const alertEvent = async function(payload, environment, pgClient, discordClient)
             if(response.name.toLowerCase().indexOf("anomalies") > -1){
                 showTerritory = false;
             }
-            if(showTerritory && terObj != "" && continent != "Koltyr"){
+            if(showTerritory && terObj != {} && continent != "Koltyr"){
                 let Total = terObj[continent].vs + terObj[continent].nc + terObj[continent].tr;
                 let vsPc = ((terObj[continent].vs/Total)*100).toPrecision(3);
                 let ncPc = ((terObj[continent].nc/Total)*100).toPrecision(3);
