@@ -98,11 +98,11 @@ async function editMessage(embed, messageId, channelId, discordClient){
 		const resChann = await discordClient.channels.fetch(channelId);
 		if (['GUILD_TEXT','GUILD_NEWS'].includes(resChann.type) && resChann.permissionsFor(resChann.guild.me).has(Discord.Permissions.FLAGS.VIEW_CHANNEL)) {
 			const resMsg = await resChann.messages.fetch(messageId);
-			resMsg.edit({embeds: [embed]});
+			await resMsg.edit({embeds: [embed]});
 		}
 		else if(resChann.type == 'DM'){
 			const resMsg = await resChann.messages.fetch(messageId);
-			resMsg.edit({embeds: [embed]});
+			await resMsg.edit({embeds: [embed]});
 		}
 	}
 	catch(err) { /**ignore, will be cleaned up on alert end*/ }
