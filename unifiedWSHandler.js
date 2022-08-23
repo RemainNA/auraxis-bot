@@ -205,7 +205,7 @@ const alertEvent = async function(payload, environment, pgClient, discordClient)
             }
             sendEmbed.addField('Server', server, true);
             sendEmbed.addField('Status', `Started <t:${Math.floor(Date.now()/1000)}:R>`, true);
-            let terObj = {};
+            let terObj = undefined;
             try{
                 terObj = await territory.territoryInfo(payload.world_id);
             }
@@ -241,7 +241,7 @@ const alertEvent = async function(payload, environment, pgClient, discordClient)
             if(response.name.toLowerCase().indexOf("anomalies") > -1){
                 showTerritory = false;
             }
-            if(showTerritory && terObj != "" && continent != "Koltyr"){
+            if(showTerritory && terObj != undefined && continent != "Koltyr"){
                 let Total = terObj[continent].vs + terObj[continent].nc + terObj[continent].tr;
                 let vsPc = ((terObj[continent].vs/Total)*100).toPrecision(3);
                 let ncPc = ((terObj[continent].nc/Total)*100).toPrecision(3);
