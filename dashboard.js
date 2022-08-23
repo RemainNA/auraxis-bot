@@ -141,12 +141,12 @@ const outfitStatus = async function(outfitID, platform, pgClient){
 		resEmbed.setTitle(oInfo.name);
 	}
 	resEmbed.setThumbnail(`https://www.outfit-tracker.com/outfit-logo/${oInfo.outfitID}.png`);
-	resEmbed.setDescription(`${oInfo.onlineCount}/${oInfo.memberCount} online`);
+	resEmbed.setDescription(`${oInfo.onlineCount}/${oInfo.memberCount} online | ${serverNames[oInfo.world]}`);
 	resEmbed.setColor(faction(oInfo.faction).color);
 
 	if(oInfo.onlineCount === -1){
 		resEmbed.addField("Online member count unavailable", "-");
-		resEmbed.setDescription(`?/${oInfo.memberCount} online`);
+		resEmbed.setDescription(`?/${oInfo.memberCount} online | ${serverNames[oInfo.world]}`);
 	}
 	else{
 		for(let i = 0; i < 8; i++){
