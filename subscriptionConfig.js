@@ -241,7 +241,7 @@ module.exports = {
 	/**
 	 * Set which alert type do display or not display for a channel
 	 * @param {string} type - the type of alert to set, territoy or non-territory
-	 * @param {string} setting - enable or disable displaying alerts
+	 * @param {boolean} setting - enable or disable displaying alerts
 	 * @param {string} channel - the channel to set alert visibility for
 	 * @param {pg.Client} pgClient - the postgres client
 	 * @returns a message indicating the status of the setting

@@ -4,7 +4,7 @@
  */
 /**
  * @typedef {import('pg').Client} pg.Client
- * @typedef {import('discord.js').User} discord.User 
+ * @typedef {import('discord.js').CommandInteraction} discord.Interaction 
  */
 
 const config = require('./subscriptionConfig.js');
@@ -382,8 +382,8 @@ module.exports = {
 
     /**
      * Ensure that the channel has the correct permissions to allow the bot to send messages
-     * @param interaction - the interaction to check
-     * @param {discord.User} user - the user to check
+     * @param {discord.Interaction} interaction - the interaction to check
+     * @param {string} user - Auraxis Bot id 
      * @param {string} locale - the locale of the channel 
      */
     permissionCheck: async function(interaction, user, locale="en-US"){
