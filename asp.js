@@ -1,6 +1,6 @@
 /**
  * This file implements a function which finds and returns the max BR a character reached before joining ASP, and tracks their ASP unlocks and tokens
- * @module preASP
+ * @module asp
  */
 
 const Discord = require('discord.js');
@@ -103,7 +103,6 @@ module.exports = {
 			resEmbed.addField(i18n.__({phrase: "ASP Skills Continued", locale: locale}), cInfo.unlocksContinued.substring(0,(cInfo.unlocksContinued.length-6)));
 		}
 		resEmbed.setThumbnail("http://census.daybreakgames.com/files/ps2/images/static/88688.png");
-
 		return resEmbed;
 	}
 }
