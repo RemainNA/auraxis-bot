@@ -152,7 +152,7 @@ function faction(factionID){
 	/**
 	 * @typedef {Object} faction
 	 * @property {import('discord.js').ColorResolvable} color - faction color
-	 * @property {string} decal - faction decal
+	 * @property {string} decal - faction logo emoji
 	 * @property {string} initial - faction initial
 	 * @property {string} tracker - faction color emoji	
 	 */
