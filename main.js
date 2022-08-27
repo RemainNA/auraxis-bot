@@ -51,6 +51,7 @@ const directives = require('./directives.js');
 const vehicles = require('./vehicles.js');
 const outfitMaintenance = require('./outfitMaintenance.js');
 const character = require('./character.js');
+const outfitWars = require('./outfitWars.js');
 
 require('dotenv').config();
 
@@ -530,6 +531,16 @@ client.on('interactionCreate', async interaction => {
 				res = await vehicles.vehicle(options.getString("name"), options.getString("vehicle"), options.getString("platform") || "ps2:v2", interaction.locale);
 				await interaction.editReply({embeds: [res]});
 				break;
+
+			case 'outfit-wars':
+				await interaction.deferReply();
+				switch(options.getSubcommand()){
+				case 'registrations':
+					res = await outfitWars.registrations(options.getString("server"), interaction.locale);
+					await interaction.editReply({embeds: [res]});
+					break;
+
+				}
 			
 			}
 			
