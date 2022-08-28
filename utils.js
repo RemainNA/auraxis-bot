@@ -32,6 +32,18 @@ const continents = [
 ];
 
 /**
+ * `continentID`: `continentName`
+ */
+ const continentNames = {
+	2: "Indar",
+	4: "Hossin",
+	6: "Amerish",
+	8: "Esamir",
+	344: "Oshur",
+	14: "Koltyr"
+ };
+
+/**
  * `serverID`: `serverName`
  */
 const serverNames = {
@@ -171,6 +183,7 @@ function faction(factionID){
 module.exports = {
 	servers: servers,
 	continents: continents,
+	continentNames: continentNames,
 	serverNames: serverNames,
 	serverIDs: serverIDs,
 	badQuery: badQuery,
