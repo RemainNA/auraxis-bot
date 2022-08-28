@@ -18,9 +18,8 @@ const {serverNames, serverIDs, servers, continents, faction} = require('./utils.
  * @returns the name and population of the server
  */
 const populationName = async function(serverID){
-	const population = await getPopulation(serverID);
-	const total = population.vs + population.nc + population.tr + population.ns;
-	return `${serverNames[serverID]}: ${total} online`;
+	const pop = await getPopulation();
+	return `${serverNames[serverID]}: ${pop[serverID].global.all} online`;
 }
 
 /**

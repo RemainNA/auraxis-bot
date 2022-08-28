@@ -17,7 +17,7 @@ const {territoryInfo, continentBenefit} = require('./territory.js');
 const {onlineInfo, totalLength} = require('./online.js');
 const {ownedBases, centralBases} = require('./outfit.js');
 const bases = require('./static/bases.json');
-const {serverNames, serverIDs, servers, continents, faction} = require('./utils.js');
+const {serverNames, serverIDs, servers, continents, continentNames, faction, localeNumber} = require('./utils.js');
 
 /**
  * Creates a server dashboard for the given serverID that keeps track of the population, territory control, and active alerts
@@ -30,24 +30,24 @@ const serverStatus = async function(serverID, pgClient){
 	resEmbed.setTitle(`${serverNames[serverID]} Dashboard`);
 
 	// Population
-	const population = await getPopulation(serverID); 
-	const totalPop = population.vs + population.nc + population.tr + population.ns;
-	const vsPc = ((population.vs/totalPop)*100).toPrecision(3);
-	const ncPc = ((population.nc/totalPop)*100).toPrecision(3);
-	const trPc = ((population.tr/totalPop)*100).toPrecision(3);
-	const nsPc = ((population.ns/totalPop)*100).toPrecision(3);
-	const populationField = `\
-	\n<:VS:818766983918518272> **VS**: ${population.vs}  |  ${vsPc}%\
-	\n<:NC:818767043138027580> **NC**: ${population.nc}  |  ${ncPc}%\
-	\n<:TR:818988588049629256> **TR**: ${population.tr}  |  ${trPc}%\
-	\n<:NS:819511690726866986> **NSO**: ${population.ns}  |  ${nsPc}%`
-	resEmbed.addField(`Population - ${totalPop}`, populationField, true);
+	const population = await getPopulation(); 
+	const pop = population[serverID];
+	const vsPc = ((pop.global.vs/(pop.global.all||1))*100).toPrecision(3);
+	const ncPc = ((pop.global.nc/(pop.global.all||1))*100).toPrecision(3);
+	const trPc = ((pop.global.tr/(pop.global.all||1))*100).toPrecision(3);
+	const nsPc = ((pop.global.unknown/(pop.global.all||1))*100).toPrecision(3);
+	let populationField = `\
+	\n<:VS:818766983918518272> **VS**: ${pop.global.vs}  |  ${vsPc}%\
+	\n<:NC:818767043138027580> **NC**: ${pop.global.nc}  |  ${ncPc}%\
+	\n<:TR:818988588049629256> **TR**: ${pop.global.tr}  |  ${trPc}%\
+	\n<:NS:819511690726866986> **NSO**: ${pop.global.unknown}  |  ${nsPc}%`
+
+	resEmbed.addField(`Population - ${localeNumber(pop.global.all, "en-US")}`, populationField, true);
 
 	// Territory
 	const territory = await territoryInfo(serverID);
 	const recordedStatus = await pgClient.query("SELECT * FROM openContinents WHERE world = $1;", [serverNames[serverID].toLowerCase()]);
-	let territoryField = "*Bases owned*\n";
-
+	let territoryField = "";
 	let openContinents = 0;
 	for (const continent of continents){
 		if(territory[continent].locked == -1){
@@ -93,7 +93,7 @@ const serverStatus = async function(serverID, pgClient){
 		}
 	}
 
-	resEmbed.addField("Territory", territoryField, true);
+	resEmbed.addField("Territory Control", territoryField, true);
 
 	// Alerts
 	try{
@@ -109,7 +109,7 @@ const serverStatus = async function(serverID, pgClient){
 		resEmbed.addField("Alerts", "No active alerts", true);
 	}
 	resEmbed.setTimestamp();
-	resEmbed.setFooter({text: "Updated every 5 minutes • Population from Fisu • Alerts from PS2Alerts"});
+	resEmbed.setFooter({text: "Updated every 5 minutes • Population from wt.honu.pw • Alerts from PS2Alerts"});
 	resEmbed.setColor("BLUE");
 
 	return resEmbed;
