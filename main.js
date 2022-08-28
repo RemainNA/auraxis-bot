@@ -3,6 +3,9 @@
  * @module main
  */
 
+// Load environment variables
+ require('dotenv').config();
+
 // Import the discord.js module
 const Discord = require('discord.js');
 
@@ -52,8 +55,6 @@ const vehicles = require('./vehicles.js');
 const outfitMaintenance = require('./outfitMaintenance.js');
 const character = require('./character.js');
 const outfitWars = require('./outfitWars.js');
-
-require('dotenv').config();
 
 let runningOnline = false;
 let twitterAvail = false;
