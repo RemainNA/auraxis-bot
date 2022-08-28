@@ -3,7 +3,7 @@
  * @module utils
  */
 
-const got = require('got');
+const {default: got} = require('got');
 
 /**
  * A list of the different servers all lowercase
@@ -30,6 +30,18 @@ const continents = [
 	"Oshur",
 	"Koltyr"
 ];
+
+/**
+ * `continentID`: `continentName`
+ */
+ const continentNames = {
+	2: "Indar",
+	4: "Hossin",
+	6: "Amerish",
+	8: "Esamir",
+	344: "Oshur",
+	14: "Koltyr"
+ };
 
 /**
  * `serverID`: `serverName`
@@ -151,8 +163,8 @@ function localeNumber(n, locale){
 function faction(factionID){
 	/**
 	 * @typedef {Object} faction
-	 * @property {string} color - faction color
-	 * @property {string} decal - faction decal
+	 * @property {import('discord.js').ColorResolvable} color - faction color
+	 * @property {string} decal - faction logo emoji
 	 * @property {string} initial - faction initial
 	 * @property {string} tracker - faction color emoji	
 	 */
@@ -171,6 +183,7 @@ function faction(factionID){
 module.exports = {
 	servers: servers,
 	continents: continents,
+	continentNames: continentNames,
 	serverNames: serverNames,
 	serverIDs: serverIDs,
 	badQuery: badQuery,

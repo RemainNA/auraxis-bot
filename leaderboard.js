@@ -12,7 +12,7 @@ const i18n = require('i18n');
  * @param {string} name - the type of leaderboard to query
  * @param {string} period - the time period to query
  * @param {string} world - which server to query
- * @param {string} limit - the number of players to return
+ * @param {number} limit - the number of players to return
  * @returns {string} the url census request to use
  */
 const constructExtension = function(name, period, world, limit){
@@ -29,7 +29,7 @@ module.exports = {
 	 * @param {string} name - the type of leaderboard to query
 	 * @param {string} period - the time period to query
 	 * @param {string} server - the server to query
-	 * @param {string} limit - the number of players to return
+	 * @param {number} limit - the number of players to return
 	 * @param {string} locale - the locale to use
 	 * @returns a discord embed of the current leaderboard on the given server
 	 */

@@ -35,7 +35,7 @@ For feedback or error reports, the best ways to contact are reddit (/u/RemainNA)
 
 ## Localization
 
-Localization of the bot is managed through [Crowdin](https://crwd.in/auraxis-bot).  Please join there and the Discord server listed above to contribute translations.
+Localization of the bot is managed through [Crowdin](https://crowdin.com/project/auraxis-bot).  Please join there and the Discord server listed above to contribute translations.
 
 If you notice a translation error please report it in the support server.
 

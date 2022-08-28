@@ -42,7 +42,7 @@ const platforms = [
 ]
 
 /**
- * All servers excpet for Jaeger
+ * All servers except for Jaeger
  */
 const serversNoJaeger = [
 	{
@@ -79,6 +79,32 @@ const serversNoJaeger = [
  * All servers
  */
 const servers = serversNoJaeger.concat([{name:"Jaeger", value: "jaeger"}]);
+
+/**
+ * All PC servers except for Jaeger
+ */
+ const pcServers = [
+	{
+		name: "Connery",
+		value: "connery"
+	},
+	{
+		name: "Miller",
+		value: "miller"
+	},
+	{
+		name: "Cobalt",
+		value: "cobalt"
+	},
+	{
+		name: "Emerald",
+		value: "emerald"
+	},
+	{
+		name: "SolTech",
+		value: "soltech"
+	}
+]
 
 /**
  * All possible commands
@@ -772,6 +798,24 @@ const data = [
 			required: false,
 			choices: platforms
 		}]
+	},
+	{
+		name: 'outfit-wars',
+		description: "Lookup information about outfit wars",
+		options: [
+			{
+				name: 'registrations',
+				description: "View registered outfits for a given server's outfit wars",
+				type: '1',
+				options: [{
+					name: 'server',
+					description: 'Server name',
+					type: '3',
+					required: true,
+					choices: pcServers
+				}]
+			}
+		]
 	}
 ]
 

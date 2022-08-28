@@ -235,6 +235,6 @@ module.exports = {
 				postMessage(SQLclient, channels, {includes: json.includes, data: tweet});
 			});
 		}
-		setTimeout(() => this.latestTweet(SQLclient, channels), 1200000);
+		setTimeout(() => this.latestTweet(SQLclient, channels), 600000);
 	}
 }

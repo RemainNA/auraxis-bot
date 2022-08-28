@@ -3,6 +3,9 @@
  * @module main
  */
 
+// Load environment variables
+ require('dotenv').config();
+
 // Import the discord.js module
 const Discord = require('discord.js');
 
@@ -30,7 +33,7 @@ const listener = require('./unifiedWSListener.js');
 const subscriptionConfig = require('./subscriptionConfig.js');
 const subscription = require('./subscriptions.js');
 const population = require('./population.js');
-const asp = require('./preASP.js');
+const asp = require('./asp.js');
 const territory = require('./territory.js');
 const alerts = require('./alerts.js');
 const messageHandler = require('./messageHandler.js');
@@ -51,8 +54,7 @@ const directives = require('./directives.js');
 const vehicles = require('./vehicles.js');
 const outfitMaintenance = require('./outfitMaintenance.js');
 const character = require('./character.js');
-
-require('dotenv').config();
+const outfitWars = require('./outfitWars.js');
 
 let runningOnline = false;
 let twitterAvail = false;
@@ -94,12 +96,14 @@ client.on('ready', async () => {
 			twitterListener.connect(SQLclient, client.channels);
 			twitterListener.latestTweet(SQLclient, client.channels);
 		}
+		/** The bot cycles every 24 hours, so these will be called every 24 hours */
 		outfitMaintenance.update(SQLclient);
 		alertMaintenance.update(SQLclient, client);
 		deleteMessages.run(SQLclient, client);
 		openContinents.check(SQLclient, client);
 		trackers.update(SQLclient, client);
 		dashboard.update(SQLclient, client);
+
 		setInterval(function () { 
 			deleteMessages.run(SQLclient, client);
 			openContinents.check(SQLclient, client);
@@ -528,6 +532,16 @@ client.on('interactionCreate', async interaction => {
 				res = await vehicles.vehicle(options.getString("name"), options.getString("vehicle"), options.getString("platform") || "ps2:v2", interaction.locale);
 				await interaction.editReply({embeds: [res]});
 				break;
+
+			case 'outfit-wars':
+				await interaction.deferReply();
+				switch(options.getSubcommand()){
+				case 'registrations':
+					res = await outfitWars.registrations(options.getString("server"), interaction.locale);
+					await interaction.editReply({embeds: [res]});
+					break;
+
+				}
 			
 			}
 			

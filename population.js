@@ -4,8 +4,8 @@
  */
 
 const Discord = require('discord.js');
-const got = require('got')
-const {servers, serverIDs, serverNames, localeNumber} = require('./utils.js');
+const {default: got} = require('got')
+const {servers, serverIDs, serverNames, localeNumber, continentNames} = require('./utils.js');
 const i18n = require('i18n');
 
 /**
@@ -14,32 +14,52 @@ const i18n = require('i18n');
  * @returns an object showing the total population of the server by faction
  * @throw if there are API errors
  */
-const getPopulation = async function(world){
-	let url = '';
-	if(world == 2000){
-		url = 'http://ps4eu.ps2.fisu.pw/api/population/?world=2000';
-	}
-	else if(world == 1000){
-		url = 'http://ps4us.ps2.fisu.pw/api/population/?world=1000';
-	}
-	else{
-		url = 'http://ps2.fisu.pw/api/population/?world='+world;
-	}
+const getPopulation = async function(){
 	try{
-		let response = await got(url).json();
+		const response = await got("https://wt.honu.pw/api/world/overview").json();
 		if(typeof(response.error) !== 'undefined'){
 			throw response.error;
 		}
 		if(response.statusCode == 404){
-			throw "API Unreachable"; // TODO: Maybe create an exception instead of a bare string
+			throw "API Unreachable";
 		}
-		let resObj = {
-			vs: response.result[0].vs,
-			nc: response.result[0].nc,
-			tr: response.result[0].tr,
-			ns: response.result[0].ns,
-			world: world
-		};
+		const resObj = {
+			1: {},
+			10: {},
+			13: {},
+			17: {},
+			19: {},
+			40: {},
+			1000: {},
+			2000: {}
+		}
+		response.forEach(state => {
+			const worldObj = {
+				global: {
+					all: 0,
+					vs: 0,
+					nc: 0,
+					tr: 0,
+					unknown: 0
+				},
+				2: {},
+				4: {},
+				6: {},
+				8: {},
+				344: {},
+				worldID: state.worldID
+			}
+			for(const zone of state.zones){
+				worldObj[zone.zoneID] = zone.players;
+				worldObj[zone.zoneID].open = zone.isOpened;
+				worldObj.global.all += zone.players.all;
+				worldObj.global.vs += zone.players.vs;
+				worldObj.global.nc += zone.players.nc;
+				worldObj.global.tr += zone.players.tr;
+				worldObj.global.unknown += zone.players.unknown;
+			}
+			resObj[state.worldID] = worldObj;
+		})
 		return resObj;
 	}
 	catch(err){
@@ -68,7 +88,7 @@ const fisuPopulation = function(serverID){
 		return 'http://ps4us.ps2.fisu.pw/activity/?world=1000';
 	}
 	else{
-		return 'http://ps2.fisu.pw/activity/?world='+serverID;
+		return `http://ps2.fisu.pw/activity/?world=${serverID}`;
 	}
 }
 
@@ -80,61 +100,72 @@ module.exports = {
 	 * @returns a discord embed of the population of the server 
 	 */
 	lookup: async function(server, locale="en-US"){
-
+		const results = await getPopulation();
 		if(server == 'all'){
 			let resEmbed = new Discord.MessageEmbed();
 			let total = 0;
-			//Construct an array of promises and await them all in parallel
-			const results = await Promise.all(Array.from(servers, x=> getPopulation(serverIDs[x])))
-			for(const pop of results){
-				const serverTotal = pop.vs + pop.nc + pop.tr + pop.ns;
-				const vsPc = localeNumber((pop.vs/(serverTotal||1))*100, locale);
-				const ncPc = localeNumber((pop.nc/(serverTotal||1))*100, locale);
-				const trPc = localeNumber((pop.tr/(serverTotal||1))*100, locale);
-				const nsPc = localeNumber((pop.ns/(serverTotal||1))*100, locale);
+			for(const server of servers){
+				const pop = results[serverIDs[server]];
+				const vsPc = localeNumber((pop.global.vs/(pop.global.all||1))*100, locale);
+				const ncPc = localeNumber((pop.global.nc/(pop.global.all||1))*100, locale);
+				const trPc = localeNumber((pop.global.tr/(pop.global.all||1))*100, locale);
+				const nsPc = localeNumber((pop.global.unknown/(pop.global.all||1))*100, locale);
 				const populationField = `\
-				\n<:VS:818766983918518272> **${i18n.__({phrase: 'VS', locale: locale})}**: ${pop.vs}  |  ${vsPc}%\
-				\n<:NC:818767043138027580> **${i18n.__({phrase: 'NC', locale: locale})}**: ${pop.nc}  |  ${ncPc}%\
-				\n<:TR:818988588049629256> **${i18n.__({phrase: 'TR', locale: locale})}**: ${pop.tr}  |  ${trPc}%\
-				\n<:NS:819511690726866986> **${i18n.__({phrase: 'NSO', locale: locale})}**: ${pop.ns}  |  ${nsPc}%`
-				const populationTitle = i18n.__mf({phrase: "{server} population - {total}", locale: locale}, {server: i18n.__({phrase: serverNames[pop.world], locale: locale}), total: serverTotal})
+				\n<:VS:818766983918518272> **${i18n.__({phrase: 'VS', locale: locale})}**: ${pop.global.vs}  |  ${vsPc}%\
+				\n<:NC:818767043138027580> **${i18n.__({phrase: 'NC', locale: locale})}**: ${pop.global.nc}  |  ${ncPc}%\
+				\n<:TR:818988588049629256> **${i18n.__({phrase: 'TR', locale: locale})}**: ${pop.global.tr}  |  ${trPc}%\
+				\n<:NS:819511690726866986> **${i18n.__({phrase: 'NSO', locale: locale})}**: ${pop.global.unknown}  |  ${nsPc}%`
+				const populationTitle = i18n.__mf({phrase: "{server} population - {total}", locale: locale}, {server: i18n.__({phrase: serverNames[pop.worldID], locale: locale}), total: pop.global.all})
 				resEmbed.addField(populationTitle, populationField, true);
-				total += serverTotal;
+				total += pop.global.all;
 			}
 			resEmbed.setTitle(i18n.__mf({phrase: "Total population - {total}", locale: locale}, {total: total.toLocaleString(locale)}));
-			resEmbed.setFooter({text: i18n.__mf({phrase: "Data from {site}", locale: locale}, {site: "ps2.fisu.pw"})});
+			resEmbed.setFooter({text: i18n.__mf({phrase: "Data from {site}", locale: locale}, {site: "wt.honu.pw"})});
 			resEmbed.setTimestamp();
 			return resEmbed;
 		}
 		else{
 			const serverID = serverIDs[server];
 			const normalized = serverNames[serverID];
-			const res = await getPopulation(serverID);
-
+			const pop = results[serverID];
 			let sendEmbed = new Discord.MessageEmbed();
-			let total = Number(res.vs) + Number(res.nc) + Number(res.tr) + Number(res.ns);
-			sendEmbed.setTitle(i18n.__mf({phrase: "{server} population - {total}", locale: locale}, {server: i18n.__({phrase: normalized, locale: locale}), total: total.toLocaleString(locale)}));
-			total = Math.max(total, 1);
-			const vsPc = localeNumber((res.vs/total)*100, locale);
-			const ncPc = localeNumber((res.nc/total)*100, locale);
-			const trPc = localeNumber((res.tr/total)*100, locale);
-			const nsPc = localeNumber((res.ns/total)*100, locale);
+			sendEmbed.setTitle(i18n.__mf({phrase: "{server} population - {total}", locale: locale}, 
+				{server: i18n.__({phrase: normalized, locale: locale}), total: pop.global.all.toLocaleString(locale)}));
+			const vsPc = localeNumber((pop.global.vs/(pop.global.all||1))*100, locale);
+			const ncPc = localeNumber((pop.global.nc/(pop.global.all||1))*100, locale);
+			const trPc = localeNumber((pop.global.tr/(pop.global.all||1))*100, locale);
+			const nsPc = localeNumber((pop.global.unknown/(pop.global.all||1))*100, locale);
 			sendEmbed.setDescription(`\
-			\n<:VS:818766983918518272> **${i18n.__({phrase: 'VS', locale: locale})}**: ${res.vs}  |  ${vsPc}%\
-			\n<:NC:818767043138027580> **${i18n.__({phrase: 'NC', locale: locale})}**: ${res.nc}  |  ${ncPc}%\
-			\n<:TR:818988588049629256> **${i18n.__({phrase: 'TR', locale: locale})}**: ${res.tr}  |  ${trPc}%\
-			\n<:NS:819511690726866986> **${i18n.__({phrase: 'NSO', locale: locale})}**: ${res.ns}  |  ${nsPc}%`)
+			\n**${i18n.__({phrase: "globalPopulation", locale: locale})}**\
+			\n<:VS:818766983918518272> **${i18n.__({phrase: 'VS', locale: locale})}**: ${pop.global.vs}  |  ${vsPc}%\
+			\n<:NC:818767043138027580> **${i18n.__({phrase: 'NC', locale: locale})}**: ${pop.global.nc}  |  ${ncPc}%\
+			\n<:TR:818988588049629256> **${i18n.__({phrase: 'TR', locale: locale})}**: ${pop.global.tr}  |  ${trPc}%\
+			\n<:NS:819511690726866986> **${i18n.__({phrase: 'NSO', locale: locale})}**: ${pop.global.unknown}  |  ${nsPc}%`);
+			for(const contID of [2,4,6,8,344]){
+				const contPop = pop[contID];
+				if(!contPop.open && contPop.all != 0){
+					sendEmbed.addField(i18n.__mf({phrase: "lockedCont", locale: locale}, {continent: i18n.__({phrase: continentNames[contID], locale: locale})}), i18n.__mf({phrase: "numOnline", locale: locale}, {pop: contPop.all}))
+					continue;
+				}
+				else if(!contPop.open){
+					sendEmbed.addField(i18n.__mf({phrase: "lockedCont", locale: locale}, {continent: i18n.__({phrase: continentNames[contID], locale: locale})}), i18n.__({phrase: "empty", locale: locale}))
+					continue;
+				}
+				const vsPc = localeNumber((contPop.vs/(contPop.all||1))*100, locale);
+				const ncPc = localeNumber((contPop.nc/(contPop.all||1))*100, locale);
+				const trPc = localeNumber((contPop.tr/(contPop.all||1))*100, locale);
+				const nsPc = localeNumber((contPop.unknown/(contPop.all||1))*100, locale);
+				sendEmbed.addField(i18n.__mf({phrase: "{server} population - {total}", locale: locale}, 
+					{server: i18n.__({phrase: i18n.__({phrase: continentNames[contID], locale: locale}), locale: locale}), total: contPop.all.toLocaleString(locale)}), `\
+					\n<:VS:818766983918518272> **${i18n.__({phrase: 'VS', locale: locale})}**: ${contPop.vs}  |  ${vsPc}%\
+					\n<:NC:818767043138027580> **${i18n.__({phrase: 'NC', locale: locale})}**: ${contPop.nc}  |  ${ncPc}%\
+					\n<:TR:818988588049629256> **${i18n.__({phrase: 'TR', locale: locale})}**: ${contPop.tr}  |  ${trPc}%\
+					\n<:NS:819511690726866986> **${i18n.__({phrase: 'NSO', locale: locale})}**: ${contPop.unknown}  |  ${nsPc}%`
+				)
+			}
 			sendEmbed.setTimestamp();
 			sendEmbed.setURL(fisuPopulation(serverID));
-			if(serverID == 2000){
-				sendEmbed.setFooter({text: i18n.__mf({phrase: "Data from {site}", locale: locale}, {site: "ps4eu.ps2.fisu.pw"})});
-			}
-			else if(serverID == 1000){
-				sendEmbed.setFooter({text: i18n.__mf({phrase: "Data from {site}", locale: locale}, {site: "ps4us.ps2.fisu.pw"})});
-			}
-			else{
-				sendEmbed.setFooter({text: i18n.__mf({phrase: "Data from {site}", locale: locale}, {site: "ps2.fisu.pw"})});
-			}
+			sendEmbed.setFooter({text: i18n.__mf({phrase: "Data from {site}", locale: locale}, {site: "wt.honu.pw"})});
 
 			return sendEmbed;
 		}

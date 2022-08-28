@@ -18,13 +18,12 @@ const {serverNames, serverIDs, servers, continents, faction} = require('./utils.
  * @returns the name and population of the server
  */
 const populationName = async function(serverID){
-	const population = await getPopulation(serverID);
-	const total = population.vs + population.nc + population.tr + population.ns;
-	return `${serverNames[serverID]}: ${total} online`;
+	const pop = await getPopulation();
+	return `${serverNames[serverID]}: ${pop[serverID].global.all} online`;
 }
 
 /**
- * Get open continents on serveer
+ * Get open continents on server
  * @param {number} serverID - the server to check open continents
  * @returns which continents are open on the  server
  */
@@ -43,10 +42,16 @@ const territoryName = async function(serverID){
  * Get the number of online members in an outfit
  * @param {string} outfitID - the outfit to check
  * @param {string} platform -  the platform of the outfit
- * @returns an object conontaining the number of online members in the outfit
+ * @returns an object containing the number of online members in the outfit
  */
 const outfitName = async function(outfitID, platform){
 	const oInfo = await onlineInfo("", platform, outfitID);
+	if(oInfo.onlineCount == -1){
+		return {
+			faction: `${faction(oInfo.faction).tracker} ${oInfo.alias}: ? online`,
+			noFaction: `${oInfo.alias}: ? online`
+		};
+	}
 	return {
 		faction: `${faction(oInfo.faction).tracker} ${oInfo.alias}: ${oInfo.onlineCount} online`,
 		noFaction: `${oInfo.alias}: ${oInfo.onlineCount} online`
