@@ -241,5 +241,12 @@
 	"usableUnderwater": "Usable in water",
 	"yes": "Yes",
 	"no": "No",
-	"currentlyUnstable": "Currently unstable"
+	"currentlyUnstable": "Currently unstable",
+	"outfitWarsRegistrations": "{server} Outfit Wars Registrations",
+	"fullyRegistered": "Fully Registered ({count})",
+	"partiallyRegistered": "Partially Registered ({count})",
+	"lockedCont": "{continent} locked",
+	"globalPopulation": "Global Population",
+	"numOnline": "{pop} online",
+	"empty": "Empty"
 }
