@@ -67,7 +67,7 @@ module.exports = {
 		if(partiallyContinued.length > 0){
 			sendEmbed.addField('\u200B', partiallyContinued);
 		}
-		sendEmbed.setFooter({text: i18n.__({phrase: "falconAPISource", locale: locale})});
+		sendEmbed.setFooter({text: i18n.__md({phrase: "Data from {site}", locale: locale}, {site: "census.lithafalcon.cc"})});
 	
 		return sendEmbed;
 	}
