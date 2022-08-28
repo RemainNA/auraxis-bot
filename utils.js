@@ -3,7 +3,7 @@
  * @module utils
  */
 
-const {default: got} = require('got');
+const {fetch} = require('undici');
 
 /**
  * A list of the different servers all lowercase
@@ -94,7 +94,11 @@ async function censusRequest(platform, key, extension){
 	// Allows for easily changing https to http if there is an error
 	const uri = `https://census.daybreakgames.com/s:${process.env.serviceID}/get/${platform}/${extension}`;
 	try{
-		const response = await got(uri).json();
+		const request = await fetch(uri);
+		if(!request.ok) {
+			throw `Census API unreachable: ${request.status}`;
+		}
+		const response = await request.json();
 		if(typeof(response.error) !== 'undefined'){
 			if(response.error == 'service_unavailable'){
 				throw "Census API currently unavailable";
@@ -116,22 +120,15 @@ async function censusRequest(platform, key, extension){
 		return response[key];
 	}
 	catch(err){
-		if(typeof(err) == 'string'){
+		if(typeof(err) === 'string'){
 			throw err;
 		}
-		if(err.message.indexOf('404') > -1){
-            throw "Census API unreachable: 404";
-        }
-		if(err.name == 'ParseError'){
+		if(err instanceof SyntaxError){
+			// .json() occurs when census gets redirected to https://www.daybreakgames.com/home
 			throw "Census API unavailable: Redirect";
 		}
-		if(err.code == 'ECONNRESET'){
-			throw "Census API error: ECONNRESET";
-		}
-		if(err.code == 'ECONNREFUSED'){
-			throw "Census API error: ECONNREFUSED";
-		}
-		throw err;
+		// fetch() only throws TypeErrors https://developer.mozilla.org/en-US/docs/Web/API/fetch#exceptions
+		throw `Census API error: ${err.cause.code}`;
 	}
 }
 
