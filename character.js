@@ -11,7 +11,7 @@ const weapons = require('./static/weapons.json');
 const vehicles = require('./static/vehicles.json');
 const decals = require('./static/decals.json');
 const sanction = require('./static/sanction.json');
-const {default: got} = require('got');
+const { fetch } = require('undici');
 const i18n = require('i18n');
 const { serverNames, badQuery, censusRequest, localeNumber, faction } = require('./utils');
 
@@ -261,7 +261,8 @@ const getWeaponName = async function(ID, platform){
         return response.item_list[0].name.en;
     }
     let URI = 'https://ps2.fisu.pw/api/weapons/?id='+ID; //Fallback Fisu URI
-    let fisuResponse = await got(URI).json();
+    const request = await fetch(URI);
+    const fisuResponse = await request.json();
     if(typeof(fisuResponse[ID]) !== 'undefined'){
         return fisuResponse[ID].name;
     }

@@ -5,7 +5,7 @@
  */
 
 const Discord = require('discord.js');
-const {default: got} = require('got');
+const { fetch } = require('undici');
 const { serverNames, serverIDs, faction } = require('./utils');
 const { onlineInfo}  = require('./online.js');
 const i18n = require('i18n');
@@ -20,7 +20,8 @@ module.exports = {
 	 */
 	registrations: async function(server, locale='en-US'){
 		const uri = `https://census.lithafalcon.cc/get/ps2/outfit_war_registration?world_id=${serverIDs[server]}`
-		const response = await got(uri).json();
+		const request = await fetch(uri);
+		const response = await request.json();
 		const sendEmbed = new Discord.MessageEmbed();
 		sendEmbed.setTitle(i18n.__mf({phrase: "outfitWarsRegistrations", locale: locale}, 
 			{server: serverNames[serverIDs[server]]}
