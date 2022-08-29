@@ -137,6 +137,9 @@ async function postMessage(SQLclient, channels, jsonObj){
 				subscriptions.unsubscribeAll(SQLclient, row.channel);
 				console.log(`Unsubscribed from ${row.channel}`);
 			}
+			else if(error?.code == 50013 || error?.code == 50001){ //Missing access/permissions error
+				//Ignore in case permissions are fixed
+			}
 			else{
 				console.log(error);
 			}
