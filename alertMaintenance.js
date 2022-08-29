@@ -7,10 +7,10 @@
  * @typedef {import('pg').Client} pg.Client
  */
 const Discord = require('discord.js');
-const {default: got} = require('got');
+const { fetch } = require('undici');
 const alerts = require('./static/alerts.json');
 const {serverNames} = require('./utils.js');
-const {popLevels} = require('./alerts.js')
+const {popLevels} = require('./alerts.js');
 /**
  * faction winners
  */
@@ -136,11 +136,12 @@ module.exports = {
 		const results = await pgClient.query("SELECT DISTINCT alertID, error FROM alertMaintenance");
 		Promise.allSettled(results.rows.map(async row => {
 			try {
-				const response = await got(`https://api.ps2alerts.com/instances/${row.alertid}`).json();
+				const request = await fetch(`https://api.ps2alerts.com/instances/${row.alertid}`);
+				const response = await request.json();
 				await updateAlert(response, pgClient, discordClient, response.timeEnded != null);
 			}
 			catch (err) {
-				if (typeof(err) !== 'string') {
+				if (err instanceof TypeError) {
 					checkError(row, pgClient, "Error during web request");
 				}
 				else if(err == "Error displaying territory"){
