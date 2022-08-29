@@ -77,10 +77,13 @@ function badQuery(input){
  * @returns results of the request encoded in JSON
  * @throws if there are Census API errors
  */
-async function censusRequest(platform, key, extension){
+async function censusRequest(platform, key, extension, retry = 2){
 	// Places boilerplate error checking in one location and standardizes it
 	// Allows for easily changing https to http if there is an error
 	const uri = `https://census.daybreakgames.com/s:${process.env.serviceID}/get/${platform}/${extension}`;
+	if (retry === 0) {
+		return;
+	}
 	try{
 		const request = await fetch(uri);
 		if(!request.ok) {
@@ -116,6 +119,11 @@ async function censusRequest(platform, key, extension){
 			throw "Census API unavailable: Redirect";
 		}
 		// fetch() only throws TypeErrors https://developer.mozilla.org/en-US/docs/Web/API/fetch#exceptions
+		// Due to how finicky the census and fetch() not retrying on error we use recurion to retry the request
+		const request = censusRequest(platform, key, extension, retry - 1);
+		if (request !== undefined) {
+			return request;
+		}
 		throw `Census API error: ${err.cause.code}`;
 	}
 }
