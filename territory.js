@@ -52,16 +52,23 @@ const continentBenefit = function(continent, locale="en-US"){
     }
 }
 
-// Zone (continent) IDs
-// Indar: 2
-// Hossin: 4
-// Amerish: 6
-// Esamir: 8
-
-// Faction IDs
-// VS: 1
-// NC: 2
-// TR: 3
+const warpgatePositions = {
+    "2201": "⬆",
+    "2202": "⬅",
+    "2203": "➡",
+    "4230": "⬅",
+    "4240": "➡",
+    "4250": "⬇",
+    "6001": "⬅",
+    "6002": "➡",
+    "6003": "⬇",
+    "18029": "⬆",
+    "18030": "⬇",
+    "18062": "➡",
+    "18303": "↗",
+    "18304": "↖",
+    "18305": "⬇"
+}
 
 module.exports = {
     /**
@@ -99,6 +106,7 @@ module.exports = {
             let nc = 0;
             let tr = 0;
             let unstable = false;
+            let warpgates = {1:"", 2:"", 3:""}
             for(const row of res.Regions.Row){
                 if(row.RowData.FactionId == "1"){
                     vs += 1;
@@ -111,28 +119,31 @@ module.exports = {
                 }
                 else if(!ignoredRegions.includes(row.RowData.RegionId)){
                     // If faction is 0 and is not ignored mark continent as unstable
-                    // Some Oshur regions have no associated facilities and as such are ignored
+                    // Some Oshur and Esamir regions have no associated facilities and as such are ignored
                     unstable = true;
+                }
+                if(warpgatePositions[row.RowData.RegionId] != undefined){
+                    warpgates[row.RowData.FactionId] = warpgatePositions[row.RowData.RegionId];
                 }
             }
             switch(res.ZoneId){
                 case "2":
-                    IndarObj = {vs:vs, nc:nc, tr:tr, locked:-1, unstable: unstable};
+                    IndarObj = {vs:vs, nc:nc, tr:tr, locked:-1, unstable: unstable, warpgates: warpgates};
                     break;
                 case "4":
-                    HossinObj = {vs:vs, nc:nc, tr:tr, locked:-1, unstable: unstable};
+                    HossinObj = {vs:vs, nc:nc, tr:tr, locked:-1, unstable: unstable, warpgates: warpgates};
                     break;
                 case "6":
-                    AmerishObj = {vs:vs, nc:nc, tr:tr, locked:-1, unstable: unstable};
+                    AmerishObj = {vs:vs, nc:nc, tr:tr, locked:-1, unstable: unstable, warpgates: warpgates};
                     break;
                 case "8":
-                    EsamirObj = {vs:vs, nc:nc, tr:tr, locked:-1, unstable: unstable};
+                    EsamirObj = {vs:vs, nc:nc, tr:tr, locked:-1, unstable: unstable, warpgates: warpgates};
                     break;
                 case "14":
-                    KoltyrObj = {vs:vs, nc:nc, tr:tr, locked:-1, unstable: unstable};
+                    KoltyrObj = {vs:vs, nc:nc, tr:tr, locked:-1, unstable: unstable, warpgates: warpgates};
                     break;
                 case "344":
-                    OshurObj = {vs:vs, nc:nc, tr:tr, locked:-1, unstable: unstable};
+                    OshurObj = {vs:vs, nc:nc, tr:tr, locked:-1, unstable: unstable, warpgates: warpgates};
                     break;
             }
         }
@@ -189,7 +200,9 @@ module.exports = {
         resEmbed.setTimestamp();
         resEmbed.setURL(fisuTerritory(serverID));
         const recordedStatus = await pgClient.query("SELECT * FROM openContinents WHERE world = $1;", [serverName]);
-        for(let continent of continents){
+        const openContinents = [];
+        const lockedContinents = [];
+        for(const continent of continents){
             let Total = terObj[continent].vs + terObj[continent].nc + terObj[continent].tr;
             if(Total == 0){
                 continue; // This accounts for Esamir being disabled on PS4
@@ -200,23 +213,43 @@ module.exports = {
             const trPc = localeNumber((terObj[continent].tr/Total)*100, locale);
             const owningFaction = faction(terObj[continent].locked);
             if(terObj[continent].locked != -1){
-                resEmbed.addField(`${i18n.__({phrase: continent, locale: locale})} ${owningFaction.decal}`, i18n.__mf({phrase: "Locked {timestamp} ({relative})", locale: locale}, {timestamp: `<t:${timestamp}:t>`, relative: `<t:${timestamp}:R>`})+"\n"+continentBenefit(continent, locale));
+                lockedContinents.push({
+                    title: `${i18n.__({phrase: continent, locale: locale})} ${owningFaction.decal}`,
+                    body: `${i18n.__mf({phrase: "Locked {timestamp} ({relative})", locale: locale}, {timestamp: `<t:${timestamp}:t>`, relative: `<t:${timestamp}:R>`})}\n${continentBenefit(continent, locale)}`,
+                    lastChange: timestamp
+                })
             }
             else if(terObj[continent].unstable){
-                resEmbed.addField(i18n.__({phrase: continent, locale: locale})+' <:Unstable:1000661319663497217>', `\
-                \n${i18n.__mf({phrase: "Unlocked {timestamp} ({relative})", locale: locale}, {timestamp: `<t:${timestamp}:t>`, relative: `<t:${timestamp}:R>`})}\
-                \n*${i18n.__({phrase: "currentlyUnstable", locale: locale})}*\
-                \n<:VS:818766983918518272> **${i18n.__({phrase: "VS", locale: locale})}**: ${terObj[continent].vs}  |  ${vsPc}%\
-                \n<:NC:818767043138027580> **${i18n.__({phrase: "NC", locale: locale})}**: ${terObj[continent].nc}  |  ${ncPc}%\
-                \n<:TR:818988588049629256> **${i18n.__({phrase: "TR", locale: locale})}**: ${terObj[continent].tr}  |  ${trPc}%`);
+                openContinents.push({
+                    title: `${i18n.__({phrase: continent, locale: locale})} <:Unstable:1000661319663497217>`,
+                    body: `${i18n.__mf({phrase: "Unlocked {timestamp} ({relative})", locale: locale}, {timestamp: `<t:${timestamp}:t>`, relative: `<t:${timestamp}:R>`})}\
+                    \n*${i18n.__({phrase: "currentlyUnstable", locale: locale})}*\
+                    \n${terObj[continent].warpgates[1]} <:VS:818766983918518272> **${i18n.__({phrase: "VS", locale: locale})}**: ${terObj[continent].vs}  |  ${vsPc}%\
+                    \n${terObj[continent].warpgates[2]} <:NC:818767043138027580> **${i18n.__({phrase: "NC", locale: locale})}**: ${terObj[continent].nc}  |  ${ncPc}%\
+                    \n${terObj[continent].warpgates[3]} <:TR:818988588049629256> **${i18n.__({phrase: "TR", locale: locale})}**: ${terObj[continent].tr}  |  ${trPc}%`,
+                    lastChange: timestamp
+                })
             }
             else{
-                resEmbed.addField(i18n.__({phrase: continent, locale: locale}), `\
-                \n${i18n.__mf({phrase: "Unlocked {timestamp} ({relative})", locale: locale}, {timestamp: `<t:${timestamp}:t>`, relative: `<t:${timestamp}:R>`})}\
-                \n<:VS:818766983918518272> **${i18n.__({phrase: "VS", locale: locale})}**: ${terObj[continent].vs}  |  ${vsPc}%\
-                \n<:NC:818767043138027580> **${i18n.__({phrase: "NC", locale: locale})}**: ${terObj[continent].nc}  |  ${ncPc}%\
-                \n<:TR:818988588049629256> **${i18n.__({phrase: "TR", locale: locale})}**: ${terObj[continent].tr}  |  ${trPc}%`);
+                openContinents.push({
+                    title: i18n.__({phrase: continent, locale: locale}),
+                    body: `${i18n.__mf({phrase: "Unlocked {timestamp} ({relative})", locale: locale}, {timestamp: `<t:${timestamp}:t>`, relative: `<t:${timestamp}:R>`})}\
+                    \n${terObj[continent].warpgates[1]} <:VS:818766983918518272> **${i18n.__({phrase: "VS", locale: locale})}**: ${terObj[continent].vs}  |  ${vsPc}%\
+                    \n${terObj[continent].warpgates[2]} <:NC:818767043138027580> **${i18n.__({phrase: "NC", locale: locale})}**: ${terObj[continent].nc}  |  ${ncPc}%\
+                    \n${terObj[continent].warpgates[3]} <:TR:818988588049629256> **${i18n.__({phrase: "TR", locale: locale})}**: ${terObj[continent].tr}  |  ${trPc}%`,
+                    lastChange: timestamp
+                })
             }
+        }
+
+        openContinents.sort(function (a,b) {return a.lastChange-b.lastChange});
+        lockedContinents.sort(function (a,b) {return a.lastChange-b.lastChange});
+
+        for(const continent of openContinents){
+            resEmbed.addField(continent.title, continent.body)
+        }
+        for(const continent of lockedContinents){
+            resEmbed.addField(continent.title, continent.body)
         }
 
         return resEmbed;
