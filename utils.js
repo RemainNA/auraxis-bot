@@ -117,7 +117,7 @@ async function censusRequest(platform, key, extension, retry = 2){
 			}
 			throw `Census API error: ${response.errorCode}`;
 		}
-		if(typeof(response[key]) === 'undefined'){
+		if(typeof(response[key]) === 'undefined' || !Array.isArray(response[key])){
 			throw "Census API error: undefined response";
 		}
 		return response[key];
