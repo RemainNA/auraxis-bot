@@ -4,24 +4,26 @@
  */
 
 const Discord = require('discord.js');
-const {default: got} = require('got')
+const { fetch } = require('undici');
 const {servers, serverIDs, serverNames, localeNumber, continentNames} = require('./utils.js');
 const i18n = require('i18n');
 
 /**
- * Get the faction per population of a server
- * @param {number} world - the server to get the population of
+ * Get the populations of all servers
+ * @param {string} locale - the locale to use for the Error response
  * @returns an object showing the total population of the server by faction
  * @throw if there are API errors
  */
-const getPopulation = async function(){
+async function getPopulation(locale='en-US'){
 	try{
-		const response = await got("https://wt.honu.pw/api/world/overview").json();
+		const request = await fetch("https://wt.honu.pw/api/world/overview");
+		if(!request.ok) {
+			console.log(`Population API Error: ${request.status}`);
+			throw i18n.__({phrase: "API Unreachable", locale: locale});
+		}
+		const response = await request.json();
 		if(typeof(response.error) !== 'undefined'){
 			throw response.error;
-		}
-		if(response.statusCode == 404){
-			throw "API Unreachable";
 		}
 		const resObj = {
 			1: {},
@@ -66,12 +68,7 @@ const getPopulation = async function(){
 		if(typeof(err) === 'string'){
 			throw(err);
 		}
-		else if(err.code == 'ECONNREFUSED'){
-			throw("ECONNREFUSED");
-		}
-		else{
-			throw("Error retrieving population statistics.");
-		}
+		throw `Error retrieving population statistics: ${err.cause.code}`;
 	}
 }
 
