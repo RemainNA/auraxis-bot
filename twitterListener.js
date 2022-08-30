@@ -7,10 +7,9 @@
 /**
  * @typedef {import('pg').Client} pg.Client
  * @typedef {import('discord.js').ChannelManager} discord.channels
- * @typedef {import('got').GotReturn} Request
  */
 
-const {default: got} = require('got');
+const { fetch } = require('undici');
 const messageHandler = require('./messageHandler.js');
 const subscriptions = require('./subscriptions.js');
 
@@ -24,15 +23,16 @@ const rulesURL = 'https://api.twitter.com/2/tweets/search/stream/rules';
  * @returns {Promise<any>} An array of objects containing the rules that are currently set
  */
 async function getAllRules() {
-	const response = await got(rulesURL, { headers: {
-		"authorization": `Bearer ${token}`
-    }});
-	
-    if (response.statusCode !== 200) {
-		throw response.body;
+	const response = await fetch(rulesURL, { 
+		method: 'GET',
+		headers: {
+			authorization: `Bearer ${token}`
+		}
+	});
+    if (!response.ok) {
+		throw await response.text();
     }
-	
-    return response.body;
+    return await response.text();
 }
 
 /**
@@ -48,19 +48,24 @@ async function deleteAllRules(rules) {
     const ids = rules.data.map(rule => rule.id);
 	
     const data = {
-		"delete": {
-			"ids": ids
+		delete: {
+			ids: ids
         }
     };
 	
-    const response = await got(rulesURL, {json: data, headers: {
-		"content-type": "application/json",
-        "authorization": `Bearer ${token}`
-    }});
+    const response = await fetch(rulesURL, {
+		method: 'POST',
+		headers: {
+			'content-type': "application/json",
+			authorization: `Bearer ${token}`,
+		},
+		body: JSON.stringify(data)
+	});
 	
-    if (response.statusCode !== 200) {
-		throw new Error(response.body);
+    if (!response.ok) {
+		throw new Error(await response.json());
     }
+	response.body.cancel();
 }
 
 /**
@@ -78,14 +83,19 @@ async function setRules() {
 		"add": rules
 	};
 	
-	const response = await got.post( rulesURL, {json: data, headers: {
-		"content-type": "application/json",
-        "authorization": `Bearer ${token}`
-    }});
+	const response = await fetch( rulesURL, {
+		method: 'POST',
+		headers: {
+			"content-type": "application/json",
+			"authorization": `Bearer ${token}`
+    	},
+		body: JSON.stringify(data)
+	});
 	
-    if (response.statusCode !== 201) {
-		throw new Error(response.body);
+    if (!response.ok) {
+		throw new Error(await response.json());
     }
+	response.body.cancel();
 }
 
 
@@ -172,51 +182,57 @@ module.exports = {
 	 * Connect to the Twitter API stream and send new tweets to subscribed discord channels
 	 * @param {pg.Client} SQLclient - Used to query the DB to find the discord channels to send messages to
 	 * @param {discord.channels} channels - channel manager used to fetch discord channel object based on their ids stored in the DB
-	 * @param {number} timeout - the growth factor for the reconnection logic when the stream times out
+	 * @param {number} timeout - the amount of time to wait before reconnecting to the stream
 	 */
-	 connect: async function (SQLclient, channels, timeout=0) {
+	 connect: async function (SQLclient, channels, timeout=60000) {
 		const streamURL = 'https://api.twitter.com/2/tweets/search/stream?&user.fields=username&tweet.fields=in_reply_to_user_id&expansions=referenced_tweets.id,author_id';
-		const stream = got.stream(streamURL, {
+		const response = await fetch(streamURL, {
 			headers: {
-				Authorization: `Bearer ${token}`
+				Authorization: `Bearer ${token}`,
 			},
-			timeout: {
-				response: 20000
-			}
 		});
-		// Listen to the stream.
-		stream.on('data', data => {
-			try {
-				const jsonObj = JSON.parse(data);
-				postMessage(SQLclient, channels, jsonObj);
-			} catch (e) {
-				if (data.detail === 'This stream is currently at the maximum allowed connection limit.') {
-					console.log(data.detail);
-				}
-			}
-		}).on('error', error => {
-			if (error.code !== 'ETIMEDOUT') {
-				console.log(error.code);
-			}
-			else {
-				// This reconnection logic will attempt to reconnect when a disconnection is detected.
-				// To avoid rate limits, this logic implements exponential backoff, so the wait time
-				// will increase if the client cannot reconnect to the stream.
-				console.log('A twitter connection error occurred. Reconnecting…');
-				setTimeout(() => {
-					timeout++;
-					this.connect(SQLclient, channels, timeout);
-				}, 1000 * (2 ** timeout));
-			}
-		}).on('end', () => {
-			console.log('Twitter Stream End');
+		const stream = response.body
+		if (!response.ok) {
+			// https://undici.nodejs.org/#/?id=garbage-collection
+			await stream.cancel();
+			// https://developer.twitter.com/en/support/twitter-api/error-troubleshooting
+			console.log(`Twitter HTTP error: ${response.status}`);
+			console.log('Reconnecting in 15 minutes');
 			setTimeout(() => {
-				timeout++;
-				this.connect(SQLclient, channels, timeout);
-			},1000 * (2 ** timeout));
-		});
-		
-		console.log("Connected to Twitter Stream");
+				this.connect(SQLclient, channels);
+			}, 910000);
+			return;
+		}
+		console.log("Connected to Twitter Stream.");
+		try {
+			/**
+			 * Listen to the stream.
+			 * request.body doesn't impelemnt async iterator in the fetch spec but Undici does,
+			 * in future updates they might change that.
+			 * https://undici.nodejs.org/#/?id=requestbody
+			 */
+			for await (const chunk of stream) {
+				const data = Buffer.from(chunk).toString('utf8');
+				try {
+					const jsonObj = JSON.parse(data);
+					postMessage(SQLclient, channels, jsonObj);
+				} 
+				catch (e) {/** heart beat do nothing */}
+			}	
+		} catch (error) {
+			/**
+			 * UND_ERR_BODY_TIMEOUT is a Undici error code when it takes
+			 * too long for the body to recieve data, usually casued by 
+			 * Twitter failing to send the heart beat.
+			 * Twitter will send a rate limit error on reconnect even though we are no where near the limit.
+			 * Trying to cancel the response body will result in the same UND_ERR_BODY_TIMEOUT error occuring.
+			 */
+			console.log(`Twitter Stream issue: ${error.cause.code}`);
+			console.log('Twitter Stream ended. Reconnecting...');
+			setTimeout(() => {
+				this.connect(SQLclient, channels, timeout*2);
+			}, timeout);
+		}
 	},
 	/**
 	 * Update the latest tweets in the database and post missed tweets to subscribed discord channels
@@ -226,13 +242,13 @@ module.exports = {
 	latestTweet: async function(SQLclient, channels) {
 		const res = await SQLclient.query('SELECT userid, tweetid FROM latestTweets');
 		for (const user of res.rows) {
-			const response = await got(`https://api.twitter.com/2/users/${user.userid}/tweets?&since_id=${user.tweetid}&user.fields=username&tweet.fields=in_reply_to_user_id&expansions=referenced_tweets.id,author_id`, 
+			const response = await fetch(`https://api.twitter.com/2/users/${user.userid}/tweets?&since_id=${user.tweetid}&user.fields=username&tweet.fields=in_reply_to_user_id&expansions=referenced_tweets.id,author_id`, 
 			{
 				headers: {
 					"authorization": `Bearer ${token}`
 				}
 			});
-			const json = JSON.parse(response.body);
+			const json = await response.json()
 			const tweets = json.data?.reverse();
 			tweets?.forEach(tweet => {
 				postMessage(SQLclient, channels, {includes: json.includes, data: tweet});
