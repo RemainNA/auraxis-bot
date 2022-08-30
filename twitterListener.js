@@ -7,10 +7,10 @@
 /**
  * @typedef {import('pg').Client} pg.Client
  * @typedef {import('discord.js').ChannelManager} discord.channels
- * @typedef {import('got').GotReturn} Request
  */
 
-const {default: got} = require('got');
+const { fetch } = require('undici');
+const { Readable } = require('node:stream');
 const messageHandler = require('./messageHandler.js');
 const subscriptions = require('./subscriptions.js');
 
@@ -24,15 +24,16 @@ const rulesURL = 'https://api.twitter.com/2/tweets/search/stream/rules';
  * @returns {Promise<any>} An array of objects containing the rules that are currently set
  */
 async function getAllRules() {
-	const response = await got(rulesURL, { headers: {
-		"authorization": `Bearer ${token}`
-    }});
-	
-    if (response.statusCode !== 200) {
-		throw response.body;
+	const response = await fetch(rulesURL, { 
+		method: 'GET',
+		headers: {
+			authorization: `Bearer ${token}`
+		}
+	});
+    if (!response.ok) {
+		throw await response.text();
     }
-	
-    return response.body;
+    return await response.text();
 }
 
 /**
@@ -48,18 +49,22 @@ async function deleteAllRules(rules) {
     const ids = rules.data.map(rule => rule.id);
 	
     const data = {
-		"delete": {
-			"ids": ids
+		delete: {
+			ids: ids
         }
     };
 	
-    const response = await got(rulesURL, {json: data, headers: {
-		"content-type": "application/json",
-        "authorization": `Bearer ${token}`
-    }});
+    const response = await fetch(rulesURL, {
+		method: 'POST',
+		headers: {
+			'content-type': "application/json",
+			authorization: `Bearer ${token}`,
+		},
+		body: JSON.stringify(data)
+	});
 	
-    if (response.statusCode !== 200) {
-		throw new Error(response.body);
+    if (!response.ok) {
+		throw new Error(await response.json());
     }
 }
 
@@ -78,13 +83,17 @@ async function setRules() {
 		"add": rules
 	};
 	
-	const response = await got.post( rulesURL, {json: data, headers: {
-		"content-type": "application/json",
-        "authorization": `Bearer ${token}`
-    }});
+	const response = await fetch( rulesURL, {
+		method: 'POST',
+		headers: {
+			"content-type": "application/json",
+			"authorization": `Bearer ${token}`
+    	},
+		body: JSON.stringify(data)
+	});
 	
-    if (response.statusCode !== 201) {
-		throw new Error(response.body);
+    if (!response.ok) {
+		throw new Error(await response.json());
     }
 }
 
@@ -176,14 +185,13 @@ module.exports = {
 	 */
 	 connect: async function (SQLclient, channels, timeout=0) {
 		const streamURL = 'https://api.twitter.com/2/tweets/search/stream?&user.fields=username&tweet.fields=in_reply_to_user_id&expansions=referenced_tweets.id,author_id';
-		const stream = got.stream(streamURL, {
+		const request = await fetch(streamURL, {
+			method: 'GET',
 			headers: {
 				Authorization: `Bearer ${token}`
 			},
-			timeout: {
-				response: 20000
-			}
 		});
+		const stream = Readable.fromWeb(request.body);
 		// Listen to the stream.
 		stream.on('data', data => {
 			try {
@@ -195,27 +203,20 @@ module.exports = {
 				}
 			}
 		}).on('error', error => {
-			if (error.code !== 'ETIMEDOUT') {
-				console.log(error.code);
-			}
-			else {
-				// This reconnection logic will attempt to reconnect when a disconnection is detected.
-				// To avoid rate limits, this logic implements exponential backoff, so the wait time
-				// will increase if the client cannot reconnect to the stream.
-				console.log('A twitter connection error occurred. Reconnecting…');
-				setTimeout(() => {
-					timeout++;
-					this.connect(SQLclient, channels, timeout);
-				}, 1000 * (2 ** timeout));
-			}
+			console.log(`Twitter connection error occurred. ${error.cause.code}`);
+			stream.destroy();
 		}).on('end', () => {
-			console.log('Twitter Stream End');
+			console.log(`Twitter stream ended: ${request.status}. Attempting reconnect…`);
+			/**
+			 * https://developer.twitter.com/en/support/twitter-api/error-troubleshooting
+			 * This reconnection logic will attempt to reconnect when a disconnection is detected.
+			 * To avoid rate limits, this logic implements exponential backoff, so the wait time
+			 * will increase if the client cannot reconnect to the stream.
+			 */
 			setTimeout(() => {
-				timeout++;
-				this.connect(SQLclient, channels, timeout);
-			},1000 * (2 ** timeout));
+				this.connect(SQLclient, channels, ++timeout);
+			},2000 * (2 ** timeout));
 		});
-		
 		console.log("Connected to Twitter Stream");
 	},
 	/**
@@ -226,13 +227,13 @@ module.exports = {
 	latestTweet: async function(SQLclient, channels) {
 		const res = await SQLclient.query('SELECT userid, tweetid FROM latestTweets');
 		for (const user of res.rows) {
-			const response = await got(`https://api.twitter.com/2/users/${user.userid}/tweets?&since_id=${user.tweetid}&user.fields=username&tweet.fields=in_reply_to_user_id&expansions=referenced_tweets.id,author_id`, 
+			const response = await fetch(`https://api.twitter.com/2/users/${user.userid}/tweets?&since_id=${user.tweetid}&user.fields=username&tweet.fields=in_reply_to_user_id&expansions=referenced_tweets.id,author_id`, 
 			{
 				headers: {
 					"authorization": `Bearer ${token}`
 				}
 			});
-			const json = JSON.parse(response.body);
+			const json = await response.json()
 			const tweets = json.data?.reverse();
 			tweets?.forEach(tweet => {
 				postMessage(SQLclient, channels, {includes: json.includes, data: tweet});
