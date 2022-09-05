@@ -13,18 +13,25 @@ const i18n = require('i18n');
  * @param {string} platform - platform the outfit is on
  * @param {string | null} outfitID - outfit ID to check
  * @param {string} locale - locale to use
- * @returns a object containing the current online membeers of the outfit. If online member count is unavailable, object.OnlineCount will be -1.
+ * @returns {Promise<OnlineOutfit>} a object containing the current online members of the outfit. If online member count is unavailable, object.OnlineCount will be -1.
  * @throws if outfit tag cannot be found or there was an API error
  */
 const onlineInfo = async function(oTag, platform, outfitID = null, locale = "en-US"){
-	let url = `/outfit?alias_lower=${oTag}&c:resolve=member_online_status,rank,member_character_name&c:join=character^on:leader_character_id^to:character_id&c:join=characters_world^on:leader_character_id^to:character_id`;
+	let outfitSearch = `alias_lower=${oTag}`;
 	if(outfitID != null){
-		url = `/outfit/${outfitID}?c:resolve=member_online_status,rank,member_character_name&c:join=character^on:leader_character_id^to:character_id&c:join=characters_world^on:leader_character_id^to:character_id`;
+		outfitSearch = `outfit_id=${outfitID}`;
 	}
-	let response = await censusRequest(platform, 'outfit_list', url);
-	if(response.length == 0){
+	const outfit = (await censusRequest(platform, 'outfit_list', `outfit?${outfitSearch}&c:resolve=rank`))[0];
+	if(outfit === undefined){
 		throw `${oTag} not found`;
 	}
+	/**
+	 * Due to how this query works, if no one is online or the outfit doesn't exist then nothing will
+	 * be returned by the API necessitating the first query to ensure the outfit exists and to get outfit information.
+	 * Source for query: https://github.com/leonhard-s/auraxium/wiki/Census-API-Primer#example-joins
+	 */
+	const url = `outfit?${outfitSearch}&c:join=outfit_member^inject_at:members^show:character_id%27rank^outer:0^list:1(character^show:name.first^inject_at:character^outer:0^on:character_id(characters_online_status^inject_at:online_status^show:online_status^outer:0(world^on:online_status^to:world_id^outer:0^show:world_id^inject_at:ignore_this))`;
+	const data = (await censusRequest(platform, 'outfit_list', url))[0];
 	let urlBase = 'https://ps2.fisu.pw/player/?name=';
 	if(platform == 'ps2ps4us:v2'){
 		urlBase = 'https://ps4us.ps2.fisu.pw/player/?name=';
@@ -32,53 +39,67 @@ const onlineInfo = async function(oTag, platform, outfitID = null, locale = "en-
 	else if(platform == 'ps2ps4eu:v2'){
 		urlBase = 'https://ps4eu.ps2.fisu.pw/player/?name=';
 	}
-	let data = response[0];
-	let resObj = {
-		name: data.name,
-		alias: data.alias,
-		memberCount: data.member_count,
-		onlineCount: 0,
-		world: data.leader_character_id_join_characters_world.world_id,
-		outfitID: data.outfit_id
-	};
-	if(typeof(data.leader_character_id_join_character) !== 'undefined'){
-		resObj.faction = data.leader_character_id_join_character.faction_id;
+	const leader = (await censusRequest(platform, 'character_list', `/character?character_id=${outfit.leader_character_id}&c:resolve=world`))[0];
+	/**
+	 * @typedef {Object} OnlineOutfit
+	 * @property {string} name - outfit name
+	 * @property {string} alias - outfit tag
+	 * @property {number} memberCount - total number of outfit members
+	 * @property {number} onlineCount - number of online members
+	 * @property {number} world - server ID
+	 * @property {number} outfitID - outfit ID
+	 * @property {number} faction - the faction of the outfit
+	 * @property {string[]} rankNames - all the rank names from highest to lowest
+	 * @property {Object[]} onlineMembers - all the online members sorted by rank and then alphabetically
+ 	 */
+	const resObj = {
+		name: outfit.name,
+		alias: outfit.alias,
+		memberCount: outfit.member_count,
+		onlineCount: data === undefined ? 0 : data.members.length,
+		world: leader.world_id,
+		outfitID: outfit.outfit_id,
+		faction: leader.faction_id,
+		rankNames: ["","","","","","","",""],
+		onlineMembers: [[],[],[],[],[],[],[],[]]
 	}
-	if(data.members[0].online_status == "service_unavailable"){
+	if (resObj.onlineCount === 0) {
+		return resObj;
+	}
+	if(data.members[0].character.online_status == "service_unavailable"){
 		resObj.onlineCount = -1;
 		return resObj;
 	}
-	if(typeof(data.members[0].name) === 'undefined'){
+	if(typeof(data.members[0].character.name) === 'undefined'){
 		throw "API error: names not returned";
 	}
-	let pcModifier = 0;
-	let rankNames = ["","","","","","","",""];
-	let onlineMembers = [[],[],[],[],[],[],[],[]];
-	if(typeof(data.ranks) !== 'undefined'){
-		pcModifier = 1;
-		for(let rank of data.ranks){
-			rankNames[Number.parseInt(rank.ordinal)-pcModifier] = rank.name;
+	if (outfit.ranks !== undefined) {
+		for(const rank of outfit.ranks){
+			resObj.rankNames[parseInt(rank.ordinal) - 1] = rank.name;
 		}
+	} else {
+		/**
+		 * PS4 outfits rank names are all the same and the census doesn't return rank names for PS4
+		 * Rank ordinals on PS4 are also completely random and don't a consistent pattern like PC.
+		 * So we have to hardcode them.
+		 */
+		resObj.rankNames = ['Leader', 'Officer', 'Member', 'Private', 'Enlisted'];
 	}
-	for(const i in data.members){
-		if(data.members[i].online_status > 0){
-			resObj.onlineCount += 1;
-			onlineMembers[Number.parseInt(data.members[i].rank_ordinal)-pcModifier].push("["+data.members[i].name.first+"]("+urlBase+data.members[i].name.first+")");
-		}
-		if(pcModifier == 0 && rankNames[Number.parseInt(data.members[i].rank_ordinal)] == ""){
-			rankNames[Number.parseInt(data.members[i].rank_ordinal)] = data.members[i].rank;
-		}
+	for (const member of data.members) {
+		const name = member.character.name.first
+		const rank = member.rank;
+		const position = resObj.rankNames.indexOf(rank);
+		resObj.onlineMembers[position].push(`[${name}](${urlBase + name})`);
 	}
-	for(const i in onlineMembers){
-		onlineMembers[i].sort(function (a, b) {return a.toLowerCase().localeCompare(b.toLowerCase());});  //This sorts ignoring case: https://stackoverflow.com/questions/8996963/how-to-perform-case-insensitive-sorting-in-javascript#9645447
+	for(const i in resObj.onlineMembers){
+		//This sorts ignoring case: https://stackoverflow.com/questions/8996963/how-to-perform-case-insensitive-sorting-in-javascript#9645447
+		resObj.onlineMembers[i].sort((a, b) => a.localeCompare(b, {'sensitivity': 'base'}));
 	}
-	resObj.onlineMembers = onlineMembers;
-	resObj.rankNames = rankNames;
 	return resObj;
 }
 
 /**
- * Used to get the number total number of characters from online outfit members
+ * Used to get total number of letters characters from online outfit members
  * @param {string[]} arr - array of online members
  * @returns the amount of characters in the array
  */
@@ -92,7 +113,7 @@ const totalLength = function(arr){
 
 module.exports = {
 	/**
-	 * Get the online members of an outfit
+	 * The online command
 	 * @param {string} oTag - outfit tag to check
 	 * @param {string} platform - platform the outfit is on
 	 * @param {string | null} outfitID - outfit ID to check
