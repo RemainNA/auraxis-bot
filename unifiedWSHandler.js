@@ -91,12 +91,12 @@ async function logEvent(payload, environment, pgClient, discordClient){
             } 
         }
         catch (error) {
-            if (error.code === undefined) {
-                console.log(error);
-            }
-            else if(error.code == 10003){ //Unknown channel error, thrown when the channel is deleted
+            if(error.code == 10003){ //Unknown channel error, thrown when the channel is deleted
                 subscriptions.unsubscribeAll(pgClient, row.channel);
                 console.log(`Unsubscribed from ${row.channel}`);
+            }
+            else {
+                console.log(error);
             }
         }
     }));
@@ -319,12 +319,12 @@ async function alertEvent(payload, environment, pgClient, discordClient){
             } 
         }
         catch (error) {
-            if (error.code === undefined) {
-                console.log(error);
-            }
-            else if(error.code == 10003){ //Unknown channel error, thrown when the channel is deleted
+            if(error.code == 10003){ //Unknown channel error, thrown when the channel is deleted
                 subscriptions.unsubscribeAll(pgClient, row.channel);
                 console.log(`Unsubscribed from ${row.channel}`);
+            }
+            else {
+                console.log(error);
             }
         }
     }));
@@ -434,12 +434,12 @@ async function baseEvent(payload, environment, pgClient, discordClient){
             }
         }
         catch (error) {
-            if (error.code === undefined) {
-                console.log(error);
-            }
-            else if(error.code == 10003){ //Unknown channel error, thrown when the channel is deleted
+            if(error.code == 10003){ //Unknown channel error, thrown when the channel is deleted
                 subscriptions.unsubscribeAll(pgClient, row.channel);
                 console.log(`Unsubscribed from ${row.channel}`);
+            }
+            else {
+                console.log(error);
             }
         }
     }));
