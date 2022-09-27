@@ -6,7 +6,7 @@
 
 const Discord = require('discord.js');
 const alerts = require('./static/alerts.json');
-const {default: got} = require('got');
+const { fetch } = require('undici');
 const { serverNames, serverIDs } = require('./utils');
 const i18n = require('i18n');
 
@@ -31,13 +31,14 @@ const popLevels = {
  */
 const alertInfo = async function(server, locale='en-US'){
 	try{
-		let uri = 'https://api.ps2alerts.com/instances/active?world='+server;
-		let response = await got(uri).json();
+		const uri = `https://api.ps2alerts.com/instances/active?world=${server}`;
+		const request = await fetch(uri);
+		if(!request.ok) {
+			throw i18n.__({phrase: "API Unreachable", locale: locale});
+		}
+		const response = await request.json();
 		if(typeof(response.error) !== 'undefined'){
 			throw response.error;
-		}
-		if(response.statusCode == 404){
-			throw i18n.__({phrase: "API Unreachable", locale: locale});
 		}
 		if(response.length == 0){
 			throw i18n.__mf({phrase: "No active alerts on {server}", locale: locale}, {server: i18n.__({phrase: serverNames[server], locale: locale})});
