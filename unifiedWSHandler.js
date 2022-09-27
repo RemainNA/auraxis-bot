@@ -202,7 +202,7 @@ async function alertEvent(payload, environment, pgClient, discordClient){
     const server = serverNames[payload.world_id];
     sendEmbed.addField('Server', server, true);
     sendEmbed.addField('Status', `Started <t:${Math.floor(Date.now()/1000)}:R>`, true);
-    let terObj = {};
+    let terObj = "";
     try{
         terObj = await territory.territoryInfo(payload.world_id);
     }
