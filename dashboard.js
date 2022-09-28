@@ -40,7 +40,7 @@ const serverStatus = async function(serverID, pgClient){
 	\n<:VS:818766983918518272> **VS**: ${pop.global.vs}  |  ${vsPc}%\
 	\n<:NC:818767043138027580> **NC**: ${pop.global.nc}  |  ${ncPc}%\
 	\n<:TR:818988588049629256> **TR**: ${pop.global.tr}  |  ${trPc}%\
-	\n<:NS:819511690726866986> **NSO**: ${pop.global.unknown}  |  ${nsPc}%`
+	\n:question: **?**: ${pop.global.unknown}  |  ${nsPc}%`
 
 	resEmbed.addField(`Population - ${localeNumber(pop.global.all, "en-US")}`, populationField, true);
 

@@ -111,7 +111,7 @@ module.exports = {
 				\n<:VS:818766983918518272> **${i18n.__({phrase: 'VS', locale: locale})}**: ${pop.global.vs}  |  ${vsPc}%\
 				\n<:NC:818767043138027580> **${i18n.__({phrase: 'NC', locale: locale})}**: ${pop.global.nc}  |  ${ncPc}%\
 				\n<:TR:818988588049629256> **${i18n.__({phrase: 'TR', locale: locale})}**: ${pop.global.tr}  |  ${trPc}%\
-				\n<:NS:819511690726866986> **${i18n.__({phrase: 'NSO', locale: locale})}**: ${pop.global.unknown}  |  ${nsPc}%`
+				\n:question: **?**: ${pop.global.unknown}  |  ${nsPc}%`
 				const populationTitle = i18n.__mf({phrase: "{server} population - {total}", locale: locale}, {server: i18n.__({phrase: serverNames[pop.worldID], locale: locale}), total: pop.global.all})
 				resEmbed.addField(populationTitle, populationField, true);
 				total += pop.global.all;
@@ -137,7 +137,7 @@ module.exports = {
 			\n<:VS:818766983918518272> **${i18n.__({phrase: 'VS', locale: locale})}**: ${pop.global.vs}  |  ${vsPc}%\
 			\n<:NC:818767043138027580> **${i18n.__({phrase: 'NC', locale: locale})}**: ${pop.global.nc}  |  ${ncPc}%\
 			\n<:TR:818988588049629256> **${i18n.__({phrase: 'TR', locale: locale})}**: ${pop.global.tr}  |  ${trPc}%\
-			\n<:NS:819511690726866986> **${i18n.__({phrase: 'NSO', locale: locale})}**: ${pop.global.unknown}  |  ${nsPc}%`);
+			\n:question: **?**: ${pop.global.unknown}  |  ${nsPc}%`);
 			for(const contID of [2,4,6,8,344]){
 				const contPop = pop[contID];
 				if(!contPop.open && contPop.all != 0){
@@ -157,7 +157,7 @@ module.exports = {
 					\n<:VS:818766983918518272> **${i18n.__({phrase: 'VS', locale: locale})}**: ${contPop.vs}  |  ${vsPc}%\
 					\n<:NC:818767043138027580> **${i18n.__({phrase: 'NC', locale: locale})}**: ${contPop.nc}  |  ${ncPc}%\
 					\n<:TR:818988588049629256> **${i18n.__({phrase: 'TR', locale: locale})}**: ${contPop.tr}  |  ${trPc}%\
-					\n<:NS:819511690726866986> **${i18n.__({phrase: 'NSO', locale: locale})}**: ${contPop.unknown}  |  ${nsPc}%`
+					\n:question: **?**: ${contPop.unknown}  |  ${nsPc}%`
 				)
 			}
 			sendEmbed.setTimestamp();
