@@ -236,5 +236,17 @@
 	"unsubscribeUnlocks": "{server} 잠금 해제 구독 해제됨",
 	"alreadySubscribedUnlocks": "이미 {server} 잠금 해제 구독 중",
 	"subscribedUnlocks": "{server} 잠금 해제를 구독했습니다. /config를 사용해서 대륙을 지정해주세요",
-	"subscribedUnlocksConfigFailed": "{server} 잠금 해제를 구독했습니다. 설정에 실패하여 기본 설정을 사용합니다."
+	"subscribedUnlocksConfigFailed": "{server} 잠금 해제를 구독했습니다. 설정에 실패하여 기본 설정을 사용합니다.",
+	"outfitDecalSource": "outfit-tracker.com에서 아웃핏 데칼 제공",
+	"usableUnderwater": "바다에서 사용 가능",
+	"yes": "예",
+	"no": "아니요",
+	"currentlyUnstable": "현재 불안정",
+	"outfitWarsRegistrations": "{server} 아웃핏 워 등록",
+	"fullyRegistered": "완전히 등록함 ({count})",
+	"partiallyRegistered": "부분적으로 등록함 ({count})",
+	"lockedCont": "{continent} 잠김",
+	"globalPopulation": "전체 인구",
+	"numOnline": "{pop} 온라인",
+	"empty": "없음"
 }
