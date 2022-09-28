@@ -21,9 +21,6 @@ const basicInfo = async function(cName, platform, locale="en-US"){
         throw i18n.__mf({phrase: "{name} not found", locale: locale}, {name: cName});
 	}
 	let data = response[0];
-	if(data.faction_id == "4"){
-		throw i18n.__({phrase: "NSO is not supported", locale: locale});
-	}
 	if(data.prestige_level == "0"){
 		throw i18n.__mf({phrase: "{name} has not yet unlocked ASP", locale: locale}, {name: data.name.first});
 	}
