@@ -798,24 +798,6 @@ const data = [
 			required: false,
 			choices: platforms
 		}]
-	},
-	{
-		name: 'outfit-wars',
-		description: "Lookup information about outfit wars",
-		options: [
-			{
-				name: 'registrations',
-				description: "View registered outfits for a given server's outfit wars",
-				type: '1',
-				options: [{
-					name: 'server',
-					description: 'Server name',
-					type: '3',
-					required: true,
-					choices: pcServers
-				}]
-			}
-		]
 	}
 ]
 
