@@ -1,14 +1,12 @@
 /**
  * This file implements listening in on the census stream and routing the data to the appropriate handler
  * @module unifiedWSListener
- */
-/**
  * @typedef {import('pg').Client} pg.Client
  * @typedef {import('discord.js').Client} discord.Client
  */
 
-const WebSocket = require('ws');
-const { router } = require('./unifiedWSHandler');
+import WebSocket from 'ws';
+import { router } from './unifiedWSHandler.js';
 
 const PC_SUBSCRIPTION = '{"service":"event","action":"subscribe","worlds":["1","10","13","17","19","40"],"eventNames":["PlayerLogin","PlayerLogout","MetagameEvent","FacilityControl"]}';
 const US_SUBSCRIPTION = '{"service":"event","action":"subscribe","worlds":["1000"],"eventNames":["PlayerLogin","PlayerLogout","MetagameEvent","FacilityControl"]}';
@@ -113,15 +111,14 @@ function PS4EUStream(pgClient, discordClient, euTimeout = 0) {
         }, Math.min(1000 * (2 ** euTimeout), 300000));
     });
 }
-module.exports = {
-    /**
-     * Create and start census Stream listeners for the three platforms
-     * @param {pg.Client} pgClient - postgres client to query the database
-     * @param {discord.Client} discordClient - discord client to use
-     */
-    start: function (pgClient, discordClient) {
-        PCStream(pgClient, discordClient);
-        PS4USStream(pgClient, discordClient);
-        PS4EUStream(pgClient, discordClient);
-    }
-};
+
+/**
+ * Create and start census Stream listeners for the three platforms
+ * @param {pg.Client} pgClient - postgres client to query the database
+ * @param {discord.Client} discordClient - discord client to use
+ */
+export function start(pgClient, discordClient) {
+    PCStream(pgClient, discordClient);
+    PS4USStream(pgClient, discordClient);
+    PS4EUStream(pgClient, discordClient);
+}
