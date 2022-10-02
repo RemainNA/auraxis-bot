@@ -2,11 +2,13 @@
  * Look up basic information about an outfit
  * @module outfit
  * @typedef { import('pg').Client} pg.Client
+ * @typedef {import('discord.js').ChatInputCommandInteraction} ChatInteraction
+ * @typedef {import('discord.js').ButtonInteraction} ButtonInteraction
  */
-const Discord = require('discord.js');
-const { serverNames, badQuery, censusRequest, localeNumber, faction } = require('./utils.js');
-const bases = require('./static/bases.json');
-const i18n = require('i18n');
+import { ActionRowBuilder, ButtonBuilder, ButtonStyle, EmbedBuilder } from 'discord.js';
+import { serverNames, badQuery, censusRequest, localeNumber, faction, platforms } from '../utils.js';
+import bases from '../static/bases.json' assert {type: 'json'};
+import i18n from 'i18n';
 
 /**
  * Get basic information about an outfit, online members, owned bases etc.
@@ -16,7 +18,7 @@ const i18n = require('i18n');
  * @param {string} locale - locale to use e.g. en-US
  * @throws if outfit could not be found or if there was an error gathering outfit information
  */
-const basicInfo = async function(oTag, platform, oID, locale="en-US"){
+async function basicInfo(oTag, platform, oID, locale="en-US"){
 	let url = `/outfit?alias_lower=${oTag}&c:resolve=member_online_status&c:join=character^on:leader_character_id^to:character_id&c:join=character^on:members.character_id^to:character_id^hide:certs&c:join=characters_world^on:leader_character_id^to:character_id`;
 	if(oID != null){
 		url = `/outfit/${oID}?c:resolve=member_online_status&c:join=character^on:leader_character_id^to:character_id&c:join=character^on:members.character_id^to:character_id^hide:certs&c:join=characters_world^on:leader_character_id^to:character_id`;
@@ -91,7 +93,7 @@ const basicInfo = async function(oTag, platform, oID, locale="en-US"){
  * @param {pg.Client} pgClient - Postgres client to use
  * @returns Array of owned bases
  */
-const ownedBases = async function(outfitID, worldID, pgClient){
+export async function ownedBases(outfitID, worldID, pgClient){
 	let oBases = [];
 	try{
 		const res = await pgClient.query("SELECT * FROM bases WHERE outfit = $1 AND world = $2;", [outfitID, worldID]);
@@ -109,12 +111,12 @@ const ownedBases = async function(outfitID, worldID, pgClient){
 /**
  * The central bases for each continent
  */
-const centralBases = [
-    6200, // The Crown
-    222280, // The Ascent
-    254000, // Eisa
-    298000 // Nason's Defiance
-]
+export const centralBases = [
+	6200, // The Crown
+	222280, // The Ascent
+	254000, // Eisa
+	298000 // Nason's Defiance
+];
 
 /**
  * Generate an outfit report on https://wt.honu.pw/report
@@ -123,7 +125,7 @@ const centralBases = [
  * @param {number} end - end time of the report
  * @returns the URL to the report
  */
-const generateReport = function(outfits, start, end){
+function generateReport(outfits, start, end){
 	let reportString = `${start},${end};`;
 	for(const outfit of outfits){
 		reportString += `o${outfit};`;
@@ -132,144 +134,224 @@ const generateReport = function(outfits, start, end){
 	return `https://wt.honu.pw/report/${encodedString}`;
 }
 
-module.exports = {
-	/**
-	 * Generate a discord embed overview of an outfit
- 	 * @param {string} oTag - outfit tag to query the PS2 Census API with
- 	 * @param {string} platform - which platform to request, eg. ps2:v2, ps2ps4us:v2, or ps2ps4eu:v2
- 	 * @param {pg.Client} pgClient - Postgres client to use
- 	 * @param {string | null} oID - outfit ID to query the PS2 Census API with 
- 	 * @param {string} locale - locale to use e.g. en-US
-	 * @returns a discord embed object and an Array of buttons
-	 * @throw if `oTag` contains invalid characters or it too long
-	 */
-	outfit: async function(oTag, platform, pgClient, oID = null, locale = "en-US"){
-		if(badQuery(oTag)){
-			throw i18n.__({phrase: "Outfit search contains disallowed characters", locale: locale});
-		}
-		if(oTag.length > 4){
-			throw i18n.__mf({phrase: "{tag} is longer than 4 letters, please enter a tag", locale: locale}, {tag: oTag});
-		}
+export const type = ['PGClient'];
 
-		const oInfo = await basicInfo(oTag, platform, oID);
-		const oBases = await ownedBases(oInfo.outfitID, oInfo.worldId, pgClient);
+export const data = {
+	name: 'outfit',
+	description: "Look up an outfit's basic information, including recent activity and bases owned",
+	options: [{
+		name: 'tag',
+		type: '3',
+		description: 'Outfit tag or tags separated by spaces, no brackets',
+		required: true,
+	},
+	{
+		name: 'platform',
+		type: '3',
+		description: "Which platform is the outfit on?  Defaults to PC",
+		required: false,
+		choices: platforms
+	}]
+};
 
-		let resEmbed = new Discord.MessageEmbed();
+/**
+ * Used to get the outfit embed
+ * @param { ButtonInteraction } interaction - button interaction 
+ * @param { string } locale - locale to use
+ * @param { string[] } options - options from interaction 
+ * @param { pg.Client } pgClient -  postgres client
+ */
+export async function button(interaction, locale, options, pgClient) {
+	await interaction.deferReply();
+	const oTag = '';
+	const [oID, platform] = options;
+	const [embed, component] = await outfit(oTag, platform, pgClient, oID, locale);
+	await interaction.editReply({embeds: [embed], components: component});
+}
 
-		resEmbed.setTitle(oInfo.name);
-		resEmbed.setThumbnail(`https://www.outfit-tracker.com/outfit-logo/${oInfo.outfitID}.png`);
-		resEmbed.setFooter({text: i18n.__({phrase: "outfitDecalSource", locale: locale})});
-		if(oInfo.alias != ""){
-			resEmbed.setDescription(oInfo.alias);
-			if(platform == 'ps2:v2'){
-				resEmbed.setURL('http://ps2.fisu.pw/outfit/?name='+oInfo.alias);
-			}
-			else if(platform == 'ps2ps4us:v2'){
-				resEmbed.setURL('http://ps4us.ps2.fisu.pw/outfit/?name='+oInfo.alias);
-			}
-			else if(platform == 'ps2ps4eu:v2'){
-				resEmbed.setURL('http://ps4eu.ps2.fisu.pw/outfit/?name='+oInfo.alias);
-			}
-		}
-		resEmbed.addField(i18n.__({phrase: "Founded", locale: locale}), `<t:${oInfo.timeCreated}:D>`, true);
-		resEmbed.addField(i18n.__({phrase: "Members", locale: locale}), localeNumber(oInfo.memberCount, locale), true);
-		const dayPc = localeNumber((oInfo.onlineDay/oInfo.memberCount)*100, locale);
-		const weekPc = localeNumber((oInfo.onlineWeek/oInfo.memberCount)*100, locale);
-		const monthPc = localeNumber((oInfo.onlineMonth/oInfo.memberCount)*100, locale);
-		resEmbed.addField(i18n.__({phrase: "Online", locale: locale}), `${oInfo.onlineMembers}`, true);
-		resEmbed.addField(i18n.__({phrase: "Last day", locale: locale}), localeNumber(oInfo.onlineDay, locale)+" ("+dayPc+"%)", true);
-		resEmbed.addField(i18n.__({phrase: "Last week", locale: locale}), localeNumber(oInfo.onlineWeek, locale)+" ("+weekPc+"%)", true);
-		resEmbed.addField(i18n.__({phrase: "Last month", locale: locale}), localeNumber(oInfo.onlineMonth, locale)+" ("+monthPc+"%)", true);
-		resEmbed.addField(i18n.__({phrase: "Server", locale: locale}), i18n.__({phrase: serverNames[Number(oInfo.worldId)], locale: locale}), true);
-
-		const factionInfo = faction(oInfo.faction);
-		resEmbed.addField(i18n.__({phrase: "Faction", locale: locale}), `${factionInfo.decal} ${i18n.__({phrase: factionInfo.initial, locale: locale})}`, true);
-		resEmbed.setColor(factionInfo.color);
-
-		if(platform == "ps2:v2"){
-			resEmbed.addField(i18n.__({phrase: 'Owner', locale: locale}), "["+oInfo.owner+"]("+"https://ps2.fisu.pw/player/?name="+oInfo.owner+")", true);
-		}
-		else if(platform == "ps2ps4us:v2"){
-			resEmbed.addField(i18n.__({phrase: 'Owner', locale: locale}), "["+oInfo.owner+"]("+"https://ps4us.ps2.fisu.pw/player/?name="+oInfo.owner+")", true);
-		}
-		else if(platform == "ps2ps4eu:v2"){
-			resEmbed.addField(i18n.__({phrase: 'Owner', locale: locale}), "["+oInfo.owner+"]("+"https://ps4eu.ps2.fisu.pw/player/?name="+oInfo.owner+")", true);
-		}
-		let auraxium = 0;
-		let synthium = 0;
-		let polystellarite = 0;
-		let ownedNames = [];
-		for(let base of oBases){
-			if(base.facility in bases){
-				const baseInfo = bases[base.facility];
-				ownedNames.push(baseInfo.name);
-				if(centralBases.includes(base.facility)){
-					polystellarite += 2;
-					continue;
-				}
-				switch(baseInfo.type){
-					case "Small Outpost":
-						auraxium += 5;
-						break;
-					case "Large Outpost":
-						auraxium += 25;
-						break;
-					case "Construction Outpost":
-						synthium += 3;
-						break;
-					case "Bio Lab":
-						synthium += 8;
-						break;
-					case "Amp Station":
-						synthium += 8;
-						break;
-					case "Tech Plant":
-						synthium += 8;
-						break;
-					case "Containment Site":
-						synthium += 8;
-						break;
-					case "Interlink":
-						synthium += 8;
-						break;
-					case "Trident":
-						polystellarite += 1;
-						break;
-				}
-			}
-		}
-		if((auraxium + synthium + polystellarite) > 0){ //Recognized bases are owned
-			resEmbed.addField('<:Auraxium:818766792376713249>', `+${auraxium/5}/min`, true);
-			resEmbed.addField('<:Synthium:818766858865475584>', `+${synthium/5}/min`, true);
-			resEmbed.addField('<:Polystellarite:818766888238448661>', `+${polystellarite/5}/min`, true);
-			resEmbed.addField(i18n.__({phrase: 'Bases owned', locale: locale}), `${ownedNames}`.replace(/,/g, '\n'));
-		}
-
-		const row = new Discord.MessageActionRow();
-		row.addComponents(
-			new Discord.MessageButton()
-				.setStyle('PRIMARY')
-				.setLabel(i18n.__({phrase: 'View online', locale: locale}))
-				.setCustomId(`online%${oInfo.outfitID}%${platform}`)
-		);
-		if(platform == "ps2:v2"){
-			const now = Math.round(Date.now() / 1000);
-
-			row.addComponents(
-				new Discord.MessageButton()
-					.setStyle('LINK')
-					.setURL(generateReport([oInfo.outfitID], now-3600, now))
-					.setLabel(i18n.__({phrase: 'Past 1 hour report', locale: locale})),
-				new Discord.MessageButton()
-					.setStyle('LINK')
-					.setURL(generateReport([oInfo.outfitID], now-7200, now))
-					.setLabel(i18n.__({phrase: 'Past 2 hour report', locale: locale}))
+/**
+ * runs the `/outfit` command
+ * @param { ChatInteraction } interaction - command chat interaction
+ * @param { string } locale - locale to use
+ * @param { pg.Client } pgClient - postgres client
+ */
+export async function execute(interaction, locale, pgClient) {
+	const outfitTags = interaction.options.getString('tag').toLowerCase().replace(/\s\s+/g, ' ').split(' ');
+	if(outfitTags.length > 10){
+		await interaction.editReply({
+			content: i18n.__({phrase: "This commands supports a maximum of 10 outfits per query", locale: locale}),
+		});
+		return;
+	}
+	const platform = interaction.options.getString('platform') || 'ps2:v2';
+	const outfitLookups = await Promise.allSettled(
+		outfitTags.map(tag => outfit(tag, platform, pgClient, null, locale))
+	);
+	const messages = [];
+	for(const res of outfitLookups){
+		if(res.status === 'fulfilled'){
+			messages.push(
+				{embeds: [res.value[0]], components: res.value[1]}
 			);
 		}
+		else {
+			if(typeof res.reason === 'string'){
+				messages.push(
+					res.reason
+				)
+			}
+			else{
+				messages.push(
+					i18n.__({phrase: "Error occurred when handling command", locale: locale})
+				);
+				console.log(`Outfit error ${locale}`);
+				console.log(res.reason);
+			}
+		}
+	}
+	await interaction.editReply(messages.pop());
+	for (const msg of messages) {
+		await interaction.followUp(msg);
+	}
+}
 
-		return [resEmbed, [row]];
-	},
+/**
+ * Generate a discord embed overview of an outfit
+ * @param {string} oTag - outfit tag to query the PS2 Census API with
+ * @param {string} platform - which platform to request, eg. ps2:v2, ps2ps4us:v2, or ps2ps4eu:v2
+ * @param {pg.Client} pgClient - Postgres client to use
+ * @param {string | null} oID - outfit ID to query the PS2 Census API with 
+ * @param {string} locale - locale to use e.g. en-US
+ * @returns {Promise<[EmbedBuilder, any[]]>} a discord embed object and an Array of buttons
+ * @throw if `oTag` contains invalid characters or it too long
+ */
+async function outfit(oTag, platform, pgClient, oID = null, locale = "en-US"){
+	if(badQuery(oTag)){
+		throw i18n.__({phrase: "Outfit search contains disallowed characters", locale: locale});
+	}
+	if(oTag.length > 4){
+		throw i18n.__mf({phrase: "{tag} is longer than 4 letters, please enter a tag", locale: locale}, {tag: oTag});
+	}
 
-	ownedBases: ownedBases,
-	centralBases: centralBases
+	const oInfo = await basicInfo(oTag, platform, oID);
+	const oBases = await ownedBases(oInfo.outfitID, oInfo.worldId, pgClient);
+
+	const resEmbed = new EmbedBuilder();
+
+	resEmbed.setTitle(oInfo.name);
+	resEmbed.setThumbnail(`https://www.outfit-tracker.com/outfit-logo/${oInfo.outfitID}.png`);
+	resEmbed.setFooter({text: i18n.__({phrase: "outfitDecalSource", locale: locale})});
+	if(oInfo.alias != ""){
+		resEmbed.setDescription(oInfo.alias);
+		if(platform == 'ps2:v2'){
+			resEmbed.setURL('http://ps2.fisu.pw/outfit/?name='+oInfo.alias);
+		}
+		else if(platform == 'ps2ps4us:v2'){
+			resEmbed.setURL('http://ps4us.ps2.fisu.pw/outfit/?name='+oInfo.alias);
+		}
+		else if(platform == 'ps2ps4eu:v2'){
+			resEmbed.setURL('http://ps4eu.ps2.fisu.pw/outfit/?name='+oInfo.alias);
+		}
+	}
+	const dayPc = localeNumber((oInfo.onlineDay/oInfo.memberCount)*100, locale);
+	const weekPc = localeNumber((oInfo.onlineWeek/oInfo.memberCount)*100, locale);
+	const monthPc = localeNumber((oInfo.onlineMonth/oInfo.memberCount)*100, locale);
+	resEmbed.addFields(
+		{name: i18n.__({phrase: "Founded", locale: locale}), value: `<t:${oInfo.timeCreated}:D>`, inline: true},
+		{name: i18n.__({phrase: "Members", locale: locale}), value: localeNumber(oInfo.memberCount, locale), inline: true},
+		{name: i18n.__({phrase: "Online", locale: locale}), value: `${oInfo.onlineMembers}`, inline: true},
+		{name: i18n.__({phrase: "Last day", locale: locale}), value: localeNumber(oInfo.onlineDay, locale)+" ("+dayPc+"%)", inline: true},
+		{name: i18n.__({phrase: "Last week", locale: locale}), value: localeNumber(oInfo.onlineWeek, locale)+" ("+weekPc+"%)", inline: true},
+		{name: i18n.__({phrase: "Last month", locale: locale}), value: localeNumber(oInfo.onlineMonth, locale)+" ("+monthPc+"%)", inline: true},
+		{name: i18n.__({phrase: "Server", locale: locale}), value: i18n.__({phrase: serverNames[Number(oInfo.worldId)], locale: locale}), inline: true}
+	);
+
+	const factionInfo = faction(oInfo.faction);
+	resEmbed.addFields({ name: i18n.__({phrase: "Faction", locale: locale}), value: `${factionInfo.decal} ${i18n.__({phrase: factionInfo.initial, locale: locale})}`, inline: true});
+	resEmbed.setColor(factionInfo.color);
+
+	if(platform == "ps2:v2"){
+		resEmbed.addFields({ name: i18n.__({phrase: 'Owner', locale: locale}), value: "["+oInfo.owner+"]("+"https://ps2.fisu.pw/player/?name="+oInfo.owner+")", inline: true});
+	}
+	else if(platform == "ps2ps4us:v2"){
+		resEmbed.addFields({ name: i18n.__({phrase: 'Owner', locale: locale}), value: "["+oInfo.owner+"]("+"https://ps4us.ps2.fisu.pw/player/?name="+oInfo.owner+")", inline: true});
+	}
+	else if(platform == "ps2ps4eu:v2"){
+		resEmbed.addFields({ name: i18n.__({phrase: 'Owner', locale: locale}), value: "["+oInfo.owner+"]("+"https://ps4eu.ps2.fisu.pw/player/?name="+oInfo.owner+")", inline: true});
+	}
+	let auraxium = 0;
+	let synthium = 0;
+	let polystellarite = 0;
+	let ownedNames = [];
+	for(let base of oBases){
+		if(base.facility in bases){
+			const baseInfo = bases[base.facility];
+			ownedNames.push(baseInfo.name);
+			if(centralBases.includes(base.facility)){
+				polystellarite += 2;
+				continue;
+			}
+			switch(baseInfo.type){
+				case "Small Outpost":
+					auraxium += 5;
+					break;
+				case "Large Outpost":
+					auraxium += 25;
+					break;
+				case "Construction Outpost":
+					synthium += 3;
+					break;
+				case "Bio Lab":
+					synthium += 8;
+					break;
+				case "Amp Station":
+					synthium += 8;
+					break;
+				case "Tech Plant":
+					synthium += 8;
+					break;
+				case "Containment Site":
+					synthium += 8;
+					break;
+				case "Interlink":
+					synthium += 8;
+					break;
+				case "Trident":
+					polystellarite += 1;
+					break;
+			}
+		}
+	}
+	if((auraxium + synthium + polystellarite) > 0){ //Recognized bases are owned
+		resEmbed.addFields(
+			{ name: '<:Auraxium:818766792376713249>', value: `+${auraxium/5}/min`, inline: true},
+			{ name: '<:Synthium:818766858865475584>',value:  `+${synthium/5}/min`, inline: true},
+			{ name: '<:Polystellarite:818766888238448661>', value: `+${polystellarite/5}/min`, inline: true},
+			{ name: i18n.__({phrase: 'Bases owned', locale: locale}), value: `${ownedNames}`.replace(/,/g, '\n')}
+		);
+	}
+
+	const row = new ActionRowBuilder();
+	row.addComponents(
+		new ButtonBuilder()
+			.setStyle(ButtonStyle.Primary)
+			.setLabel(i18n.__({phrase: 'View online', locale: locale}))
+			.setCustomId(`online%${oInfo.outfitID}%${platform}`)
+	);
+	if(platform == "ps2:v2"){
+		const now = Math.round(Date.now() / 1000);
+
+		row.addComponents(
+			new ButtonBuilder()
+				.setStyle(ButtonStyle.Link)
+				.setURL(generateReport([oInfo.outfitID], now-3600, now))
+				.setLabel(i18n.__({phrase: 'Past 1 hour report', locale: locale})),
+			new ButtonBuilder()
+				.setStyle(ButtonStyle.Link)
+				.setURL(generateReport([oInfo.outfitID], now-7200, now))
+				.setLabel(i18n.__({phrase: 'Past 2 hour report', locale: locale}))
+		);
+	}
+
+	return [resEmbed, [row]];
 }

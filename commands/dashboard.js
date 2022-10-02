@@ -1,23 +1,22 @@
 /**
  * This file implements functions to create and update server dashboards, showing population, territory control, and active alerts
  * @module dashboard
- */
-/**
  * @typedef {import('pg').Client} pg.Client
  * @typedef {import('discord.js').Client} discord.Client
- * @typedef {import('discord.js').MessageEmbed} discord.MessageEmbed
+ * @typedef {import('discord.js').EmbedBuilder} discord.MessageEmbed
  * @typedef {import('discord.js').TextBasedChannel} discord.Channel
-*/
+ * @typedef {import('discord.js').ChatInputCommandInteraction} ChatInteraction
+ */
 
-const {MessageEmbed} = require('discord.js');
-const messageHandler = require('./messageHandler.js');
-const {getPopulation} = require('./population.js');
-const {alertInfo, popLevels} = require('./alerts.js');
-const {territoryInfo, continentBenefit} = require('./territory.js');
-const {onlineInfo, totalLength} = require('./online.js');
-const {ownedBases, centralBases} = require('./outfit.js');
-const bases = require('./static/bases.json');
-const {serverNames, serverIDs, servers, continents, continentNames, faction, localeNumber} = require('./utils.js');
+import {EmbedBuilder} from 'discord.js';
+import { send } from '../messageHandler.js';
+import {getPopulation} from './population.js';
+import {alertInfo, popLevels} from './alerts.js';
+import {territoryInfo, continentBenefit} from './territory.js';
+import {onlineInfo, totalLength} from './online.js';
+import {ownedBases, centralBases} from './outfit.js';
+import bases from '../static/bases.json' assert {type: 'json'};
+import {serverNames, serverIDs, servers, continents, faction, localeNumber, platforms, allServers} from '../utils.js';
 
 /**
  * Creates a server dashboard for the given serverID that keeps track of the population, territory control, and active alerts
@@ -25,8 +24,8 @@ const {serverNames, serverIDs, servers, continents, continentNames, faction, loc
  * @param {pg.Client} pgClient - The postgres client 
  * @returns the server dashboard embed
  */
-const serverStatus = async function(serverID, pgClient){
-	let resEmbed = new MessageEmbed();
+async function serverStatus(serverID, pgClient){
+	let resEmbed = new EmbedBuilder();
 	resEmbed.setTitle(`${serverNames[serverID]} Dashboard`);
 
 	// Population
@@ -42,7 +41,7 @@ const serverStatus = async function(serverID, pgClient){
 	\n<:TR:818988588049629256> **TR**: ${pop.global.tr}  |  ${trPc}%\
 	\n:question: **?**: ${pop.global.unknown}  |  ${nsPc}%`
 
-	resEmbed.addField(`Population - ${localeNumber(pop.global.all, "en-US")}`, populationField, true);
+	resEmbed.addFields({name: `Population - ${localeNumber(pop.global.all, "en-US")}`, value: populationField, inline: true});
 
 	// Territory
 	const territory = await territoryInfo(serverID);
@@ -93,7 +92,7 @@ const serverStatus = async function(serverID, pgClient){
 		}
 	}
 
-	resEmbed.addField("Territory Control", territoryField, true);
+	resEmbed.addFields({name: "Territory Control", value: territoryField, inline: true});
 
 	// Alerts
 	try{
@@ -103,14 +102,14 @@ const serverStatus = async function(serverID, pgClient){
 			alertField += `**[${alert.name}](https://ps2alerts.com/alert/${alert.instanceId}?utm_source=auraxis-bot&utm_medium=discord&utm_campaign=partners)**\
 			\n${alert.description}\nStarted at <t:${alert.timeStart}:t>\nEnds <t:${alert.timeEnd}:R>\nPopulation: ${popLevels[alert.bracket]}\n\n`;
 		}
-		resEmbed.addField("Alerts", alertField, true);
+		resEmbed.addFields({name: "Alerts", value: alertField, inline: true});
 	}
 	catch(err){
-		resEmbed.addField("Alerts", "No active alerts", true);
+		resEmbed.addFields({name: "Alerts", value: "No active alerts", inline: true});
 	}
 	resEmbed.setTimestamp();
 	resEmbed.setFooter({text: "Updated every 5 minutes • Population from wt.honu.pw • Alerts from PS2Alerts"});
-	resEmbed.setColor("BLUE");
+	resEmbed.setColor("Blue");
 
 	return resEmbed;
 }
@@ -122,9 +121,9 @@ const serverStatus = async function(serverID, pgClient){
  * @param {pg.Client} pgClient - The postgres client
  * @returns the outfit dashboard embed
  */
-const outfitStatus = async function(outfitID, platform, pgClient){
+async function outfitStatus(outfitID, platform, pgClient){
 	const oInfo = await onlineInfo("", platform, outfitID);
-	let resEmbed = new MessageEmbed();
+	const resEmbed = new EmbedBuilder();
 	if(oInfo.alias != ""){
 		resEmbed.setTitle(`[${oInfo.alias}] ${oInfo.name}`);
 		if(platform == 'ps2:v2'){
@@ -145,17 +144,17 @@ const outfitStatus = async function(outfitID, platform, pgClient){
 	resEmbed.setColor(faction(oInfo.faction).color);
 
 	if(oInfo.onlineCount === -1){
-		resEmbed.addField("Online member count unavailable", "-");
+		resEmbed.addFields({name: "Online member count unavailable", value: "-"});
 		resEmbed.setDescription(`?/${oInfo.memberCount} online | ${serverNames[oInfo.world]}`);
 	}
 	else{
 		for(let i = 0; i < 8; i++){
 			if(oInfo.onlineMembers[i].length > 0){
 				if(totalLength(oInfo.onlineMembers[i]) <= 1024){
-					resEmbed.addField(oInfo.rankNames[i]+" ("+oInfo.onlineMembers[i].length+")", `${oInfo.onlineMembers[i]}`.replace(/,/g, '\n'), true);
+					resEmbed.addFields({name: oInfo.rankNames[i]+" ("+oInfo.onlineMembers[i].length+")", value: `${oInfo.onlineMembers[i]}`.replace(/,/g, '\n'), inline: true});
 				}
 				else{
-					resEmbed.addField(oInfo.rankNames[i]+" ("+oInfo.onlineMembers[i].length+")", "Too many to display", true);
+					resEmbed.addFields({name: oInfo.rankNames[i]+" ("+oInfo.onlineMembers[i].length+")", value: "Too many to display", inline: true});
 				}
 			}
 		}
@@ -188,10 +187,10 @@ const outfitStatus = async function(outfitID, platform, pgClient){
 		}
 	}
 	if((auraxium + synthium + polystellarite) > 0){ //Recognized bases are owned
-		resEmbed.addField('Bases owned', `${ownedNames}`.replace(/,/g, '\n'));
-		resEmbed.addField('<:Auraxium:818766792376713249>', `+${auraxium/5}/min`, true);
-		resEmbed.addField('<:Synthium:818766858865475584>', `+${synthium/5}/min`, true);
-		resEmbed.addField('<:Polystellarite:818766888238448661>', `+${polystellarite/5}/min`, true);
+		resEmbed.addFields({name: 'Bases owned', value: `${ownedNames}`.replace(/,/g, '\n')});
+		resEmbed.addFields({name: '<:Auraxium:818766792376713249>', value: `+${auraxium/5}/min`, inline: true});
+		resEmbed.addFields({name: '<:Synthium:818766858865475584>', value: `+${synthium/5}/min`, inline: true});
+		resEmbed.addFields({name: '<:Polystellarite:818766888238448661>', value: `+${polystellarite/5}/min`, inline: true});
 	}
 
 	resEmbed.setTimestamp();
@@ -208,7 +207,7 @@ const outfitStatus = async function(outfitID, platform, pgClient){
  * @param {pg.Client} pgClient = The postgres client
  * @param {discord.Client} discordClient - The discord client 
  */
-const editMessage = async function(channelID, messageID, newDash, pgClient, discordClient){
+async function editMessage(channelID, messageID, newDash, pgClient, discordClient){
 	try{
 		const channel = await discordClient.channels.fetch(channelID);
 		const message = await channel.messages.fetch(messageID);
@@ -227,91 +226,149 @@ const editMessage = async function(channelID, messageID, newDash, pgClient, disc
 	}
 }
 
-module.exports = {
-	/**
-	 * Creates a dashboard for a server
-	 * @param {discord.Channel} channel - The channel to send the message to
-	 * @param {string} serverName - The server name
-	 * @param {pg.Client} pgClient - The postgres client 
-	 * @returns the status of the creation of the dashboard
-	 * @throws if bot has insufficient permissions to post messages
-	 */
-	createServer: async function(channel, serverName, pgClient){
-		const resEmbed = await serverStatus(serverIDs[serverName], pgClient);
-		const messageID = await messageHandler.send(channel, {embeds: [resEmbed]}, "Create server dashboard", true);
-		if(messageID == -1){
-			throw "Error creating dashboard, please check that the bot has permission to post in this channel.";
-		}
-		await pgClient.query("INSERT INTO dashboard (concatkey, channel, messageid, world) VALUES ($1, $2, $3, $4)\
-		ON CONFLICT(concatkey) DO UPDATE SET messageid = $3;",
-		[`${channel.id}-${serverName}`, channel.id, messageID, serverName]);
-		return "Dashboard successfully created.  It will be automatically updated every 5 minutes.";
+export const data = {
+	name: 'dashboard',
+	description: "Create an automatically updating dashboard",
+	options: [{
+		name: "server",
+		description: "Create an automatically updating dashboard displaying server status",
+		type: '1',
+		options: [{
+			name: 'server',
+			type: '3',
+			description: 'Server name',
+			required: true,
+			choices: allServers
+		}]
 	},
-
-	/**
-	 * Creates a dashboard for an outfit
-	 * @param {discord.Channel} channel - The channel to send the message to
-	 * @param {string} oTag - The tag of the outfit
-	 * @param {string} platform - The platform of the outfit
-	 * @param {pg.Client} pgClient - The postgres client
-	 * @returns the status of the creation of the dashboard
-	 * @throws if bot has insufficient permissions to post messages
-	 */
-	createOutfit: async function(channel, oTag, platform, pgClient){
-		const oInfo = await onlineInfo(oTag, platform);
-		const resEmbed = await outfitStatus(oInfo.outfitID, platform, pgClient);
-		const messageID = await messageHandler.send(channel, {embeds: [resEmbed]}, "Create outfit dashboard", true);
-		if(messageID == -1){
-			throw "Error creating dashboard, please check that the bot has permission to post in this channel.";
+	{
+		name: "outfit",
+		description: "Create an automatically updating dashboard displaying outfit status",
+		type: '1',
+		options: [{
+			name: 'tag',
+			type: '3',
+			description: 'Outfit tag',
+			required: true
+		},
+		{
+			name: 'platform',
+			type: '3',
+			description: "Which platform is the outfit on?  Defaults to PC",
+			required: false,
+			choices: platforms
 		}
-		await pgClient.query("INSERT INTO outfitDashboard (concatkey, channel, messageid, outfitID, platform) VALUES ($1, $2, $3, $4, $5)\
-		ON CONFLICT(concatkey) DO UPDATE SET messageid = $3;",
-		[`${channel.id}-${oInfo.outfitID}`, channel.id, messageID, oInfo.outfitID, platform]);
-		return "Dashboard successfully created.  It will be automatically updated every 5 minutes.";
-	},
+		]
+	}]
+};
 
-	/**
-	 * Updates current dashboards in discord channels
-	 * @param {pg.Client} pgClient - The postgres client
-	 * @param {discord.Client} discordClient - The discord client 
-	 */
-	update: async function(pgClient, discordClient){
-		for(const serverName of servers){
-			try{
-				const status = await serverStatus(serverIDs[serverName], pgClient);
-				const channels = await pgClient.query('SELECT * FROM dashboard WHERE world = $1;', [serverName]);
-				for(const row of channels.rows){
-					await editMessage(row.channel, row.messageid, status, pgClient, discordClient);
-				}
-			}
-			catch(err){
-				console.log(`Error updating ${serverName} dashboard`);
-				console.log(err);
-			}
-		}
+export const type = ['PGClient'];
+
+/**
+ * Runs the `/dashboard` command
+ * @param { ChatInteraction } interaction - command chat interaction
+ * @param { string } locale - locale of the user
+ * @param {*} pgClient - postgres client
+ */
+export async function execute(interaction, locale, pgClient) {
+	const options = interaction.options.getSubcommand();
+	const channel = interaction.channel;
+	if (options === 'server') {
+		const server = interaction.options.getString('server');
+		const res = await createServer(channel, server, pgClient);
+		await interaction.editReply(res);
+
+	} else if (options === 'outfit') {
+		const tag = interaction.options.getString('tag').toLowerCase();
+		const platform = interaction.options.getString('platform') || 'ps2:v2';
+		const res = await createOutfit(channel, tag, platform, pgClient);
+		await interaction.editReply(res);
+	}
+}
+
+/**
+ * Creates a dashboard for a server
+ * @param {discord.Channel} channel - The channel to send the message to
+ * @param {string} serverName - The server name
+ * @param {pg.Client} pgClient - The postgres client 
+ * @returns the status of the creation of the dashboard
+ * @throws if bot has insufficient permissions to post messages
+ */
+async function createServer(channel, serverName, pgClient){
+	const resEmbed = await serverStatus(serverIDs[serverName], pgClient);
+	const messageID = await send(channel, {embeds: [resEmbed]}, "Create server dashboard", true);
+	if(messageID == -1){
+		throw "Error creating dashboard, please check that the bot has permission to post in this channel.";
+	}
+	await pgClient.query("INSERT INTO dashboard (concatkey, channel, messageid, world) VALUES ($1, $2, $3, $4)\
+	ON CONFLICT(concatkey) DO UPDATE SET messageid = $3;",
+	[`${channel.id}-${serverName}`, channel.id, messageID, serverName]);
+	return "Dashboard successfully created.  It will be automatically updated every 5 minutes.";
+}
+
+/**
+ * Creates a dashboard for an outfit
+ * @param {discord.Channel} channel - The channel to send the message to
+ * @param {string} oTag - The tag of the outfit
+ * @param {string} platform - The platform of the outfit
+ * @param {pg.Client} pgClient - The postgres client
+ * @returns the status of the creation of the dashboard
+ * @throws if bot has insufficient permissions to post messages
+ */
+async function createOutfit(channel, oTag, platform, pgClient){
+	const oInfo = await onlineInfo(oTag, platform);
+	const resEmbed = await outfitStatus(oInfo.outfitID, platform, pgClient);
+	const messageID = await send(channel, {embeds: [resEmbed]}, "Create outfit dashboard", true);
+	if(messageID == -1){
+		throw "Error creating dashboard, please check that the bot has permission to post in this channel.";
+	}
+	await pgClient.query("INSERT INTO outfitDashboard (concatkey, channel, messageid, outfitID, platform) VALUES ($1, $2, $3, $4, $5)\
+	ON CONFLICT(concatkey) DO UPDATE SET messageid = $3;",
+	[`${channel.id}-${oInfo.outfitID}`, channel.id, messageID, oInfo.outfitID, platform]);
+	return "Dashboard successfully created.  It will be automatically updated every 5 minutes.";
+}
+
+/**
+ * Updates current dashboards in discord channels
+ * @param {pg.Client} pgClient - The postgres client
+ * @param {discord.Client} discordClient - The discord client 
+ */
+export async function update(pgClient, discordClient){
+	for(const serverName of servers){
 		try{
-			const outfits = await pgClient.query('SELECT DISTINCT outfitID, platform FROM outfitDashboard;');
-			for(const row of outfits.rows){
-				try{
-					const status = await outfitStatus(row.outfitid, row.platform, pgClient);
-					const channels = await pgClient.query('SELECT * FROM outfitdashboard WHERE outfitid = $1 AND platform = $2', [row.outfitid, row.platform]);
-					for(const channelRow of channels.rows){
-						await editMessage(channelRow.channel, channelRow.messageid, status, pgClient, discordClient);
-					}
-				}
-				catch(err){
-					console.log(`Error updating outfit dashboard ${row.platform}: ${row.outfitid}`);
-					console.log(err);
-					if(err == " not found"){
-						await pgClient.query("DELETE FROM outfitDashboard WHERE outfitID = $1;", [row.outfitid]);
-						console.log(`Deleted ${row.outfitid} from table`);
-					}
-				}
+			const status = await serverStatus(serverIDs[serverName], pgClient);
+			const channels = await pgClient.query('SELECT * FROM dashboard WHERE world = $1;', [serverName]);
+			for(const row of channels.rows){
+				await editMessage(row.channel, row.messageid, status, pgClient, discordClient);
 			}
 		}
 		catch(err){
-			console.log(`Error pulling outfit dashboards`);
+			console.log(`Error updating ${serverName} dashboard`);
 			console.log(err);
 		}
+	}
+	try{
+		const outfits = await pgClient.query('SELECT DISTINCT outfitID, platform FROM outfitDashboard;');
+		for(const row of outfits.rows){
+			try{
+				const status = await outfitStatus(row.outfitid, row.platform, pgClient);
+				const channels = await pgClient.query('SELECT * FROM outfitdashboard WHERE outfitid = $1 AND platform = $2', [row.outfitid, row.platform]);
+				for(const channelRow of channels.rows){
+					await editMessage(channelRow.channel, channelRow.messageid, status, pgClient, discordClient);
+				}
+			}
+			catch(err){
+				console.log(`Error updating outfit dashboard ${row.platform}: ${row.outfitid}`);
+				console.log(err);
+				if(err == " not found"){
+					await pgClient.query("DELETE FROM outfitDashboard WHERE outfitID = $1;", [row.outfitid]);
+					console.log(`Deleted ${row.outfitid} from table`);
+				}
+			}
+		}
+	}
+	catch(err){
+		console.log(`Error pulling outfit dashboards`);
+		console.log(err);
 	}
 }

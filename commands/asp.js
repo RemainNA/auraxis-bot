@@ -1,11 +1,12 @@
 /**
  * This file implements a function which finds and returns the max BR a character reached before joining ASP, and tracks their ASP unlocks and tokens
  * @module asp
+ * @typedef {import('discord.js').ChatInputCommandInteraction} ChatInteraction 
  */
 
-const Discord = require('discord.js');
-const { censusRequest, badQuery, faction } = require('./utils.js');
-const i18n = require('i18n');
+import { ApplicationCommandOptionType, EmbedBuilder } from 'discord.js';
+import { censusRequest, badQuery, faction, platforms } from '../utils.js';
+import i18n from 'i18n';
 
 /**
  * Get basic information about a character's ASP unlocks and BR
@@ -15,10 +16,10 @@ const i18n = require('i18n');
  * @returns an object containing the ASP information about a character
  * @throw if `cName` is not a valid character name, are NSO are have no ASP
  */
-const basicInfo = async function(cName, platform, locale="en-US"){
+async function basicInfo(cName, platform, locale="en-US"){
 	let response = await censusRequest(platform, 'character_list', `/character?name.first_lower=${cName}&c:resolve=item_full&c:lang=en`);
-    if(response.length == 0){
-        throw i18n.__mf({phrase: "{name} not found", locale: locale}, {name: cName});
+	if(response.length == 0){
+		throw i18n.__mf({phrase: "{name} not found", locale: locale}, {name: cName});
 	}
 	let data = response[0];
 	if(data.prestige_level == "0"){
@@ -69,37 +70,69 @@ const basicInfo = async function(cName, platform, locale="en-US"){
 	return retInfo;
 }
 
-module.exports = {
-	/**
-	 * Get ASP information about a character
-	 * @param {string} cName - character name to search
-	 * @param {string} platform - platform character is on
-	 * @param {string} locale - locale to use
-	 * @returns a discord embed of the character's ASP information
-	 * @throw if `cName` contains invalid characters
-	 */
-	originalBR: async function(cName, platform, locale="en-US"){
-		if(badQuery(cName)){
-			throw i18n.__({phrase: "Character search contains disallowed characters", locale: locale});
-		}
-		let cInfo = await basicInfo(cName, platform, locale);
+export const data = {
+	name: 'asp',
+	description: "Look up ASP specific information for a character",
+	options: [{
+		name: 'name',
+		type: ApplicationCommandOptionType.String,
+		description: 'Character name',
+		required: true,
+	},
+	{
+		name: 'platform',
+		type: ApplicationCommandOptionType.String,
+		description: "Which platform is the character on?  Defaults to PC",
+		required: false,
+		choices: platforms
+	}]
+};
 
-		let resEmbed = new Discord.MessageEmbed();
-		resEmbed.setColor(faction(cInfo.faction).color);
-		resEmbed.setTitle(cInfo.name);
-		resEmbed.setDescription(`${i18n.__({phrase: "BR pre ASP", locale: locale})}: ${cInfo.preBR}`);
-		if(cInfo.unlocks.length == 0){
-			cInfo.unlocks = "None";
-		}
-		else{
-			cInfo.unlocks = cInfo.unlocks.substring(0,(cInfo.unlocks.length-6));
-		}
-		resEmbed.addField(i18n.__({phrase: "Available Points", locale: locale}), `${cInfo.availableTokens}`);
-		resEmbed.addField(i18n.__({phrase: "ASP Skills", locale: locale}), cInfo.unlocks);
-		if(cInfo.unlocksContinued != ""){
-			resEmbed.addField(i18n.__({phrase: "ASP Skills Continued", locale: locale}), cInfo.unlocksContinued.substring(0,(cInfo.unlocksContinued.length-6)));
-		}
-		resEmbed.setThumbnail("http://census.daybreakgames.com/files/ps2/images/static/88688.png");
-		return resEmbed;
+export const type = ['Base'];
+
+/**
+ * Runs the `/asp` command
+ * @param { ChatInteraction } interaction - command chat interaction
+ * @param { string } locale - locale to use 
+ */
+export async function execute(interaction, locale) {
+	const cName = interaction.options.getString('name').toLowerCase();
+	const platform = interaction.options.getString('platform') || 'ps2:v2';
+	const sendEmbed = await aspEmbed(cName, platform, locale);
+	await interaction.editReply({embeds: [sendEmbed]});
+}
+
+/**
+ * Returns an embed containing ASP information about a character
+ * @param { string } cName - name of the character
+ * @param { string } platform - which platform the character is on
+ * @param { string } locale - locale to use 
+ * @returns an embed containing the ASP information of cName
+ */
+export async function aspEmbed(cName, platform, locale="en-US"){
+	if(badQuery(cName)){
+		throw i18n.__({phrase: "Character search contains disallowed characters", locale: locale});
 	}
+	const cInfo = await basicInfo(cName, platform, locale);
+	if(cInfo.unlocks.length == 0){
+		cInfo.unlocks = "None";
+	}
+	else{
+		cInfo.unlocks = cInfo.unlocks.substring(0,(cInfo.unlocks.length-6));
+	}
+	const resEmbed = new EmbedBuilder()
+		.setColor(faction(cInfo.faction).color)
+		.setTitle(cInfo.name)
+		.setDescription(`${i18n.__({phrase: "BR pre ASP", locale: locale})}: ${cInfo.preBR}`);
+	resEmbed.addFields(
+		{name: i18n.__({phrase: "Available Points", locale: locale}), value: `${cInfo.availableTokens}`},
+		{name: i18n.__({phrase: "ASP Skills", locale: locale}), value: cInfo.unlocks}
+	);
+	if(cInfo.unlocksContinued != ""){
+		resEmbed.addFields(
+			{name: i18n.__({phrase: "ASP Skills Continued", locale: locale}), value: cInfo.unlocksContinued.substring(0,(cInfo.unlocksContinued.length-6))}
+		);
+	}
+	resEmbed.setThumbnail("http://census.daybreakgames.com/files/ps2/images/static/88688.png");
+	return resEmbed;
 }

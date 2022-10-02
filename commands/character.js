@@ -3,17 +3,19 @@
  * All three platforms are supported, but must be specified in the "platform" parameter
  * @ts-check
  * @module character
+ * @typedef {import('discord.js').ChatInputCommandInteraction} ChatInteraction
+ * @typedef {import('discord.js').ButtonInteraction} ButtonInteraction
  */
 
 
-const Discord = require('discord.js');
-const weapons = require('./static/weapons.json');
-const vehicles = require('./static/vehicles.json');
-const decals = require('./static/decals.json');
-const sanction = require('./static/sanction.json');
-const { fetch } = require('undici');
-const i18n = require('i18n');
-const { serverNames, badQuery, censusRequest, localeNumber, faction } = require('./utils');
+import { ActionRowBuilder, ButtonBuilder, ButtonStyle, EmbedBuilder } from 'discord.js';
+import weapons from '../static/weapons.json' assert {type: 'json'};
+import vehicles from '../static/vehicles.json' assert {type: 'json'};;
+import decals from '../static/decals.json' assert {type: 'json'};;
+import sanction from '../static/sanction.json' assert {type: 'json'};
+import { fetch } from 'undici';
+import i18n from 'i18n';
+import { serverNames, badQuery, censusRequest, localeNumber, faction, platforms } from '../utils.js';
 
 /**
  * Get basic character information
@@ -22,7 +24,7 @@ const { serverNames, badQuery, censusRequest, localeNumber, faction } = require(
  * @returns an object containing the character's basic information
  * @throws if the character is not found
  */
-const basicInfo = async function(cName, platform){
+async function basicInfo(cName, platform){
     // Main function for character lookup.  Pulls most stats and calls other functions for medals/top weapon info
     let response =  await censusRequest(platform, 'character_list', `/character?name.first_lower=${cName}&c:resolve=outfit_member_extended,online_status,world,stat_history,weapon_stat_by_faction,weapon_stat&c:join=title,characters_stat^list:1`);
     if(response.length == 0){
@@ -200,7 +202,7 @@ const basicInfo = async function(cName, platform){
  * @param {string} platform - platform character is on
  * @returns true if character is ASP
  */
-const checkASP = async function(cName, platform){
+async function checkASP(cName, platform){
     let response = await censusRequest(platform, 'character_list', `/character?name.first_lower=${cName}&c:resolve=item_full&c:lang=en`);
     let data = response[0];
     let aspTitle = false;
@@ -221,7 +223,7 @@ const checkASP = async function(cName, platform){
  * @param {number} value - value to add to sanctionedStats 
  * @returns all the kills,
  */
-const populateStats = function(sanctionedStats, id, key, value){
+function populateStats(sanctionedStats, id, key, value){
     if(id in sanctionedStats){
         sanctionedStats[id][key] = value;
     }
@@ -237,7 +239,7 @@ const populateStats = function(sanctionedStats, id, key, value){
  * @param {string} ID - item id 
  * @returns true if weapon ID is sanctioned
  */
-const includeInIVI = function(ID){
+function includeInIVI(ID){
     if(ID in sanction && sanction[ID].sanction == "infantry"){
         return true;
     }
@@ -251,7 +253,7 @@ const includeInIVI = function(ID){
  * @returns {Promise<string>} the weapon name
  * @throws if weapon cannot be found
  */
-const getWeaponName = async function(ID, platform){
+export async function getWeaponName(ID, platform){
     // Returns the name of the weapon ID specified.  If the Census API is unreachable it will fall back to the fisu api
     if(typeof(weapons[ID]) !== 'undefined'){
         return weapons[ID].name;
@@ -274,31 +276,12 @@ const getWeaponName = async function(ID, platform){
 }
 
 /**
- * Get vehicle name from vehicle id
- * @param {string} ID - item id
- * @param {string} platform - platform to request
- * @returns the vechicle name
- * @throws if vehicle cannot be found
- */
-const getVehicleName = async function(ID, platform){
-    if(typeof(vehicles[ID]) !== 'undefined'){
-        return vehicles[ID].name;
-    }
-    let response = await censusRequest(platform, 'vehicle_list', `/vehicle/${ID}`);
-    if(response.returned==1){
-        return response.vehicle_list[0].name.en;
-    }
-
-    throw "Not found";
-}
-
-/**
  * Get the number of auraxium's a character has
  * @param {string} cName 
  * @param {string} platform 
  * @returns the number of auraxium's
  */
-const getAuraxiumCount = async function(cName, platform){
+async function getAuraxiumCount(cName, platform){
     // Calculates the number of Auraxium medals a specified character has
     let response = await censusRequest(platform, 'character_list', `/character?name.first_lower=${cName}&c:join=characters_achievement^list:1^outer:0^hide:character_id%27earned_count%27start%27finish%27last_save%27last_save_date%27start_date(achievement^terms:repeatable=0^outer:0^show:name.en%27description.en)`);
     let medalCount = 0;
@@ -330,7 +313,7 @@ const getAuraxiumCount = async function(cName, platform){
  * @returns the recent stats of the character from that time frame
  * @throws if unable to get stats
  */
-const recentStatsInfo =  async function(cID, platform, days){
+async function recentStatsInfo(cID, platform, days){
     const response = await censusRequest(platform, 'character_list', `/character/${cID}?c:resolve=stat_history&c:join=title,characters_stat^list:1`);
     const data = response[0];
     let resObj = {
@@ -369,237 +352,326 @@ const recentStatsInfo =  async function(cID, platform, days){
     return resObj;
 }
 
-module.exports = {
-    /**
-     * Create a discord embed of an overview of a character lifetime stats
-     * @param {string} cName - character name
-     * @param {string} platform - platform to request
-     * @param {string} locale - locale to use
-     * @returns a discord embed with the character info
-     * @throws if `cName` contains invalid characters
-     */
-    character: async function(cName, platform, locale="en-US"){
-        // Calls function to get basic info, extracts info from returned object and constructs the Discord embed to send
-        if(badQuery(cName)){
-			throw "Character search contains disallowed characters";
-		}
-        
-        const cInfo = await basicInfo(cName, platform);
-        let resEmbed = new Discord.MessageEmbed();
-        const row = new Discord.MessageActionRow()
-        row.addComponents(
-            new Discord.MessageButton()
-                .setCustomId(`recentStats%30%${cInfo.characterID}%${platform}`)
-                .setLabel(i18n.__({phrase: '30 day stats', locale: locale}))
-                .setStyle('PRIMARY'),
-            new Discord.MessageButton()
-                .setCustomId(`recentStats%7%${cInfo.characterID}%${platform}`)
-                .setLabel(i18n.__({phrase: '7 day stats', locale: locale}))
-                .setStyle('PRIMARY'),
-            new Discord.MessageButton()
-                .setCustomId(`recentStats%1%${cInfo.characterID}%${platform}`)
-                .setLabel(i18n.__({phrase: '1 day stats', locale: locale}))
-                .setStyle('PRIMARY')
-        );
+export const type = ['Base'];
 
-        // Username, title, fisu url
-        resEmbed.setTitle(cInfo.name);
-        if(cInfo.title != null){
-            resEmbed.setDescription(cInfo.title);
-        }
-        if(platform == 'ps2:v2'){
-            resEmbed.setURL('http://ps2.fisu.pw/player/?name='+cName);
-        }
-        else if(platform == 'ps2ps4us:v2'){
-            resEmbed.setURL('http://ps4us.ps2.fisu.pw/player/?name='+cName);
-        }
-        else if(platform == 'ps2ps4eu:v2'){
-            resEmbed.setURL('http://ps4eu.ps2.fisu.pw/player/?name='+cName);
-        }
-        
-        // BR & ASP
-        if(cInfo.prestige > 0){
-            resEmbed.addField(i18n.__({phrase: 'BR', locale: locale}), cInfo.br+"~"+cInfo.prestige, true);
-        }
-        else{
-            resEmbed.addField(i18n.__({phrase: 'BR', locale: locale}), cInfo.br, true);
-        }
+export const data = {
+    name: 'character',
+    description: "Look up a character's stats and basic information",
+    options: [{
+        name: 'name',
+        type: '3',
+        description: 'Character name, or multiple separated by spaces',
+        required: true,
+    },
+    {
+        name: 'platform',
+        type: '3',
+        description: "Which platform is the character on?  Defaults to PC",
+        required: false,
+        choices: platforms
+    }]
+};
 
-        // Decal thumbnail
-        if(cInfo.prestige == "1"){
-            resEmbed.setThumbnail("http://census.daybreakgames.com/files/ps2/images/static/88685.png");
-        }
-        else if (cInfo.prestige == "2"){
-            resEmbed.setThumbnail("http://census.daybreakgames.com/files/ps2/images/static/94469.png");
-        }
-        else if (parseInt(cInfo.br) > 100){
-            resEmbed.setThumbnail(`http://census.daybreakgames.com/files/ps2/images/static/${85033+(parseInt(cInfo.br)-100)}.png`);
-        }
-        else if (cInfo.faction == "1"){ //vs
-            resEmbed.setThumbnail(`http://census.daybreakgames.com/files/ps2/images/static/${decals.vs[parseInt(cInfo.br)]}.png`);
-        }
-        else if (cInfo.faction == "2"){ //nc
-            resEmbed.setThumbnail(`http://census.daybreakgames.com/files/ps2/images/static/${decals.nc[parseInt(cInfo.br)]}.png`);
-        }
-        else if (cInfo.faction == "3"){ //tr
-            resEmbed.setThumbnail(`http://census.daybreakgames.com/files/ps2/images/static/${decals.tr[parseInt(cInfo.br)]}.png`);
-        }
-        else{ //nso
-            resEmbed.setThumbnail(`http://census.daybreakgames.com/files/ps2/images/static/${90110+Math.floor(parseInt(cInfo.br)/10)}.png`);
-        }
+/**
+ * Used to trigger getting recent stats of a character
+ * @param { ButtonInteraction } interaction - button interaction
+ * @param { string } locale - locale to use
+ * @param { string[] } options - options from interaction
+ */
+export async function button(interaction, locale, options) {
+    await interaction.deferReply();
+    const [days, cID, platform] = options;
+    const res = await recentStats(cID, platform, days, locale);
+    await interaction.editReply({embeds: [res]});
+}
 
-        // Score, SPM
-        if(cInfo.stat_history){
-            resEmbed.addField(i18n.__({phrase: 'Score (SPM)', locale: locale}), parseInt(cInfo.score).toLocaleString(locale)+" ("+localeNumber(cInfo.score/cInfo.playTime, locale)+")", true);
-        }
-
-        // Server
-        resEmbed.addField(i18n.__({phrase: 'Server', locale: locale}), i18n.__({phrase: serverNames[Number(cInfo.server)], locale: locale}), true);
-
-        // Playtime
-        const hours = Math.floor(cInfo.playTime/60);
-        const minutesPlayed = cInfo.playTime - hours*60;
-        resEmbed.addField(i18n.__({phrase: 'Playtime', locale: locale}), 
-        `${i18n.__mf({phrase: "{hour} hours, {minute} minutes", locale: locale}, 
-        {hour: localeNumber(hours, locale), minute: minutesPlayed})}`, true);
-        
-        // KD, KPM
-        if(cInfo.stat_history){
-            resEmbed.addField(i18n.__({phrase: 'K/D', locale: locale}), localeNumber(cInfo.kills/cInfo.deaths, locale), true);
-            resEmbed.addField(i18n.__({phrase: 'KPM', locale: locale}), localeNumber(cInfo.kills/cInfo.playTime, locale), true);
-            resEmbed.addField(i18n.__({phrase: 'K-D Diff', locale: locale}), `${Number.parseInt(cInfo.kills).toLocaleString(locale)} - ${Number.parseInt(cInfo.deaths).toLocaleString(locale)} = ${(cInfo.kills-cInfo.deaths).toLocaleString(locale, {signDisplay: "exceptZero"})}`, true);
-        }
-
-        // IVI Score
-        if(typeof(cInfo.infantryHeadshots) !== 'undefined' && typeof(cInfo.infantryHits) !== 'undefined'){
-            let accuracy = cInfo.infantryHits/cInfo.infantryShots;
-            let hsr = cInfo.infantryHeadshots/cInfo.infantryKills;
-            resEmbed.addField(i18n.__({phrase: 'IVI Score', locale: locale}), `${Math.round(accuracy*hsr*10000)}`, true);
-        }
-
-        // Online status
-        if (cInfo.online == "service_unavailable"){
-            resEmbed.addField(i18n.__({phrase: 'Online', locale: locale}), 'Service unavailable', true);
-        }
-        else if (cInfo.online >= 1){
-            resEmbed.addField(i18n.__({phrase: 'Online', locale: locale}), ':white_check_mark:', true);
-        }
-        else{
-            resEmbed.addField(i18n.__({phrase: 'Online', locale: locale}), ':x:', true);
-        }
-        resEmbed.addField(i18n.__({phrase: 'Last Login', locale: locale}), `<t:${cInfo.lastLogin}:R>`, true);
-
-        const factionInfo = faction(cInfo.faction);
-        resEmbed.addField(i18n.__({phrase: 'Faction', locale: locale}), `${factionInfo.decal} ${i18n.__({phrase: factionInfo.initial, locale: locale})}`, true);
-
-        resEmbed.setColor(factionInfo.color);
-
-        // Outfit info
-        if(cInfo.inOutfit){
-            if(cInfo.outfitAlias != "" && platform == 'ps2:v2'){
-                resEmbed.addField(i18n.__({phrase: 'Outfit', locale: locale}), '[['+cInfo.outfitAlias+']](https://ps2.fisu.pw/outfit/?name='+cInfo.outfitAlias+') '+cInfo.outfitName, true);
-            }
-            else if(cInfo.outfitAlias != "" && platform == 'ps2ps4us:v2'){
-                resEmbed.addField(i18n.__({phrase: 'Outfit', locale: locale}), '[['+cInfo.outfitAlias+']](https://ps4us.ps2.fisu.pw/outfit/?name='+cInfo.outfitAlias+') '+cInfo.outfitName, true);
-            }
-            else if(cInfo.outfitAlias != "" && platform == 'ps2ps4eu:v2'){
-                resEmbed.addField(i18n.__({phrase: 'Outfit', locale: locale}), '[['+cInfo.outfitAlias+']](https://ps4eu.ps2.fisu.pw/outfit/?name='+cInfo.outfitAlias+') '+cInfo.outfitName, true);
-            }
-            else{
-                resEmbed.addField(i18n.__({phrase: 'Outfit', locale: locale}), cInfo.outfitName, true);
-            }
-            resEmbed.addField(i18n.__({phrase: 'Outfit Rank', locale: locale}), `${cInfo.outfitRank} (${cInfo.outfitRankOrdinal})`, true);
-            row.addComponents(
-                new Discord.MessageButton()
-                    .setCustomId(`outfit%${cInfo.outfitID}%${platform}`)
-                    .setLabel(i18n.__({phrase: 'View outfit', locale: locale}))
-                    .setStyle('PRIMARY')
+/**
+ * used to trigger the character stats command
+ * @param { ChatInteraction } interaction - chat interaction
+ * @param { string } locale - locale to use
+ */
+export async function execute(interaction, locale){
+    const characterNames = interaction.options.getString('name').toLowerCase().replace(/\s\s+/g, ' ').split(' ');
+    if(characterNames.length > 10){
+        await interaction.editReply({
+            content: i18n.__({phrase: "This commands supports a maximum of 10 characters per query", locale: locale})
+        });
+        return;
+    }
+    const platform = interaction.options.getString('platform') || 'ps2:v2';
+    const results = await Promise.allSettled(
+        characterNames.map(name => character(name, platform, locale))
+    );
+    const messages = [];
+    for(const res of results){
+        if(res.status === 'fulfilled'){
+            messages.push(
+                {embeds: [res.value[0]], components: res.value[1]}
             );
+        } else {
+            messages.push(
+                i18n.__({phrase: 'Error occured when handling command', locale: locale})
+            );
+            console.log(`Character error ${locale}`);
+            console.log(res.reason);
         }
+    }
+    await interaction.editReply(messages.shift());
+    for (const msg of messages) {
+        await interaction.followUp(msg);
+    }
+}
 
-        // Top Weapon, Auraxium medals
-        if(cInfo.stats){
-            if(cInfo.topWeaponName != "Error"){
-                resEmbed.addField(i18n.__({phrase: 'Top Weapon (kills)', locale: locale}), cInfo.topWeaponName+" ("+localeNumber(cInfo.mostKills, locale)+")", true);
-            }
-            if(cInfo.auraxCount != "Error"){
-                resEmbed.addField(i18n.__({phrase: 'Auraxium Medals', locale: locale}), `${cInfo.auraxCount}`, true);
-            }
+/**
+ * Create a discord embed of an overview of a character lifetime stats
+ * @param {string} cName - character name
+ * @param {string} platform - platform to request
+ * @param {string} locale - locale to use
+ * @returns {Promise<[EmbedBuilder, any[]]>} a discord embed with the character info
+ * @throws if `cName` contains invalid characters
+ */
+export async function character(cName, platform, locale="en-US"){
+    // Calls function to get basic info, extracts info from returned object and constructs the Discord embed to send
+    if(badQuery(cName)){
+        throw "Character search contains disallowed characters";
+    }
+    
+    const cInfo = await basicInfo(cName, platform);
+    const resEmbed = new EmbedBuilder();
+    const row = new ActionRowBuilder()
+    row.addComponents(
+        new ButtonBuilder()
+            .setCustomId(`character%30%${cInfo.characterID}%${platform}`)
+            .setLabel(i18n.__({phrase: '30 day stats', locale: locale}))
+            .setStyle(ButtonStyle.Primary),
+        new ButtonBuilder()
+            .setCustomId(`character%7%${cInfo.characterID}%${platform}`)
+            .setLabel(i18n.__({phrase: '7 day stats', locale: locale}))
+            .setStyle(ButtonStyle.Primary),
+        new ButtonBuilder()
+            .setCustomId(`character%1%${cInfo.characterID}%${platform}`)
+            .setLabel(i18n.__({phrase: '1 day stats', locale: locale}))
+            .setStyle(ButtonStyle.Primary)
+    );
+
+    // Username, title, fisu url
+    resEmbed.setTitle(cInfo.name);
+    if(cInfo.title != null){
+        resEmbed.setDescription(cInfo.title);
+    }
+    if(platform == 'ps2:v2'){
+        resEmbed.setURL('http://ps2.fisu.pw/player/?name='+cName);
+    }
+    else if(platform == 'ps2ps4us:v2'){
+        resEmbed.setURL('http://ps4us.ps2.fisu.pw/player/?name='+cName);
+    }
+    else if(platform == 'ps2ps4eu:v2'){
+        resEmbed.setURL('http://ps4eu.ps2.fisu.pw/player/?name='+cName);
+    }
+    
+    // BR & ASP
+    if(cInfo.prestige > 0){
+        resEmbed.addFields({name: i18n.__({phrase: 'BR', locale: locale}), value: cInfo.br+"~"+cInfo.prestige, inline: true});
+    }
+    else{
+        resEmbed.addFields({name: i18n.__({phrase: 'BR', locale: locale}), value: cInfo.br, inline: true});
+    }
+
+    // Decal thumbnail
+    if(cInfo.prestige == "1"){
+        resEmbed.setThumbnail("http://census.daybreakgames.com/files/ps2/images/static/88685.png");
+    }
+    else if (cInfo.prestige == "2"){
+        resEmbed.setThumbnail("http://census.daybreakgames.com/files/ps2/images/static/94469.png");
+    }
+    else if (parseInt(cInfo.br) > 100){
+        resEmbed.setThumbnail(`http://census.daybreakgames.com/files/ps2/images/static/${85033+(parseInt(cInfo.br)-100)}.png`);
+    }
+    else if (cInfo.faction == "1"){ //vs
+        resEmbed.setThumbnail(`http://census.daybreakgames.com/files/ps2/images/static/${decals.vs[parseInt(cInfo.br)]}.png`);
+    }
+    else if (cInfo.faction == "2"){ //nc
+        resEmbed.setThumbnail(`http://census.daybreakgames.com/files/ps2/images/static/${decals.nc[parseInt(cInfo.br)]}.png`);
+    }
+    else if (cInfo.faction == "3"){ //tr
+        resEmbed.setThumbnail(`http://census.daybreakgames.com/files/ps2/images/static/${decals.tr[parseInt(cInfo.br)]}.png`);
+    }
+    else{ //nso
+        resEmbed.setThumbnail(`http://census.daybreakgames.com/files/ps2/images/static/${90110+Math.floor(parseInt(cInfo.br)/10)}.png`);
+    }
+
+    // Score, SPM
+    if(cInfo.stat_history){
+        resEmbed.addFields({name: i18n.__({phrase: 'Score (SPM)', locale: locale}), value: parseInt(cInfo.score).toLocaleString(locale)+" ("+localeNumber(cInfo.score/cInfo.playTime, locale)+")", inline: true});
+    }
+
+    // Server
+    resEmbed.addFields({name: i18n.__({phrase: 'Server', locale: locale}), value: i18n.__({phrase: serverNames[Number(cInfo.server)], locale: locale}), inline: true});
+
+    // Playtime
+    const hours = Math.floor(cInfo.playTime/60);
+    const minutesPlayed = cInfo.playTime - hours*60;
+    resEmbed.addFields({name: i18n.__({phrase: 'Playtime', locale: locale}), 
+    value: `${i18n.__mf({phrase: "{hour} hours, {minute} minutes", locale: locale}, 
+    {hour: localeNumber(hours, locale), minute: minutesPlayed})}`, inline: true});
+    
+    // KD, KPM
+    if(cInfo.stat_history){
+        resEmbed.addFields(
+            {name: i18n.__({phrase: 'K/D', locale: locale}), value: localeNumber(cInfo.kills/cInfo.deaths, locale), inline: true},
+            {name: i18n.__({phrase: 'KPM', locale: locale}), value: localeNumber(cInfo.kills/cInfo.playTime, locale), inline: true},
+            {name: i18n.__({phrase: 'K-D Diff', locale: locale}), value: `${Number.parseInt(cInfo.kills).toLocaleString(locale)} - ${Number.parseInt(cInfo.deaths).toLocaleString(locale)} = ${(cInfo.kills-cInfo.deaths).toLocaleString(locale, {signDisplay: "exceptZero"})}`, inline: true}
+        );
+    }
+
+    // IVI Score
+    if(typeof(cInfo.infantryHeadshots) !== 'undefined' && typeof(cInfo.infantryHits) !== 'undefined'){
+        let accuracy = cInfo.infantryHits/cInfo.infantryShots;
+        let hsr = cInfo.infantryHeadshots/cInfo.infantryKills;
+        resEmbed.addFields({ name: i18n.__({phrase: 'IVI Score', locale: locale}), value: `${Math.round(accuracy*hsr*10000)}`, inline: true});
+    }
+
+    // Online status
+    if (cInfo.online == "service_unavailable"){
+        resEmbed.addFields({ name: i18n.__({phrase: 'Online', locale: locale}), value:'Service unavailable', inline: true});
+    }
+    else if (cInfo.online >= 1){
+        resEmbed.addFields({ name: i18n.__({phrase: 'Online', locale: locale}), value: ':white_check_mark:', inline: true});
+    }
+    else{
+        resEmbed.addFields({ name: i18n.__({phrase: 'Online', locale: locale}), value: ':x:', inline: true});
+    }
+    resEmbed.addFields({name: i18n.__({phrase: 'Last Login', locale: locale}), value: `<t:${cInfo.lastLogin}:R>`, inline: true});
+
+    const factionInfo = faction(cInfo.faction);
+    resEmbed.addFields({name: i18n.__({phrase: 'Faction', locale: locale}), value: `${factionInfo.decal} ${i18n.__({phrase: factionInfo.initial, locale: locale})}`, inline: true});
+
+    resEmbed.setColor(factionInfo.color);
+
+    // Outfit info
+    if(cInfo.inOutfit){
+        if(cInfo.outfitAlias != "" && platform == 'ps2:v2'){
+            resEmbed.addFields({ name: i18n.__({phrase: 'Outfit', locale: locale}), value: '[['+cInfo.outfitAlias+']](https://ps2.fisu.pw/outfit/?name='+cInfo.outfitAlias+') '+cInfo.outfitName, inline: true});
         }
-
-        // Top class
-        if(typeof(cInfo.topClass) !== 'undefined'){
-            const classHours = Math.floor(cInfo.topTime/60/60);
-            const classMinutes = Math.floor(cInfo.topTime/60 - classHours*60);
-            let className = " ";
-            switch(cInfo.topClass){
-                case "1":
-                    className = i18n.__({phrase: 'Infiltrator', locale: locale});
-                    break;
-                case "3":
-                    className = i18n.__({phrase: 'Light Assault', locale: locale});
-                    break;
-                case "4":
-                    className = i18n.__({phrase: 'Medic', locale: locale});
-                    break;
-                case "5":
-                    className = i18n.__({phrase: 'Engineer', locale: locale});
-                    break;
-                case "6":
-                    className = i18n.__({phrase: 'Heavy Assault', locale: locale});
-                    break;
-                case "7":
-                    className = i18n.__({phrase: 'MAX', locale: locale});
-                    break;
-            }
-            resEmbed.addField(i18n.__({phrase: 'Most Played Class (time)', locale: locale}), 
-            `${className} (${i18n.__mf({phrase: "{hour}h, {minute}m", locale: locale}, {hour: localeNumber(classHours, locale), minute: classMinutes})})`, true);
+        else if(cInfo.outfitAlias != "" && platform == 'ps2ps4us:v2'){
+            resEmbed.addFields({ name: i18n.__({phrase: 'Outfit', locale: locale}), value: '[['+cInfo.outfitAlias+']](https://ps4us.ps2.fisu.pw/outfit/?name='+cInfo.outfitAlias+') '+cInfo.outfitName, inline: true});
         }
-
-        // Favorite vehicle
-        if(typeof(cInfo.favoriteVehicle) !== 'undefined' && cInfo.favoriteVehicle != 0){
-            const vehicleHours = Math.floor(cInfo.topVehicleTime/60/60);
-            const vehicleMinutes = Math.floor(cInfo.topVehicleTime/60 - vehicleHours*60);
-            try{
-                let vehicleName = await getVehicleName(cInfo.favoriteVehicle, platform);
-                resEmbed.addField(i18n.__({phrase: 'Most Played Vehicle (time)', locale: locale}), 
-                `${i18n.__({phrase: vehicleName, locale: locale})} (${i18n.__mf({phrase: "{hour}h, {minute}m", locale: locale}, {hour: localeNumber(vehicleHours, locale), minute: vehicleMinutes})})`, true);
-            }
-            catch(err){
-                //Fail silently
-            }
+        else if(cInfo.outfitAlias != "" && platform == 'ps2ps4eu:v2'){
+            resEmbed.addFields({ name: i18n.__({phrase: 'Outfit', locale: locale}), value: '[['+cInfo.outfitAlias+']](https://ps4eu.ps2.fisu.pw/outfit/?name='+cInfo.outfitAlias+') '+cInfo.outfitName, inline: true});
         }
-        return [resEmbed, [row]];
-    },
-
-    /**
-     * Get the recent stats of a player
-     * @param {string} cID - Character ID
-     * @param {string} platform - Platform
-     * @param {string} days - Number of days to look back
-     * @param {string} locale - Locale to use
-     * @returns a discord embed of  the character's recent stats
-     * @throws if there are no stats in the time period `days`
-     */
-    recentStats: async function(cID, platform, days, locale="en-US"){
-        const cInfo = await recentStatsInfo(cID, platform, days);
-        if(cInfo.time == 0){
-            throw i18n.__({phrase: 'No stats in this time period', locale: locale});
+        else{
+            resEmbed.addFields({ name: i18n.__({phrase: 'Outfit', locale: locale}), value: cInfo.outfitName, inline: true});
         }
-        const resEmbed = new Discord.MessageEmbed();
-        resEmbed.setTitle(cInfo.name);
-        resEmbed.setDescription(i18n.__mf({phrase: '{day} day stats ending <t{end}d>', locale: locale}, {day: days, end: `:${cInfo.lastSave}:`}));
-        resEmbed.setColor(faction(cInfo.faction).color);
-        resEmbed.addField(i18n.__({phrase: 'Score (SPM)', locale: locale}), `${cInfo.score.toLocaleString(locale)} (${localeNumber(cInfo.score/(cInfo.time/60), locale)})`, true);
-        const hours = Math.floor(cInfo.time/60/60);
-        const minutes = Math.floor(cInfo.time/60 - hours*60);
-        resEmbed.addField(i18n.__({phrase: 'Playtime', locale: locale}), i18n.__mf({phrase: "{hour} hours, {minute} minutes", locale: locale}, {hour: localeNumber(hours, locale), minute: minutes}), true);
-        resEmbed.addField(i18n.__({phrase: 'Certs Gained', locale: locale}), cInfo.certs.toLocaleString(locale), true);
-        resEmbed.addField(i18n.__({phrase: 'K/D', locale: locale}), localeNumber(cInfo.kills/cInfo.deaths, locale), true);
-        resEmbed.addField(i18n.__({phrase: 'K-D Diff', locale: locale}), `${(cInfo.kills).toLocaleString(locale)} - ${(cInfo.deaths).toLocaleString(locale)} = ${(cInfo.kills-cInfo.deaths).toLocaleString(locale, {signDisplay: "exceptZero"})}`, true);
-        resEmbed.addField(i18n.__({phrase: 'KPM', locale: locale}), localeNumber(cInfo.kills/(cInfo.time/60), locale), true);
-        return resEmbed;     
-    },
+        resEmbed.addFields({name: i18n.__({phrase: 'Outfit Rank', locale: locale}), value: `${cInfo.outfitRank} (${cInfo.outfitRankOrdinal})`, inline: true});
+        row.addComponents(
+            new ButtonBuilder()
+                .setCustomId(`outfit%${cInfo.outfitID}%${platform}`)
+                .setLabel(i18n.__({phrase: 'View outfit', locale: locale}))
+                .setStyle(ButtonStyle.Primary)
+        );
+    }
 
-    getWeaponName: getWeaponName
+    // Top Weapon, Auraxium medals
+    if(cInfo.stats){
+        if(cInfo.topWeaponName != "Error"){
+            resEmbed.addFields({name: i18n.__({phrase: 'Top Weapon (kills)', locale: locale}), value: cInfo.topWeaponName+" ("+localeNumber(cInfo.mostKills, locale)+")", inline: true});
+        }
+        if(cInfo.auraxCount != "Error"){
+            resEmbed.addFields({name: i18n.__({phrase: 'Auraxium Medals', locale: locale}), value: `${cInfo.auraxCount}`, inline: true});
+        }
+    }
+
+    // Top class
+    if(typeof(cInfo.topClass) !== 'undefined'){
+        const classHours = Math.floor(cInfo.topTime/60/60);
+        const classMinutes = Math.floor(cInfo.topTime/60 - classHours*60);
+        let className = " ";
+        switch(cInfo.topClass){
+            case "1":
+                className = i18n.__({phrase: 'Infiltrator', locale: locale});
+                break;
+            case "3":
+                className = i18n.__({phrase: 'Light Assault', locale: locale});
+                break;
+            case "4":
+                className = i18n.__({phrase: 'Medic', locale: locale});
+                break;
+            case "5":
+                className = i18n.__({phrase: 'Engineer', locale: locale});
+                break;
+            case "6":
+                className = i18n.__({phrase: 'Heavy Assault', locale: locale});
+                break;
+            case "7":
+                className = i18n.__({phrase: 'MAX', locale: locale});
+                break;
+        }
+        resEmbed.addFields({ name: i18n.__({phrase: 'Most Played Class (time)', locale: locale}), 
+        value: `${className} (${i18n.__mf({phrase: "{hour}h, {minute}m", locale: locale}, {hour: localeNumber(classHours, locale), minute: classMinutes})})`, inline: true});
+    }
+
+    // Favorite vehicle
+    if(typeof(cInfo.favoriteVehicle) !== 'undefined' && cInfo.favoriteVehicle != 0){
+        const vehicleHours = Math.floor(cInfo.topVehicleTime/60/60);
+        const vehicleMinutes = Math.floor(cInfo.topVehicleTime/60 - vehicleHours*60);
+        try{
+            let vehicleName = await getVehicleName(cInfo.favoriteVehicle, platform);
+            resEmbed.addFields({ name: i18n.__({phrase: 'Most Played Vehicle (time)', locale: locale}), 
+            value: `${i18n.__({phrase: vehicleName, locale: locale})} (${i18n.__mf({phrase: "{hour}h, {minute}m", locale: locale}, {hour: localeNumber(vehicleHours, locale), minute: vehicleMinutes})})`, inline: true});
+        }
+        catch(err){
+            //Fail silently
+        }
+    }
+    return [resEmbed, [row]];
+}
+
+/**
+ * Get the recent stats of a player
+ * @param {string} cID - Character ID
+ * @param {string} platform - Platform
+ * @param {string} days - Number of days to look back
+ * @param {string} locale - Locale to use
+ * @returns a discord embed of  the character's recent stats
+ * @throws if there are no stats in the time period `days`
+ */
+async function recentStats(cID, platform, days, locale="en-US"){
+    const cInfo = await recentStatsInfo(cID, platform, days);
+    if(cInfo.time == 0){
+        throw i18n.__({phrase: 'No stats in this time period', locale: locale});
+    }
+    const resEmbed = new EmbedBuilder();
+    resEmbed.setTitle(cInfo.name);
+    resEmbed.setDescription(i18n.__mf({phrase: '{day} day stats ending <t{end}d>', locale: locale}, {day: days, end: `:${cInfo.lastSave}:`}));
+    resEmbed.setColor(faction(cInfo.faction).color);
+    resEmbed.addFields({name: i18n.__({phrase: 'Score (SPM)', locale: locale}), value: `${cInfo.score.toLocaleString(locale)} (${localeNumber(cInfo.score/(cInfo.time/60), locale)})`, inline: true});
+    const hours = Math.floor(cInfo.time/60/60);
+    const minutes = Math.floor(cInfo.time/60 - hours*60);
+    resEmbed.addFields(
+        {name: i18n.__({phrase: 'Playtime', locale: locale}), value: i18n.__mf({phrase: "{hour} hours, {minute} minutes", locale: locale}, {hour: localeNumber(hours, locale), minute: minutes}), inline: true},
+        {name: i18n.__({phrase: 'Certs Gained', locale: locale}), value: cInfo.certs.toLocaleString(locale), inline: true},
+        {name: i18n.__({phrase: 'K/D', locale: locale}), value: localeNumber(cInfo.kills/cInfo.deaths, locale), inline: true},
+        {name: i18n.__({phrase: 'K-D Diff', locale: locale}), value: `${(cInfo.kills).toLocaleString(locale)} - ${(cInfo.deaths).toLocaleString(locale)} = ${(cInfo.kills-cInfo.deaths).toLocaleString(locale, {signDisplay: "exceptZero"})}`, inline: true},
+        {name: i18n.__({phrase: 'KPM', locale: locale}), value: localeNumber(cInfo.kills/(cInfo.time/60), locale), inline: true}
+    );
+    return resEmbed;     
+}
+
+/**
+ * Get vehicle name from vehicle id
+ * @param {string} ID - item id
+ * @param {string} platform - platform to request
+ * @returns the vechicle name
+ * @throws if vehicle cannot be found
+ */
+export async function getVehicleName(ID, platform){
+    if(typeof(vehicles[ID]) !== 'undefined'){
+        return vehicles[ID].name;
+    }
+    let response = await censusRequest(platform, 'vehicle_list', `/vehicle/${ID}`);
+    if(response.returned==1){
+        return response.vehicle_list[0].name.en;
+    }
+
+    throw "Not found";
 }
