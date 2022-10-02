@@ -1,8 +1,6 @@
 /**
  * This file implements methods to list messages marked for deletion, and then delete them
  * @module deleteMessages
- */
-/**
  * @typedef {import('pg').Client} pg.Client
  * @typedef {import('discord.js').Client} discord.Client
  * @typedef {import('discord.js').TextBasedChannel} discord.TextBasedChannel
@@ -54,23 +52,21 @@ async function deleteMessage(channel, message, pgClient){
 	}
 }
 
-module.exports = {
-	/**
-	 * delete discord messages marked for deletion
-	 * @param {pg.Client} pgClient - The postgres client
-	 * @param {discord.Client} discordClient - The discord client 
-	 */
-	run: async function(pgClient, discordClient){
-		const now = new Date();
-		try{
-			let channels = await pgClient.query("SELECT DISTINCT channel FROM toDelete WHERE timeToDelete < $1;", [now]);
-			for (const row of channels.rows){
-				retrieveMessages(row.channel, pgClient, discordClient);
-			}
+/**
+ * delete discord messages marked for deletion
+ * @param {pg.Client} pgClient - The postgres client
+ * @param {discord.Client} discordClient - The discord client 
+ */
+export async function run(pgClient, discordClient){
+	const now = new Date();
+	try{
+		let channels = await pgClient.query("SELECT DISTINCT channel FROM toDelete WHERE timeToDelete < $1;", [now]);
+		for (const row of channels.rows){
+			retrieveMessages(row.channel, pgClient, discordClient);
 		}
-		catch(err){
-			console.log("Error retrieving channels to delete from");
-			console.log(err);
-		}
+	}
+	catch(err){
+		console.log("Error retrieving channels to delete from");
+		console.log(err);
 	}
 }

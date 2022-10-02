@@ -1,22 +1,18 @@
 /**
  * This file implements functions which parse messages from the Stream API and send messages to the appropriate channels based on subscription status.
  * @module unifiedWSHandler
- */
-/**
  * @typedef {import('pg').Client} pg.Client
  * @typedef {import('discord.js').Client} discord.Client
  */
 
-const {MessageEmbed, Permissions} = require('discord.js');
-const messageHandler = require('./messageHandler.js');
-const subscriptions = require('./subscriptions.js');
-const config = require('./subscriptionConfig.js');
-const territory = require('./territory.js');
-const alerts = require('./static/alerts.json');
-const bases = require('./static/bases.json');
-const {serverNames, censusRequest, faction} = require('./utils.js');
-
-const wait = require('util').promisify(setTimeout);
+import {EmbedBuilder, PermissionsBitField} from 'discord.js';
+import { send } from './messageHandler.js';
+import { unsubscribeAll } from './subscriptions.js';
+import { initializeConfig } from './commands/config.js';
+import { territoryInfo } from './commands/territory.js';
+import alerts from './static/alerts.json' assert {type: 'json'};
+import bases from './static/bases.json' assert {type: 'json'};
+import {serverNames, censusRequest, faction} from './utils.js';
 
 /**
  * @example
@@ -38,7 +34,7 @@ const environmentToPlatform = {
  * @param {discord.Client} discordClient - discord client to use
  * @throws if there are error in logEvent
  */
-const logEvent = async function(payload, environment, pgClient, discordClient){
+async function logEvent(payload, environment, pgClient, discordClient){
     let response = await censusRequest(environment, 'character_list', `/character/${payload.character_id}?c:resolve=outfit_member`);
     let platform = environmentToPlatform[environment];
     let playerEvent = payload.event_name.substring(6);
@@ -54,7 +50,7 @@ const logEvent = async function(payload, environment, pgClient, discordClient){
             throw `Error in logEvent: ${error}`;
         }
         if (result.rows.length > 0){
-            let sendEmbed = new MessageEmbed();
+            let sendEmbed = new EmbedBuilder();
             sendEmbed.setTitle(result.rows[0].alias+' '+playerEvent);
             sendEmbed.setDescription(char.name.first);
             sendEmbed.setColor(faction(char.faction_id).color);
@@ -62,8 +58,8 @@ const logEvent = async function(payload, environment, pgClient, discordClient){
                 discordClient.channels.fetch(row.channel)
                     .then(resChann => {
                         if(typeof(resChann.guild) !== 'undefined'){
-                            if(resChann.permissionsFor(resChann.guild.me).has([Permissions.FLAGS.SEND_MESSAGES, Permissions.FLAGS.VIEW_CHANNEL, Permissions.FLAGS.EMBED_LINKS])){
-                                messageHandler.send(resChann, {embeds: [sendEmbed]}, "Log event")
+                            if(resChann.permissionsFor(resChann.guild.members.me).has([PermissionsBitField.Flags.SendMessages, PermissionsBitField.Flags.ViewChannel, PermissionsBitField.Flags.EmbedLinks])){
+                                send(resChann, {embeds: [sendEmbed]}, "Log event")
                                 .then(messageId => {
                                     if(messageId != -1 && row.autodelete == true){
                                         const in5minutes = new Date((new Date()).getTime() + 300000);
@@ -74,12 +70,12 @@ const logEvent = async function(payload, environment, pgClient, discordClient){
                                 
                             }
                             else{
-                                subscriptions.unsubscribeAll(pgClient, row.channel);
+                                unsubscribeAll(pgClient, row.channel);
                                 console.log('Unsubscribed from '+row.channel);
                             } 
                         }
                         else{ // DM
-                            messageHandler.send(resChann, {embeds: [sendEmbed]}, "Log event")
+                            send(resChann, {embeds: [sendEmbed]}, "Log event")
                             .then(messageId => {
                                 if(messageId != -1 && row.autodelete === true){
                                     const in5minutes = new Date((new Date()).getTime() + 30000);
@@ -87,7 +83,7 @@ const logEvent = async function(payload, environment, pgClient, discordClient){
                                         .catch(err => {console.log(err);});
                                 }
                                 else if(messageId == -1){
-                                    subscriptions.unsubscribeAll(pgClient, row.channel);
+                                    unsubscribeAll(pgClient, row.channel);
                                     console.log('Unsubscribed from '+row.channel);
                                 }
                             })
@@ -96,7 +92,7 @@ const logEvent = async function(payload, environment, pgClient, discordClient){
                     .catch(error => {
                         if(typeof(error.code) !== 'undefined'){
                             if(error.code == 10003){ //Unknown channel error, thrown when the channel is deleted
-                                subscriptions.unsubscribeAll(pgClient, row.channel);
+                                unsubscribeAll(pgClient, row.channel);
                                 console.log('Unsubscribed from '+row.channel);
                             }
                         }
@@ -116,7 +112,7 @@ const logEvent = async function(payload, environment, pgClient, discordClient){
  * @returns {Promise<{name: string, description: string}>} - The name and description of the alert
  * @throws if there are error retrieving alert notfications
  */
-const alertInfo = async function(payload, environment){
+async function alertInfo(payload, environment){
     if(typeof(alerts[payload.metagame_event_id]) !== 'undefined'){
         let resObj = {
             name: alerts[payload.metagame_event_id].name,
@@ -180,12 +176,12 @@ const trackedAlerts = [
  * @param {pg.Client} pgClient - postgres client to use
  * @param {discord.Client} discordClient - discord client to use
  */
-const alertEvent = async function(payload, environment, pgClient, discordClient){
+async function alertEvent(payload, environment, pgClient, discordClient){
     if(payload.metagame_event_state_name == "started"){
         let server = serverNames[payload.world_id];
         let response = await alertInfo(payload, environment);
         if(typeof(response.name) != undefined && response.name){
-            let sendEmbed = new MessageEmbed();
+            let sendEmbed = new EmbedBuilder();
             sendEmbed.setTitle(response.name);
             if(trackedAlerts.indexOf(Number(payload.metagame_event_id)) == -1){
                 sendEmbed.setDescription(response.description);
@@ -195,19 +191,19 @@ const alertEvent = async function(payload, environment, pgClient, discordClient)
             }
             sendEmbed.setTimestamp();
             if (response.name.includes('Enlightenment')){
-                sendEmbed.setColor('PURPLE');
+                sendEmbed.setColor('Purple');
             }
             else if (response.name.includes('Liberation')){
-                sendEmbed.setColor('BLUE');
+                sendEmbed.setColor('Blue');
             }
             else if (response.name.includes('Superiority')){
-                sendEmbed.setColor('RED');
+                sendEmbed.setColor('Red');
             }
-            sendEmbed.addField('Server', server, true);
-            sendEmbed.addField('Status', `Started <t:${Math.floor(Date.now()/1000)}:R>`, true);
+            sendEmbed.addFields({name: 'Server', value: server, inline: true});
+            sendEmbed.addFields({name: 'Status', value: `Started <t:${Math.floor(Date.now()/1000)}:R>`, inline: true});
             let terObj = undefined;
             try{
-                terObj = await territory.territoryInfo(payload.world_id);
+                terObj = await territoryInfo(payload.world_id);
             }
             catch{
                 
@@ -246,19 +242,19 @@ const alertEvent = async function(payload, environment, pgClient, discordClient)
                 let vsPc = ((terObj[continent].vs/Total)*100).toPrecision(3);
                 let ncPc = ((terObj[continent].nc/Total)*100).toPrecision(3);
                 let trPc = ((terObj[continent].tr/Total)*100).toPrecision(3);
-                sendEmbed.addField('Territory Control', `\
+                sendEmbed.addFields({name: 'Territory Control', value: `\
                 \n<:VS:818766983918518272> **VS**: ${terObj[continent].vs}  |  ${vsPc}%\
                 \n<:NC:818767043138027580> **NC**: ${terObj[continent].nc}  |  ${ncPc}%\
-                \n<:TR:818988588049629256> **TR**: ${terObj[continent].tr}  |  ${trPc}%`);
+                \n<:TR:818988588049629256> **TR**: ${terObj[continent].tr}  |  ${trPc}%`});
             }
             else if(showTerritory){
                 let vsPc = Number.parseFloat(payload.faction_vs).toPrecision(3);
                 let ncPc = Number.parseFloat(payload.faction_nc).toPrecision(3);
                 let trPc = Number.parseFloat(payload.faction_tr).toPrecision(3);
-                sendEmbed.addField('Territory Control', `\
+                sendEmbed.addFields({name: 'Territory Control', value: `\
                 \n<:VS:818766983918518272> **VS**: ${vsPc}%\
                 \n<:NC:818767043138027580> **NC**: ${ncPc}%\
-                \n<:TR:818988588049629256> **TR**: ${trPc}%`);
+                \n<:TR:818988588049629256> **TR**: ${trPc}%`});
             }
             const  rows = await pgClient.query("SELECT a.channel, c.Koltyr, c.Indar, c.Hossin, c.Amerish, c.Esamir, c.Oshur, c.Other, c.autoDelete, c.territory, c.nonTerritory\
             FROM alerts a LEFT JOIN subscriptionConfig c on a.channel = c.channel\
@@ -266,7 +262,7 @@ const alertEvent = async function(payload, environment, pgClient, discordClient)
             for (let row of rows.rows){
                 if(row[continent.toLowerCase()] == null){
                     // If config is not successfully set then display alert and attempt to initialize config
-                    config.initializeConfig(row.channel, pgClient);
+                    initializeConfig(row.channel, pgClient);
                 }
                 else if(!row[continent.toLowerCase()] || (showTerritory && !row['territory']) || (!showTerritory && !row['nonterritory'])){
                     // Skip alerts configured to not show
@@ -275,8 +271,8 @@ const alertEvent = async function(payload, environment, pgClient, discordClient)
                 discordClient.channels.fetch(row.channel)
                     .then(resChann => {
                         if(typeof(resChann.guild) !== 'undefined'){
-                            if(resChann.permissionsFor(resChann.guild.me).has([Permissions.FLAGS.SEND_MESSAGES, Permissions.FLAGS.VIEW_CHANNEL, Permissions.FLAGS.EMBED_LINKS])){
-                                messageHandler.send(resChann, {embeds: [sendEmbed]}, "Alert notification")
+                            if(resChann.permissionsFor(resChann.guild.members.me).has([PermissionsBitField.Flags.SendMessages, PermissionsBitField.Flags.ViewChannel, PermissionsBitField.Flags.EmbedLinks])){
+                                send(resChann, {embeds: [sendEmbed]}, "Alert notification")
                                 .then(messageId => {
                                     if(messageId != -1 && trackedAlerts.indexOf(Number(payload.metagame_event_id)) > -1){
                                         pgClient.query("INSERT INTO alertMaintenance (alertID, messageID, channelID) VALUES ($1, $2, $3);", [`${payload.world_id}-${payload.instance_id}`, messageId, row.channel])
@@ -297,12 +293,12 @@ const alertEvent = async function(payload, environment, pgClient, discordClient)
                                 });
                             }
                             else{
-                                subscriptions.unsubscribeAll(pgClient, row.channel);
+                                unsubscribeAll(pgClient, row.channel);
                                 console.log('Unsubscribed from '+row.channel);
                             } 
                         }
                         else{ // DM
-                            messageHandler.send(resChann, {embeds: [sendEmbed]}, "Alert notification")
+                            send(resChann, {embeds: [sendEmbed]}, "Alert notification")
                             .then(messageId => {
                                 if(messageId != -1 && trackedAlerts.indexOf(Number(payload.metagame_event_id)) > -1){
                                     pgClient.query("INSERT INTO alertMaintenance (alertID, messageID, channelID) VALUES ($1, $2, $3);", [`${payload.world_id}-${payload.instance_id}`, messageId, row.channel])
@@ -321,7 +317,7 @@ const alertEvent = async function(payload, environment, pgClient, discordClient)
                                     }    
                                 }
                                 else if(messageId == -1){
-                                    subscriptions.unsubscribeAll(pgClient, row.channel);
+                                    unsubscribeAll(pgClient, row.channel);
                                     console.log('Unsubscribed from '+row.channel);
                                 }
                             });
@@ -330,7 +326,7 @@ const alertEvent = async function(payload, environment, pgClient, discordClient)
                     .catch(error => {
                         if(typeof(error.code) !== 'undefined'){
                             if(error.code == 10003){ //Unknown channel error, thrown when the channel is deleted
-                                subscriptions.unsubscribeAll(pgClient, row.channel);
+                                unsubscribeAll(pgClient, row.channel);
                                 console.log('Unsubscribed from '+row.channel);
                             }
                         }
@@ -377,7 +373,7 @@ const centralBases = [
  * @param {discord.Client} discordClient - discord client to use
  * @returns 
  */
-const baseEvent = async function(payload, environment, pgClient, discordClient){
+async function baseEvent(payload, environment, pgClient, discordClient){
     if(payload.new_faction_id == payload.old_faction_id){
         return; //Ignore defended bases
     }
@@ -390,64 +386,64 @@ const baseEvent = async function(payload, environment, pgClient, discordClient){
     //check if outfit is in db, construct and send info w/ facility id
     let result = await pgClient.query("SELECT * FROM outfitcaptures WHERE id=$1 AND platform = $2;", [payload.outfit_id, platform]);
     if(result.rowCount > 0){
-        let sendEmbed = new MessageEmbed();
+        let sendEmbed = new EmbedBuilder();
         let base = await baseInfo(payload.facility_id, environment);
         sendEmbed.setTitle("["+result.rows[0].alias+"] "+result.rows[0].name+' captured '+base.name);
         sendEmbed.setTimestamp();
         sendEmbed.setColor(faction(payload.new_faction_id).color) //Color cannot be dependent on outfit due to NSO outfits
         if(payload.zone_id == "2"){
-            sendEmbed.addField("Continent", "Indar", true);
+            sendEmbed.addFields({name: "Continent", value: "Indar", inline: true});
         }
         else if(payload.zone_id == "4"){
-            sendEmbed.addField("Continent", "Hossin", true);
+            sendEmbed.addFields({name: "Continent", value: "Hossin", inline: true});
         }
         else if(payload.zone_id == "6"){
-            sendEmbed.addField("Continent", "Amerish", true);
+            sendEmbed.addFields({name: "Continent", value: "Amerish", inline: true});
         }
         else if(payload.zone_id == "8"){
-            sendEmbed.addField("Continent", "Esamir", true);
+            sendEmbed.addFields({name: "Continent", value: "Esamir", inline: true});
         }
         else if(payload.zone_id == "344"){
-            sendEmbed.addField("Continent", "Oshur", true);
+            sendEmbed.addFields({name: "Continent", value: "Oshur", inline: true});
         }
         if(centralBases.includes(payload.facility_id)){
-            sendEmbed.addField("Facility Type", base.type+"\n(Central base)", true);
-            sendEmbed.addField("Outfit Resources", "2 Polystellarite <:Polystellarite:818766888238448661>", true);
+            sendEmbed.addFields({name: "Facility Type", value: base.type+"\n(Central base)", inline: true});
+            sendEmbed.addFields({name: "Outfit Resources", value: "2 Polystellarite <:Polystellarite:818766888238448661>", inline: true});
         }
         else if(base.type in outfitResources){
-            sendEmbed.addField("Facility Type", base.type, true);
-            sendEmbed.addField("Outfit Resources", outfitResources[base.type], true);
+            sendEmbed.addFields({name: "Facility Type", value: base.type, inline: true});
+            sendEmbed.addFields({name: "Outfit Resources", value: outfitResources[base.type], inline: true});
         }
         else{
-            sendEmbed.addField("Facility Type", base.type, true);
-            sendEmbed.addField("Outfit Resources", "Unknown", true);
+            sendEmbed.addFields({name: "Facility Type", value: base.type, inline: true});
+            sendEmbed.addFields({name: "Outfit Resources", value: "Unknown", inline: true});
         }
 
         const factionInfo = faction(payload.old_faction_id);
-        sendEmbed.addField("Captured From", `${factionInfo.decal} ${factionInfo.initial}`, true);
+        sendEmbed.addFields({name: "Captured From", value: `${factionInfo.decal} ${factionInfo.initial}`, inline: true});
         
         const contributions = await captureContributions(payload.outfit_id, payload.facility_id, payload.timestamp, environment);
         if(contributions.length > 0){
-            sendEmbed.addField("<:Merit:890295314337136690> Contributors", `${contributions}`.replace(/,/g, ', '), true);
+            sendEmbed.addFields({name: "<:Merit:890295314337136690> Contributors", value: `${contributions}`.replace(/,/g, ', '), inline: true});
         }
         for (let row of result.rows){
             discordClient.channels.fetch(row.channel).then(resChann => {
                 if(typeof(resChann.guild) !== 'undefined'){
-                    if(resChann.permissionsFor(resChann.guild.me).has([Permissions.FLAGS.SEND_MESSAGES, Permissions.FLAGS.VIEW_CHANNEL, Permissions.FLAGS.EMBED_LINKS])){
-                        messageHandler.send(resChann, {embeds: [sendEmbed]}, "Base capture event");
+                    if(resChann.permissionsFor(resChann.guild.members.me).has([PermissionsBitField.Flags.SendMessages, PermissionsBitField.Flags.ViewChannel, PermissionsBitField.Flags.EmbedLinks])){
+                        send(resChann, {embeds: [sendEmbed]}, "Base capture event");
                     }
                     else{
-                        subscriptions.unsubscribeAll(pgClient, row.channel);
+                        unsubscribeAll(pgClient, row.channel);
                         console.log('Unsubscribed from '+row.channel);
                     }
                 }
                 else{ // DM
-                    messageHandler.send(resChann, {embeds: [sendEmbed]}, "Base capture event");
+                    send(resChann, {embeds: [sendEmbed]}, "Base capture event");
                 }
             }).catch(error => {
                 if(typeof(error.code) !== 'undefined'){
                     if(error.code == 10003){ //Unknown channel error, thrown when the channel is deleted
-                        subscriptions.unsubscribeAll(pgClient, row.channel);
+                        unsubscribeAll(pgClient, row.channel);
                         console.log('Unsubscribed from '+row.channel);
                     }
                 }
@@ -467,7 +463,7 @@ const baseEvent = async function(payload, environment, pgClient, discordClient){
  * @param {string} platform - the platform the outfit is on
  * @returns an array of outfit members that contributed to the capture
  */
-const captureContributions = async function(outfitID, baseID, timestamp, platform){
+async function captureContributions(outfitID, baseID, timestamp, platform){
     try{
         const response = await censusRequest(platform, 'outfit_list', `/outfit/${outfitID}?c:resolve=member_online_status`);
         let contributions = [];
@@ -475,12 +471,13 @@ const captureContributions = async function(outfitID, baseID, timestamp, platfor
         if(response[0]?.members[0].online_status == "service_unavailable"){
             return ["Unable to determine contributors"];
         }
-        await wait(2000); // Just waiting to make sure all values fill in in the characters_event collection
         for(const member of response[0].members){
             if(member.online_status > 0){
                 online.push(member.character_id);
             }
         }
+        // Just waiting to make sure all values fill in in the characters_event collection
+        await  new Promise(resolve => setTimeout(resolve, 2000));
         const onlineEvents = await Promise.allSettled(Array.from(online, x => 
             censusRequest(platform, 'characters_event_list', `characters_event?id=${x}&type=FACILITY_CHARACTER&c:resolve=character_name`)));
         for(const event of onlineEvents){
@@ -495,7 +492,6 @@ const captureContributions = async function(outfitID, baseID, timestamp, platfor
         console.log(err);
         return ["Error occurred when retrieving contributors"];
     }
-    
 }
 
 /**
@@ -504,7 +500,7 @@ const captureContributions = async function(outfitID, baseID, timestamp, platfor
  * @param b - second object
  * @returns {boolean} true if the objects properties are equal, false otherwise
  */
-const objectEquality = function(a, b){
+function objectEquality(a, b){
     if(typeof(a.character_id) !== 'undefined' && typeof(b.character_id) !== 'undefined'){
         return a.character_id == b.character_id && a.event_name == b.event_name;
     }
@@ -524,7 +520,7 @@ const objectEquality = function(a, b){
  * @returns {Promise<{continent: string, name: string, type: string}>} - the continent, name, and type of the facility
  * @throws if the facility is not found or there are errors when retrieving the information
  */
-const baseInfo = async function(facilityID, environment){
+async function baseInfo(facilityID, environment){
     if(typeof(bases[facilityID]) !== 'undefined'){
         return bases[facilityID];
     }
@@ -550,38 +546,36 @@ const baseInfo = async function(facilityID, environment){
  * a queue of events to be processed
  */
 const queue = ["","","","",""];
-module.exports = {
-    /**
-     * Send an alert, base, login or logout event to all subscribed channels
-     * @param payload - the payload of the event
-     * @param {string} environment - the environment the event was sent from
-     * @param {pg.Client} pgClient - the postgres client to use
-     * @param {discord.Client} discordClient - the discord client to use
-     */
-    router: async function(payload, environment, pgClient, discordClient){
-        for(let message of queue){
-            if(objectEquality(message, payload)){
-                return;
-            }
+/**
+ * Send an alert, base, login or logout event to all subscribed channels
+ * @param payload - the payload of the event
+ * @param {string} environment - the environment the event was sent from
+ * @param {pg.Client} pgClient - the postgres client to use
+ * @param {discord.Client} discordClient - the discord client to use
+ */
+export async function router(payload, environment, pgClient, discordClient){
+    for(let message of queue){
+        if(objectEquality(message, payload)){
+            return;
         }
-        queue.push(payload);
-        queue.shift();
+    }
+    queue.push(payload);
+    queue.shift();
 
-        if(payload.character_id != null){
-            logEvent(payload, environment, pgClient, discordClient)
-                .catch(error => {
-                    if(typeof(error) == "string" && error != "Census API currently unavailable" && error != "Census API unavailable: Redirect"){
-                        console.log("Login error: "+error);
-                    }
-                });
-        }
-        else if(payload.metagame_event_state_name != null){
-            alertEvent(payload, environment, pgClient, discordClient)
-                .catch(error => console.log(error));
-        }
-        else if(payload.duration_held != null){
-            baseEvent(payload, environment, pgClient, discordClient)
-                .catch(error => console.log(error));
-        }
+    if(payload.character_id != null){
+        logEvent(payload, environment, pgClient, discordClient)
+            .catch(error => {
+                if(typeof(error) == "string" && error != "Census API currently unavailable" && error != "Census API unavailable: Redirect"){
+                    console.log("Login error: "+error);
+                }
+            });
+    }
+    else if(payload.metagame_event_state_name != null){
+        alertEvent(payload, environment, pgClient, discordClient)
+            .catch(error => console.log(error));
+    }
+    else if(payload.duration_held != null){
+        baseEvent(payload, environment, pgClient, discordClient)
+            .catch(error => console.log(error));
     }
 }
