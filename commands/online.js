@@ -1,11 +1,13 @@
 /**
  * Handles the `/online` command
  * @module online
+ * @typedef {import('discord.js').ChatInputCommandInteraction} ChatInteraction
+ * @typedef {import('discord.js').ButtonInteraction} ButtonInteraction
  */
 
-const Discord = require('discord.js');
-const { badQuery, censusRequest, faction} = require('./utils.js');
-const i18n = require('i18n');
+import { EmbedBuilder } from 'discord.js';
+import { badQuery, censusRequest, faction, platforms} from '../utils.js';
+import i18n from 'i18n';
 
 /**
  * Get who is online in `oTag`
@@ -16,7 +18,7 @@ const i18n = require('i18n');
  * @returns {Promise<OnlineOutfit>} a object containing the current online members of the outfit. If online member count is unavailable, object.OnlineCount will be -1.
  * @throws if outfit tag cannot be found or there was an API error
  */
-const onlineInfo = async function(oTag, platform, outfitID = null, locale = "en-US"){
+export async function onlineInfo(oTag, platform, outfitID = null, locale = "en-US"){
 	let outfitSearch = `alias_lower=${oTag}`;
 	if(outfitID != null){
 		outfitSearch = `outfit_id=${outfitID}`;
@@ -51,7 +53,7 @@ const onlineInfo = async function(oTag, platform, outfitID = null, locale = "en-
 	 * @property {number} faction - the faction of the outfit
 	 * @property {string[]} rankNames - all the rank names from highest to lowest
 	 * @property {Object[]} onlineMembers - all the online members sorted by rank and then alphabetically
- 	 */
+	 */
 	const resObj = {
 		name: outfit.name,
 		alias: outfit.alias,
@@ -103,7 +105,7 @@ const onlineInfo = async function(oTag, platform, outfitID = null, locale = "en-
  * @param {string[]} arr - array of online members
  * @returns the amount of characters in the array
  */
-const totalLength = function(arr){
+export function totalLength(arr){
 	let len = 0;
 	for(const i in arr){
 		len += arr[i].length+1;
@@ -111,62 +113,130 @@ const totalLength = function(arr){
 	return len;
 }
 
-module.exports = {
-	/**
-	 * The online command
-	 * @param {string} oTag - outfit tag to check
-	 * @param {string} platform - platform the outfit is on
-	 * @param {string | null} outfitID - outfit ID to check
-	 * @param {string} locale - locale to use
-	 * @returns a discord embed of the online members of the outfit
-	 * @throws if `oTag` contains invalid characters or was incorrectly formatted
-	 */
-	online: async function(oTag, platform, outfitID = null, locale = "en-US"){
-		if(badQuery(oTag)){
-			throw i18n.__({phrase: "Outfit search contains disallowed characters", locale: locale});
-		}
-		if(oTag.length > 4){
-			throw i18n.__mf({phrase: "{tag} is longer than 4 letters, please enter a tag", locale: locale}, {tag: oTag});
-		}
+export const type = ['Base'];
 
-		const oInfo = await onlineInfo(oTag, platform, outfitID, locale);
-		let resEmbed = new Discord.MessageEmbed();
+export const data = {
+	name: 'online',
+	description: "Look up currently online members for a given outfit",
+	options: [{
+		name: 'tag',
+		type: '3',
+		description: 'Outfit tag or tags separated by spaces, no brackets',
+		required: true,
+	},
+	{
+		name: 'platform',
+		type: '3',
+		description: "Which platform is the outfit on?  Defaults to PC",
+		required: false,
+		choices: platforms
+	}]
+};
 
-		resEmbed.setTitle(oInfo.name);
-		resEmbed.setThumbnail(`https://www.outfit-tracker.com/outfit-logo/${oInfo.outfitID}.png`);
-		resEmbed.setFooter({text: i18n.__({phrase: "outfitDecalSource", locale: locale})});
-		resEmbed.setDescription(oInfo.alias+"\n"+i18n.__mf({phrase: "{online}/{total} online", locale: locale}, 
-		{online: oInfo.onlineCount, total: oInfo.memberCount}));
-		resEmbed.setTimestamp();
-		if(platform == 'ps2:v2'){
-			resEmbed.setURL('http://ps2.fisu.pw/outfit/?name='+oInfo.alias);
-		}
-		else if(platform == 'ps2ps4us:v2'){
-			resEmbed.setURL('http://ps4us.ps2.fisu.pw/outfit/?name='+oInfo.alias);
-		}
-		else if(platform == 'ps2ps4eu:v2'){
-			resEmbed.setURL('http://ps4eu.ps2.fisu.pw/outfit/?name='+oInfo.alias);
-		}
-		resEmbed.setColor(faction(oInfo.faction).color)
-		if(oInfo.onlineCount === -1){
-			resEmbed.addField(i18n.__({phrase: "Online member count unavailable", locale: locale}), "-", true);
-			resEmbed.setDescription(oInfo.alias+"\n"+"?/"+oInfo.memberCount+" online");
+/**
+ * Used to get the online members of an outfit
+ * @param { ButtonInteraction } interaction - button interaction
+ * @param { string } locale - locale of the user
+ * @param { string[] } options - 
+ */
+export async function button(interaction, locale, options) {
+	await interaction.deferReply();
+	const oTag = '';
+	const [outfitID, platform] = options;
+	const res = await online(oTag, platform, outfitID, locale);
+	await interaction.editReply({embeds: [res]});
+}
 
-			return resEmbed;
+/**
+ * Runs the `/online` command
+ * @param { ChatInteraction } interaction - command chat interaction
+ * @param { string } locale - locale of the user
+ */
+export async function execute(interaction, locale) {
+	const onlineTags = interaction.options.getString('tag').toLowerCase().replace(/\s\s+/g, ' ').split(' ');
+	if(onlineTags.length > 10){
+		await interaction.editReply({
+			content: i18n.__({phrase: "This commands supports a maximum of 10 outfits per query", locale: locale}),
+		});
+		return;
+	}
+	const platform = interaction.options.getString('platform') || 'ps2:v2';
+	const onlineLookups = await Promise.allSettled(
+		onlineTags.map(outfit => online(outfit, platform, null, locale))
+	);
+	const messages = [];
+	for(const res of onlineLookups){
+		if(res.status === 'fulfilled'){
+			messages.push({embeds: [res.value]});
 		}
-		for(let i = 0; i < 8; i++){
-			if(oInfo.onlineMembers[i].length > 0){
-				if(totalLength(oInfo.onlineMembers[i]) <= 1024){
-					resEmbed.addField(oInfo.rankNames[i]+" ("+oInfo.onlineMembers[i].length+")", `${oInfo.onlineMembers[i]}`.replace(/,/g, '\n'), true);
-				}
-				else{
-					resEmbed.addField(oInfo.rankNames[i]+" ("+oInfo.onlineMembers[i].length+")", i18n.__({phrase: "Too many to display", locale: locale}), true);
-				}
+		else {
+			if(typeof res.reason == 'string'){
+				messages.push(res.reason);
+			}
+			else{
+				messages.push(i18n.__({phrase: "Error occurred when handling command", locale: locale}));
+				console.log(`Outfit online error ${locale}`);
+				console.log(res.reason);
 			}
 		}
-		return resEmbed;
-	},
+	}
+	await interaction.editReply(messages.pop());
+	for (const msg of messages) {
+		await interaction.followUp(msg);
+	}
+}
 
-	onlineInfo: onlineInfo,
-	totalLength: totalLength
+/**
+ * The online command
+ * @param {string} oTag - outfit tag to check
+ * @param {string} platform - platform the outfit is on
+ * @param {string | null} outfitID - outfit ID to check
+ * @param {string} locale - locale to use
+ * @returns a discord embed of the online members of the outfit
+ * @throws if `oTag` contains invalid characters or was incorrectly formatted
+ */
+async function online(oTag, platform, outfitID = null, locale = "en-US"){
+	if(badQuery(oTag)){
+		throw i18n.__({phrase: "Outfit search contains disallowed characters", locale: locale});
+	}
+	if(oTag.length > 4){
+		throw i18n.__mf({phrase: "{tag} is longer than 4 letters, please enter a tag", locale: locale}, {tag: oTag});
+	}
+
+	const oInfo = await onlineInfo(oTag, platform, outfitID, locale);
+	const resEmbed = new EmbedBuilder();
+
+	resEmbed.setTitle(oInfo.name);
+	resEmbed.setThumbnail(`https://www.outfit-tracker.com/outfit-logo/${oInfo.outfitID}.png`);
+	resEmbed.setFooter({text: i18n.__({phrase: "outfitDecalSource", locale: locale})});
+	resEmbed.setDescription(oInfo.alias+"\n"+i18n.__mf({phrase: "{online}/{total} online", locale: locale}, 
+	{online: oInfo.onlineCount, total: oInfo.memberCount}));
+	resEmbed.setTimestamp();
+	if(platform == 'ps2:v2'){
+		resEmbed.setURL('http://ps2.fisu.pw/outfit/?name='+oInfo.alias);
+	}
+	else if(platform == 'ps2ps4us:v2'){
+		resEmbed.setURL('http://ps4us.ps2.fisu.pw/outfit/?name='+oInfo.alias);
+	}
+	else if(platform == 'ps2ps4eu:v2'){
+		resEmbed.setURL('http://ps4eu.ps2.fisu.pw/outfit/?name='+oInfo.alias);
+	}
+	resEmbed.setColor(faction(oInfo.faction).color)
+	if(oInfo.onlineCount === -1){
+		resEmbed.addFields({name: i18n.__({phrase: "Online member count unavailable", locale: locale}), value: "-", inline: true});
+		resEmbed.setDescription(oInfo.alias+"\n"+"?/"+oInfo.memberCount+" online");
+
+		return resEmbed;
+	}
+	for(let i = 0; i < 8; i++){
+		if(oInfo.onlineMembers[i].length > 0){
+			if(totalLength(oInfo.onlineMembers[i]) <= 1024){
+				resEmbed.addFields({name: oInfo.rankNames[i]+" ("+oInfo.onlineMembers[i].length+")", value: `${oInfo.onlineMembers[i]}`.replace(/,/g, '\n'), inline: true});
+			}
+			else{
+				resEmbed.addFields({name: oInfo.rankNames[i]+" ("+oInfo.onlineMembers[i].length+")", value: i18n.__({phrase: "Too many to display", locale: locale}), inline: true});
+			}
+		}
+	}
+	return resEmbed;
 }

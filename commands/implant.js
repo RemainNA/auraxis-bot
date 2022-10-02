@@ -1,10 +1,12 @@
 /**
  * Search up implant information
  * @module implant
+ * @typedef {import('discord.js').ChatInputCommandInteraction} ChatInteraction
+ * @typedef {import('discord.js').AutocompleteInteraction} AutoComplete
  */
-const Discord = require('discord.js');
-const implantsJSON = require('./static/implants.json');
-const {badQuery} = require('./utils.js');
+import { EmbedBuilder } from 'discord.js';
+import implantsJSON from '../static/implants.json' assert {type: 'json'};
+import { badQuery } from '../utils.js';
 
 /**
  * Get implant information from implant.json
@@ -12,7 +14,7 @@ const {badQuery} = require('./utils.js');
  * @returns the implant information for `name`
  * @throws if `name` is not a valid implant
  */
-const implantInfo = async function(name){
+async function implantInfo(name){
 	//Check if ID matches
 	if(implantsJSON[name] !== undefined){
 		const returnObj = implantsJSON[name];
@@ -32,12 +34,26 @@ const implantInfo = async function(name){
 	throw `${name} not found.`;
 }
 
+export const type = ['Base'];
+
+export const data = {
+	name: 'implant',
+	description: "Look up implant information",
+	options: [{
+		name: 'query',
+		type: '3',
+		description: 'Implant name or partial name',
+		autocomplete: true,
+		required: true,
+	}]
+};
+
 /**
  * Search for partial matches of implants
- * @param {string} query - the query to search for
- * @returns list of possible matches implant
+ * @param { AutoComplete } interaction - autocomplete interaction
  */
-const partialMatches = async function(query){
+export async function partialMatches(interaction){
+	let query = interaction.options.getString('query');
 	const matches = [];
 	query = query.replace(/[“”]/g, '"').toLowerCase();
 
@@ -50,39 +66,39 @@ const partialMatches = async function(query){
 		}
 	}
 
-	return matches
+	await interaction.respond(matches);
 }
 
-module.exports = {
-	/**
-	 * Creates a new embed with the implant information
-	 * @param {string} name - the name of the implant to look up
-	 * @returns a new embed with the implant information
-	 * @throw if `name` contains invalid characters
-	 */
-	lookup: async function(name){
-		if(badQuery(name)){
-			throw "Search contains disallowed characters";
-		}
-		
-		const iInfo = await implantInfo(name);
+/**
+ * Creates a new embed with the implant information
+ * @param { ChatInteraction } interaction - the name of the implant to look up
+ * @param { string } locale - the locale to use
+ * @returns a new embed with the implant information
+ * @throw if `name` contains invalid characters
+ */
+export async function execute(interaction, locale){
+	const name = interaction.options.getString('query')
+	if(badQuery(name)){
+		throw "Search contains disallowed characters";
+	}
+	
+	const iInfo = await implantInfo(name);
 
-		const resEmbed = new Discord.MessageEmbed();
-		resEmbed.setTitle(iInfo.name);
-		resEmbed.setThumbnail(`http://census.daybreakgames.com/files/ps2/images/static/${iInfo.image}.png`);
-		if(iInfo.desc !== undefined){
-			resEmbed.addField("Description", iInfo.desc);
-		}
-		else{
-			resEmbed.addField("Rank 1", iInfo["1"]);
-			resEmbed.addField("Rank 2", iInfo["2"]);
-			resEmbed.addField("Rank 3", iInfo["3"]);
-			resEmbed.addField("Rank 4", iInfo["4"]);
-			resEmbed.addField("Rank 5", iInfo["5"]);
-		}
+	const resEmbed = new EmbedBuilder();
+	resEmbed.setTitle(iInfo.name);
+	resEmbed.setThumbnail(`http://census.daybreakgames.com/files/ps2/images/static/${iInfo.image}.png`);
+	if(iInfo.desc !== undefined){
+		resEmbed.addFields({name: "Description", value: iInfo.desc});
+	}
+	else{
+		resEmbed.addFields(
+			{name: "Rank 1", value: iInfo["1"]},
+			{name: "Rank 2", value: iInfo["2"]},
+			{name: "Rank 3", value: iInfo["3"]},
+			{name: "Rank 4", value: iInfo["4"]},
+			{name: "Rank 5", value: iInfo["5"]}
+		);
+	}
 
-		return resEmbed;
-	},
-
-	partialMatches: partialMatches
+	await interaction.editReply({embeds: [resEmbed]});
 }
