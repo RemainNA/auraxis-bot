@@ -78,7 +78,7 @@ Returns the stats of the specified character with the specified weapon.  If no w
 
 #### /asp [name] \<platform>
 
-Returns the BR a character reached before joining ASP, as well as their current ASP points and skills.  Supports multiple characters per query.  Does not work with NSO.
+Returns the BR a character reached before joining ASP, as well as their current ASP points and skills.
 
 ### /auraxiums [name] \<platform>
 
@@ -102,15 +102,15 @@ Returns the list of all online members for the specified outfit tag.  Supports m
 
 #### /population [server]
 
-Returns the population per faction of the specified server.  Supports multiple servers per query.  Supports all platforms without prefixes
+Returns the population per faction of the specified server.
 
 #### /territory [server]
 
-Returns the territory control of each continent on the specified server.  Supports multiple servers per query.  Supports all platforms without prefixes
+Returns the territory control of each continent on the specified server.
 
 #### /alerts [server]
 
-Returns ongoing alerts for the given server based on information from the ps2alerts api, including time remaining and current territory control.  Supports multiple servers per query.
+Returns ongoing alerts for the given server based on information from the ps2alerts api, including time remaining and current territory control.
 
 ### /leaderboard [type] [period] \<server>
 
@@ -122,15 +122,15 @@ Return the current status of all servers as reported by the Census API.  Takes n
 
 #### /weapon [weapon name/id]
 
-Currently in beta.  Returns information on a given weapon.  Accepts weapon IDs, exact names, or partial names.  Only supports one weapon per query.
+Returns information on a given weapon. Accepts weapon IDs, exact names, or partial names.
 
 #### /weaponsearch [name]
 
-Returns a list of weapon names and ids matching the given search term.  Only supports one search term per query.
+Returns a list of weapon names and ids matching the given search term.
 
 #### /implant [implant name]
 
-Returns information on given implant.  Accepts exact or partial names.  Only supports one implant per query.
+Returns information on given implant.  Accepts exact or partial names.
 
 ## Commands requiring manage channel permissions
 
@@ -138,27 +138,27 @@ Returns information on given implant.  Accepts exact or partial names.  Only sup
 
 #### /subscribe alerts [server]
 
-Subscribes the channel to notifications of alerts starting on the specified servers.  Supports multiple servers per query.  Supports all platforms without prefixes.
+Subscribes the channel to notifications of alerts starting on the specified servers.
 
 #### /unsubscribe alerts [server]
 
-Unsubscribes the channel from the above notifications.  Supports multiple servers per query.  Supports all platforms without prefixes.
+Unsubscribes the channel from the above notifications.
 
 #### /subscribe activity [outfit] \<platform>
 
-Subscribes the channel to notifications of logins and logouts of members in the specified outfit tag.  Supports multiple tags per query.
+Subscribes the channel to notifications of logins and logouts of members in the specified outfit tag.
 
 #### /unsubscribe activity [outfit] \<platform>
 
-Unsubscribes the channel from the above notifications.  Supports multiple tags per query.
+Unsubscribes the channel from the above notifications.
 
 #### /subscribe captures [outfit] \<platform>
 
-Subscribes the channel to notifications of bases captured by the specified tag.  Supports multiple tags per query.
+Subscribes the channel to notifications of bases captured by the specified tag.
 
 #### /unsubscribe captures [outfit] \<platform>
 
-Unsubscribes the channel from the above notifications.  Supports multiple tags per query.
+Unsubscribes the channel from the above notifications.
 
 #### /subscribe unlocks [server]
 
@@ -166,15 +166,15 @@ Subscribes the channel to notifications of continent unlocks on the specified se
 
 #### /unsubscribe unlocks [server]
 
-Unsubscribes the channel from the above notifications.Supports all platforms without prefixes.
+Unsubscribes the channel from the above notifications.
 
 #### /subscribe twitter [wrel/planetside]
 
-Subscribes the channel to live Tweet notifications from the specified account.  Supports multiple users per query.
+Subscribes the channel to live Tweet notifications from the specified account.
 
 #### /unsubscribe twitter [wrel/planetside]
 
-Unsubscribes the channel from the above notifications.  Supports multiple users per query.
+Unsubscribes the channel from the above notifications.
 
 #### /unsubscribe all
 
@@ -204,17 +204,17 @@ Enables or disables automatically deleting alert notifications 5 minutes after t
 
 Creates a (by default) locked voice channel displaying server population or open continents.  The channel is automatically updated every 10 minutes.
 
-### /tracker outfit [tag] \<platform>
+### /tracker outfit [tag] \<platform> \<show-faction>
 
 Creates a (by default) locked voice channel displaying outfit online count.  The channel is automatically updated every 10 minutes.
 
 ### /dashboard server [server]
 
-Posts a message with server population, territory control, and active alerts.  This message is automatically updated every 5 minutes.  Limit 1 dashboard per server per channel.
+Posts a message with server population, territory control, and active alerts.  This message is automatically updated every 5 minutes.
 
 ### /dashboard outfit [tag] \<platform>
 
-Posts a message with outfit online members, owned bases, and resource generation.  This message is automatically updated every 5 minutes.  Limit 1 dashboard per outfit per channel.
+Posts a message with outfit online members, owned bases, and resource generation.  This message is automatically updated every 5 minutes.
 
 ## FAQ
 
