@@ -379,6 +379,46 @@
         "description": "Prepare for the Outfit War!",
         "name": "OUTFIT WARS (pre-match)"
     },
+    "236": {
+        "description": "Kill as many enemies as possible",
+        "name": "Indar Sudden Death"
+    },
+    "237": {
+        "description": "Kill as many enemies as possible",
+        "name": "Hossin Sudden Death"
+    },
+    "238": {
+        "description": "Kill as many enemies as possible",
+        "name": "Amerish Sudden Death"
+    },
+    "239": {
+        "description": "Kill as many enemies as possible",
+        "name": "Esamir Sudden Death"
+    },
+    "240": {
+        "description": "Kill as many enemies as possible",
+        "name": "Oshur Sudden Death"
+    },
+    "242": {
+        "description": "Destroy the ghost ship",
+        "name": "Indar Forgotten Fleet Carrier"
+    },
+    "242": {
+        "description": "Destroy the ghost ship",
+        "name": "Indar Forgotten Fleet Carrier"
+    },
+    "243": {
+        "description": "Destroy the ghost ship",
+        "name": "Hossin Forgotten Fleet Carrier"
+    },
+    "244": {
+        "description": "Destroy the ghost ship",
+        "name": "Amerish Forgotten Fleet Carrier"
+    },
+    "245": {
+        "description": "Destroy the ghost ship",
+        "name": "Esamir Forgotten Fleet Carrier"
+    },
     "3": {
         "description": "Capture Amerish within the time limit",
         "name": "Seeing Green"
