@@ -1144,6 +1144,51 @@
         "name": "Bastion CIWS",
         "sanction": "none"
     },
+    "6014240": {
+        "category": "Bastion Weapon System",
+        "name": "Argo Missile Battery",
+        "sanction": "none"
+    },
+    "6014241": {
+        "category": "Bastion Weapon System",
+        "name": "Argo Missile Battery",
+        "sanction": "none"
+    },
+    "6014242": {
+        "category": "Bastion Weapon System",
+        "name": "Argo Missile Battery",
+        "sanction": "none"
+    },
+    "6014243": {
+        "category": "Bastion Weapon System",
+        "name": "Argo Missile Battery",
+        "sanction": "none"
+    },
+    "6014244": {
+        "category": "Bastion Weapon System",
+        "name": "Argo Missile Battery",
+        "sanction": "none"
+    },
+    "6014245": {
+        "category": "Bastion Weapon System",
+        "name": "Argo Missile Battery",
+        "sanction": "none"
+    },
+    "6014246": {
+        "category": "Bastion Weapon System",
+        "name": "Argo Missile Battery",
+        "sanction": "none"
+    },
+    "6014247": {
+        "category": "Bastion Weapon System",
+        "name": "Argo Missile Battery",
+        "sanction": "none"
+    },
+    "6014249": {
+        "category": "Bastion Weapon System",
+        "name": "Argo Missile Battery",
+        "sanction": "none"
+    },
     "6008910": {
         "category": "Bastion Weapon System",
         "name": "Bastion Battery",
@@ -1477,6 +1522,11 @@
     "6010678": {
         "category": "Chimera Primary Weapons",
         "name": "CT-150 Cyclops",
+        "sanction": "armor"
+    },
+    "6013932": {
+        "category": "Chimera Primary Weapons",
+        "name": "Larion PPC",
         "sanction": "armor"
     },
     "6010715": {
@@ -5544,6 +5594,11 @@
         "name": "C75 Viper",
         "sanction": "armor"
     },
+    "6013945": {
+        "category": "Lightning Primary Weapon",
+        "name": "JGX11",
+        "sanction": "armor"
+    },
     "3103": {
         "category": "Lightning Primary Weapon",
         "name": "L100 Python AP",
@@ -5604,6 +5659,16 @@
         "name": "L100 Python HESH",
         "sanction": "armor"
     },
+    "6013946": {
+        "category": "Lightning Primary Weapon",
+        "name": "L2-100 Kingsnake",
+        "sanction": "armor"
+    },
+    "6013948": {
+        "category": "Lightning Primary Weapon",
+        "name": "Larion LPPC",
+        "sanction": "armor"
+    },
     "6005068": {
         "category": "Lightning Primary Weapon",
         "name": "LB00 Python AP",
@@ -5622,6 +5687,11 @@
     "6008684": {
         "category": "Lightning Primary Weapon",
         "name": "LB00 Python AP",
+        "sanction": "armor"
+    },
+    "6013947": {
+        "category": "Lightning Primary Weapon",
+        "name": "Perihelion L-VXC",
         "sanction": "armor"
     },
     "3106": {
@@ -5938,6 +6008,11 @@
         "category": "Magrider Gunner Weapon",
         "name": "V42 Pariah",
         "sanction": "gunner"
+    },
+    "6014236": {
+        "category": "Magrider Primary Weapon",
+        "name": "Perihelion VXC",
+        "sanction": "armor"
     },
     "3460": {
         "category": "Magrider Primary Weapon",
@@ -6434,6 +6509,11 @@
         "name": "P2-120-R HEAT",
         "sanction": "armor"
     },
+    "6013930": {
+        "category": "Prowler Primary Weapon",
+        "name": "P4-120 Kingsnake",
+        "sanction": "armor"
+    },
     "4745": {
         "category": "Reaver Nose Cannon",
         "name": "M20 Kestrel",
@@ -6607,6 +6687,11 @@
     "6010049": {
         "category": "Rocket Launcher",
         "name": "NS Scorpion",
+        "sanction": "none"
+    },
+    "6013979": {
+        "category": "Rocket Launcher",
+        "name": "NS-R3 \"Dawnstinger\" Swarm",
         "sanction": "none"
     },
     "6002637": {
@@ -7054,6 +7139,11 @@
         "name": "MKV-P Suppressed",
         "sanction": "infantry"
     },
+    "6013950": {
+        "category": "SMG",
+        "name": "NS-66 \"Alchemist\" Punisher",
+        "sanction": "infantry"
+    },
     "6013051": {
         "category": "SMG",
         "name": "NS-66 Bumblebee",
@@ -7259,6 +7349,16 @@
         "name": "M77-B",
         "sanction": "sniper"
     },
+    "6013976": {
+        "category": "Sniper Rifle",
+        "name": "M77-B \"Dawnbreaker\"",
+        "sanction": "sniper"
+    },
+    "6013975": {
+        "category": "Sniper Rifle",
+        "name": "NC14 \"Dawnbreaker\"",
+        "sanction": "sniper"
+    },
     "87": {
         "category": "Sniper Rifle",
         "name": "NC14 Bolt Driver",
@@ -7319,6 +7419,11 @@
         "name": "SR-100",
         "sanction": "sniper"
     },
+    "6013978": {
+        "category": "Sniper Rifle",
+        "name": "SR-100 \"Dawnbreaker\"",
+        "sanction": "sniper"
+    },
     "6010512": {
         "category": "Sniper Rifle",
         "name": "SR-150",
@@ -7367,6 +7472,11 @@
     "26000": {
         "category": "Sniper Rifle",
         "name": "XM98",
+        "sanction": "sniper"
+    },
+    "6013977": {
+        "category": "Sniper Rifle",
+        "name": "XM98 \"Dawnbreaker\"",
         "sanction": "sniper"
     },
     "3080": {
@@ -7802,6 +7912,11 @@
     "3756": {
         "category": "Vanguard Primary Weapon",
         "name": "150mm Titan-R HEAT",
+        "sanction": "armor"
+    },
+    "6013929": {
+        "category": "Vanguard Primary Weapon",
+        "name": "JGX12",
         "sanction": "armor"
     },
     "3730": {
