@@ -215,31 +215,29 @@ module.exports = {
 		wInfo.headshotMultiplier != undefined && resEmbed.addField(i18n.__({phrase: "Headshot Multiplier", locale: locale}), `${Number(wInfo.headshotMultiplier)+1}x`, true);
 		wInfo.defZoom != undefined && wInfo.defZoom != 1 && resEmbed.addField(i18n.__({phrase: "Iron Sights Zoom", locale: locale}), `${wInfo.defZoom}x`, true);
 
-		if(typeof(wInfo.verticalRecoil) !== 'undefined'){
-			if(typeof(wInfo.standingCofMin) !== 'undefined'){
-				hipCOFMin[0] = wInfo.standingCofMin;
-				hipCOFMax[0] = wInfo.standingCofMax;
-			}
-			if(typeof(wInfo.crouchingCofMin) !== 'undefined'){
-				hipCOFMin[1] = wInfo.crouchingCofMin;
-				hipCOFMax[1] = wInfo.crouchingCofMax;
-			}
-			if(typeof(wInfo.runningCofMin) !== 'undefined'){
-				hipCOFMin[2] = wInfo.runningCofMin;
-				hipCOFMax[2] = wInfo.runningCofMax;
-			}
-			if(typeof(wInfo.sprintingCofMin) !== 'undefined'){
-				hipCOFMin[3] = wInfo.sprintingCofMin;
-				hipCOFMax[3] = wInfo.sprintingCofMax;
-			}
-			if(typeof(wInfo.fallingCofMin) !== 'undefined'){
-				hipCOFMin[4] = wInfo.fallingCofMin;
-				hipCOFMax[4] = wInfo.fallingCofMax;
-			}
-			if(typeof(wInfo.crouchWalkingCofMin) !== 'undefined'){
-				hipCOFMin[5] = wInfo.crouchWalkingCofMin;
-				hipCOFMax[5] = wInfo.crouchWalkingCofMax;
-			}
+		if(typeof(wInfo.standingCofMin) !== 'undefined'){
+			hipCOFMin[0] = wInfo.standingCofMin;
+			hipCOFMax[0] = wInfo.standingCofMax;
+		}
+		if(typeof(wInfo.crouchingCofMin) !== 'undefined'){
+			hipCOFMin[1] = wInfo.crouchingCofMin;
+			hipCOFMax[1] = wInfo.crouchingCofMax;
+		}
+		if(typeof(wInfo.runningCofMin) !== 'undefined'){
+			hipCOFMin[2] = wInfo.runningCofMin;
+			hipCOFMax[2] = wInfo.runningCofMax;
+		}
+		if(typeof(wInfo.sprintingCofMin) !== 'undefined'){
+			hipCOFMin[3] = wInfo.sprintingCofMin;
+			hipCOFMax[3] = wInfo.sprintingCofMax;
+		}
+		if(typeof(wInfo.fallingCofMin) !== 'undefined'){
+			hipCOFMin[4] = wInfo.fallingCofMin;
+			hipCOFMax[4] = wInfo.fallingCofMax;
+		}
+		if(typeof(wInfo.crouchWalkingCofMin) !== 'undefined'){
+			hipCOFMin[5] = wInfo.crouchWalkingCofMin;
+			hipCOFMax[5] = wInfo.crouchWalkingCofMax;
 		}
 			
 		if(typeof(wInfo.adsMoveSpeed) !== 'undefined'){
