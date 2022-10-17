@@ -40,8 +40,6 @@ async function getDirectiveList(cName, platform, locale="en-US"){
 	};
 }
 
-export const type = ['Base'];
-
 export const data = {
 	name: 'directives',
 	description: "Lookup a list of a character's Auraxium medals",

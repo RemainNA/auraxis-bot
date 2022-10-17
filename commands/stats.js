@@ -231,8 +231,6 @@ async function characterInfo(cName, wName, platform, locale="en-US"){
 	return resObj;
 }
 
-export const type = ['Base'];
-
 export const data = {
 	name: 'stats',
 	description: "Look up a character's stats, either with the specified weapon or overall",

@@ -88,8 +88,6 @@ export const data = {
 	}]
 };
 
-export const type = ['Base'];
-
 /**
  * Runs the `/asp` command
  * @param { ChatInteraction } interaction - command chat interaction

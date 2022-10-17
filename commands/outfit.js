@@ -1,7 +1,6 @@
 /**
  * Look up basic information about an outfit
  * @module outfit
- * @typedef { import('pg').Client} pg.Client
  * @typedef {import('discord.js').ChatInputCommandInteraction} ChatInteraction
  * @typedef {import('discord.js').ButtonInteraction} ButtonInteraction
  */
@@ -9,6 +8,7 @@ import { ActionRowBuilder, ButtonBuilder, ButtonStyle, EmbedBuilder } from 'disc
 import { serverNames, badQuery, censusRequest, localeNumber, faction, platforms } from '../utils.js';
 import bases from '../static/bases.json' assert {type: 'json'};
 import i18n from 'i18n';
+import query from '../db/index.js';
 
 /**
  * Get basic information about an outfit, online members, owned bases etc.
@@ -90,13 +90,12 @@ async function basicInfo(oTag, platform, oID, locale="en-US"){
  * Get the bases an outfit owns
  * @param {string} outfitID - outfit ID to query the database with
  * @param {number} worldID - the server ID the outfit is on
- * @param {pg.Client} pgClient - Postgres client to use
  * @returns Array of owned bases
  */
-export async function ownedBases(outfitID, worldID, pgClient){
+export async function ownedBases(outfitID, worldID){
 	let oBases = [];
 	try{
-		const res = await pgClient.query("SELECT * FROM bases WHERE outfit = $1 AND world = $2;", [outfitID, worldID]);
+		const res = await query("SELECT * FROM bases WHERE outfit = $1 AND world = $2;", [outfitID, worldID]);
 		for(const row of res.rows){
 			oBases.push(row);
 		}
@@ -134,8 +133,6 @@ function generateReport(outfits, start, end){
 	return `https://wt.honu.pw/report/${encodedString}`;
 }
 
-export const type = ['PGClient'];
-
 export const data = {
 	name: 'outfit',
 	description: "Look up an outfit's basic information, including recent activity and bases owned",
@@ -159,13 +156,12 @@ export const data = {
  * @param { ButtonInteraction } interaction - button interaction 
  * @param { string } locale - locale to use
  * @param { string[] } options - options from interaction 
- * @param { pg.Client } pgClient -  postgres client
  */
-export async function button(interaction, locale, options, pgClient) {
+export async function button(interaction, locale, options) {
 	await interaction.deferReply();
 	const oTag = '';
 	const [oID, platform] = options;
-	const [embed, component] = await outfit(oTag, platform, pgClient, oID, locale);
+	const [embed, component] = await outfit(oTag, platform, oID, locale);
 	await interaction.editReply({embeds: [embed], components: component});
 }
 
@@ -173,9 +169,8 @@ export async function button(interaction, locale, options, pgClient) {
  * runs the `/outfit` command
  * @param { ChatInteraction } interaction - command chat interaction
  * @param { string } locale - locale to use
- * @param { pg.Client } pgClient - postgres client
  */
-export async function execute(interaction, locale, pgClient) {
+export async function execute(interaction, locale) {
 	const outfitTags = interaction.options.getString('tag').toLowerCase().replace(/\s\s+/g, ' ').split(' ');
 	if(outfitTags.length > 10){
 		await interaction.editReply({
@@ -185,7 +180,7 @@ export async function execute(interaction, locale, pgClient) {
 	}
 	const platform = interaction.options.getString('platform') || 'ps2:v2';
 	const outfitLookups = await Promise.allSettled(
-		outfitTags.map(tag => outfit(tag, platform, pgClient, null, locale))
+		outfitTags.map(tag => outfit(tag, platform, null, locale))
 	);
 	const messages = [];
 	for(const res of outfitLookups){
@@ -219,13 +214,12 @@ export async function execute(interaction, locale, pgClient) {
  * Generate a discord embed overview of an outfit
  * @param {string} oTag - outfit tag to query the PS2 Census API with
  * @param {string} platform - which platform to request, eg. ps2:v2, ps2ps4us:v2, or ps2ps4eu:v2
- * @param {pg.Client} pgClient - Postgres client to use
  * @param {string | null} oID - outfit ID to query the PS2 Census API with 
  * @param {string} locale - locale to use e.g. en-US
  * @returns {Promise<[EmbedBuilder, any[]]>} a discord embed object and an Array of buttons
  * @throw if `oTag` contains invalid characters or it too long
  */
-async function outfit(oTag, platform, pgClient, oID = null, locale = "en-US"){
+async function outfit(oTag, platform, oID = null, locale = "en-US"){
 	if(badQuery(oTag)){
 		throw i18n.__({phrase: "Outfit search contains disallowed characters", locale: locale});
 	}
@@ -234,7 +228,7 @@ async function outfit(oTag, platform, pgClient, oID = null, locale = "en-US"){
 	}
 
 	const oInfo = await basicInfo(oTag, platform, oID);
-	const oBases = await ownedBases(oInfo.outfitID, oInfo.worldId, pgClient);
+	const oBases = await ownedBases(oInfo.outfitID, oInfo.worldId);
 
 	const resEmbed = new EmbedBuilder();
 

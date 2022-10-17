@@ -1,14 +1,14 @@
 /**
  * This file defines functions used in finding and returning the current territory control on a given server, broken up by continent
  * @module territory
- * @typedef {import('pg').Client} pg.Client
  * @typedef {import('discord.js').ChatInputCommandInteraction} ChatInteraction
  */
 
 import { ApplicationCommandOptionType, EmbedBuilder } from 'discord.js';
-import { serverNames, serverIDs, censusRequest, continents, localeNumber, faction, servers, allServers } from '../utils.js';
+import { serverNames, serverIDs, censusRequest, continents, localeNumber, faction, allServers } from '../utils.js';
 import ignoredRegions from '../static/ignoredRegions.json' assert {type: 'json'};
 import i18n from 'i18n';
+import query from '../db/index.js';
 
 /**
  * Used to get the correct fisu world control URL
@@ -194,15 +194,12 @@ export const data = {
     }]
 };
 
-export const type = ['PGClient']
-
 /**
  * Get the current continent info on a server to post in discord
  * @param { ChatInteraction } interaction - command chat interaction
- * @param {pg.Client} pgClient - postgres client
  * @param {string} locale - locale to use for translations
  */
-export async function execute(interaction, locale="en-US", pgClient){
+export async function execute(interaction, locale="en-US"){
     const serverName = interaction.options.getString("server");
 
     const serverID = serverIDs[serverName];
@@ -211,7 +208,7 @@ export async function execute(interaction, locale="en-US", pgClient){
         .setTitle(i18n.__mf({phrase: "{continent} territory", locale: locale}, {continent: i18n.__({phrase: serverNames[serverID], locale: locale})}))
         .setTimestamp()
         .setURL(fisuTerritory(serverID));
-    const recordedStatus = await pgClient.query("SELECT * FROM openContinents WHERE world = $1;", [serverName]);
+    const recordedStatus = await query("SELECT * FROM openContinents WHERE world = $1;", [serverName]);
     const openContinents = [];
     const lockedContinents = [];
     for(const continent of continents){

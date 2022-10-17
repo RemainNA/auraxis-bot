@@ -352,8 +352,6 @@ async function recentStatsInfo(cID, platform, days){
     return resObj;
 }
 
-export const type = ['Base'];
-
 export const data = {
     name: 'character',
     description: "Look up a character's stats and basic information",

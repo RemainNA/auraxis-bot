@@ -1,7 +1,6 @@
 /**
  * This file implements functions to create and update server tracker channels, showing total population and active continents
  * @module tracker
- * @typedef {import('pg').Client} pg.Client
  * @typedef {import('discord.js').Client} discord.Client
  * @typedef {import('discord.js').Guild} discord.Guild
  * @typedef {import('discord.js').ChatInputCommandInteraction} ChatInteraction
@@ -13,6 +12,7 @@ import { onlineInfo } from './online.js';
 import { serverNames, serverIDs, servers, continents, faction, platforms, allServers } from '../utils.js';
 import { alertInfo } from './alerts.js';
 import { ChannelType, PermissionFlagsBits } from 'discord.js';
+import query from '../db/index.js';
 
 /**
  * Get a string of the name and total population of a server
@@ -142,15 +142,12 @@ export const data = {
 	]
 };
 
-export const type = ['PGClient'];
-
 /**
  * runs the `/tracker` command
  * @param { ChatInteraction } interaction - command chat interaction 
  * @param { string } locale - locale of the user
- * @param { pg.Client } pgClient - postgres client
  */
-export async function execute(interaction, locale, pgClient) {
+export async function execute(interaction, locale) {
 	if (interaction.channel.type === ChannelType.DM) {
 		await interaction.editReply({content: 'Cannot create trackers in DMs'});
 	}
@@ -160,7 +157,7 @@ export async function execute(interaction, locale, pgClient) {
 		const server = interaction.options.getString('server');
 		const guild = interaction.guild;
 		const client = interaction.client;
-		const res = await create(type, server, guild, client, pgClient);
+		const res = await create(type, server, guild, client);
 		await interaction.editReply(res);
 	} else if (options === 'outfit') {
 		const tag = interaction.options.getString('tag').toLowerCase();
@@ -168,7 +165,7 @@ export async function execute(interaction, locale, pgClient) {
 		const showFaction = interaction.options.getBoolean('show-faction');
 		const guild = interaction.guild;
 		const client = interaction.client;
-		const res = await createOutfit(tag, platform, showFaction, guild, client, pgClient);
+		const res = await createOutfit(tag, platform, showFaction, guild, client);
 		await interaction.editReply(res);
 	}
 	
@@ -179,9 +176,8 @@ export async function execute(interaction, locale, pgClient) {
  * @param {string} name - the name to update the channel with
  * @param {string} channelID - the channel to update
  * @param {discord.Client} discordClient - the discord Client
- * @param {pg.Client} pgClient - the postgres client
  */
-async function updateChannelName(name, channelID, discordClient, pgClient){
+async function updateChannelName(name, channelID, discordClient){
 	try{
 		const channel = await discordClient.channels.fetch(channelID);
 		if(name != channel.name){ //Just avoid unneeded edits
@@ -191,8 +187,8 @@ async function updateChannelName(name, channelID, discordClient, pgClient){
 	catch(err){
 		if(err.code == 10003){ //Deleted/unknown channel
 			console.log(`Removed tracker channel ${channelID}`);
-			pgClient.query("DELETE FROM tracker WHERE channel = $1;", [channelID]);
-			pgClient.query("DELETE FROM outfittracker WHERE channel = $1;", [channelID]);
+			query("DELETE FROM tracker WHERE channel = $1;", [channelID]);
+			query("DELETE FROM outfittracker WHERE channel = $1;", [channelID]);
 		}
 		else if(err.code == 50013 || err.code == 50001){ //Missing permissions, missing access
 			//Ignore in case permissions are updated
@@ -210,11 +206,10 @@ async function updateChannelName(name, channelID, discordClient, pgClient){
  * @param {string} serverName - the server to check
  * @param {discord.Guild} guild - the discord guild
  * @param {discord.Client} discordClient - the discord Client
- * @param {pg.Client} pgClient - the postgres client
  * @returns A string saying the tracker channel was created
  * @throws if bot is missing permissions to create channels
  */
-async function create(type, serverName, guild, discordClient, pgClient){
+async function create(type, serverName, guild, discordClient){
 	try{
 		let name = "";
 		if(type == "population"){
@@ -241,7 +236,7 @@ async function create(type, serverName, guild, discordClient, pgClient){
 			]
 		});
 
-		await pgClient.query("INSERT INTO tracker (channel, trackerType, world) VALUES ($1, $2, $3);",
+		await query("INSERT INTO tracker (channel, trackerType, world) VALUES ($1, $2, $3);",
 		[newChannel.id, type, serverName]);
 
 		return `Tracker channel created as ${newChannel.toString()}. This channel will automatically update once every 10 minutes. If you move the channel or edit permissions make sure to keep the "Manage Channel" and "Connect" permissions enabled for Auraxis Bot.`;
@@ -263,11 +258,10 @@ async function create(type, serverName, guild, discordClient, pgClient){
  * @param {boolean} showFaction - if true, show faction indicator in tracker
  * @param {discord.Guild} guild - the discord guild
  * @param {discord.Client} discordClient - the discord Client
- * @param {pg.Client} pgClient - the postgres client
  * @returns a string saying the tracker channel for outfits was created
  * @throws if bot is missing permissions to create channels
  */
-async function createOutfit(tag, platform, showFaction, guild, discordClient, pgClient){
+async function createOutfit(tag, platform, showFaction, guild, discordClient){
 	try{
 		const oInfo = await onlineInfo(tag, platform);
 		let name = await outfitName(oInfo.outfitID, platform);
@@ -295,7 +289,7 @@ async function createOutfit(tag, platform, showFaction, guild, discordClient, pg
 			]
 		});
 
-		await pgClient.query("INSERT INTO outfittracker (channel, outfitid, showfaction, platform) VALUES ($1, $2, $3, $4);",
+		await query("INSERT INTO outfittracker (channel, outfitid, showfaction, platform) VALUES ($1, $2, $3, $4);",
 		[newChannel.id, oInfo.outfitID, showFaction, platform]);
 
 		return `Tracker channel created as ${newChannel}. This channel will automatically update once every 10 minutes. If you move the channel or edit permissions make sure to keep the "Manage Channel" and "Connect" permissions enabled for Auraxis Bot.`;
@@ -312,18 +306,17 @@ async function createOutfit(tag, platform, showFaction, guild, discordClient, pg
 
 /**
  * Used to update the tracker channels
- * @param {pg.Client} pgClient - the postgres client
  * @param {discord.Client} discordClient - the discord Client
  * @param {boolean} continentOnly - if false only update population and outfits
  */
-export async function update(pgClient, discordClient, continentOnly = false){
+export async function update(discordClient, continentOnly = false){
 	for(const serverName of servers){
 		if(!continentOnly){
 			try{
 				const popName = await populationName(serverIDs[serverName]);
-				const channels = await pgClient.query("SELECT channel FROM tracker WHERE trackertype = $1 AND world = $2;", ["population", serverName]);
+				const channels = await query("SELECT channel FROM tracker WHERE trackertype = $1 AND world = $2;", ["population", serverName]);
 				for(const row of channels.rows){
-					await updateChannelName(popName, row.channel, discordClient, pgClient);
+					await updateChannelName(popName, row.channel, discordClient);
 				}
 			}
 			catch(err){
@@ -333,9 +326,9 @@ export async function update(pgClient, discordClient, continentOnly = false){
 		}
 		try{
 			const terName = await territoryName(serverIDs[serverName]);
-			const channels = await pgClient.query("SELECT channel FROM tracker WHERE trackertype = $1 AND world = $2;", ["territory", serverName]);
+			const channels = await query("SELECT channel FROM tracker WHERE trackertype = $1 AND world = $2;", ["territory", serverName]);
 			for(const row of channels.rows){
-				await updateChannelName(terName, row.channel, discordClient, pgClient);
+				await updateChannelName(terName, row.channel, discordClient);
 			}
 		}
 		catch(err){
@@ -345,17 +338,17 @@ export async function update(pgClient, discordClient, continentOnly = false){
 	}
 	if(!continentOnly){
 		try{
-			const outfits = await pgClient.query("SELECT DISTINCT outfitid, platform FROM outfittracker;");
+			const outfits = await query("SELECT DISTINCT outfitid, platform FROM outfittracker;");
 			for(const row of outfits.rows){
 				try{
 					const oName = await outfitName(row.outfitid, row.platform);
-					const channels = await pgClient.query("SELECT channel, showfaction FROM outfittracker WHERE outfitid = $1 AND platform = $2;", [row.outfitid, row.platform]);
+					const channels = await query("SELECT channel, showfaction FROM outfittracker WHERE outfitid = $1 AND platform = $2;", [row.outfitid, row.platform]);
 					for(const channelRow of channels.rows){
 						if(channelRow.showfaction){
-							await updateChannelName(oName.faction, channelRow.channel, discordClient, pgClient);
+							await updateChannelName(oName.faction, channelRow.channel, discordClient);
 						}
 						else{
-							await updateChannelName(oName.noFaction, channelRow.channel, discordClient, pgClient);
+							await updateChannelName(oName.noFaction, channelRow.channel, discordClient);
 						}
 					}
 				}
@@ -363,7 +356,7 @@ export async function update(pgClient, discordClient, continentOnly = false){
 					console.log(`Error updating outfit tracker ${row.outfitid}`);
 					console.log(err);
 					if(err == " not found"){
-						await pgClient.query("DELETE FROM outfittracker WHERE outfitid = $1;", [row.outfitid]);
+						await query("DELETE FROM outfittracker WHERE outfitid = $1;", [row.outfitid]);
 						console.log(`Deleted ${row.outfitid} from tracker table`);
 					}
 				}

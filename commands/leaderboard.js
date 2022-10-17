@@ -23,8 +23,6 @@ function constructExtension(name, period, world, limit){
 	return `leaderboard/?name=${name}&period=${period}&world=${world}&c:limit=${limit}&c:resolve=character_name`;
 }
 
-export const type = ['Base'];
-
 export const data = {
 	name: 'leaderboard',
 	description: "Lookup current leaderboard",

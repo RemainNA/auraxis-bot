@@ -4,13 +4,13 @@
  */
 /**
  * @typedef {import('discord.js').Client} discord.Client
- * @typedef {import('pg').Client} pg.Client
  */
 import { ChannelType, EmbedBuilder, PermissionsBitField } from 'discord.js';
 import { fetch }  from 'undici';
 import alerts from './static/alerts.json' assert {type: 'json'};
 import {serverNames} from './utils.js';
 import {popLevels} from './commands/alerts.js';
+import query from './db/index.js';
 /**
  * faction winners
  */
@@ -23,12 +23,11 @@ const winnerFaction = {
 /**
  * Creates a new discord embed for updating the alert
  * @param info - alert info from PS2Alerts
- * @param {pg.Client} pgClient - postgres client
  * @param {discord.Client} discordClient - discord client
  * @param {boolean} isComplete - true if alert is complete
  * @throws if error retrieving territory control for an alert
  */
-async function updateAlert(info, pgClient, discordClient, isComplete){
+async function updateAlert(info, discordClient, isComplete){
 	const messageEmbed = new EmbedBuilder();
 	messageEmbed.setTimestamp();
 	messageEmbed.setFooter({text: "Data from ps2alerts.com"});
@@ -77,12 +76,12 @@ async function updateAlert(info, pgClient, discordClient, isComplete){
 	}
 
 
-	const result = await pgClient.query("SELECT messageID, channelID FROM alertMaintenance WHERE alertID = $1;", [info.instanceId])
+	const result = await query("SELECT messageID, channelID FROM alertMaintenance WHERE alertID = $1;", [info.instanceId])
 	for (const row of result.rows) {
 		editMessage(messageEmbed, row.messageid, row.channelid, discordClient)
 	}
 	if(isComplete){
-		pgClient.query("DELETE FROM alertMaintenance WHERE alertID = $1;", [info.instanceId]);
+		query("DELETE FROM alertMaintenance WHERE alertID = $1;", [info.instanceId]);
 	}
 }
 
@@ -112,15 +111,14 @@ async function editMessage(embed, messageId, channelId, discordClient){
  * Deletes alert if there is no longer a message to update it.
  * If there is no error message for `row` will log error
  * @param row - alert information from PS2Alerts
- * @param {pg.Client} pgClient - postgres client
  * @param {string} err - error message 
  */
-async function checkError(row, pgClient, err){
+async function checkError(row, err){
 	if(row.error){
-		pgClient.query("DELETE FROM alertMaintenance WHERE alertID = $1;", [row.alertid]);
+		query("DELETE FROM alertMaintenance WHERE alertID = $1;", [row.alertid]);
 	}
 	else{
-		pgClient.query("UPDATE alertMaintenance SET error = true WHERE alertID = $1;", [row.alertid]);
+		query("UPDATE alertMaintenance SET error = true WHERE alertID = $1;", [row.alertid]);
 		console.log(`Error retrieving alert info from PS2Alerts for alert ${row.alertid}`);
 		console.log(err);
 	}
@@ -128,23 +126,22 @@ async function checkError(row, pgClient, err){
 
 /**
  * Update alert info in the database and edit discord messages
- * @param {pg.Client} pgClient - postgres client
  * @param {discord.Client} discordClient - discord client
  */
-export async function update(pgClient, discordClient){
-	const results = await pgClient.query("SELECT DISTINCT alertID, error FROM alertMaintenance");
+export async function update(discordClient){
+	const results = await query("SELECT DISTINCT alertID, error FROM alertMaintenance");
 	Promise.allSettled(results.rows.map(async row => {
 		try {
 			const request = await fetch(`https://api.ps2alerts.com/instances/${row.alertid}`);
 			const response = await request.json();
-			await updateAlert(response, pgClient, discordClient, response.timeEnded != null);
+			await updateAlert(response, discordClient, response.timeEnded != null);
 		}
 		catch (err) {
 			if (typeof(err) !== 'string') {
-				checkError(row, pgClient, "Error during web request");
+				checkError(row, "Error during web request");
 			}
 			else if(err == "Error displaying territory"){
-				checkError(row, pgClient, err);
+				checkError(row, err);
 			}
 			else{
 				console.log("Error occurred when updating alert");

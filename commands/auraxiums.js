@@ -63,8 +63,6 @@ async function getAuraxiumList(cName, platform, locale='en-US'){
 	};
 }
 
-export const type = ['Base'];
-
 export const data = {
 	name: 'auraxiums',
 	description: "Lookup a list of a character's Auraxium medals",

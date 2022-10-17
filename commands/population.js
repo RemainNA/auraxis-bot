@@ -110,8 +110,6 @@ export const data = {
 	}]
 }
 
-export const type = ['Base'];
-
 /**
  * Runs the `/population` command
  * @param { ChatInteraction } interaction - command chat interaction

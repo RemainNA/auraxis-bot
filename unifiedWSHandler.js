@@ -1,7 +1,6 @@
 /**
  * This file implements functions which parse messages from the Stream API and send messages to the appropriate channels based on subscription status.
  * @module unifiedWSHandler
- * @typedef {import('pg').Client} pg.Client
  * @typedef {import('discord.js').Client} discord.Client
  */
 
@@ -14,6 +13,7 @@ import alerts from './static/alerts.json' assert {type: 'json'};
 import bases from './static/bases.json' assert {type: 'json'};
 import { update as updateTrackers } from './commands/trackers.js';
 import {serverNames, censusRequest, faction} from './utils.js';
+import query from './db/index.js';
 
 /**
  * @example
@@ -31,11 +31,10 @@ const environmentToPlatform = {
  * Tracks player login and logout events
  * @param payload - The payload from the Stream API
  * @param {string} environment - which enviorment to query for
- * @param {pg.Client} pgClient - postgres client to use
  * @param {discord.Client} discordClient - discord client to use
  * @throws if there are error in logEvent
  */
-async function logEvent(payload, environment, pgClient, discordClient){
+async function logEvent(payload, environment, discordClient){
     let response = await censusRequest(environment, 'character_list', `/character/${payload.character_id}?c:resolve=outfit_member`);
     let platform = environmentToPlatform[environment];
     let playerEvent = payload.event_name.substring(6);
@@ -43,7 +42,7 @@ async function logEvent(payload, environment, pgClient, discordClient){
         let char = response[0];
         let result = {};
         try{
-            result = await pgClient.query("SELECT a.id, a.color, a.alias, a.channel, a.platform, c.autoDelete\
+            result = await query("SELECT a.id, a.color, a.alias, a.channel, a.platform, c.autoDelete\
             FROM outfitActivity a LEFT JOIN subscriptionConfig c ON a.channel = c.channel\
             WHERE a.id = $1 AND a.platform = $2;", [char.outfit_member.outfit_id, platform]);
         }
@@ -64,14 +63,14 @@ async function logEvent(payload, environment, pgClient, discordClient){
                                 .then(messageId => {
                                     if(messageId != -1 && row.autodelete == true){
                                         const in5minutes = new Date((new Date()).getTime() + 300000);
-                                        pgClient.query("INSERT INTO toDelete (channel, messageID, timeToDelete) VALUES ($1, $2, $3)", [row.channel, messageId, in5minutes])
+                                        query("INSERT INTO toDelete (channel, messageID, timeToDelete) VALUES ($1, $2, $3)", [row.channel, messageId, in5minutes])
                                             .catch(err => {console.log(err);});
                                     }
                                 });
                                 
                             }
                             else{
-                                unsubscribeAll(pgClient, row.channel);
+                                unsubscribeAll(row.channel);
                                 console.log('Unsubscribed from '+row.channel);
                             } 
                         }
@@ -80,11 +79,11 @@ async function logEvent(payload, environment, pgClient, discordClient){
                             .then(messageId => {
                                 if(messageId != -1 && row.autodelete === true){
                                     const in5minutes = new Date((new Date()).getTime() + 30000);
-                                    pgClient.query("INSERT INTO toDelete (channel, messageID, timeToDelete) VALUES ($1, $2, $3)", [row.channel, messageId, in5minutes])
+                                    query("INSERT INTO toDelete (channel, messageID, timeToDelete) VALUES ($1, $2, $3)", [row.channel, messageId, in5minutes])
                                         .catch(err => {console.log(err);});
                                 }
                                 else if(messageId == -1){
-                                    unsubscribeAll(pgClient, row.channel);
+                                    unsubscribeAll(row.channel);
                                     console.log('Unsubscribed from '+row.channel);
                                 }
                             })
@@ -93,7 +92,7 @@ async function logEvent(payload, environment, pgClient, discordClient){
                     .catch(error => {
                         if(typeof(error.code) !== 'undefined'){
                             if(error.code == 10003){ //Unknown channel error, thrown when the channel is deleted
-                                unsubscribeAll(pgClient, row.channel);
+                                unsubscribeAll(row.channel);
                                 console.log('Unsubscribed from '+row.channel);
                             }
                         }
@@ -174,10 +173,9 @@ const trackedAlerts = [
  * Sends an alert embed to all channels that are subscribed to `/alerts`
  * @param payload - The payload from the Stream API
  * @param {string} environment - which enviorment to query for
- * @param {pg.Client} pgClient - postgres client to use
  * @param {discord.Client} discordClient - discord client to use
  */
-async function alertEvent(payload, environment, pgClient, discordClient){
+async function alertEvent(payload, environment, discordClient){
     if(payload.metagame_event_state_name == "started"){
         let server = serverNames[payload.world_id];
         let response = await alertInfo(payload, environment);
@@ -257,13 +255,13 @@ async function alertEvent(payload, environment, pgClient, discordClient){
                 \n<:NC:818767043138027580> **NC**: ${ncPc}%\
                 \n<:TR:818988588049629256> **TR**: ${trPc}%`});
             }
-            const  rows = await pgClient.query("SELECT a.channel, c.Koltyr, c.Indar, c.Hossin, c.Amerish, c.Esamir, c.Oshur, c.Other, c.autoDelete, c.territory, c.nonTerritory\
+            const  rows = await query("SELECT a.channel, c.Koltyr, c.Indar, c.Hossin, c.Amerish, c.Esamir, c.Oshur, c.Other, c.autoDelete, c.territory, c.nonTerritory\
             FROM alerts a LEFT JOIN subscriptionConfig c on a.channel = c.channel\
             WHERE a.world = $1;", [server.toLowerCase()]);
             for (let row of rows.rows){
                 if(row[continent.toLowerCase()] == null){
                     // If config is not successfully set then display alert and attempt to initialize config
-                    initializeConfig(row.channel, pgClient);
+                    initializeConfig(row.channel);
                 }
                 else if(!row[continent.toLowerCase()] || (showTerritory && !row['territory']) || (!showTerritory && !row['nonterritory'])){
                     // Skip alerts configured to not show
@@ -276,25 +274,25 @@ async function alertEvent(payload, environment, pgClient, discordClient){
                                 send(resChann, {embeds: [sendEmbed]}, "Alert notification")
                                 .then(messageId => {
                                     if(messageId != -1 && trackedAlerts.indexOf(Number(payload.metagame_event_id)) > -1){
-                                        pgClient.query("INSERT INTO alertMaintenance (alertID, messageID, channelID) VALUES ($1, $2, $3);", [`${payload.world_id}-${payload.instance_id}`, messageId, row.channel])
+                                        query("INSERT INTO alertMaintenance (alertID, messageID, channelID) VALUES ($1, $2, $3);", [`${payload.world_id}-${payload.instance_id}`, messageId, row.channel])
                                             .catch(err => {console.log(err);});
                                     }
                                     if(messageId != -1 && row.autodelete === true){
                                         const in50minutes = new Date((new Date()).getTime() + 3000000);
                                         const in95minutes = new Date((new Date()).getTime() + 5700000);
                                         if(['Indar', 'Hossin', 'Esamir', 'Amerish', 'Oshur'].includes(continent) && response.name.indexOf("Unstable Meltdown") == -1){
-                                            pgClient.query("INSERT INTO toDelete (channel, messageID, timeToDelete) VALUES ($1, $2, $3)", [row.channel, messageId, in95minutes])
+                                            query("INSERT INTO toDelete (channel, messageID, timeToDelete) VALUES ($1, $2, $3)", [row.channel, messageId, in95minutes])
                                             .catch(err => {console.log(err);});
                                         }
                                         else{
-                                            pgClient.query("INSERT INTO toDelete (channel, messageID, timeToDelete) VALUES ($1, $2, $3)", [row.channel, messageId, in50minutes])
+                                            query("INSERT INTO toDelete (channel, messageID, timeToDelete) VALUES ($1, $2, $3)", [row.channel, messageId, in50minutes])
                                             .catch(err => {console.log(err);});
                                         }    
                                     }
                                 });
                             }
                             else{
-                                unsubscribeAll(pgClient, row.channel);
+                                unsubscribeAll(row.channel);
                                 console.log('Unsubscribed from '+row.channel);
                             } 
                         }
@@ -302,23 +300,23 @@ async function alertEvent(payload, environment, pgClient, discordClient){
                             send(resChann, {embeds: [sendEmbed]}, "Alert notification")
                             .then(messageId => {
                                 if(messageId != -1 && trackedAlerts.indexOf(Number(payload.metagame_event_id)) > -1){
-                                    pgClient.query("INSERT INTO alertMaintenance (alertID, messageID, channelID) VALUES ($1, $2, $3);", [`${payload.world_id}-${payload.instance_id}`, messageId, row.channel])
+                                    query("INSERT INTO alertMaintenance (alertID, messageID, channelID) VALUES ($1, $2, $3);", [`${payload.world_id}-${payload.instance_id}`, messageId, row.channel])
                                         .catch(err => {console.log(err);})
                                 }
                                 if(messageId != -1 && row.autodelete === true){
                                     const in50minutes = new Date((new Date()).getTime() + 3000000);
                                     const in95minutes = new Date((new Date()).getTime() + 5700000);
                                     if(['Indar', 'Hossin', 'Esamir', 'Amerish', 'Oshur'].includes(continent) && response.name.indexOf("Unstable Meltdown") == -1){
-                                        pgClient.query("INSERT INTO toDelete (channel, messageID, timeToDelete) VALUES ($1, $2, $3)", [row.channel, messageId, in95minutes])
+                                        query("INSERT INTO toDelete (channel, messageID, timeToDelete) VALUES ($1, $2, $3)", [row.channel, messageId, in95minutes])
                                         .catch(err => {console.log(err);});
                                     }
                                     else{
-                                        pgClient.query("INSERT INTO toDelete (channel, messageID, timeToDelete) VALUES ($1, $2, $3)", [row.channel, messageId, in50minutes])
+                                        query("INSERT INTO toDelete (channel, messageID, timeToDelete) VALUES ($1, $2, $3)", [row.channel, messageId, in50minutes])
                                         .catch(err => {console.log(err);});
                                     }    
                                 }
                                 else if(messageId == -1){
-                                    unsubscribeAll(pgClient, row.channel);
+                                    unsubscribeAll(row.channel);
                                     console.log('Unsubscribed from '+row.channel);
                                 }
                             });
@@ -327,7 +325,7 @@ async function alertEvent(payload, environment, pgClient, discordClient){
                     .catch(error => {
                         if(typeof(error.code) !== 'undefined'){
                             if(error.code == 10003){ //Unknown channel error, thrown when the channel is deleted
-                                unsubscribeAll(pgClient, row.channel);
+                                unsubscribeAll(row.channel);
                                 console.log('Unsubscribed from '+row.channel);
                             }
                         }
@@ -376,22 +374,21 @@ const centralBases = [
  * Send base event notification to all subscribed channels whenever a tracked outfit captures a base
  * @param payload - the payload from the event
  * @param {string} environment - the environment the outfit is in
- * @param {pg.Client} pgClient - postgres client to use
  * @param {discord.Client} discordClient - discord client to use
  * @returns 
  */
-async function baseEvent(payload, environment, pgClient, discordClient){
+async function baseEvent(payload, environment, discordClient){
     if(payload.new_faction_id == payload.old_faction_id){
         return; //Ignore defended bases
     }
     let platform = environmentToPlatform[environment];
     if(payload.zone_id == '2' || payload.zone_id == '4' || payload.zone_id == '6' || payload.zone_id == '8' || payload.zone_id == '344'){ //Don't track bases outside the main continents 
-        await pgClient.query("INSERT INTO bases VALUES ($1, $2, $3, $4, $5, $6)\
+        await query("INSERT INTO bases VALUES ($1, $2, $3, $4, $5, $6)\
         ON CONFLICT(concatKey) DO UPDATE SET outfit = $5, faction = $6;",
         [`${payload.world_id}-${payload.facility_id}`, payload.zone_id, payload.world_id, payload.facility_id, payload.outfit_id, payload.new_faction_id]);
     }
     //check if outfit is in db, construct and send info w/ facility id
-    let result = await pgClient.query("SELECT * FROM outfitcaptures WHERE id=$1 AND platform = $2;", [payload.outfit_id, platform]);
+    let result = await query("SELECT * FROM outfitcaptures WHERE id=$1 AND platform = $2;", [payload.outfit_id, platform]);
     if(result.rowCount > 0){
         let sendEmbed = new EmbedBuilder();
         let base = await baseInfo(payload.facility_id, environment);
@@ -440,7 +437,7 @@ async function baseEvent(payload, environment, pgClient, discordClient){
                         send(resChann, {embeds: [sendEmbed]}, "Base capture event");
                     }
                     else{
-                        unsubscribeAll(pgClient, row.channel);
+                        unsubscribeAll(row.channel);
                         console.log('Unsubscribed from '+row.channel);
                     }
                 }
@@ -450,7 +447,7 @@ async function baseEvent(payload, environment, pgClient, discordClient){
             }).catch(error => {
                 if(typeof(error.code) !== 'undefined'){
                     if(error.code == 10003){ //Unknown channel error, thrown when the channel is deleted
-                        unsubscribeAll(pgClient, row.channel);
+                        unsubscribeAll(row.channel);
                         console.log('Unsubscribed from '+row.channel);
                     }
                 }
@@ -557,10 +554,9 @@ const queue = ["","","","",""];
  * Send an alert, base, login or logout event to all subscribed channels
  * @param payload - the payload of the event
  * @param {string} environment - the environment the event was sent from
- * @param {pg.Client} pgClient - the postgres client to use
  * @param {discord.Client} discordClient - the discord client to use
  */
-export async function router(payload, environment, pgClient, discordClient){
+export async function router(payload, environment, discordClient){
     for(let message of queue){
         if(objectEquality(message, payload)){
             return;
@@ -570,7 +566,7 @@ export async function router(payload, environment, pgClient, discordClient){
     queue.shift();
 
     if(payload.character_id != null){
-        logEvent(payload, environment, pgClient, discordClient)
+        logEvent(payload, environment, discordClient)
             .catch(error => {
                 if(typeof(error) == "string" && error != "Census API currently unavailable" && error != "Census API unavailable: Redirect"){
                     console.log("Login error: "+error);
@@ -578,11 +574,11 @@ export async function router(payload, environment, pgClient, discordClient){
             });
     }
     else if(payload.metagame_event_state_name != null){
-        alertEvent(payload, environment, pgClient, discordClient)
+        alertEvent(payload, environment, discordClient)
             .catch(error => console.log(error));
     }
     else if(payload.duration_held != null){
-        baseEvent(payload, environment, pgClient, discordClient)
+        baseEvent(payload, environment, discordClient)
             .catch(error => console.log(error));
     }
 }

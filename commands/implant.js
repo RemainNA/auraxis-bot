@@ -34,8 +34,6 @@ async function implantInfo(name){
 	throw `${name} not found.`;
 }
 
-export const type = ['Base'];
-
 export const data = {
 	name: 'implant',
 	description: "Look up implant information",
