@@ -2,7 +2,6 @@
  * this file implements the unsubscribe command
  * @module unsubscribe
  * @typedef {import('discord.js').ChatInputCommandInteraction} ChatInteraction
- * @typedef {import('pg').Client} pg.Client
  */
 import { unsubscribeActivity, unsubscribeAlert, unsubscribeCaptures, unsubscribeTwitter, unsubscribeUnlocks } from "../subscriptions.js";
 import { allServers, platforms } from "../utils.js";
@@ -104,38 +103,35 @@ export const data = {
     ]
 };
 
-export const type = ['PGClient'];
-
 /**
  * runs the `/unsubscribe` command
  * @param { ChatInteraction } interaction - command chat interaction
  * @param { string } locale - locale of the user
- * @param { pg.Client } pgClient - postgres client 
  */
-export async function execute(interaction, locale, pgClient) {
+export async function execute(interaction, locale) {
     const subcommand = interaction.options.getSubcommand();
     const channel = interaction.channelId;
     if (subcommand === 'alerts') {
         const server = interaction.options.getString('server');
-        const res = await unsubscribeAlert(pgClient, channel, server);
+        const res = await unsubscribeAlert(channel, server);
         await interaction .editReply(res);
     } else if (subcommand === 'activity') {
         const tag = interaction.options.getString('tag');
         const platform = interaction.options.getString('platform') || 'ps2:v2';
-        const res = await unsubscribeActivity(pgClient, channel, tag, platform);
+        const res = await unsubscribeActivity(channel, tag, platform);
         await interaction .editReply(res);
     } else if (subcommand === 'captures') {
         const tag = interaction.options.getString('tag');
         const platform = interaction.options.getString('platform') || 'ps2:v2';
-        const res = await unsubscribeCaptures(pgClient, channel, tag, platform);
+        const res = await unsubscribeCaptures(channel, tag, platform);
         await interaction .editReply(res);
     } else if (subcommand === 'unlocks') {
         const server = interaction.options.getString('server');
-        const res = await unsubscribeUnlocks(pgClient, channel, server);
+        const res = await unsubscribeUnlocks(channel, server);
         await interaction .editReply(res);
     } else if (subcommand === 'twitter') {
         const user = interaction.options.getString('user');
-        const res = await unsubscribeTwitter(pgClient, channel, user);
+        const res = await unsubscribeTwitter(channel, user);
         await interaction .editReply(res);
     } else {
         await interaction.editReply("Unknown command error");

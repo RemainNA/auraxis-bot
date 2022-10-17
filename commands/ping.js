@@ -10,8 +10,6 @@ export const data = {
     description: `Get the bot's current ping to Discord servers`,
 };
 
-export const type = ['Base'];
-
 /**
  * Runs the `/ping` command
  * @param { ChatInteraction } interaction - command chat interaction

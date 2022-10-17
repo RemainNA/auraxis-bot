@@ -113,8 +113,6 @@ export function totalLength(arr){
 	return len;
 }
 
-export const type = ['Base'];
-
 export const data = {
 	name: 'online',
 	description: "Look up currently online members for a given outfit",

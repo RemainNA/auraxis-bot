@@ -4,9 +4,9 @@
  */
 
 import 'dotenv/config.js';
+import './db/index.js';
 
 import i18n from 'i18n';
-import pg from 'pg';
 import { Client, GatewayIntentBits, Partials, Collection, InteractionType } from 'discord.js';
 
 import { readdirSync } from 'fs';
@@ -33,10 +33,6 @@ i18n.configure({
 
 const twitter = process.env.TWITTER_CONSUMER_KEY !== undefined;
 const DB = process.env.DATABASE_URL !== undefined;
-const SQLclient = new pg.Client({
-	connectionString: process.env.DATABASE_URL,
-	ssl: {rejectUnauthorized: false}
-});
 
 const intentsList = [
 	GatewayIntentBits.GuildMessages,
@@ -63,33 +59,31 @@ for (const file of commandFiles) {
 client.on('ready', async () => {
 	console.log(`Running on ${client.guilds.cache.size} servers`);
 	if (DB) {
-		await SQLclient.connect();
-
-		startListener(SQLclient, client);
+		startListener(client);
 		if(twitter) {
 			init();
-			connect(SQLclient, client.channels);
-			latestTweet(SQLclient, client.channels);
+			connect(client.channels);
+			latestTweet(client.channels);
 		}
 
 		/** The bot cycles every 24 hours, so these will be called every 24 hours */
-		dashboardUpdate(SQLclient, client);
-		trackerUpdate(SQLclient, client);
-		outfitUpdate(SQLclient);
-		alertUpdate(SQLclient, client);
-		runDeleteMessages(SQLclient, client);
-		checkOpenContinents(SQLclient, client);
+		dashboardUpdate(client);
+		trackerUpdate(client);
+		outfitUpdate();
+		alertUpdate(client);
+		runDeleteMessages(client);
+		checkOpenContinents(client);
 
 		setInterval(() => {
-			runDeleteMessages(SQLclient, client);
-			checkOpenContinents(SQLclient, client);
+			runDeleteMessages(client);
+			checkOpenContinents(client);
 		}, 60000); //Update alerts every minute
 		setInterval(() => {
-			alertUpdate(SQLclient, client);
-			dashboardUpdate(SQLclient, client);
+			alertUpdate(client);
+			dashboardUpdate(client);
 		}, 300000); //Update dashboards every 5 minutes
 		setInterval(() => {
-			trackerUpdate(SQLclient, client);
+			trackerUpdate(client);
 		}, 600000); // Update trackers every 10 minutes
 	}
 	client.user.setActivity('/help');
@@ -101,11 +95,7 @@ client.on('interactionCreate', async interaction => {
 	if (interaction.type === InteractionType.ApplicationCommand) {
 		await interaction.deferReply();
 		try {
-			if (command.type.includes('PGClient')) {
-				await command.execute(interaction, locale, SQLclient);
-			} else {
-				await command.execute(interaction, locale);
-			}
+			await command.execute(interaction, locale);
 		} catch (error) {
 			try {
 				if (typeof error !== 'string') {
@@ -147,11 +137,7 @@ client.on('interactionCreate', async interaction => {
 		try {
 			const options = interaction.customId.split('%');
 			const command = client.commands.get(options.shift());
-			if (command.type.includes('PGClient')) {
-				await command.button(interaction, locale, options, SQLclient);
-			} else {
-				await command.button(interaction, locale, options);
-			}
+			await command.button(interaction, locale, options);
 		} catch (error) {
 			try{
 				if(typeof error !== 'string'){

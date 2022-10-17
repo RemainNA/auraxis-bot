@@ -97,8 +97,6 @@ export async function partialMatches(interaction){
 	await interaction.respond(matches);
 }
 
-export const type = ['Base'];
-
 export const data = {
 	name: 'weapon',
 	description: "Look up weapon stats",

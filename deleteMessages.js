@@ -1,30 +1,30 @@
 /**
  * This file implements methods to list messages marked for deletion, and then delete them
  * @module deleteMessages
- * @typedef {import('pg').Client} pg.Client
  * @typedef {import('discord.js').Client} discord.Client
  * @typedef {import('discord.js').TextBasedChannel} discord.TextBasedChannel
  */
 
+import query from './db/index.js';
+
 /**
  * Returns a list of discord messages marked for deletion
  * @param {string} channelId - The channel to delete messages from
- * @param {pg.Client} pgClient - The postgres client
  * @param {discord.Client} discordClient - The discord client
  */
-async function retrieveMessages(channelId, pgClient, discordClient){
+async function retrieveMessages(channelId, discordClient){
 	const now = new Date();
 	try{
 		let channel = await discordClient.channels.fetch(channelId);
-		let messages = await pgClient.query("SELECT messageId FROM toDelete WHERE timeToDelete < $1 AND channel = $2;", [now, channelId]);
+		let messages = await query("SELECT messageId FROM toDelete WHERE timeToDelete < $1 AND channel = $2;", [now, channelId]);
 		for (const row of messages.rows){
-			deleteMessage(channel, row.messageid, pgClient);
+			deleteMessage(channel, row.messageid);
 		}
 	}
 	catch(err){
 		console.log(`Error retrieving messages to delete for channel ${channelId}`);
 		console.log(err);
-		await pgClient.query("DELETE FROM toDelete WHERE channel = $1;", [channelId]);
+		await query("DELETE FROM toDelete WHERE channel = $1;", [channelId]);
 	}
 }
 
@@ -32,13 +32,12 @@ async function retrieveMessages(channelId, pgClient, discordClient){
  * Deletes discord messages marked for deletion
  * @param {discord.TextBasedChannel} channel - The channel to delete messages from
  * @param {string} message - The message to delete
- * @param {pg.Client} pgClient - The postgres client
  */
-async function deleteMessage(channel, message, pgClient){
+async function deleteMessage(channel, message){
 	try{
 		let msg = await channel.messages.fetch(message);
 		await msg.delete();
-		await pgClient.query("DELETE FROM toDelete WHERE messageid = $1;", [message]);
+		await query("DELETE FROM toDelete WHERE messageid = $1;", [message]);
 	}
 	catch(err){
 		if(err.code == 10008){
@@ -48,21 +47,20 @@ async function deleteMessage(channel, message, pgClient){
 			console.log(`Error deleting message ${message}`);
 			console.log(err);
 		}
-		await pgClient.query("DELETE FROM toDelete WHERE messageid = $1;", [message]);
+		await query("DELETE FROM toDelete WHERE messageid = $1;", [message]);
 	}
 }
 
 /**
  * delete discord messages marked for deletion
- * @param {pg.Client} pgClient - The postgres client
  * @param {discord.Client} discordClient - The discord client 
  */
-export async function run(pgClient, discordClient){
+export async function run(discordClient){
 	const now = new Date();
 	try{
-		let channels = await pgClient.query("SELECT DISTINCT channel FROM toDelete WHERE timeToDelete < $1;", [now]);
+		let channels = await query("SELECT DISTINCT channel FROM toDelete WHERE timeToDelete < $1;", [now]);
 		for (const row of channels.rows){
-			retrieveMessages(row.channel, pgClient, discordClient);
+			retrieveMessages(row.channel, discordClient);
 		}
 	}
 	catch(err){

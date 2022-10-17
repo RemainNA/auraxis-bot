@@ -1,7 +1,6 @@
 /**
  * This file implements functions to create and update server dashboards, showing population, territory control, and active alerts
  * @module dashboard
- * @typedef {import('pg').Client} pg.Client
  * @typedef {import('discord.js').Client} discord.Client
  * @typedef {import('discord.js').EmbedBuilder} discord.MessageEmbed
  * @typedef {import('discord.js').TextBasedChannel} discord.Channel
@@ -17,14 +16,14 @@ import {onlineInfo, totalLength} from './online.js';
 import {ownedBases, centralBases} from './outfit.js';
 import bases from '../static/bases.json' assert {type: 'json'};
 import {serverNames, serverIDs, servers, continents, faction, localeNumber, platforms, allServers} from '../utils.js';
+import query from '../db/index.js';
 
 /**
  * Creates a server dashboard for the given serverID that keeps track of the population, territory control, and active alerts
  * @param {number} serverID - The server ID 
- * @param {pg.Client} pgClient - The postgres client 
  * @returns the server dashboard embed
  */
-async function serverStatus(serverID, pgClient){
+async function serverStatus(serverID){
 	let resEmbed = new EmbedBuilder();
 	resEmbed.setTitle(`${serverNames[serverID]} Dashboard`);
 
@@ -45,7 +44,7 @@ async function serverStatus(serverID, pgClient){
 
 	// Territory
 	const territory = await territoryInfo(serverID);
-	const recordedStatus = await pgClient.query("SELECT * FROM openContinents WHERE world = $1;", [serverNames[serverID].toLowerCase()]);
+	const recordedStatus = await query("SELECT * FROM openContinents WHERE world = $1;", [serverNames[serverID].toLowerCase()]);
 	let territoryField = "";
 	let openContinents = 0;
 	for (const continent of continents){
@@ -118,10 +117,9 @@ async function serverStatus(serverID, pgClient){
  * Create a outfit dashboard that shows the bases owned by the outfit and current members online
  * @param {string} outfitID - The outfit ID
  * @param {string} platform - The platform
- * @param {pg.Client} pgClient - The postgres client
  * @returns the outfit dashboard embed
  */
-async function outfitStatus(outfitID, platform, pgClient){
+async function outfitStatus(outfitID, platform){
 	const oInfo = await onlineInfo("", platform, outfitID);
 	const resEmbed = new EmbedBuilder();
 	if(oInfo.alias != ""){
@@ -160,7 +158,7 @@ async function outfitStatus(outfitID, platform, pgClient){
 		}
 	}
 
-	const oBases = await ownedBases(outfitID, oInfo.world, pgClient);
+	const oBases = await ownedBases(outfitID, oInfo.world);
 	let auraxium = 0;
 	let synthium = 0;
 	let polystellarite = 0;
@@ -204,10 +202,9 @@ async function outfitStatus(outfitID, platform, pgClient){
  * @param {string} channelID - The channel ID where the current dashboard is
  * @param {string} messageID - The message ID of the current dashboard
  * @param {discord.MessageEmbed} newDash - The new dashboard
- * @param {pg.Client} pgClient = The postgres client
  * @param {discord.Client} discordClient - The discord client 
  */
-async function editMessage(channelID, messageID, newDash, pgClient, discordClient){
+async function editMessage(channelID, messageID, newDash, discordClient){
 	try{
 		const channel = await discordClient.channels.fetch(channelID);
 		const message = await channel.messages.fetch(messageID);
@@ -216,8 +213,8 @@ async function editMessage(channelID, messageID, newDash, pgClient, discordClien
 	catch(err){
 		if(err?.code == 10008 || err?.code == 10003 || err?.code == 50001){ //Unknown message/channel or missing access
 			console.log("Deleted message from dashboard table");
-			pgClient.query("DELETE FROM dashboard WHERE messageid = $1;", [messageID]);
-			pgClient.query("DELETE FROM outfitDashboard WHERE messageid = $1;", [messageID]);
+			query("DELETE FROM dashboard WHERE messageid = $1;", [messageID]);
+			query("DELETE FROM outfitDashboard WHERE messageid = $1;", [messageID]);
 		}
 		else{
 			console.log('Error editing dashboard');
@@ -262,26 +259,23 @@ export const data = {
 	}]
 };
 
-export const type = ['PGClient'];
-
 /**
  * Runs the `/dashboard` command
  * @param { ChatInteraction } interaction - command chat interaction
  * @param { string } locale - locale of the user
- * @param {*} pgClient - postgres client
  */
-export async function execute(interaction, locale, pgClient) {
+export async function execute(interaction, locale) {
 	const options = interaction.options.getSubcommand();
 	const channel = interaction.channel;
 	if (options === 'server') {
 		const server = interaction.options.getString('server');
-		const res = await createServer(channel, server, pgClient);
+		const res = await createServer(channel, server);
 		await interaction.editReply(res);
 
 	} else if (options === 'outfit') {
 		const tag = interaction.options.getString('tag').toLowerCase();
 		const platform = interaction.options.getString('platform') || 'ps2:v2';
-		const res = await createOutfit(channel, tag, platform, pgClient);
+		const res = await createOutfit(channel, tag, platform);
 		await interaction.editReply(res);
 	}
 }
@@ -290,17 +284,16 @@ export async function execute(interaction, locale, pgClient) {
  * Creates a dashboard for a server
  * @param {discord.Channel} channel - The channel to send the message to
  * @param {string} serverName - The server name
- * @param {pg.Client} pgClient - The postgres client 
  * @returns the status of the creation of the dashboard
  * @throws if bot has insufficient permissions to post messages
  */
-async function createServer(channel, serverName, pgClient){
-	const resEmbed = await serverStatus(serverIDs[serverName], pgClient);
+async function createServer(channel, serverName){
+	const resEmbed = await serverStatus(serverIDs[serverName]);
 	const messageID = await send(channel, {embeds: [resEmbed]}, "Create server dashboard", true);
 	if(messageID == -1){
 		throw "Error creating dashboard, please check that the bot has permission to post in this channel.";
 	}
-	await pgClient.query("INSERT INTO dashboard (concatkey, channel, messageid, world) VALUES ($1, $2, $3, $4)\
+	await query("INSERT INTO dashboard (concatkey, channel, messageid, world) VALUES ($1, $2, $3, $4)\
 	ON CONFLICT(concatkey) DO UPDATE SET messageid = $3;",
 	[`${channel.id}-${serverName}`, channel.id, messageID, serverName]);
 	return "Dashboard successfully created.  It will be automatically updated every 5 minutes.";
@@ -311,18 +304,17 @@ async function createServer(channel, serverName, pgClient){
  * @param {discord.Channel} channel - The channel to send the message to
  * @param {string} oTag - The tag of the outfit
  * @param {string} platform - The platform of the outfit
- * @param {pg.Client} pgClient - The postgres client
  * @returns the status of the creation of the dashboard
  * @throws if bot has insufficient permissions to post messages
  */
-async function createOutfit(channel, oTag, platform, pgClient){
+async function createOutfit(channel, oTag, platform){
 	const oInfo = await onlineInfo(oTag, platform);
-	const resEmbed = await outfitStatus(oInfo.outfitID, platform, pgClient);
+	const resEmbed = await outfitStatus(oInfo.outfitID, platform);
 	const messageID = await send(channel, {embeds: [resEmbed]}, "Create outfit dashboard", true);
 	if(messageID == -1){
 		throw "Error creating dashboard, please check that the bot has permission to post in this channel.";
 	}
-	await pgClient.query("INSERT INTO outfitDashboard (concatkey, channel, messageid, outfitID, platform) VALUES ($1, $2, $3, $4, $5)\
+	await query("INSERT INTO outfitDashboard (concatkey, channel, messageid, outfitID, platform) VALUES ($1, $2, $3, $4, $5)\
 	ON CONFLICT(concatkey) DO UPDATE SET messageid = $3;",
 	[`${channel.id}-${oInfo.outfitID}`, channel.id, messageID, oInfo.outfitID, platform]);
 	return "Dashboard successfully created.  It will be automatically updated every 5 minutes.";
@@ -330,16 +322,15 @@ async function createOutfit(channel, oTag, platform, pgClient){
 
 /**
  * Updates current dashboards in discord channels
- * @param {pg.Client} pgClient - The postgres client
  * @param {discord.Client} discordClient - The discord client 
  */
-export async function update(pgClient, discordClient){
+export async function update(discordClient){
 	for(const serverName of servers){
 		try{
-			const status = await serverStatus(serverIDs[serverName], pgClient);
-			const channels = await pgClient.query('SELECT * FROM dashboard WHERE world = $1;', [serverName]);
+			const status = await serverStatus(serverIDs[serverName]);
+			const channels = await query('SELECT * FROM dashboard WHERE world = $1;', [serverName]);
 			for(const row of channels.rows){
-				await editMessage(row.channel, row.messageid, status, pgClient, discordClient);
+				await editMessage(row.channel, row.messageid, status, discordClient);
 			}
 		}
 		catch(err){
@@ -348,20 +339,20 @@ export async function update(pgClient, discordClient){
 		}
 	}
 	try{
-		const outfits = await pgClient.query('SELECT DISTINCT outfitID, platform FROM outfitDashboard;');
+		const outfits = await query('SELECT DISTINCT outfitID, platform FROM outfitDashboard;');
 		for(const row of outfits.rows){
 			try{
-				const status = await outfitStatus(row.outfitid, row.platform, pgClient);
-				const channels = await pgClient.query('SELECT * FROM outfitdashboard WHERE outfitid = $1 AND platform = $2', [row.outfitid, row.platform]);
+				const status = await outfitStatus(row.outfitid, row.platform);
+				const channels = await query('SELECT * FROM outfitdashboard WHERE outfitid = $1 AND platform = $2', [row.outfitid, row.platform]);
 				for(const channelRow of channels.rows){
-					await editMessage(channelRow.channel, channelRow.messageid, status, pgClient, discordClient);
+					await editMessage(channelRow.channel, channelRow.messageid, status, discordClient);
 				}
 			}
 			catch(err){
 				console.log(`Error updating outfit dashboard ${row.platform}: ${row.outfitid}`);
 				console.log(err);
 				if(err == " not found"){
-					await pgClient.query("DELETE FROM outfitDashboard WHERE outfitID = $1;", [row.outfitid]);
+					await query("DELETE FROM outfitDashboard WHERE outfitID = $1;", [row.outfitid]);
 					console.log(`Deleted ${row.outfitid} from table`);
 				}
 			}

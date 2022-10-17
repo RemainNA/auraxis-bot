@@ -3,7 +3,6 @@
  * @module vehicles
  * @typedef {import('discord.js').ChatInputCommandInteraction} ChatInteraction
  * @typedef {import('discord.js').AutocompleteInteraction} AutoComplete
- * @typedef {import('pg').Client} pg.Client
  */
 
 import { EmbedBuilder } from 'discord.js';
@@ -80,8 +79,6 @@ async function vehicleOverview(cName, vehicleID, platform){
 		topWeaponKills: topWeaponKills
 	};
 }
-
-export const type = ['Base'];
 
 export const data = {
 	name: 'vehicle',

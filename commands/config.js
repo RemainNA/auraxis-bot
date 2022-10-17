@@ -1,11 +1,11 @@
 /**
  * This file implements functionality to configure subscriptions and the /config command
  * @module subscriptionConfig 
- * @typedef {import('pg').Client} pg.Client
  * @typedef {import('discord.js').ChatInputCommandInteraction} ChatInteraction
  */
 
 import { EmbedBuilder } from 'discord.js';
+import query from '../db/index.js';
 
 /**
  * Get the status of alert subscriptions for a `continent`
@@ -168,40 +168,37 @@ export const data = {
 	]
 };
 
-export const type = ['PGClient'];
-
 /**
  * Runs the `/config` command and handles all subcommands
  * @param { ChatInteraction } interaction - chat command interaction
  * @param { string } locale - locale to use
- * @param { pg.Client } pgClient - postgres client
  */
-export async function execute(interaction, locale, pgClient) {
+export async function execute(interaction, locale) {
 	const subcommand = interaction.options.getSubcommand();
 	const channel = interaction.channelId;
 	if (subcommand === 'view') {
-		const res = await displayConfig(channel, pgClient);
+		const res = await displayConfig(channel);
 		if (typeof res === 'string') {
 			await interaction.editReply(res);
 		} else {
 			await interaction.editReply({ embeds: [res] });
 		}
 	} else if (subcommand === 'audit') {
-		const res = await audit(channel, pgClient);
+		const res = await audit(channel);
 		await interaction.editReply(res);
 	} else if (subcommand === 'continent') {
 		const continent = interaction.options.getString('continent');
 		const setting = interaction.options.getString('setting');
-		const res = await setContinent(continent, setting, channel, pgClient);
+		const res = await setContinent(continent, setting, channel);
 		await interaction.editReply(res);
 	} else if (subcommand === 'autodelete') {
 		const setting = interaction.options.getString('setting');
-		const res = await setAutoDelete(setting, channel, pgClient);
+		const res = await setAutoDelete(setting, channel);
 		await interaction.editReply(res);
 	} else if (subcommand === 'alert-types') {
 		const type = interaction.options.getString('type');
 		const setting = interaction.options.getBoolean('setting');
-		const res = await setAlertTypes(type, setting, channel, pgClient);
+		const res = await setAlertTypes(type, setting, channel);
 		await interaction.editReply(res);
 	} else {
 		await interaction.editReply('Unknown command error');
@@ -211,12 +208,11 @@ export async function execute(interaction, locale, pgClient) {
 /**
  * Gets the current configuration of subscriptions in a channel
  * @param {string} channel - the id of the channel to query 
- * @param {pg.Client} pgClient - the postgres client
  * @returns a discord message containing the current status of subscriptions
  */
-async function displayConfig(channel, pgClient){
+async function displayConfig(channel){
 	try{
-		let res = await pgClient.query("SELECT * FROM subscriptionConfig WHERE channel=$1", [channel]);
+		let res = await query("SELECT * FROM subscriptionConfig WHERE channel=$1", [channel]);
 		if(res.rows.length == 0){
 			return "This channel currently has no subscriptions";
 		}
@@ -268,13 +264,12 @@ async function displayConfig(channel, pgClient){
 /**
  * Initializes the subscription config for a channel
  * @param {string} channel - the id of the channel to initialize
- * @param {pg.Client} pgClient - the postgres client
  * @returns the results of the initialization
  * @throws if there is a configuration error
  */
-export async function initializeConfig(channel, pgClient){
+export async function initializeConfig(channel){
 	try{
-		await pgClient.query("INSERT INTO subscriptionConfig (channel) VALUES ($1)\
+		await query("INSERT INTO subscriptionConfig (channel) VALUES ($1)\
 	ON CONFLICT(channel) DO NOTHING;", [channel]);
 		return "Configuration step succeeded.";
 	}
@@ -290,11 +285,10 @@ export async function initializeConfig(channel, pgClient){
  * @param {string} continent - the continent to set the status of
  * @param {string} setting - if continent subscscriptions are being shown or not
  * @param {string} channel - the channel to set the status of
- * @param {pg.Client} pgClient - the postgres client
  * @throws if there is a query error
  */
-async function setContinent(continent, setting, channel, pgClient){
-	let res = await pgClient.query("SELECT * FROM subscriptionConfig WHERE channel = $1", [channel])
+async function setContinent(continent, setting, channel){
+	let res = await query("SELECT * FROM subscriptionConfig WHERE channel = $1", [channel])
 	if (res.rows.length == 0){
 		throw("This channel has no active subscriptions so cannot be configured.  If you believe this is incorrect please run `/config audit`");
 	}
@@ -304,31 +298,31 @@ async function setContinent(continent, setting, channel, pgClient){
 	if(setting == 'enable'){
 		switch(continent){
 			case "koltyr":
-				pgClient.query("UPDATE subscriptionConfig SET koltyr = true WHERE channel = $1;", [channel])
+				query("UPDATE subscriptionConfig SET koltyr = true WHERE channel = $1;", [channel])
 					.catch(err => {throw(err)});
 				return("Koltyr alerts will be displayed");
 			case "indar":
-				pgClient.query("UPDATE subscriptionConfig SET indar = true WHERE channel = $1;", [channel])
+				query("UPDATE subscriptionConfig SET indar = true WHERE channel = $1;", [channel])
 					.catch(err => {throw(err)});
 				return("Indar alerts and unlocks will be displayed");
 			case "hossin":
-				pgClient.query("UPDATE subscriptionConfig SET hossin = true WHERE channel = $1;", [channel])
+				query("UPDATE subscriptionConfig SET hossin = true WHERE channel = $1;", [channel])
 					.catch(err => {throw(err)});
 				return("Hossin alerts and unlocks will be displayed");
 			case "amerish":
-				pgClient.query("UPDATE subscriptionConfig SET amerish = true WHERE channel = $1;", [channel])
+				query("UPDATE subscriptionConfig SET amerish = true WHERE channel = $1;", [channel])
 					.catch(err => {throw(err)});
 				return("Amerish alerts and unlocks will be displayed");
 			case "esamir":
-				pgClient.query("UPDATE subscriptionConfig SET esamir = true WHERE channel = $1;", [channel])
+				query("UPDATE subscriptionConfig SET esamir = true WHERE channel = $1;", [channel])
 					.catch(err => {throw(err)});
 				return("Esamir alerts and unlocks will be displayed");
 			case "oshur":
-				pgClient.query("UPDATE subscriptionConfig SET oshur = true WHERE channel = $1;", [channel])
+				query("UPDATE subscriptionConfig SET oshur = true WHERE channel = $1;", [channel])
 					.catch(err => {throw(err)});
 				return("Oshur alerts and unlocks will be displayed");
 			case "other":
-				pgClient.query("UPDATE subscriptionConfig SET other = true WHERE channel = $1;", [channel])
+				query("UPDATE subscriptionConfig SET other = true WHERE channel = $1;", [channel])
 					.catch(err => {throw(err)});
 				return("Other alerts will be displayed");
 		}
@@ -336,31 +330,31 @@ async function setContinent(continent, setting, channel, pgClient){
 	else if(setting == 'disable'){
 		switch(continent){
 			case "koltyr":
-				pgClient.query("UPDATE subscriptionConfig SET koltyr = false WHERE channel = $1;", [channel])
+				query("UPDATE subscriptionConfig SET koltyr = false WHERE channel = $1;", [channel])
 					.catch(err => {throw(err)});
 				return("Koltyr alerts will not be displayed");
 			case "indar":
-				pgClient.query("UPDATE subscriptionConfig SET indar = false WHERE channel = $1;", [channel])
+				query("UPDATE subscriptionConfig SET indar = false WHERE channel = $1;", [channel])
 					.catch(err => {throw(err)})
 				return("Indar alerts and unlocks will not be displayed");
 			case "hossin":
-				pgClient.query("UPDATE subscriptionConfig SET hossin = false WHERE channel = $1;", [channel])
+				query("UPDATE subscriptionConfig SET hossin = false WHERE channel = $1;", [channel])
 					.catch(err => {throw(err)})
 				return("Hossin alerts and unlocks will not be displayed");
 			case "amerish":
-				pgClient.query("UPDATE subscriptionConfig SET amerish = false WHERE channel = $1;", [channel])
+				query("UPDATE subscriptionConfig SET amerish = false WHERE channel = $1;", [channel])
 					.catch(err => {throw(err)})
 				return("Amerish alerts and unlocks will not be displayed");
 			case "esamir":
-				pgClient.query("UPDATE subscriptionConfig SET esamir = false WHERE channel = $1;", [channel])
+				query("UPDATE subscriptionConfig SET esamir = false WHERE channel = $1;", [channel])
 					.catch(err => {throw(err)})
 				return("Esamir alerts and unlocks will not be displayed");
 			case "oshur":
-				pgClient.query("UPDATE subscriptionConfig SET oshur = false WHERE channel = $1;", [channel])
+				query("UPDATE subscriptionConfig SET oshur = false WHERE channel = $1;", [channel])
 					.catch(err => {throw(err)})
 				return("Oshur alerts and unlocks will not be displayed");
 			case "other":
-				pgClient.query("UPDATE subscriptionConfig SET other = false WHERE channel = $1;", [channel])
+				query("UPDATE subscriptionConfig SET other = false WHERE channel = $1;", [channel])
 					.catch(err => {throw(err)});
 				return("Other alerts will not be displayed");
 		}
@@ -374,22 +368,21 @@ async function setContinent(continent, setting, channel, pgClient){
  * Configure the autodelete setting for a channel
  * @param {string} message - the message to parse
  * @param {string} channel - the channel to set the autodelete setting for
- * @param {pg.Client} pgClient - the postgres client
  * @returns the status of autodelete
  * @throws if there are query errors
  */
-async function setAutoDelete(message, channel, pgClient){
-	let res = await pgClient.query("SELECT * FROM subscriptionConfig WHERE channel = $1", [channel])
+async function setAutoDelete(message, channel){
+	let res = await query("SELECT * FROM subscriptionConfig WHERE channel = $1", [channel])
 	if (res.rows.length == 0){
 		throw("This channel has no active subscriptions so cannot be configured.  If you believe this is incorrect please run `/config audit`");
 	}
 	if(message.trim().toLowerCase() == 'enable'){
-		pgClient.query("UPDATE subscriptionConfig SET autoDelete = true WHERE channel = $1;", [channel])
+		query("UPDATE subscriptionConfig SET autoDelete = true WHERE channel = $1;", [channel])
 			.catch(err => {throw(err)});
 		return("Alerts and outfit activity notifications will be automatically deleted");
 	}
 	else if(message.trim().toLowerCase() == 'disable'){
-		pgClient.query("UPDATE subscriptionConfig SET autoDelete = false WHERE channel = $1;", [channel])
+		query("UPDATE subscriptionConfig SET autoDelete = false WHERE channel = $1;", [channel])
 			.catch(err => {throw(err)});
 		return("Alerts and outfit activity notifications will not be automatically deleted");
 	}
@@ -403,17 +396,16 @@ async function setAutoDelete(message, channel, pgClient){
  * @param {string} type - the type of alert to set, territoy or non-territory
  * @param {boolean} setting - enable or disable displaying alerts
  * @param {string} channel - the channel to set alert visibility for
- * @param {pg.Client} pgClient - the postgres client
  * @returns a message indicating the status of the setting
  */
-async function setAlertTypes(type, setting, channel, pgClient){
+async function setAlertTypes(type, setting, channel,){
 	let response = "";
 	if(type == 'territory'){
-		await pgClient.query("UPDATE subscriptionConfig SET territory = $1 WHERE channel = $2;", [setting, channel]);
+		await query("UPDATE subscriptionConfig SET territory = $1 WHERE channel = $2;", [setting, channel]);
 		response += "Territory alerts will"
 	}
 	else{
-		await pgClient.query("UPDATE subscriptionConfig SET nonterritory = $1 WHERE channel = $2;", [setting, channel]);
+		await query("UPDATE subscriptionConfig SET nonterritory = $1 WHERE channel = $2;", [setting, channel]);
 		response += "Non-territory alerts will"
 	}
 	if(setting){
@@ -425,19 +417,18 @@ async function setAlertTypes(type, setting, channel, pgClient){
 /**
  * Audit the configuration for a channel
  * @param {string} channel - the channel to audit
- * @param {pg.Client} pgClient - the postgres client
  * @returns the staus of the channel's configuration
  * @throws if there is a configuration error
  */
-async function audit(channel, pgClient){
+async function audit(channel){
 	try{
-		const alerts = await pgClient.query("SELECT * FROM alerts WHERE channel = $1", [channel]);
-		const activity = await pgClient.query("SELECT * FROM outfitActivity WHERE channel = $1", [channel]);
-		const captures = await pgClient.query("SELECT * FROM outfitCaptures WHERE channel = $1", [channel]);
-		const news = await pgClient.query("SELECT * FROM news WHERE channel = $1", [channel]);
-		const unlocks = await pgClient.query("SELECT * FROM unlocks WHERE channel = $1", [channel]);
+		const alerts = await query("SELECT * FROM alerts WHERE channel = $1", [channel]);
+		const activity = await query("SELECT * FROM outfitActivity WHERE channel = $1", [channel]);
+		const captures = await query("SELECT * FROM outfitCaptures WHERE channel = $1", [channel]);
+		const news = await query("SELECT * FROM news WHERE channel = $1", [channel]);
+		const unlocks = await query("SELECT * FROM unlocks WHERE channel = $1", [channel]);
 		const activeSubscriptions = alerts.rows.length + activity.rows.length + captures.rows.length + news.rows.length + unlocks.rows.length;
-		const existingConfig = await pgClient.query("SELECT * FROM subscriptionConfig WHERE channel = $1", [channel]);
+		const existingConfig = await query("SELECT * FROM subscriptionConfig WHERE channel = $1", [channel]);
 		const activeConfig = existingConfig.rows.length;
 		let status = ""
 		if(activeSubscriptions > 0){
@@ -453,11 +444,11 @@ async function audit(channel, pgClient){
 			status += "Channel has no existing configuration settings\n";
 		}
 		if(activeConfig > 0 && activeSubscriptions == 0){
-			await pgClient.query("DELETE FROM subscriptionConfig WHERE channel = $1", [channel]);
+			await query("DELETE FROM subscriptionConfig WHERE channel = $1", [channel]);
 			status += "Configuration settings deleted";
 		}
 		else if(activeConfig == 0 && activeSubscriptions > 0){
-			await initializeConfig(channel, pgClient);
+			await initializeConfig(channel);
 			status += "Configuration settings created";
 		}
 		else{

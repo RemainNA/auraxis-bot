@@ -96,8 +96,6 @@ export const data = {
 	}]
 };
 
-export const type = ['Base'];
-
 /**
  * run the `/alerts` command
  * @param { ChatInteraction } interaction - command chat interaction

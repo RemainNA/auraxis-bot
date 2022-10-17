@@ -11,8 +11,6 @@ name: 'help',
 description: 'Get a list of commands',
 };
 
-export const type = ['Base'];
-
 /**
  * Runs the `/help` command
  * @param { ChatInteraction } interaction - chat command interaction 

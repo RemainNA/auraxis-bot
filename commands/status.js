@@ -46,8 +46,6 @@ export const data = {
 	description: 'Get the status of each server',
 };
 
-export const type = ['Base'];
-
 /**
  * runs the `/status` command
  * @param { ChatInteraction } interaction - chat interaction object
