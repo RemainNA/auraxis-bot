@@ -8,7 +8,7 @@
 import { censusRequest, faction, platforms } from '../utils.js';
 import { ActionRowBuilder, ButtonBuilder, ButtonStyle, EmbedBuilder } from 'discord.js';
 import directives from '../static/directives.json' assert {type: "json"};
-import i18n from 'i18n';
+import i18n from '../i18n.js';
 
 /**
  * Get the list of completed directives for a character

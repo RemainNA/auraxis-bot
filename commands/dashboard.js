@@ -17,6 +17,7 @@ import {ownedBases, centralBases} from './outfit.js';
 import bases from '../static/bases.json' assert {type: 'json'};
 import {serverNames, serverIDs, servers, continents, faction, localeNumber, platforms, allServers} from '../utils.js';
 import query from '../db/index.js';
+import i18n from '../i18n.js';
 
 /**
  * Creates a server dashboard for the given serverID that keeps track of the population, territory control, and active alerts

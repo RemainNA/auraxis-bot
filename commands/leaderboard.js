@@ -6,7 +6,7 @@
 
 import { allServers, censusRequest, serverIDs, serverNames } from'../utils.js';
 import { EmbedBuilder } from'discord.js';
-import i18n from'i18n';
+import i18n from'../i18n.js';
 
 /**
  * Get the right URL extension for the PS2 census API

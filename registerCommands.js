@@ -10,7 +10,7 @@ import { dirname, join } from 'path';
 
 dotenv.config()
 
-import i18n from 'i18n';
+import i18n from './i18n.js';
 import { fileURLToPath } from 'url';
 i18n.configure({
 	directory: './locales/commands',

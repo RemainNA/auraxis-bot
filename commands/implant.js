@@ -7,6 +7,7 @@
 import { EmbedBuilder } from 'discord.js';
 import implantsJSON from '../static/implants.json' assert {type: 'json'};
 import { badQuery } from '../utils.js';
+import i18n from '../i18n.js';
 
 /**
  * Get implant information from implant.json

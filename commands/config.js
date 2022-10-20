@@ -6,6 +6,7 @@
 
 import { EmbedBuilder } from 'discord.js';
 import query from '../db/index.js';
+import i18n from '../i18n.js';
 
 /**
  * Get the status of alert subscriptions for a `continent`

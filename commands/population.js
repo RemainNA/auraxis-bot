@@ -7,7 +7,7 @@
 import { ApplicationCommandOptionType, EmbedBuilder } from 'discord.js';
 import { fetch } from 'undici';
 import {servers, serverIDs, serverNames, localeNumber, continentNames, pcServers} from '../utils.js';
-import i18n from 'i18n';
+import i18n from '../i18n.js';
 
 /**
  * Get the populations of all servers

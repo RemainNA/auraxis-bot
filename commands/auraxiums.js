@@ -8,7 +8,7 @@
 import { censusRequest, faction, localeNumber, platforms } from '../utils.js';
 import { EmbedBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle } from 'discord.js';
 import sanction from '../static/sanction.json' assert {type: 'json'};
-import i18n from 'i18n';
+import i18n from '../i18n.js';
 
 /**
  * Get a list of a character's Auraxium medals

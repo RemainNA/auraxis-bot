@@ -14,7 +14,7 @@ import vehicles from '../static/vehicles.json' assert {type: 'json'};;
 import decals from '../static/decals.json' assert {type: 'json'};;
 import sanction from '../static/sanction.json' assert {type: 'json'};
 import { fetch } from 'undici';
-import i18n from 'i18n';
+import i18n from '../i18n.js';
 import { serverNames, badQuery, censusRequest, localeNumber, faction, platforms } from '../utils.js';
 
 /**

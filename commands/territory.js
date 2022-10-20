@@ -7,7 +7,7 @@
 import { ApplicationCommandOptionType, EmbedBuilder } from 'discord.js';
 import { serverNames, serverIDs, censusRequest, continents, localeNumber, faction, allServers } from '../utils.js';
 import ignoredRegions from '../static/ignoredRegions.json' assert {type: 'json'};
-import i18n from 'i18n';
+import i18n from '../i18n.js';
 import query from '../db/index.js';
 
 /**

@@ -12,6 +12,7 @@ import { onlineInfo } from './online.js';
 import { serverNames, serverIDs, servers, continents, faction, platforms, allServers } from '../utils.js';
 import { ChannelType, PermissionFlagsBits } from 'discord.js';
 import query from '../db/index.js';
+import i18n from '../i18n.js';
 
 /**
  * Get a string of the name and total population of a server

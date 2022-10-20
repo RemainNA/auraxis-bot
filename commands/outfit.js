@@ -7,7 +7,7 @@
 import { ActionRowBuilder, ButtonBuilder, ButtonStyle, EmbedBuilder } from 'discord.js';
 import { serverNames, badQuery, censusRequest, localeNumber, faction, platforms } from '../utils.js';
 import bases from '../static/bases.json' assert {type: 'json'};
-import i18n from 'i18n';
+import i18n from '../i18n.js';
 import query from '../db/index.js';
 
 /**

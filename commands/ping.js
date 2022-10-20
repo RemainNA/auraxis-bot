@@ -3,7 +3,7 @@
  * @module ping
  * @typedef {import('discord.js').ChatInputCommandInteraction} ChatInteraction
  */
-import i18n from 'i18n';
+import i18n from '../i18n.js';
 
 export const data = {
     name: 'ping',

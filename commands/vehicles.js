@@ -9,7 +9,7 @@ import { EmbedBuilder } from 'discord.js';
 import { censusRequest, localeNumber, faction, platforms } from '../utils.js';
 import vehicles from '../static/parsedVehicles.json' assert {type: 'json'};
 import { getWeaponName } from './character.js';
-import i18n from 'i18n';
+import i18n from '../i18n.js';
 
 /**
  * Get a overview of a characters stats with a vechicle

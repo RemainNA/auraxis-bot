@@ -9,7 +9,7 @@ import { ApplicationCommandOptionType, EmbedBuilder } from 'discord.js';
 import alerts from '../static/alerts.json' assert {type: 'json'};
 import { fetch } from 'undici';
 import { serverNames, serverIDs, serversNoJaeger } from '../utils.js';
-import i18n from 'i18n';
+import i18n from '../i18n.js';
 
 /**
  * The possible population levels of a server

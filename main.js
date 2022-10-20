@@ -5,8 +5,9 @@
 
 import 'dotenv/config.js';
 import './db/index.js';
+import './i18n.js';
 
-import i18n from 'i18n';
+import i18n from './i18n.js';
 import { Client, GatewayIntentBits, Partials, Collection, InteractionType } from 'discord.js';
 
 import { readdirSync } from 'fs';

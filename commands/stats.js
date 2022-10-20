@@ -10,7 +10,7 @@ import { EmbedBuilder } from 'discord.js';
 import weaponsJSON from '../static/weapons.json' assert {type: 'json'};
 import sanction from '../static/sanction.json' assert {type: 'json'};
 import { badQuery, censusRequest, localeNumber, faction, platforms } from '../utils.js';
-import i18n from 'i18n';
+import i18n from '../i18n.js';
 
 import { character } from './character.js';
 

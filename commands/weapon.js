@@ -8,7 +8,7 @@
 import { ApplicationCommandOptionType, EmbedBuilder } from 'discord.js';
 import weaponsJSON from '../static/weapons.json' assert {type: 'json'};
 import { badQuery, localeNumber } from '../utils.js';
-import i18n from 'i18n';
+import i18n from '../i18n.js';
 
 /**
  * Checks if any CoF values has been updated

@@ -5,7 +5,7 @@
  */
 import { EmbedBuilder } from 'discord.js';
 import { censusRequest } from '../utils.js';
-import i18n from 'i18n';
+import i18n from '../i18n.js';
 
 /**
  * Get the population status of each server

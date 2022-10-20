@@ -7,7 +7,7 @@
 import { initializeConfig } from './commands/config.js';
 import { censusRequest, badQuery, faction } from './utils.js';
 import { ChannelType, PermissionsBitField } from 'discord.js';
-import i18n from 'i18n';
+import i18n from './i18n.js';
 import query from './db/index.js';
 
 /**
