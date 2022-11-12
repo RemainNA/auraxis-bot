@@ -90,7 +90,7 @@ export const data = {
 export async function button(interaction, locale, options) {
 	await interaction.deferReply({ephemeral: true});
 	const [cName, platform] = options;
-	const [resEmbed, row] = await medals(cName, platform, locale);
+	const [resEmbed, row] = await medals(cName, platform, locale, true);
 	await interaction.editReply({embeds: [resEmbed], components: row});
 }
 

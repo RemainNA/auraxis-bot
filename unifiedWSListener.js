@@ -30,7 +30,7 @@ function PCStream(discordClient, pcTimeout = 0) {
     pcClient.on('message', (data) => {
         const parsed = JSON.parse(data.toString());
         if (parsed.payload !== undefined) {
-            router(parsed.payload, "ps2:v2");
+            router(parsed.payload, "ps2:v2", discordClient);
         }
     });
 
