@@ -9,6 +9,11 @@
         "name": "BaseSmash: Crystal Gun",
         "sanction": "none"
     },
+    "6014305": {
+        "category": "",
+        "name": "Conduit",
+        "sanction": "none"
+    },
     "15016": {
         "category": "AA MAX (Left)",
         "name": "NS-10 Burster",
@@ -1508,6 +1513,11 @@
         "category": "Carbine",
         "name": "TRAC-5 S",
         "sanction": "none"
+    },
+    "6014319": {
+        "category": "Chimera Primary Weapon",
+        "name": "CT-150 \"Fafnir\" Cyclops",
+        "sanction": "armor"
     },
     "6010679": {
         "category": "Chimera Primary Weapons",
@@ -5164,6 +5174,11 @@
         "name": "Icikill",
         "sanction": "none"
     },
+    "6014042": {
+        "category": "Knife",
+        "name": "KTR-3 Saboteur",
+        "sanction": "none"
+    },
     "286": {
         "category": "Knife",
         "name": "Lumine Edge",
@@ -5302,6 +5317,11 @@
     "6005452": {
         "category": "Knife",
         "name": "Ripper AE",
+        "sanction": "none"
+    },
+    "6014268": {
+        "category": "Knife",
+        "name": "Stormbringer",
         "sanction": "none"
     },
     "801969": {
@@ -6014,6 +6034,11 @@
         "name": "Perihelion VXC",
         "sanction": "armor"
     },
+    "6014318": {
+        "category": "Magrider Primary Weapon",
+        "name": "Supernova \"Fafnir\" FPC",
+        "sanction": "armor"
+    },
     "3460": {
         "category": "Magrider Primary Weapon",
         "name": "Supernova FPC",
@@ -6489,6 +6514,11 @@
         "name": "P525 Marauder",
         "sanction": "gunner"
     },
+    "6014317": {
+        "category": "Prowler Primary Weapon",
+        "name": "P2-120 \"Fafnir\" AP",
+        "sanction": "armor"
+    },
     "4008": {
         "category": "Prowler Primary Weapon",
         "name": "P2-120 AP",
@@ -6632,6 +6662,11 @@
     "35004": {
         "category": "Rocket Launcher",
         "name": "Nemesis VSH9",
+        "sanction": "none"
+    },
+    "6014299": {
+        "category": "Rocket Launcher",
+        "name": "NS \"Fenrir's Maw\" Annihilator",
         "sanction": "none"
     },
     "6003611": {
@@ -6812,6 +6847,11 @@
     "25007": {
         "category": "Scout Rifle",
         "name": "HSR-1",
+        "sanction": "infantry"
+    },
+    "6014263": {
+        "category": "Scout Rifle",
+        "name": "NS-30 \"Gungnir\" Vandal",
         "sanction": "infantry"
     },
     "2311": {
@@ -7917,6 +7957,11 @@
     "6013929": {
         "category": "Vanguard Primary Weapon",
         "name": "JGX12",
+        "sanction": "armor"
+    },
+    "6014316": {
+        "category": "Vanguard Primary Weapon",
+        "name": "Titan-150 \"Fafnir\" AP",
         "sanction": "armor"
     },
     "3730": {

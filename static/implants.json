@@ -47,6 +47,10 @@
         "desc": "Your movements no longer trigger anti-infantry mines, and you are no longer targeted by Spitfire turrets.",
         "image": "89583"
     },
+    "Avoidance [Perfect]": {
+        "desc": "Your movements no longer trigger anti-infantry mines, and you are no longer targeted by Spitfire turrets.<br><br><font color=\"#dc9c36\">Perfect implants cannot be broken down.</font>",
+        "image": "94914"
+    },
     "Battle Hardened": {
         "1": "Reduces camera shake and flinch from explosions and bullet impacts by 30%. <font color=\"#dc9c36\">MAX units can equip.</font>",
         "2": "Reduces camera shake and flinch from explosions and bullet impacts by 33%. <font color=\"#dc9c36\">MAX units can equip.</font>",
@@ -56,8 +60,12 @@
         "image": "87515"
     },
     "Berserker": {
-        "desc": "You regenerate 40 health per second and your armor is reduced by 20% at all times. Taking damage pauses this regeneration for 2 seconds, and regeneration does not stack with Nanite Auto-Repair.  <font color=\"#dc9c36\">MAX only.</font>",
+        "desc": "You regenerate 40 health per second and your armor is reduced by 20%. Taking damage pauses this regeneration for 2 seconds, and regeneration does not stack with Nanite Auto-Repair. <font color=\"#dc9c36\">MAX only.</font>",
         "image": "94270"
+    },
+    "Berserker [Perfect]": {
+        "desc": "You regenerate 40 health per second and your armor is reduced by 20%. Taking damage pauses this regeneration for 2 seconds, and regeneration does not stack with Nanite Auto-Repair. <font color=\"#dc9c36\">MAX only.</font><br><br><font color=\"#dc9c36\">Perfect implants cannot be broken down.</font>",
+        "image": "95699"
     },
     "Bionics": {
         "desc": "Your personal shield health is increased by 400, and 400 health is removed from your health pool.",
@@ -95,10 +103,6 @@
         "5": "Kills and revives restore 30% of your Nano-Regen Device energy, and reviving an ally increases your resistance to small arms damage by 25% for 3.5 seconds. <font color=\"#dc9c36\">Combat Medic only.</font>",
         "image": "88947"
     },
-    "Countershade": {
-      "desc": "Killing an enemy will conceal your radar signature from detection devices for 8 seconds.  Triggering this implant while underwater applies this effect until you resurface.",
-      "image": "95184"
-    },
     "Counter-Intelligence": {
         "desc": "You automatically spot targets who damage you, and while not inside a vehicle, you are also notified on the HUD when spotted by an enemy.<font color=\"#dc9c36\"> Works in vehicles. MAX units can equip.</font>",
         "image": "87521"
@@ -106,6 +110,10 @@
     "Counter-Intelligence [Perfect]": {
         "desc": "You automatically spot targets who damage you, and while not inside a vehicle, you are also notified on the HUD when spotted by an enemy.<font color=\"#dc9c36\"> Works in vehicles. MAX units can equip.</font><br><br><font color=\"#dc9c36\">Perfect implants cannot be broken down.</font>",
         "image": "92210"
+    },
+    "Countershade": {
+        "desc": "Killing an enemy will conceal your radar signature from detection devices for 8 seconds. Triggering this implant while underwater applies this effect until you resurface.",
+        "image": "95184"
     },
     "Covert Drop": {
         "1": "Taking fall damage will cloak you for 1 second. Firing a weapon will reveal you.",
@@ -144,8 +152,12 @@
         "image": "88845"
     },
     "Experimental Stims": {
-        "desc": "Using a Stim will also provide 12 seconds of benefit from another rank 5 implant. The implant chosen is random from this list: Safe Fall, Vampire, Battle Hardened, Heavyweight, Response Jacket. Experimental Stims only triggers when there is no active benefit.",
+        "desc": "Passively increases the carry capacity of all stims by 1, and using a stim will provide 12 seconds of another rank 5 implant's benefits. The implant chosen is random from this list: Safe Fall, Vampire, Battle Hardened, Heavyweight, Response Jacket. Experimental Stims only triggers when there is no active benefit.",
         "image": "87717"
+    },
+    "Experimental Stims [Perfect]": {
+        "desc": "Passively increases the carry capacity of all stims by 1, and using a stim will provide 12 seconds of another rank 5 implant's benefits. The implant chosen is random from this list: Safe Fall, Vampire, Battle Hardened, Heavyweight, Response Jacket. Experimental Stims only triggers when there is no active benefit.<br><br><font color=\"#dc9c36\">Perfect implants cannot be broken down.</font>",
+        "image": "95702"
     },
     "Failsafe": {
         "1": "When your shield is broken, you gain 10% of your maximum ability energy. This action can only occur once every 12 seconds.",
@@ -168,12 +180,12 @@
         "image": "89037"
     },
     "Fortify": {
-        "1": "Standing still for 1 second provides you with 20% small arms resistance to bodyshots until you start moving again. <font color=\"#dc9c36\">Does not stack with Nanoweave Armor. Inactive in vehicles.</font>",
-        "2": "Standing still for 0.75 seconds provides you with 20% small arms resistance to bodyshots until you start moving again. <font color=\"#dc9c36\">Does not stack with Nanoweave Armor. Inactive in vehicles.</font>",
-        "3": "Standing still for 0.5 seconds provides you with 20% small arms resistance to bodyshots until you start moving again. <font color=\"#dc9c36\">Does not stack with Nanoweave Armor. Inactive in vehicles.</font>",
-        "4": "Standing still for 0.1 second provides you with 20% small arms resistance to bodyshots until you start moving again. <font color=\"#dc9c36\">Does not stack with Nanoweave Armor. Inactive in vehicles.</font>",
-        "5": "Standing still for 0.1 second provides you with 20% small arms resistance to bodyshots, and 50% resistance to common explosives until you start moving again. <font color=\"#dc9c36\">Does not stack with Nanoweave or Flak Armor. Inactive in vehicles.</font>",
-        "image": "88208"
+        "1": "Standing still for 1 second provides you with 20% small arms resistance to bodyshots until you start moving again. <font color=\"#dc9c36\">Inactive in vehicles.</font>",
+        "2": "Standing still for 0.75 seconds provides you with 20% small arms resistance to bodyshots until you start moving again. <font color=\"#dc9c36\">Inactive in vehicles.</font>",
+        "3": "Standing still for 0.5 seconds provides you with 20% small arms resistance to bodyshots until you start moving again. <font color=\"#dc9c36\">Inactive in vehicles.</font>",
+        "4": "Standing still for 0.1 second provides you with 20% small arms resistance to bodyshots until you start moving again. <font color=\"#dc9c36\">Inactive in vehicles.</font>",
+        "5": "Standing still for 0.1 second provides you with 20% small arms resistance to bodyshots, and 50% resistance to common explosives until you start moving again. <font color=\"#dc9c36\">Does not stack with Flak Armor. Inactive in vehicles.</font>",
+        "image": "88207"
     },
     "Gunslinger": {
         "1": "Kills while wielding a sidearm increase reload speed by 15% for 2 seconds.",
@@ -192,8 +204,12 @@
         "image": "89405"
     },
     "Infravision": {
-        "desc": "While equipped, the player will highlight infantry and vehicles within 125 meters at all times, while reducing vision at long range. <font color=\"#dc9c36\">MAX units can equip. Does not work in vehicles.</font>",
+        "desc": "While equipped, the player will highlight infantry and vehicles within 125 meters, while reducing vision at long range. <font color=\"#dc9c36\">MAX units can equip. Does not work in vehicles.</font>",
         "image": "87774"
+    },
+    "Infravision [Perfect]": {
+        "desc": "While equipped, the player will highlight infantry and vehicles within 125 meters, while reducing vision at long range. <font color=\"#dc9c36\">MAX units can equip. Does not work in vehicles.</font><br><br><font color=\"#dc9c36\">Perfect implants cannot be broken down.</font>",
+        "image": "94908"
     },
     "Jockey": {
         "1": "While riding in an exposed vehicle seat or gunning an Engineer MANA Turret, you receive an additional 30% maximum shield health.",
@@ -218,6 +234,10 @@
     "Minor Cloak": {
         "desc": "Remaining stationary for 8 seconds will cloak the user. Movement will break this cloak, though short bouts of movement will let you return to cloak more quickly after breaking it. Firing a weapon will reset the 8 second recharge countdown.",
         "image": "87503"
+    },
+    "Minor Cloak [Perfect]": {
+        "desc": "Remaining stationary for 8 seconds will cloak the user. Movement will break this cloak, though short bouts of movement will let you return to cloak more quickly after breaking it. Firing a weapon will reset the 8 second recharge countdown.<br><br><font color=\"#dc9c36\">Perfect implants cannot be broken down.</font>",
+        "image": "94911"
     },
     "Mobility Mesh": {
         "1": "Reduces the movement speed penalty while your overshield is active by 15%. <font color=\"#dc9c36\">Heavy Assault only.</font>",
@@ -336,11 +356,11 @@
         "image": "88926"
     },
     "Scavenger": {
-        "1": "Killing an enemy while wielding a melee weapon or sidearm will restock 12% of your primary and secondary magazines for free.",
-        "2": "Killing an enemy while wielding a melee weapon or sidearm will restock 15% of your primary and secondary magazines for free.",
-        "3": "Killing an enemy while wielding a melee weapon or sidearm will restock 20% of your primary and secondary magazines for free.",
-        "4": "Killing an enemy while wielding a melee weapon or sidearm will restock 30% of your primary and secondary magazines for free.",
-        "5": "Killing an enemy while wielding a melee weapon or sidearm will restock 30% of your primary and secondary magazines for free. Additionally, dying will fully restock your primary and secondary weapon magazines from reserves.",
+        "1": "Killing an enemy while wielding a melee weapon or sidearm will restock 12% of your primary and secondary weapon magazines for free.",
+        "2": "Killing an enemy while wielding a melee weapon or sidearm will restock 15% of your primary and secondary weapon magazines for free.",
+        "3": "Killing an enemy while wielding a melee weapon or sidearm will restock 20% of your primary and secondary weapon magazines for free.",
+        "4": "Killing an enemy while wielding a melee weapon or sidearm will restock 30% of your primary and secondary weapon magazines for free.",
+        "5": "Killing an enemy while wielding a melee weapon or sidearm will restock 30% of your primary and secondary weapon magazines for free. Additionally, dying will fully restock your primary and secondary weapon magazines from reserves.",
         "image": "94303"
     },
     "Sensor Shield": {
@@ -356,7 +376,7 @@
         "2": "Your strafe speed is increased by 23%, but accelerating and decelerating while strafing takes twice as long.",
         "3": "Your strafe speed is increased by 28%, but accelerating and decelerating while strafing takes twice as long.",
         "4": "Your strafe speed is increased by 35%, but accelerating and decelerating while strafing takes twice as long.",
-        "5": "Your strafe speed is increased by 35%, but accelerating and decelerating while strafing takes twice as long. In addition, your backpedal speed is increased by 35% at all times.",
+        "5": "Your strafe speed is increased by 35%, but accelerating and decelerating while strafing takes twice as long. In addition, your backpedal speed is increased by 35%.",
         "image": "89302"
     },
     "Springstep": {
@@ -364,7 +384,7 @@
         "2": "Finishing a reload will increase your sprint speed by 12%, your jump height significantly, and allow you to enter sprint almost instantly, for the next 1.5 seconds. Firing your weapon ends this effect early.",
         "3": "Finishing a reload will increase your sprint speed by 15%, your jump height significantly, and allow you to enter sprint almost instantly, for the next 1.5 seconds. Firing your weapon ends this effect early.",
         "4": "Finishing a reload will increase your sprint speed by 20%, your jump height significantly, and allow you to enter sprint almost instantly, for the next 1.5 seconds. Firing your weapon ends this effect early.",
-        "5": "Finishing a reload or receiving fall damage will increase your sprint speed by 10%, your jump height significantly, and allow you to enter sprint almost instantly, for the next 1.5 seconds. Firing your weapon ends this effect early.",
+        "5": "Finishing a reload or receiving fall damage will increase your sprint speed by 20%, your jump height significantly, and allow you to enter sprint almost instantly, for the next 1.5 seconds. Firing your weapon ends this effect early.",
         "image": "94354"
     },
     "Survivalist": {
@@ -384,11 +404,11 @@
         "image": "87512"
     },
     "Symbiote": {
-        "1": "While your personal shield is active, receiving small arms damage now heals 50 health immediately. This effect may only trigger once every 8 seconds.",
-        "2": "While your personal shield is active, receiving small arms damage now heals 50 health immediately. This effect may only trigger once every 7.5 seconds.",
-        "3": "While your personal shield is active, receiving small arms damage now heals 50 health immediately. This effect may only trigger once every 6 seconds.",
-        "4": "While your personal shield is active, receiving small arms damage now heals 50 health immediately. This effect may only trigger once every 4 seconds.",
-        "5": "While your personal shield is active, receiving small arms or common explosive damage now heals 50 health immediately. Both damage types have independent cooldowns, and each effect may only trigger once every 4 seconds.",
+        "1": "While your personal shield is active, receiving small arms damage now heals 125 health immediately. This effect may only trigger once every 8 seconds.",
+        "2": "While your personal shield is active, receiving small arms damage now heals 125 health immediately. This effect may only trigger once every 7.5 seconds.",
+        "3": "While your personal shield is active, receiving small arms damage now heals 125 health immediately. This effect may only trigger once every 6 seconds.",
+        "4": "While your personal shield is active, receiving small arms damage now heals 125 health immediately. This effect may only trigger once every 4 seconds.",
+        "5": "While your personal shield is active, receiving small arms or common explosive damage now heals 125 health immediately. Both damage types have independent cooldowns, and each effect may only trigger once every 4 seconds.",
         "image": "89058"
     },
     "Target Focus": {

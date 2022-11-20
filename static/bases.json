@@ -187,7 +187,7 @@
     "209003": {
         "continent": "6",
         "name": "Onatha Southwest Gate",
-        "type": "Small Outpost"
+        "type": "CTF Small Outpost"
     },
     "210": {
         "continent": "2",
@@ -212,7 +212,7 @@
     "210003": {
         "continent": "6",
         "name": "Wokuk Watchtower",
-        "type": "Small Outpost"
+        "type": "CTF Small Outpost"
     },
     "211": {
         "continent": "2",
@@ -292,7 +292,7 @@
     "216000": {
         "continent": "6",
         "name": "Crux Headquarters",
-        "type": "Large Outpost"
+        "type": "CTF Large Outpost"
     },
     "217": {
         "continent": "2",
@@ -302,7 +302,7 @@
     "217000": {
         "continent": "6",
         "name": "The Bastion",
-        "type": "Large Outpost"
+        "type": "CTF Large Outpost"
     },
     "218": {
         "continent": "2",
@@ -322,7 +322,7 @@
     "219000": {
         "continent": "6",
         "name": "Splitpeak Pass",
-        "type": "Large Outpost"
+        "type": "CTF Large Outpost"
     },
     "220": {
         "continent": "2",
@@ -332,7 +332,7 @@
     "220000": {
         "continent": "6",
         "name": "West Pass Watchtower",
-        "type": "Large Outpost"
+        "type": "CTF Large Outpost"
     },
     "221": {
         "continent": "2",
@@ -487,7 +487,7 @@
     "222330": {
         "continent": "6",
         "name": "Shrouded Skyway",
-        "type": "Small Outpost"
+        "type": "CTF Small Outpost"
     },
     "222340": {
         "continent": "6",
@@ -597,7 +597,7 @@
     "237000": {
         "continent": "8",
         "name": "The Traverse",
-        "type": "Small Outpost"
+        "type": "CTF Small Outpost"
     },
     "239": {
         "continent": "2",
@@ -682,7 +682,7 @@
     "246000": {
         "continent": "8",
         "name": "Mattherson's Triumph",
-        "type": "Large Outpost"
+        "type": "CTF Large Outpost"
     },
     "247": {
         "continent": "2",
@@ -712,12 +712,12 @@
     "251010": {
         "continent": "8",
         "name": "Andvari Barracks",
-        "type": "Small Outpost"
+        "type": "CTF Small Outpost"
     },
     "251030": {
         "continent": "8",
         "name": "Andvari South Bank",
-        "type": "Small Outpost"
+        "type": "CTF Small Outpost"
     },
     "252": {
         "continent": "2",
@@ -727,7 +727,7 @@
     "252010": {
         "continent": "8",
         "name": "Elli Tower",
-        "type": "Small Outpost"
+        "type": "CTF Small Outpost"
     },
     "253000": {
         "continent": "8",
@@ -887,7 +887,7 @@
     "279000": {
         "continent": "4",
         "name": "Hunter's Blind",
-        "type": "Small Outpost"
+        "type": "CTF Small Outpost"
     },
     "280000": {
         "continent": "4",
@@ -997,7 +997,7 @@
     "290000": {
         "continent": "4",
         "name": "Fort Drexler",
-        "type": "Large Outpost"
+        "type": "CTF Large Outpost"
     },
     "291000": {
         "continent": "4",
@@ -1052,7 +1052,7 @@
     "299020": {
         "continent": "4",
         "name": "Naum Marsh Compound",
-        "type": "Small Outpost"
+        "type": "CTF Small Outpost"
     },
     "299030": {
         "continent": "4",
@@ -1067,7 +1067,7 @@
     "300010": {
         "continent": "4",
         "name": "Hurakan Secure Storage",
-        "type": "Small Outpost"
+        "type": "CTF Small Outpost"
     },
     "300020": {
         "continent": "4",
@@ -1092,7 +1092,7 @@
     "301020": {
         "continent": "4",
         "name": "Ixtab Water Purification",
-        "type": "Small Outpost"
+        "type": "CTF Small Outpost"
     },
     "301030": {
         "continent": "4",
@@ -1234,6 +1234,61 @@
         "name": "Hossin Southern Warpgate",
         "type": "Warpgate"
     },
+    "310500": {
+        "continent": "10",
+        "name": "Arazek SATCOM Hub",
+        "type": "Large Outpost"
+    },
+    "310510": {
+        "continent": "10",
+        "name": "Nexus Secure Substation",
+        "type": "Small Outpost"
+    },
+    "310520": {
+        "continent": "10",
+        "name": "Hydroponics Compound",
+        "type": "Small Outpost"
+    },
+    "310530": {
+        "continent": "10",
+        "name": "The Granitehead Reactor",
+        "type": "Large Outpost"
+    },
+    "310540": {
+        "continent": "10",
+        "name": "Argent Pass",
+        "type": "Small Outpost"
+    },
+    "310550": {
+        "continent": "10",
+        "name": "Slate Canyon Hold",
+        "type": "Small Outpost"
+    },
+    "310560": {
+        "continent": "10",
+        "name": "Nexus Omega Warpgate",
+        "type": "Warpgate"
+    },
+    "310570": {
+        "continent": "10",
+        "name": "Nexus Alpha Warpgate",
+        "type": "Warpgate"
+    },
+    "310590": {
+        "continent": "10",
+        "name": "Bitter Gorge Garrison",
+        "type": "Large Outpost"
+    },
+    "310600": {
+        "continent": "10",
+        "name": "Nexus Alpha",
+        "type": "Large Outpost"
+    },
+    "310610": {
+        "continent": "10",
+        "name": "Nexus Omega",
+        "type": "Large Outpost"
+    },
     "3201": {
         "continent": "2",
         "name": "Dahaka",
@@ -1357,7 +1412,7 @@
     "400314": {
         "continent": "8",
         "name": "Baldur",
-        "type": "Amp Station"
+        "type": "CTF Amp Station"
     },
     "400315": {
         "continent": "8",
@@ -1367,7 +1422,7 @@
     "400317": {
         "continent": "8",
         "name": "Jord",
-        "type": "Amp Station"
+        "type": "CTF Amp Station"
     },
     "400326": {
         "continent": "8",
@@ -1382,7 +1437,342 @@
     "400328": {
         "continent": "8",
         "name": "Spral Oasis",
+        "type": "CTF Construction Outpost"
+    },
+    "400329": {
+        "continent": "344",
+        "name": "Mirror Bay Watchtower",
+        "type": "Large Outpost"
+    },
+    "400330": {
+        "continent": "344",
+        "name": "Astira Hydroelectric",
+        "type": "CTF Small Outpost"
+    },
+    "400331": {
+        "continent": "344",
+        "name": "Pommel Gardens",
+        "type": "Small Outpost"
+    },
+    "400332": {
+        "continent": "344",
+        "name": "Centri Import Hub",
         "type": "Construction Outpost"
+    },
+    "400333": {
+        "continent": "344",
+        "name": "Binusilan Interlink",
+        "type": "Interlink Facility"
+    },
+    "400334": {
+        "continent": "344",
+        "name": "Ligalai Station",
+        "type": "Construction Outpost"
+    },
+    "400335": {
+        "continent": "344",
+        "name": "Outpost Kalis",
+        "type": "Small Outpost"
+    },
+    "400336": {
+        "continent": "344",
+        "name": "Seaside Bluffs",
+        "type": "Construction Outpost"
+    },
+    "400337": {
+        "continent": "344",
+        "name": "Viridian Genetics Lab",
+        "type": "Large Outpost"
+    },
+    "400338": {
+        "continent": "344",
+        "name": "Viridian Decontamination",
+        "type": "Construction Outpost"
+    },
+    "400339": {
+        "continent": "344",
+        "name": "Centri Mining Operation",
+        "type": "Large Outpost"
+    },
+    "400340": {
+        "continent": "344",
+        "name": "Mirror Bay Checkpoint",
+        "type": "Small Outpost"
+    },
+    "400341": {
+        "continent": "344",
+        "name": "Pilay Interlink",
+        "type": "Interlink Facility"
+    },
+    "400342": {
+        "continent": "344",
+        "name": "Lamplight Security",
+        "type": "Small Outpost"
+    },
+    "400343": {
+        "continent": "344",
+        "name": "Hopeswell Beachhead",
+        "type": "Construction Outpost"
+    },
+    "400344": {
+        "continent": "344",
+        "name": "Wavecrest Beachhead",
+        "type": "Construction Outpost"
+    },
+    "400345": {
+        "continent": "344",
+        "name": "Anat Interlink",
+        "type": "Interlink Facility"
+    },
+    "400346": {
+        "continent": "344",
+        "name": "Gildad Cliffs",
+        "type": "Small Outpost"
+    },
+    "400347": {
+        "continent": "344",
+        "name": "Sage R&D Labs",
+        "type": "Small Outpost"
+    },
+    "400348": {
+        "continent": "344",
+        "name": "Tannae Power",
+        "type": "Large Outpost"
+    },
+    "400349": {
+        "continent": "344",
+        "name": "Hunter's Ravine",
+        "type": "Construction Outpost"
+    },
+    "400350": {
+        "continent": "344",
+        "name": "K&H Tech Station",
+        "type": "Small Outpost"
+    },
+    "400351": {
+        "continent": "344",
+        "name": "High Ridge Security",
+        "type": "Small Outpost"
+    },
+    "400352": {
+        "continent": "344",
+        "name": "Dekat Interlink",
+        "type": "Interlink Facility"
+    },
+    "400353": {
+        "continent": "344",
+        "name": "Astira Solar Station",
+        "type": "Construction Outpost"
+    },
+    "400354": {
+        "continent": "344",
+        "name": "Southpeak Meadows",
+        "type": "Construction Outpost"
+    },
+    "400355": {
+        "continent": "344",
+        "name": "Emerald Research Co.",
+        "type": "Small Outpost"
+    },
+    "400356": {
+        "continent": "344",
+        "name": "Remnant Cove",
+        "type": "Construction Outpost"
+    },
+    "400357": {
+        "continent": "344",
+        "name": "Viridian East Terrace",
+        "type": "Small Outpost"
+    },
+    "400358": {
+        "continent": "344",
+        "name": "South Viridian Beachhead",
+        "type": "Construction Outpost"
+    },
+    "400359": {
+        "continent": "344",
+        "name": "Terran Genetics Inc.",
+        "type": "Small Outpost"
+    },
+    "400360": {
+        "continent": "344",
+        "name": "Sibo Interlink",
+        "type": "Interlink Facility"
+    },
+    "400361": {
+        "continent": "344",
+        "name": "Wellerman Watch",
+        "type": "Large Outpost"
+    },
+    "400362": {
+        "continent": "344",
+        "name": "Palaso Supply Depot",
+        "type": "Small Outpost"
+    },
+    "400363": {
+        "continent": "344",
+        "name": "Fort Arceo",
+        "type": "Large Outpost"
+    },
+    "400364": {
+        "continent": "344",
+        "name": "Eagle Outpost",
+        "type": "Small Outpost"
+    },
+    "400365": {
+        "continent": "344",
+        "name": "Meridian Listening Post",
+        "type": "Construction Outpost"
+    },
+    "400366": {
+        "continent": "344",
+        "name": "Imbanon Interlink",
+        "type": "Interlink Facility"
+    },
+    "400367": {
+        "continent": "344",
+        "name": "Nascent Shipping and Storage",
+        "type": "Small Outpost"
+    },
+    "400368": {
+        "continent": "344",
+        "name": "Emerald Arboretum",
+        "type": "Large Outpost"
+    },
+    "400369": {
+        "continent": "344",
+        "name": "Oshur Northwest Flotilla",
+        "type": "Warpgate"
+    },
+    "400370": {
+        "continent": "344",
+        "name": "Oshur Northeast Flotilla",
+        "type": "Warpgate"
+    },
+    "400371": {
+        "continent": "344",
+        "name": "Oshur South Flotilla",
+        "type": "Warpgate"
+    },
+    "400372": {
+        "continent": "344",
+        "name": "Sirinan Trident",
+        "type": "Trident"
+    },
+    "400373": {
+        "continent": "344",
+        "name": "Bago Trident",
+        "type": "Trident"
+    },
+    "400374": {
+        "continent": "344",
+        "name": "Anlabban Trident",
+        "type": "Trident"
+    },
+    "400390": {
+        "continent": "344",
+        "name": "Seapost J5",
+        "type": "Seapost"
+    },
+    "400391": {
+        "continent": "344",
+        "name": "Seapost K10",
+        "type": "Seapost"
+    },
+    "400392": {
+        "continent": "344",
+        "name": "Seapost K12",
+        "type": "Seapost"
+    },
+    "400404": {
+        "continent": "344",
+        "name": "Veridad Pass",
+        "type": "Construction Outpost"
+    },
+    "400405": {
+        "continent": "344",
+        "name": "Solstice Pass",
+        "type": "Construction Outpost"
+    },
+    "400407": {
+        "continent": "344",
+        "name": "Wakerift Beachhead",
+        "type": "Construction Outpost"
+    },
+    "400409": {
+        "continent": "344",
+        "name": "Seapost L8 - Cliffdive",
+        "type": "Seapost"
+    },
+    "400410": {
+        "continent": "344",
+        "name": "Seapost J7 - Garden",
+        "type": "Seapost"
+    },
+    "400411": {
+        "continent": "344",
+        "name": "Seapost J8 - Delve",
+        "type": "Seapost"
+    },
+    "400412": {
+        "continent": "344",
+        "name": "Seapost I11 - Stones",
+        "type": "Seapost"
+    },
+    "400413": {
+        "continent": "344",
+        "name": "Seapost G11 - Reef",
+        "type": "Seapost"
+    },
+    "400414": {
+        "continent": "344",
+        "name": "Seapost H10 - Debris",
+        "type": "Seapost"
+    },
+    "400415": {
+        "continent": "344",
+        "name": "Seapost G8 - Pipeline",
+        "type": "Seapost"
+    },
+    "400416": {
+        "continent": "344",
+        "name": "Seapost D8 - Collapse",
+        "type": "Seapost"
+    },
+    "400417": {
+        "continent": "344",
+        "name": "Seapost G6 - Trenches",
+        "type": "Seapost"
+    },
+    "400418": {
+        "continent": "344",
+        "name": "Seapost G4",
+        "type": "Seapost"
+    },
+    "400421": {
+        "continent": "344",
+        "name": "Seapost E12",
+        "type": "Seapost"
+    },
+    "400424": {
+        "continent": "344",
+        "name": "Seapost M9",
+        "type": "Seapost"
+    },
+    "400426": {
+        "continent": "344",
+        "name": "Seapost L5",
+        "type": "Seapost"
+    },
+    "400427": {
+        "continent": "344",
+        "name": "Bathala Garden",
+        "type": "Construction Outpost"
+    },
+    "400428": {
+        "continent": "344",
+        "name": "HMS Technologies",
+        "type": "Small Outpost"
     },
     "4010": {
         "continent": "2",
@@ -1427,12 +1817,12 @@
     "5100": {
         "continent": "2",
         "name": "Indar Excavation Site",
-        "type": "Large Outpost"
+        "type": "CTF Large Outpost"
     },
     "5200": {
         "continent": "2",
         "name": "J908 Impact Site",
-        "type": "Large Outpost"
+        "type": "CTF Large Outpost"
     },
     "5300": {
         "continent": "2",
@@ -1533,340 +1923,5 @@
         "continent": "2",
         "name": "Indar Northern Warpgate",
         "type": "Warpgate"
-    },
-    "400370": {
-        "continent": "344",
-        "name": "Oshur Northeast Flotilla",
-        "type": "Warpgate"
-    },
-    "400364": {
-        "continent": "344",
-        "name": "Eagle Outpost",
-        "type": "Small Outpost"
-    },
-    "400363": {
-        "continent": "344",
-        "name": "Fort Arceo",
-        "type": "Large Outpost"
-    },
-    "400362": {
-        "continent": "344",
-        "name": "Palaso Supply Depot",
-        "type": "Small Outpost"
-    },
-    "400390": {
-        "continent": "344",
-        "name": "Seapost J5",
-        "type": "Small Outpost"
-    },
-    "400361": {
-        "continent": "344",
-        "name": "Wellerman Watch",
-        "type": "Large Outpost"
-    },
-    "400360": {
-        "continent": "344",
-        "name": "Sibo Interlink",
-        "type": "Interlink"
-    },
-    "400359": {
-        "continent": "344",
-        "name": "Terran Genetics Inc.",
-        "type": "Small Outpost"
-    },
-    "400357": {
-        "continent": "344",
-        "name": "Viridian East Terrace",
-        "type": "Small Outpost"
-    },
-    "400358": {
-        "continent": "344",
-        "name": "South Viridian Beachhead",
-        "type": "Construction Outpost"
-    },
-    "400391": {
-        "continent": "344",
-        "name": "Seapost K10",
-        "type": "Small Outpost"
-    },
-    "400368": {
-        "continent": "344",
-        "name": "Emerald Arboretum",
-        "type": "Large Outpost"
-    },
-    "400356": {
-        "continent": "344",
-        "name": "Remnant Cove",
-        "type": "Construction Outpost"
-    },
-    "400355": {
-        "continent": "344",
-        "name": "Emerald Research Co.",
-        "type": "Small Outpost"
-    },
-    "400354": {
-        "continent": "344",
-        "name": "Southpeak Meadows",
-        "type": "Construction Outpost"
-    },
-    "400353": {
-        "continent": "344",
-        "name": "Astira Solar Station",
-        "type": "Construction Outpost"
-    },
-    "400405": {
-        "continent": "344",
-        "name": "Solstice Pass",
-        "type": "Construction Outpost"
-    },
-    "400352": {
-        "continent": "344",
-        "name": "Dekat Interlink",
-        "type": "Interlink"
-    },
-    "400351": {
-        "continent": "344",
-        "name": "High Ridge Security",
-        "type": "Small Outpost"
-    },
-    "400350": {
-        "continent": "344",
-        "name": "K&H Tech Station",
-        "type": "Small Outpost"
-    },
-    "400369": {
-        "continent": "344",
-        "name": "Oshur Northwest Flotilla",
-        "type": "Warpgate"
-    },
-    "400349": {
-        "continent": "344",
-        "name": "Hunter's Ravine",
-        "type": "Construction Outpost"
-    },
-    "400348": {
-        "continent": "344",
-        "name": "Tannae Power",
-        "type": "Large Outpost"
-    },
-    "400404": {
-        "continent": "344",
-        "name": "Veridad Pass",
-        "type": "Construction Outpost"
-    },
-    "400347": {
-        "continent": "344",
-        "name": "Sage R&D Labs",
-        "type": "Small Outpost"
-    },
-    "400367": {
-        "continent": "344",
-        "name": "Nascent Shipping and Storage",
-        "type": "Small Outpost"
-    },
-    "400366": {
-        "continent": "344",
-        "name": "Imbanon Interlink",
-        "type": "Interlink"
-    },
-    "400365": {
-        "continent": "344",
-        "name": "Meridian Listening Post",
-        "type": "Construction Outpost"
-    },
-    "400343": {
-        "continent": "344",
-        "name": "Hopeswell Beachhead",
-        "type": "Construction Outpost"
-    },
-    "400345": {
-        "continent": "344",
-        "name": "Anat Interlink",
-        "type": "Interlink"
-    },
-    "400346": {
-        "continent": "344",
-        "name": "Gildad Cliffs",
-        "type": "Small Outpost"
-    },
-    "400342": {
-        "continent": "344",
-        "name": "Lamplight Security",
-        "type": "Small Outpost"
-    },
-    "400344": {
-        "continent": "344",
-        "name": "Wavecrest Beachhead",
-        "type": "Construction Outpost"
-    },
-    "400373": {
-        "continent": "344",
-        "name": "Bago Trident",
-        "type": "Trident"
-    },
-    "400372": {
-        "continent": "344",
-        "name": "Sirinan Trident",
-        "type": "Trident"
-    },
-    "400374": {
-        "continent": "344",
-        "name": "Anlabban Trident",
-        "type": "Trident"
-    },
-    "400334": {
-        "continent": "344",
-        "name": "Ligalai Station",
-        "type": "Construction Outpost"
-    },
-    "400333": {
-        "continent": "344",
-        "name": "Binusilan Interlink",
-        "type": "Interlink"
-    },
-    "400335": {
-        "continent": "344",
-        "name": "Outpost Kalis",
-        "type": "Small Outpost"
-    },
-    "400336": {
-        "continent": "344",
-        "name": "Seaside Bluffs",
-        "type": "Construction Outpost"
-    },
-    "400332": {
-        "continent": "344",
-        "name": "Centri Import Hub",
-        "type": "Construction Outpost"
-    },
-    "400407": {
-        "continent": "344",
-        "name": "Wakerift Beachhead",
-        "type": "Construction Outpost"
-    },
-    "400330": {
-        "continent": "344",
-        "name": "Astira Hydroelectric",
-        "type": "Small Outpost"
-    },
-    "400329": {
-        "continent": "344",
-        "name": "Mirror Bay Watchtower",
-        "type": "Large Outpost"
-    },
-    "400331": {
-        "continent": "344",
-        "name": "Pommel Gardens",
-        "type": "Small Outpost"
-    },
-    "400340": {
-        "continent": "344",
-        "name": "Mirror Bay Checkpoint",
-        "type": "Small Outpost"
-    },
-    "400337": {
-        "continent": "344",
-        "name": "Viridian Genetics Lab",
-        "type": "Large Outpost"
-    },
-    "400338": {
-        "continent": "344",
-        "name": "Viridian Decontamination",
-        "type": "Construction Outpost"
-    },
-    "400339": {
-        "continent": "344",
-        "name": "Centri Mining Operation",
-        "type": "Large Outpost"
-    },
-    "400371": {
-        "continent": "344",
-        "name": "Oshur South Flotilla",
-        "type": "Warpgate"
-    },
-    "400392": {
-        "continent": "344",
-        "name": "Seapost K12",
-        "type": "Small Outpost"
-    },
-    "400341": {
-        "continent": "344",
-        "name": "Pilay Interlink",
-        "type": "Interlink"
-    },
-    "400409": {
-        "continent": "344",
-        "name": "Seapost L8 - Cliffdive",
-        "type": "Small Outpost"
-    },
-    "400410": {
-        "continent": "344",
-        "name": "Seapost J7 - Garden",
-        "type": "Small Outpost"
-    },
-    "400411": {
-        "continent": "344",
-        "name": "Seapost J8 - Delve",
-        "type": "Small Outpost"
-    },
-    "400412": {
-        "continent": "344",
-        "name": "Seapost I11 - Stones",
-        "type": "Small Outpost"
-    },
-    "400413": {
-        "continent": "344",
-        "name": "Seapost G11 - Reef",
-        "type": "Small Outpost"
-    },
-    "400414": {
-        "continent": "344",
-        "name": "Seapost H10 - Debris",
-        "type": "Small Outpost"
-    },
-    "400415": {
-        "continent": "344",
-        "name": "Seapost G8 - Pipeline",
-        "type": "Small Outpost"
-    },
-    "400416": {
-        "continent": "344",
-        "name": "Seapost D8 - Collapse",
-        "type": "Small Outpost"
-    },
-    "400417": {
-        "continent": "344",
-        "name": "Seapost G6 - Trenches",
-        "type": "Small Outpost"
-    },
-    "400418": {
-        "continent": "344",
-        "name": "Seapost G4",
-        "type": "Small Outpost"
-    },
-    "400421": {
-        "continent": "344",
-        "name": "Seapost E12",
-        "type": "Small Outpost"
-    },
-    "400424": {
-        "continent": "344",
-        "name": "Seapost M9",
-        "type": "Small Outpost"
-    },
-    "400426": {
-        "continent": "344",
-        "name": "Seapost L5",
-        "type": "Small Outpost"
-    },
-    "400427": {
-        "continent": "344",
-        "name": "Bathala Garden",
-        "type": "Construction Outpost"
-    },
-    "400428": {
-        "continent": "344",
-        "name": "HMS Technologies",
-        "type": "Small Outpost"
     }
 }
