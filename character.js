@@ -432,6 +432,9 @@ module.exports = {
         else if (cInfo.prestige == "2"){
             resEmbed.setThumbnail("http://census.daybreakgames.com/files/ps2/images/static/94469.png");
         }
+        else if (cInfo.prestige == "3"){
+            resEmbed.setThumbnail("http://census.daybreakgames.com/files/ps2/images/static/95504.png");
+        }
         else if (parseInt(cInfo.br) > 100){
             resEmbed.setThumbnail(`http://census.daybreakgames.com/files/ps2/images/static/${85033+(parseInt(cInfo.br)-100)}.png`);
         }
