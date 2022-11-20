@@ -16,7 +16,7 @@ The bot is designed to be simple to use.  Once added to your server with the [in
 
 ## Self hosting
 
-If you would like to deploy your own version of the bot, it is designed to run on [Heroku](https://www.heroku.com/home).  When running locally a `.env` file is used for the environment variables, including the [Discord Token](https://discordapp.com/developers/applications/me), [Daybreak Census API service ID](https://census.daybreakgames.com/), Postgres URL (optional), and [Twitter API credentials (optional)](https://developer.twitter.com/en/portal/dashboard).  Subscription functionality will be disabled if a database URL is not present. To use the Twitter API, you must have a Postgres URL. To ensure `latestTweet()` in `twitterListener.js` works properly on first time setup, manually modify the insert queries in `dbStructure.sql` to insert the lastest tweet id's for tracked users.
+A `.env` file is used for the environment variables, including the [Discord Token](https://discordapp.com/developers/applications/me), [Daybreak Census API service ID](https://census.daybreakgames.com/), Postgres URL (optional), and [Twitter API credentials (optional)](https://developer.twitter.com/en/portal/dashboard).  Subscription functionality will be disabled if a database URL is not present. To use the Twitter API, you must have a Postgres URL. To ensure `latestTweet()` in `twitterListener.js` works properly on first time setup, manually modify the insert queries in `dbStructure.sql` to insert the lastest tweet id's for tracked users.
 
 Your `.env` file should look something like this
 
@@ -31,7 +31,7 @@ TWITTER_CONSUMER_KEY = <Twitter Consumer Key>
 
 ## Contact
 
-For feedback or error reports, the best ways to contact are reddit (/u/RemainNA), Discord (RemainNA#0159), and the Auraxis bot [Discord server](https://discord.gg/Kf5P6Ut).
+For feedback or error reports the best ways to contact are Discord DMs (RemainNA#0159) or the Auraxis bot [Discord server](https://discord.gg/Kf5P6Ut).
 
 ## Localization
 
@@ -46,6 +46,7 @@ Thank you to the following translators for their contributions!
 - Korean: AlexKoala#0253
 - Russian: Simacrus#9560
 - Spanish: [1ITL] Facer
+- French: Cleridwen
 
 ## Support development
 
