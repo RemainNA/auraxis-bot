@@ -348,10 +348,15 @@ const alertEvent = async function(payload, environment, pgClient, discordClient)
  */
 const outfitResources = {
     "Small Outpost": "5 Auraxium <:Auraxium:818766792376713249>",
+    "CTF Small Outpost": "5 Auraxium <:Auraxium:818766792376713249>",
+    "Seapost": "5 Auraxium <:Auraxium:818766792376713249>",
     "Large Outpost": "25 Auraxium <:Auraxium:818766792376713249>",
+    "CTF Large Outpost": "25 Auraxium <:Auraxium:818766792376713249>",
     "Construction Outpost": "3 Synthium <:Synthium:818766858865475584>",
+    "CTF Construction Outpost": "3 Synthium <:Synthium:818766858865475584>",
     "Bio Lab": "8 Synthium <:Synthium:818766858865475584>",
     "Amp Station": "8 Synthium <:Synthium:818766858865475584>",
+    "CTF Amp Station": "8 Synthium <:Synthium:818766858865475584>",
     "Tech Plant": "8 Synthium <:Synthium:818766858865475584>",
     "Containment Site": "8 Synthium <:Synthium:818766858865475584>",
     "Interlink": "8 Synthium <:Synthium:818766858865475584>",
