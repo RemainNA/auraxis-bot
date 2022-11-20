@@ -107,16 +107,18 @@ module.exports = {
 				const ncPc = localeNumber((pop.global.nc/(pop.global.all||1))*100, locale);
 				const trPc = localeNumber((pop.global.tr/(pop.global.all||1))*100, locale);
 				const nsPc = localeNumber((pop.global.unknown/(pop.global.all||1))*100, locale);
-				const populationField = `\
+				let populationField = `\
 				\n<:VS:818766983918518272> **${i18n.__({phrase: 'VS', locale: locale})}**: ${pop.global.vs}  |  ${vsPc}%\
 				\n<:NC:818767043138027580> **${i18n.__({phrase: 'NC', locale: locale})}**: ${pop.global.nc}  |  ${ncPc}%\
-				\n<:TR:818988588049629256> **${i18n.__({phrase: 'TR', locale: locale})}**: ${pop.global.tr}  |  ${trPc}%\
-				\n:question: **?**: ${pop.global.unknown}  |  ${nsPc}%`
-				const populationTitle = i18n.__mf({phrase: "{server} population - {total}", locale: locale}, {server: i18n.__({phrase: serverNames[pop.worldID], locale: locale}), total: pop.global.all})
+				\n<:TR:818988588049629256> **${i18n.__({phrase: 'TR', locale: locale})}**: ${pop.global.tr}  |  ${trPc}%`;
+				if(pop.global.unknown != 0){
+					populationField += `\n:question: **?**: ${pop.global.unknown}  |  ${nsPc}%`;
+				}
+				const populationTitle = i18n.__mf({phrase: "{server} population - {total}", locale: locale}, {server: i18n.__({phrase: serverNames[pop.worldID], locale: locale}), total: localeNumber(pop.global.all, locale)})
 				resEmbed.addField(populationTitle, populationField, true);
 				total += pop.global.all;
 			}
-			resEmbed.setTitle(i18n.__mf({phrase: "Total population - {total}", locale: locale}, {total: total.toLocaleString(locale)}));
+			resEmbed.setTitle(i18n.__mf({phrase: "Total population - {total}", locale: locale}, {total: localeNumber(total, locale)}));
 			resEmbed.setFooter({text: i18n.__mf({phrase: "Data from {site}", locale: locale}, {site: "wt.honu.pw"})});
 			resEmbed.setTimestamp();
 			return resEmbed;
@@ -127,17 +129,19 @@ module.exports = {
 			const pop = results[serverID];
 			let sendEmbed = new Discord.MessageEmbed();
 			sendEmbed.setTitle(i18n.__mf({phrase: "{server} population - {total}", locale: locale}, 
-				{server: i18n.__({phrase: normalized, locale: locale}), total: pop.global.all.toLocaleString(locale)}));
+				{server: i18n.__({phrase: normalized, locale: locale}), total: localeNumber(pop.global.all, locale)}));
 			const vsPc = localeNumber((pop.global.vs/(pop.global.all||1))*100, locale);
 			const ncPc = localeNumber((pop.global.nc/(pop.global.all||1))*100, locale);
 			const trPc = localeNumber((pop.global.tr/(pop.global.all||1))*100, locale);
 			const nsPc = localeNumber((pop.global.unknown/(pop.global.all||1))*100, locale);
-			sendEmbed.setDescription(`\
-			\n**${i18n.__({phrase: "globalPopulation", locale: locale})}**\
+			let globalPopText = `**${i18n.__({phrase: "globalPopulation", locale: locale})}**\
 			\n<:VS:818766983918518272> **${i18n.__({phrase: 'VS', locale: locale})}**: ${pop.global.vs}  |  ${vsPc}%\
 			\n<:NC:818767043138027580> **${i18n.__({phrase: 'NC', locale: locale})}**: ${pop.global.nc}  |  ${ncPc}%\
-			\n<:TR:818988588049629256> **${i18n.__({phrase: 'TR', locale: locale})}**: ${pop.global.tr}  |  ${trPc}%\
-			\n:question: **?**: ${pop.global.unknown}  |  ${nsPc}%`);
+			\n<:TR:818988588049629256> **${i18n.__({phrase: 'TR', locale: locale})}**: ${pop.global.tr}  |  ${trPc}%`;
+			if(pop.global.unknown != 0){
+				globalPopText += `\n:question: **?**: ${pop.global.unknown}  |  ${nsPc}%`
+			}
+			sendEmbed.setDescription(globalPopText);
 			for(const contID of [2,4,6,8,344]){
 				const contPop = pop[contID];
 				if(!contPop.open && contPop.all != 0){
@@ -152,12 +156,19 @@ module.exports = {
 				const ncPc = localeNumber((contPop.nc/(contPop.all||1))*100, locale);
 				const trPc = localeNumber((contPop.tr/(contPop.all||1))*100, locale);
 				const nsPc = localeNumber((contPop.unknown/(contPop.all||1))*100, locale);
+				let continentPopText = `\
+				\n<:VS:818766983918518272> **${i18n.__({phrase: 'VS', locale: locale})}**: ${contPop.vs}  |  ${vsPc}%\
+				\n<:NC:818767043138027580> **${i18n.__({phrase: 'NC', locale: locale})}**: ${contPop.nc}  |  ${ncPc}%\
+				\n<:TR:818988588049629256> **${i18n.__({phrase: 'TR', locale: locale})}**: ${contPop.tr}  |  ${trPc}%`;
+				if(contPop.unknown != 0){
+					continentPopText += `\n:question: **?**: ${contPop.unknown}  |  ${nsPc}%`;
+				}
+				if(contPop.all == 0){
+					continentPopText = i18n.__({phrase: "empty", locale: locale});
+				}
 				sendEmbed.addField(i18n.__mf({phrase: "{server} population - {total}", locale: locale}, 
-					{server: i18n.__({phrase: i18n.__({phrase: continentNames[contID], locale: locale}), locale: locale}), total: contPop.all.toLocaleString(locale)}), `\
-					\n<:VS:818766983918518272> **${i18n.__({phrase: 'VS', locale: locale})}**: ${contPop.vs}  |  ${vsPc}%\
-					\n<:NC:818767043138027580> **${i18n.__({phrase: 'NC', locale: locale})}**: ${contPop.nc}  |  ${ncPc}%\
-					\n<:TR:818988588049629256> **${i18n.__({phrase: 'TR', locale: locale})}**: ${contPop.tr}  |  ${trPc}%\
-					\n:question: **?**: ${contPop.unknown}  |  ${nsPc}%`
+					{server: i18n.__({phrase: i18n.__({phrase: continentNames[contID], locale: locale}), locale: locale}), total: localeNumber(contPop.all, locale)}),
+					continentPopText
 				)
 			}
 			sendEmbed.setTimestamp();
