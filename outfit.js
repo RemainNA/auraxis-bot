@@ -236,9 +236,9 @@ module.exports = {
 			}
 		}
 		if((auraxium + synthium + polystellarite) > 0){ //Recognized bases are owned
-			resEmbed.addField('<:Auraxium:818766792376713249>', `+${auraxium/5}/min`, true);
-			resEmbed.addField('<:Synthium:818766858865475584>', `+${synthium/5}/min`, true);
-			resEmbed.addField('<:Polystellarite:818766888238448661>', `+${polystellarite/5}/min`, true);
+			resEmbed.addField('<:Auraxium:818766792376713249>', i18n.__mf({phrase: "quantityPerMinute", locale: locale}, {quantity: auraxium/5}), true);
+			resEmbed.addField('<:Synthium:818766858865475584>', i18n.__mf({phrase: "quantityPerMinute", locale: locale}, {quantity: synthium/5}), true);
+			resEmbed.addField('<:Polystellarite:818766888238448661>', i18n.__mf({phrase: "quantityPerMinute", locale: locale}, {quantity: polystellarite/5}), true);
 			resEmbed.addField(i18n.__({phrase: 'Bases owned', locale: locale}), `${ownedNames}`.replace(/,/g, '\n'));
 		}
 
