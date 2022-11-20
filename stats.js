@@ -276,7 +276,7 @@ module.exports = {
 		totalHeadshots && resEmbed.addField(i18n.__({phrase: "HSR", locale: locale}), localeNumber(hsr*100, locale)+"%", true);
 		ahr && resEmbed.addField(i18n.__({phrase: "AHR Score", locale: locale}), `${ahr}`, true);
 		totalVehicleKills && resEmbed.addField(i18n.__({phrase: "Vehicle Kills", locale: locale}), totalVehicleKills.toLocaleString(locale), true);
-		resEmbed.addField(i18n.__({phrase: "Playtime", locale: locale}), hours+" hours, "+minutes+" minutes", true);
+		resEmbed.addField(i18n.__({phrase: "Playtime", locale: locale}), i18n.__mf({phrase: "{hour} hours, {minute} minutes", locale: locale}, {hour: hours, minute: minutes}), true);
 		resEmbed.addField(i18n.__({phrase: "KPM", locale: locale}), localeNumber(totalKills/(cInfo.playTime/60), locale), true);
 		resEmbed.addField(i18n.__({phrase: "Avg Damage/Kill", locale: locale}), Math.floor(totalDamage/totalKills).toLocaleString(locale), true);
 		resEmbed.addField(i18n.__({phrase: "Score (SPM)", locale: locale}), cInfo.score.toLocaleString(locale)+" ("+localeNumber(spm, locale)+")", true);
