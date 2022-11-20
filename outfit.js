@@ -209,26 +209,23 @@ module.exports = {
 				}
 				switch(baseInfo.type){
 					case "Small Outpost":
+					case "CTF Small Outpost":
+					case "Seapost":
 						auraxium += 5;
 						break;
 					case "Large Outpost":
+					case "CTF Large Outpost":
 						auraxium += 25;
 						break;
 					case "Construction Outpost":
+					case "CTF Construction Outpost":
 						synthium += 3;
 						break;
 					case "Bio Lab":
-						synthium += 8;
-						break;
 					case "Amp Station":
-						synthium += 8;
-						break;
+					case "CTF Amp Station":
 					case "Tech Plant":
-						synthium += 8;
-						break;
 					case "Containment Site":
-						synthium += 8;
-						break;
 					case "Interlink":
 						synthium += 8;
 						break;
