@@ -258,13 +258,13 @@ const getWeaponName = async function(ID, platform){
     }
     let response = await censusRequest(platform, 'item_list', `/item/${ID}`)
     if(response.length==1){
-        return response.item_list[0].name.en;
+        return response[0].name.en;
     }
-    let URI = 'https://ps2.fisu.pw/api/weapons/?id='+ID; //Fallback Fisu URI
+    const URI = `https://census.lithafalcon.cc/get/ps2/item?item_id=${ID}&c:lang=en` //Fallback Falcon URI
     const request = await fetch(URI);
-    const fisuResponse = await request.json();
-    if(typeof(fisuResponse[ID]) !== 'undefined'){
-        return fisuResponse[ID].name;
+    const falconResponse = await request.json();
+    if(falconResponse.item_list.length == 1){
+        return falconResponse.item_list[0].name.en;
     }
     if(ID in sanction){
         return sanction[ID].name;
