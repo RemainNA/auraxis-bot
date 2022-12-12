@@ -724,6 +724,11 @@
         "name": "NS-11A \"Heatwave\"",
         "sanction": "infantry"
     },
+    "6014404": {
+        "category": "Assault Rifle",
+        "name": "NS-11A Frontline",
+        "sanction": "infantry"
+    },
     "802099": {
         "category": "Assault Rifle",
         "name": "NS-11AB",
@@ -1407,6 +1412,11 @@
     "75005": {
         "category": "Carbine",
         "name": "NS-11C",
+        "sanction": "infantry"
+    },
+    "6014480": {
+        "category": "Carbine",
+        "name": "NS-11C Frostbite",
         "sanction": "infantry"
     },
     "802100": {
@@ -5324,6 +5334,11 @@
         "name": "Stormbringer",
         "sanction": "none"
     },
+    "6014446": {
+        "category": "Knife",
+        "name": "Sweet Tooth",
+        "sanction": "none"
+    },
     "801969": {
         "category": "Knife",
         "name": "The Slasher",
@@ -5842,6 +5857,11 @@
     "802319": {
         "category": "LMG",
         "name": "NS-15M AE",
+        "sanction": "infantry"
+    },
+    "6014505": {
+        "category": "LMG",
+        "name": "NS-15M Frostbite",
         "sanction": "infantry"
     },
     "75034": {
