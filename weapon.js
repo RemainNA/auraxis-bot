@@ -206,8 +206,10 @@ module.exports = {
 		else if(typeof(wInfo.hipCofRecoil) !== 'undefined' && typeof(wInfo.verticalRecoil) !== 'undefined'){
 			resEmbed.addField(i18n.__({phrase: "Bloom (hip)", locale: locale}), `${wInfo.hipCofRecoil}`, true);
 		}
-		wInfo.verticalRecoil != undefined && resEmbed.addField(i18n.__({phrase: "Vertical Recoil", locale: locale}), `${wInfo.verticalRecoil}`, true);
-		wInfo.recoilAngleMin != undefined && wInfo.recoilAngleMax != undefined && resEmbed.addField(i18n.__({phrase: "Recoil Angle (min/max)", locale: locale}), wInfo.recoilAngleMin+"/"+wInfo.recoilAngleMax, true);
+		if(wInfo.verticalRecoil != undefined && wInfo.verticalRecoil != 0){
+			undefined && resEmbed.addField(i18n.__({phrase: "Vertical Recoil", locale: locale}), `${wInfo.verticalRecoil}`, true);
+			wInfo.recoilAngleMin != undefined && wInfo.recoilAngleMax != undefined && resEmbed.addField(i18n.__({phrase: "Recoil Angle (min/max)", locale: locale}), wInfo.recoilAngleMin+"/"+wInfo.recoilAngleMax, true);
+		}			
 		wInfo.recoilHorizontalMin != undefined && wInfo.recoilHorizontalMax != undefined && resEmbed.addField(i18n.__({phrase: "Horizontal Recoil (min/max)", locale: locale}), wInfo.recoilHorizontalMin+"/"+wInfo.recoilHorizontalMax, true);
 		wInfo.recoilHorizontalTolerance != undefined && resEmbed.addField(i18n.__({phrase: "Horizontal Tolerance", locale: locale}), `${wInfo.recoilHorizontalTolerance}`, true);
 		wInfo.firstShotMultiplier != undefined && resEmbed.addField(i18n.__({phrase: "First Shot Multiplier", locale: locale}), `${wInfo.firstShotMultiplier}x`, true);
