@@ -10,7 +10,8 @@
 const {getPopulation} = require('./population.js');
 const {territoryInfo} = require('./territory.js');
 const {onlineInfo} = require('./online.js');
-const {serverNames, serverIDs, servers, continents, faction} = require('./utils.js');
+const {alertInfo} = require('./alerts.js');
+const {serverNames, serverIDs, servers, continents, continentNames, faction} = require('./utils.js');
 
 /**
  * Get a string of the name and total population of a server
@@ -29,13 +30,35 @@ const populationName = async function(serverID){
  */
 const territoryName = async function(serverID){
 	const territory = await territoryInfo(serverID);
-	let openList = [];
+	const alerts = await alertInfo(serverID);
+	const alertList = [];
+	const openList = [];
+	const unstableList = [];
+	let fullName = "";
+	for (const alert of alerts){
+		alertList.push(`🚨${continentNames[alert.continent].substring(0,1)}`);
+		fullName = `🚨 ${continentNames[alert.continent]}`;
+	}
+
 	for (const cont of continents){
-		if(territory[cont].locked == -1){
-			openList.push(cont);
+		const contInitial = cont.at(0);
+		if(alertList.includes(`🚨${contInitial}`)){
+			continue;
+		}
+		if(territory[cont].locked == -1 && !territory[cont].unstable){
+			openList.push(contInitial);
+			fullName = cont;
+		}
+		else if(territory[cont].locked == -1 && territory[cont].unstable){
+			unstableList.push(`💤${contInitial}`);
+			fullName = `💤 ${cont}`;
 		}
 	}
-	return `${serverNames[serverID]}: ${openList}`;
+	const fullList = alertList.concat(openList, unstableList);
+	if(fullList.length == 1){
+		return `${serverNames[serverID]}: ${fullName}`;
+	}
+	return `${serverNames[serverID]}: ${fullList}`;
 }
 
 /**

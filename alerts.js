@@ -41,7 +41,7 @@ const alertInfo = async function(server, locale='en-US'){
 			throw response.error;
 		}
 		if(response.length == 0){
-			throw i18n.__mf({phrase: "No active alerts on {server}", locale: locale}, {server: i18n.__({phrase: serverNames[server], locale: locale})});
+			return [];
 		}
 		let allAlerts = [];
 		for(let alert of response){
@@ -90,12 +90,9 @@ module.exports = {
 	 */
 	activeAlerts: async function(server, locale="en-US"){
 		const serverID = serverIDs[server];
-		let alertObj = {};
-		try{
-			alertObj = await alertInfo(serverID);
-		}
-		catch(err){
-			throw err;
+		const alertObj = await alertInfo(serverID);
+		if(alertObj.length == 0){
+			throw i18n.__mf({phrase: "No active alerts on {server}", locale: locale}, {server: i18n.__({phrase: serverNames[serverID], locale: locale})}); 
 		}
 		let sendEmbed = new Discord.MessageEmbed();
 		sendEmbed.setTitle(serverNames[serverID]+" alerts");

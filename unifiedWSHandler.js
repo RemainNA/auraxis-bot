@@ -14,6 +14,7 @@ const config = require('./subscriptionConfig.js');
 const territory = require('./territory.js');
 const alerts = require('./static/alerts.json');
 const bases = require('./static/bases.json');
+const trackers = require('./trackers.js');
 const {serverNames, censusRequest, faction} = require('./utils.js');
 
 const wait = require('util').promisify(setTimeout);
@@ -339,6 +340,7 @@ const alertEvent = async function(payload, environment, pgClient, discordClient)
                         }
                     });
             }
+            trackers.update(pgClient, discordClient, true); //Update trackers with new alert
         }
     }
 }
