@@ -9,7 +9,7 @@
 import { getPopulation } from './population.js';
 import { territoryInfo } from './territory.js';
 import { onlineInfo } from './online.js';
-import { serverNames, serverIDs, servers, continents, faction, platforms, allServers } from '../utils.js';
+import { serverNames, serverIDs, servers, continents, continentNames, faction, platforms, allServers } from '../utils.js';
 import { alertInfo } from './alerts.js';
 import { ChannelType, PermissionFlagsBits } from 'discord.js';
 import query from '../db/index.js';

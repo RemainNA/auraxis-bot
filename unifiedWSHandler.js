@@ -11,7 +11,7 @@ import { initializeConfig } from './commands/config.js';
 import { territoryInfo } from './commands/territory.js';
 import alerts from './static/alerts.json' assert {type: 'json'};
 import bases from './static/bases.json' assert {type: 'json'};
-import { update as updateTrackers } from './commands/trackers.js';
+import { update as updateTrackers } from './commands/tracker.js';
 import {serverNames, censusRequest, faction} from './utils.js';
 import query from './db/index.js';
 
@@ -334,7 +334,7 @@ async function alertEvent(payload, environment, discordClient){
                         }
                     });
             }
-            updateTrackers(pgClient, discordClient, true); //Update trackers with new alert
+            updateTrackers(discordClient, true); //Update trackers with new alert
         }
     }
 }
