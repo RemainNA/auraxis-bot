@@ -55,6 +55,7 @@ const vehicles = require('./vehicles.js');
 const outfitMaintenance = require('./outfitMaintenance.js');
 const character = require('./character.js');
 const help = require('./help.js');
+const ping = require('./ping.js');
 
 let runningOnline = false;
 let twitterAvail = false;
@@ -128,7 +129,8 @@ client.on('interactionCreate', async interaction => {
 			let errorList = [];
 			switch(interaction.commandName){
 			case 'ping':
-				await interaction.reply(`Bot's ping to Discord is ${client.ws.ping}ms`);
+				await interaction.deferReply();
+				await ping.execute(interaction, interaction.locale);
 				break;
 
 			case 'help':
