@@ -3,7 +3,6 @@
  * @module dashboard
  */
 /**
- * @typedef {import('pg').Client} pg.Client
  * @typedef {import('discord.js').Client} discord.Client
  * @typedef {import('discord.js').MessageEmbed} discord.MessageEmbed
  * @typedef {import('discord.js').TextBasedChannel} discord.Channel
@@ -18,14 +17,14 @@ const {onlineInfo, totalLength} = require('./online.js');
 const {ownedBases, centralBases} = require('./outfit.js');
 const bases = require('./static/bases.json');
 const {serverNames, serverIDs, servers, continents, continentNames, faction, localeNumber} = require('./utils.js');
+const pgClient = require('./db/index.js');
 
 /**
  * Creates a server dashboard for the given serverID that keeps track of the population, territory control, and active alerts
  * @param {number} serverID - The server ID 
- * @param {pg.Client} pgClient - The postgres client 
  * @returns the server dashboard embed
  */
-const serverStatus = async function(serverID, pgClient){
+const serverStatus = async function(serverID){
 	let resEmbed = new MessageEmbed();
 	resEmbed.setTitle(`${serverNames[serverID]} Dashboard`);
 
@@ -119,10 +118,9 @@ const serverStatus = async function(serverID, pgClient){
  * Create a outfit dashboard that shows the bases owned by the outfit and current members online
  * @param {string} outfitID - The outfit ID
  * @param {string} platform - The platform
- * @param {pg.Client} pgClient - The postgres client
  * @returns the outfit dashboard embed
  */
-const outfitStatus = async function(outfitID, platform, pgClient){
+const outfitStatus = async function(outfitID, platform){
 	const oInfo = await onlineInfo("", platform, outfitID);
 	let resEmbed = new MessageEmbed();
 	if(oInfo.alias != ""){
@@ -161,7 +159,7 @@ const outfitStatus = async function(outfitID, platform, pgClient){
 		}
 	}
 
-	const oBases = await ownedBases(outfitID, oInfo.world, pgClient);
+	const oBases = await ownedBases(outfitID, oInfo.world);
 	let auraxium = 0;
 	let synthium = 0;
 	let polystellarite = 0;
@@ -205,10 +203,9 @@ const outfitStatus = async function(outfitID, platform, pgClient){
  * @param {string} channelID - The channel ID where the current dashboard is
  * @param {string} messageID - The message ID of the current dashboard
  * @param {discord.MessageEmbed} newDash - The new dashboard
- * @param {pg.Client} pgClient = The postgres client
  * @param {discord.Client} discordClient - The discord client 
  */
-const editMessage = async function(channelID, messageID, newDash, pgClient, discordClient){
+const editMessage = async function(channelID, messageID, newDash, discordClient){
 	try{
 		const channel = await discordClient.channels.fetch(channelID);
 		const message = await channel.messages.fetch(messageID);
@@ -232,12 +229,11 @@ module.exports = {
 	 * Creates a dashboard for a server
 	 * @param {discord.Channel} channel - The channel to send the message to
 	 * @param {string} serverName - The server name
-	 * @param {pg.Client} pgClient - The postgres client 
 	 * @returns the status of the creation of the dashboard
 	 * @throws if bot has insufficient permissions to post messages
 	 */
-	createServer: async function(channel, serverName, pgClient){
-		const resEmbed = await serverStatus(serverIDs[serverName], pgClient);
+	createServer: async function(channel, serverName){
+		const resEmbed = await serverStatus(serverIDs[serverName]);
 		const messageID = await messageHandler.send(channel, {embeds: [resEmbed]}, "Create server dashboard", true);
 		if(messageID == -1){
 			throw "Error creating dashboard, please check that the bot has permission to post in this channel.";
@@ -253,13 +249,12 @@ module.exports = {
 	 * @param {discord.Channel} channel - The channel to send the message to
 	 * @param {string} oTag - The tag of the outfit
 	 * @param {string} platform - The platform of the outfit
-	 * @param {pg.Client} pgClient - The postgres client
 	 * @returns the status of the creation of the dashboard
 	 * @throws if bot has insufficient permissions to post messages
 	 */
-	createOutfit: async function(channel, oTag, platform, pgClient){
+	createOutfit: async function(channel, oTag, platform){
 		const oInfo = await onlineInfo(oTag, platform);
-		const resEmbed = await outfitStatus(oInfo.outfitID, platform, pgClient);
+		const resEmbed = await outfitStatus(oInfo.outfitID, platform);
 		const messageID = await messageHandler.send(channel, {embeds: [resEmbed]}, "Create outfit dashboard", true);
 		if(messageID == -1){
 			throw "Error creating dashboard, please check that the bot has permission to post in this channel.";
@@ -272,16 +267,15 @@ module.exports = {
 
 	/**
 	 * Updates current dashboards in discord channels
-	 * @param {pg.Client} pgClient - The postgres client
 	 * @param {discord.Client} discordClient - The discord client 
 	 */
-	update: async function(pgClient, discordClient){
+	update: async function(discordClient){
 		for(const serverName of servers){
 			try{
-				const status = await serverStatus(serverIDs[serverName], pgClient);
+				const status = await serverStatus(serverIDs[serverName]);
 				const channels = await pgClient.query('SELECT * FROM dashboard WHERE world = $1;', [serverName]);
 				for(const row of channels.rows){
-					await editMessage(row.channel, row.messageid, status, pgClient, discordClient);
+					await editMessage(row.channel, row.messageid, status, discordClient);
 				}
 			}
 			catch(err){
@@ -293,10 +287,10 @@ module.exports = {
 			const outfits = await pgClient.query('SELECT DISTINCT outfitID, platform FROM outfitDashboard;');
 			for(const row of outfits.rows){
 				try{
-					const status = await outfitStatus(row.outfitid, row.platform, pgClient);
+					const status = await outfitStatus(row.outfitid, row.platform);
 					const channels = await pgClient.query('SELECT * FROM outfitdashboard WHERE outfitid = $1 AND platform = $2', [row.outfitid, row.platform]);
 					for(const channelRow of channels.rows){
-						await editMessage(channelRow.channel, channelRow.messageid, status, pgClient, discordClient);
+						await editMessage(channelRow.channel, channelRow.messageid, status, discordClient);
 					}
 				}
 				catch(err){

@@ -3,10 +3,10 @@
  * @module subscriptionConfig 
  */
 /**
- * @typedef {import('pg').Client} pg.Client
  */
 
 const Discord = require('discord.js');
+const pgClient = require('./db/index.js');
 
 /**
  * Get the status of alert subscriptions for a `continent`
@@ -51,10 +51,9 @@ module.exports = {
 	/**
 	 * Gets the current configuration of subscriptions in a channel
 	 * @param {string} channel - the id of the channel to query 
-	 * @param {pg.Client} pgClient - the postgres client
 	 * @returns a discord message containing the current status of subscriptions
 	 */
-	displayConfig: async function(channel, pgClient){
+	displayConfig: async function(channel){
 		try{
 			let res = await pgClient.query("SELECT * FROM subscriptionConfig WHERE channel=$1", [channel]);
 			if(res.rows.length == 0){
@@ -108,11 +107,10 @@ module.exports = {
 	/**
 	 * Initializes the subscription config for a channel
 	 * @param {string} channel - the id of the channel to initialize
-	 * @param {pg.Client} pgClient - the postgres client
 	 * @returns the results of the initialization
 	 * @throws if there is a configuration error
 	 */
-	initializeConfig: async function(channel, pgClient){
+	initializeConfig: async function(channel){
 		try{
 			await pgClient.query("INSERT INTO subscriptionConfig (channel) VALUES ($1)\
 		ON CONFLICT(channel) DO NOTHING;", [channel]);
@@ -130,10 +128,9 @@ module.exports = {
 	 * @param {string} continent - the continent to set the status of
 	 * @param {string} setting - if continent subscscriptions are being shown or not
 	 * @param {string} channel - the channel to set the status of
-	 * @param {pg.Client} pgClient - the postgres client
 	 * @throws if there is a query error
 	 */
-	setContinent: async function(continent, setting, channel, pgClient){
+	setContinent: async function(continent, setting, channel){
 		let res = await pgClient.query("SELECT * FROM subscriptionConfig WHERE channel = $1", [channel])
 		if (res.rows.length == 0){
 			throw("This channel has no active subscriptions so cannot be configured.  If you believe this is incorrect please run `/config audit`");
@@ -214,11 +211,10 @@ module.exports = {
 	 * Configure the autodelete setting for a channel
 	 * @param {string} message - the message to parse
 	 * @param {string} channel - the channel to set the autodelete setting for
-	 * @param {pg.Client} pgClient - the postgres client
 	 * @returns the status of autodelete
 	 * @throws if there are query errors
 	 */
-	setAutoDelete: async function(message, channel, pgClient){
+	setAutoDelete: async function(message, channel){
 		let res = await pgClient.query("SELECT * FROM subscriptionConfig WHERE channel = $1", [channel])
 		if (res.rows.length == 0){
 			throw("This channel has no active subscriptions so cannot be configured.  If you believe this is incorrect please run `/config audit`");
@@ -243,10 +239,9 @@ module.exports = {
 	 * @param {string} type - the type of alert to set, territoy or non-territory
 	 * @param {boolean} setting - enable or disable displaying alerts
 	 * @param {string} channel - the channel to set alert visibility for
-	 * @param {pg.Client} pgClient - the postgres client
 	 * @returns a message indicating the status of the setting
 	 */
-	setAlertTypes: async function(type, setting, channel, pgClient){
+	setAlertTypes: async function(type, setting, channel){
 		let response = "";
 		if(type == 'territory'){
 			await pgClient.query("UPDATE subscriptionConfig SET territory = $1 WHERE channel = $2;", [setting, channel]);
@@ -265,11 +260,10 @@ module.exports = {
 	/**
 	 * Audit the configuration for a channel
 	 * @param {string} channel - the channel to audit
-	 * @param {pg.Client} pgClient - the postgres client
 	 * @returns the staus of the channel's configuration
 	 * @throws if there is a configuration error
 	 */
-	audit: async function(channel, pgClient){
+	audit: async function(channel){
 		try{
 			const alerts = await pgClient.query("SELECT * FROM alerts WHERE channel = $1", [channel]);
 			const activity = await pgClient.query("SELECT * FROM outfitActivity WHERE channel = $1", [channel]);
@@ -297,7 +291,7 @@ module.exports = {
 				status += "Configuration settings deleted";
 			}
 			else if(activeConfig == 0 && activeSubscriptions > 0){
-				await this.initializeConfig(channel, pgClient);
+				await this.initializeConfig(channel);
 				status += "Configuration settings created";
 			}
 			else{

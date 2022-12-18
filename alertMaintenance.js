@@ -4,13 +4,13 @@
  */
 /**
  * @typedef {import('discord.js').Client} discord.Client
- * @typedef {import('pg').Client} pg.Client
  */
 const Discord = require('discord.js');
 const { fetch } = require('undici');
 const alerts = require('./static/alerts.json');
 const {serverNames} = require('./utils.js');
 const {popLevels} = require('./alerts.js');
+const pgClient = require('./db/index.js');
 /**
  * faction winners
  */
@@ -23,12 +23,11 @@ const winnerFaction = {
 /**
  * Creates a new discord embed for updating the alert
  * @param info - alert info from PS2Alerts
- * @param {pg.Client} pgClient - postgres client
  * @param {discord.Client} discordClient - discord client
  * @param {boolean} isComplete - true if alert is complete
  * @throws if error retrieving territory control for an alert
  */
-async function updateAlert(info, pgClient, discordClient, isComplete){
+async function updateAlert(info, discordClient, isComplete){
 	const messageEmbed = new Discord.MessageEmbed();
 	messageEmbed.setTimestamp();
 	messageEmbed.setFooter({text: "Data from ps2alerts.com"});
@@ -112,10 +111,9 @@ async function editMessage(embed, messageId, channelId, discordClient){
  * Deletes alert if there is no longer a message to update it.
  * If there is no error message for `row` will log error
  * @param row - alert information from PS2Alerts
- * @param {pg.Client} pgClient - postgres client
  * @param {string} err - error message 
  */
-async function checkError(row, pgClient, err){
+async function checkError(row, err){
 	if(row.error){
 		pgClient.query("DELETE FROM alertMaintenance WHERE alertID = $1;", [row.alertid]);
 	}
@@ -129,23 +127,22 @@ async function checkError(row, pgClient, err){
 module.exports = {
 	/**
 	 * Update alert info in the database and edit discord messages
-	 * @param {pg.Client} pgClient - postgres client
 	 * @param {Discord.Client} discordClient - discord client
 	 */
-	update: async function(pgClient, discordClient){
+	update: async function(discordClient){
 		const results = await pgClient.query("SELECT DISTINCT alertID, error FROM alertMaintenance");
 		Promise.allSettled(results.rows.map(async row => {
 			try {
 				const request = await fetch(`https://api.ps2alerts.com/instances/${row.alertid}`);
 				const response = await request.json();
-				await updateAlert(response, pgClient, discordClient, response.timeEnded != null);
+				await updateAlert(response, discordClient, response.timeEnded != null);
 			}
 			catch (err) {
 				if (typeof(err) !== 'string') {
-					checkError(row, pgClient, "Error during web request");
+					checkError(row, "Error during web request");
 				}
 				else if(err == "Error displaying territory"){
-					checkError(row, pgClient, err);
+					checkError(row, err);
 				}
 				else{
 					console.log("Error occurred when updating alert");

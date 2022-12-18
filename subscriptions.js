@@ -3,7 +3,6 @@
  * @module subscriptions
  */
 /**
- * @typedef {import('pg').Client} pg.Client
  * @typedef {import('discord.js').CommandInteraction} discord.Interaction 
  */
 
@@ -11,6 +10,7 @@ const config = require('./subscriptionConfig.js');
 const { censusRequest, badQuery, faction } = require('./utils.js')
 const { Permissions } = require('discord.js');
 const i18n = require('i18n');
+const pgClient = require('./db/index.js');
 
 /**
  * Case insensitive way of getting server names
@@ -94,14 +94,13 @@ const environmentToPlatform = {
 module.exports = {
     /**
      * Subscribes to outfit member login and logouts
-     * @param {pg.Client} pgClient - Postgres client to use
      * @param {string} channel - the id of the channel to update
      * @param {string} tag - the tag of the outfit to subscribe to
      * @param {string} environment - the platform of the outfit 
      * @returns a message of the outcome of the subscription
      * @throws if `tag` contains invalid characters
      */
-    subscribeActivity: async function(pgClient, channel, tag, environment){
+    subscribeActivity: async function(channel, tag, environment){
         //pgClient is the pgClient object from main
         //channel is the discord channel ID
         //tag is the outfit tag
@@ -118,7 +117,7 @@ module.exports = {
         const color = faction(outfit.faction).color
         pgClient.query("INSERT INTO outfitactivity (id, alias, color, channel, platform) VALUES ($1, $2, $3, $4, $5)", [outfit.ID, outfit.alias, color, channel, platform]);
         try{
-            await config.initializeConfig(channel, pgClient)
+            await config.initializeConfig(channel)
             return `Subscribed to ${outfit.alias} activity`;
         }
         catch(err){
@@ -128,14 +127,13 @@ module.exports = {
 
     /**
      * Unsubscribes from outfit member login and logouts
-     * @param {pg.Client} pgClient - Postgres client to use
      * @param {string} channel - the id of the channel to unsubscribe from
      * @param {string} tag - the tag of the outfit to unsubscribe from
      * @param {string} environment - the platform of the outfit 
      * @returns a message of the outcome of the unsubscription
      * @throws if `tag` contains invalid characters or if the outfit is not subscribed to
      */
-    unsubscribeActivity: async function(pgClient, channel, tag, environment){
+    unsubscribeActivity: async function(channel, tag, environment){
         if(badQuery(tag)){
 			throw "Outfit search contains disallowed characters";
 		}
@@ -151,19 +149,18 @@ module.exports = {
 
     /**
      * Subscribe to alerts on a server
-     * @param {pg.Client} pgClient - Postgres client to use
      * @param {string} channel - the id of the channel to send messages to
      * @param {string} server - the server of the alerts to get
      * @returns a message of the outcome of the subscription
      * @throws if already subscribed to the `server` alert
      */
-    subscribeAlert: async function(pgClient, channel, server){
+    subscribeAlert: async function(channel, server){
         let count = await pgClient.query("SELECT count(*) FROM alerts WHERE channel=$1 AND world=$2;", [channel, server]);
         if(count.rows[0].count == 0){
             pgClient.query("INSERT INTO alerts (channel, world) VALUES ($1, $2);", [channel, server]);
 
             try{
-                await config.initializeConfig(channel, pgClient);
+                await config.initializeConfig(channel);
                 return `Subscribed to ${standardizeName(server)} alerts`;
             }
             catch(err){
@@ -176,13 +173,12 @@ module.exports = {
 
     /**
      * Unsubscribe from alerts on a Server
-     * @param {pg.Client} pgClient - Postgres client to use 
      * @param {string} channel - the id of the channel to unsubscribe from
      * @param {string} server - the server of the alerts to unsubscribe from
      * @returns the message of the outcome of the unsubscription
      * @throws if not subscribed to the `server` alert
      */
-    unsubscribeAlert: async function(pgClient, channel, server){
+    unsubscribeAlert: async function(channel, server){
         let count = await pgClient.query("SELECT COUNT(*) FROM alerts WHERE channel = $1 AND world=$2", [channel, server]);
         if(count.rows[0].count == 0){
             throw `Not subscribed to ${standardizeName(server)} alerts`;
@@ -195,14 +191,13 @@ module.exports = {
 
     /**
      * Get updates on when an outfit captures a base
-     * @param {pg.Client} pgClient - Postgres client to use
      * @param {string} channel - the id of the channel to send messages to
      * @param {string} tag - the tag of the outfit
      * @param {string} environment - the platform of the outfit 
      * @returns the message of the outcome of the subscription
      * @throws if `tag` contains invalid characters or if the outfit is already subscribed to
      */
-    subscribeCaptures: async function(pgClient, channel, tag, environment){
+    subscribeCaptures: async function(channel, tag, environment){
         if(badQuery(tag)){
 			throw "Outfit search contains disallowed characters";
 		}
@@ -214,7 +209,7 @@ module.exports = {
         }
         await pgClient.query("INSERT INTO outfitcaptures (id, alias, channel, name, platform) VALUES ($1, $2, $3, $4, $5)", [outfit.ID, outfit.alias, channel, outfit.name, platform]);
         try{
-            await config.initializeConfig(channel, pgClient)
+            await config.initializeConfig(channel)
             return `Subscribed to ${outfit.alias} base captures`;
         }
         catch(err){
@@ -224,14 +219,13 @@ module.exports = {
 
     /**
      * Unsubscribe from updates on when an outfit captures a base
-     * @param {pg.Client} pgClient - Postgres client to use
      * @param {string} channel - the id of the channel to unsubscribe from
      * @param {string} tag - the tag of the outfit
      * @param {string} environment - the platform of the outfit 
      * @returns the message of the outcome of the unsubscription
      * @throws if `tag` contains invalid characters or if the outfit is not subscribed to
      */
-    unsubscribeCaptures: async function(pgClient, channel, tag, environment){
+    unsubscribeCaptures: async function(channel, tag, environment){
         if(badQuery(tag)){
 			throw "Outfit search contains disallowed characters";
 		}
@@ -247,13 +241,12 @@ module.exports = {
 
     /**
      * Subscribes to updates when a tracked twitter user posts a tweet
-     * @param {pg.Client} pgClient - Postgres client to use 
      * @param {string} channelId - the id of the channel to send messages to
      * @param {string} user - the twitter user to subscribe to
      * @returns the message of the outcome of the subscription
      * @throws if `user` contains invalid characters or if there is a query error or already subscribed to the twitter user
      */
-    subscribeTwitter: async function(pgClient, channelId, user){
+    subscribeTwitter: async function(channelId, user){
         if(badQuery(user)){
 			throw "User contains disallowed characters";
 		}
@@ -271,7 +264,7 @@ module.exports = {
                 throw error;
             }
             try{
-                await config.initializeConfig(channelId, pgClient);
+                await config.initializeConfig(channelId);
                 return `Subscribed to ${user} Twitter`;
             }
             catch(err){
@@ -284,13 +277,12 @@ module.exports = {
 
     /**
      * Unsubscribe from updates when a tracked twitter user posts a tweet
-     * @param {pg.Client} pgClient - Postgres client to use
      * @param {string} channelId - the id of the channel to unsubscribe from
      * @param {string} user - the twitter user to unsubscribe from
      * @returns the message of the outcome of the unsubscription
      * @throws if `user` contains invalid characters or if the twitter user is not subscribed to
      */
-    unsubscribeTwitter: async function(pgClient, channelId, user){
+    unsubscribeTwitter: async function(channelId, user){
         if(badQuery(user)){
 			throw "User contains disallowed characters";
 		}
@@ -315,18 +307,17 @@ module.exports = {
 
     /**
      * Subscribes to updates when a continent is unlocked on a server
-     * @param {pg.Client} pgClient - Postgres client to use
      * @param {string} channel - the id of the channel to send messages to
      * @param {string} server - the server to subscribe to
      * @returns the message of the outcome of the subscription
      * @throws if already subscribed to `server`
      */
-    subscribeUnlocks: async function(pgClient, channel, server){
+    subscribeUnlocks: async function(channel, server){
         let count = await pgClient.query("SELECT count(*) FROM unlocks WHERE channel=$1 AND world=$2;", [channel, server]);
         if(count.rows[0].count == 0){
             pgClient.query("INSERT INTO unlocks (channel, world) VALUES ($1, $2);", [channel, server]);
             try{
-                await config.initializeConfig(channel, pgClient)
+                await config.initializeConfig(channel)
                 return `Subscribed to ${standardizeName(server)} unlocks.  Configure which continents are shown using /config continents`;
             }
             catch(err){
@@ -339,13 +330,12 @@ module.exports = {
 
     /**
      * Unsubscribe from updates when a continent is unlocked on a server
-     * @param {pg.Client} pgClient - Postgres client to use
      * @param {string} channel - the id of the channel to unsubscribe from
      * @param {string} server - the server to unsubscribe from
      * @returns the outcome of the unsubscription
      * @throws if not subscribed to `server`
      */
-    unsubscribeUnlocks: async function(pgClient, channel, server){
+    unsubscribeUnlocks: async function(channel, server){
         let count = await pgClient.query("SELECT COUNT(*) FROM unlocks WHERE channel = $1 AND world=$2", [channel, server]);
         if(count.rows[0].count == 0){
             throw `Not subscribed to ${standardizeName(server)} unlocks`;
@@ -358,11 +348,10 @@ module.exports = {
 
     /**
      * Unsubscribe from all subscriptions
-     * @param {pg.Client} pgClient - Postgres client to use
      * @param {string} channelId - the id of the channel to unsubscribe from
      * @returns a message of the outcome of the unsubscription
      */
-    unsubscribeAll: async function(pgClient, channelId){
+    unsubscribeAll: async function(channelId){
         const commands = [
             "DELETE FROM alerts WHERE channel = $1",
             "DELETE FROM outfitactivity WHERE channel = $1",

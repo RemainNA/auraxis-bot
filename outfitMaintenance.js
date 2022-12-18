@@ -3,10 +3,10 @@
  * @module outfitMaintenance
  */
 /**
- * @typedef {import('pg').Client} pg.Client
  */
 
 const {censusRequest} = require('./utils.js');
+const pgClient = require('./db/index.js');
 
 /**
  * `platform`: `environment`
@@ -24,9 +24,8 @@ const platformToEnvironment = {
 module.exports = {
 	/**
 	 * Update current outfit tag/name to new tag/name if it has changed
-	 * @param {pg.Client} pgClient - Postgres client to use
 	 */
-	update: async function(pgClient){
+	update: async function(){
 		let outfitIDs = [];
 		const activity = await pgClient.query("SELECT DISTINCT id, platform FROM outfitactivity;");
 		const captures = await pgClient.query("SELECT DISTINCT id, platform FROM outfitcaptures;");

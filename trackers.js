@@ -3,7 +3,6 @@
  * @module tracker
  */
 /**
- * @typedef {import('pg').Client} pg.Client
  * @typedef {import('discord.js').Client} discord.Client
  */
 
@@ -12,6 +11,7 @@ const {territoryInfo} = require('./territory.js');
 const {onlineInfo} = require('./online.js');
 const {alertInfo} = require('./alerts.js');
 const {serverNames, serverIDs, servers, continents, continentNames, faction} = require('./utils.js');
+const pgClient = require('./db/index.js');
 
 /**
  * Get a string of the name and total population of a server
@@ -86,9 +86,8 @@ const outfitName = async function(outfitID, platform){
  * @param {string} name - the name to update the channel with
  * @param {string} channelID - the channel to update
  * @param {discord.Client} discordClient - the discord Client
- * @param {pg.Client} pgClient - the postgres client
  */
-const updateChannelName = async function(name, channelID, discordClient, pgClient){
+const updateChannelName = async function(name, channelID, discordClient){
 	try{
 		let channel = await discordClient.channels.fetch(channelID);
 		if(name != channel.name){ //Just avoid unneeded edits
@@ -118,11 +117,10 @@ module.exports = {
 	 * @param {string} serverName - the server to check
 	 * @param guild - the discord guild
 	 * @param {discord.Client} discordClient - the discord Client
-	 * @param {pg.Client} pgClient - the postgres client
 	 * @returns A string saying the tracker channel was created
 	 * @throws if bot is missing permissions to create channels
 	 */
-	create: async function(type, serverName, guild, discordClient, pgClient){
+	create: async function(type, serverName, guild, discordClient){
 		try{
 			let name = "";
 			if(type == "population"){
@@ -166,11 +164,10 @@ module.exports = {
 	 * @param {boolean} showFaction - if true, show faction indicator in tracker
 	 * @param guild - the discord guild
 	 * @param {discord.Client} discordClient - the discord Client
-	 * @param {pg.Client} pgClient - the postgres client
 	 * @returns a string saying the tracker channel for outfits was created
 	 * @throws if bot is missing permissions to create channels
 	 */
-	createOutfit: async function(tag, platform, showFaction, guild, discordClient, pgClient){
+	createOutfit: async function(tag, platform, showFaction, guild, discordClient){
 		try{
 			const oInfo = await onlineInfo(tag, platform);
 			let name = await outfitName(oInfo.outfitID, platform);
@@ -210,11 +207,10 @@ module.exports = {
 
 	/**
 	 * Used to update the tracker channels
-	 * @param {pg.Client} pgClient - the postgres client
 	 * @param {discord.Client} discordClient - the discord Client
 	 * @param {boolean} continentOnly - if false only update population and outfits
 	 */
-	update: async function(pgClient, discordClient, continentOnly = false){
+	update: async function(discordClient, continentOnly = false){
 		for(const serverName of servers){
 			if(!continentOnly){
 				try{
@@ -250,10 +246,10 @@ module.exports = {
 						const channels = await pgClient.query("SELECT channel, showfaction FROM outfittracker WHERE outfitid = $1 AND platform = $2;", [row.outfitid, row.platform]);
 						for(const channelRow of channels.rows){
 							if(channelRow.showfaction){
-								await updateChannelName(oName.faction, channelRow.channel, discordClient, pgClient);
+								await updateChannelName(oName.faction, channelRow.channel, discordClient);
 							}
 							else{
-								await updateChannelName(oName.noFaction, channelRow.channel, discordClient, pgClient);
+								await updateChannelName(oName.noFaction, channelRow.channel, discordClient);
 							}
 						}
 					}

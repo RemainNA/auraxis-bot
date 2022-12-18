@@ -3,7 +3,6 @@
  * @module openContinents
  */
 /**
- * @typedef {import('pg').Client} pg.Client
  * @typedef {import('discord.js').Client} discord.Client
  */
 
@@ -13,6 +12,7 @@ const {send} = require('./messageHandler.js');
 const {unsubscribeAll} = require('./subscriptions.js');
 const {Permissions} = require('discord.js');
 const trackers = require('./trackers.js');
+const pgClient = require('./db/index.js');
 
 /**
  * continentName: continentId
@@ -31,10 +31,9 @@ const contIDs = {
  * @param {string} cont - continent name that is open
  * @param {string} server - continent the server is in
  * @param {string} channelID - subscribed channel  ID
- * @param {pg.Client} pgClient - postgres client to use
  * @param {discord.Client} discordClient - discord client to use
  */
-const notifyUnlock = async function(cont, server, channelID, pgClient, discordClient){
+const notifyUnlock = async function(cont, server, channelID, discordClient){
 	try{
 		const channel = await discordClient.channels.fetch(channelID);
 		if(typeof(channel.guild) !== 'undefined'){
@@ -42,21 +41,21 @@ const notifyUnlock = async function(cont, server, channelID, pgClient, discordCl
 				await send(channel, `${cont} on ${server} is now open!`, "Continent unlock");
 			}
 			else{
-				unsubscribeAll(pgClient, channelID);
+				unsubscribeAll(channelID);
 				console.log(`Unsubscribed from ${channelID}`);
 			}
 		}
 		else{
 			const res = await send(channel, `${cont} on ${server} is now open!`, "Continent unlock");
 			if(res == -1){
-				unsubscribeAll(pgClient, channelID);
+				unsubscribeAll(channelID);
 				console.log(`Unsubscribed from ${channelID}`);
 			}
 		}
 	}
 	catch(err){
 		if(err.code == 10003){ //Unknown channel error, thrown when the channel is deleted
-			unsubscribeAll(pgClient, channelID);
+			unsubscribeAll(channelID);
 			console.log(`Unsubscribed from ${channelID}`);
 		}
 		else{
@@ -69,10 +68,9 @@ const notifyUnlock = async function(cont, server, channelID, pgClient, discordCl
 module.exports = {
 	/**
 	 * Send a notification to subscribed channels that a continent has been opened
-	 * @param {pg.Client} pgClient - postgres client to use
 	 * @param {discord.Client} discordClient - discord client to use
 	 */
-	check: async function(pgClient, discordClient){
+	check: async function(discordClient){
 		for(const server of servers){
 			try{
 				const now = new Date().toISOString();
@@ -93,7 +91,7 @@ module.exports = {
 							WHERE u.world = $1;", [server]);
 							for (const row of result.rows){
 								if(row[cont.toLowerCase()]){
-									await notifyUnlock(cont, serverNames[serverIDs[server]], row.channel, pgClient, discordClient);
+									await notifyUnlock(cont, serverNames[serverIDs[server]], row.channel, discordClient);
 								}
 							}
 						}
@@ -101,7 +99,7 @@ module.exports = {
 							console.log("Unlock error");
 							console.log(err);
 						}
-						trackers.update(pgClient, discordClient, true); //Update trackers with new continent
+						trackers.update(discordClient, true); //Update trackers with new continent
 					}
 					if(territory[cont].locked == -1 != currentStatus.rows[0][cont.toLowerCase()]){
 						// Update timestamp if there is a change

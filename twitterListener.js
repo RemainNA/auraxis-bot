@@ -5,13 +5,13 @@
  * @module twitterListener
  */
 /**
- * @typedef {import('pg').Client} pg.Client
  * @typedef {import('discord.js').ChannelManager} discord.channels
  */
 
 const { fetch } = require('undici');
 const messageHandler = require('./messageHandler.js');
 const subscriptions = require('./subscriptions.js');
+const SQLclient = require('./db/index.js');
 
 const token = process.env.TWITTER_BEARER_TOKEN;
 
@@ -101,11 +101,10 @@ async function setRules() {
 
 /**
  * Send new twitter messages to subscribed discord channels, on each new sent tweet  it is stord as the latest tweet for the user
- * @param {pg.Client} SQLclient - Used to query the DB to find the discord channels to send messages to
  * @param {discord.channels} channels - channel manager used to fetch discord channel object based on their ids stored in the DB
  * @param jsonObj - the JSON object from the Twitter API
  */
-async function postMessage(SQLclient, channels, jsonObj){
+async function postMessage(channels, jsonObj){
 	if(jsonObj.data == undefined){
 		return;
 	}
@@ -138,13 +137,13 @@ async function postMessage(SQLclient, channels, jsonObj){
 				messageHandler.send(resChann, `${baseText}${url}`, "Twitter message");
 			}
 			else{
-				subscriptions.unsubscribeAll(SQLclient, row.channel);
+				subscriptions.unsubscribeAll(row.channel);
 				console.log(`Unsubscribed from ${row.channel}`);
 			}
 		} 
 		catch (error) {
 			if(error?.code == 10003){ //Unknown channel error, thrown when the channel is deleted
-				subscriptions.unsubscribeAll(SQLclient, row.channel);
+				subscriptions.unsubscribeAll(row.channel);
 				console.log(`Unsubscribed from ${row.channel}`);
 			}
 			else if(error?.code == 50013 || error?.code == 50001){ //Missing access/permissions error
@@ -180,11 +179,10 @@ module.exports = {
 	},
 	/**
 	 * Connect to the Twitter API stream and send new tweets to subscribed discord channels
-	 * @param {pg.Client} SQLclient - Used to query the DB to find the discord channels to send messages to
 	 * @param {discord.channels} channels - channel manager used to fetch discord channel object based on their ids stored in the DB
 	 * @param {number} timeout - the amount of time to wait before reconnecting to the stream
 	 */
-	 connect: async function (SQLclient, channels, timeout=60000) {
+	 connect: async function (channels, timeout=60000) {
 		const streamURL = 'https://api.twitter.com/2/tweets/search/stream?&user.fields=username&tweet.fields=in_reply_to_user_id&expansions=referenced_tweets.id,author_id';
 		const response = await fetch(streamURL, {
 			headers: {
@@ -199,7 +197,7 @@ module.exports = {
 			console.log(`Twitter HTTP error: ${response.status}`);
 			console.log('Reconnecting in 15 minutes');
 			setTimeout(() => {
-				this.connect(SQLclient, channels);
+				this.connect(channels);
 			}, 910000);
 			return;
 		}
@@ -215,7 +213,7 @@ module.exports = {
 				const data = Buffer.from(chunk).toString('utf8');
 				try {
 					const jsonObj = JSON.parse(data);
-					postMessage(SQLclient, channels, jsonObj);
+					postMessage(channels, jsonObj);
 				} 
 				catch (e) {/** heart beat do nothing */}
 			}	
@@ -230,16 +228,15 @@ module.exports = {
 			console.log(`Twitter Stream issue: ${error.cause.code}`);
 			console.log('Twitter Stream ended. Reconnecting...');
 			setTimeout(() => {
-				this.connect(SQLclient, channels, timeout*2);
+				this.connect(channels, timeout*2);
 			}, timeout);
 		}
 	},
 	/**
 	 * Update the latest tweets in the database and post missed tweets to subscribed discord channels
-	 * @param {pg.Client} SQLclient - Used to query the DB to update the latest tweetID and post missed tweets to subscribed discord channels
 	 * @param {discord.channels} channels - channel manager used to fetch discord channel object based on their ids stored in the DB
 	 */
-	latestTweet: async function(SQLclient, channels) {
+	latestTweet: async function(channels) {
 		const res = await SQLclient.query('SELECT userid, tweetid FROM latestTweets');
 		for (const user of res.rows) {
 			const response = await fetch(`https://api.twitter.com/2/users/${user.userid}/tweets?&since_id=${user.tweetid}&user.fields=username&tweet.fields=in_reply_to_user_id&expansions=referenced_tweets.id,author_id`, 
@@ -251,9 +248,9 @@ module.exports = {
 			const json = await response.json()
 			const tweets = json.data?.reverse();
 			tweets?.forEach(tweet => {
-				postMessage(SQLclient, channels, {includes: json.includes, data: tweet});
+				postMessage(channels, {includes: json.includes, data: tweet});
 			});
 		}
-		setTimeout(() => this.latestTweet(SQLclient, channels), 600000);
+		setTimeout(() => this.latestTweet(channels), 600000);
 	}
 }

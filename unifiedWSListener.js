@@ -3,7 +3,6 @@
  * @module unifiedWSListener
  */
 /**
- * @typedef {import('pg').Client} pg.Client
  * @typedef {import('discord.js').Client} discord.Client
  */
 
@@ -19,11 +18,10 @@ const EU_URI = `wss://push.nanite-systems.net/streaming?environment=ps2ps4eu&ser
 
 /**
  * Create and listen on PC census stream, will automatically restart the listener on an error
- * @param {pg.Client} pgClient - postgres client to query the database
  * @param {discord.Client} discordClient - discord client to use
  * @param {number} pcTimeout - growth factor of reconnection logic for PC stream listener
  */
-function PCStream(pgClient, discordClient, pcTimeout = 0) {
+function PCStream(discordClient, pcTimeout = 0) {
     const pcClient = new WebSocket(PC_URI);
 
     pcClient.on('open', () => {
@@ -34,7 +32,7 @@ function PCStream(pgClient, discordClient, pcTimeout = 0) {
     pcClient.on('message', (data) => {
         const parsed = JSON.parse(data.toString());
         if (parsed.payload !== undefined) {
-            router(parsed.payload, "ps2:v2", pgClient, discordClient);
+            router(parsed.payload, "ps2:v2", discordClient);
         }
     });
 
@@ -45,17 +43,16 @@ function PCStream(pgClient, discordClient, pcTimeout = 0) {
     pcClient.on('close', () => {
         console.log("Restarting socket");
         setTimeout(() => {
-            PCStream(pgClient, discordClient, ++pcTimeout);
+            PCStream(discordClient, ++pcTimeout);
         }, Math.min(1000 * (2 ** pcTimeout), 300000));
     });
 }
 /**
  * Create and listen on PS4 US census stream, will automatically restart the listener on an error
- * @param {pg.Client} pgClient - postgres client to query the database
  * @param {discord.Client} discordClient - discord client to use
  * @param {number} usTimeout - growth factor of reconnection logic for PS4 US stream listener
  */
-function PS4USStream(pgClient, discordClient, usTimeout = 0) {
+function PS4USStream(discordClient, usTimeout = 0) {
     const usClient = new WebSocket(US_URI);
 
     usClient.on('open', () => {
@@ -66,7 +63,7 @@ function PS4USStream(pgClient, discordClient, usTimeout = 0) {
     usClient.on('message', (data) => {
         const parsed = JSON.parse(data.toString());
         if (parsed.payload !== undefined) {
-            router(parsed.payload, "ps2ps4us:v2", pgClient, discordClient);
+            router(parsed.payload, "ps2ps4us:v2", discordClient);
         }
     });
 
@@ -77,17 +74,16 @@ function PS4USStream(pgClient, discordClient, usTimeout = 0) {
     usClient.on('close', () => {
         console.log("Restarting socket");
         setTimeout(() => {
-            PS4USStream(pgClient, discordClient, ++usTimeout);
+            PS4USStream(discordClient, ++usTimeout);
         }, Math.min(1000 * (2 ** usTimeout), 300000));
     });
 }
 /**
  * Create and listen on PS4 EU census stream, will automatically restart the listener on an error
- * @param {pg.Client} pgClient - postgres client to query the database
  * @param {discord.Client} discordClient - discord client to use
  * @param {number} euTimeout - growth factor of reconnection logic for PS4 EU stream listener
  */
-function PS4EUStream(pgClient, discordClient, euTimeout = 0) {
+function PS4EUStream(discordClient, euTimeout = 0) {
     const euClient = new WebSocket(EU_URI);
 
     euClient.on('open', () => {
@@ -98,7 +94,7 @@ function PS4EUStream(pgClient, discordClient, euTimeout = 0) {
     euClient.on('message', (data) => {
         const parsed = JSON.parse(data.toString());
         if (parsed.payload !== undefined) {
-            router(parsed.payload, "ps2ps4eu:v2", pgClient, discordClient);
+            router(parsed.payload, "ps2ps4eu:v2", discordClient);
         }
     });
 
@@ -109,19 +105,18 @@ function PS4EUStream(pgClient, discordClient, euTimeout = 0) {
     euClient.on('close', () => {
         console.log("Restarting socket");
         setTimeout(() => {
-            PS4EUStream(pgClient, discordClient, ++euTimeout);
+            PS4EUStream(discordClient, ++euTimeout);
         }, Math.min(1000 * (2 ** euTimeout), 300000));
     });
 }
 module.exports = {
     /**
      * Create and start census Stream listeners for the three platforms
-     * @param {pg.Client} pgClient - postgres client to query the database
      * @param {discord.Client} discordClient - discord client to use
      */
-    start: function (pgClient, discordClient) {
-        PCStream(pgClient, discordClient);
-        PS4USStream(pgClient, discordClient);
-        PS4EUStream(pgClient, discordClient);
+    start: function (discordClient) {
+        PCStream(discordClient);
+        PS4USStream(discordClient);
+        PS4EUStream(discordClient);
     }
 };

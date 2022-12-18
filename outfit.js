@@ -1,12 +1,12 @@
 /**
  * Look up basic information about an outfit
  * @module outfit
- * @typedef { import('pg').Client} pg.Client
  */
 const Discord = require('discord.js');
 const { serverNames, badQuery, censusRequest, localeNumber, faction } = require('./utils.js');
 const bases = require('./static/bases.json');
 const i18n = require('i18n');
+const pgClient = require('./db/index.js');
 
 /**
  * Get basic information about an outfit, online members, owned bases etc.
@@ -88,10 +88,9 @@ const basicInfo = async function(oTag, platform, oID, locale="en-US"){
  * Get the bases an outfit owns
  * @param {string} outfitID - outfit ID to query the database with
  * @param {number} worldID - the server ID the outfit is on
- * @param {pg.Client} pgClient - Postgres client to use
  * @returns Array of owned bases
  */
-const ownedBases = async function(outfitID, worldID, pgClient){
+const ownedBases = async function(outfitID, worldID){
 	let oBases = [];
 	try{
 		const res = await pgClient.query("SELECT * FROM bases WHERE outfit = $1 AND world = $2;", [outfitID, worldID]);
@@ -137,13 +136,12 @@ module.exports = {
 	 * Generate a discord embed overview of an outfit
  	 * @param {string} oTag - outfit tag to query the PS2 Census API with
  	 * @param {string} platform - which platform to request, eg. ps2:v2, ps2ps4us:v2, or ps2ps4eu:v2
- 	 * @param {pg.Client} pgClient - Postgres client to use
  	 * @param {string | null} oID - outfit ID to query the PS2 Census API with 
  	 * @param {string} locale - locale to use e.g. en-US
 	 * @returns a discord embed object and an Array of buttons
 	 * @throw if `oTag` contains invalid characters or it too long
 	 */
-	outfit: async function(oTag, platform, pgClient, oID = null, locale = "en-US"){
+	outfit: async function(oTag, platform, oID = null, locale = "en-US"){
 		if(badQuery(oTag)){
 			throw i18n.__({phrase: "Outfit search contains disallowed characters", locale: locale});
 		}
@@ -152,7 +150,7 @@ module.exports = {
 		}
 
 		const oInfo = await basicInfo(oTag, platform, oID);
-		const oBases = await ownedBases(oInfo.outfitID, oInfo.worldId, pgClient);
+		const oBases = await ownedBases(oInfo.outfitID, oInfo.worldId);
 
 		let resEmbed = new Discord.MessageEmbed();
 

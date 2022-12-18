@@ -2,14 +2,12 @@
  * This file defines functions used in finding and returning the current territory control on a given server, broken up by continent
  * @module territory
  */
-/**
- * @typedef {import('pg').Client} pg.Client
- */
 
 const Discord = require('discord.js');
 const { serverNames, serverIDs, censusRequest, continents, localeNumber, faction } = require('./utils');
 const i18n = require('i18n');
 const ignoredRegions = require('./static/ignoredRegions.json');
+const pgClient = require('./db/index.js');
 
 /**
  * Used to get the correct fisu world control URL
@@ -187,11 +185,10 @@ module.exports = {
     /**
      * Get the current continent info on a server to post in discord
      * @param {string} serverName - name of the server
-     * @param {pg.Client} pgClient - postgres client
      * @param {string} locale - locale to use for translations
      * @returns A discord embed with the current continent info
      */
-    territory: async function(serverName, pgClient, locale="en-US"){
+    territory: async function(serverName, locale="en-US"){
 
         const serverID = serverIDs[serverName];
         let terObj = await this.territoryInfo(serverID);

@@ -6,11 +6,11 @@
 // Load environment variables
  require('dotenv').config();
 
-// Import the discord.js module
-const Discord = require('discord.js');
-
-//PostgreSQL connection
-const pg = require('pg');
+  // Import the discord.js module
+ const Discord = require('discord.js');
+ 
+ //PostgreSQL connection
+ require('./db/index.js');
 
 // Internationalization
 const i18n = require('i18n');
@@ -77,42 +77,33 @@ const client = new Discord.Client({intents: intentsList, allowedMentions: {parse
 // https://discordapp.com/developers/applications/me
 const token = process.env.token;
 
-let SQLclient = undefined;
-
 client.on('ready', async () => {
 	console.log('Running on '+client.guilds.cache.size+' servers!');
 	if(runningOnline){
-		SQLclient = new pg.Client({
-			connectionString: process.env.DATABASE_URL,
-			ssl: {rejectUnauthorized: false}
-		});
-
-		await SQLclient.connect();
-
-		listener.start(SQLclient, client);
+		listener.start(client, client);
 		if(twitterAvail){
 			twitterListener.init();
-			twitterListener.connect(SQLclient, client.channels);
-			twitterListener.latestTweet(SQLclient, client.channels);
+			twitterListener.connect(client, client.channels);
+			twitterListener.latestTweet(client, client.channels);
 		}
 		/** The bot cycles every 24 hours, so these will be called every 24 hours */
-		outfitMaintenance.update(SQLclient);
-		alertMaintenance.update(SQLclient, client);
-		deleteMessages.run(SQLclient, client);
-		openContinents.check(SQLclient, client);
-		trackers.update(SQLclient, client);
-		dashboard.update(SQLclient, client);
+		outfitMaintenance.update(client);
+		alertMaintenance.update(client);
+		deleteMessages.run(client);
+		openContinents.check(client);
+		trackers.update(client);
+		dashboard.update(client);
 
 		setInterval(function () { 
-			deleteMessages.run(SQLclient, client);
-			openContinents.check(SQLclient, client);
+			deleteMessages.run(client);
+			openContinents.check(client);
 		}, 60000); //Update alerts every minute
 		setInterval(function() {
-			alertMaintenance.update(SQLclient, client);
-			dashboard.update(SQLclient, client);
+			alertMaintenance.update(client);
+			dashboard.update(client);
 		}, 300000) //Update dashboards every 5 minutes
 		setInterval(function() {
-			trackers.update(SQLclient, client);
+			trackers.update(client);
 		}, 600000) //Update trackers every 10 minutes
 	}
 
@@ -243,7 +234,7 @@ client.on('interactionCreate', async interaction => {
 				}
 				await interaction.deferReply();
 				const outfitLookups = await Promise.allSettled(Array.from(outfitTags, x => 
-					outfit.outfit(x, options.getString('platform') || 'ps2:v2', SQLclient, null, interaction.locale)));
+					outfit.outfit(x, options.getString('platform') || 'ps2:v2', null, interaction.locale)));
 				for(const res of outfitLookups){
 					let toSend = "";
 					if(res.status == "rejected"){
@@ -311,7 +302,7 @@ client.on('interactionCreate', async interaction => {
 				await interaction.deferReply();
 				switch(options.getSubcommand()){
 				case 'view':
-					res = await subscriptionConfig.displayConfig(interaction.channelId, SQLclient);
+					res = await subscriptionConfig.displayConfig(interaction.channelId);
 					if(typeof(res) === 'string'){
 						await interaction.editReply(res);
 					}
@@ -321,22 +312,22 @@ client.on('interactionCreate', async interaction => {
 					break;
 
 				case 'audit':
-					res = await subscriptionConfig.audit(interaction.channelId, SQLclient);
+					res = await subscriptionConfig.audit(interaction.channelId);
 					await interaction.editReply(res);
 					break;
 
 				case 'continent':
-					res = await subscriptionConfig.setContinent(options.getString("continent"), options.getString("setting"), interaction.channelId, SQLclient);
+					res = await subscriptionConfig.setContinent(options.getString("continent"), options.getString("setting"), interaction.channelId, client);
 					await interaction.editReply(res);
 					break;
 				
 				case 'autodelete':
-					res = await subscriptionConfig.setAutoDelete(options.getString("setting"), interaction.channelId, SQLclient);
+					res = await subscriptionConfig.setAutoDelete(options.getString("setting"), interaction.channelId);
 					await interaction.editReply(res);
 					break;
 
 				case 'alert-types':
-					res = await subscriptionConfig.setAlertTypes(options.getString("type"), options.getBoolean("setting"), interaction.channelId, SQLclient);
+					res = await subscriptionConfig.setAlertTypes(options.getString("type"), options.getBoolean("setting"), interaction.channelId, client);
 					await interaction.editReply(res);
 					break;
 				
@@ -350,27 +341,27 @@ client.on('interactionCreate', async interaction => {
 				await interaction.deferReply();
 				switch(options.getSubcommand()){
 				case 'alerts':
-					res = await subscription.subscribeAlert(SQLclient, interaction.channelId, options.getString('server'));
+					res = await subscription.subscribeAlert(interaction.channelId, options.getString('server'));
 					await interaction.editReply(res);
 					break;
 
 				case 'activity':
-					res = await subscription.subscribeActivity(SQLclient, interaction.channelId, options.getString('tag'), options.getString('platform') || 'ps2:v2');
+					res = await subscription.subscribeActivity(interaction.channelId, options.getString('tag'), options.getString('platform') || 'ps2:v2');
 					await interaction.editReply(res);
 					break;
 
 				case 'captures':
-					res = await subscription.subscribeCaptures(SQLclient, interaction.channelId, options.getString('tag'), options.getString('platform') || 'ps2:v2');
+					res = await subscription.subscribeCaptures(interaction.channelId, options.getString('tag'), options.getString('platform') || 'ps2:v2');
 					await interaction.editReply(res);
 					break;
 
 				case 'twitter':
-					res = await subscription.subscribeTwitter(SQLclient, interaction.channelId, options.getString('user'));
+					res = await subscription.subscribeTwitter(interaction.channelId, options.getString('user'));
 					await interaction.editReply(res);
 					break;
 
 				case 'unlocks':
-					res = await subscription.subscribeUnlocks(SQLclient, interaction.channelId, options.getString('server'));
+					res = await subscription.subscribeUnlocks(interaction.channelId, options.getString('server'));
 					await interaction.editReply(res);
 					break;
 
@@ -387,32 +378,32 @@ client.on('interactionCreate', async interaction => {
 				await interaction.deferReply();
 				switch(options.getSubcommand()){
 				case 'alerts':
-					res = await subscription.unsubscribeAlert(SQLclient, interaction.channelId, options.getString("server"));
+					res = await subscription.unsubscribeAlert(interaction.channelId, options.getString("server"));
 					await interaction.editReply(res);
 					break;
 
 				case 'activity':
-					res = await subscription.unsubscribeActivity(SQLclient, interaction.channelId, options.getString("tag"), options.getString("platform") || 'ps2:v2');
+					res = await subscription.unsubscribeActivity(interaction.channelId, options.getString("tag"), options.getString("platform") || 'ps2:v2');
 					await interaction.editReply(res);
 					break;
 
 				case 'captures':
-					res = await subscription.unsubscribeCaptures(SQLclient, interaction.channelId, options.getString("tag"), options.getString("platform") || 'ps2:v2');
+					res = await subscription.unsubscribeCaptures(interaction.channelId, options.getString("tag"), options.getString("platform") || 'ps2:v2');
 					await interaction.editReply(res);
 					break;
 
 				case 'twitter':
-					res = await subscription.unsubscribeTwitter(SQLclient, interaction.channelId, options.getString("user"));
+					res = await subscription.unsubscribeTwitter(interaction.channelId, options.getString("user"));
 					await interaction.editReply(res);
 					break;
 
 				case 'unlocks':
-					res = await subscription.unsubscribeUnlocks(SQLclient, interaction.channelId, options.getString("server"));
+					res = await subscription.unsubscribeUnlocks(interaction.channelId, options.getString("server"));
 					await interaction.editReply(res);
 					break;
 
 				case 'all':
-					res = await subscription.unsubscribeAll(SQLclient, interaction.channelId);
+					res = await subscription.unsubscribeAll(interaction.channelId);
 					await interaction.editReply(res);
 					break;
 
@@ -430,7 +421,7 @@ client.on('interactionCreate', async interaction => {
 
 			case 'territory':
 				await interaction.deferReply();
-				res = await territory.territory(options.getString("server"), SQLclient, interaction.locale);
+				res = await territory.territory(options.getString("server"), interaction.locale);
 				await interaction.editReply({embeds: [res]});
 				break;
 
@@ -471,12 +462,12 @@ client.on('interactionCreate', async interaction => {
 				await interaction.deferReply();
 				switch(options.getSubcommand()){
 				case 'server':
-					res = await dashboard.createServer(interaction.channel, options.getString("server"), SQLclient);
+					res = await dashboard.createServer(interaction.channel, options.getString("server"));
 					await interaction.editReply(res);
 					break;
 
 				case 'outfit':
-					res = await dashboard.createOutfit(interaction.channel, options.getString("tag").toLowerCase(), options.getString('platform') || 'ps2:v2', SQLclient);
+					res = await dashboard.createOutfit(interaction.channel, options.getString("tag").toLowerCase(), options.getString('platform') || 'ps2:v2');
 					await interaction.editReply(res);
 					break;
 
@@ -493,12 +484,12 @@ client.on('interactionCreate', async interaction => {
 				await interaction.deferReply();
 				switch(options.getSubcommand()){
 					case 'server':
-						res = await trackers.create(options.getString('type'), options.getString('server'), interaction.guild, client, SQLclient);
+						res = await trackers.create(options.getString('type'), options.getString('server'), interaction.guild, client);
 						await interaction.editReply(res);
 						break;
 	
 					case 'outfit':
-						res = await trackers.createOutfit(options.getString('tag').toLowerCase(), options.getString('platform') || 'ps2:v2', options.getBoolean('show-faction'), interaction.guild, client, SQLclient);
+						res = await trackers.createOutfit(options.getString('tag').toLowerCase(), options.getString('platform') || 'ps2:v2', options.getBoolean('show-faction'), interaction.guild, client);
 						await interaction.editReply(res);
 						break;
 	
@@ -596,7 +587,7 @@ client.on('interactionCreate', async interaction => {
 
 				case 'outfit':
 					await interaction.deferReply({ephemeral: false});
-					const outfitRes = await outfit.outfit("", options[2], SQLclient, options[1], interaction.locale);
+					const outfitRes = await outfit.outfit("", options[2], options[1], interaction.locale);
 					await interaction.editReply({embeds: [outfitRes[0]], components: outfitRes[1]});
 					break;
 

@@ -3,7 +3,6 @@
  * @module unifiedWSHandler
  */
 /**
- * @typedef {import('pg').Client} pg.Client
  * @typedef {import('discord.js').Client} discord.Client
  */
 
@@ -16,6 +15,7 @@ const alerts = require('./static/alerts.json');
 const bases = require('./static/bases.json');
 const trackers = require('./trackers.js');
 const {serverNames, censusRequest, faction} = require('./utils.js');
+const pgClient = require('./db/index.js');
 
 const wait = require('util').promisify(setTimeout);
 
@@ -35,11 +35,10 @@ const environmentToPlatform = {
  * Tracks player login and logout events
  * @param payload - The payload from the Stream API
  * @param {string} environment - which enviorment to query for
- * @param {pg.Client} pgClient - postgres client to use
  * @param {discord.Client} discordClient - discord client to use
  * @throws if there are error in logEvent
  */
-const logEvent = async function(payload, environment, pgClient, discordClient){
+const logEvent = async function(payload, environment, discordClient){
     let response = await censusRequest(environment, 'character_list', `/character/${payload.character_id}?c:resolve=outfit_member`);
     let platform = environmentToPlatform[environment];
     let playerEvent = payload.event_name.substring(6);
@@ -75,7 +74,7 @@ const logEvent = async function(payload, environment, pgClient, discordClient){
                                 
                             }
                             else{
-                                subscriptions.unsubscribeAll(pgClient, row.channel);
+                                subscriptions.unsubscribeAll(row.channel);
                                 console.log('Unsubscribed from '+row.channel);
                             } 
                         }
@@ -88,7 +87,7 @@ const logEvent = async function(payload, environment, pgClient, discordClient){
                                         .catch(err => {console.log(err);});
                                 }
                                 else if(messageId == -1){
-                                    subscriptions.unsubscribeAll(pgClient, row.channel);
+                                    subscriptions.unsubscribeAll(row.channel);
                                     console.log('Unsubscribed from '+row.channel);
                                 }
                             })
@@ -97,7 +96,7 @@ const logEvent = async function(payload, environment, pgClient, discordClient){
                     .catch(error => {
                         if(typeof(error.code) !== 'undefined'){
                             if(error.code == 10003){ //Unknown channel error, thrown when the channel is deleted
-                                subscriptions.unsubscribeAll(pgClient, row.channel);
+                                subscriptions.unsubscribeAll(row.channel);
                                 console.log('Unsubscribed from '+row.channel);
                             }
                         }
@@ -178,10 +177,9 @@ const trackedAlerts = [
  * Sends an alert embed to all channels that are subscribed to `/alerts`
  * @param payload - The payload from the Stream API
  * @param {string} environment - which enviorment to query for
- * @param {pg.Client} pgClient - postgres client to use
  * @param {discord.Client} discordClient - discord client to use
  */
-const alertEvent = async function(payload, environment, pgClient, discordClient){
+const alertEvent = async function(payload, environment, discordClient){
     if(payload.metagame_event_state_name == "started"){
         let server = serverNames[payload.world_id];
         let response = await alertInfo(payload, environment);
@@ -267,7 +265,7 @@ const alertEvent = async function(payload, environment, pgClient, discordClient)
             for (let row of rows.rows){
                 if(row[continent.toLowerCase()] == null){
                     // If config is not successfully set then display alert and attempt to initialize config
-                    config.initializeConfig(row.channel, pgClient);
+                    config.initializeConfig(row.channel);
                 }
                 else if(!row[continent.toLowerCase()] || (showTerritory && !row['territory']) || (!showTerritory && !row['nonterritory'])){
                     // Skip alerts configured to not show
@@ -298,7 +296,7 @@ const alertEvent = async function(payload, environment, pgClient, discordClient)
                                 });
                             }
                             else{
-                                subscriptions.unsubscribeAll(pgClient, row.channel);
+                                subscriptions.unsubscribeAll(row.channel);
                                 console.log('Unsubscribed from '+row.channel);
                             } 
                         }
@@ -322,7 +320,7 @@ const alertEvent = async function(payload, environment, pgClient, discordClient)
                                     }    
                                 }
                                 else if(messageId == -1){
-                                    subscriptions.unsubscribeAll(pgClient, row.channel);
+                                    subscriptions.unsubscribeAll(row.channel);
                                     console.log('Unsubscribed from '+row.channel);
                                 }
                             });
@@ -331,7 +329,7 @@ const alertEvent = async function(payload, environment, pgClient, discordClient)
                     .catch(error => {
                         if(typeof(error.code) !== 'undefined'){
                             if(error.code == 10003){ //Unknown channel error, thrown when the channel is deleted
-                                subscriptions.unsubscribeAll(pgClient, row.channel);
+                                subscriptions.unsubscribeAll(row.channel);
                                 console.log('Unsubscribed from '+row.channel);
                             }
                         }
@@ -340,7 +338,7 @@ const alertEvent = async function(payload, environment, pgClient, discordClient)
                         }
                     });
             }
-            trackers.update(pgClient, discordClient, true); //Update trackers with new alert
+            trackers.update(discordClient, true); //Update trackers with new alert
         }
     }
 }
@@ -380,11 +378,10 @@ const centralBases = [
  * Send base event notification to all subscribed channels whenever a tracked outfit captures a base
  * @param payload - the payload from the event
  * @param {string} environment - the environment the outfit is in
- * @param {pg.Client} pgClient - postgres client to use
  * @param {discord.Client} discordClient - discord client to use
  * @returns 
  */
-const baseEvent = async function(payload, environment, pgClient, discordClient){
+const baseEvent = async function(payload, environment, discordClient){
     if(payload.new_faction_id == payload.old_faction_id){
         return; //Ignore defended bases
     }
@@ -444,7 +441,7 @@ const baseEvent = async function(payload, environment, pgClient, discordClient){
                         messageHandler.send(resChann, {embeds: [sendEmbed]}, "Base capture event");
                     }
                     else{
-                        subscriptions.unsubscribeAll(pgClient, row.channel);
+                        subscriptions.unsubscribeAll(row.channel);
                         console.log('Unsubscribed from '+row.channel);
                     }
                 }
@@ -454,7 +451,7 @@ const baseEvent = async function(payload, environment, pgClient, discordClient){
             }).catch(error => {
                 if(typeof(error.code) !== 'undefined'){
                     if(error.code == 10003){ //Unknown channel error, thrown when the channel is deleted
-                        subscriptions.unsubscribeAll(pgClient, row.channel);
+                        subscriptions.unsubscribeAll(row.channel);
                         console.log('Unsubscribed from '+row.channel);
                     }
                 }
@@ -562,10 +559,9 @@ module.exports = {
      * Send an alert, base, login or logout event to all subscribed channels
      * @param payload - the payload of the event
      * @param {string} environment - the environment the event was sent from
-     * @param {pg.Client} pgClient - the postgres client to use
      * @param {discord.Client} discordClient - the discord client to use
      */
-    router: async function(payload, environment, pgClient, discordClient){
+    router: async function(payload, environment, discordClient){
         for(let message of queue){
             if(objectEquality(message, payload)){
                 return;
@@ -575,7 +571,7 @@ module.exports = {
         queue.shift();
 
         if(payload.character_id != null){
-            logEvent(payload, environment, pgClient, discordClient)
+            logEvent(payload, environment, discordClient)
                 .catch(error => {
                     if(typeof(error) == "string" && error != "Census API currently unavailable" && error != "Census API unavailable: Redirect"){
                         console.log("Login error: "+error);
@@ -583,11 +579,11 @@ module.exports = {
                 });
         }
         else if(payload.metagame_event_state_name != null){
-            alertEvent(payload, environment, pgClient, discordClient)
+            alertEvent(payload, environment, discordClient)
                 .catch(error => console.log(error));
         }
         else if(payload.duration_held != null){
-            baseEvent(payload, environment, pgClient, discordClient)
+            baseEvent(payload, environment, discordClient)
                 .catch(error => console.log(error));
         }
     }
