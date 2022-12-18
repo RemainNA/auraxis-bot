@@ -54,6 +54,7 @@ const directives = require('./directives.js');
 const vehicles = require('./vehicles.js');
 const outfitMaintenance = require('./outfitMaintenance.js');
 const character = require('./character.js');
+const help = require('./help.js');
 
 let runningOnline = false;
 let twitterAvail = false;
@@ -119,40 +120,6 @@ client.on('ready', async () => {
 	client.user.setActivity('/help');
 });
 
-const listOfCommands = 
-"/help\n\
-\n\
-/character [name] <platform>\n\
-/stats [name] <weapon name/id> <platform>\n\
-/asp [name] <platform>\n\
-/auraxiums [name] <platform>\n\
-/directives [name] <platform>\n\
-/vehicle [name] [vehicle] <platform>\n\
-/outfit [tag] <platform>\n\
-/online [tag] <platform>\n\
-/population [server]\n\
-/territory [server]\n\
-/alerts [server]\n\
-/leaderboard [type] [period] <server>\n\
-/status\n\
-/weapon [weapon name/id]\n\
-/weaponSearch [name]\n\
-/implant [implant name]\n\
-/(un)subscribe alerts [server]\n\
-/(un)subscribe activity [tag] <platform>\n\
-/(un)subscribe captures [tag] <platform>\n\
-/(un)subscribe unlocks [server]\n\
-/(un)subscribe twitter [wrel/planetside]\n\
-/unsubscribe all\n\
-/config view\n\
-/config audit\n\
-/config continent [continent] [enable/disable]\n\
-/config autodelete [enable/disable]\n\
-/tracker server [server] [Population/Continents]\n\
-/tracker outfit [tag] <platform>\n\
-/dashboard server [server]\n\
-/dashboard outfit [tag] <platform>"
-
 client.on('interactionCreate', async interaction => {
 	if(interaction.isCommand()){
 		const options = interaction.options;
@@ -165,20 +132,7 @@ client.on('interactionCreate', async interaction => {
 				break;
 
 			case 'help':
-				const locale = interaction.locale;
-				let helpEmbed = new Discord.MessageEmbed();
-				helpEmbed.setTitle("Auraxis bot");
-				helpEmbed.setColor("BLUE");
-				helpEmbed.addField(i18n.__({phrase: "Commands", locale: locale}), listOfCommands);
-				const links = `\
-				\n[${i18n.__({phrase: "GitHub page & FAQ", locale: locale})}](https://github.com/RemainNA/auraxis-bot)\
-				\n[${i18n.__({phrase: "Support server", locale: locale})}](https://discord.gg/Kf5P6Ut)\
-				\n[${i18n.__({phrase: "Invite bot", locale: locale})}](https://discord.com/api/oauth2/authorize?client_id=437756856774033408&permissions=1330192&scope=bot%20applications.commands)\
-				\n[${i18n.__({phrase: "Donate on Ko-fi", locale: locale})}](https://ko-fi.com/remainna)\
-				\n[${i18n.__({phrase: "Translate on Crowdin", locale: locale})}](https://crowdin.com/project/auraxis-bot)`
-				helpEmbed.addField(i18n.__({phrase: "Links", locale: locale}), links);
-				helpEmbed.setFooter({text: i18n.__({phrase: "<> = Optional, [] = Required", locale: locale})});
-				await interaction.reply({embeds: [helpEmbed]});
+				await help.execute(interaction, interaction.locale);
 				break;
 
 			case 'character':
