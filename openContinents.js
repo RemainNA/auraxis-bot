@@ -12,7 +12,7 @@ const {serverIDs, serverNames, servers, continents} = require('./utils.js');
 const {send} = require('./messageHandler.js');
 const {unsubscribeAll} = require('./subscriptions.js');
 const {Permissions} = require('discord.js');
-const trackers = require('./trackers.js');
+const trackers = require('./tracker.js');
 
 /**
  * continentName: continentId
