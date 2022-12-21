@@ -182,41 +182,7 @@ client.on('interactionCreate', async interaction => {
 				break;
 
 			case 'character':
-				let firstCharacter = true;
-				const characterNames = options.getString('name').toLowerCase().replace(/\s\s+/g, ' ').split(' ');
-				if(characterNames.length > 10){
-					await interaction.reply({
-						content: i18n.__({phrase: "This commands supports a maximum of 10 characters per query", locale: interaction.locale}),
-						ephemeral: true
-					});
-					break;
-				}
-				await interaction.deferReply();
-				const characterLookups = await Promise.allSettled(Array.from(characterNames, x => 
-					char.character(x, options.getString('platform') || 'ps2:v2', interaction.locale)));
-				for(const res of characterLookups){
-					let toSend = {};
-					if(res.status == "rejected"){
-						if(typeof(res.reason) == 'string'){
-							toSend = res.reason;
-						}
-						else{
-							toSend = i18n.__({phrase: "Error occurred when handling command", locale: interaction.locale});
-							console.log(`Character error ${interaction.locale}`);
-							console.log(res.reason);
-						}
-					}
-					else{
-						toSend = {embeds: [res.value[0]], components: res.value[1]};
-					}
-					if(firstCharacter){
-						await interaction.editReply(toSend);
-						firstCharacter = false;
-					}
-					else{
-						await interaction.followUp(toSend);
-					}
-				}
+				await char.execute(interaction, interaction.locale);
 				break;			
 
 			case 'stats':

@@ -3,6 +3,7 @@
  * All three platforms are supported, but must be specified in the "platform" parameter
  * @ts-check
  * @module character
+ * @typedef {import('discord.js').CommandInteraction} CommandInteraction
  */
 
 
@@ -604,5 +605,45 @@ module.exports = {
         return resEmbed;     
     },
 
-    getWeaponName: getWeaponName
+    getWeaponName: getWeaponName,
+
+    /**
+     * used to trigger the character stats command
+     * @param { CommandInteraction } interaction - chat interaction
+     * @param { string } locale - locale to use
+     */
+    execute: async function(interaction, locale){
+        const characterNames = interaction.options.getString('name').toLowerCase().replace(/\s\s+/g, ' ').split(' ');
+        if(characterNames.length > 10){
+            await interaction.reply({
+                content: i18n.__({phrase: "This commands supports a maximum of 10 characters per query", locale: locale}),
+                ephemeral: true
+            });
+            return;
+        }
+
+        await interaction.deferReply();
+        const platform = interaction.options.getString('platform') || 'ps2:v2';
+        const results = await Promise.allSettled(
+            characterNames.map(name => this.character(name, platform, locale))
+        );
+        const messages = [];
+        for(const res of results){
+            if(res.status === 'fulfilled'){
+                messages.push(
+                    {embeds: [res.value[0]], components: res.value[1]}
+                );
+            } else {
+                messages.push(
+                    i18n.__({phrase: 'Error occured when handling command', locale: locale})
+                );
+                console.log(`Character error ${locale}`);
+                console.log(res.reason);
+            }
+        }
+        await interaction.editReply(messages.shift());
+        for (const msg of messages) {
+            await interaction.followUp(msg);
+        }
+    }
 }
