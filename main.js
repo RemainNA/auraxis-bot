@@ -645,8 +645,8 @@ client.on('interactionCreate', async interaction => {
 	else if(interaction.isAutocomplete()){
 		try{
 			if(interaction.commandName == 'stats'){
-				const weaponsList = await stats.partialMatches(interaction.options.getString('weapon'));
-				await interaction.respond(weaponsList);
+				const results = stats.partialMatches(interaction.options);
+				await interaction.respond(results);
 			}
 			else if(interaction.commandName == 'weapon'){
 				const results = weapon.partialMatches(interaction.options);

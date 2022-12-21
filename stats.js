@@ -1,6 +1,7 @@
 /**
  * This file implements functions to look up a character's stats with a specific weapon
  * @module stats
+ * @typedef {import('discord.js').CommandInteractionOptionResolver} CommandInteractionOptionResolver
  */
 
 const Discord = require('discord.js');
@@ -84,16 +85,18 @@ const factions = {
 
 /**
  * Get a list of partial matches for a weapon name
- * @param {string} query - The query to search for 
+ * @param { CommandInteractionOptionResolver } options - The query to search for 
  * @returns a list of  objects with the name and ID of the weapon
  */
-const partialMatches = async function(query){
-	let matches = [];
-	let included = [];
-	query = query.replace(/[“”]/g, '"').toLowerCase();
+function partialMatches(options){
+	const matches = [];
+	const included = [];
+	const query = options.getString('weapon')
+		.replace(/[“”]/g, '"')
+		.toLowerCase();
 
 	for(const id in weaponsJSON){
-		if(weaponsJSON[id].name.toLowerCase().indexOf(query) > -1){
+		if(weaponsJSON[id].name.toLowerCase().includes(query)){
 			if(weaponsJSON[id].faction){
 				matches.push({name: `${weaponsJSON[id].name} (${factions[weaponsJSON[id].faction]} ${weaponsJSON[id].category}) [${id}]`, value: id});
 			}
@@ -111,7 +114,7 @@ const partialMatches = async function(query){
 		if(matches.length >= 25){
 			break;
 		}
-		if(sanction[id].name.toLowerCase().indexOf(query) > -1 && !included.includes(id)){
+		if(sanction[id].name.toLowerCase().includes(query) && !included.includes(id)){
 			matches.push({name: `${sanction[id].name} (${sanction[id].category}) [${id}]`, value: id});
 			included.push(id);
 		}
