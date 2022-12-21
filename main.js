@@ -653,8 +653,8 @@ client.on('interactionCreate', async interaction => {
 				await interaction.respond(weaponsList);
 			}
 			else if(interaction.commandName == 'implant'){
-				const implantList = await implant.partialMatches(interaction.options.getString('query'));
-				await interaction.respond(implantList);
+				const results = implant.partialMatches(interaction.options);
+				await interaction.respond(results);
 			}
 			else if(interaction.commandName == 'vehicle'){
 				const vehicleList = await vehicles.partialMatches(interaction.options.getString('vehicle'));

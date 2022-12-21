@@ -1,6 +1,7 @@
 /**
  * Search up implant information
  * @module implant
+ * @typedef {import('discord.js').CommandInteractionOptionResolver} CommandInteractionOptionResolver
  */
 const Discord = require('discord.js');
 const implantsJSON = require('./static/implants.json');
@@ -34,12 +35,14 @@ const implantInfo = async function(name){
 
 /**
  * Search for partial matches of implants
- * @param {string} query - the query to search for
+ * @param { CommandInteractionOptionResolver } options - the query to search for
  * @returns list of possible matches implant
  */
-const partialMatches = async function(query){
+function partialMatches(options) {
+	const query = options.getString('query')
+		.replace(/[“”]/g, '"')
+		.toLowerCase();
 	const matches = [];
-	query = query.replace(/[“”]/g, '"').toLowerCase();
 
 	for(const implant in implantsJSON){
 		if(implant.toLowerCase().includes(query)){
@@ -50,7 +53,7 @@ const partialMatches = async function(query){
 		}
 	}
 
-	return matches
+	return matches;
 }
 
 module.exports = {
