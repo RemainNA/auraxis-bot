@@ -1,6 +1,7 @@
 /**
  * This file defines functions to look up a player's stats with a given vehicle
  * @module vehicles
+ * @typedef {import('discord.js').CommandInteractionOptionResolver} CommandInteractionOptionResolver
  */
 
 const Discord = require('discord.js');
@@ -152,14 +153,17 @@ module.exports = {
 
 	/**
 	 * Checks if `query` is in any vehicle name
-	 * @param {string} query - query to search for	
+	 * @param { CommandInteractionOptionResolver } options - query to search for	
  	 * @returns a list of vehicle names and ID that contain `query`
 	 */
-	partialMatches: async function(query){
-		let matches = [];
-		query = query.replace(/[“”]/g, '"').toLowerCase();
+	partialMatches: function(options){
+		const query = options.getString('vehicle')
+			.replace(/[“”]/g, '"')
+			.toLowerCase();
+		const matches = [];
+
 		for(const id in vehicles){
-			if(vehicles[id].name.toLowerCase().indexOf(query) > -1){
+			if(vehicles[id].name.toLowerCase().includes(query)){
 				matches.push({name: `${vehicles[id].name} [${id}]`, value: id});
 			}
 			if(matches.length >= 25){
