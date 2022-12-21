@@ -270,41 +270,7 @@ client.on('interactionCreate', async interaction => {
 				break;
 
 			case 'online':
-				let firstOnline = true;
-				const onlineTags = options.getString('tag').toLowerCase().replace(/\s\s+/g, ' ').split(' ');
-				if(onlineTags.length > 10){
-					await interaction.reply({
-						content: i18n.__({phrase: "This commands supports a maximum of 10 outfits per query", locale: interaction.locale}),
-						ephemeral: true
-					});
-					break;
-				}
-				await interaction.deferReply();
-				const onlineLookups = await Promise.allSettled(Array.from(onlineTags, x => 
-					online.online(x, options.getString('platform') || 'ps2:v2', null, interaction.locale)));
-				for(const res of onlineLookups){
-					let toSend = undefined;
-					if(res.status == "rejected"){
-						if(typeof(res.reason) == 'string'){
-							toSend = res.reason;
-						}
-						else{
-							toSend = i18n.__({phrase: "Error occurred when handling command", locale: interaction.locale});
-							console.log(`Outfit online error ${interaction.locale}`);
-							console.log(res.reason);
-						}
-					}
-					else{
-						toSend = {embeds: [res.value]};
-					}
-					if(firstOnline){
-						await interaction.editReply(toSend);
-						firstOnline = false;
-					}
-					else{
-						await interaction.followUp(toSend);
-					}
-				}
+				await online.execute(interaction, interaction.locale);
 				break;
 
 			case 'config':

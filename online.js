@@ -1,6 +1,7 @@
 /**
  * Handles the `/online` command
  * @module online
+ * @typedef {import('discord.js').CommandInteraction} CommandInteraction
  */
 
 const Discord = require('discord.js');
@@ -168,5 +169,47 @@ module.exports = {
 	},
 
 	onlineInfo: onlineInfo,
-	totalLength: totalLength
+	totalLength: totalLength,
+
+	/**
+	 * Runs the `/online` command
+	 * @param { CommandInteraction } interaction - command chat interaction
+	 * @param { string } locale - locale of the user
+	 */
+	execute: async function(interaction, locale) {
+		const onlineTags = interaction.options.getString('tag').toLowerCase().replace(/\s{2,}/g, ' ').split(' ');
+		if(onlineTags.length > 10){
+			await interaction.reply({
+				content: i18n.__({phrase: "This commands supports a maximum of 10 outfits per query", locale: locale}),
+				ephemeral: true
+			});
+			return;
+		}
+
+		await interaction.deferReply();
+		const platform = interaction.options.getString('platform') || 'ps2:v2';
+		const onlineLookups = await Promise.allSettled(
+			onlineTags.map(outfit => this.online(outfit, platform, null, locale))
+		);
+		const messages = [];
+		for(const res of onlineLookups){
+			if(res.status === 'fulfilled'){
+				messages.push({embeds: [res.value]});
+			}
+			else {
+				if(typeof res.reason == 'string'){
+					messages.push(res.reason);
+				}
+				else{
+					messages.push(i18n.__({phrase: "Error occurred when handling command", locale: locale}));
+					console.log(`Outfit online error ${locale}`);
+					console.log(res.reason);
+				}
+			}
+		}
+		await interaction.editReply(messages.pop());
+		for (const msg of messages) {
+			await interaction.followUp(msg);
+		}
+	}
 }
