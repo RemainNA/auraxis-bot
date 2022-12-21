@@ -1,6 +1,7 @@
 /**
  * This file defines functionality to parse weapons.json and return the relevant info
  * @module weaponInfo
+ * @typedef {import('discord.js').CommandInteractionOptionResolver} CommandInteractionOptionResolver
  */
 
 const Discord = require('discord.js');
@@ -71,19 +72,21 @@ const weaponInfo = async function(name){
 
 /**
  * Checks if `query` is in any weapon name. Used to create a list of possible weapons to suggest to the user
- * @param {string} query - query to check
+ * @param { CommandInteractionOptionResolver } options - query to check
  * @returns a list of weapons names that contain `query`
  */
-const partialMatches = async function(query){
-	let matches = [];
-	query = query.replace(/[“”]/g, '"').toLowerCase();
+function partialMatches(options){
+	const matches = [];
+	const query = options.getString('query')
+		.replace(/[“”]/g, '"')
+		.toLowerCase();
 
 	if(query in weaponsJSON){
 		matches.push({name: `${weaponsJSON[query].name} (${weaponsJSON[query].category}) [${query}]`, value: query});
 	}
 
 	for(const id in weaponsJSON){
-		if(weaponsJSON[id].name.toLowerCase().indexOf(query) > -1){
+		if(weaponsJSON[id].name.toLowerCase().includes(query)){
 			matches.push({name: `${weaponsJSON[id].name} (${weaponsJSON[id].category}) [${id}]`, value: id});
 		}
 		if(matches.length >= 25){
