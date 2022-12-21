@@ -1,6 +1,7 @@
 /**
  * This file implements functions to look up a character's stats with a specific weapon
  * @module stats
+ * @typedef {import('discord.js').Interaction} Interaction
  */
 
 const Discord = require('discord.js');
@@ -8,6 +9,7 @@ const weaponsJSON = require('./static/weapons.json');
 const sanction = require('./static/sanction.json');
 const { badQuery, censusRequest, localeNumber, faction } = require('./utils.js');
 const i18n = require('i18n');
+const { character } = require('./character.js');
 
 /**
  * Get weapon name and id
@@ -289,5 +291,23 @@ module.exports = {
 		return resEmbed;
 	},
 
-	partialMatches: partialMatches
+	partialMatches: partialMatches,
+	/**
+	 * runs the `/stats` command
+	 * @param { Interaction } interaction - command chat interaction
+	 * @param { string } locale - The locale to use for the command
+	 */
+	execute: async function execute(interaction, locale) {
+		const name = interaction.options.getString('name').toLowerCase(); 
+		const platform = interaction.options.getString('platform') || 'ps2:v2';
+		if(interaction.options.get('weapon')){
+			const weapon = interaction.options.getString('weapon').toLowerCase();
+			const res = await this.lookup(name, weapon, platform, locale);
+			await interaction.editReply({embeds:[res]});
+		}
+		else{ //character lookup
+			const [sendEmbed, row] = await character(name, platform, locale);
+			await interaction.editReply({embeds: [sendEmbed], components: row});
+		}
+	}
 }

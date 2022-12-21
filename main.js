@@ -221,14 +221,7 @@ client.on('interactionCreate', async interaction => {
 
 			case 'stats':
 				await interaction.deferReply(); //Give the bot time to look up the results
-				if(interaction.options.get('weapon')){
-					res = await stats.lookup(options.getString('name').toLowerCase(), options.getString('weapon').toLowerCase(), options.getString('platform') || 'ps2:v2', interaction.locale);
-					await interaction.editReply({embeds:[res]});
-				}
-				else{ //character lookup
-					res = await char.character(interaction.options.getString('name').toLowerCase(), interaction.options.getString('platform') || 'ps2:v2', interaction.locale);
-					await interaction.editReply({embeds:[res[0]], components: res[1]});
-				}
+				stats.execute(interaction, interaction.locale);
 				break;
 
 			case 'outfit':
