@@ -506,25 +506,6 @@ const captureContributions = async function(outfitID, baseID, timestamp, platfor
 }
 
 /**
- * Checks for equality between object properties
- * @param a - first object
- * @param b - second object
- * @returns {boolean} true if the objects properties are equal, false otherwise
- */
-const objectEquality = function(a, b){
-    if(typeof(a.character_id) !== 'undefined' && typeof(b.character_id) !== 'undefined'){
-        return a.character_id == b.character_id && a.event_name == b.event_name;
-    }
-    else if(typeof(a.metagame_event_id) !== 'undefined' && typeof(b.metagame_event_id) !== 'undefined'){
-        return a.metagame_event_id == b.metagame_event_id && a.world_id == b.world_id;
-    }
-    else if(typeof(a.facility_id) !== 'undefined' && typeof(b.facility_id) !== 'undefined'){
-        return a.facility_id == b.facility_id && a.world_id == b.world_id && a.duration_held == b.duration_held;
-    }
-    return false;
-}
-
-/**
  * Get basic information on a facility
  * @param {string} facilityID - the facility id to get information of
  * @param {string} environment - environment to check in
@@ -553,10 +534,6 @@ const baseInfo = async function(facilityID, environment){
     
 }
 
-/**
- * a queue of events to be processed
- */
-const queue = ["","","","",""];
 module.exports = {
     /**
      * Send an alert, base, login or logout event to all subscribed channels
@@ -566,14 +543,6 @@ module.exports = {
      * @param {discord.Client} discordClient - the discord client to use
      */
     router: async function(payload, environment, pgClient, discordClient){
-        for(let message of queue){
-            if(objectEquality(message, payload)){
-                return;
-            }
-        }
-        queue.push(payload);
-        queue.shift();
-
         if(payload.character_id != null){
             logEvent(payload, environment, pgClient, discordClient)
                 .catch(error => {

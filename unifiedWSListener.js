@@ -17,6 +17,18 @@ const PC_URI = `wss://push.nanite-systems.net/streaming?environment=ps2&service-
 const US_URI = `wss://push.nanite-systems.net/streaming?environment=ps2ps4us&service-id=s:${process.env.serviceID}`;
 const EU_URI = `wss://push.nanite-systems.net/streaming?environment=ps2ps4eu&service-id=s:${process.env.serviceID}`;
 
+const events = new Set();
+/**
+ * Check if the event sent from the event stream is a duplicate.
+ * @param { string } event - event from the event stream 
+ */
+function duplicate(event) {
+    if (events.has(event)) return true;
+    if (events.size > 5) events.clear();
+    events.add(event);
+    return false;
+}
+
 /**
  * Create and listen on PC census stream, will automatically restart the listener on an error
  * @param {pg.Client} pgClient - postgres client to query the database
@@ -32,7 +44,11 @@ function PCStream(pgClient, discordClient, pcTimeout = 0) {
     });
 
     pcClient.on('message', (data) => {
-        const parsed = JSON.parse(data.toString());
+        const event = data.toString();
+        if (duplicate(event)) {
+            return;
+        }
+        const parsed = JSON.parse(event);
         if (parsed.payload !== undefined) {
             router(parsed.payload, "ps2:v2", pgClient, discordClient);
         }
@@ -64,7 +80,11 @@ function PS4USStream(pgClient, discordClient, usTimeout = 0) {
     });
 
     usClient.on('message', (data) => {
-        const parsed = JSON.parse(data.toString());
+        const event = data.toString();
+        if (duplicate(event)) {
+            return;
+        }
+        const parsed = JSON.parse(event);
         if (parsed.payload !== undefined) {
             router(parsed.payload, "ps2ps4us:v2", pgClient, discordClient);
         }
@@ -96,7 +116,11 @@ function PS4EUStream(pgClient, discordClient, euTimeout = 0) {
     });
 
     euClient.on('message', (data) => {
-        const parsed = JSON.parse(data.toString());
+        const event = data.toString();
+        if (duplicate(event)) {
+            return;
+        }
+        const parsed = JSON.parse(event);
         if (parsed.payload !== undefined) {
             router(parsed.payload, "ps2ps4eu:v2", pgClient, discordClient);
         }
