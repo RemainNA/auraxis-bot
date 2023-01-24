@@ -5349,6 +5349,11 @@
         "name": "The Swashbuckler",
         "sanction": "none"
     },
+    "6014527": {
+        "category": "Knife",
+        "name": "Trench Shovel",
+        "sanction": "none"
+    },
     "6011914": {
         "category": "Knife",
         "name": "Wyrdwood Shillelagh",
@@ -6312,6 +6317,11 @@
     "6004413": {
         "category": "Pistol",
         "name": "NS-61 \"Ivory\" Emissary",
+        "sanction": "infantry"
+    },
+    "6014537": {
+        "category": "Pistol",
+        "name": "NS-61 \"Jackrabbit\" Emissary",
         "sanction": "infantry"
     },
     "6008666": {
