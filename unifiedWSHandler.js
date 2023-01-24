@@ -361,7 +361,7 @@ const outfitResources = {
     "CTF Amp Station": "8 Synthium <:Synthium:818766858865475584>",
     "Tech Plant": "8 Synthium <:Synthium:818766858865475584>",
     "Containment Site": "8 Synthium <:Synthium:818766858865475584>",
-    "Interlink": "8 Synthium <:Synthium:818766858865475584>",
+    "Interlink Facility": "8 Synthium <:Synthium:818766858865475584>",
     "Trident": "1 Polystellarite <:Polystellarite:818766888238448661>",
     "Central base": "2 Polystellarite <:Polystellarite:818766888238448661>"
 };
