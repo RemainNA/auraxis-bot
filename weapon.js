@@ -272,10 +272,10 @@ module.exports = {
 
 		if(wInfo.useInWater !== undefined){
 			if(wInfo.useInWater){
-				resEmbed.addField(i18n.__({phrase: "Usable in water", locale: locale}), i18n.__({phrase: "yes", locale: locale}), true);
+				resEmbed.addField(i18n.__({phrase: "usableUnderwater", locale: locale}), i18n.__({phrase: "yes", locale: locale}), true);
 			}
 			else{
-				resEmbed.addField(i18n.__({phrase: "Usable in water", locale: locale}), i18n.__({phrase: "no", locale: locale}), true);
+				resEmbed.addField(i18n.__({phrase: "usableUnderwater", locale: locale}), i18n.__({phrase: "no", locale: locale}), true);
 			}
 		}
 
