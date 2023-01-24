@@ -42,11 +42,12 @@ If you notice a translation error please report it in the support server.
 Thank you to the following translators for their contributions!
 
 - Dutch: brakenium#9467
-- German: Gretchen
-- Korean: AlexKoala#0253
-- Russian: Simacrus#9560
-- Spanish: [1ITL] Facer
 - French: Cleridwen
+- German: Gretchen & Kilian
+- Korean: AlexKoala#0253
+- Russian: Simacrus#9560 & Kinderbug
+- Spanish: [1ITL] Facer
+- Ukranian: Veydzher
 
 ## Support development
 
