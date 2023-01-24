@@ -215,14 +215,14 @@ module.exports = {
             if(terObj[continent].locked != -1){
                 lockedContinents.push({
                     title: `${i18n.__({phrase: continent, locale: locale})} ${owningFaction.decal}`,
-                    body: `${i18n.__mf({phrase: "Locked {timestamp} ({relative})", locale: locale}, {timestamp: `<t:${timestamp}:t>`, relative: `<t:${timestamp}:R>`})}\n${continentBenefit(continent, locale)}`,
+                    body: `${i18n.__mf({phrase: "Locked {timestamp}", locale: locale}, {timestamp: `<t:${timestamp}:t>`, relative: `<t:${timestamp}:R>`})}\n${continentBenefit(continent, locale)}`,
                     lastChange: timestamp
                 })
             }
             else if(terObj[continent].unstable){
                 openContinents.push({
                     title: `${i18n.__({phrase: continent, locale: locale})} <:Unstable:1000661319663497217>`,
-                    body: `${i18n.__mf({phrase: "Unlocked {timestamp} ({relative})", locale: locale}, {timestamp: `<t:${timestamp}:t>`, relative: `<t:${timestamp}:R>`})}\
+                    body: `${i18n.__mf({phrase: "Unlocked {timestamp}", locale: locale}, {timestamp: `<t:${timestamp}:t>`, relative: `<t:${timestamp}:R>`})}\
                     \n*${i18n.__({phrase: "currentlyUnstable", locale: locale})}*\
                     \n${terObj[continent].warpgates[1]} <:VS:818766983918518272> **${i18n.__({phrase: "VS", locale: locale})}**: ${terObj[continent].vs}  |  ${vsPc}%\
                     \n${terObj[continent].warpgates[2]} <:NC:818767043138027580> **${i18n.__({phrase: "NC", locale: locale})}**: ${terObj[continent].nc}  |  ${ncPc}%\
@@ -233,7 +233,7 @@ module.exports = {
             else{
                 openContinents.push({
                     title: i18n.__({phrase: continent, locale: locale}),
-                    body: `${i18n.__mf({phrase: "Unlocked {timestamp} ({relative})", locale: locale}, {timestamp: `<t:${timestamp}:t>`, relative: `<t:${timestamp}:R>`})}\
+                    body: `${i18n.__mf({phrase: "Unlocked {timestamp}", locale: locale}, {timestamp: `<t:${timestamp}:t>`, relative: `<t:${timestamp}:R>`})}\
                     \n${terObj[continent].warpgates[1]} <:VS:818766983918518272> **${i18n.__({phrase: "VS", locale: locale})}**: ${terObj[continent].vs}  |  ${vsPc}%\
                     \n${terObj[continent].warpgates[2]} <:NC:818767043138027580> **${i18n.__({phrase: "NC", locale: locale})}**: ${terObj[continent].nc}  |  ${ncPc}%\
                     \n${terObj[continent].warpgates[3]} <:TR:818988588049629256> **${i18n.__({phrase: "TR", locale: locale})}**: ${terObj[continent].tr}  |  ${trPc}%`,
