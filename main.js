@@ -436,7 +436,7 @@ client.on('interactionCreate', async interaction => {
 
 			case 'alerts':
 				await interaction.deferReply();
-				res = await alerts.activeAlerts(options.getString("server"));
+				res = await alerts.activeAlerts(options.getString("server"), interaction.locale);
 				await interaction.editReply({embeds: [res]});
 				break;
 
