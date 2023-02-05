@@ -308,6 +308,10 @@ client.on('interactionCreate', async interaction => {
 				break;
 
 			case 'config':
+				if(interaction.inGuild() && !interaction.memberPermissions.has("MANAGE_CHANNELS")){
+					await interaction.reply({content: "Manage channel permission required to use this command", ephemeral: true});
+					return;
+				}
 				await interaction.deferReply();
 				switch(options.getSubcommand()){
 				case 'view':
@@ -347,6 +351,10 @@ client.on('interactionCreate', async interaction => {
 				break;
 
 			case 'subscribe':
+				if(interaction.inGuild() && !interaction.memberPermissions.has("MANAGE_CHANNELS")){
+					await interaction.reply({content: "Manage channel permission required to use this command", ephemeral: true});
+					return;
+				}
 				await interaction.deferReply();
 				switch(options.getSubcommand()){
 				case 'alerts':
@@ -384,6 +392,10 @@ client.on('interactionCreate', async interaction => {
 				break;
 
 			case 'unsubscribe':
+				if(interaction.inGuild() && !interaction.memberPermissions.has("MANAGE_CHANNELS")){
+					await interaction.reply({content: "Manage channel permission required to use this command", ephemeral: true});
+					return;
+				}
 				await interaction.deferReply();
 				switch(options.getSubcommand()){
 				case 'alerts':
@@ -468,6 +480,10 @@ client.on('interactionCreate', async interaction => {
 				break;
 
 			case 'dashboard':
+				if(interaction.inGuild() && !interaction.memberPermissions.has("MANAGE_CHANNELS")){
+					await interaction.reply({content: "Manage channel permission required to use this command", ephemeral: true});
+					return;
+				}
 				await interaction.deferReply();
 				switch(options.getSubcommand()){
 				case 'server':
@@ -487,6 +503,10 @@ client.on('interactionCreate', async interaction => {
 				break;
 
 			case 'tracker':
+				if(interaction.inGuild() && !interaction.memberPermissions.has("MANAGE_CHANNELS")){
+					await interaction.reply({content: "Manage channel permission required to use this command", ephemeral: true});
+					return;
+				}
 				if(interaction.channel.type == 'DM'){
 					await interaction.reply({content: "Cannot create trackers in DMs", ephemeral: true})
 				}
