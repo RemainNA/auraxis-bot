@@ -36807,10 +36807,10 @@
     "6011252": {
         "adsCofRecoil": 0.05,
         "adsMoveSpeed": 0.5,
-        "ammo": 208,
+        "ammo": 210,
         "category": "Assault Rifle",
         "chamber": 450,
-        "clip": 26,
+        "clip": 30,
         "crouchWalkingCofMax": 7,
         "crouchWalkingCofMaxADS": 3,
         "crouchWalkingCofMin": 1.75,
@@ -36834,8 +36834,8 @@
         "hipCofRecoil": 0.1,
         "image_id": 94044,
         "maxDamage": 143,
-        "maxDamageRange": 10,
-        "minDamage": 100,
+        "maxDamageRange": 15,
+        "minDamage": 112,
         "minDamageRange": 90,
         "name": "AR-ARX Maxwell",
         "recoilAngleMax": 2,
@@ -40449,6 +40449,30 @@
         "useInWater": true,
         "verticalRecoil": 0.35
     },
+    "6013328": {
+        "adsCofRecoil": 0,
+        "adsMoveSpeed": 1,
+        "ammo": 0,
+        "category": "Infantry Abilities",
+        "clip": 0,
+        "description": "Nanite Systems' high density rod and reel for the discerning angler. Used on the waters of Auraxis to catch really big fish.<br><br><font color=\"#dc9c36\">Use Aim to cast your line and Fire to set the hook & reel it in.</font>",
+        "faction": 0,
+        "fireModes": [
+            "Reel Line"
+        ],
+        "fireRate": 500,
+        "hipCofRecoil": 0,
+        "image_id": 93445,
+        "name": "NS NanoCaster",
+        "recoilAngleMax": 0,
+        "recoilAngleMin": 0,
+        "standingCofMax": 0,
+        "standingCofMaxADS": 0,
+        "standingCofMin": 0,
+        "standingCofMinADS": 0,
+        "useInWater": true,
+        "verticalRecoil": 2
+    },
     "6013335": {
         "adsCofRecoil": 0.1,
         "adsMoveSpeed": 1,
@@ -43106,6 +43130,33 @@
         "standingCofMinADS": 0.3,
         "useInWater": true,
         "verticalRecoil": 0.23
+    },
+    "6014568": {
+        "ammo": 1,
+        "category": "Knife",
+        "clip": 1,
+        "description": "While wielded, this NSX Amaterasu variant can strike enemies at a distance using lovelorn projection technology, the trade-off is that it is less capable than traditional knives for piercing infantry protective gear.",
+        "faction": 0,
+        "fireModes": [
+            "Melee",
+            "Thrown"
+        ],
+        "fireRate": 400,
+        "headshotMultiplier": 0.5,
+        "hipCofRecoil": 0,
+        "image_id": 95938,
+        "maxDamage": 450,
+        "maxDamageRange": 2,
+        "minDamage": 143,
+        "minDamageRange": 50,
+        "name": "Queen of Hearts",
+        "recoilAngleMax": 45,
+        "recoilAngleMin": -45,
+        "speed": 30,
+        "standingCofMax": 0,
+        "standingCofMin": 0,
+        "useInWater": true,
+        "verticalRecoil": 0.05
     },
     "6050": {
         "ammo": 1,

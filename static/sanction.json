@@ -534,11 +534,6 @@
         "name": "WLT-Yellowjacket Mining Laser",
         "sanction": "none"
     },
-    "6004294": {
-        "category": "Anti-Materiel Rifle",
-        "name": "AM7-XOXO",
-        "sanction": "infantry"
-    },
     "6013464": {
         "category": "Anti-Materiel Rifle",
         "name": "DAGR-81",
@@ -554,50 +549,55 @@
         "name": "NE-36 Linecutter",
         "sanction": "infantry"
     },
-    "6002943": {
-        "category": "Anti-Materiel Rifle",
-        "name": "NS-AM7 AE/NC Archer",
-        "sanction": "infantry"
-    },
-    "6002930": {
-        "category": "Anti-Materiel Rifle",
-        "name": "NS-AM7 AE/TR Archer",
-        "sanction": "infantry"
-    },
-    "802771": {
-        "category": "Anti-Materiel Rifle",
-        "name": "NS-AM7 Archer",
-        "sanction": "infantry"
-    },
-    "6002918": {
-        "category": "Anti-Materiel Rifle",
-        "name": "NS-AM7 VS/AE Archer",
-        "sanction": "infantry"
-    },
-    "802910": {
-        "category": "Anti-Materiel Rifle",
-        "name": "NS-AM7B Archer",
-        "sanction": "infantry"
-    },
-    "802921": {
-        "category": "Anti-Materiel Rifle",
-        "name": "NS-AM7G Archer",
-        "sanction": "infantry"
-    },
     "6004992": {
         "category": "Anti-Materiel Rifle",
         "name": "NS-AM8 Shortbow",
-        "sanction": "infantry"
-    },
-    "6008496": {
-        "category": "Anti-Materiel Rifle",
-        "name": "PSA-01 Hammerhead AMR",
         "sanction": "infantry"
     },
     "6013465": {
         "category": "Anti-Materiel Rifle",
         "name": "VX4-3 Slicer",
         "sanction": "infantry"
+    },
+    "6004294": {
+        "category": "Anti-Materiel Rifle",
+        "name": "AM7-XOXO",
+        "sanction": "infantry-explosive"
+    },
+    "6002943": {
+        "category": "Anti-Materiel Rifle",
+        "name": "NS-AM7 AE/NC Archer",
+        "sanction": "infantry-explosive"
+    },
+    "6002930": {
+        "category": "Anti-Materiel Rifle",
+        "name": "NS-AM7 AE/TR Archer",
+        "sanction": "infantry-explosive"
+    },
+    "802771": {
+        "category": "Anti-Materiel Rifle",
+        "name": "NS-AM7 Archer",
+        "sanction": "infantry-explosive"
+    },
+    "6002918": {
+        "category": "Anti-Materiel Rifle",
+        "name": "NS-AM7 VS/AE Archer",
+        "sanction": "infantry-explosive"
+    },
+    "802910": {
+        "category": "Anti-Materiel Rifle",
+        "name": "NS-AM7B Archer",
+        "sanction": "infantry-explosive"
+    },
+    "802921": {
+        "category": "Anti-Materiel Rifle",
+        "name": "NS-AM7G Archer",
+        "sanction": "infantry-explosive"
+    },
+    "6008496": {
+        "category": "Anti-Materiel Rifle",
+        "name": "PSA-01 Hammerhead AMR",
+        "sanction": "infantry-explosive"
     },
     "6013480": {
         "category": "Assault Rifle",
@@ -617,11 +617,6 @@
     "6009864": {
         "category": "Assault Rifle",
         "name": "AR-100",
-        "sanction": "infantry"
-    },
-    "6009891": {
-        "category": "Assault Rifle",
-        "name": "AR-101",
         "sanction": "infantry"
     },
     "6011252": {
@@ -704,66 +699,6 @@
         "name": "NC1 Gauss Rifle",
         "sanction": "infantry"
     },
-    "7104": {
-        "category": "Assault Rifle",
-        "name": "NC9 A-Tross",
-        "sanction": "infantry"
-    },
-    "6009604": {
-        "category": "Assault Rifle",
-        "name": "NS-11 \"Endeavor\" Assault Rifle",
-        "sanction": "infantry"
-    },
-    "70998": {
-        "category": "Assault Rifle",
-        "name": "NS-11A",
-        "sanction": "infantry"
-    },
-    "6003571": {
-        "category": "Assault Rifle",
-        "name": "NS-11A \"Heatwave\"",
-        "sanction": "infantry"
-    },
-    "6014404": {
-        "category": "Assault Rifle",
-        "name": "NS-11A Frontline",
-        "sanction": "infantry"
-    },
-    "802099": {
-        "category": "Assault Rifle",
-        "name": "NS-11AB",
-        "sanction": "infantry"
-    },
-    "802101": {
-        "category": "Assault Rifle",
-        "name": "NS-11AG",
-        "sanction": "infantry"
-    },
-    "69999": {
-        "category": "Assault Rifle",
-        "name": "NS-11P",
-        "sanction": "infantry"
-    },
-    "6008645": {
-        "category": "Assault Rifle",
-        "name": "NSX \"Ivory\" Yumi",
-        "sanction": "infantry"
-    },
-    "6008665": {
-        "category": "Assault Rifle",
-        "name": "NSX \"Networked\" Yumi",
-        "sanction": "infantry"
-    },
-    "804246": {
-        "category": "Assault Rifle",
-        "name": "NSX Yumi",
-        "sanction": "infantry"
-    },
-    "6008371": {
-        "category": "Assault Rifle",
-        "name": "PSA-02 Diamondback",
-        "sanction": "infantry"
-    },
     "7150": {
         "category": "Assault Rifle",
         "name": "Pulsar Burst",
@@ -777,11 +712,6 @@
     "7108": {
         "category": "Assault Rifle",
         "name": "Reaper DMR",
-        "sanction": "infantry"
-    },
-    "7125": {
-        "category": "Assault Rifle",
-        "name": "SABR-13",
         "sanction": "infantry"
     },
     "14": {
@@ -814,30 +744,100 @@
         "name": "Terminus VX-9",
         "sanction": "infantry"
     },
-    "7129": {
-        "category": "Assault Rifle",
-        "name": "TORQ-9",
-        "sanction": "infantry"
-    },
     "6006188": {
         "category": "Assault Rifle",
         "name": "VE-A Lacerta",
         "sanction": "infantry"
     },
+    "6009891": {
+        "category": "Assault Rifle",
+        "name": "AR-101",
+        "sanction": "infantry-explosive"
+    },
     "7151": {
         "category": "Assault Rifle",
         "name": "Equinox VE2",
-        "sanction": "none"
+        "sanction": "infantry-explosive"
     },
     "7102": {
         "category": "Assault Rifle",
         "name": "Gauss Rifle S",
-        "sanction": "none"
+        "sanction": "infantry-explosive"
+    },
+    "7104": {
+        "category": "Assault Rifle",
+        "name": "NC9 A-Tross",
+        "sanction": "infantry-explosive"
+    },
+    "6009604": {
+        "category": "Assault Rifle",
+        "name": "NS-11 \"Endeavor\" Assault Rifle",
+        "sanction": "infantry-explosive"
+    },
+    "70998": {
+        "category": "Assault Rifle",
+        "name": "NS-11A",
+        "sanction": "infantry-explosive"
+    },
+    "6003571": {
+        "category": "Assault Rifle",
+        "name": "NS-11A \"Heatwave\"",
+        "sanction": "infantry-explosive"
+    },
+    "6014404": {
+        "category": "Assault Rifle",
+        "name": "NS-11A Frontline",
+        "sanction": "infantry-explosive"
+    },
+    "802099": {
+        "category": "Assault Rifle",
+        "name": "NS-11AB",
+        "sanction": "infantry-explosive"
+    },
+    "802101": {
+        "category": "Assault Rifle",
+        "name": "NS-11AG",
+        "sanction": "infantry-explosive"
+    },
+    "69999": {
+        "category": "Assault Rifle",
+        "name": "NS-11P",
+        "sanction": "infantry-explosive"
+    },
+    "6008645": {
+        "category": "Assault Rifle",
+        "name": "NSX \"Ivory\" Yumi",
+        "sanction": "infantry-explosive"
+    },
+    "6008665": {
+        "category": "Assault Rifle",
+        "name": "NSX \"Networked\" Yumi",
+        "sanction": "infantry-explosive"
+    },
+    "804246": {
+        "category": "Assault Rifle",
+        "name": "NSX Yumi",
+        "sanction": "infantry-explosive"
+    },
+    "6008371": {
+        "category": "Assault Rifle",
+        "name": "PSA-02 Diamondback",
+        "sanction": "infantry-explosive"
+    },
+    "7125": {
+        "category": "Assault Rifle",
+        "name": "SABR-13",
+        "sanction": "infantry-explosive"
     },
     "7127": {
         "category": "Assault Rifle",
         "name": "T1S Cycler",
-        "sanction": "none"
+        "sanction": "infantry-explosive"
+    },
+    "7129": {
+        "category": "Assault Rifle",
+        "name": "TORQ-9",
+        "sanction": "infantry-explosive"
     },
     "17013": {
         "category": "AV MAX (Left)",
@@ -1259,69 +1259,9 @@
         "name": "Bastion Battery",
         "sanction": "none"
     },
-    "25008": {
-        "category": "Battle Rifle",
-        "name": "AMR-66",
-        "sanction": "infantry"
-    },
-    "1989": {
-        "category": "Battle Rifle",
-        "name": "DMR-99",
-        "sanction": "infantry"
-    },
-    "26008": {
-        "category": "Battle Rifle",
-        "name": "Eidolon VE33",
-        "sanction": "infantry"
-    },
-    "1984": {
-        "category": "Battle Rifle",
-        "name": "GD Guardian",
-        "sanction": "infantry"
-    },
-    "6004216": {
-        "category": "Battle Rifle",
-        "name": "MG-HBR1 Dragoon",
-        "sanction": "infantry"
-    },
-    "6004209": {
-        "category": "Battle Rifle",
-        "name": "MGR-M1 Bishop",
-        "sanction": "infantry"
-    },
-    "6009101": {
-        "category": "Battle Rifle",
-        "name": "NS-30 Tranquility",
-        "sanction": "infantry"
-    },
-    "6005970": {
-        "category": "Battle Rifle",
-        "name": "NSX-A Sesshin",
-        "sanction": "infantry"
-    },
-    "1994": {
-        "category": "Battle Rifle",
-        "name": "Revenant",
-        "sanction": "infantry"
-    },
-    "6004214": {
-        "category": "Battle Rifle",
-        "name": "VE-LR Obelisk",
-        "sanction": "infantry"
-    },
-    "24008": {
-        "category": "Battle Rifle",
-        "name": "Warden",
-        "sanction": "infantry"
-    },
     "1869": {
         "category": "Carbine",
         "name": "19A Fortuna",
-        "sanction": "infantry"
-    },
-    "7170": {
-        "category": "Carbine",
-        "name": "AC-X11",
         "sanction": "infantry"
     },
     "3": {
@@ -1347,11 +1287,6 @@
     "6009893": {
         "category": "Carbine",
         "name": "CB-100",
-        "sanction": "infantry"
-    },
-    "6009895": {
-        "category": "Carbine",
-        "name": "CB-200",
         "sanction": "infantry"
     },
     "6011251": {
@@ -1404,36 +1339,6 @@
         "name": "MGR-C1 Charger",
         "sanction": "infantry"
     },
-    "6009656": {
-        "category": "Carbine",
-        "name": "NS-11 \"Endeavor\" Carbine",
-        "sanction": "infantry"
-    },
-    "75005": {
-        "category": "Carbine",
-        "name": "NS-11C",
-        "sanction": "infantry"
-    },
-    "6014480": {
-        "category": "Carbine",
-        "name": "NS-11C Frostbite",
-        "sanction": "infantry"
-    },
-    "802100": {
-        "category": "Carbine",
-        "name": "NS-11CB",
-        "sanction": "infantry"
-    },
-    "802102": {
-        "category": "Carbine",
-        "name": "NS-11CG",
-        "sanction": "infantry"
-    },
-    "75234": {
-        "category": "Carbine",
-        "name": "NS-11CP",
-        "sanction": "infantry"
-    },
     "804243": {
         "category": "Carbine",
         "name": "NSX Tanto",
@@ -1442,11 +1347,6 @@
     "6003752": {
         "category": "Carbine",
         "name": "NSX-P Tanto",
-        "sanction": "infantry"
-    },
-    "7211": {
-        "category": "Carbine",
-        "name": "Pulsar C",
         "sanction": "infantry"
     },
     "7173": {
@@ -1509,25 +1409,65 @@
         "name": "Zenith VX-5AE",
         "sanction": "infantry"
     },
+    "7170": {
+        "category": "Carbine",
+        "name": "AC-X11",
+        "sanction": "infantry-explosive"
+    },
+    "6009895": {
+        "category": "Carbine",
+        "name": "CB-200",
+        "sanction": "infantry-explosive"
+    },
     "7172": {
         "category": "Carbine",
         "name": "NC2 Gauss Compact",
-        "sanction": "none"
+        "sanction": "infantry-explosive"
+    },
+    "6009656": {
+        "category": "Carbine",
+        "name": "NS-11 \"Endeavor\" Carbine",
+        "sanction": "infantry-explosive"
+    },
+    "75005": {
+        "category": "Carbine",
+        "name": "NS-11C",
+        "sanction": "infantry-explosive"
+    },
+    "6014480": {
+        "category": "Carbine",
+        "name": "NS-11C Frostbite",
+        "sanction": "infantry-explosive"
+    },
+    "802100": {
+        "category": "Carbine",
+        "name": "NS-11CB",
+        "sanction": "infantry-explosive"
+    },
+    "802102": {
+        "category": "Carbine",
+        "name": "NS-11CG",
+        "sanction": "infantry-explosive"
+    },
+    "75234": {
+        "category": "Carbine",
+        "name": "NS-11CP",
+        "sanction": "infantry-explosive"
     },
     "7213": {
         "category": "Carbine",
         "name": "Prominence VE4",
-        "sanction": "none"
+        "sanction": "infantry-explosive"
+    },
+    "7211": {
+        "category": "Carbine",
+        "name": "Pulsar C",
+        "sanction": "infantry-explosive"
     },
     "7192": {
         "category": "Carbine",
         "name": "TRAC-5 S",
-        "sanction": "none"
-    },
-    "6014319": {
-        "category": "Chimera Primary Weapon",
-        "name": "CT-150 \"Fafnir\" Cyclops",
-        "sanction": "armor"
+        "sanction": "infantry-explosive"
     },
     "6010679": {
         "category": "Chimera Primary Weapons",
@@ -1537,6 +1477,11 @@
     "6009957": {
         "category": "Chimera Primary Weapons",
         "name": "CT-135",
+        "sanction": "armor"
+    },
+    "6014319": {
+        "category": "Chimera Primary Weapons",
+        "name": "CT-150 \"Fafnir\" Cyclops",
         "sanction": "armor"
     },
     "6010678": {
@@ -1977,32 +1922,32 @@
     "2310": {
         "category": "Crossbow",
         "name": "Blackheart",
-        "sanction": "none"
+        "sanction": "infantry-explosive"
     },
     "2309": {
         "category": "Crossbow",
         "name": "Heartstring",
-        "sanction": "none"
+        "sanction": "infantry-explosive"
     },
     "2308": {
         "category": "Crossbow",
         "name": "Hunter QCX",
-        "sanction": "none"
+        "sanction": "infantry-explosive"
     },
     "2317": {
         "category": "Crossbow",
         "name": "Hunter QCX-B",
-        "sanction": "none"
+        "sanction": "infantry-explosive"
     },
     "2318": {
         "category": "Crossbow",
         "name": "Hunter QCX-G",
-        "sanction": "none"
+        "sanction": "infantry-explosive"
     },
     "50562": {
         "category": "Crossbow",
         "name": "Hunter QCX-P",
-        "sanction": "none"
+        "sanction": "infantry-explosive"
     },
     "6009928": {
         "category": "Dervish Nose Cannon",
@@ -2842,17 +2787,17 @@
     "6011442": {
         "category": "Heavy Crossbow",
         "name": "Demon Seeker HLX",
-        "sanction": "none"
+        "sanction": "infantry-explosive"
     },
     "6011432": {
         "category": "Heavy Crossbow",
         "name": "Seeker HLX",
-        "sanction": "none"
+        "sanction": "infantry-explosive"
     },
     "6011831": {
         "category": "Heavy Crossbow",
         "name": "Seraphim HLX",
-        "sanction": "none"
+        "sanction": "infantry-explosive"
     },
     "6011140": {
         "category": "Heavy Weapon",
@@ -2957,12 +2902,12 @@
     "6011152": {
         "category": "Hybrid Rifle",
         "name": "NSX Kuwa",
-        "sanction": "infantry"
+        "sanction": "infantry-explosive"
     },
     "6005967": {
         "category": "Hybrid Rifle",
         "name": "NSX-A Kuwa",
-        "sanction": "infantry"
+        "sanction": "infantry-explosive"
     },
     "804846": {
         "category": "Infantry Abilities",
@@ -2977,6 +2922,11 @@
     "6004560": {
         "category": "Infantry Abilities",
         "name": "Meteorite",
+        "sanction": ""
+    },
+    "6013328": {
+        "category": "Infantry Abilities",
+        "name": "NS NanoCaster",
         "sanction": ""
     },
     "6005102": {
@@ -4536,22 +4486,22 @@
     },
     "804974": {
         "category": "Infantry Abilities",
-        "name": "Reinforcements Module",
+        "name": "Reconnaissance Module",
         "sanction": "none"
     },
     "804975": {
         "category": "Infantry Abilities",
-        "name": "Reinforcements Module",
+        "name": "Reconnaissance Module",
         "sanction": "none"
     },
     "804976": {
         "category": "Infantry Abilities",
-        "name": "Reinforcements Module",
+        "name": "Reconnaissance Module",
         "sanction": "none"
     },
     "6005654": {
         "category": "Infantry Abilities",
-        "name": "Reinforcements Module",
+        "name": "Reconnaissance Module",
         "sanction": "none"
     },
     "6011576": {
@@ -5074,6 +5024,11 @@
         "name": "JVN-50 Celeste",
         "sanction": "none"
     },
+    "6008733": {
+        "category": "Javelin Primary Weapon",
+        "name": "JVN-MM N.E.S.T.",
+        "sanction": "none"
+    },
     "6010076": {
         "category": "Javelin Primary Weapon",
         "name": "JVN-X3 Hydra",
@@ -5317,6 +5272,11 @@
     "804795": {
         "category": "Knife",
         "name": "NSX Amaterasu",
+        "sanction": "none"
+    },
+    "6014568": {
+        "category": "Knife",
+        "name": "Queen of Hearts",
         "sanction": "none"
     },
     "285": {
@@ -6859,24 +6819,34 @@
         "name": "BAR-100",
         "sanction": "infantry"
     },
-    "6010047": {
-        "category": "Scout Rifle",
-        "name": "BAR-200",
-        "sanction": "infantry"
-    },
     "6010046": {
         "category": "Scout Rifle",
         "name": "BAR-A75",
         "sanction": "infantry"
     },
-    "6011257": {
+    "1989": {
         "category": "Scout Rifle",
-        "name": "BAR-ARX Feynman",
+        "name": "DMR-99",
+        "sanction": "infantry"
+    },
+    "1984": {
+        "category": "Scout Rifle",
+        "name": "GD Guardian",
         "sanction": "infantry"
     },
     "25007": {
         "category": "Scout Rifle",
         "name": "HSR-1",
+        "sanction": "infantry"
+    },
+    "6004216": {
+        "category": "Scout Rifle",
+        "name": "MG-HBR1 Dragoon",
+        "sanction": "infantry"
+    },
+    "6004209": {
+        "category": "Scout Rifle",
+        "name": "MGR-M1 Bishop",
         "sanction": "infantry"
     },
     "6014263": {
@@ -6924,9 +6894,19 @@
         "name": "NSX Tomoe",
         "sanction": "infantry"
     },
+    "6005970": {
+        "category": "Scout Rifle",
+        "name": "NSX-A Sesshin",
+        "sanction": "infantry"
+    },
     "26007": {
         "category": "Scout Rifle",
         "name": "Nyx VX31",
+        "sanction": "infantry"
+    },
+    "1994": {
+        "category": "Scout Rifle",
+        "name": "Revenant",
         "sanction": "infantry"
     },
     "7365": {
@@ -6943,6 +6923,41 @@
         "category": "Scout Rifle",
         "name": "SOAS-20 AE",
         "sanction": "infantry"
+    },
+    "6004214": {
+        "category": "Scout Rifle",
+        "name": "VE-LR Obelisk",
+        "sanction": "infantry"
+    },
+    "25008": {
+        "category": "Scout Rifle",
+        "name": "AMR-66",
+        "sanction": "infantry-explosive"
+    },
+    "6010047": {
+        "category": "Scout Rifle",
+        "name": "BAR-200",
+        "sanction": "infantry-explosive"
+    },
+    "6011257": {
+        "category": "Scout Rifle",
+        "name": "BAR-ARX Feynman",
+        "sanction": "infantry-explosive"
+    },
+    "26008": {
+        "category": "Scout Rifle",
+        "name": "Eidolon VE33",
+        "sanction": "infantry-explosive"
+    },
+    "6009101": {
+        "category": "Scout Rifle",
+        "name": "NS-30 Tranquility",
+        "sanction": "infantry-explosive"
+    },
+    "24008": {
+        "category": "Scout Rifle",
+        "name": "Warden",
+        "sanction": "infantry-explosive"
     },
     "4445": {
         "category": "Scythe Nose Cannon",
@@ -8032,11 +8047,6 @@
     "6013732": {
         "category": "Vehicle Abilities",
         "name": "Catapult System",
-        "sanction": "none"
-    },
-    "6008733": {
-        "category": "Vehicle Abilities",
-        "name": "JVN-MM N.E.S.T.",
         "sanction": "none"
     },
     "728": {
