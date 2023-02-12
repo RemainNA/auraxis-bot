@@ -215,7 +215,7 @@ module.exports = {
             if(terObj[continent].locked != -1){
                 lockedContinents.push({
                     title: `${i18n.__({phrase: continent, locale: locale})} ${owningFaction.decal}`,
-                    body: `${i18n.__mf({phrase: "Locked {timestamp}", locale: locale}, {timestamp: `<t:${timestamp}:t>`, relative: `<t:${timestamp}:R>`})}\n${continentBenefit(continent, locale)}`,
+                    body: `${i18n.__mf({phrase: "Locked {timestamp}", locale: locale}, {timestamp: `<t:${timestamp}:t>`, relative: `<t:${timestamp}:R>`})}`,
                     lastChange: timestamp
                 })
             }
