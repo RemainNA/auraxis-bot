@@ -23,6 +23,9 @@ const getAuraxiumList = async function(cName, platform, locale='en-US'){
     let medalList = [];
 	let confirmedMedals = [];
 	let possibleMedals = [];
+	let duplicateCheck = []; 
+	// A separate duplicate check is used in order to check both the medal name and the date
+	// due to shared weapon names e.g. MAX weapons
 	if(response.length == 0){
 		throw i18n.__mf({phrase: "{name} not found", locale: locale}, {name: cName});
 	}
@@ -32,13 +35,19 @@ const getAuraxiumList = async function(cName, platform, locale='en-US'){
         if(achievement != undefined && x.finish_date != "1970-01-01 00:00:00.0"){
             if(achievement.description == undefined){
                 if(achievement.name.en.indexOf("Auraxium") > -1){
-                    medalList.push([achievement.name.en.split(":")[0], Date.parse(x.finish_date)]);
+					if(!duplicateCheck.includes(`${achievement.name.en.split(":")[0]}:${Date.parse(x.finish_date)}`)){
+						medalList.push([achievement.name.en.split(":")[0], Date.parse(x.finish_date)]);
+					}
 					confirmedMedals.push(achievement.name.en.split(":")[0]);
+					duplicateCheck.push(`${achievement.name.en.split(":")[0]}:${Date.parse(x.finish_date)}`);
                 }
             }
             else if(achievement.description.en == "1000 Enemies Killed"){
-                medalList.push([achievement.name.en.split(":")[0], Date.parse(x.finish_date)]);
+				if(!duplicateCheck.includes(`${achievement.name.en.split(":")[0]}:${Date.parse(x.finish_date)}`)){
+					medalList.push([achievement.name.en.split(":")[0], Date.parse(x.finish_date)]);
+				}
 				confirmedMedals.push(achievement.name.en.split(":")[0]);
+				duplicateCheck.push(`${achievement.name.en.split(":")[0]}:${Date.parse(x.finish_date)}`);
             }
         }
     }
