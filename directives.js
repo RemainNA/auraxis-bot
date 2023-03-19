@@ -67,10 +67,10 @@ module.exports = {
 		let completedDirectives = '';
 		directiveList.directives
 			.slice(0, max)
-			.forEach(dir => {
+			.forEach(([id, time]) => {
 				remaining--;
-				if (dir[0] in directives) completedDirectives += `<t:${dir[1]}:d>: ${directives[dir[0]].name}\n`;
-				else console.log(`Missing directive id ${dir[0]}`);
+				if (id in directives) completedDirectives += `<t:${time}:d>: ${directives[id].name}\n`;
+				else console.log(`Missing directive id ${id}`);
 			});
 
 		const row = [];
