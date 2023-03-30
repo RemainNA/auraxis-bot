@@ -4509,7 +4509,17 @@
         "name": "Repair Drone 1",
         "sanction": "none"
     },
+    "6014760": {
+        "category": "Infantry Abilities",
+        "name": "Repair Drone 1",
+        "sanction": "none"
+    },
     "6011593": {
+        "category": "Infantry Abilities",
+        "name": "Repair Drone 2",
+        "sanction": "none"
+    },
+    "6014761": {
         "category": "Infantry Abilities",
         "name": "Repair Drone 2",
         "sanction": "none"
@@ -4519,12 +4529,27 @@
         "name": "Repair Drone 3",
         "sanction": "none"
     },
+    "6014762": {
+        "category": "Infantry Abilities",
+        "name": "Repair Drone 3",
+        "sanction": "none"
+    },
     "6011595": {
         "category": "Infantry Abilities",
         "name": "Repair Drone 4",
         "sanction": "none"
     },
+    "6014763": {
+        "category": "Infantry Abilities",
+        "name": "Repair Drone 4",
+        "sanction": "none"
+    },
     "6011596": {
+        "category": "Infantry Abilities",
+        "name": "Repair Drone 5",
+        "sanction": "none"
+    },
+    "6014764": {
         "category": "Infantry Abilities",
         "name": "Repair Drone 5",
         "sanction": "none"
@@ -5714,6 +5739,11 @@
         "name": "Skyguard",
         "sanction": "armor"
     },
+    "6014625": {
+        "category": "LMG",
+        "name": "\"Jackpot\" XMG-155",
+        "sanction": "infantry"
+    },
     "6011563": {
         "category": "LMG",
         "name": "\"Treasured\" LA-1 Anchor",
@@ -5769,6 +5799,11 @@
         "name": "LA1 Service Anchor",
         "sanction": "infantry"
     },
+    "6014624": {
+        "category": "LMG",
+        "name": "MG-H1 \"Jackpot\" Watchman",
+        "sanction": "infantry"
+    },
     "6004120": {
         "category": "LMG",
         "name": "MG-H1 Watchman",
@@ -5777,6 +5812,11 @@
     "6005331": {
         "category": "LMG",
         "name": "MG-H1 Watchman AE",
+        "sanction": "infantry"
+    },
+    "6014623": {
+        "category": "LMG",
+        "name": "MGR-L1 \"Jackpot\" Promise",
         "sanction": "infantry"
     },
     "6004218": {
@@ -5927,6 +5967,11 @@
     "7278": {
         "category": "LMG",
         "name": "Ursa",
+        "sanction": "infantry"
+    },
+    "6014622": {
+        "category": "LMG",
+        "name": "VE-H \"Jackpot\" Maw",
         "sanction": "infantry"
     },
     "6004118": {
