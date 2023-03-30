@@ -358,27 +358,27 @@ client.on('interactionCreate', async interaction => {
 				await interaction.deferReply();
 				switch(options.getSubcommand()){
 				case 'alerts':
-					res = await subscription.subscribeAlert(SQLclient, interaction.channelId, options.getString('server'));
+					res = await subscription.subscribeAlert(SQLclient, interaction.channelId, options.getString('server'), interaction.locale);
 					await interaction.editReply(res);
 					break;
 
 				case 'activity':
-					res = await subscription.subscribeActivity(SQLclient, interaction.channelId, options.getString('tag'), options.getString('platform') || 'ps2:v2');
+					res = await subscription.subscribeActivity(SQLclient, interaction.channelId, options.getString('tag'), options.getString('platform') || 'ps2:v2', interaction.locale);
 					await interaction.editReply(res);
 					break;
 
 				case 'captures':
-					res = await subscription.subscribeCaptures(SQLclient, interaction.channelId, options.getString('tag'), options.getString('platform') || 'ps2:v2');
+					res = await subscription.subscribeCaptures(SQLclient, interaction.channelId, options.getString('tag'), options.getString('platform') || 'ps2:v2', interaction.locale);
 					await interaction.editReply(res);
 					break;
 
 				case 'twitter':
-					res = await subscription.subscribeTwitter(SQLclient, interaction.channelId, options.getString('user'));
+					res = await subscription.subscribeTwitter(SQLclient, interaction.channelId, options.getString('user'), interaction.locale);
 					await interaction.editReply(res);
 					break;
 
 				case 'unlocks':
-					res = await subscription.subscribeUnlocks(SQLclient, interaction.channelId, options.getString('server'));
+					res = await subscription.subscribeUnlocks(SQLclient, interaction.channelId, options.getString('server'), interaction.locale);
 					await interaction.editReply(res);
 					break;
 
@@ -399,32 +399,32 @@ client.on('interactionCreate', async interaction => {
 				await interaction.deferReply();
 				switch(options.getSubcommand()){
 				case 'alerts':
-					res = await subscription.unsubscribeAlert(SQLclient, interaction.channelId, options.getString("server"));
+					res = await subscription.unsubscribeAlert(SQLclient, interaction.channelId, options.getString("server"), interaction.locale);
 					await interaction.editReply(res);
 					break;
 
 				case 'activity':
-					res = await subscription.unsubscribeActivity(SQLclient, interaction.channelId, options.getString("tag"), options.getString("platform") || 'ps2:v2');
+					res = await subscription.unsubscribeActivity(SQLclient, interaction.channelId, options.getString("tag"), options.getString("platform") || 'ps2:v2', interaction.locale);
 					await interaction.editReply(res);
 					break;
 
 				case 'captures':
-					res = await subscription.unsubscribeCaptures(SQLclient, interaction.channelId, options.getString("tag"), options.getString("platform") || 'ps2:v2');
+					res = await subscription.unsubscribeCaptures(SQLclient, interaction.channelId, options.getString("tag"), options.getString("platform") || 'ps2:v2', interaction.locale);
 					await interaction.editReply(res);
 					break;
 
 				case 'twitter':
-					res = await subscription.unsubscribeTwitter(SQLclient, interaction.channelId, options.getString("user"));
+					res = await subscription.unsubscribeTwitter(SQLclient, interaction.channelId, options.getString("user"), interaction.locale);
 					await interaction.editReply(res);
 					break;
 
 				case 'unlocks':
-					res = await subscription.unsubscribeUnlocks(SQLclient, interaction.channelId, options.getString("server"));
+					res = await subscription.unsubscribeUnlocks(SQLclient, interaction.channelId, options.getString("server"), interaction.locale);
 					await interaction.editReply(res);
 					break;
 
 				case 'all':
-					res = await subscription.unsubscribeAll(SQLclient, interaction.channelId);
+					res = await subscription.unsubscribeAll(SQLclient, interaction.channelId, interaction.locale);
 					await interaction.editReply(res);
 					break;
 

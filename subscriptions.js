@@ -101,28 +101,28 @@ module.exports = {
      * @returns a message of the outcome of the subscription
      * @throws if `tag` contains invalid characters
      */
-    subscribeActivity: async function(pgClient, channel, tag, environment){
+    subscribeActivity: async function(pgClient, channel, tag, environment, locale="en-US"){
         //pgClient is the pgClient object from main
         //channel is the discord channel ID
         //tag is the outfit tag
         //environment is ps2:v2, ps2ps4us:v2, or ps2ps4eu:v2
         if(badQuery(tag)){
-			throw "Outfit search contains disallowed characters";
+			throw i18n.__({phrase: "Outfit search contains disallowed characters", locale: locale});
 		}
         let outfit = await outfitInfo(tag, environment);
         let platform = environmentToPlatform[environment];
         let count = await pgClient.query('SELECT COUNT(channel) FROM outfitactivity WHERE id=$1 AND channel=$2 AND platform=$3', [outfit.ID, channel, platform]);
         if(count.rows[0].count > 0){
-            throw `Already subscribed to ${outfit.alias}`;
+            throw i18n.__mf({phrase: "alreadySubscribedActivity", locale: locale}, {outfit: outfit.alias});
         }
         const color = faction(outfit.faction).color
         pgClient.query("INSERT INTO outfitactivity (id, alias, color, channel, platform) VALUES ($1, $2, $3, $4, $5)", [outfit.ID, outfit.alias, color, channel, platform]);
         try{
-            await config.initializeConfig(channel, pgClient)
-            return `Subscribed to ${outfit.alias} activity`;
+            await config.initializeConfig(channel, pgClient);
+            return i18n.__mf({phrase: "subscribedActivity", locale: locale}, {outfit: outfit.alias});
         }
         catch(err){
-            return `Subscribed to ${outfit.alias} activity.  Configuration step failed, using default config.`;
+            return i18n.__mf({phrase: "subscribedActivityConfigFailed", locale: locale}, {outfit: outfit.alias});
         }
     },
 
@@ -135,18 +135,18 @@ module.exports = {
      * @returns a message of the outcome of the unsubscription
      * @throws if `tag` contains invalid characters or if the outfit is not subscribed to
      */
-    unsubscribeActivity: async function(pgClient, channel, tag, environment){
+    unsubscribeActivity: async function(pgClient, channel, tag, environment, locale="en-US"){
         if(badQuery(tag)){
-			throw "Outfit search contains disallowed characters";
+            throw i18n.__({phrase: "Outfit search contains disallowed characters", locale: locale});
 		}
         let outfit = await outfitInfo(tag, environment);
         let platform = environmentToPlatform[environment];
         let count = await pgClient.query('SELECT COUNT(channel) FROM outfitactivity WHERE id=$1 AND channel=$2 AND platform=$3;', [outfit.ID, channel, platform]);
         if(count.rows[0].count == 0){
-            throw `Not subscribed to ${outfit.alias}`;
+            throw i18n.__mf({phrase: "notSubscribedActivity", locale: locale}, {outfit: outfit.alias});
         }
         pgClient.query('DELETE FROM outfitactivity WHERE channel=$1 AND id=$2 AND platform=$3;', [channel, outfit.ID, platform]);
-        return `Unsubscribed from ${outfit.alias} activity`;
+        return i18n.__mf({phrase: "unsubscribedActivity", locale: locale}, {outfit: outfit.alias});
     },
 
     /**
@@ -157,21 +157,21 @@ module.exports = {
      * @returns a message of the outcome of the subscription
      * @throws if already subscribed to the `server` alert
      */
-    subscribeAlert: async function(pgClient, channel, server){
+    subscribeAlert: async function(pgClient, channel, server, locale="en-US"){
         let count = await pgClient.query("SELECT count(*) FROM alerts WHERE channel=$1 AND world=$2;", [channel, server]);
         if(count.rows[0].count == 0){
             pgClient.query("INSERT INTO alerts (channel, world) VALUES ($1, $2);", [channel, server]);
 
             try{
                 await config.initializeConfig(channel, pgClient);
-                return `Subscribed to ${standardizeName(server)} alerts`;
+                return i18n.__mf({phrase: "subscribedAlerts", locale}, {server: standardizeName(server)});
             }
             catch(err){
-                return `Subscribed to ${standardizeName(server)} alerts.  Configuration step failed, using default config.`;
+                return i18n.__mf({phrase: "subscribedAlertsConfigFailed", locale}, {server: standardizeName(server)});
             }
         }
         
-        throw `Already subscribed to ${standardizeName(server)} alerts`;
+        throw i18n.__mf({phrase: "alreadySubscribedAlerts", locale}, {server: standardizeName(server)});
     },
 
     /**
@@ -182,15 +182,15 @@ module.exports = {
      * @returns the message of the outcome of the unsubscription
      * @throws if not subscribed to the `server` alert
      */
-    unsubscribeAlert: async function(pgClient, channel, server){
+    unsubscribeAlert: async function(pgClient, channel, server, locale="en-US"){
         let count = await pgClient.query("SELECT COUNT(*) FROM alerts WHERE channel = $1 AND world=$2", [channel, server]);
         if(count.rows[0].count == 0){
-            throw `Not subscribed to ${standardizeName(server)} alerts`;
+            return i18n.__mf({phrase: "notSubscribedAlerts", locale}, {server: standardizeName(server)});
         }
 
         pgClient.query("DELETE FROM alerts WHERE channel=$1 AND world=$2", [channel, server]);
 
-        return `Unsubscribed from ${standardizeName(server)} alerts`;
+        return i18n.__mf({phrase: "unsubscribedAlerts", locale}, {server: standardizeName(server)});
     },
 
     /**
@@ -202,23 +202,23 @@ module.exports = {
      * @returns the message of the outcome of the subscription
      * @throws if `tag` contains invalid characters or if the outfit is already subscribed to
      */
-    subscribeCaptures: async function(pgClient, channel, tag, environment){
+    subscribeCaptures: async function(pgClient, channel, tag, environment, locale="en-US"){
         if(badQuery(tag)){
-			throw "Outfit search contains disallowed characters";
+			throw i18n.__({phrase: "Outfit search contains disallowed characters", locale: locale});
 		}
         let outfit = await outfitInfo(tag, environment);
         let platform = environmentToPlatform[environment];
         let count = await pgClient.query('SELECT COUNT(channel) FROM outfitcaptures WHERE id=$1 AND channel=$2 AND platform=$3;', [outfit.ID, channel, platform]);
         if (count.rows[0].count > 0){
-            throw `Already subscribed to ${outfit.alias} base captures`;
+            return i18n.__mf({phrase: "alreadySubscribedCaptures", locale: locale}, {outfit: outfit.alias});
         }
         await pgClient.query("INSERT INTO outfitcaptures (id, alias, channel, name, platform) VALUES ($1, $2, $3, $4, $5)", [outfit.ID, outfit.alias, channel, outfit.name, platform]);
         try{
             await config.initializeConfig(channel, pgClient)
-            return `Subscribed to ${outfit.alias} base captures`;
+            return i18n.__mf({phrase: "subscribedCaptures", locale: locale}, {outfit: outfit.alias});
         }
         catch(err){
-            return `Subscribed to ${outfit.alias} base captures.  Configuration step failed, using default config.`;
+            return i18n.__mf({phrase: "subscribedCapturesConfigFailed", locale: locale}, {outfit: outfit.alias});
         }
     },
 
@@ -231,18 +231,18 @@ module.exports = {
      * @returns the message of the outcome of the unsubscription
      * @throws if `tag` contains invalid characters or if the outfit is not subscribed to
      */
-    unsubscribeCaptures: async function(pgClient, channel, tag, environment){
+    unsubscribeCaptures: async function(pgClient, channel, tag, environment, locale="en-US"){
         if(badQuery(tag)){
-			throw "Outfit search contains disallowed characters";
+            throw i18n.__({phrase: "Outfit search contains disallowed characters", locale: locale});
 		}
         let outfit = await outfitInfo(tag, environment);
         let platform = environmentToPlatform[environment];
         let count = await pgClient.query('SELECT COUNT(channel) FROM outfitcaptures WHERE id=$1 AND channel=$2 AND platform=$3;', [outfit.ID, channel, platform]);
         if(count.rows[0].count == 0){
-            throw `Not subscribed to ${outfit.alias} captures`;
+            return i18n.__mf({phrase: "notSubscribedCaptures", locale: locale}, {outfit: outfit.alias});
         }
         pgClient.query('DELETE FROM outfitcaptures WHERE channel=$1 AND id=$2 AND platform=$3;', [channel, outfit.ID, platform]);
-        return `Unsubscribed from ${outfit.alias} captures`;
+        return i18n.__mf({phrase: "unsubscribedCaptures", locale: locale}, {outfit: outfit.alias});
     },
 
     /**
@@ -253,13 +253,13 @@ module.exports = {
      * @returns the message of the outcome of the subscription
      * @throws if `user` contains invalid characters or if there is a query error or already subscribed to the twitter user
      */
-    subscribeTwitter: async function(pgClient, channelId, user){
+    subscribeTwitter: async function(pgClient, channelId, user, locale="en-US"){
         if(badQuery(user)){
 			throw "User contains disallowed characters";
 		}
         let source = twitterUsers(user);
         if(!source){
-            throw "User not found";
+            throw i18n.__mf({phrase: "userNotFound", locale: locale}, {user: user});
         }
         let count = await pgClient.query('SELECT COUNT(channel) FROM news WHERE source=$1 AND channel=$2', [source, channelId]);
         if(count.rows[0].count == 0){
@@ -272,14 +272,14 @@ module.exports = {
             }
             try{
                 await config.initializeConfig(channelId, pgClient);
-                return `Subscribed to ${user} Twitter`;
+                return i18n.__mf({phrase: "subscribedTwitter", locale: locale}, {user: user});
             }
             catch(err){
-                return `Subscribed to ${user} Twitter.  Configuration step failed, using default config.`;
+                return i18n.__mf({phrase: "subscribedTwitterConfigFailed", locale: locale}, {user: user});
             }
         }
 
-        throw "Already subscribed to "+user+" Twitter";
+        throw i18n.__mf({phrase: "alreadySubscribedTwitter", locale: locale}, {user: user});
     },
 
     /**
@@ -290,13 +290,13 @@ module.exports = {
      * @returns the message of the outcome of the unsubscription
      * @throws if `user` contains invalid characters or if the twitter user is not subscribed to
      */
-    unsubscribeTwitter: async function(pgClient, channelId, user){
+    unsubscribeTwitter: async function(pgClient, channelId, user, locale="en-US"){
         if(badQuery(user)){
 			throw "User contains disallowed characters";
 		}
         let source = twitterUsers(user);
         if(!source){
-            throw "User not found";
+            throw i18n.__mf({phrase: "userNotFound", locale: locale}, {user: user});
         }
         let count = await pgClient.query('SELECT COUNT(channel) FROM news WHERE source=$1 AND channel=$2;', [source, channelId]);
         if(count.rows[0].count > 0){
@@ -307,10 +307,10 @@ module.exports = {
                 console.log(error);
                 throw error;
             }
-            return `Unsubscribed from ${user} Twitter`;
+            throw i18n.__mf({phrase: "unsubscribedTwitter", locale: locale}, {user: user});
         }
 
-        throw `Not subscribed to ${user} Twitter`;
+        throw i18n.__mf({phrase: "notSubscribedTwitter", locale: locale}, {user: user});
     },
 
     /**
@@ -321,20 +321,20 @@ module.exports = {
      * @returns the message of the outcome of the subscription
      * @throws if already subscribed to `server`
      */
-    subscribeUnlocks: async function(pgClient, channel, server){
+    subscribeUnlocks: async function(pgClient, channel, server, locale="en-US"){
         let count = await pgClient.query("SELECT count(*) FROM unlocks WHERE channel=$1 AND world=$2;", [channel, server]);
         if(count.rows[0].count == 0){
             pgClient.query("INSERT INTO unlocks (channel, world) VALUES ($1, $2);", [channel, server]);
             try{
                 await config.initializeConfig(channel, pgClient)
-                return `Subscribed to ${standardizeName(server)} unlocks.  Configure which continents are shown using /config continents`;
+                return i18n.__mf({phrase: "subscribedUnlocks", locale: locale}, {server: standardizeName(server)});
             }
             catch(err){
-                return `Subscribed to ${standardizeName(server)} unlocks.  Configuration step failed, using default config.`;
+                return i18n.__mf({phrase: "subscribedUnlocksConfigFailed", locale: locale}, {server: standardizeName(server)});
             }
         }
         
-        throw `Already subscribed to ${standardizeName(server)} unlocks`;
+        throw i18n.__mf({phrase: "alreadySubscribedUnlocks", locale: locale}, {server: standardizeName(server)});
     },
 
     /**
@@ -345,15 +345,15 @@ module.exports = {
      * @returns the outcome of the unsubscription
      * @throws if not subscribed to `server`
      */
-    unsubscribeUnlocks: async function(pgClient, channel, server){
+    unsubscribeUnlocks: async function(pgClient, channel, server, locale="en-US"){
         let count = await pgClient.query("SELECT COUNT(*) FROM unlocks WHERE channel = $1 AND world=$2", [channel, server]);
         if(count.rows[0].count == 0){
-            throw `Not subscribed to ${standardizeName(server)} unlocks`;
+            throw i18n.__mf({phrase: "notSubscribedUnlocks", locale: locale}, {server: standardizeName(server)});
         }
 
         pgClient.query("DELETE FROM unlocks WHERE channel=$1 AND world=$2", [channel, server]);
 
-        return `Unsubscribed from ${standardizeName(server)} unlocks`;
+        return i18n.__mf({phrase: "unsubscribedUnlocks", locale: locale}, {server: standardizeName(server)});
     },
 
     /**
@@ -362,7 +362,7 @@ module.exports = {
      * @param {string} channelId - the id of the channel to unsubscribe from
      * @returns a message of the outcome of the unsubscription
      */
-    unsubscribeAll: async function(pgClient, channelId){
+    unsubscribeAll: async function(pgClient, channelId, locale="en-US"){
         const commands = [
             "DELETE FROM alerts WHERE channel = $1",
             "DELETE FROM outfitactivity WHERE channel = $1",
@@ -377,7 +377,7 @@ module.exports = {
                 .catch(err => console.log(err));
         }
 
-        return "Unsubscribed channel from all lists";
+        return i18n.__({phrase: "unsubscribedAll", locale: locale});
     },
 
     /**
