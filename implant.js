@@ -53,6 +53,18 @@ const partialMatches = async function(query){
 	return matches
 }
 
+/**
+ * Check if a query contains disallowed characters
+ * while also accounting for [Perfect] counting invalid characters
+ * @param { string } name 
+ */
+function badQueryImplant(name) {
+	if (name.endsWith("[Perfect]")) {
+		name = name.slice(0, -9);
+	}
+	return badQuery(name);
+}
+
 module.exports = {
 	/**
 	 * Creates a new embed with the implant information
@@ -61,7 +73,7 @@ module.exports = {
 	 * @throw if `name` contains invalid characters
 	 */
 	lookup: async function(name){
-		if(badQuery(name)){
+		if(badQueryImplant(name)){
 			throw "Search contains disallowed characters";
 		}
 		
