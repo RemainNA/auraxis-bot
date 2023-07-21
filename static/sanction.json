@@ -2879,6 +2879,21 @@
         "name": "NS-03 Thumper SE",
         "sanction": "none"
     },
+    "6014952": {
+        "category": "Heavy Weapon",
+        "name": "NS-D Helios",
+        "sanction": "none"
+    },
+    "6014956": {
+        "category": "Heavy Weapon",
+        "name": "NS-D Helios",
+        "sanction": "none"
+    },
+    "6014957": {
+        "category": "Heavy Weapon",
+        "name": "NS-D Helios EX",
+        "sanction": "none"
+    },
     "6012324": {
         "category": "Heavy Weapon",
         "name": "SPRK-33's Stomper",
@@ -3239,26 +3254,6 @@
         "name": "AE Nano-Armor Kit 6",
         "sanction": "none"
     },
-    "6002366": {
-        "category": "Infantry Abilities",
-        "name": "Alarm Module",
-        "sanction": "none"
-    },
-    "6002367": {
-        "category": "Infantry Abilities",
-        "name": "Alarm Module",
-        "sanction": "none"
-    },
-    "6002368": {
-        "category": "Infantry Abilities",
-        "name": "Alarm Module",
-        "sanction": "none"
-    },
-    "6005628": {
-        "category": "Infantry Abilities",
-        "name": "Alarm Module",
-        "sanction": "none"
-    },
     "153": {
         "category": "Infantry Abilities",
         "name": "Ammunition Package 1",
@@ -3444,6 +3439,11 @@
         "name": "Bending Beacon",
         "sanction": "none"
     },
+    "6014932": {
+        "category": "Infantry Abilities",
+        "name": "Blast Gate",
+        "sanction": "none"
+    },
     "804980": {
         "category": "Infantry Abilities",
         "name": "Blast Wall",
@@ -3489,9 +3489,24 @@
         "name": "Caltrop",
         "sanction": "none"
     },
+    "6014614": {
+        "category": "Infantry Abilities",
+        "name": "Command Center",
+        "sanction": "none"
+    },
     "6009069": {
         "category": "Infantry Abilities",
         "name": "Cortium Bomb",
+        "sanction": "none"
+    },
+    "6014746": {
+        "category": "Infantry Abilities",
+        "name": "Cortium Bomb Module",
+        "sanction": "none"
+    },
+    "6014736": {
+        "category": "Infantry Abilities",
+        "name": "Cortium Capacity Module",
         "sanction": "none"
     },
     "804702": {
@@ -3514,6 +3529,26 @@
         "name": "Cortium Silo",
         "sanction": "none"
     },
+    "6014585": {
+        "category": "Infantry Abilities",
+        "name": "Cortium Silo Reserve",
+        "sanction": "none"
+    },
+    "6014586": {
+        "category": "Infantry Abilities",
+        "name": "Cortium Silo Reserve",
+        "sanction": "none"
+    },
+    "6014587": {
+        "category": "Infantry Abilities",
+        "name": "Cortium Silo Reserve",
+        "sanction": "none"
+    },
+    "6014588": {
+        "category": "Infantry Abilities",
+        "name": "Cortium Silo Reserve",
+        "sanction": "none"
+    },
     "6003075": {
         "category": "Infantry Abilities",
         "name": "Cortium Tap",
@@ -3522,6 +3557,11 @@
     "803469": {
         "category": "Infantry Abilities",
         "name": "Deconstruction Tool",
+        "sanction": "none"
+    },
+    "6014738": {
+        "category": "Infantry Abilities",
+        "name": "Durability Module",
         "sanction": "none"
     },
     "6009753": {
@@ -3549,6 +3589,11 @@
         "name": "Elysium Spawn Tube",
         "sanction": "none"
     },
+    "6014739": {
+        "category": "Infantry Abilities",
+        "name": "Equipment Terminal Module",
+        "sanction": "none"
+    },
     "804954": {
         "category": "Infantry Abilities",
         "name": "Faction Banner",
@@ -3569,6 +3614,11 @@
         "name": "Faction Banner",
         "sanction": "none"
     },
+    "6014737": {
+        "category": "Infantry Abilities",
+        "name": "Firewall Module",
+        "sanction": "none"
+    },
     "6004292": {
         "category": "Infantry Abilities",
         "name": "Flail Targeting Dart",
@@ -3582,6 +3632,11 @@
     "6009009": {
         "category": "Infantry Abilities",
         "name": "Flash XS-1",
+        "sanction": "none"
+    },
+    "6014741": {
+        "category": "Infantry Abilities",
+        "name": "Fortress Shield Module",
         "sanction": "none"
     },
     "6002390": {
@@ -3629,6 +3684,16 @@
         "name": "Hardlight Canopy",
         "sanction": "none"
     },
+    "6014742": {
+        "category": "Infantry Abilities",
+        "name": "Heat Dispersion Module",
+        "sanction": "none"
+    },
+    "6014740": {
+        "category": "Infantry Abilities",
+        "name": "Heavy Repair Module",
+        "sanction": "none"
+    },
     "803617": {
         "category": "Infantry Abilities",
         "name": "HIVE",
@@ -3664,6 +3729,11 @@
         "name": "Hoplon Anti-Aircraft Phalanx Tower",
         "sanction": "none"
     },
+    "6014748": {
+        "category": "Infantry Abilities",
+        "name": "Infantry Awning",
+        "sanction": "none"
+    },
     "6002348": {
         "category": "Infantry Abilities",
         "name": "Infantry Tower",
@@ -3682,6 +3752,46 @@
     "6005644": {
         "category": "Infantry Abilities",
         "name": "Infantry Tower",
+        "sanction": "none"
+    },
+    "6014578": {
+        "category": "Infantry Abilities",
+        "name": "Infantry Tree Stand",
+        "sanction": "none"
+    },
+    "6014580": {
+        "category": "Infantry Abilities",
+        "name": "Infantry Tree Stand",
+        "sanction": "none"
+    },
+    "6014582": {
+        "category": "Infantry Abilities",
+        "name": "Infantry Tree Stand",
+        "sanction": "none"
+    },
+    "6014584": {
+        "category": "Infantry Abilities",
+        "name": "Infantry Tree Stand",
+        "sanction": "none"
+    },
+    "803602": {
+        "category": "Infantry Abilities",
+        "name": "Infantry Tunnel",
+        "sanction": "none"
+    },
+    "803603": {
+        "category": "Infantry Abilities",
+        "name": "Infantry Tunnel",
+        "sanction": "none"
+    },
+    "803604": {
+        "category": "Infantry Abilities",
+        "name": "Infantry Tunnel",
+        "sanction": "none"
+    },
+    "6014603": {
+        "category": "Infantry Abilities",
+        "name": "Infantry Tunnel",
         "sanction": "none"
     },
     "6009093": {
@@ -3822,6 +3932,11 @@
     "6005626": {
         "category": "Infantry Abilities",
         "name": "Light Air Terminal",
+        "sanction": "none"
+    },
+    "6014935": {
+        "category": "Infantry Abilities",
+        "name": "Light Post",
         "sanction": "none"
     },
     "6002472": {
@@ -4029,6 +4144,11 @@
         "name": "Medical Kit",
         "sanction": "none"
     },
+    "6014819": {
+        "category": "Infantry Abilities",
+        "name": "Module Dispenser",
+        "sanction": "none"
+    },
     "75285": {
         "category": "Infantry Abilities",
         "name": "Motion Spotter 1",
@@ -4174,6 +4294,11 @@
         "name": "Nano-Armor Kit 6",
         "sanction": "none"
     },
+    "6014815": {
+        "category": "Infantry Abilities",
+        "name": "Narrow Bulwark Wall",
+        "sanction": "none"
+    },
     "6009605": {
         "category": "Infantry Abilities",
         "name": "NE-11 PML",
@@ -4182,6 +4307,26 @@
     "6009487": {
         "category": "Infantry Abilities",
         "name": "Neutralizer Device",
+        "sanction": "none"
+    },
+    "6014727": {
+        "category": "Infantry Abilities",
+        "name": "Orbital Mining Drill",
+        "sanction": "none"
+    },
+    "6014728": {
+        "category": "Infantry Abilities",
+        "name": "Orbital Mining Drill",
+        "sanction": "none"
+    },
+    "6014729": {
+        "category": "Infantry Abilities",
+        "name": "Orbital Mining Drill",
+        "sanction": "none"
+    },
+    "6014730": {
+        "category": "Infantry Abilities",
+        "name": "Orbital Mining Drill",
         "sanction": "none"
     },
     "6002554": {
@@ -4252,6 +4397,11 @@
     "6005652": {
         "category": "Infantry Abilities",
         "name": "Pillbox",
+        "sanction": "none"
+    },
+    "6014726": {
+        "category": "Infantry Abilities",
+        "name": "Projectile Shield Module",
         "sanction": "none"
     },
     "803605": {
@@ -4362,6 +4512,31 @@
     "804886": {
         "category": "Infantry Abilities",
         "name": "RD-GG Recon Device 6",
+        "sanction": "none"
+    },
+    "6014778": {
+        "category": "Infantry Abilities",
+        "name": "Rebirthing Center",
+        "sanction": "none"
+    },
+    "6002366": {
+        "category": "Infantry Abilities",
+        "name": "Recon Array",
+        "sanction": "none"
+    },
+    "6002367": {
+        "category": "Infantry Abilities",
+        "name": "Recon Array",
+        "sanction": "none"
+    },
+    "6002368": {
+        "category": "Infantry Abilities",
+        "name": "Recon Array",
+        "sanction": "none"
+    },
+    "6005628": {
+        "category": "Infantry Abilities",
+        "name": "Recon Array",
         "sanction": "none"
     },
     "309": {
@@ -4574,6 +4749,11 @@
         "name": "Repair Module",
         "sanction": "none"
     },
+    "6014616": {
+        "category": "Infantry Abilities",
+        "name": "Repair Module",
+        "sanction": "none"
+    },
     "6004529": {
         "category": "Infantry Abilities",
         "name": "Reserve Hardlight Barrier",
@@ -4707,6 +4887,11 @@
     "6005672": {
         "category": "Infantry Abilities",
         "name": "Skywall Shield Emitter",
+        "sanction": "none"
+    },
+    "6014735": {
+        "category": "Infantry Abilities",
+        "name": "Skywall Shield Module",
         "sanction": "none"
     },
     "6004873": {
@@ -4874,6 +5059,11 @@
         "name": "The Flail",
         "sanction": "none"
     },
+    "6014747": {
+        "category": "Infantry Abilities",
+        "name": "Tunnel Worm Module",
+        "sanction": "none"
+    },
     "804272": {
         "category": "Infantry Abilities",
         "name": "Turret AI Module",
@@ -4912,6 +5102,11 @@
     "6005630": {
         "category": "Infantry Abilities",
         "name": "Vehicle Ammo Dispenser",
+        "sanction": "none"
+    },
+    "6014813": {
+        "category": "Infantry Abilities",
+        "name": "Vehicle Bridge",
         "sanction": "none"
     },
     "6002490": {
@@ -4964,24 +5159,29 @@
         "name": "Welding Device",
         "sanction": "none"
     },
+    "6014817": {
+        "category": "Infantry Abilities",
+        "name": "Wide Bulwark Wall",
+        "sanction": "none"
+    },
     "803591": {
         "category": "Infantry Abilities",
-        "name": "Xiphos Anti-Personnel Tower",
+        "name": "Xiphos Anti-Infantry Tower",
         "sanction": "none"
     },
     "803592": {
         "category": "Infantry Abilities",
-        "name": "Xiphos Anti-Personnel Tower",
+        "name": "Xiphos Anti-Infantry Tower",
         "sanction": "none"
     },
     "803593": {
         "category": "Infantry Abilities",
-        "name": "Xiphos Anti-Personnel Tower",
+        "name": "Xiphos Anti-Infantry Tower",
         "sanction": "none"
     },
     "6005624": {
         "category": "Infantry Abilities",
-        "name": "Xiphos Anti-Personnel Tower",
+        "name": "Xiphos Anti-Infantry Tower",
         "sanction": "none"
     },
     "6011792": {
@@ -5011,27 +5211,27 @@
     },
     "554": {
         "category": "Infantry Weapons",
-        "name": "MANA Anti-Personnel Turret",
+        "name": "MANA Anti-Infantry Turret",
         "sanction": "none"
     },
     "555": {
         "category": "Infantry Weapons",
-        "name": "MANA Anti-Personnel Turret",
+        "name": "MANA Anti-Infantry Turret",
         "sanction": "none"
     },
     "556": {
         "category": "Infantry Weapons",
-        "name": "MANA Anti-Personnel Turret",
+        "name": "MANA Anti-Infantry Turret",
         "sanction": "none"
     },
     "557": {
         "category": "Infantry Weapons",
-        "name": "MANA Anti-Personnel Turret",
+        "name": "MANA Anti-Infantry Turret",
         "sanction": "none"
     },
     "6005423": {
         "category": "Infantry Weapons",
-        "name": "MANA Anti-Personnel Turret",
+        "name": "MANA Anti-Infantry Turret",
         "sanction": "none"
     },
     "503": {
@@ -5299,6 +5499,11 @@
         "name": "NSX Amaterasu",
         "sanction": "none"
     },
+    "6014991": {
+        "category": "Knife",
+        "name": "NSX Fusion Blade",
+        "sanction": "none"
+    },
     "6014568": {
         "category": "Knife",
         "name": "Queen of Hearts",
@@ -5337,6 +5542,11 @@
     "6014527": {
         "category": "Knife",
         "name": "Trench Shovel",
+        "sanction": "none"
+    },
+    "6014780": {
+        "category": "Knife",
+        "name": "Wavestinger Harpoon",
         "sanction": "none"
     },
     "6011914": {
@@ -7204,6 +7414,26 @@
         "name": "TS4 Haymaker",
         "sanction": "shotgun"
     },
+    "6014826": {
+        "category": "SMG",
+        "name": "\"Apex\" AF-4 Cyclone",
+        "sanction": "infantry"
+    },
+    "6014825": {
+        "category": "SMG",
+        "name": "\"Apex\" Eridani SX5",
+        "sanction": "infantry"
+    },
+    "6014828": {
+        "category": "SMG",
+        "name": "\"Apex\" PMG-100",
+        "sanction": "infantry"
+    },
+    "6014827": {
+        "category": "SMG",
+        "name": "\"Apex\" SMG-46 Armistice",
+        "sanction": "infantry"
+    },
     "27000": {
         "category": "SMG",
         "name": "AF-4 Cyclone",
@@ -8261,52 +8491,52 @@
     },
     "803598": {
         "category": "Vehicle Weapons",
-        "name": "Xiphos Anti-Personnel Phalanx Tower",
+        "name": "Xiphos Anti-Infantry Phalanx Tower",
         "sanction": "none"
     },
     "803599": {
         "category": "Vehicle Weapons",
-        "name": "Xiphos Anti-Personnel Phalanx Tower",
+        "name": "Xiphos Anti-Infantry Phalanx Tower",
         "sanction": "none"
     },
     "803600": {
         "category": "Vehicle Weapons",
-        "name": "Xiphos Anti-Personnel Phalanx Tower",
+        "name": "Xiphos Anti-Infantry Phalanx Tower",
         "sanction": "none"
     },
     "803601": {
         "category": "Vehicle Weapons",
-        "name": "Xiphos Anti-Personnel Phalanx Tower",
+        "name": "Xiphos Anti-Infantry Phalanx Tower",
         "sanction": "none"
     },
     "551": {
         "category": "Vehicle Weapons",
-        "name": "Xiphos Anti-Personnel Phalanx Turret",
+        "name": "Xiphos Anti-Infantry Phalanx Turret",
         "sanction": "none"
     },
     "552": {
         "category": "Vehicle Weapons",
-        "name": "Xiphos Anti-Personnel Phalanx Turret",
+        "name": "Xiphos Anti-Infantry Phalanx Turret",
         "sanction": "none"
     },
     "553": {
         "category": "Vehicle Weapons",
-        "name": "Xiphos Anti-Personnel Phalanx Turret",
+        "name": "Xiphos Anti-Infantry Phalanx Turret",
         "sanction": "none"
     },
     "724": {
         "category": "Vehicle Weapons",
-        "name": "Xiphos Anti-Personnel Phalanx Turret",
+        "name": "Xiphos Anti-Infantry Phalanx Turret",
         "sanction": "none"
     },
     "725": {
         "category": "Vehicle Weapons",
-        "name": "Xiphos Anti-Personnel Phalanx Turret",
+        "name": "Xiphos Anti-Infantry Phalanx Turret",
         "sanction": "none"
     },
     "726": {
         "category": "Vehicle Weapons",
-        "name": "Xiphos Anti-Personnel Phalanx Turret",
+        "name": "Xiphos Anti-Infantry Phalanx Turret",
         "sanction": "none"
     },
     "6005544": {

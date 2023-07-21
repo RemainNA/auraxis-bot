@@ -7,6 +7,14 @@
         "5": "Killing an enemy player restores 30% jump jet fuel, and vehicle kills now trigger this bonus as well. <font color=\"#dc9c36\">Light Assault only.</font>",
         "image": "88827"
     },
+    "Air Drop": {
+        "1": "Upon exiting a vehicle Jump Jet recharge rate is increased by 7% for 8 seconds. <font color=\"#dc9c36\">Light Assault only. 30 second cooldown after triggering.</font>",
+        "2": "Upon exiting a vehicle Jump Jet recharge rate is increased by 7% for 10 seconds. <font color=\"#dc9c36\">Light Assault only. 30 second cooldown after triggering.</font>",
+        "3": "Upon exiting a vehicle Jump Jet recharge rate is increased by 7% for 12 seconds. <font color=\"#dc9c36\">Light Assault only. 30 second cooldown after triggering.</font>",
+        "4": "Upon exiting a vehicle Jump Jet recharge rate is increased by 7% for 15 seconds. <font color=\"#dc9c36\">Light Assault only. 30 second cooldown after triggering.</font>",
+        "5": "Upon exiting a vehicle Jump Jet recharge rate is increased by 10% for 20 seconds. <font color=\"#dc9c36\">Light Assault only. 30 second cooldown after triggering.</font>",
+        "image": "96378"
+    },
     "Ammo Printer": {
         "1": "Restocks one tick of ammunition for all infantry weapons and the weapons of nearby vehicles you own every 120 seconds.<font color=\"#dc9c36\"> Works in vehicles. MAX units can equip.</font>",
         "2": "Restocks one tick of ammunition for all infantry weapons and the weapons of nearby vehicles you own every 110 seconds.<font color=\"#dc9c36\"> Works in vehicles. MAX units can equip.</font>",
@@ -14,10 +22,6 @@
         "4": "Restocks one tick of ammunition for all infantry weapons and the weapons of nearby vehicles you own every 75 seconds.<font color=\"#dc9c36\"> Works in vehicles. MAX units can equip.</font>",
         "5": "Restocks one tick of ammunition for all infantry weapons and the weapons of nearby vehicles you own every 60 seconds.<font color=\"#dc9c36\"> Works in vehicles. MAX units can equip.</font>",
         "image": "87452"
-    },
-    "Analysis HUD": {
-        "desc": "While equipped, the player will be able to locate campaign targets from much further away. <font color=\"#dc9c36\">MAX units can equip. This item expires at the end of the Campaign.</font>",
-        "image": "87795"
     },
     "Assassin": {
         "1": "Damaging enemies now automatically spots them for you and allies, while kills from greater than 150 meters will clear spot checks on you and prevent new ones from being applied for one second. <font color=\"#dc9c36\">Does not clear spot checks on vehicles.</font>",
@@ -96,11 +100,11 @@
         "image": "87720"
     },
     "Combat Surgeon": {
-        "1": "Kills and revives restore 15% of your Nano-Regen Device energy. <font color=\"#dc9c36\">Combat Medic only.</font>",
-        "2": "Kills and revives restore 18% of your Nano-Regen Device energy. <font color=\"#dc9c36\">Combat Medic only.</font>",
-        "3": "Kills and revives restore 23% of your Nano-Regen Device energy. <font color=\"#dc9c36\">Combat Medic only.</font>",
-        "4": "Kills and revives restore 30% of your Nano-Regen Device energy. <font color=\"#dc9c36\">Combat Medic only.</font>",
-        "5": "Kills and revives restore 30% of your Nano-Regen Device energy, and reviving an ally increases your resistance to small arms damage by 25% for 3.5 seconds. <font color=\"#dc9c36\">Combat Medic only.</font>",
+        "1": "Kills and revives restore 15% of your energy-based Combat Medic abilities. <font color=\"#dc9c36\">Combat Medic only.</font>",
+        "2": "Kills and revives restore 18% of your energy-based Combat Medic abilities. <font color=\"#dc9c36\">Combat Medic only.</font>",
+        "3": "Kills and revives restore 23% of your energy-based Combat Medic abilities. <font color=\"#dc9c36\">Combat Medic only.</font>",
+        "4": "Kills and revives restore 30% of your energy-based Combat Medic abilities. <font color=\"#dc9c36\">Combat Medic only.</font>",
+        "5": "Kills and revives restore 30% of your energy-based Combat Medic abilities, and reviving an ally increases your resistance to small arms damage by 25% for 3.5 seconds. <font color=\"#dc9c36\">Combat Medic only.</font>",
         "image": "88947"
     },
     "Counter-Intelligence": {
@@ -130,6 +134,14 @@
         "4": "Headshot kills grant 50% faster weapon rechamber speed for 3 seconds; chaining headshots can store a maximum of 8 seconds worth of rechamber speed.<font color=\"#dc9c36\"> Only useable with Sniper Rifles.</font>",
         "5": "Headshot kills grant 50% faster weapon rechamber speed for 3 seconds; chaining headshots can store a maximum of 8 seconds worth of rechamber speed. Additionally, kills beyond 70 meters will also trigger this benefit.<font color=\"#dc9c36\"> Only useable with Sniper Rifles.</font>",
         "image": "89423"
+    },
+    "Deadshot": {
+        "1": "When your total health drops below 20% your weapon's cone of fire improves by 5% for 5 seconds.",
+        "2": "When your total health drops below 20% your weapon's cone of fire improves by 7% for 5 seconds.",
+        "3": "When your total health drops below 20% your weapon's cone of fire improves by 10% for 7 seconds.",
+        "4": "When your total health drops below 20% your weapon's cone of fire improves by 12% for 10 seconds.",
+        "5": "When your total health drops below 30% your weapon's cone of fire improves by 15% for 12 seconds.",
+        "image": "96504"
     },
     "Deep Operative": {
         "1": "Whenever you spend longer than a total of 30 seconds outside of cloak without taking damage, your cloak's visibility will be reduced by 75%. Dying or taking damage from enemy sources will reset the benefit countdown. <font color=\"#dc9c36\">Infiltrator only.</font>",
@@ -185,7 +197,7 @@
         "3": "Standing still for 0.5 seconds provides you with 20% small arms resistance to bodyshots until you start moving again. <font color=\"#dc9c36\">Inactive in vehicles.</font>",
         "4": "Standing still for 0.1 second provides you with 20% small arms resistance to bodyshots until you start moving again. <font color=\"#dc9c36\">Inactive in vehicles.</font>",
         "5": "Standing still for 0.1 second provides you with 20% small arms resistance to bodyshots, and 50% resistance to common explosives until you start moving again. <font color=\"#dc9c36\">Does not stack with Flak Armor. Inactive in vehicles.</font>",
-        "image": "88207"
+        "image": "88208"
     },
     "Gunslinger": {
         "1": "Kills while wielding a sidearm increase reload speed by 15% for 2 seconds.",
@@ -204,7 +216,7 @@
         "image": "89405"
     },
     "Infravision": {
-        "desc": "While equipped, the player will highlight infantry and vehicles within 125 meters, while reducing vision at long range. <font color=\"#dc9c36\">MAX units can equip. Does not work in vehicles.</font>",
+        "desc": "While equipped, the player will highlight non-cloaked infantry and vehicles within 125 meters, while reducing vision at long range. <font color=\"#dc9c36\">MAX units can equip. Does not work in vehicles.</font>",
         "image": "87774"
     },
     "Infravision [Perfect]": {
@@ -219,9 +231,25 @@
         "5": "While riding in an exposed vehicle seat or gunning an Engineer MANA Turret, you receive an additional 50% maximum shield health. Additionally, squadmates in vehicles within 50 meters of you also receive this benefit at 20% shield strength.",
         "image": "89387"
     },
+    "Juggernaut": {
+        "desc": "Melee attacks knock enemies away a short distance. <font color=\"#dc9c36\">MAX only.</font>",
+        "image": "96381"
+    },
+    "Karma": {
+        "1": "Each time you revive an ally a charge is added to Karma. At 30 charges, your next death allows you to self-revive once at 50% health. <font color=\"#dc9c36\">Redeploying or using an equipment terminal will wipe your current progress. Combat Medic only.</font>",
+        "2": "Each time you revive an ally a charge is added to Karma. At 27 charges, your next death allows you to self-revive once at 50% health. <font color=\"#dc9c36\">Redeploying or using an equipment terminal will wipe your current progress. Combat Medic only.</font>",
+        "3": "Each time you revive an ally a charge is added to Karma. At 24 charges, your next death allows you to self-revive once at 50% health. <font color=\"#dc9c36\">Redeploying or using an equipment terminal will wipe your current progress. Combat Medic only.</font>",
+        "4": "Each time you revive an ally a charge is added to Karma. At 20 charges, your next death allows you to self-revive once at 50% health. <font color=\"#dc9c36\">Redeploying or using an equipment terminal will wipe your current progress. Combat Medic only.</font>",
+        "5": "Each time you revive an ally a charge is added to Karma. At 20 charges, your next death allows you to self-revive once at 100% health. <font color=\"#dc9c36\">Redeploying or using an equipment terminal will wipe your current progress. Combat Medic only.</font>",
+        "image": "96396"
+    },
     "Logistics Specialist": {
         "desc": "While piloting a vehicle, that vehicle becomes capable of spawning squadmates directly into it if there is an open seat.<font color=\"#dc9c36\"> Does not apply to Bastion Fleet Carriers.</font>",
         "image": "88154"
+    },
+    "Logistics Specialist [Perfect]": {
+        "desc": "While piloting a vehicle, that vehicle becomes capable of spawning squadmates directly into it if there is an open seat.<font color=\"#dc9c36\"> Does not apply to Bastion Fleet Carriers.<br><br>Perfect implants cannot be broken down.</font>",
+        "image": "96072"
     },
     "Mending Field": {
         "1": "Allies who are below 100 health passively heal for 15 health per second while you are within 7 meters. <font color=\"#dc9c36\">Combat Medic only.</font>",
@@ -271,6 +299,14 @@
         "5": "Reduces the duration of Concussion, Flash, and EMP Grenades used against you 75%, and you are no longer affected by your own Flash, Concussion, or EMP grenades. <font color=\"#dc9c36\">MAX units can equip.</font>",
         "image": "87506"
     },
+    "Overcharge": {
+        "1": "While overshield is active your primary weapon's bullets will now pierce through one infantry target before stopping. While this implant is equipped your overshield's maximum energy will be reduced by 30%.  <font color=\"#dc9c36\">Heavy Assault only.</font>",
+        "2": "While overshield is active your primary weapon's bullets will now pierce through one infantry target before stopping. While this implant is equipped your overshield's maximum energy will be reduced by 25%.  <font color=\"#dc9c36\">Heavy Assault only.</font>",
+        "3": "While overshield is active your primary weapon's bullets will now pierce through one infantry target before stopping. While this implant is equipped your overshield's maximum energy will be reduced by 20%.  <font color=\"#dc9c36\">Heavy Assault only.</font>",
+        "4": "While overshield is active your primary weapon's bullets will now pierce through one infantry target before stopping. While this implant is equipped your overshield's maximum energy will be reduced by 15%.  <font color=\"#dc9c36\">Heavy Assault only.</font>",
+        "5": "While overshield is active your primary and secondary weapon's bullets will now pierce through one infantry target before stopping. While this implant is equipped your overshield's maximum energy will be reduced by 15%.  <font color=\"#dc9c36\">Heavy Assault only.</font>",
+        "image": "96534"
+    },
     "Overdrive": {
         "1": "Roadkills with a Flash or Harasser will restore 25% base turbo energy.",
         "2": "Roadkills with a Flash or Harasser will restore 28% base turbo energy.",
@@ -288,7 +324,7 @@
         "image": "88875"
     },
     "Phylactery": {
-        "desc": "Each time you are revived, a charge is added to the phylactery. At 3 charges, your next death will allow you to self-revive once at 50% health. Phylactery's self-revive does not count toward these charges. <font color=\"#dc9c36\">Charges cannot be gained while in a vehicle, and redeploying or using an equipment terminal will wipe your current progress. MAXes can use this implant.</font>",
+        "desc": "Each time you are revived, a charge is added to the phylactery. At 3 charges, your next death will allow you to self-revive once at 50% health. Phylactery's self-revive does not count toward these charges. <font color=\"#dc9c36\">Charges cannot be gained while in a vehicle, and redeploying or using an equipment terminal will wipe your current progress.</font>",
         "image": "88254"
     },
     "Ransack": {
@@ -298,6 +334,14 @@
         "4": "Killing a vehicle within 50 meters restores one tick of ammunition for you or your vehicle. <font color=\"#dc9c36\"> Works in vehicles.</font>",
         "5": "Killing a vehicle within 50 meters restores one tick of ammunition for you or your vehicle, and heals your vehicle for 10% max health. <font color=\"#dc9c36\"> Works in vehicles.</font>",
         "image": "89362"
+    },
+    "Rapid Response": {
+        "1": "While wielding a beneficial construction module your sprint speed is increased by 7%.",
+        "2": "While wielding a beneficial construction module your sprint speed is increased by 10%.",
+        "3": "While wielding a beneficial construction module your sprint speed is increased by 13%.",
+        "4": "While wielding a beneficial construction module your sprint speed is increased by 15%.",
+        "5": "While wielding a beneficial construction module your sprint speed is increased by 15%. Additionally, the time to install beneficial modules is reduced by 50%.",
+        "image": "96564"
     },
     "Regeneration": {
         "1": "Regenerates 20 health per second when out of combat for 10 seconds.",
@@ -340,11 +384,11 @@
         "image": "87479"
     },
     "Safeguard": {
-        "1": "Upon being revived, damage taken is reduced by 20% for 1.5 seconds. <font color=\"#dc9c36\">MAX units can equip.</font>",
-        "2": "Upon being revived, damage taken is reduced by 20% for 1.75 seconds. <font color=\"#dc9c36\">MAX units can equip.</font>",
-        "3": "Upon being revived, damage taken is reduced by 20% for 2.5 seconds. <font color=\"#dc9c36\">MAX units can equip.</font>",
-        "4": "Upon being revived, damage taken is reduced by 20% for 3.5 seconds. <font color=\"#dc9c36\">MAX units can equip.</font>",
-        "5": "Upon being revived, damage taken is reduced by 20% for 3.5 seconds, and you instantly restore 200 shield health as infantry, or an extra 500 health while in a MAX suit. <font color=\"#dc9c36\">MAX units can equip.</font>",
+        "1": "Upon being revived, damage taken is reduced by 20% for 1.5 seconds.",
+        "2": "Upon being revived, damage taken is reduced by 20% for 1.75 seconds.",
+        "3": "Upon being revived, damage taken is reduced by 20% for 2.5 seconds.",
+        "4": "Upon being revived, damage taken is reduced by 20% for 3.5 seconds.",
+        "5": "Upon being revived, damage taken is reduced by 20% for 3.5 seconds, and you instantly restore 200 shield health.",
         "image": "87558"
     },
     "Salvage": {
