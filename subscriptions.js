@@ -61,24 +61,6 @@ const outfitInfo = async function(tag, platform){
 }
 
 /**
- * Get the encoding scheme of twitter users in the database
- *  @param {string} user - twitter user to check, is case insensitive
- * @returns the encoding scheme of the user
- */
-const twitterUsers = function(user){
-    switch(user.toLowerCase()){
-        case "remainna":
-            return "Remain_NA-twitter";
-        case "wrel":
-            return "WrelPlays-twitter";
-        case "planetside":
-            return "planetside2-twitter";
-        default:
-            return false;
-    }
-}
-
-/**
  * environment: platform
  * @example
  * "ps2:v2": "pc",
@@ -243,74 +225,6 @@ module.exports = {
         }
         pgClient.query('DELETE FROM outfitcaptures WHERE channel=$1 AND id=$2 AND platform=$3;', [channel, outfit.ID, platform]);
         return i18n.__mf({phrase: "unsubscribedCaptures", locale: locale}, {outfit: outfit.alias});
-    },
-
-    /**
-     * Subscribes to updates when a tracked twitter user posts a tweet
-     * @param {pg.Client} pgClient - Postgres client to use 
-     * @param {string} channelId - the id of the channel to send messages to
-     * @param {string} user - the twitter user to subscribe to
-     * @returns the message of the outcome of the subscription
-     * @throws if `user` contains invalid characters or if there is a query error or already subscribed to the twitter user
-     */
-    subscribeTwitter: async function(pgClient, channelId, user, locale="en-US"){
-        if(badQuery(user)){
-			throw "User contains disallowed characters";
-		}
-        let source = twitterUsers(user);
-        if(!source){
-            throw i18n.__mf({phrase: "userNotFound", locale: locale}, {user: user});
-        }
-        let count = await pgClient.query('SELECT COUNT(channel) FROM news WHERE source=$1 AND channel=$2', [source, channelId]);
-        if(count.rows[0].count == 0){
-            try{
-                pgClient.query("INSERT INTO news (channel, source) VALUES ($1, $2);", [channelId, source]);
-            }
-            catch(error){
-                console.log(error);
-                throw error;
-            }
-            try{
-                await config.initializeConfig(channelId, pgClient);
-                return i18n.__mf({phrase: "subscribedTwitter", locale: locale}, {user: user});
-            }
-            catch(err){
-                return i18n.__mf({phrase: "subscribedTwitterConfigFailed", locale: locale}, {user: user});
-            }
-        }
-
-        throw i18n.__mf({phrase: "alreadySubscribedTwitter", locale: locale}, {user: user});
-    },
-
-    /**
-     * Unsubscribe from updates when a tracked twitter user posts a tweet
-     * @param {pg.Client} pgClient - Postgres client to use
-     * @param {string} channelId - the id of the channel to unsubscribe from
-     * @param {string} user - the twitter user to unsubscribe from
-     * @returns the message of the outcome of the unsubscription
-     * @throws if `user` contains invalid characters or if the twitter user is not subscribed to
-     */
-    unsubscribeTwitter: async function(pgClient, channelId, user, locale="en-US"){
-        if(badQuery(user)){
-			throw "User contains disallowed characters";
-		}
-        let source = twitterUsers(user);
-        if(!source){
-            throw i18n.__mf({phrase: "userNotFound", locale: locale}, {user: user});
-        }
-        let count = await pgClient.query('SELECT COUNT(channel) FROM news WHERE source=$1 AND channel=$2;', [source, channelId]);
-        if(count.rows[0].count > 0){
-            try{
-                pgClient.query("DELETE FROM news WHERE channel= $1 AND source = $2;", [channelId, source]);
-            }
-            catch(error){
-                console.log(error);
-                throw error;
-            }
-            throw i18n.__mf({phrase: "unsubscribedTwitter", locale: locale}, {user: user});
-        }
-
-        throw i18n.__mf({phrase: "notSubscribedTwitter", locale: locale}, {user: user});
     },
 
     /**

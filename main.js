@@ -42,7 +42,6 @@ const status = require('./status.js');
 const weapon = require('./weapon.js');
 const weaponSearch = require('./weaponSearch.js');
 const implant = require('./implant.js');
-const twitterListener = require('./twitterListener.js');
 const alertMaintenance = require('./alertMaintenance.js');
 const deleteMessages = require('./deleteMessages.js');
 const dashboard = require('./dashboard.js');
@@ -56,14 +55,9 @@ const outfitMaintenance = require('./outfitMaintenance.js');
 const character = require('./character.js');
 
 let runningOnline = false;
-let twitterAvail = false;
 
 if(typeof(process.env.DATABASE_URL) !== 'undefined'){
 	runningOnline = true;
-}
-
-if(typeof(process.env.TWITTER_CONSUMER_KEY) !== 'undefined'){
-	twitterAvail = true;
 }
 
 const intentsList = [
@@ -90,11 +84,6 @@ client.on('ready', async () => {
 		await SQLclient.connect();
 
 		listener.start(SQLclient, client);
-		if(twitterAvail){
-			twitterListener.init();
-			twitterListener.connect(SQLclient, client.channels);
-			twitterListener.latestTweet(SQLclient, client.channels);
-		}
 		/** The bot cycles every 24 hours, so these will be called every 24 hours */
 		outfitMaintenance.update(SQLclient);
 		alertMaintenance.update(SQLclient, client);
@@ -142,7 +131,6 @@ const listOfCommands =
 /(un)subscribe activity [tag] <platform>\n\
 /(un)subscribe captures [tag] <platform>\n\
 /(un)subscribe unlocks [server]\n\
-/(un)subscribe twitter [wrel/planetside]\n\
 /unsubscribe all\n\
 /config view\n\
 /config audit\n\
@@ -372,11 +360,6 @@ client.on('interactionCreate', async interaction => {
 					await interaction.editReply(res);
 					break;
 
-				case 'twitter':
-					res = await subscription.subscribeTwitter(SQLclient, interaction.channelId, options.getString('user'), interaction.locale);
-					await interaction.editReply(res);
-					break;
-
 				case 'unlocks':
 					res = await subscription.subscribeUnlocks(SQLclient, interaction.channelId, options.getString('server'), interaction.locale);
 					await interaction.editReply(res);
@@ -410,11 +393,6 @@ client.on('interactionCreate', async interaction => {
 
 				case 'captures':
 					res = await subscription.unsubscribeCaptures(SQLclient, interaction.channelId, options.getString("tag"), options.getString("platform") || 'ps2:v2', interaction.locale);
-					await interaction.editReply(res);
-					break;
-
-				case 'twitter':
-					res = await subscription.unsubscribeTwitter(SQLclient, interaction.channelId, options.getString("user"), interaction.locale);
 					await interaction.editReply(res);
 					break;
 

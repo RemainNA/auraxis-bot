@@ -259,28 +259,6 @@ const data = [
 				choices: servers
 			}
 			]
-		},
-		{
-			name: "twitter",
-			description: "Receive a notification whenever a user posts or retweets",
-			type: '1',
-			options: [{
-				name: 'user',
-				type: '3',
-				description: "Twitter user",
-				required: true,
-				choices: [
-					{
-						name: 'Wrel',
-						value: 'wrel'
-					},
-					{
-						name: 'Planetside 2',
-						value: 'planetside'
-					}
-				]
-			}
-			]
 		}
 		]
 	},
@@ -348,28 +326,6 @@ const data = [
 				type: '3',
 				required: true,
 				choices: servers
-			}
-			]
-		},
-		{
-			name: "twitter",
-			description: "Remove active Twitter subscriptions",
-			type: '1',
-			options: [{
-				name: 'user',
-				type: '3',
-				description: "User's name",
-				required: true,
-				choices: [
-					{
-						name: 'Wrel',
-						value: 'wrel'
-					},
-					{
-						name: 'Planetside 2',
-						value: 'planetside'
-					}
-				]
 			}
 			]
 		},
