@@ -45,17 +45,6 @@ const basicInfo = async function(cName, platform){
         stats: false,
         stat_history: false
     };
-    if(platform != 'ps2:v2' && data.faction_id != 4){
-        try{
-            let manualPrestige = await checkASP(cName, platform);
-            if(manualPrestige){
-                resObj.prestige = 1;
-            }
-        }
-        catch(err){
-            // Fail silently
-        }
-    }
     if(data.title_id_join_title != null){
         resObj.title = data.title_id_join_title.name.en;
     }
@@ -192,25 +181,6 @@ const basicInfo = async function(cName, platform){
         resObj.topTime = topTime;
     }
     return resObj;
-}
-
-/**
- * Checks if character has ASP
- * @param {string} cName - Character name
- * @param {string} platform - platform character is on
- * @returns true if character is ASP
- */
-const checkASP = async function(cName, platform){
-    let response = await censusRequest(platform, 'character_list', `/character?name.first_lower=${cName}&c:resolve=item_full&c:lang=en`);
-    let data = response[0];
-    let aspTitle = false;
-    for (const item of data.items){
-        if(Number(item.item_id) == 6004399){
-            aspTitle = true;
-            break;
-        }
-    }
-    return aspTitle;
 }
 
 /**
