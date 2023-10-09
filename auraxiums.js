@@ -86,7 +86,7 @@ module.exports = {
 
 		let resEmbed = new Discord.MessageEmbed();
 		resEmbed.setTitle(i18n.__mf({phrase: "{name} Auraxiums", locale: locale}, {name: medalList.name}));
-		let textList = "";
+		let textList = "**" + i18n.__mf({phrase: "auraxiumMedalCount", locale: locale}, {num: medalList.medals.length}) + "**\n";
 		let remaining = medalList.medals.length + medalList.possibleMedals.length;
 		if(remaining == 0){
 			throw i18n.__mf({phrase: "{name} has no Auraxium medals", locale: locale}, {name: medalList.name});
@@ -123,7 +123,7 @@ module.exports = {
 				const currentItem = `${medal}\n`;
 				if(!continued && (textList.length + currentItem.length) > 1024){
 					continued = true;
-					resEmbed.addField(i18n.__({phrase: "Possible medals (kills)", locale: locale}), textList);
+					resEmbed.addField(i18n.__mf({phrase: "possibleMedalCount", locale: locale}, {num: medalList.possibleMedals.length}), textList);
 					textList = currentItem;
 				}
 				else if(continued && (textList.length + currentItem.length) > 1024){
@@ -138,7 +138,7 @@ module.exports = {
 				resEmbed.addField(i18n.__({phrase: "Continued...", locale: locale}), textList);
 			}
 			else if(textList != ""){
-				resEmbed.addField(i18n.__({phrase: "Possible medals (kills)", locale: locale}), textList);
+				resEmbed.addField(i18n.__mf({phrase: "possibleMedalCount", locale: locale}, {num: medalList.possibleMedals.length}), textList);
 			}
 		}
 		else{
@@ -169,7 +169,7 @@ module.exports = {
 					remaining -= 1;
 					max -= 1;
 				}
-				resEmbed.addField(i18n.__({phrase: "Possible medals (kills)", locale: locale}), textList);
+				resEmbed.addField(i18n.__mf({phrase: "possibleMedalCount", locale: locale}, {num: medalList.possibleMedals.length}), textList);
 			}
 		}
 		resEmbed.setColor(faction(medalList.faction).color)
