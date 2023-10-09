@@ -86,11 +86,11 @@ module.exports = {
             platform = 'ps2ps4eu:v2';
         }
         let response = await censusRequest(platform, 'map_list', `/map/?world_id=${serverID}&zone_ids=2,4,6,8,14,344`);
-        if(response.length < 3){
-            throw "API response missing continents";
-        }
         if(typeof(response[0]) === 'undefined'){
             throw "API response improperly formatted";
+        }
+        if(response.length < 3){
+            throw "API response missing continents";
         }
         if(typeof(response[0].Regions) === 'undefined'){
             throw "API response missing Regions field";
