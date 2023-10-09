@@ -38,7 +38,7 @@ const notifyUnlock = async function(cont, server, channelID, pgClient, discordCl
 	try{
 		const channel = await discordClient.channels.fetch(channelID);
 		if(typeof(channel.guild) !== 'undefined'){
-			if(channel.permissionsFor(channel.guild.me).has([Permissions.FLAGS.SEND_MESSAGES, Permissions.FLAGS.VIEW_CHANNEL, Permissions.FLAGS.EMBED_LINKS])){
+			if(channel.permissionsFor(channel.guild.members.me).has([Permissions.FLAGS.SEND_MESSAGES, Permissions.FLAGS.VIEW_CHANNEL, Permissions.FLAGS.EMBED_LINKS])){
 				await send(channel, `${cont} on ${server} is now open!`, "Continent unlock");
 			}
 			else{

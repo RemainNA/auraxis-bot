@@ -15,7 +15,7 @@ module.exports = {
      * @returns the ID of the message sent. If the bot does not have permission will return -1
      */
     send: async function(channel, message, context="default", embed=false){
-        if(embed && channel.type != 'DM' && !channel.permissionsFor(channel.guild.me).has('EMBED_LINKS')){
+        if(embed && channel.type != 'DM' && !channel.permissionsFor(channel.guild.members.me).has('EMBED_LINKS')){
             try {
                 await channel.send('Please grant the "Embed Links" permission to use this command');
             }
