@@ -2879,6 +2879,11 @@
         "name": "NS-03 Thumper SE",
         "sanction": "none"
     },
+    "6015169": {
+        "category": "Heavy Weapon",
+        "name": "NS-D \"Doombringer\" Helios",
+        "sanction": "none"
+    },
     "6014952": {
         "category": "Heavy Weapon",
         "name": "NS-D Helios",
@@ -3624,6 +3629,11 @@
         "name": "Flail Targeting Dart",
         "sanction": "none"
     },
+    "6014996": {
+        "category": "Infantry Abilities",
+        "name": "Flail Targeting Laser",
+        "sanction": "none"
+    },
     "6009000": {
         "category": "Infantry Abilities",
         "name": "Flash XS-1",
@@ -3657,6 +3667,11 @@
     "6005636": {
         "category": "Infantry Abilities",
         "name": "Glaive IPC",
+        "sanction": "none"
+    },
+    "6014997": {
+        "category": "Infantry Abilities",
+        "name": "Glaive Targeting Laser",
         "sanction": "none"
     },
     "6002954": {
@@ -4334,6 +4349,11 @@
         "name": "Orbital Strike Target Designator",
         "sanction": "none"
     },
+    "6002558": {
+        "category": "Infantry Abilities",
+        "name": "Orbital Strike Targeting Laser",
+        "sanction": "none"
+    },
     "6002524": {
         "category": "Infantry Abilities",
         "name": "Orbital Strike Uplink",
@@ -4944,6 +4964,46 @@
         "name": "Spear Anti-Vehicle Turret",
         "sanction": "none"
     },
+    "6015075": {
+        "category": "Infantry Abilities",
+        "name": "Spitfire \"Prime Directive\" Auto-Turret",
+        "sanction": "none"
+    },
+    "6015076": {
+        "category": "Infantry Abilities",
+        "name": "Spitfire \"Prime Directive\" Auto-Turret",
+        "sanction": "none"
+    },
+    "6015077": {
+        "category": "Infantry Abilities",
+        "name": "Spitfire \"Prime Directive\" Auto-Turret",
+        "sanction": "none"
+    },
+    "6015078": {
+        "category": "Infantry Abilities",
+        "name": "Spitfire \"Prime Directive\" Auto-Turret",
+        "sanction": "none"
+    },
+    "6015086": {
+        "category": "Infantry Abilities",
+        "name": "Spitfire \"Prime Directive\" Auto-Turret",
+        "sanction": "none"
+    },
+    "6015087": {
+        "category": "Infantry Abilities",
+        "name": "Spitfire \"Prime Directive\" Auto-Turret",
+        "sanction": "none"
+    },
+    "6015088": {
+        "category": "Infantry Abilities",
+        "name": "Spitfire \"Prime Directive\" Auto-Turret",
+        "sanction": "none"
+    },
+    "6015089": {
+        "category": "Infantry Abilities",
+        "name": "Spitfire \"Prime Directive\" Auto-Turret",
+        "sanction": "none"
+    },
     "802512": {
         "category": "Infantry Abilities",
         "name": "Spitfire Auto-Turret",
@@ -5437,6 +5497,11 @@
     "802902": {
         "category": "Knife",
         "name": "NS Harrower",
+        "sanction": "none"
+    },
+    "6015205": {
+        "category": "Knife",
+        "name": "NS Homerun",
         "sanction": "none"
     },
     "6009463": {
@@ -6547,6 +6612,11 @@
     "6002640": {
         "category": "Pistol",
         "name": "NS-61 \"Ravenous\" Emissary",
+        "sanction": "infantry"
+    },
+    "6015090": {
+        "category": "Pistol",
+        "name": "NS-61 \"Wartime\" Emissary",
         "sanction": "infantry"
     },
     "804138": {
