@@ -229,7 +229,6 @@
 	"<> = Optional, [] = Required": "<> = Optional, [] = Required",
 	"Error occurred when handling command": "Error occurred when handling command",
 	"This command supports a maximum of 10 characters per query": "This command supports a maximum of 10 characters per query",
-	"Possible medals (kills)": "Possible medals (kills)",
 	"insufficientPermissions": "Auraxis Bot does not have permission to post in this channel, please fix permissions to enable subscriptions!",
 	"unsubscribedAll": "Unsubscribed channel from all lists",
 	"notSubscribedUnlocks": "Not subscribed to {server} unlocks",
@@ -250,12 +249,7 @@
 	"numOnline": "{pop} online",
 	"empty": "Empty",
 	"quantityPerMinute": "{quantity}/min",
-	"notSubscribedTwitter": "Not subscribed to {user} Twitter",
-	"unsubscribedTwitter": "Unsubscribed from {user} Twitter",
 	"userNotFound": "User not found",
-	"alreadySubscribedTwitter": "Already subscribed to {user} Twitter",
-	"subscribedTwitter": "Subscribed to {user} Twitter",
-	"subscribedTwitterConfigFailed": "Subscribed to {user} Twitter.  Configuration step failed, using default config.",
 	"unsubscribedCaptures": "Unsubscribed from {outfit} captures",
 	"notSubscribedCaptures": "Not subscribed to {outfit} captures",
 	"subscribedCapturesConfigFailed": "Subscribed to {outfit} captures.  Configuration step failed, using default config.",
@@ -270,5 +264,7 @@
 	"notSubscribedActivity": "Not subscribed to {outfit} activity",
 	"subscribedActivityConfigFailed": "Subscribed to {outfit} activity.  Configuration step failed, using default config.",
 	"subscribedActivity": "Subscribed to {outfit} activity",
-	"alreadySubscribedActivity": "Already subscribed to {outfit} activity"
+	"alreadySubscribedActivity": "Already subscribed to {outfit} activity",
+	"auraxiumMedalCount": "{num} Auraxium medals",
+	"possibleMedalCount": "{num} possible medals (kills)"
 }

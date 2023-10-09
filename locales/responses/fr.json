@@ -229,7 +229,6 @@
 	"<> = Optional, [] = Required": "<> = Optionnel, [] = Requis",
 	"Error occurred when handling command": "Une erreur s'est produite lors de la gestion de la commande",
 	"This command supports a maximum of 10 characters per query": "Cette commande prend en charge 10 personnages maximum par requête",
-	"Possible medals (kills)": "Médailles possibles (victimes)",
 	"insufficientPermissions": "Auraxis Bot n'a pas la permission de poster dans ce salon, veuillez corriger les permissions pour activer les abonnements !",
 	"unsubscribedAll": "Salon désabonné de toutes les listes",
 	"notSubscribedUnlocks": "Pas abonné aux déverrouillages de {server}",
@@ -250,12 +249,7 @@
 	"numOnline": "{pop} en ligne",
 	"empty": "Vide",
 	"quantityPerMinute": "{quantity}/min",
-	"notSubscribedTwitter": "Il n'y a aucun abonnement au Twitter de {user}",
-	"unsubscribedTwitter": "Désabonné du Twitter de {user}",
 	"userNotFound": "Utilisateur introuvable",
-	"alreadySubscribedTwitter": "Déjà abonné au Twitter de {user}",
-	"subscribedTwitter": "Abonné au Twitter de {user}",
-	"subscribedTwitterConfigFailed": "Abonné au Twitter de {user}.  Étape de configuration échouée, utilisation de la configuration par défaut.",
 	"unsubscribedCaptures": "Désabonné des captures de {outfit}",
 	"notSubscribedCaptures": "Il n'y a aucun abonnement aux captures de {outfit}",
 	"subscribedCapturesConfigFailed": "Abonné aux captures de {outfit}.  Étape de configuration échouée, utilisation de la configuration par défaut.",
@@ -270,5 +264,7 @@
 	"notSubscribedActivity": "Il n'y a aucun abonnement à l'activité de {outfit}",
 	"subscribedActivityConfigFailed": "Abonné à l'activité de {outfit}.  Étape de configuration échouée, utilisation de la configuration par défaut.",
 	"subscribedActivity": "Abonné à l'activité de {outfit}",
-	"alreadySubscribedActivity": "Déjà abonné à l'activité de {outfit}"
+	"alreadySubscribedActivity": "Déjà abonné à l'activité de {outfit}",
+	"auraxiumMedalCount": "{num} Auraxium medals",
+	"possibleMedalCount": "{num} possible medals (kills)"
 }
