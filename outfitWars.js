@@ -19,7 +19,7 @@ module.exports = {
 	 * @throws if there is an error requesting any info
 	 */
 	registrations: async function(server, locale='en-US'){
-		const uri = `https://census.lithafalcon.cc/get/ps2/outfit_war_registration?world_id=${serverIDs[server]}&outfit_war_id=43`
+		const uri = `https://census.lithafalcon.cc/get/ps2/outfit_war_registration?world_id=${serverIDs[server]}`;
 		const request = await fetch(uri);
 		const response = await request.json();
 		const sendEmbed = new Discord.MessageEmbed();
