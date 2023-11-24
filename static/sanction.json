@@ -2789,6 +2789,11 @@
         "name": "Demon Seeker HLX",
         "sanction": "infantry-explosive"
     },
+    "6015262": {
+        "category": "Heavy Crossbow",
+        "name": "Fortune Seeker HLX",
+        "sanction": "infantry-explosive"
+    },
     "6011432": {
         "category": "Heavy Crossbow",
         "name": "Seeker HLX",
@@ -6504,6 +6509,11 @@
         "name": "NS-44 \"Jackpot\" Commissioner",
         "sanction": "infantry"
     },
+    "6015212": {
+        "category": "Pistol",
+        "name": "NS-44 \"Primed Amethyst\" Commissioner",
+        "sanction": "infantry"
+    },
     "75063": {
         "category": "Pistol",
         "name": "NS-44 Commissioner",
@@ -6984,6 +6994,11 @@
         "name": "NS \"Fenrir's Maw\" Annihilator",
         "sanction": "none"
     },
+    "6015273": {
+        "category": "Rocket Launcher",
+        "name": "NS \"Fortune\" Decimator",
+        "sanction": "none"
+    },
     "6003611": {
         "category": "Rocket Launcher",
         "name": "NS \"Heatwave\" Decimator",
@@ -7042,6 +7057,11 @@
     "6013979": {
         "category": "Rocket Launcher",
         "name": "NS-R3 \"Dawnstinger\" Swarm",
+        "sanction": "none"
+    },
+    "6015279": {
+        "category": "Rocket Launcher",
+        "name": "NS-R3 \"Mountain Buster\" Swarm",
         "sanction": "none"
     },
     "6002637": {
