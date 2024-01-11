@@ -171,29 +171,31 @@ module.exports = {
 				resEmbed.setURL('http://ps4eu.ps2.fisu.pw/outfit/?name='+oInfo.alias);
 			}
 		}
-		resEmbed.addField(i18n.__({phrase: "Founded", locale: locale}), `<t:${oInfo.timeCreated}:D>`, true);
-		resEmbed.addField(i18n.__({phrase: "Members", locale: locale}), localeNumber(oInfo.memberCount, locale), true);
 		const dayPc = localeNumber((oInfo.onlineDay/oInfo.memberCount)*100, locale);
 		const weekPc = localeNumber((oInfo.onlineWeek/oInfo.memberCount)*100, locale);
 		const monthPc = localeNumber((oInfo.onlineMonth/oInfo.memberCount)*100, locale);
-		resEmbed.addField(i18n.__({phrase: "Online", locale: locale}), `${oInfo.onlineMembers}`, true);
-		resEmbed.addField(i18n.__({phrase: "Last day", locale: locale}), localeNumber(oInfo.onlineDay, locale)+" ("+dayPc+"%)", true);
-		resEmbed.addField(i18n.__({phrase: "Last week", locale: locale}), localeNumber(oInfo.onlineWeek, locale)+" ("+weekPc+"%)", true);
-		resEmbed.addField(i18n.__({phrase: "Last month", locale: locale}), localeNumber(oInfo.onlineMonth, locale)+" ("+monthPc+"%)", true);
-		resEmbed.addField(i18n.__({phrase: "Server", locale: locale}), i18n.__({phrase: serverNames[Number(oInfo.worldId)], locale: locale}), true);
 
 		const factionInfo = faction(oInfo.faction);
-		resEmbed.addField(i18n.__({phrase: "Faction", locale: locale}), `${factionInfo.decal} ${i18n.__({phrase: factionInfo.initial, locale: locale})}`, true);
+		resEmbed.addFields(
+			{name: i18n.__({phrase: "Founded", locale: locale}), value: `<t:${oInfo.timeCreated}:D>`, inline: true},
+			{name: i18n.__({phrase: "Members", locale: locale}), value: localeNumber(oInfo.memberCount, locale), inline: true},
+			{name: i18n.__({phrase: "Online", locale: locale}), value: `${oInfo.onlineMembers}`, inline: true},
+			{name: i18n.__({phrase: "Last day", locale: locale}), value: localeNumber(oInfo.onlineDay, locale)+" ("+dayPc+"%)", inline: true},
+			{name: i18n.__({phrase: "Last week", locale: locale}), value: localeNumber(oInfo.onlineWeek, locale)+" ("+weekPc+"%)", inline: true},
+			{name: i18n.__({phrase: "Last month", locale: locale}), value: localeNumber(oInfo.onlineMonth, locale)+" ("+monthPc+"%)", inline: true},
+			{name: i18n.__({phrase: "Server", locale: locale}), value: i18n.__({phrase: serverNames[Number(oInfo.worldId)], locale: locale}), inline: true},
+			{name: i18n.__({phrase: "Faction", locale: locale}), value: `${factionInfo.decal} ${i18n.__({phrase: factionInfo.initial, locale: locale})}`, inline: true}
+		)
 		resEmbed.setColor(factionInfo.color);
 
 		if(platform == "ps2:v2"){
-			resEmbed.addField(i18n.__({phrase: 'Owner', locale: locale}), "["+oInfo.owner+"]("+"https://ps2.fisu.pw/player/?name="+oInfo.owner+")", true);
+			resEmbed.addFields({name: i18n.__({phrase: 'Owner', locale: locale}), value: "["+oInfo.owner+"]("+"https://ps2.fisu.pw/player/?name="+oInfo.owner+")", inline: true});
 		}
 		else if(platform == "ps2ps4us:v2"){
-			resEmbed.addField(i18n.__({phrase: 'Owner', locale: locale}), "["+oInfo.owner+"]("+"https://ps4us.ps2.fisu.pw/player/?name="+oInfo.owner+")", true);
+			resEmbed.addFields({name: i18n.__({phrase: 'Owner', locale: locale}), value: "["+oInfo.owner+"]("+"https://ps4us.ps2.fisu.pw/player/?name="+oInfo.owner+")", inline: true});
 		}
 		else if(platform == "ps2ps4eu:v2"){
-			resEmbed.addField(i18n.__({phrase: 'Owner', locale: locale}), "["+oInfo.owner+"]("+"https://ps4eu.ps2.fisu.pw/player/?name="+oInfo.owner+")", true);
+			resEmbed.addFields({name: i18n.__({phrase: 'Owner', locale: locale}), value: "["+oInfo.owner+"]("+"https://ps4eu.ps2.fisu.pw/player/?name="+oInfo.owner+")", inline: true});
 		}
 		let auraxium = 0;
 		let synthium = 0;
@@ -236,10 +238,12 @@ module.exports = {
 			}
 		}
 		if((auraxium + synthium + polystellarite) > 0){ //Recognized bases are owned
-			resEmbed.addField('<:Auraxium:818766792376713249>', i18n.__mf({phrase: "quantityPerMinute", locale: locale}, {quantity: auraxium/5}), true);
-			resEmbed.addField('<:Synthium:818766858865475584>', i18n.__mf({phrase: "quantityPerMinute", locale: locale}, {quantity: synthium/5}), true);
-			resEmbed.addField('<:Polystellarite:818766888238448661>', i18n.__mf({phrase: "quantityPerMinute", locale: locale}, {quantity: polystellarite/5}), true);
-			resEmbed.addField(i18n.__({phrase: 'Bases owned', locale: locale}), `${ownedNames}`.replace(/,/g, '\n'));
+			resEmbed.addFields(
+				{name: '<:Auraxium:818766792376713249>', value: i18n.__mf({phrase: "quantityPerMinute", locale: locale}, {quantity: auraxium/5}), inline: true},
+				{name: '<:Synthium:818766858865475584>', value: i18n.__mf({phrase: "quantityPerMinute", locale: locale}, {quantity: synthium/5}), inline: true},
+				{name: '<:Polystellarite:818766888238448661>', value: i18n.__mf({phrase: "quantityPerMinute", locale: locale}, {quantity: polystellarite/5}), inline: true},
+				{name: i18n.__({phrase: 'Bases owned', locale: locale}), value: `${ownedNames}`.replace(/,/g, '\n'), inline: true}
+			)
 		}
 
 		const row = new Discord.MessageActionRow();

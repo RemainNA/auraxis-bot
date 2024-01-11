@@ -42,7 +42,7 @@ const serverStatus = async function(serverID, pgClient){
 	\n<:TR:818988588049629256> **TR**: ${pop.global.tr}  |  ${trPc}%\
 	\n:question: **?**: ${pop.global.unknown}  |  ${nsPc}%`
 
-	resEmbed.addField(`Population - ${localeNumber(pop.global.all, "en-US")}`, populationField, true);
+	resEmbed.addFields({name: `Population - ${localeNumber(pop.global.all, "en-US")}`, value: populationField, inline: true});
 
 	// Territory
 	const territory = await territoryInfo(serverID);
@@ -93,7 +93,7 @@ const serverStatus = async function(serverID, pgClient){
 		}
 	}
 
-	resEmbed.addField("Territory Control", territoryField, true);
+	resEmbed.addFields({name: "Territory Control", value: territoryField, inline: true});
 
 	// Alerts
 	try{
@@ -103,10 +103,10 @@ const serverStatus = async function(serverID, pgClient){
 			alertField += `**[${alert.name}](https://ps2alerts.com/alert/${alert.instanceId}?utm_source=auraxis-bot&utm_medium=discord&utm_campaign=partners)**\
 			\n${alert.description}\nStarted at <t:${alert.timeStart}:t>\nEnds <t:${alert.timeEnd}:R>\nPopulation: ${popLevels[alert.bracket]}\n\n`;
 		}
-		resEmbed.addField("Alerts", alertField, true);
+		resEmbed.addFields({name: "Alerts", value: alertField, inline: true});
 	}
 	catch(err){
-		resEmbed.addField("Alerts", "No active alerts", true);
+		resEmbed.addFields({name: "Alerts", value: "No active alerts", inline: true});
 	}
 	resEmbed.setTimestamp();
 	resEmbed.setFooter({text: "Updated every 5 minutes • Population from wt.honu.pw • Alerts from PS2Alerts"});
@@ -145,17 +145,17 @@ const outfitStatus = async function(outfitID, platform, pgClient){
 	resEmbed.setColor(faction(oInfo.faction).color);
 
 	if(oInfo.onlineCount === -1){
-		resEmbed.addField("Online member count unavailable", "-");
+		resEmbed.addFields({name: "Online member count unavailable", value: "-"});
 		resEmbed.setDescription(`?/${oInfo.memberCount} online | ${serverNames[oInfo.world]}`);
 	}
 	else{
 		for(let i = 0; i < 8; i++){
 			if(oInfo.onlineMembers[i].length > 0){
 				if(totalLength(oInfo.onlineMembers[i]) <= 1024){
-					resEmbed.addField(oInfo.rankNames[i]+" ("+oInfo.onlineMembers[i].length+")", `${oInfo.onlineMembers[i]}`.replace(/,/g, '\n'), true);
+					resEmbed.addFields({name: oInfo.rankNames[i]+" ("+oInfo.onlineMembers[i].length+")", value: `${oInfo.onlineMembers[i]}`.replace(/,/g, '\n'), inline: true});
 				}
 				else{
-					resEmbed.addField(oInfo.rankNames[i]+" ("+oInfo.onlineMembers[i].length+")", "Too many to display", true);
+					resEmbed.addFields({name: oInfo.rankNames[i]+" ("+oInfo.onlineMembers[i].length+")", value: "Too many to display", inline: true});
 				}
 			}
 		}
@@ -188,10 +188,12 @@ const outfitStatus = async function(outfitID, platform, pgClient){
 		}
 	}
 	if((auraxium + synthium + polystellarite) > 0){ //Recognized bases are owned
-		resEmbed.addField('Bases owned', `${ownedNames}`.replace(/,/g, '\n'));
-		resEmbed.addField('<:Auraxium:818766792376713249>', `+${auraxium/5}/min`, true);
-		resEmbed.addField('<:Synthium:818766858865475584>', `+${synthium/5}/min`, true);
-		resEmbed.addField('<:Polystellarite:818766888238448661>', `+${polystellarite/5}/min`, true);
+		resEmbed.addFields(
+			{name: "Bases owned", value: `${ownedNames}`.replace(/,/g, '\n')},
+			{name: "<:Auraxium:818766792376713249>", value: `+${auraxium/5}/min`, inline: true},
+			{name: "<:Synthium:818766858865475584>", value: `+${synthium/5}/min`, inline: true},
+			{name: "<:Polystellarite:818766888238448661>", value: `+${polystellarite/5}/min`, inline: true}
+		)
 	}
 
 	resEmbed.setTimestamp();

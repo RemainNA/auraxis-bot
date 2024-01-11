@@ -15,7 +15,7 @@ const territory = require('./territory.js');
 const alerts = require('./static/alerts.json');
 const bases = require('./static/bases.json');
 const trackers = require('./trackers.js');
-const {serverNames, censusRequest, faction} = require('./utils.js');
+const {serverNames, censusRequest, faction, continentNames} = require('./utils.js');
 
 const wait = require('util').promisify(setTimeout);
 
@@ -204,8 +204,10 @@ const alertEvent = async function(payload, environment, pgClient, discordClient)
             else if (response.name.includes('Superiority')){
                 sendEmbed.setColor('RED');
             }
-            sendEmbed.addField('Server', server, true);
-            sendEmbed.addField('Status', `Started <t:${Math.floor(Date.now()/1000)}:R>`, true);
+            sendEmbed.addFields(
+                {name: 'Server', value: server, inline: true},
+                {name: 'Status', value: `Started <t:${Math.floor(Date.now()/1000)}:R>`, inline: true}
+            )
             let terObj = undefined;
             try{
                 terObj = await territory.territoryInfo(payload.world_id);
@@ -247,19 +249,20 @@ const alertEvent = async function(payload, environment, pgClient, discordClient)
                 let vsPc = ((terObj[continent].vs/Total)*100).toPrecision(3);
                 let ncPc = ((terObj[continent].nc/Total)*100).toPrecision(3);
                 let trPc = ((terObj[continent].tr/Total)*100).toPrecision(3);
-                sendEmbed.addField('Territory Control', `\
+
+                sendEmbed.addFields({name: 'Territory Control', value: `\
                 \n<:VS:818766983918518272> **VS**: ${terObj[continent].vs}  |  ${vsPc}%\
                 \n<:NC:818767043138027580> **NC**: ${terObj[continent].nc}  |  ${ncPc}%\
-                \n<:TR:818988588049629256> **TR**: ${terObj[continent].tr}  |  ${trPc}%`);
+                \n<:TR:818988588049629256> **TR**: ${terObj[continent].tr}  |  ${trPc}%`});
             }
             else if(showTerritory){
                 let vsPc = Number.parseFloat(payload.faction_vs).toPrecision(3);
                 let ncPc = Number.parseFloat(payload.faction_nc).toPrecision(3);
                 let trPc = Number.parseFloat(payload.faction_tr).toPrecision(3);
-                sendEmbed.addField('Territory Control', `\
+                sendEmbed.addFields({name: 'Territory Control', value: `\
                 \n<:VS:818766983918518272> **VS**: ${vsPc}%\
                 \n<:NC:818767043138027580> **NC**: ${ncPc}%\
-                \n<:TR:818988588049629256> **TR**: ${trPc}%`);
+                \n<:TR:818988588049629256> **TR**: ${trPc}%`});
             }
             const  rows = await pgClient.query("SELECT a.channel, c.Koltyr, c.Indar, c.Hossin, c.Amerish, c.Esamir, c.Oshur, c.Other, c.autoDelete, c.territory, c.nonTerritory\
             FROM alerts a LEFT JOIN subscriptionConfig c on a.channel = c.channel\
@@ -402,40 +405,34 @@ const baseEvent = async function(payload, environment, pgClient, discordClient){
         sendEmbed.setTitle("["+result.rows[0].alias+"] "+result.rows[0].name+' captured '+base.name);
         sendEmbed.setTimestamp();
         sendEmbed.setColor(faction(payload.new_faction_id).color) //Color cannot be dependent on outfit due to NSO outfits
-        if(payload.zone_id == "2"){
-            sendEmbed.addField("Continent", "Indar", true);
-        }
-        else if(payload.zone_id == "4"){
-            sendEmbed.addField("Continent", "Hossin", true);
-        }
-        else if(payload.zone_id == "6"){
-            sendEmbed.addField("Continent", "Amerish", true);
-        }
-        else if(payload.zone_id == "8"){
-            sendEmbed.addField("Continent", "Esamir", true);
-        }
-        else if(payload.zone_id == "344"){
-            sendEmbed.addField("Continent", "Oshur", true);
+        if(payload.zone_id in continentNames){
+            sendEmbed.addFields({name: "Continent", value: continentNames[payload.zone_id], inline: true});
         }
         if(centralBases.includes(payload.facility_id)){
-            sendEmbed.addField("Facility Type", base.type+"\n(Central base)", true);
-            sendEmbed.addField("Outfit Resources", "2 Polystellarite <:Polystellarite:818766888238448661>", true);
+            sendEmbed.addFields(
+                {name: "Facility Type", value: base.type+"\n(Central base)", inline: true},
+                {name: "Outfit Resources", value: "2 Polystellarite <:Polystellarite:818766888238448661>", inline: true}
+            );
         }
         else if(base.type in outfitResources){
-            sendEmbed.addField("Facility Type", base.type, true);
-            sendEmbed.addField("Outfit Resources", outfitResources[base.type], true);
+            sendEmbed.addFields(
+                {name: "Facility Type", value: base.type, inline: true},
+                {name: "Outfit Resources", value: outfitResources[base.type], inline: true}
+            );
         }
         else{
-            sendEmbed.addField("Facility Type", base.type, true);
-            sendEmbed.addField("Outfit Resources", "Unknown", true);
+            sendEmbed.addFields(
+                {name: "Facility Type", value: base.type, inline: true},
+                {name: "Outfit Resources", value: "Unknown", inline: true}
+            );
         }
 
         const factionInfo = faction(payload.old_faction_id);
-        sendEmbed.addField("Captured From", `${factionInfo.decal} ${factionInfo.initial}`, true);
+        sendEmbed.addFields({name: "Captured From", value: `${factionInfo.decal} ${factionInfo.initial}`, inline: true});
         
         const contributions = await captureContributions(payload.outfit_id, payload.facility_id, payload.timestamp, environment);
         if(contributions.length > 0){
-            sendEmbed.addField("<:Merit:890295314337136690> Contributors", `${contributions}`.replace(/,/g, ', '), true);
+            sendEmbed.addFields({name: "<:Merit:890295314337136690> Contributors", value: `${contributions}`.replace(/,/g, ', '), inline: true});
         }
         for (let row of result.rows){
             discordClient.channels.fetch(row.channel).then(resChann => {

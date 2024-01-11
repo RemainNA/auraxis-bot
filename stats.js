@@ -269,17 +269,21 @@ module.exports = {
 		let hsr = totalHeadshots/totalKills;
 		let ahr = Math.floor(accuracy*hsr*10000);
 		let spm = cInfo.score/(cInfo.playTime/60);
-		resEmbed.addField(i18n.__({phrase: "Kills", locale: locale}), totalKills.toLocaleString(locale), true);
-		resEmbed.addField(i18n.__({phrase: "Deaths", locale: locale}), cInfo.deaths.toLocaleString(locale), true);
-		resEmbed.addField(i18n.__({phrase: "K/D", locale: locale}), localeNumber(totalKills/cInfo.deaths, locale), true);
-		resEmbed.addField(i18n.__({phrase: "Accuracy", locale: locale}), localeNumber(accuracy*100, locale)+"%", true);
-		totalHeadshots && resEmbed.addField(i18n.__({phrase: "HSR", locale: locale}), localeNumber(hsr*100, locale)+"%", true);
-		ahr && resEmbed.addField(i18n.__({phrase: "AHR Score", locale: locale}), `${ahr}`, true);
-		totalVehicleKills && resEmbed.addField(i18n.__({phrase: "Vehicle Kills", locale: locale}), totalVehicleKills.toLocaleString(locale), true);
-		resEmbed.addField(i18n.__({phrase: "Playtime", locale: locale}), i18n.__mf({phrase: "{hour} hours, {minute} minutes", locale: locale}, {hour: hours, minute: minutes}), true);
-		resEmbed.addField(i18n.__({phrase: "KPM", locale: locale}), localeNumber(totalKills/(cInfo.playTime/60), locale), true);
-		resEmbed.addField(i18n.__({phrase: "Avg Damage/Kill", locale: locale}), Math.floor(totalDamage/totalKills).toLocaleString(locale), true);
-		resEmbed.addField(i18n.__({phrase: "Score (SPM)", locale: locale}), cInfo.score.toLocaleString(locale)+" ("+localeNumber(spm, locale)+")", true);
+		resEmbed.addFields(
+			{name: i18n.__({phrase: "Kills", locale: locale}), value: totalKills.toLocaleString(locale), inline: true},
+			{name: i18n.__({phrase: "Deaths", locale: locale}), value: cInfo.deaths.toLocaleString(locale), inline: true},
+			{name: i18n.__({phrase: "K/D", locale: locale}), value: localeNumber(totalKills/cInfo.deaths, locale), inline: true},
+			{name: i18n.__({phrase: "Accuracy", locale: locale}), value: localeNumber(accuracy*100, locale)+"%", inline: true},
+		);
+		totalHeadshots && resEmbed.addFields({name: i18n.__({phrase: "HSR", locale: locale}), value: localeNumber(hsr*100, locale)+"%", inline: true});
+		ahr && resEmbed.addFields({name: i18n.__({phrase: "AHR Score", locale: locale}), value: `${ahr}`, inline: true});
+		totalVehicleKills && resEmbed.addFields({name: i18n.__({phrase: "Vehicle Kills", locale: locale}), value: totalVehicleKills.toLocaleString(locale), inline: true});
+		resEmbed.addFields(
+			{name: i18n.__({phrase: "Playtime", locale: locale}), value: i18n.__mf({phrase: "{hour} hours, {minute} minutes", locale: locale}, {hour: hours, minute: minutes}), inline: true},
+			{name: i18n.__({phrase: "KPM", locale: locale}), value: localeNumber(totalKills/(cInfo.playTime/60), locale), inline: true},
+			{name: i18n.__({phrase: "Avg Damage/Kill", locale: locale}), value: Math.floor(totalDamage/totalKills).toLocaleString(locale), inline: true},
+			{name: i18n.__({phrase: "Score (SPM)", locale: locale}), value: cInfo.score.toLocaleString(locale)+" ("+localeNumber(spm, locale)+")", inline: true}
+		);
 		resEmbed.setColor(faction(cInfo.faction).color)
 		if(wInfo.image_id != -1 && wInfo.image_id != undefined){
 			resEmbed.setThumbnail('http://census.daybreakgames.com/files/ps2/images/static/'+wInfo.image_id+'.png');

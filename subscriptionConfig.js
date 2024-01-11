@@ -71,7 +71,6 @@ module.exports = {
 			alertStatus += getAlertStatus("Esamir", row.esamir)+"\n";
 			alertStatus += getAlertStatus("Oshur", row.oshur)+"\n";
 			alertStatus += getAlertStatus("Other", row.other);
-			resEmbed.addField("Continents", alertStatus);
 
 			let territoryStatus = "";
 			if(row.territory){
@@ -87,13 +86,16 @@ module.exports = {
 				territoryStatus += ":x: Non-territory alerts are not displayed" 
 			}
 
-			resEmbed.addField("Alert types", territoryStatus);
+			resEmbed.addFields(
+				{name: "Continents", value: alertStatus},
+				{name: "Alert types", value: territoryStatus}
+			);
 
 			if(row.autodelete){
-				resEmbed.addField("Auto Delete", ":white_check_mark: Alert and outfit activity notifications are automatically deleted");
+				resEmbed.addFields({name: "Auto Delete", value: ":white_check_mark: Alert and outfit activity notifications are automatically deleted"});
 			}
 			else{
-				resEmbed.addField("Auto Delete", ":x: Alert and outfit activity notifications are not automatically deleted");
+				resEmbed.addFields({name: "Auto Delete", value: ":x: Alert and outfit activity notifications are not automatically deleted"});
 			}
 			resEmbed.setColor("BLUE");
 			return resEmbed;

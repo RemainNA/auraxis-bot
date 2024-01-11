@@ -94,10 +94,14 @@ module.exports = {
 		else{
 			cInfo.unlocks = cInfo.unlocks.substring(0,(cInfo.unlocks.length-6));
 		}
-		resEmbed.addField(i18n.__({phrase: "Available Points", locale: locale}), `${cInfo.availableTokens}`);
-		resEmbed.addField(i18n.__({phrase: "ASP Skills", locale: locale}), cInfo.unlocks);
+		resEmbed.addFields(
+			{name: i18n.__({phrase: "Available Points", locale: locale}), value: `${cInfo.availableTokens}`},
+			{name: i18n.__({phrase: "ASP Skills", locale: locale}), value: cInfo.unlocks}
+		);
 		if(cInfo.unlocksContinued != ""){
-			resEmbed.addField(i18n.__({phrase: "ASP Skills Continued", locale: locale}), cInfo.unlocksContinued.substring(0,(cInfo.unlocksContinued.length-6)));
+			resEmbed.addFields(
+				{name: i18n.__({phrase: "ASP Skills Continued", locale: locale}), value: cInfo.unlocksContinued.substring(0,(cInfo.unlocksContinued.length-6))}
+			);
 		}
 		resEmbed.setThumbnail("http://census.daybreakgames.com/files/ps2/images/static/88688.png");
 		return resEmbed;

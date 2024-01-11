@@ -245,11 +245,8 @@ module.exports = {
         openContinents.sort(function (a,b) {return a.lastChange-b.lastChange});
         lockedContinents.sort(function (a,b) {return a.lastChange-b.lastChange});
 
-        for(const continent of openContinents){
-            resEmbed.addField(continent.title, continent.body)
-        }
-        for(const continent of lockedContinents){
-            resEmbed.addField(continent.title, continent.body)
+        for(const continent of openContinents.concat(lockedContinents)){
+            resEmbed.addFields({name: continent.title, value: continent.body});
         }
 
         return resEmbed;

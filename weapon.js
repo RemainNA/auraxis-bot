@@ -120,77 +120,84 @@ module.exports = {
 		wInfo.image_id != -1 && resEmbed.setThumbnail('http://census.daybreakgames.com/files/ps2/images/static/'+wInfo.image_id+'.png');
 		
 		if(typeof(wInfo.category) !== 'undefined'){
-			resEmbed.addField(i18n.__({phrase: "Category", locale: locale}), wInfo.category, true);
+			resEmbed.addFields({name: i18n.__({phrase: "Category", locale: locale}), value: wInfo.category, inline: true});
 		}
 
 		if(typeof(wInfo.fireRate) !== 'undefined'){
 			if(wInfo.fireRate != 0 && wInfo.clip != 1){
-				resEmbed.addField(i18n.__({phrase: "Fire Rate", locale: locale}), localeNumber(60*(1000/wInfo.fireRate), locale), true);
+				resEmbed.addFields({name: i18n.__({phrase: "Fire Rate", locale: locale}), value: localeNumber(60*(1000/wInfo.fireRate), locale), inline: true});
 			}
 		}
 		if(typeof(wInfo.heatCapacity) !== 'undefined'){
-			resEmbed.addField(i18n.__({phrase: "Heat Capacity", locale: locale}), `${wInfo.heatCapacity}`, true);
-			resEmbed.addField(i18n.__({phrase: "Heat Per Shot", locale: locale}), `${wInfo.heatPerShot}`, true);
-			resEmbed.addField(i18n.__({phrase: "Heat Bleed Off", locale: locale}), `${wInfo.heatBleedOff}/s`, true);
-			resEmbed.addField(i18n.__({phrase: "Recovery Delay", locale: locale}), `${wInfo.heatRecoveryDelay/1000} s\n${(Number(wInfo.overheatPenalty)+Number(wInfo.heatRecoveryDelay))/1000} s Overheated`, true);
+			resEmbed.addFields(
+				{name: i18n.__({phrase: "Heat Capacity", locale: locale}), value: `${wInfo.heatCapacity}`, inline: true},
+				{name: i18n.__({phrase: "Heat Per Shot", locale: locale}), value: `${wInfo.heatPerShot}`, inline: true},
+				{name: i18n.__({phrase: "Heat Bleed Off", locale: locale}), value: `${wInfo.heatBleedOff}/s`, inline: true},
+				{name: i18n.__({phrase: "Recovery Delay", locale: locale}), value: `${wInfo.heatRecoveryDelay/1000} s\n${(Number(wInfo.overheatPenalty)+Number(wInfo.heatRecoveryDelay))/1000} s Overheated`, inline: true}
+			);
 		}
 		else if (typeof(wInfo.clip) !== 'undefined' && wInfo.clip != 1){
 			if(typeof(wInfo.ammo) !== 'undefined' && wInfo.ammo != 1){
-				resEmbed.addField(i18n.__({phrase: "Ammo", locale: locale}), 
-				i18n.__mf({phrase: "{m} magazine", locale: locale}, {m: wInfo.clip})+"\n"+
-				i18n.__mf({phrase: "{c} capacity", locale: locale}, {c: wInfo.ammo}), true);
+				resEmbed.addFields({name: i18n.__({phrase: "Ammo", locale: locale}), value: 
+					i18n.__mf({phrase: "{m} magazine", locale: locale}, {m: wInfo.clip})+"\n"+
+					i18n.__mf({phrase: "{c} capacity", locale: locale}, {c: wInfo.ammo}), inline: true});
 			}
 			else{
-				resEmbed.addField(i18n.__({phrase: "Magazine", locale: locale}), wInfo.clip, true);
+				resEmbed.addFields({name: i18n.__({phrase: "Magazine", locale: locale}), value: `${wInfo.clip}`, inline: true});
 			}
 			if(typeof(wInfo.reload) !== 'undefined' && wInfo.reload != 0){
 				if(typeof(wInfo.chamber) !== 'undefined' && wInfo.chamber != 0){
 					const shortReload = localeNumber(wInfo.reload/1000, locale);
 					const longReload = localeNumber(wInfo.reload/1000+wInfo.chamber/1000, locale);
-					resEmbed.addField(i18n.__({phrase: "Reload", locale: locale}), 
-					i18n.__mf({phrase: "{time}s Short", locale: locale}, {time: shortReload})+"\n"+
-					i18n.__mf({phrase: "{time}s Long", locale: locale}, {time: longReload}), true);
+					resEmbed.addFields({name: i18n.__({phrase: "Reload", locale: locale}), value: 
+						i18n.__mf({phrase: "{time}s Short", locale: locale}, {time: shortReload})+"\n"+
+						i18n.__mf({phrase: "{time}s Long", locale: locale}, {time: longReload}), inline: true});
 				}
 				else{
 					// Some weapons with magazines don't have long/short reloads, e.g. P2-120 HEAT
 					const reload = localeNumber(wInfo.reload/1000, locale);
-					resEmbed.addField(i18n.__({phrase: "Reload", locale: locale}), 
-					i18n.__mf({phrase: "{time}s", locale: locale}, {time: reload}), true);
+					resEmbed.addFields({name: i18n.__({phrase: "Reload", locale: locale}), value: 
+						i18n.__mf({phrase: "{time}s", locale: locale}, {time: reload}), inline: true});
 				}
 			}
 		}
 		else if(typeof(wInfo.reload) !== 'undefined' && wInfo.reload != 0){
-			resEmbed.addField(i18n.__({phrase: "Reload", locale: locale}), wInfo.reload/1000+"s", true);
+			resEmbed.addFields({name: i18n.__({phrase: "Reload", locale: locale}), value: wInfo.reload/1000+"s", inline: true});
 		}
 
 		if(wInfo.maxDamage !== undefined && (wInfo.maxDamage != wInfo?.directDamage)){
-			resEmbed.addField(i18n.__({phrase: "Damage", locale: locale}), wInfo.maxDamage+" @ "+wInfo.maxDamageRange+"m \n "+wInfo.minDamage+" @ "+wInfo.minDamageRange+"m", true);
+			resEmbed.addFields({name: i18n.__({phrase: "Damage", locale: locale}), value: 
+				wInfo.maxDamage+" @ "+wInfo.maxDamageRange+"m \n "+wInfo.minDamage+" @ "+wInfo.minDamageRange+"m", inline: true});
 			if(wInfo.pellets > 1){
-				resEmbed.addField(i18n.__({phrase: "Pellets", locale: locale}), `${wInfo.pellets}`, true);
-				resEmbed.addField(i18n.__({phrase: "Pellet Spread", locale: locale}), `${wInfo.pelletSpread}`, true);
+				resEmbed.addFields(
+					{name: i18n.__({phrase: "Pellets", locale: locale}), value: `${wInfo.pellets}`, inline: true},
+					{name: i18n.__({phrase: "Pellet Spread", locale: locale}), value: `${wInfo.pelletSpread}`, inline: true}
+				);
 			}
 		}
 
 		if(wInfo.maxIndirectDamage !== undefined && wInfo.directDamage !== undefined){ 
 			if(wInfo.maxIndirectDamage != 0){ // Check for weapons like Tomoe and Doku scout rifles
-				resEmbed.addField(i18n.__({phrase: "Direct Damage", locale: locale}), `${wInfo.directDamage}`, true);
-				resEmbed.addField(i18n.__({phrase: "Indirect Damage", locale: locale}), 
-				`${wInfo.maxIndirectDamage} @ ${wInfo.maxIndirectDamageRadius}m\
-				\n ${wInfo.minIndirectDamage} @ ${wInfo.minIndirectDamageRadius}m`, true);
+				resEmbed.addFields(
+					{name: i18n.__({phrase: "Direct Damage", locale: locale}), value: `${wInfo.directDamage}`, inline: true},
+					{name: i18n.__({phrase: "Indirect Damage", locale: locale}), value: 
+						`${wInfo.maxIndirectDamage} @ ${wInfo.maxIndirectDamageRadius}m\
+						\n${wInfo.minIndirectDamage} @ ${wInfo.minIndirectDamageRadius}m`, inline: true}
+				);
 			}
 			else{
-				resEmbed.addField(i18n.__({phrase: "Damage", locale: locale}), `${wInfo.directDamage}`, true);
+				resEmbed.addFields({name: i18n.__({phrase: "Damage", locale: locale}), value: `${wInfo.directDamage}`, inline: true});
 			}
 		}
 		else if(wInfo.maxIndirectDamage !== undefined){ // Lasher has indirect damage, but no direct damage stat as it follows most infantry guns with degradation at range
-			resEmbed.addField(i18n.__({phrase: "Indirect Damage", locale: locale}), 
+			resEmbed.addFields({name: i18n.__({phrase: "Indirect Damage", locale: locale}), value:
 				`${wInfo.maxIndirectDamage} @ ${wInfo.maxIndirectDamageRadius}m\
-				\n ${wInfo.minIndirectDamage} @ ${wInfo.minIndirectDamageRadius}m`, true);
+				\n ${wInfo.minIndirectDamage} @ ${wInfo.minIndirectDamageRadius}m`, inline: true});
 		}
 
 		if(typeof(wInfo.speed) !== 'undefined'){
-			resEmbed.addField(i18n.__({phrase: "Muzzle Velocity", locale: locale}), 
-			i18n.__mf({phrase: "{speed} m/s", locale: locale}, {speed: wInfo.speed}), true);
+			resEmbed.addFields({name: i18n.__({phrase: "Muzzle Velocity", locale: locale}), value:
+				i18n.__mf({phrase: "{speed} m/s", locale: locale}, {speed: wInfo.speed}), inline: true});
 		}
 		
 
@@ -201,21 +208,21 @@ module.exports = {
 
 		//Checking for vertical recoil here and below keeps things like med kits from displaying irrelevant stats
 		if(typeof(wInfo.adsCofRecoil) !== 'undefined' && typeof(wInfo.hipCofRecoil) !== 'undefined' && typeof(wInfo.verticalRecoil) !== 'undefined'){ 
-			resEmbed.addField(i18n.__({phrase: "Bloom (hip/ADS)", locale: locale}), wInfo.hipCofRecoil+"/"+wInfo.adsCofRecoil, true);
+			resEmbed.addFields({name: i18n.__({phrase: "Bloom (hip/ADS)", locale: locale}), value: wInfo.hipCofRecoil+"/"+wInfo.adsCofRecoil, inline: true});
 		}
 		else if(typeof(wInfo.hipCofRecoil) !== 'undefined' && typeof(wInfo.verticalRecoil) !== 'undefined'){
-			resEmbed.addField(i18n.__({phrase: "Bloom (hip)", locale: locale}), `${wInfo.hipCofRecoil}`, true);
+			resEmbed.addFields({name: i18n.__({phrase: "Bloom (hip)", locale: locale}), value: `${wInfo.hipCofRecoil}`, inline: true});
 		}
 		if(wInfo.verticalRecoil != undefined && wInfo.verticalRecoil != 0){
-			resEmbed.addField(i18n.__({phrase: "Vertical Recoil", locale: locale}), `${wInfo.verticalRecoil}`, true);
-			wInfo.recoilAngleMin != undefined && wInfo.recoilAngleMax != undefined && resEmbed.addField(i18n.__({phrase: "Recoil Angle (min/max)", locale: locale}), wInfo.recoilAngleMin+"/"+wInfo.recoilAngleMax, true);
+			resEmbed.addFields({name: i18n.__({phrase: "Vertical Recoil", locale: locale}), value: `${wInfo.verticalRecoil}`, inline: true});
+			wInfo.recoilAngleMin != undefined && wInfo.recoilAngleMax != undefined && resEmbed.addFields({name: i18n.__({phrase: "Recoil Angle (min/max)", locale: locale}), value: wInfo.recoilAngleMin+"/"+wInfo.recoilAngleMax, inline: true});
 		}			
-		wInfo.recoilHorizontalMin != undefined && wInfo.recoilHorizontalMax != undefined && resEmbed.addField(i18n.__({phrase: "Horizontal Recoil (min/max)", locale: locale}), wInfo.recoilHorizontalMin+"/"+wInfo.recoilHorizontalMax, true);
-		wInfo.recoilHorizontalTolerance != undefined && resEmbed.addField(i18n.__({phrase: "Horizontal Tolerance", locale: locale}), `${wInfo.recoilHorizontalTolerance}`, true);
-		wInfo.firstShotMultiplier != undefined && resEmbed.addField(i18n.__({phrase: "First Shot Multiplier", locale: locale}), `${wInfo.firstShotMultiplier}x`, true);
-		wInfo.fireModes?.length != 0 && resEmbed.addField(i18n.__({phrase: "Fire Modes", locale: locale}), `${wInfo.fireModes}`.replace(/,/g, '\n'), true);
-		wInfo.headshotMultiplier != undefined && resEmbed.addField(i18n.__({phrase: "Headshot Multiplier", locale: locale}), `${Number(wInfo.headshotMultiplier)+1}x`, true);
-		wInfo.defZoom != undefined && wInfo.defZoom != 1 && resEmbed.addField(i18n.__({phrase: "Iron Sights Zoom", locale: locale}), `${wInfo.defZoom}x`, true);
+		wInfo.recoilHorizontalMin != undefined && wInfo.recoilHorizontalMax != undefined && resEmbed.addFields({name: i18n.__({phrase: "Horizontal Recoil (min/max)", locale: locale}), value: wInfo.recoilHorizontalMin+"/"+wInfo.recoilHorizontalMax, inline: true});
+		wInfo.recoilHorizontalTolerance != undefined && resEmbed.addFields({name: i18n.__({phrase: "Horizontal Tolerance", locale: locale}), value: `${wInfo.recoilHorizontalTolerance}`, inline: true});
+		wInfo.firstShotMultiplier != undefined && resEmbed.addFields({name: i18n.__({phrase: "First Shot Multiplier", locale: locale}), value: `${wInfo.firstShotMultiplier}x`, inline: true});
+		wInfo.fireModes?.length != 0 && resEmbed.addFields({name: i18n.__({phrase: "Fire Modes", locale: locale}), value: `${wInfo.fireModes}`.replace(/,/g, '\n'), inline: true});
+		wInfo.headshotMultiplier != undefined && resEmbed.addFields({name: i18n.__({phrase: "Headshot Multiplier", locale: locale}), value: `${Number(wInfo.headshotMultiplier)+1}x`, inline: true});
+		wInfo.defZoom != undefined && wInfo.defZoom != 1 && resEmbed.addFields({name: i18n.__({phrase: "Iron Sights Zoom", locale: locale}), value: `${wInfo.defZoom}x`, inline: true});
 
 		if(typeof(wInfo.standingCofMin) !== 'undefined'){
 			hipCOFMin[0] = wInfo.standingCofMin;
@@ -243,7 +250,7 @@ module.exports = {
 		}
 			
 		if(typeof(wInfo.adsMoveSpeed) !== 'undefined'){
-			resEmbed.addField(i18n.__({phrase: "ADS Move Speed", locale: locale}), `${wInfo.adsMoveSpeed}x`, true);
+			resEmbed.addFields({name: i18n.__({phrase: "ADS Move Speed", locale: locale}), value: `${wInfo.adsMoveSpeed}x`, inline: true});
 			if(typeof(wInfo.standingCofMinADS) !== 'undefined'){
 				adsCOFMin[0] = wInfo.standingCofMinADS;
 				adsCOFMax[0] = wInfo.standingCofMaxADS;
@@ -272,45 +279,53 @@ module.exports = {
 
 		if(wInfo.useInWater !== undefined){
 			if(wInfo.useInWater){
-				resEmbed.addField(i18n.__({phrase: "usableUnderwater", locale: locale}), i18n.__({phrase: "yes", locale: locale}), true);
+				resEmbed.addFields({name: i18n.__({phrase: "usableUnderwater", locale: locale}), value: i18n.__({phrase: "yes", locale: locale}), inline: true});
 			}
 			else{
-				resEmbed.addField(i18n.__({phrase: "usableUnderwater", locale: locale}), i18n.__({phrase: "no", locale: locale}), true);
+				resEmbed.addFields({name: i18n.__({phrase: "usableUnderwater", locale: locale}), value: i18n.__({phrase: "no", locale: locale}), inline: true});
 			}
 		}
 
 		if(CoFUpdated(hipCOFMin) || CoFUpdated(adsCOFMin)){
 			if(standingOnly(hipCOFMin) || standingOnly(adsCOFMin)){
-				resEmbed.addField('\u200b', '\u200b');
+				resEmbed.addFields({name: '\u200b', value: '\u200b'});
 			}
 			else{
-				resEmbed.addField("-------------------", i18n.__({phrase: "*CoF shown Stand/Crouch/Walk/Sprint/Fall/Crouch Walk*", locale: locale}));
+				resEmbed.addFields({name: '-------------------', value: i18n.__({phrase: "*CoF shown Stand/Crouch/Walk/Sprint/Fall/Crouch Walk*", locale: locale})});
 			}
 		}
 
 		if(CoFUpdated(hipCOFMin)){
 			if(standingOnly(hipCOFMin)){
-				resEmbed.addField(i18n.__({phrase: "Hipfire CoF Min", locale: locale}), `${hipCOFMin[0]}`, true);
-				resEmbed.addField(i18n.__({phrase: "Hipfire CoF Max", locale: locale}), `${hipCOFMax[0]}`, true);
-				resEmbed.addField('\u200b', '\u200b', true);
+				resEmbed.addFields(
+					{name: i18n.__({phrase: "Hipfire CoF Min", locale: locale}), value: `${hipCOFMin[0]}`, inline: true},
+					{name: i18n.__({phrase: "Hipfire CoF Max", locale: locale}), value: `${hipCOFMax[0]}`, inline: true},
+					{name: '\u200b', value: '\u200b', inline: true}
+				);
 			}
 			else{
-				resEmbed.addField(i18n.__({phrase: "Hipfire CoF Min", locale: locale}), hipCOFMin[0]+"/"+hipCOFMin[1]+"/"+hipCOFMin[2]+"/"+hipCOFMin[3]+"/"+hipCOFMin[4]+"/"+hipCOFMin[5], true);
-				resEmbed.addField(i18n.__({phrase: "Hipfire CoF Max", locale: locale}), hipCOFMax[0]+"/"+hipCOFMax[1]+"/"+hipCOFMax[2]+"/"+hipCOFMax[3]+"/"+hipCOFMax[4]+"/"+hipCOFMax[5], true);
-				resEmbed.addField('\u200b', '\u200b', true);
+				resEmbed.addFields(
+					{name: i18n.__({phrase: "Hipfire CoF Min", locale: locale}), value: `${hipCOFMin[0]}/${hipCOFMin[1]}/${hipCOFMin[2]}/${hipCOFMin[3]}/${hipCOFMin[4]}/${hipCOFMin[5]}`, inline: true},
+					{name: i18n.__({phrase: "Hipfire CoF Max", locale: locale}), value: `${hipCOFMax[0]}/${hipCOFMax[1]}/${hipCOFMax[2]}/${hipCOFMax[3]}/${hipCOFMax[4]}/${hipCOFMax[5]}`, inline: true},
+					{name: '\u200b', value: '\u200b', inline: true}
+				);
 			}
 		}
 
 		if(CoFUpdated(adsCOFMin)){
 			if(standingOnly(adsCOFMin)){
-				resEmbed.addField(i18n.__({phrase: "ADS CoF Min", locale: locale}), `${adsCOFMin[0]}`, true);
-				resEmbed.addField(i18n.__({phrase: "ADS CoF Max", locale: locale}), `${adsCOFMax[0]}`, true);
-				resEmbed.addField('\u200b', '\u200b', true);
+				resEmbed.addFields(
+					{name: i18n.__({phrase: "ADS CoF Min", locale: locale}), value: `${adsCOFMin[0]}`, inline: true},
+					{name: i18n.__({phrase: "ADS CoF Max", locale: locale}), value: `${adsCOFMax[0]}`, inline: true},
+					{name: '\u200b', value: '\u200b', inline: true}
+				);
 			}
 			else{
-				resEmbed.addField(i18n.__({phrase: "ADS CoF Min", locale: locale}), adsCOFMin[0]+"/"+adsCOFMin[1]+"/"+adsCOFMin[2]+"/"+adsCOFMin[3]+"/"+adsCOFMin[4]+"/"+adsCOFMin[5], true);
-				resEmbed.addField(i18n.__({phrase: "ADS CoF Max", locale: locale}), adsCOFMax[0]+"/"+adsCOFMax[1]+"/"+adsCOFMax[2]+"/"+adsCOFMax[3]+"/"+adsCOFMax[4]+"/"+adsCOFMax[5], true);
-				resEmbed.addField('\u200b', '\u200b', true);
+				resEmbed.addFields(
+					{name: i18n.__({phrase: "ADS CoF Min", locale: locale}), value: `${adsCOFMin[0]}/${adsCOFMin[1]}/${adsCOFMin[2]}/${adsCOFMin[3]}/${adsCOFMin[4]}/${adsCOFMin[5]}`, inline: true},
+					{name: i18n.__({phrase: "ADS CoF Max", locale: locale}), value: `${adsCOFMax[0]}/${adsCOFMax[1]}/${adsCOFMax[2]}/${adsCOFMax[3]}/${adsCOFMax[4]}/${adsCOFMax[5]}`, inline: true},
+					{name: '\u200b', value: '\u200b', inline: true}
+				);
 			}
 			
 		}

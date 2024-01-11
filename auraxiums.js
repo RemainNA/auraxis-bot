@@ -102,7 +102,7 @@ module.exports = {
 					textList = currentItem;
 				}
 				else if(continued && (textList.length + currentItem.length) > 1024){
-					resEmbed.addField(i18n.__({phrase: "Continued...", locale: locale}), textList);
+					resEmbed.addFields({name: i18n.__({phrase: "Continued...", locale: locale}), value: textList});
 					textList = currentItem;
 				}
 				else{
@@ -110,7 +110,7 @@ module.exports = {
 				}
 			}
 			if(continued){
-				resEmbed.addField(i18n.__({phrase: "Continued...", locale: locale}), textList);
+				resEmbed.addFields({name: i18n.__({phrase: "Continued...", locale: locale}), value: textList});
 			}
 			else{
 				resEmbed.setDescription(textList);
@@ -123,11 +123,11 @@ module.exports = {
 				const currentItem = `${medal}\n`;
 				if(!continued && (textList.length + currentItem.length) > 1024){
 					continued = true;
-					resEmbed.addField(i18n.__mf({phrase: "possibleMedalCount", locale: locale}, {num: medalList.possibleMedals.length}), textList);
+					resEmbed.addFields({name: i18n.__mf({phrase: "possibleMedalCount", locale: locale}, {num: medalList.possibleMedals.length}), value: textList});
 					textList = currentItem;
 				}
 				else if(continued && (textList.length + currentItem.length) > 1024){
-					resEmbed.addField(i18n.__({phrase: "Continued...", locale: locale}), textList);
+					resEmbed.addFields({name: i18n.__({phrase: "Continued...", locale: locale}), value: textList});
 					textList = currentItem;
 				}
 				else{
@@ -135,10 +135,10 @@ module.exports = {
 				}
 			}
 			if(continued){
-				resEmbed.addField(i18n.__({phrase: "Continued...", locale: locale}), textList);
+				resEmbed.addFields({name: i18n.__({phrase: "Continued...", locale: locale}), value: textList});
 			}
 			else if(textList != ""){
-				resEmbed.addField(i18n.__mf({phrase: "possibleMedalCount", locale: locale}, {num: medalList.possibleMedals.length}), textList);
+				resEmbed.addFields({name: i18n.__mf({phrase: "possibleMedalCount", locale: locale}, {num: medalList.possibleMedals.length}), value: textList});
 			}
 		}
 		else{
@@ -169,7 +169,7 @@ module.exports = {
 					remaining -= 1;
 					max -= 1;
 				}
-				resEmbed.addField(i18n.__mf({phrase: "possibleMedalCount", locale: locale}, {num: medalList.possibleMedals.length}), textList);
+				resEmbed.addFields({name: i18n.__mf({phrase: "possibleMedalCount", locale: locale}, {num: medalList.possibleMedals.length}), value: textList});
 			}
 		}
 		resEmbed.setColor(faction(medalList.faction).color)

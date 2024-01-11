@@ -72,13 +72,13 @@ module.exports = {
 		if(partiallyRegistered.length == 0){
 			partiallyRegistered = "-";
 		}
-		sendEmbed.addField(i18n.__mf({phrase: "fullyRegistered", locale: locale}, {count: fullyRegisteredCount}), fullyRegistered);
+		sendEmbed.addFields({name: i18n.__mf({phrase: "fullyRegistered", locale: locale}, {count: fullyRegisteredCount}), value: fullyRegistered})
 		if(fullyContinued.length > 0){
-			sendEmbed.addField('\u200B', fullyContinued);
+			sendEmbed.addFields({name: '\u200B', value: fullyContinued})
 		}
-		sendEmbed.addField(i18n.__mf({phrase: "partiallyRegistered", locale: locale}, {count: partiallyRegisteredCount}), partiallyRegistered);
+		sendEmbed.addFields({name: i18n.__mf({phrase: "partiallyRegistered", locale: locale}, {count: partiallyRegisteredCount}), value: partiallyRegistered})
 		if(partiallyContinued.length > 0){
-			sendEmbed.addField('\u200B', partiallyContinued);
+			sendEmbed.addFields({name: '\u200B', value: partiallyContinued})
 		}
 		sendEmbed.setFooter({text: i18n.__mf({phrase: "Data from {site}", locale: locale}, {site: "census.lithafalcon.cc"})});
 	

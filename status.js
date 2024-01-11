@@ -52,7 +52,7 @@ module.exports = {
 		const resEmbed = new Discord.MessageEmbed()
 			.setTitle(i18n.__({phrase: 'Server Status', locale: locale}));
 		for(const server in status){
-			resEmbed.addField(i18n.__({phrase: server, locale: locale}), i18n.__({phrase: status[server], locale: locale}), true);
+			resEmbed.addFields({name: i18n.__({phrase: server, locale: locale}), value: i18n.__({phrase: status[server], locale: locale}), inline: true});
 		}
 		resEmbed.setTimestamp();
 		return resEmbed;

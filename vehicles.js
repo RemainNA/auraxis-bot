@@ -128,23 +128,25 @@ module.exports = {
 		resEmbed.setColor(faction(vInfo.faction).color);
 		const hoursPlayed = Math.floor(vInfo.playTime/3600);
 		const minutesPlayed = Math.floor(vInfo.playTime/60 - hoursPlayed*60);
-		resEmbed.addField(i18n.__({phrase: "Playtime", locale: locale}), 
-			i18n.__mf({phrase: "{hour}h, {minute}m", locale: locale}, {hour: hoursPlayed, minute: minutesPlayed}), true);
-		resEmbed.addField(i18n.__({phrase: "Score (SPM)", locale: locale}), 
-			`${vInfo.score.toLocaleString(locale)} (${localeNumber(vInfo.score/vInfo.playTime*60, locale)})`, true);
-		resEmbed.addField(i18n.__({phrase: "Weapon Kills", locale: locale}), 
-			vInfo.weaponKills.toLocaleString(locale), true);
-		resEmbed.addField(i18n.__({phrase: "Road Kills", locale: locale}), 
-			(vInfo.totalKills-vInfo.weaponKills).toLocaleString(locale), true);
-		resEmbed.addField(i18n.__({phrase: "Total KPM", locale: locale}), 
-			localeNumber(vInfo.totalKills/vInfo.playTime*60, locale), true);
-		resEmbed.addField(i18n.__({phrase: "Vehicle Kills (KPM)", locale: locale}), 
-			`${vInfo.vehicleKills.toLocaleString(locale)} (${localeNumber(vInfo.vehicleKills/vInfo.playTime*60, locale)})`, true);
-		resEmbed.addField(i18n.__({phrase: "Deaths", locale: locale}), 
-			vInfo.totalDeaths.toLocaleString(locale), true);
+		resEmbed.addFields(
+			{name: i18n.__({phrase: "Playtime", locale: locale}), value: 
+				i18n.__mf({phrase: "{hour}h, {minute}m", locale: locale}, {hour: hoursPlayed, minute: minutesPlayed}), inline: true},
+			{name: i18n.__({phrase: "Score (SPM)", locale: locale}), value:
+				`${vInfo.score.toLocaleString(locale)} (${localeNumber(vInfo.score/vInfo.playTime*60, locale)})`, inline: true},
+			{name: i18n.__({phrase: "Weapon Kills", locale: locale}), value:
+				vInfo.weaponKills.toLocaleString(locale), inline: true},
+			{name: i18n.__({phrase: "Road Kills", locale: locale}), value:
+				(vInfo.totalKills-vInfo.weaponKills).toLocaleString(locale), inline: true},
+			{name: i18n.__({phrase: "Total KPM", locale: locale}), value:
+				localeNumber(vInfo.totalKills/vInfo.playTime*60, locale), inline: true},
+			{name: i18n.__({phrase: "Vehicle Kills (KPM)", locale: locale}), value:
+				`${vInfo.vehicleKills.toLocaleString(locale)} (${localeNumber(vInfo.vehicleKills/vInfo.playTime*60, locale)})`, inline: true},
+			{name: i18n.__({phrase: "Deaths", locale: locale}), value:
+				vInfo.totalDeaths.toLocaleString(locale), inline: true}
+		);
 		if(vInfo.topWeaponID != -1){
 			const topWeaponName = await getWeaponName(vInfo.topWeaponID, platform);
-			resEmbed.addField(i18n.__({phrase: "Top Weapon (kills)", locale: locale}), `${topWeaponName} (${vInfo.topWeaponKills.toLocaleString(locale)})`, true);
+			resEmbed.addFields({name: i18n.__({phrase: "Top Weapon (kills)", locale: locale}), value: `${topWeaponName} (${vInfo.topWeaponKills.toLocaleString(locale)})`, inline: true});
 		}
 
 		return resEmbed;

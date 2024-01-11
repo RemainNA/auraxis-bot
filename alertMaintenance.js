@@ -44,20 +44,20 @@ async function updateAlert(info, pgClient, discordClient, isComplete){
 		messageEmbed.setColor('RED');
 	}
 	messageEmbed.setDescription(`[${alerts[info.censusMetagameEventType].description}](https://ps2alerts.com/alert/${info.instanceId}?utm_source=auraxis-bot&utm_medium=discord&utm_campaign=partners)`);
-	messageEmbed.addField("Server", serverNames[info.world], true);
+	messageEmbed.addFields({name: "Server", value: serverNames[info.world], inline: true});
 	if(isComplete){
-		messageEmbed.addField("Status", `Ended <t:${Math.floor(Date.parse(info.timeEnded)/1000)}:R>`, true);
+		messageEmbed.addFields({name: "Status", value: `Ended <t:${Math.floor(Date.parse(info.timeEnded)/1000)}:R>`, inline: true});
 	}
 	else{
 		const start = Date.parse(info.timeStarted);
-		messageEmbed.addField("Status", `Started <t:${Math.floor(start/1000)}:t>\nEnds <t:${Math.floor((start+info.duration)/1000)}:R>`, true);
+		messageEmbed.addFields({name: "Status", value: `Started <t:${Math.floor(start/1000)}:t>\nEnds <t:${Math.floor((start+info.duration)/1000)}:R>`, inline: true});
 	}
-	messageEmbed.addField("Population", `${popLevels[info.bracket]}`, true);
+	messageEmbed.addFields({name: "Population", value: `${popLevels[info.bracket]}`, inline: true});
 	try{
-		messageEmbed.addField("Territory Control", `\
+		messageEmbed.addFields({name: "Territory Control", value: `\
 		\n<:VS:818766983918518272> **VS**: ${info.result.vs}%\
 		\n<:NC:818767043138027580> **NC**: ${info.result.nc}%\
-		\n<:TR:818988588049629256> **TR**: ${info.result.tr}%`, true);
+		\n<:TR:818988588049629256> **TR**: ${info.result.tr}%`, inline: true});
 	}
 	catch(err){
 		throw "Error displaying territory";
@@ -65,10 +65,10 @@ async function updateAlert(info, pgClient, discordClient, isComplete){
 	
 	if(isComplete){
 		if(info.result.draw){
-			messageEmbed.addField("Result", "Draw", true);
+			messageEmbed.addFields({name: "Result", value: "Draw", inline: true});
 		}
 		else{
-			messageEmbed.addField("Result", `${winnerFaction[info.result.victor]}`, true);
+			messageEmbed.addFields({name: "Result", value: `${winnerFaction[info.result.victor]}`, inline: true});
 			const minutesDone = Math.floor((Date.now() - Date.parse(info.timeEnded))/60000);
 			if (!(info.result.victor in winnerFaction) && minutesDone < 5){
 				isComplete = false; //Don't delete from list, retry up to 5 minutes later when field may be populated

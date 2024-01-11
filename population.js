@@ -115,7 +115,7 @@ module.exports = {
 					populationField += `\n:question: **?**: ${pop.global.unknown}  |  ${nsPc}%`;
 				}
 				const populationTitle = i18n.__mf({phrase: "{server} population - {total}", locale: locale}, {server: i18n.__({phrase: serverNames[pop.worldID], locale: locale}), total: localeNumber(pop.global.all, locale)})
-				resEmbed.addField(populationTitle, populationField, true);
+				resEmbed.addFields({name: populationTitle, value: populationField, inline: true})
 				total += pop.global.all;
 			}
 			resEmbed.setTitle(i18n.__mf({phrase: "Total population - {total}", locale: locale}, {total: localeNumber(total, locale)}));
@@ -145,11 +145,11 @@ module.exports = {
 			for(const contID of [2,4,6,8,344]){
 				const contPop = pop[contID];
 				if(!contPop.open && contPop.all != 0){
-					sendEmbed.addField(i18n.__mf({phrase: "lockedCont", locale: locale}, {continent: i18n.__({phrase: continentNames[contID], locale: locale})}), i18n.__mf({phrase: "numOnline", locale: locale}, {pop: contPop.all}))
+					sendEmbed.addFields({name: i18n.__mf({phrase: "lockedCont", locale: locale}, {continent: i18n.__({phrase: continentNames[contID], locale: locale})}), value: i18n.__mf({phrase: "numOnline", locale: locale}, {pop: contPop.all})})
 					continue;
 				}
 				else if(!contPop.open){
-					sendEmbed.addField(i18n.__mf({phrase: "lockedCont", locale: locale}, {continent: i18n.__({phrase: continentNames[contID], locale: locale})}), i18n.__({phrase: "empty", locale: locale}))
+					sendEmbed.addFields({name: i18n.__mf({phrase: "lockedCont", locale: locale}, {continent: i18n.__({phrase: continentNames[contID], locale: locale})}), value: i18n.__({phrase: "empty", locale: locale})})
 					continue;
 				}
 				const vsPc = localeNumber((contPop.vs/(contPop.all||1))*100, locale);
@@ -166,9 +166,9 @@ module.exports = {
 				if(contPop.all == 0){
 					continentPopText = i18n.__({phrase: "empty", locale: locale});
 				}
-				sendEmbed.addField(i18n.__mf({phrase: "{server} population - {total}", locale: locale}, 
-					{server: i18n.__({phrase: i18n.__({phrase: continentNames[contID], locale: locale}), locale: locale}), total: localeNumber(contPop.all, locale)}),
-					continentPopText
+				sendEmbed.addFields({name: i18n.__mf({phrase: "{server} population - {total}", locale: locale}, 
+					{server: i18n.__({phrase: i18n.__({phrase: continentNames[contID], locale: locale}), locale: locale}), total: localeNumber(contPop.all, locale)}), 
+					value: continentPopText}
 				)
 			}
 			sendEmbed.setTimestamp();

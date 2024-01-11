@@ -99,17 +99,19 @@ module.exports = {
 		sendEmbed.setFooter({text: i18n.__mf({phrase: "Data from {site}", locale: locale}, {site: "ps2alerts.com"})});
 		sendEmbed.setTimestamp();
 		for(const x in alertObj){
-			sendEmbed.addField(alertObj[x].name, "["+alertObj[x].description+"](https://ps2alerts.com/alert/"+alertObj[x].instanceId+"?utm_source=auraxis-bot&utm_medium=discord&utm_campaign=partners)");
-			sendEmbed.addField(i18n.__({phrase: "Start time", locale: locale}), `<t:${alertObj[x].timeStart}:t>`, true);
-			sendEmbed.addField(i18n.__({phrase: "Time left", locale: locale}), 
-			i18n.__mf({phrase: "Ends {time}", locale: locale}, {time: `<t:${alertObj[x].timeEnd}:R>`}), true);
-			sendEmbed.addField(i18n.__({phrase: "Activity Level", locale: locale}), i18n.__({phrase: popLevels[alertObj[x].bracket], locale: locale}), true);
-			sendEmbed.addField(i18n.__({phrase: "Territory Control", locale: locale}), `\
-			\n<:VS:818766983918518272> **${i18n.__({phrase: "VS", locale: locale})}**: ${alertObj[x].vs}%\
-			\n<:NC:818767043138027580> **${i18n.__({phrase: "NC", locale: locale})}**: ${alertObj[x].nc}%\
-			\n<:TR:818988588049629256> **${i18n.__({phrase: "TR", locale: locale})}**: ${alertObj[x].tr}%`);
+			sendEmbed.addFields(
+				{name: alertObj[x].name, value: "["+alertObj[x].description+"](https://ps2alerts.com/alert/"+alertObj[x].instanceId+"?utm_source=auraxis-bot&utm_medium=discord&utm_campaign=partners)"},
+				{name: i18n.__({phrase: "Start time", locale: locale}), value: `<t:${alertObj[x].timeStart}:t>`, inline: true},
+				{name: i18n.__({phrase: "Time left", locale: locale}), 
+					value: i18n.__mf({phrase: "Ends {time}", locale: locale}, {time: `<t:${alertObj[x].timeEnd}:R>`}), inline: true},
+				{name: i18n.__({phrase: "Activity Level", locale: locale}), value: i18n.__({phrase: popLevels[alertObj[x].bracket], locale: locale}), inline: true},
+				{name: i18n.__({phrase: "Territory Control", locale: locale}), value: `\
+				\n<:VS:818766983918518272> **${i18n.__({phrase: "VS", locale: locale})}**: ${alertObj[x].vs}%\
+				\n<:NC:818767043138027580> **${i18n.__({phrase: "NC", locale: locale})}**: ${alertObj[x].nc}%\
+				\n<:TR:818988588049629256> **${i18n.__({phrase: "TR", locale: locale})}**: ${alertObj[x].tr}%`}
+			)
 			if(x != alertObj.length-1){
-				sendEmbed.addField('\u200b', '\u200b');
+				sendEmbed.addFields({name: '\u200b', value: '\u200b'});
 			}
 		}
 		return sendEmbed;
