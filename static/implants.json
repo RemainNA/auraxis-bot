@@ -327,6 +327,10 @@
         "desc": "Each time you are revived, a charge is added to the phylactery. At 3 charges, your next death will allow you to self-revive once at 50% health. Phylactery's self-revive does not count toward these charges. <font color=\"#dc9c36\">Charges cannot be gained while in a vehicle, and redeploying or using an equipment terminal will wipe your current progress.</font>",
         "image": "88254"
     },
+    "Phylactery [Perfect]": {
+        "desc": "Each time you are revived, a charge is added to the phylactery. At 3 charges, your next death will allow you to self-revive once at 50% health. Phylactery's self-revive does not count toward these charges. <font color=\"#dc9c36\">Charges cannot be gained while in a vehicle, and redeploying or using an equipment terminal will wipe your current progress.</font>",
+        "image": "96708"
+    },
     "Ransack": {
         "1": "Killing a vehicle within 25 meters restores one tick of ammunition for you or your vehicle. <font color=\"#dc9c36\"> Works in vehicles.</font>",
         "2": "Killing a vehicle within 30 meters restores one tick of ammunition for you or your vehicle. <font color=\"#dc9c36\"> Works in vehicles.</font>",
