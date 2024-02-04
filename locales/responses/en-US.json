@@ -266,5 +266,6 @@
 	"subscribedActivity": "Subscribed to {outfit} activity",
 	"alreadySubscribedActivity": "Already subscribed to {outfit} activity",
 	"auraxiumMedalCount": "{num} Auraxium medals",
-	"possibleMedalCount": "{num} possible medals (kills)"
+	"possibleMedalCount": "{num} possible medals (kills)",
+	"weaponGlobalStats": "Global Stats"
 }
