@@ -185,6 +185,56 @@ function faction(factionID){
 	}
 }
 
+/**
+ * Generate a link to a character
+ * @param {string} charName - character name
+ * @param {string} charID - character ID
+ * @param {string} platform - which environment the character is on
+ * @param {string} page - optional page to link to
+ * @returns {string} link to character
+ */
+function characterLink(charName, charID, platform, page=""){
+	if(page != ""){
+		if(platform === "ps2:v2"){
+			return `https://wt.honu.pw/c/${charID}/${page}?name=${charName}`;
+		}
+		else if(platform === "ps2ps4us:v2"){
+			return `http://ps4us.ps2.fisu.pw/player/?name=${charName}&show=${page}`;
+		}
+		else if(platform === "ps2ps4eu:v2"){
+			return `http://ps4eu.ps2.fisu.pw/player/?name=${charName}&show=${page}`;
+		}
+	}
+	if(platform === "ps2:v2"){
+		return `https://wt.honu.pw/c/${charID}?name=${charName}`;
+	}
+	else if(platform === "ps2ps4us:v2"){
+		return `http://ps4us.ps2.fisu.pw/player/?name=${charName}`;
+	}
+	else if(platform === "ps2ps4eu:v2"){
+		return `http://ps4eu.ps2.fisu.pw/player/?name=${charName}`;
+	}
+}
+
+/**
+ * Generate a link to an outfit
+ * @param {string} outfitTag - outfit tag
+ * @param {string} outfitID - outfit ID
+ * @param {string} platform - which environment the outfit is on
+ * @returns {string} link to outfit
+ */
+function outfitLink(outfitTag, outfitID, platform){
+	if(platform === "ps2:v2"){
+		return `https://wt.honu.pw/o/${outfitID}`;
+	}
+	else if(platform === "ps2ps4us:v2" && outfitTag != ""){
+		return `http://ps4us.ps2.fisu.pw/outfit/?name=${outfitTag}`;
+	}
+	else if(platform === "ps2ps4eu:v2" && outfitTag != ""){
+		return `http://ps4eu.ps2.fisu.pw/outfit/?name=${outfitTag}`;
+	}
+}
+
 module.exports = {
 	servers: servers,
 	continents: continents,
@@ -194,5 +244,7 @@ module.exports = {
 	badQuery: badQuery,
 	censusRequest: censusRequest,
 	localeNumber: localeNumber,
-	faction: faction
+	faction: faction,
+	characterLink: characterLink,
+	outfitLink: outfitLink
 }

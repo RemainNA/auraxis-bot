@@ -3,7 +3,7 @@
  * @module directives
  */
 
-const {censusRequest, faction} = require('./utils.js');
+const {censusRequest, faction, characterLink} = require('./utils.js');
 const Discord = require('discord.js');
 const directives = require('./static/directives.json');
 const i18n = require('i18n');
@@ -32,7 +32,8 @@ const getDirectiveList = async function(cName, platform, locale="en-US"){
 
 	directiveList.sort((a,b) => b[1] - a[1]);
 	return {
-		name: nameResponse[0].name.first, 
+		name: nameResponse[0].name.first,
+		id: characterId, 
 		faction: nameResponse[0].faction_id, 
 		directives: directiveList
 	};
@@ -86,15 +87,7 @@ module.exports = {
 		} 
 			
 		resEmbed.setDescription(completedDirectives);
-		if(platform == 'ps2:v2'){
-			resEmbed.setURL(`https://ps2.fisu.pw/directive/?name=${directiveList.name}`);
-		}
-		else if(platform == 'ps2ps4us:v2'){
-			resEmbed.setURL(`https://ps4us.ps2.fisu.pw/directive/?name=${directiveList.name}`);
-		}
-		else if(platform == 'ps2ps4eu:v2'){
-			resEmbed.setURL(`https://ps4eu.ps2.fisu.pw/directive/?name=${directiveList.name}`);
-		}
+		resEmbed.setURL(characterLink(directiveList.name, directiveList.id, platform, "directives"));
 		return [resEmbed, row];
 	}
 }

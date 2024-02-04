@@ -4,7 +4,7 @@
  */
 
 const Discord = require('discord.js');
-const { badQuery, censusRequest, faction} = require('./utils.js');
+const { badQuery, censusRequest, faction, characterLink, outfitLink} = require('./utils.js');
 const i18n = require('i18n');
 
 /**
@@ -32,13 +32,6 @@ const onlineInfo = async function(oTag, platform, outfitID = null, locale = "en-
 	 */
 	const url = `outfit?${outfitSearch}&c:join=outfit_member^inject_at:members^show:character_id%27rank^outer:0^list:1(character^show:name.first^inject_at:character^outer:0^on:character_id(characters_online_status^inject_at:online_status^show:online_status^outer:0(world^on:online_status^to:world_id^outer:0^show:world_id^inject_at:ignore_this))`;
 	const data = (await censusRequest(platform, 'outfit_list', url))[0];
-	let urlBase = 'https://ps2.fisu.pw/player/?name=';
-	if(platform == 'ps2ps4us:v2'){
-		urlBase = 'https://ps4us.ps2.fisu.pw/player/?name=';
-	}
-	else if(platform == 'ps2ps4eu:v2'){
-		urlBase = 'https://ps4eu.ps2.fisu.pw/player/?name=';
-	}
 	const leader = (await censusRequest(platform, 'character_list', `/character?character_id=${outfit.leader_character_id}&c:resolve=world`))[0];
 	/**
 	 * @typedef {Object} OnlineOutfit
@@ -86,10 +79,11 @@ const onlineInfo = async function(oTag, platform, outfitID = null, locale = "en-
 		resObj.rankNames = ['Leader', 'Officer', 'Member', 'Private', 'Enlisted'];
 	}
 	for (const member of data.members) {
-		const name = member.character.name.first
+		const name = member.character.name.first;
+		const id = member.character_id;
 		const rank = member.rank;
 		const position = resObj.rankNames.indexOf(rank);
-		resObj.onlineMembers[position].push(`[${name}](${urlBase + name})`);
+		resObj.onlineMembers[position].push(`[${name}](${characterLink(name, id, platform)})`);
 	}
 	for(const i in resObj.onlineMembers){
 		//This sorts ignoring case: https://stackoverflow.com/questions/8996963/how-to-perform-case-insensitive-sorting-in-javascript#9645447
@@ -138,14 +132,8 @@ module.exports = {
 		resEmbed.setDescription(oInfo.alias+"\n"+i18n.__mf({phrase: "{online}/{total} online", locale: locale}, 
 		{online: oInfo.onlineCount, total: oInfo.memberCount}));
 		resEmbed.setTimestamp();
-		if(platform == 'ps2:v2'){
-			resEmbed.setURL('http://ps2.fisu.pw/outfit/?name='+oInfo.alias);
-		}
-		else if(platform == 'ps2ps4us:v2'){
-			resEmbed.setURL('http://ps4us.ps2.fisu.pw/outfit/?name='+oInfo.alias);
-		}
-		else if(platform == 'ps2ps4eu:v2'){
-			resEmbed.setURL('http://ps4eu.ps2.fisu.pw/outfit/?name='+oInfo.alias);
+		if(platform == 'ps2:v2' || oInfo.alias != ""){
+			resEmbed.setURL(outfitLink(oInfo.alias, oInfo.outfitID, platform));
 		}
 		resEmbed.setColor(faction(oInfo.faction).color)
 		if(oInfo.onlineCount === -1){

@@ -6,7 +6,7 @@
 const {censusRequest, faction} = require('./utils.js');
 const Discord = require('discord.js');
 const sanction = require('./static/sanction.json');
-const { localeNumber } = require('./utils.js');
+const { localeNumber, characterLink } = require('./utils.js');
 const i18n = require('i18n');
 
 /**
@@ -64,7 +64,8 @@ const getAuraxiumList = async function(cName, platform, locale='en-US'){
 
 	medalList.sort((a,b) => b[1] - a[1]);  //Chronological sort, newest first
     return {
-		name: response[0].name.first, 
+		name: response[0].name.first,
+		id: response[0].character_id, 
 		faction: response[0].faction_id, 
 		medals: medalList,
 		possibleMedals: possibleMedals
@@ -174,15 +175,7 @@ module.exports = {
 		}
 		resEmbed.setColor(faction(medalList.faction).color)
 		resEmbed.setThumbnail('https://census.daybreakgames.com/files/ps2/images/static/3068.png');
-		if(platform == 'ps2:v2'){
-			resEmbed.setURL(`https://ps2.fisu.pw/player/?name=${medalList.name}&show=weapons`);
-		}
-		else if(platform == 'ps2ps4us:v2'){
-			resEmbed.setURL(`https://ps4us.ps2.fisu.pw/player/?name=${medalList.name}&show=weapons`);
-		}
-		else if(platform == 'ps2ps4eu:v2'){
-			resEmbed.setURL(`https://ps4eu.ps2.fisu.pw/player/?name=${medalList.name}&show=weapons`);
-		}
+		resEmbed.setURL(characterLink(medalList.name, medalList.id, platform, "weapons"));
 		if(remaining > 0){
 			const row = new Discord.MessageActionRow()
 			row.addComponents(

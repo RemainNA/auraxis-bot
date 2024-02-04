@@ -17,7 +17,7 @@ const {territoryInfo, continentBenefit} = require('./territory.js');
 const {onlineInfo, totalLength} = require('./online.js');
 const {ownedBases, centralBases} = require('./outfit.js');
 const bases = require('./static/bases.json');
-const {serverNames, serverIDs, servers, continents, continentNames, faction, localeNumber} = require('./utils.js');
+const {serverNames, serverIDs, servers, continents, continentNames, faction, localeNumber, outfitLink} = require('./utils.js');
 
 /**
  * Creates a server dashboard for the given serverID that keeps track of the population, territory control, and active alerts
@@ -127,18 +127,13 @@ const outfitStatus = async function(outfitID, platform, pgClient){
 	let resEmbed = new MessageEmbed();
 	if(oInfo.alias != ""){
 		resEmbed.setTitle(`[${oInfo.alias}] ${oInfo.name}`);
-		if(platform == 'ps2:v2'){
-			resEmbed.setURL(`http://ps2.fisu.pw/outfit/?name=${oInfo.alias}`);
-		}
-		else if(platform == 'ps2ps4us:v2'){
-			resEmbed.setURL(`http://ps4us.ps2.fisu.pw/outfit/?name=${oInfo.alias}`);
-		}
-		else if(platform == 'ps2ps4eu:v2'){
-			resEmbed.setURL(`http://ps4eu.ps2.fisu.pw/outfit/?name=${oInfo.alias}`);
-		}
+		resEmbed.setURL(outfitLink(oInfo.alias, oInfo.outfitID, platform));
 	}
 	else{
 		resEmbed.setTitle(oInfo.name);
+		if(platform == 'ps2:v2'){
+			resEmbed.setURL(outfitLink(oInfo.alias, oInfo.outfitID, platform));
+		}
 	}
 	resEmbed.setThumbnail(`https://www.outfit-tracker.com/outfit-logo/${oInfo.outfitID}.png`);
 	resEmbed.setDescription(`${oInfo.onlineCount}/${oInfo.memberCount} online | ${serverNames[oInfo.world]}`);

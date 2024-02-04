@@ -13,7 +13,7 @@ const decals = require('./static/decals.json');
 const sanction = require('./static/sanction.json');
 const { fetch } = require('undici');
 const i18n = require('i18n');
-const { serverNames, badQuery, censusRequest, localeNumber, faction } = require('./utils');
+const { serverNames, badQuery, censusRequest, localeNumber, faction, characterLink, outfitLink } = require('./utils');
 
 /**
  * Get basic character information
@@ -377,15 +377,7 @@ module.exports = {
         if(cInfo.title != null){
             resEmbed.setDescription(cInfo.title);
         }
-        if(platform == 'ps2:v2'){
-            resEmbed.setURL('http://ps2.fisu.pw/player/?name='+cName);
-        }
-        else if(platform == 'ps2ps4us:v2'){
-            resEmbed.setURL('http://ps4us.ps2.fisu.pw/player/?name='+cName);
-        }
-        else if(platform == 'ps2ps4eu:v2'){
-            resEmbed.setURL('http://ps4eu.ps2.fisu.pw/player/?name='+cName);
-        }
+        resEmbed.setURL(characterLink(cInfo.name, cInfo.characterID, platform));
         
         // BR & ASP
         if(cInfo.prestige > 0){
@@ -474,14 +466,8 @@ module.exports = {
 
         // Outfit info
         if(cInfo.inOutfit){
-            if(cInfo.outfitAlias != "" && platform == 'ps2:v2'){
-                resEmbed.addFields({name: i18n.__({phrase: 'Outfit', locale: locale}), value: '[['+cInfo.outfitAlias+']](https://ps2.fisu.pw/outfit/?name='+cInfo.outfitAlias+') '+cInfo.outfitName, inline: true});
-            }
-            else if(cInfo.outfitAlias != "" && platform == 'ps2ps4us:v2'){
-                resEmbed.addFields({name: i18n.__({phrase: 'Outfit', locale: locale}), value: '[['+cInfo.outfitAlias+']](https://ps4us.ps2.fisu.pw/outfit/?name='+cInfo.outfitAlias+') '+cInfo.outfitName, inline: true});
-            }
-            else if(cInfo.outfitAlias != "" && platform == 'ps2ps4eu:v2'){
-                resEmbed.addFields({name: i18n.__({phrase: 'Outfit', locale: locale}), value: '[['+cInfo.outfitAlias+']](https://ps4eu.ps2.fisu.pw/outfit/?name='+cInfo.outfitAlias+') '+cInfo.outfitName, inline: true});
+            if(cInfo.outfitAlias != "" || platform == 'ps2:v2'){
+                resEmbed.addFields({name: i18n.__({phrase: 'Outfit', locale: locale}), value: `[[${cInfo.outfitAlias}]](${outfitLink(cInfo.outfitAlias, cInfo.outfitID, platform)}) ${cInfo.outfitName}`, inline: true});
             }
             else{
                 resEmbed.addFields({name: i18n.__({phrase: 'Outfit', locale: locale}), value: cInfo.outfitName, inline: true});

@@ -4,7 +4,7 @@
  */
 
 const Discord = require('discord.js');
-const {censusRequest, localeNumber, faction} = require('./utils.js');
+const {censusRequest, localeNumber, faction, characterLink} = require('./utils.js');
 const vehicles = require('./static/parsedVehicles.json');
 const {getWeaponName} = require('./character.js');
 const i18n = require('i18n');
@@ -67,6 +67,7 @@ const vehicleOverview = async function(cName, vehicleID, platform){
 	}
 	return {
 		charName: data.name.first,
+		charID: data.character_id,
 		faction: data.faction_id,
 		playTime: playTime,
 		totalKills: totalKills,
@@ -148,7 +149,7 @@ module.exports = {
 			const topWeaponName = await getWeaponName(vInfo.topWeaponID, platform);
 			resEmbed.addFields({name: i18n.__({phrase: "Top Weapon (kills)", locale: locale}), value: `${topWeaponName} (${vInfo.topWeaponKills.toLocaleString(locale)})`, inline: true});
 		}
-
+		resEmbed.setURL(characterLink(vInfo.charName, vInfo.charID, platform, "vehicles"));
 		return resEmbed;
 	},
 

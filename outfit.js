@@ -4,7 +4,7 @@
  * @typedef { import('pg').Client} pg.Client
  */
 const Discord = require('discord.js');
-const { serverNames, badQuery, censusRequest, localeNumber, faction } = require('./utils.js');
+const { serverNames, badQuery, censusRequest, localeNumber, faction, outfitLink, characterLink } = require('./utils.js');
 const bases = require('./static/bases.json');
 const i18n = require('i18n');
 
@@ -34,6 +34,7 @@ const basicInfo = async function(oTag, platform, oID, locale="en-US"){
 		alias: data.alias,
 		faction: data.leader_character_id_join_character.faction_id,
 		owner: data.leader_character_id_join_character.name.first,
+		leaderID: data.leader_character_id,
 		memberCount: Number.parseInt(data.member_count),
 		worldId: -1,
 		onlineDay: 0,
@@ -159,17 +160,11 @@ module.exports = {
 		resEmbed.setTitle(oInfo.name);
 		resEmbed.setThumbnail(`https://www.outfit-tracker.com/outfit-logo/${oInfo.outfitID}.png`);
 		resEmbed.setFooter({text: i18n.__({phrase: "outfitDecalSource", locale: locale})});
+		if(oInfo.alias != "" || platform == "ps2:v2"){
+			resEmbed.setURL(outfitLink(oInfo.alias, oInfo.outfitID, platform));
+		}
 		if(oInfo.alias != ""){
 			resEmbed.setDescription(oInfo.alias);
-			if(platform == 'ps2:v2'){
-				resEmbed.setURL('http://ps2.fisu.pw/outfit/?name='+oInfo.alias);
-			}
-			else if(platform == 'ps2ps4us:v2'){
-				resEmbed.setURL('http://ps4us.ps2.fisu.pw/outfit/?name='+oInfo.alias);
-			}
-			else if(platform == 'ps2ps4eu:v2'){
-				resEmbed.setURL('http://ps4eu.ps2.fisu.pw/outfit/?name='+oInfo.alias);
-			}
 		}
 		const dayPc = localeNumber((oInfo.onlineDay/oInfo.memberCount)*100, locale);
 		const weekPc = localeNumber((oInfo.onlineWeek/oInfo.memberCount)*100, locale);
@@ -187,16 +182,7 @@ module.exports = {
 			{name: i18n.__({phrase: "Faction", locale: locale}), value: `${factionInfo.decal} ${i18n.__({phrase: factionInfo.initial, locale: locale})}`, inline: true}
 		)
 		resEmbed.setColor(factionInfo.color);
-
-		if(platform == "ps2:v2"){
-			resEmbed.addFields({name: i18n.__({phrase: 'Owner', locale: locale}), value: "["+oInfo.owner+"]("+"https://ps2.fisu.pw/player/?name="+oInfo.owner+")", inline: true});
-		}
-		else if(platform == "ps2ps4us:v2"){
-			resEmbed.addFields({name: i18n.__({phrase: 'Owner', locale: locale}), value: "["+oInfo.owner+"]("+"https://ps4us.ps2.fisu.pw/player/?name="+oInfo.owner+")", inline: true});
-		}
-		else if(platform == "ps2ps4eu:v2"){
-			resEmbed.addFields({name: i18n.__({phrase: 'Owner', locale: locale}), value: "["+oInfo.owner+"]("+"https://ps4eu.ps2.fisu.pw/player/?name="+oInfo.owner+")", inline: true});
-		}
+		resEmbed.addFields({name: i18n.__({phrase: 'Owner', locale: locale}), value: `[${oInfo.owner}](${characterLink(oInfo.owner, oInfo.leaderID, platform)})`, inline: true});
 		let auraxium = 0;
 		let synthium = 0;
 		let polystellarite = 0;
