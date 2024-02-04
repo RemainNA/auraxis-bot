@@ -333,7 +333,15 @@ module.exports = {
 		resEmbed.setDescription(wInfo.description);
 		resEmbed.setFooter({text: i18n.__({phrase: "Weapon ID", locale: locale})+": "+wInfo.id});
 
-		return resEmbed;
+		const row = new Discord.MessageActionRow()
+			.addComponents(
+				new Discord.MessageButton()
+					.setLabel(i18n.__({phrase: "weaponGlobalStats", locale: locale}))
+					.setStyle('LINK')
+					.setURL(`https://wt.honu.pw/i/${wInfo.id}`)
+			);
+
+		return [resEmbed, [row]];
 	},
 
 	partialMatches: partialMatches

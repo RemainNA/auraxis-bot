@@ -440,7 +440,7 @@ client.on('interactionCreate', async interaction => {
 
 			case 'weapon':
 				res = await weapon.lookup(options.getString("query"), interaction.locale);
-				await interaction.reply({embeds: [res]});
+				await interaction.reply({embeds: [res[0]], components: res[1]});
 				break;
 
 			case 'weaponsearch':
