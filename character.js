@@ -13,7 +13,7 @@ const decals = require('./static/decals.json');
 const sanction = require('./static/sanction.json');
 const { fetch } = require('undici');
 const i18n = require('i18n');
-const { serverNames, badQuery, censusRequest, localeNumber, faction, characterLink, outfitLink } = require('./utils');
+const { serverNames, badQuery, censusRequest, localeNumber, faction, characterLink, outfitLink, discordEmoji } = require('./utils');
 
 /**
  * Get basic character information
@@ -559,7 +559,7 @@ module.exports = {
         resEmbed.addFields(
             {name: i18n.__({phrase: 'Score (SPM)', locale: locale}), value: `${cInfo.score.toLocaleString(locale)} (${localeNumber(cInfo.score/(cInfo.time/60), locale)})`, inline: true},
             {name: i18n.__({phrase: 'Playtime', locale: locale}), value: i18n.__mf({phrase: "{hour} hours, {minute} minutes", locale: locale}, {hour: localeNumber(hours, locale), minute: minutes}), inline: true},
-            {name: i18n.__({phrase: 'Certs Gained', locale: locale}), value: cInfo.certs.toLocaleString(locale), inline: true},
+            {name: i18n.__({phrase: 'Certs Gained', locale: locale}), value: `${cInfo.certs.toLocaleString(locale)} ${discordEmoji["Certs"]}`, inline: true},
             {name: i18n.__({phrase: 'K/D', locale: locale}), value: localeNumber(cInfo.kills/cInfo.deaths, locale), inline: true},
             {name: i18n.__({phrase: 'K-D Diff', locale: locale}), value: `${(cInfo.kills).toLocaleString(locale)} - ${(cInfo.deaths).toLocaleString(locale)} = ${(cInfo.kills-cInfo.deaths).toLocaleString(locale, {signDisplay: "exceptZero"})}`, inline: true},
             {name: i18n.__({phrase: 'KPM', locale: locale}), value: localeNumber(cInfo.kills/(cInfo.time/60), locale), inline: true}

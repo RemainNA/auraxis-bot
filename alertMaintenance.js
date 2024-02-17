@@ -9,15 +9,15 @@
 const Discord = require('discord.js');
 const { fetch } = require('undici');
 const alerts = require('./static/alerts.json');
-const {serverNames} = require('./utils.js');
+const {serverNames, discordEmoji} = require('./utils.js');
 const {popLevels} = require('./alerts.js');
 /**
  * faction winners
  */
 const winnerFaction = {
-	1: "<:VS:818766983918518272> VS win",
-	2: "<:NC:818767043138027580> NC win",
-	3: "<:TR:818988588049629256> TR win",
+	1: `${discordEmoji["VS"]} VS win`,
+	2: `${discordEmoji["NC"]} NC win`,
+	3: `${discordEmoji["TR"]} TR win`,
 }
 
 /**
@@ -55,9 +55,9 @@ async function updateAlert(info, pgClient, discordClient, isComplete){
 	messageEmbed.addFields({name: "Population", value: `${popLevels[info.bracket]}`, inline: true});
 	try{
 		messageEmbed.addFields({name: "Territory Control", value: `\
-		\n<:VS:818766983918518272> **VS**: ${info.result.vs}%\
-		\n<:NC:818767043138027580> **NC**: ${info.result.nc}%\
-		\n<:TR:818988588049629256> **TR**: ${info.result.tr}%`, inline: true});
+		\n${discordEmoji["VS"]} **VS**: ${info.result.vs}%\
+		\n${discordEmoji["NC"]} **NC**: ${info.result.nc}%\
+		\n${discordEmoji["TR"]} **TR**: ${info.result.tr}%`, inline: true});
 	}
 	catch(err){
 		throw "Error displaying territory";

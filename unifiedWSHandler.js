@@ -15,7 +15,7 @@ const territory = require('./territory.js');
 const alerts = require('./static/alerts.json');
 const bases = require('./static/bases.json');
 const trackers = require('./trackers.js');
-const {serverNames, censusRequest, faction, continentNames} = require('./utils.js');
+const {serverNames, censusRequest, faction, discordEmoji, continentNames} = require('./utils.js');
 
 const wait = require('util').promisify(setTimeout);
 
@@ -251,18 +251,18 @@ const alertEvent = async function(payload, environment, pgClient, discordClient)
                 let trPc = ((terObj[continent].tr/Total)*100).toPrecision(3);
 
                 sendEmbed.addFields({name: 'Territory Control', value: `\
-                \n<:VS:818766983918518272> **VS**: ${terObj[continent].vs}  |  ${vsPc}%\
-                \n<:NC:818767043138027580> **NC**: ${terObj[continent].nc}  |  ${ncPc}%\
-                \n<:TR:818988588049629256> **TR**: ${terObj[continent].tr}  |  ${trPc}%`});
+                \n${discordEmoji['VS']} **VS**: ${terObj[continent].vs}  |  ${vsPc}%\
+                \n${discordEmoji['NC']} **NC**: ${terObj[continent].nc}  |  ${ncPc}%\
+                \n${discordEmoji['TR']} **TR**: ${terObj[continent].tr}  |  ${trPc}%`});
             }
             else if(showTerritory){
                 let vsPc = Number.parseFloat(payload.faction_vs).toPrecision(3);
                 let ncPc = Number.parseFloat(payload.faction_nc).toPrecision(3);
                 let trPc = Number.parseFloat(payload.faction_tr).toPrecision(3);
                 sendEmbed.addFields({name: 'Territory Control', value: `\
-                \n<:VS:818766983918518272> **VS**: ${vsPc}%\
-                \n<:NC:818767043138027580> **NC**: ${ncPc}%\
-                \n<:TR:818988588049629256> **TR**: ${trPc}%`});
+                \n${discordEmoji['VS']} **VS**: ${vsPc}%\
+                \n${discordEmoji['NC']} **NC**: ${ncPc}%\
+                \n${discordEmoji['TR']} **TR**: ${trPc}%`});
             }
             const  rows = await pgClient.query("SELECT a.channel, c.Koltyr, c.Indar, c.Hossin, c.Amerish, c.Esamir, c.Oshur, c.Other, c.autoDelete, c.territory, c.nonTerritory\
             FROM alerts a LEFT JOIN subscriptionConfig c on a.channel = c.channel\
@@ -352,21 +352,21 @@ const alertEvent = async function(payload, environment, pgClient, discordClient)
  * "outpost type": "resource generated (resource emoji)"
  */
 const outfitResources = {
-    "Small Outpost": "5 Auraxium <:Auraxium:818766792376713249>",
-    "CTF Small Outpost": "5 Auraxium <:Auraxium:818766792376713249>",
-    "Seapost": "5 Auraxium <:Auraxium:818766792376713249>",
-    "Large Outpost": "25 Auraxium <:Auraxium:818766792376713249>",
-    "CTF Large Outpost": "25 Auraxium <:Auraxium:818766792376713249>",
-    "Construction Outpost": "3 Synthium <:Synthium:818766858865475584>",
-    "CTF Construction Outpost": "3 Synthium <:Synthium:818766858865475584>",
-    "Bio Lab": "8 Synthium <:Synthium:818766858865475584>",
-    "Amp Station": "8 Synthium <:Synthium:818766858865475584>",
-    "CTF Amp Station": "8 Synthium <:Synthium:818766858865475584>",
-    "Tech Plant": "8 Synthium <:Synthium:818766858865475584>",
-    "Containment Site": "8 Synthium <:Synthium:818766858865475584>",
-    "Interlink Facility": "8 Synthium <:Synthium:818766858865475584>",
-    "Trident": "1 Polystellarite <:Polystellarite:818766888238448661>",
-    "Central base": "2 Polystellarite <:Polystellarite:818766888238448661>"
+    "Small Outpost": `5 Auraxium ${discordEmoji["Auraxium"]}`,
+    "CTF Small Outpost": `5 Auraxium ${discordEmoji["Auraxium"]}`,
+    "Seapost": `5 Auraxium ${discordEmoji["Auraxium"]}`,
+    "Large Outpost": `25 Auraxium ${discordEmoji["Auraxium"]}`,
+    "CTF Large Outpost": `25 Auraxium ${discordEmoji["Auraxium"]}`,
+    "Construction Outpost": `3 Synthium ${discordEmoji["Synthium"]}`,
+    "CTF Construction Outpost": `3 Synthium ${discordEmoji["Synthium"]}`,
+    "Bio Lab": `8 Synthium ${discordEmoji["Synthium"]}`,
+    "Amp Station": `8 Synthium ${discordEmoji["Synthium"]}`,
+    "CTF Amp Station": `8 Synthium ${discordEmoji["Synthium"]}`,
+    "Tech Plant": `8 Synthium ${discordEmoji["Synthium"]}`,
+    "Containment Site": `8 Synthium ${discordEmoji["Synthium"]}`,
+    "Interlink Facility": `8 Synthium ${discordEmoji["Synthium"]}`,
+    "Trident": `1 Polystellarite ${discordEmoji["Polystellarite"]}`,
+    "Central base": `2 Polystellarite ${discordEmoji["Polystellarite"]}`,
 };
 
 /**
@@ -411,7 +411,7 @@ const baseEvent = async function(payload, environment, pgClient, discordClient){
         if(centralBases.includes(payload.facility_id)){
             sendEmbed.addFields(
                 {name: "Facility Type", value: base.type+"\n(Central base)", inline: true},
-                {name: "Outfit Resources", value: "2 Polystellarite <:Polystellarite:818766888238448661>", inline: true}
+                {name: "Outfit Resources", value: `2 Polystellarite ${discordEmoji["Polystellarite"]}`, inline: true}
             );
         }
         else if(base.type in outfitResources){
@@ -432,7 +432,7 @@ const baseEvent = async function(payload, environment, pgClient, discordClient){
         
         const contributions = await captureContributions(payload.outfit_id, payload.facility_id, payload.timestamp, environment);
         if(contributions.length > 0){
-            sendEmbed.addFields({name: "<:Merit:890295314337136690> Contributors", value: `${contributions}`.replace(/,/g, ', '), inline: true});
+            sendEmbed.addFields({name: `${discordEmoji["Merit"]} Contributors`, value: `${contributions}`.replace(/,/g, ', '), inline: true});
         }
         for (let row of result.rows){
             discordClient.channels.fetch(row.channel).then(resChann => {

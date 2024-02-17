@@ -4,7 +4,7 @@
  * @typedef { import('pg').Client} pg.Client
  */
 const Discord = require('discord.js');
-const { serverNames, badQuery, censusRequest, localeNumber, faction, outfitLink, characterLink } = require('./utils.js');
+const { serverNames, badQuery, censusRequest, localeNumber, faction, outfitLink, characterLink, discordEmoji } = require('./utils.js');
 const bases = require('./static/bases.json');
 const i18n = require('i18n');
 
@@ -225,9 +225,9 @@ module.exports = {
 		}
 		if((auraxium + synthium + polystellarite) > 0){ //Recognized bases are owned
 			resEmbed.addFields(
-				{name: '<:Auraxium:818766792376713249>', value: i18n.__mf({phrase: "quantityPerMinute", locale: locale}, {quantity: auraxium/5}), inline: true},
-				{name: '<:Synthium:818766858865475584>', value: i18n.__mf({phrase: "quantityPerMinute", locale: locale}, {quantity: synthium/5}), inline: true},
-				{name: '<:Polystellarite:818766888238448661>', value: i18n.__mf({phrase: "quantityPerMinute", locale: locale}, {quantity: polystellarite/5}), inline: true},
+				{name: `${discordEmoji["Auraxium"]}`, value: i18n.__mf({phrase: "quantityPerMinute", locale: locale}, {quantity: auraxium/5}), inline: true},
+				{name: `${discordEmoji["Synthium"]}`, value: i18n.__mf({phrase: "quantityPerMinute", locale: locale}, {quantity: synthium/5}), inline: true},
+				{name: `${discordEmoji["Polystellarite"]}`, value: i18n.__mf({phrase: "quantityPerMinute", locale: locale}, {quantity: polystellarite/5}), inline: true},
 				{name: i18n.__({phrase: 'Bases owned', locale: locale}), value: `${ownedNames}`.replace(/,/g, '\n'), inline: true}
 			)
 		}

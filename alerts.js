@@ -7,7 +7,7 @@
 const Discord = require('discord.js');
 const alerts = require('./static/alerts.json');
 const { fetch } = require('undici');
-const { serverNames, serverIDs } = require('./utils');
+const { serverNames, serverIDs, discordEmoji } = require('./utils');
 const i18n = require('i18n');
 
 /**
@@ -106,9 +106,9 @@ module.exports = {
 					value: i18n.__mf({phrase: "Ends {time}", locale: locale}, {time: `<t:${alertObj[x].timeEnd}:R>`}), inline: true},
 				{name: i18n.__({phrase: "Activity Level", locale: locale}), value: i18n.__({phrase: popLevels[alertObj[x].bracket], locale: locale}), inline: true},
 				{name: i18n.__({phrase: "Territory Control", locale: locale}), value: `\
-				\n<:VS:818766983918518272> **${i18n.__({phrase: "VS", locale: locale})}**: ${alertObj[x].vs}%\
-				\n<:NC:818767043138027580> **${i18n.__({phrase: "NC", locale: locale})}**: ${alertObj[x].nc}%\
-				\n<:TR:818988588049629256> **${i18n.__({phrase: "TR", locale: locale})}**: ${alertObj[x].tr}%`}
+				\n${discordEmoji["VS"]} **${i18n.__({phrase: "VS", locale: locale})}**: ${alertObj[x].vs}%\
+				\n${discordEmoji["NC"]} **${i18n.__({phrase: "NC", locale: locale})}**: ${alertObj[x].nc}%\
+				\n${discordEmoji["TR"]} **${i18n.__({phrase: "TR", locale: locale})}**: ${alertObj[x].tr}%`}
 			)
 			if(x != alertObj.length-1){
 				sendEmbed.addFields({name: '\u200b', value: '\u200b'});

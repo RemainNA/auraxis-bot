@@ -5,7 +5,7 @@
 
 const Discord = require('discord.js');
 const { fetch } = require('undici');
-const {servers, serverIDs, serverNames, localeNumber, continentNames} = require('./utils.js');
+const {servers, serverIDs, serverNames, localeNumber, continentNames, discordEmoji} = require('./utils.js');
 const i18n = require('i18n');
 
 /**
@@ -108,9 +108,9 @@ module.exports = {
 				const trPc = localeNumber((pop.global.tr/(pop.global.all||1))*100, locale);
 				const nsPc = localeNumber((pop.global.unknown/(pop.global.all||1))*100, locale);
 				let populationField = `\
-				\n<:VS:818766983918518272> **${i18n.__({phrase: 'VS', locale: locale})}**: ${pop.global.vs}  |  ${vsPc}%\
-				\n<:NC:818767043138027580> **${i18n.__({phrase: 'NC', locale: locale})}**: ${pop.global.nc}  |  ${ncPc}%\
-				\n<:TR:818988588049629256> **${i18n.__({phrase: 'TR', locale: locale})}**: ${pop.global.tr}  |  ${trPc}%`;
+				\n${discordEmoji["VS"]} **${i18n.__({phrase: 'VS', locale: locale})}**: ${pop.global.vs}  |  ${vsPc}%\
+				\n${discordEmoji["NC"]} **${i18n.__({phrase: 'NC', locale: locale})}**: ${pop.global.nc}  |  ${ncPc}%\
+				\n${discordEmoji["TR"]} **${i18n.__({phrase: 'TR', locale: locale})}**: ${pop.global.tr}  |  ${trPc}%`;
 				if(pop.global.unknown != 0){
 					populationField += `\n:question: **?**: ${pop.global.unknown}  |  ${nsPc}%`;
 				}
@@ -135,9 +135,9 @@ module.exports = {
 			const trPc = localeNumber((pop.global.tr/(pop.global.all||1))*100, locale);
 			const nsPc = localeNumber((pop.global.unknown/(pop.global.all||1))*100, locale);
 			let globalPopText = `**${i18n.__({phrase: "globalPopulation", locale: locale})}**\
-			\n<:VS:818766983918518272> **${i18n.__({phrase: 'VS', locale: locale})}**: ${pop.global.vs}  |  ${vsPc}%\
-			\n<:NC:818767043138027580> **${i18n.__({phrase: 'NC', locale: locale})}**: ${pop.global.nc}  |  ${ncPc}%\
-			\n<:TR:818988588049629256> **${i18n.__({phrase: 'TR', locale: locale})}**: ${pop.global.tr}  |  ${trPc}%`;
+			\n${discordEmoji["VS"]} **${i18n.__({phrase: 'VS', locale: locale})}**: ${pop.global.vs}  |  ${vsPc}%\
+			\n${discordEmoji["NC"]} **${i18n.__({phrase: 'NC', locale: locale})}**: ${pop.global.nc}  |  ${ncPc}%\
+			\n${discordEmoji["TR"]} **${i18n.__({phrase: 'TR', locale: locale})}**: ${pop.global.tr}  |  ${trPc}%`;
 			if(pop.global.unknown != 0){
 				globalPopText += `\n:question: **?**: ${pop.global.unknown}  |  ${nsPc}%`
 			}
@@ -157,9 +157,9 @@ module.exports = {
 				const trPc = localeNumber((contPop.tr/(contPop.all||1))*100, locale);
 				const nsPc = localeNumber((contPop.unknown/(contPop.all||1))*100, locale);
 				let continentPopText = `\
-				\n<:VS:818766983918518272> **${i18n.__({phrase: 'VS', locale: locale})}**: ${contPop.vs}  |  ${vsPc}%\
-				\n<:NC:818767043138027580> **${i18n.__({phrase: 'NC', locale: locale})}**: ${contPop.nc}  |  ${ncPc}%\
-				\n<:TR:818988588049629256> **${i18n.__({phrase: 'TR', locale: locale})}**: ${contPop.tr}  |  ${trPc}%`;
+				\n${discordEmoji["VS"]} **${i18n.__({phrase: 'VS', locale: locale})}**: ${contPop.vs}  |  ${vsPc}%\
+				\n${discordEmoji["NC"]} **${i18n.__({phrase: 'NC', locale: locale})}**: ${contPop.nc}  |  ${ncPc}%\
+				\n${discordEmoji["TR"]} **${i18n.__({phrase: 'TR', locale: locale})}**: ${contPop.tr}  |  ${trPc}%`;
 				if(contPop.unknown != 0){
 					continentPopText += `\n:question: **?**: ${contPop.unknown}  |  ${nsPc}%`;
 				}

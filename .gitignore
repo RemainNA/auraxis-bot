@@ -7,3 +7,6 @@ plan.txt
 
 # Dependencies #
 node_modules
+
+# Self-hosted overrides #
+static/*.local.json

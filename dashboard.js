@@ -17,7 +17,7 @@ const {territoryInfo, continentBenefit} = require('./territory.js');
 const {onlineInfo, totalLength} = require('./online.js');
 const {ownedBases, centralBases} = require('./outfit.js');
 const bases = require('./static/bases.json');
-const {serverNames, serverIDs, servers, continents, continentNames, faction, localeNumber, outfitLink} = require('./utils.js');
+const {serverNames, serverIDs, servers, continents, continentNames, faction, localeNumber, outfitLink, discordEmoji} = require('./utils.js');
 
 /**
  * Creates a server dashboard for the given serverID that keeps track of the population, territory control, and active alerts
@@ -37,9 +37,9 @@ const serverStatus = async function(serverID, pgClient){
 	const trPc = ((pop.global.tr/(pop.global.all||1))*100).toPrecision(3);
 	const nsPc = ((pop.global.unknown/(pop.global.all||1))*100).toPrecision(3);
 	let populationField = `\
-	\n<:VS:818766983918518272> **VS**: ${pop.global.vs}  |  ${vsPc}%\
-	\n<:NC:818767043138027580> **NC**: ${pop.global.nc}  |  ${ncPc}%\
-	\n<:TR:818988588049629256> **TR**: ${pop.global.tr}  |  ${trPc}%\
+	\n${discordEmoji["VS"]} **VS**: ${pop.global.vs}  |  ${vsPc}%\
+	\n${discordEmoji["NC"]} **NC**: ${pop.global.nc}  |  ${ncPc}%\
+	\n${discordEmoji["TR"]} **TR**: ${pop.global.tr}  |  ${trPc}%\
 	\n:question: **?**: ${pop.global.unknown}  |  ${nsPc}%`
 
 	resEmbed.addFields({name: `Population - ${localeNumber(pop.global.all, "en-US")}`, value: populationField, inline: true});
@@ -69,27 +69,27 @@ const serverStatus = async function(serverID, pgClient){
 			territoryField += `**${continent}** ${owningFaction.decal}\nLocked <t:${timestamp}:t> (<t:${timestamp}:R>)\n\n`;
 		}
 		else if (openContinents < 5 && territory[continent].unstable){
-			territoryField += `**${continent}**  <:Unstable:1000661319663497217>\
+			territoryField += `**${continent}**  ${discordEmoji["Unstable"]}\
 			\nUnlocked <t:${timestamp}:t> (<t:${timestamp}:R>)\
 			\n*Currently unstable*\
-			\n<:VS:818766983918518272> **VS**: ${territory[continent].vs}  |  ${vsPc}%\
-			\n<:NC:818767043138027580> **NC**: ${territory[continent].nc}  |  ${ncPc}%\
-			\n<:TR:818988588049629256> **TR**: ${territory[continent].tr}  |  ${trPc}%\n\n`;
+			\n${discordEmoji["VS"]} **VS**: ${territory[continent].vs}  |  ${vsPc}%\
+			\n${discordEmoji["NC"]} **NC**: ${territory[continent].nc}  |  ${ncPc}%\
+			\n${discordEmoji["TR"]} **TR**: ${territory[continent].tr}  |  ${trPc}%\n\n`;
 		}
 		else if (openContinents < 5){
 			territoryField += `**${continent}**\
 			\nUnlocked <t:${timestamp}:t> (<t:${timestamp}:R>)\
-			\n<:VS:818766983918518272> **VS**: ${territory[continent].vs}  |  ${vsPc}%\
-			\n<:NC:818767043138027580> **NC**: ${territory[continent].nc}  |  ${ncPc}%\
-			\n<:TR:818988588049629256> **TR**: ${territory[continent].tr}  |  ${trPc}%\n\n`;
+			\n${discordEmoji["VS"]} **VS**: ${territory[continent].vs}  |  ${vsPc}%\
+			\n${discordEmoji["NC"]} **NC**: ${territory[continent].nc}  |  ${ncPc}%\
+			\n${discordEmoji["TR"]} **TR**: ${territory[continent].tr}  |  ${trPc}%\n\n`;
 		}
 		else{
 			// Remove one of the timestamps when all continents open to use fewer characters
 			territoryField += `**${continent}**\
 			\nUnlocked <t:${timestamp}:R>\
-			\n<:VS:818766983918518272> **VS**: ${territory[continent].vs}  |  ${vsPc}%\
-			\n<:NC:818767043138027580> **NC**: ${territory[continent].nc}  |  ${ncPc}%\
-			\n<:TR:818988588049629256> **TR**: ${territory[continent].tr}  |  ${trPc}%\n\n`
+			\n${discordEmoji["VS"]} **VS**: ${territory[continent].vs}  |  ${vsPc}%\
+			\n${discordEmoji["NC"]} **NC**: ${territory[continent].nc}  |  ${ncPc}%\
+			\n${discordEmoji["TR"]} **TR**: ${territory[continent].tr}  |  ${trPc}%\n\n`
 		}
 	}
 
@@ -185,9 +185,9 @@ const outfitStatus = async function(outfitID, platform, pgClient){
 	if((auraxium + synthium + polystellarite) > 0){ //Recognized bases are owned
 		resEmbed.addFields(
 			{name: "Bases owned", value: `${ownedNames}`.replace(/,/g, '\n')},
-			{name: "<:Auraxium:818766792376713249>", value: `+${auraxium/5}/min`, inline: true},
-			{name: "<:Synthium:818766858865475584>", value: `+${synthium/5}/min`, inline: true},
-			{name: "<:Polystellarite:818766888238448661>", value: `+${polystellarite/5}/min`, inline: true}
+			{name: `${discordEmoji["Auraxium"]}`, value: `+${auraxium/5}/min`, inline: true},
+			{name: `${discordEmoji["Synthium"]}`, value: `+${synthium/5}/min`, inline: true},
+			{name: `${discordEmoji["Polystellarite"]}`, value: `+${polystellarite/5}/min`, inline: true}
 		)
 	}
 

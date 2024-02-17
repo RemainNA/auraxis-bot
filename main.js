@@ -75,6 +75,7 @@ let SQLclient = undefined;
 
 client.on('ready', async () => {
 	console.log('Running on '+client.guilds.cache.size+' servers!');
+	console.log(`Invite to more servers: https://discord.com/api/oauth2/authorize?client_id=${process.env.clientID}&permissions=1330192&scope=bot+applications.commands`);
 	if(runningOnline){
 		SQLclient = new pg.Client({
 			connectionString: process.env.DATABASE_URL,

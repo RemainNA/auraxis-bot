@@ -7,7 +7,7 @@
  */
 
 const Discord = require('discord.js');
-const { serverNames, serverIDs, censusRequest, continents, localeNumber, faction } = require('./utils');
+const { serverNames, serverIDs, censusRequest, continents, localeNumber, faction, discordEmoji } = require('./utils');
 const i18n = require('i18n');
 const ignoredRegions = require('./static/ignoredRegions.json');
 
@@ -221,12 +221,12 @@ module.exports = {
             }
             else if(terObj[continent].unstable){
                 openContinents.push({
-                    title: `${i18n.__({phrase: continent, locale: locale})} <:Unstable:1000661319663497217>`,
+                    title: `${i18n.__({phrase: continent, locale: locale})} ${discordEmoji["Unstable"]}`,
                     body: `${i18n.__mf({phrase: "Unlocked {timestamp}", locale: locale}, {timestamp: `<t:${timestamp}:t>`, relative: `<t:${timestamp}:R>`})}\
                     \n*${i18n.__({phrase: "currentlyUnstable", locale: locale})}*\
-                    \n${terObj[continent].warpgates[1]} <:VS:818766983918518272> **${i18n.__({phrase: "VS", locale: locale})}**: ${terObj[continent].vs}  |  ${vsPc}%\
-                    \n${terObj[continent].warpgates[2]} <:NC:818767043138027580> **${i18n.__({phrase: "NC", locale: locale})}**: ${terObj[continent].nc}  |  ${ncPc}%\
-                    \n${terObj[continent].warpgates[3]} <:TR:818988588049629256> **${i18n.__({phrase: "TR", locale: locale})}**: ${terObj[continent].tr}  |  ${trPc}%`,
+                    \n${terObj[continent].warpgates[1]} ${discordEmoji['VS']} **${i18n.__({phrase: "VS", locale: locale})}**: ${terObj[continent].vs}  |  ${vsPc}%\
+                    \n${terObj[continent].warpgates[2]} ${discordEmoji['NC']} **${i18n.__({phrase: "NC", locale: locale})}**: ${terObj[continent].nc}  |  ${ncPc}%\
+                    \n${terObj[continent].warpgates[3]} ${discordEmoji['TR']} **${i18n.__({phrase: "TR", locale: locale})}**: ${terObj[continent].tr}  |  ${trPc}%`,
                     lastChange: timestamp
                 })
             }
@@ -234,9 +234,9 @@ module.exports = {
                 openContinents.push({
                     title: i18n.__({phrase: continent, locale: locale}),
                     body: `${i18n.__mf({phrase: "Unlocked {timestamp}", locale: locale}, {timestamp: `<t:${timestamp}:t>`, relative: `<t:${timestamp}:R>`})}\
-                    \n${terObj[continent].warpgates[1]} <:VS:818766983918518272> **${i18n.__({phrase: "VS", locale: locale})}**: ${terObj[continent].vs}  |  ${vsPc}%\
-                    \n${terObj[continent].warpgates[2]} <:NC:818767043138027580> **${i18n.__({phrase: "NC", locale: locale})}**: ${terObj[continent].nc}  |  ${ncPc}%\
-                    \n${terObj[continent].warpgates[3]} <:TR:818988588049629256> **${i18n.__({phrase: "TR", locale: locale})}**: ${terObj[continent].tr}  |  ${trPc}%`,
+                    \n${terObj[continent].warpgates[1]} ${discordEmoji['VS']} **${i18n.__({phrase: "VS", locale: locale})}**: ${terObj[continent].vs}  |  ${vsPc}%\
+                    \n${terObj[continent].warpgates[2]} ${discordEmoji['NC']} **${i18n.__({phrase: "NC", locale: locale})}**: ${terObj[continent].nc}  |  ${ncPc}%\
+                    \n${terObj[continent].warpgates[3]} ${discordEmoji['TR']} **${i18n.__({phrase: "TR", locale: locale})}**: ${terObj[continent].tr}  |  ${trPc}%`,
                     lastChange: timestamp
                 })
             }
