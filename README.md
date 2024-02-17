@@ -29,9 +29,11 @@ TWITTER_BEARER_TOKEN = <Twitter Bearer Token>
 TWITTER_CONSUMER_KEY = <Twitter Consumer Key>
 ```
 
-After initial startup, lun `node registerCommands.js` once to register the bot's commands with Discord.
+After initial startup, run `node registerCommands.js` once to register the bot's commands with Discord.
 
 To add the bot to your server, use an invite link of the form `https://discord.com/api/oauth2/authorize?client_id=<Discord Client ID>8&permissions=1330192&scope=bot+applications.commands`.
+
+As of [November 2023](https://github.com/discord/discord-api-docs/issues/5279#issuecomment-1791484693), bots no longer have access to external emoji in guilds of which they are not members.  This means if you are self-hosting, you need to add all necessary emoji to your server.  Copies of the emoji are in `images/`.  Once you have done this, copy `static/emoji.json` to `static/emoji.local.json`, replace the emoji IDs with the ones from your server, and restart the bot.
 
 ## Contact
 
