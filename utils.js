@@ -3,6 +3,7 @@
  * @module utils
  */
 
+const {existsSync} = require('node:fs');
 const {fetch} = require('undici');
 
 /**
@@ -70,6 +71,15 @@ const serverIDs = {
     "genudine": 1000,
     "ceres": 2000
 };
+
+/**
+ * `abbreviation`: `discordEmojiID`
+ */
+let discordEmojiVals = require('./static/emoji.json');
+if (existsSync('./static/emoji.local.json')) {
+    discordEmojiVals = require('./static/emoji.local.json');
+}
+const discordEmoji = discordEmojiVals;
 
 /**
  * Checks for disallowed characters in `input`
@@ -175,13 +185,13 @@ function faction(factionID){
 	 */
 	switch (String(factionID)){
 		case "1":
-			return {color: 'PURPLE', decal: '<:VS:818766983918518272>', initial: 'VS', tracker: '🟣'};
+			return {color: 'PURPLE', decal: discordEmoji['VS'], initial: 'VS', tracker: '🟣'};
 		case "2":
-			return {color: 'BLUE', decal: '<:NC:818767043138027580>', initial: 'NC', tracker: '🔵'};
+			return {color: 'BLUE', decal: discordEmoji['NC'], initial: 'NC', tracker: '🔵'};
 		case "3":
-			return {color: 'RED', decal: '<:TR:818988588049629256>', initial: 'TR', tracker: '🔴'};
+			return {color: 'RED', decal: discordEmoji['TR'], initial: 'TR', tracker: '🔴'};
 		default:
-			return {color: 'GREY', decal: '<:NS:819511690726866986>', initial: 'NSO', tracker: '⚪'};
+			return {color: 'GREY', decal: discordEmoji['NS'], initial: 'NSO', tracker: '⚪'};
 	}
 }
 
@@ -241,6 +251,7 @@ module.exports = {
 	continentNames: continentNames,
 	serverNames: serverNames,
 	serverIDs: serverIDs,
+	discordEmoji: discordEmoji,
 	badQuery: badQuery,
 	censusRequest: censusRequest,
 	localeNumber: localeNumber,

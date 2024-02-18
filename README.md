@@ -4,7 +4,7 @@ A Discord bot to look up stats and information from Planetside 2
 
 ## Invite
 
-The bot can be added to your server with [this invite link](https://discord.com/api/oauth2/authorize?client_id=437756856774033408&permissions=1330192&scope=bot%20applications.commands).
+The bot can be added to your server with [this invite link](https://discord.com/api/oauth2/authorize?client_id=437756856774033408&permissions=1330192&scope=bot+applications.commands).
 
 ## Structure
 
@@ -12,11 +12,11 @@ The main event listener for Discord messages is in `main.js`, it starts addition
 
 ## Usage
 
-The bot is designed to be simple to use.  Once added to your server with the [invite link](https://discord.com/api/oauth2/authorize?client_id=437756856774033408&permissions=1330192&scope=bot%20applications.commands), commands can be viewed with `/help`.  In order to get the most out of the bot, please grant it the "Read Messages", "Send Messages", "Embed Links", and "Use External Emoji" permissions.  In addition for slash commands to display emoji the @everyone role must have the "Use External Emoji" permission granted in that channel, regardless of the bot's permissions.
+The bot is designed to be simple to use.  Once added to your server with the [invite link](https://discord.com/api/oauth2/authorize?client_id=437756856774033408&permissions=1330192&scope=bot+applications.commands), commands can be viewed with `/help`.  In order to get the most out of the bot, please grant it the "Read Messages", "Send Messages", "Embed Links", and "Use External Emoji" permissions.  In addition for slash commands to display emoji the @everyone role must have the "Use External Emoji" permission granted in that channel, regardless of the bot's permissions.
 
 ## Self hosting
 
-A `.env` file is used for the environment variables, including the [Discord Token](https://discordapp.com/developers/applications/me), [Daybreak Census API service ID](https://census.daybreakgames.com/), Postgres URL (optional), and [Twitter API credentials (optional)](https://developer.twitter.com/en/portal/dashboard).  Subscription functionality will be disabled if a database URL is not present. To use the Twitter API, you must have a Postgres URL. To ensure `latestTweet()` in `twitterListener.js` works properly on first time setup, manually modify the insert queries in `dbStructure.sql` to insert the lastest tweet id's for tracked users.
+A `.env` file is used for the environment variables, including the [Discord Token](https://discordapp.com/developers/applications/me), [Daybreak Census API service ID](https://census.daybreakgames.com/), Postgres URL (optional), and [Twitter API credentials (optional)](https://developer.twitter.com/en/portal/dashboard).  Subscription functionality will be disabled if a database URL is not present.  To use the Twitter API, you must have a Postgres URL. If using Postgres, be sure to load the `dbStructure.sql` schema manually before starting the bot.  To ensure `latestTweet()` in `twitterListener.js` works properly on first time setup, manually modify the insert queries in `dbStructure.sql` to insert the lastest tweet id's for tracked users.
 
 Your `.env` file should look something like this
 
@@ -28,6 +28,12 @@ DATABASE_URL = <Postgres URL>
 TWITTER_BEARER_TOKEN = <Twitter Bearer Token>
 TWITTER_CONSUMER_KEY = <Twitter Consumer Key>
 ```
+
+After initial startup, run `node registerCommands.js` once to register the bot's commands with Discord.
+
+To add the bot to your server, use an invite link of the form `https://discord.com/api/oauth2/authorize?client_id=<Discord Client ID>8&permissions=1330192&scope=bot+applications.commands`.
+
+As of [November 2023](https://github.com/discord/discord-api-docs/issues/5279#issuecomment-1791484693), bots no longer have access to external emoji in guilds of which they are not members.  This means if you are self-hosting, you need to add all necessary emoji to your server.  Copies of the emoji are in `images/`.  Once you have done this, copy `static/emoji.json` to `static/emoji.local.json`, replace the emoji IDs with the ones from your server, and restart the bot.
 
 ## Contact
 
