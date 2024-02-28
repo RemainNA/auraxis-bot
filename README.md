@@ -35,7 +35,7 @@ As of [November 2023](https://github.com/discord/discord-api-docs/issues/5279#is
 
 ## Contact
 
-For feedback or error reports the best ways to contact are Discord DMs (RemainNA#0159) or the Auraxis bot [Discord server](https://discord.gg/Kf5P6Ut).
+For feedback or error reports the best ways to contact are Discord DMs (remainna) or the Auraxis bot [Discord server](https://discord.gg/Kf5P6Ut).
 
 ## Localization
 
@@ -45,11 +45,11 @@ If you notice a translation error please report it in the support server.
 
 Thank you to the following translators for their contributions!
 
-- Dutch: brakenium#9467
+- Dutch: brakenium
 - French: Cleridwen
 - German: Gretchen & Kilian
-- Korean: AlexKoala#0253
-- Russian: Simacrus#9560 & Kinderbug
+- Korean: AlexKoala
+- Russian: Simacrus & Kinderbug
 - Spanish: [1ITL] Facer
 - Ukranian: Veydzher
 
