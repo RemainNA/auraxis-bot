@@ -45,21 +45,5 @@ module.exports = {
             }
         }
         return -1;
-    },
-
-    /**
-     * Logs errors where which function the error occured in
-     * @param {discord.Channel} channel - the channel to send the error message to
-     * @param {string} err - the error to send
-     * @param {string} context - the context of the error 
-     */
-    handleError: function(channel, err, context="default"){
-        if(typeof(err) == 'string'){
-            this.send(channel, err, context);
-        }
-        else{
-            console.log(`Error returned from function in context: ${context}`);
-            console.log(err);
-        }
     }
 }
