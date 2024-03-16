@@ -4,7 +4,7 @@
  */
 const Discord = require('discord.js');
 const implantsJSON = require('./static/implants.json');
-const {badQuery} = require('./utils.js');
+const {badQuery, discordEmoji} = require('./utils.js');
 
 /**
  * Get implant information from implant.json
@@ -70,16 +70,19 @@ module.exports = {
 		const resEmbed = new Discord.MessageEmbed();
 		resEmbed.setTitle(iInfo.name);
 		resEmbed.setThumbnail(`http://census.daybreakgames.com/files/ps2/images/static/${iInfo.image}.png`);
+		if(iInfo.craft !== undefined){
+			resEmbed.setDescription(`${iInfo.craft} ${discordEmoji["ISO-4"]}`);
+		}
 		if(iInfo.desc !== undefined){
 			resEmbed.addFields({name: "Description", value: iInfo.desc});
 		}
 		else{
 			resEmbed.addFields(
-				{name: "Rank 1", value: iInfo["1"]},
-				{name: "Rank 2", value: iInfo["2"]},
-				{name: "Rank 3", value: iInfo["3"]},
-				{name: "Rank 4", value: iInfo["4"]},
-				{name: "Rank 5", value: iInfo["5"]}
+				{name: "Rank 1", value: iInfo["1"].replace(/\<.+?>/g, "**")},
+				{name: `Rank 2 | 75 ${discordEmoji["ISO-4"]}`, value: iInfo["2"].replace(/\<.+?>/g, "**")},
+				{name: `Rank 3 | 225 ${discordEmoji["ISO-4"]}`, value: iInfo["3"].replace(/\<.+?>/g, "**")},
+				{name: `Rank 4 | 900 ${discordEmoji["ISO-4"]}`, value: iInfo["4"].replace(/\<.+?>/g, "**")},
+				{name: `Rank 5 | 2475 ${discordEmoji["ISO-4"]}`, value: iInfo["5"].replace(/\<.+?>/g, "**")}
 			)
 		}
 
