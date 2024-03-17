@@ -31,7 +31,7 @@ const winnerFaction = {
 async function updateAlert(info, pgClient, discordClient, isComplete){
 	const messageEmbed = new Discord.MessageEmbed();
 	messageEmbed.setTimestamp();
-	messageEmbed.setFooter({text: "Data from ps2alerts.com"});
+	messageEmbed.setFooter({text: info.honuId ? "Data from wt.honu.pw" : "Data from ps2alerts.com"});
 	const alertName = alerts[info.censusMetagameEventType].name;
 	messageEmbed.setTitle(alertName);
 	if (alertName.includes('Enlightenment')){
@@ -52,7 +52,11 @@ async function updateAlert(info, pgClient, discordClient, isComplete){
 		const start = Date.parse(info.timeStarted);
 		messageEmbed.addFields({name: "Status", value: `Started <t:${Math.floor(start/1000)}:t>\nEnds <t:${Math.floor((start+info.duration)/1000)}:R>`, inline: true});
 	}
-	messageEmbed.addFields({name: "Population", value: `${popLevels[info.bracket]}`, inline: true});
+    if (info.playerCount) {
+        messageEmbed.addFields({name: "Population", value: `${info.playerCount}`, inline: true});
+    } else {
+        messageEmbed.addFields({name: "Population", value: `${popLevels[info.bracket]}${info.playerCount ? ` - ${info.playerCount}` : ""}`, inline: true});
+    }
 	try{
 		messageEmbed.addFields({name: "Territory Control", value: `\
 		\n${discordEmoji["VS"]} **VS**: ${info.result.vs}%\
@@ -75,7 +79,6 @@ async function updateAlert(info, pgClient, discordClient, isComplete){
 			}
 		}
 	}
-
 
 	const result = await pgClient.query("SELECT messageID, channelID FROM alertMaintenance WHERE alertID = $1;", [info.instanceId])
 	for (const row of result.rows) {
@@ -136,9 +139,17 @@ module.exports = {
 		const results = await pgClient.query("SELECT DISTINCT alertID, error FROM alertMaintenance");
 		Promise.allSettled(results.rows.map(async row => {
 			try {
-				const request = await fetch(`https://api.ps2alerts.com/instances/${row.alertid}`);
-				const response = await request.json();
-				await updateAlert(response, pgClient, discordClient, response.timeEnded != null);
+                // for testing honu locally, cause it uses a self-signed cert
+                //process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
+                const url = `https://wt.honu.pw/api/alerts/dropin/${row.alertid}`;
+
+                // old PS2Alerts URL, kept around incase it's useful
+                //const url = `https://api.ps2alerts.com/instances/${row.alertid}`;
+                const request = await fetch(url);
+                if (request.status == 200) { // a non-200 means Honu did not find the alert for some reason
+                    const response = await request.json();
+                    await updateAlert(response, pgClient, discordClient, response.timeEnded != null);
+                }
 			}
 			catch (err) {
 				if (typeof(err) !== 'string') {

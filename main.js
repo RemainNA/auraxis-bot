@@ -72,6 +72,7 @@ const client = new Discord.Client({intents: intentsList, allowedMentions: {parse
 const token = process.env.token;
 
 let SQLclient = undefined;
+console.log(`starting at ${new Date().toISOString()}`);
 
 client.on('ready', async () => {
 	console.log('Running on '+client.guilds.cache.size+' servers!');
@@ -79,7 +80,9 @@ client.on('ready', async () => {
 	if(runningOnline){
 		SQLclient = new pg.Client({
 			connectionString: process.env.DATABASE_URL,
-			ssl: {rejectUnauthorized: false}
+			ssl: {rejectUnauthorized: false},
+            // if running the DB without a signed cert, disable SSL
+            //ssl: false
 		});
 
 		await SQLclient.connect();
