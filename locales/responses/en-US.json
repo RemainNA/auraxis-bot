@@ -267,5 +267,14 @@
 	"alreadySubscribedActivity": "Already subscribed to {outfit} activity",
 	"auraxiumMedalCount": "{num} Auraxium medals",
 	"possibleMedalCount": "{num} possible medals (kills)",
-	"weaponGlobalStats": "Global Stats"
+	"weaponGlobalStats": "Global Stats",
+	"characterImplants": "{name} Implants",
+	"implantFooterDisclaimer": "Perfect implants are not displayed due to API limitations",
+	"exceptional": "Exceptional",
+	"rank5": "Rank 5",
+	"rank4": "Rank 4",
+	"rank3": "Rank 3",
+	"rank2": "Rank 2",
+	"rank1": "Rank 1",
+	"craftingCost": "Crafting Cost"
 }

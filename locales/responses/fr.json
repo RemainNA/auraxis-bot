@@ -265,6 +265,16 @@
 	"subscribedActivityConfigFailed": "Abonné à l'activité de {outfit}.  Étape de configuration échouée, utilisation de la configuration par défaut.",
 	"subscribedActivity": "Abonné à l'activité de {outfit}",
 	"alreadySubscribedActivity": "Déjà abonné à l'activité de {outfit}",
-	"auraxiumMedalCount": "{num} Auraxium medals",
-	"possibleMedalCount": "{num} possible medals (kills)"
+	"auraxiumMedalCount": "{num} médailles Auraxium",
+	"possibleMedalCount": "{num} médailles possibles (victimes)",
+	"weaponGlobalStats": "Statistiques Globales",
+	"characterImplants": "Implants de {name}",
+	"implantFooterDisclaimer": "Les implants Parfaits ne sont pas affichés en raison de limitations de l'API",
+	"exceptional": "Exceptionnel",
+	"rank5": "Rang 5",
+	"rank4": "Rang 4",
+	"rank3": "Rang 3",
+	"rank2": "Rang 2",
+	"rank1": "Rang 1",
+	"craftingCost": "Coût de fabrication"
 }
