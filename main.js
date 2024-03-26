@@ -36,7 +36,6 @@ const population = require('./population.js');
 const asp = require('./asp.js');
 const territory = require('./territory.js');
 const alerts = require('./alerts.js');
-const messageHandler = require('./messageHandler.js');
 const outfit = require('./outfit.js');
 const status = require('./status.js');
 const weapon = require('./weapon.js');
