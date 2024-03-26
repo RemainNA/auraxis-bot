@@ -52,8 +52,10 @@ async function updateAlert(info, pgClient, discordClient, isComplete){
 		const start = Date.parse(info.timeStarted);
 		messageEmbed.addFields({name: "Status", value: `Started <t:${Math.floor(start/1000)}:t>\nEnds <t:${Math.floor((start+info.duration)/1000)}:R>`, inline: true});
 	}
-    if (info.playerCount) {
-        messageEmbed.addFields({name: "Population", value: `${info.playerCount}`, inline: true});
+    if (info.playerCount !== null && info.playerCount !== undefined) {
+		if(info.playerCount != 0){
+			messageEmbed.addFields({name: "Population", value: `${info.playerCount}`, inline: true});
+		}
     } else {
         messageEmbed.addFields({name: "Population", value: `${popLevels[info.bracket]}${info.playerCount ? ` - ${info.playerCount}` : ""}`, inline: true});
     }
