@@ -53,6 +53,7 @@ const directives = require('./directives.js');
 const vehicles = require('./vehicles.js');
 const outfitMaintenance = require('./outfitMaintenance.js');
 const character = require('./character.js');
+const ownedImplants = require('./ownedImplants.js');
 
 let runningOnline = false;
 
@@ -533,6 +534,12 @@ client.on('interactionCreate', async interaction => {
 			case 'vehicle':
 				await interaction.deferReply();
 				res = await vehicles.vehicle(options.getString("name"), options.getString("vehicle"), options.getString("platform") || "ps2:v2", interaction.locale);
+				await interaction.editReply({embeds: [res]});
+				break;
+			
+			case 'owned-implants':
+				await interaction.deferReply();
+				res = await ownedImplants.ownedImplants(options.getString("name"), options.getString("platform") || "ps2:v2", interaction.locale);
 				await interaction.editReply({embeds: [res]});
 				break;
 			

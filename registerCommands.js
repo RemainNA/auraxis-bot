@@ -755,6 +755,23 @@ const data = [
 			choices: platforms
 		}]
 	},
+	{
+		name: 'owned-implants',
+		description: "Lookup a list of a character's implants",
+		options: [{
+			name: 'name',
+			type: 3,
+			description: 'Character name',
+			required: true,
+		},
+		{
+			name: 'platform',
+			type: 3,
+			description: "Which platform is the character on?  Defaults to PC",
+			required: false,
+			choices: platforms
+		}]
+	},
 ]
 
 const rest = new REST({ version: '9'}).setToken(process.env.token);
