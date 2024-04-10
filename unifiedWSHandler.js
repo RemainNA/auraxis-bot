@@ -34,7 +34,7 @@ const environmentToPlatform = {
 /**
  * Tracks player login and logout events
  * @param payload - The payload from the Stream API
- * @param {string} environment - which enviorment to query for
+ * @param {string} environment - which environment to query for
  * @param {pg.Client} pgClient - postgres client to use
  * @param {discord.Client} discordClient - discord client to use
  * @throws if there are error in logEvent
@@ -113,15 +113,17 @@ const logEvent = async function(payload, environment, pgClient, discordClient){
 /**
  * Get the name and description of the alert from payload and environment
  * @param payload - The payload from the Stream API
- * @param {string} environment - which enviorment to query for
+ * @param {string} environment - which environment to query for
+ * @param {int} duration - the duration of the alert in seconds
  * @returns {Promise<{name: string, description: string}>} - The name and description of the alert
- * @throws if there are error retrieving alert notfications
+ * @throws if there are error retrieving alert notifications
  */
 const alertInfo = async function(payload, environment){
     if(typeof(alerts[payload.metagame_event_id]) !== 'undefined'){
         let resObj = {
             name: alerts[payload.metagame_event_id].name,
-            description: alerts[payload.metagame_event_id].description
+            description: alerts[payload.metagame_event_id].description,
+            duration: alerts[payload.metagame_event_id].duration
         };
         return resObj;
     }
@@ -132,7 +134,8 @@ const alertInfo = async function(payload, environment){
     }
     return  {
         name: response[0].name.en,
-        description: response[0].description.en
+        description: response[0].description.en,
+        duration: (parseInt(response[0].duration_minutes) * 60)
     };
 }
 
@@ -177,7 +180,7 @@ const trackedAlerts = [
 /**
  * Sends an alert embed to all channels that are subscribed to `/alerts`
  * @param payload - The payload from the Stream API
- * @param {string} environment - which enviorment to query for
+ * @param {string} environment - which environment to query for
  * @param {pg.Client} pgClient - postgres client to use
  * @param {discord.Client} discordClient - discord client to use
  */
@@ -206,7 +209,7 @@ const alertEvent = async function(payload, environment, pgClient, discordClient)
             }
             sendEmbed.addFields(
                 {name: 'Server', value: server, inline: true},
-                {name: 'Status', value: `Started <t:${Math.floor(Date.now()/1000)}:R>`, inline: true}
+                {name: 'Status', value: `Started <t:${Math.floor(Date.now()/1000)}:R>\nEnds <t:${Math.floor(Date.now()/1000 + response.duration)}:R>`, inline: true},
             )
             let terObj = undefined;
             try{
