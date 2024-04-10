@@ -143,10 +143,14 @@ module.exports = {
 			try {
                 // for testing honu locally, cause it uses a self-signed cert
                 //process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
-                const url = `https://wt.honu.pw/api/alerts/dropin/${row.alertid}`;
-
-                // old PS2Alerts URL, kept around incase it's useful
-                //const url = `https://api.ps2alerts.com/instances/${row.alertid}`;
+				let url;
+				if(["1000", "2000"].includes(row.alertid.split("-")[0])){
+					url = `https://api.ps2alerts.com/instances/${row.alertid}`
+				}
+				else{
+					url = `https://wt.honu.pw/api/alerts/dropin/${row.alertid}`;
+				}
+                
                 const request = await fetch(url);
                 if (request.status == 200) { // a non-200 means Honu did not find the alert for some reason
                     const response = await request.json();
