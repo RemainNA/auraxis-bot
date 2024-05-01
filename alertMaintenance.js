@@ -10,7 +10,7 @@ const Discord = require('discord.js');
 const { fetch } = require('undici');
 const alerts = require('./static/alerts.json');
 const {serverNames, discordEmoji} = require('./utils.js');
-const {popLevels} = require('./alerts.js');
+const {getPopulation} = require('./population.js');
 /**
  * faction winners
  */
@@ -31,7 +31,7 @@ const winnerFaction = {
 async function updateAlert(info, pgClient, discordClient, isComplete){
 	const messageEmbed = new Discord.MessageEmbed();
 	messageEmbed.setTimestamp();
-	messageEmbed.setFooter({text: info.honuId ? "Data from wt.honu.pw" : "Data from ps2alerts.com"});
+	messageEmbed.setFooter({text: info.honuId ? "Data from wt.honu.pw" : "Data from ps2alerts.com & wt.honu.pw"});
 	const alertName = alerts[info.censusMetagameEventType].name;
 	messageEmbed.setTitle(alertName);
 	if (alertName.includes('Enlightenment')){
@@ -57,7 +57,17 @@ async function updateAlert(info, pgClient, discordClient, isComplete){
 			messageEmbed.addFields({name: "Population", value: `${info.playerCount}`, inline: true});
 		}
     } else {
-        messageEmbed.addFields({name: "Population", value: `${popLevels[info.bracket]}${info.playerCount ? ` - ${info.playerCount}` : ""}`, inline: true});
+		try{
+			const populationResults = await getPopulation();
+			const pop = populationResults[info.world][info.zone];
+			if(pop.all != 0){
+				messageEmbed.addFields({name: "Population", value: `${pop.all}`, inline: true});
+			}
+		}
+		catch(err){
+			console.log("DEBUG: Error retrieving population statistics in alertMaintenance");
+			console.log(err);
+		} //Ignore population error
     }
 	try{
 		messageEmbed.addFields({name: "Territory Control", value: `\
