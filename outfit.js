@@ -252,6 +252,16 @@ module.exports = {
 					.setURL(generateReport([oInfo.outfitID], now-7200, now))
 					.setLabel(i18n.__({phrase: 'Past 2 hour report', locale: locale}))
 			);
+			if(oInfo.alias != ""){
+				if(platform == 'ps2:v2'){
+					row.addComponents(
+						new Discord.MessageButton()
+							.setURL(`https://ps2.fisu.pw/outfit/?name=${oInfo.alias}`)
+							.setLabel(i18n.__({phrase: 'fisuLink', locale: locale}))
+							.setStyle('LINK')
+					);
+				}
+			}
 		}
 
 		return [resEmbed, [row]];

@@ -533,6 +533,15 @@ module.exports = {
                 //Fail silently
             }
         }
+
+        if(platform == 'ps2:v2'){
+            row.addComponents(
+                new Discord.MessageButton()
+                    .setURL(`https://ps2.fisu.pw/player/?name=${cName}`)
+                    .setLabel(i18n.__({phrase: 'fisuLink', locale: locale}))
+                    .setStyle('LINK')
+            );
+        }
         return [resEmbed, [row]];
     },
 
