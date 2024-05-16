@@ -113,7 +113,7 @@ const serverStatus = async function(serverID, pgClient, population=undefined){
 	}
 	resEmbed.setTimestamp();
 	resEmbed.setFooter({text: "Updated every 5 minutes • Population from wt.honu.pw • Alerts from PS2Alerts"});
-	resEmbed.setColor("BLUE");
+	resEmbed.setColor("Blue");
 
 	return resEmbed;
 }

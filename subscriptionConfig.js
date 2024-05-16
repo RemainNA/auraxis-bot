@@ -97,7 +97,7 @@ module.exports = {
 			else{
 				resEmbed.addFields({name: "Auto Delete", value: ":x: Alert and outfit activity notifications are not automatically deleted"});
 			}
-			resEmbed.setColor("BLUE");
+			resEmbed.setColor("Blue");
 			return resEmbed;
 		}
 		catch(err){

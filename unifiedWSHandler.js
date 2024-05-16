@@ -199,13 +199,13 @@ const alertEvent = async function(payload, environment, pgClient, discordClient)
             }
             sendEmbed.setTimestamp();
             if (response.name.includes('Enlightenment')){
-                sendEmbed.setColor('PURPLE');
+                sendEmbed.setColor('Purple');
             }
             else if (response.name.includes('Liberation')){
-                sendEmbed.setColor('BLUE');
+                sendEmbed.setColor('Blue');
             }
             else if (response.name.includes('Superiority')){
-                sendEmbed.setColor('RED');
+                sendEmbed.setColor('Red');
             }
             sendEmbed.addFields(
                 {name: 'Server', value: server, inline: true},

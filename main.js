@@ -160,7 +160,7 @@ client.on('interactionCreate', async interaction => {
 				const locale = interaction.locale;
 				let helpEmbed = new Discord.MessageEmbed();
 				helpEmbed.setTitle("Auraxis bot");
-				helpEmbed.setColor("BLUE");
+				helpEmbed.setColor("Blue");
 				const links = `\
 				\n[${i18n.__({phrase: "GitHub page & FAQ", locale: locale})}](https://github.com/RemainNA/auraxis-bot)\
 				\n[${i18n.__({phrase: "Support server", locale: locale})}](https://discord.gg/Kf5P6Ut)\

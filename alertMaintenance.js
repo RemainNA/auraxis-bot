@@ -35,13 +35,13 @@ async function updateAlert(info, pgClient, discordClient, isComplete){
 	const alertName = alerts[info.censusMetagameEventType].name;
 	messageEmbed.setTitle(alertName);
 	if (alertName.includes('Enlightenment')){
-		messageEmbed.setColor('PURPLE');
+		messageEmbed.setColor('Purple');
 	}
 	else if (alertName.includes('Liberation')){
-		messageEmbed.setColor('BLUE');
+		messageEmbed.setColor('Blue');
 	}
 	else if (alertName.includes('Superiority')){
-		messageEmbed.setColor('RED');
+		messageEmbed.setColor('Red');
 	}
 	messageEmbed.setDescription(`[${alerts[info.censusMetagameEventType].description}](https://ps2alerts.com/alert/${info.instanceId}?utm_source=auraxis-bot&utm_medium=discord&utm_campaign=partners)`);
 	messageEmbed.addFields({name: "Server", value: serverNames[info.world], inline: true});

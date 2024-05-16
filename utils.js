@@ -185,13 +185,13 @@ function faction(factionID){
 	 */
 	switch (String(factionID)){
 		case "1":
-			return {color: 'PURPLE', decal: discordEmoji['VS'], initial: 'VS', tracker: '🟣'};
+			return {color: 'Purple', decal: discordEmoji['VS'], initial: 'VS', tracker: '🟣'};
 		case "2":
-			return {color: 'BLUE', decal: discordEmoji['NC'], initial: 'NC', tracker: '🔵'};
+			return {color: 'Blue', decal: discordEmoji['NC'], initial: 'NC', tracker: '🔵'};
 		case "3":
-			return {color: 'RED', decal: discordEmoji['TR'], initial: 'TR', tracker: '🔴'};
+			return {color: 'Red', decal: discordEmoji['TR'], initial: 'TR', tracker: '🔴'};
 		default:
-			return {color: 'GREY', decal: discordEmoji['NS'], initial: 'NSO', tracker: '⚪'};
+			return {color: 'Grey', decal: discordEmoji['NS'], initial: 'NSO', tracker: '⚪'};
 	}
 }
 
