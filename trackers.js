@@ -15,12 +15,12 @@ const {serverNames, serverIDs, servers, continents, continentNames, faction} = r
 
 /**
  * Get a string of the name and total population of a server
- * @param {number} serverID - the server to check population
+ * @param {object} serverPopulation - the server population object from Honu
+ * @param {string} serverName - the name of the server
  * @returns the name and population of the server
  */
-const populationName = async function(serverID){
-	const pop = await getPopulation();
-	return `${serverNames[serverID]}: ${pop[serverID].global.all} online`;
+const populationName = function(serverPopulation, serverName){
+	return `${serverName}: ${serverPopulation.global.all} online`;
 }
 
 /**
@@ -215,10 +215,14 @@ module.exports = {
 	 * @param {boolean} continentOnly - if false only update population and outfits
 	 */
 	update: async function(pgClient, discordClient, continentOnly = false){
+		let pop = {};
+		if(!continentOnly){
+			pop = await getPopulation();
+		}
 		for(const serverName of servers){
 			if(!continentOnly){
 				try{
-					const popName = await populationName(serverIDs[serverName]);
+					const popName = populationName(pop[serverIDs[serverName]], serverName);
 					const channels = await pgClient.query("SELECT channel FROM tracker WHERE trackertype = $1 AND world = $2;", ["population", serverName]);
 					for(const row of channels.rows){
 						await updateChannelName(popName, row.channel, discordClient, pgClient);

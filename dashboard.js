@@ -23,14 +23,17 @@ const {serverNames, serverIDs, servers, continents, continentNames, faction, loc
  * Creates a server dashboard for the given serverID that keeps track of the population, territory control, and active alerts
  * @param {number} serverID - The server ID 
  * @param {pg.Client} pgClient - The postgres client 
+ * @param {object} population - The current population of all servers
  * @returns the server dashboard embed
  */
-const serverStatus = async function(serverID, pgClient){
+const serverStatus = async function(serverID, pgClient, population=undefined){
 	let resEmbed = new MessageEmbed();
 	resEmbed.setTitle(`${serverNames[serverID]} Dashboard`);
 
 	// Population
-	const population = await getPopulation(); 
+	if(population == undefined){
+		population = await getPopulation(); 
+	}
 	const pop = population[serverID];
 	const vsPc = ((pop.global.vs/(pop.global.all||1))*100).toPrecision(3);
 	const ncPc = ((pop.global.nc/(pop.global.all||1))*100).toPrecision(3);
@@ -273,9 +276,10 @@ module.exports = {
 	 * @param {discord.Client} discordClient - The discord client 
 	 */
 	update: async function(pgClient, discordClient){
+		const population = await getPopulation();
 		for(const serverName of servers){
 			try{
-				const status = await serverStatus(serverIDs[serverName], pgClient);
+				const status = await serverStatus(serverIDs[serverName], pgClient, population);
 				const channels = await pgClient.query('SELECT * FROM dashboard WHERE world = $1;', [serverName]);
 				for(const row of channels.rows){
 					await editMessage(row.channel, row.messageid, status, pgClient, discordClient);

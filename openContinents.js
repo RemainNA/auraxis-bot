@@ -73,6 +73,7 @@ module.exports = {
 	 * @param {discord.Client} discordClient - discord client to use
 	 */
 	check: async function(pgClient, discordClient){
+		let changed = false;
 		for(const server of servers){
 			try{
 				const now = new Date().toISOString();
@@ -101,7 +102,7 @@ module.exports = {
 							console.log("Unlock error");
 							console.log(err);
 						}
-						trackers.update(pgClient, discordClient, true); //Update trackers with new continent
+						changed = true;
 					}
 					if(territory[cont].locked == -1 != currentStatus.rows[0][cont.toLowerCase()]){
 						// Update timestamp if there is a change
@@ -113,6 +114,9 @@ module.exports = {
 				console.log("Error in openContinents");
 				console.log(err);
 			}
+		}
+		if(changed){
+			trackers.update(pgClient, discordClient, true); //Update trackers with new continent
 		}
 	}
 }
