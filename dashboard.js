@@ -215,7 +215,7 @@ const editMessage = async function(channelID, messageID, newDash, pgClient, disc
 		await message.edit({embeds: [newDash]});
 	}
 	catch(err){
-		if(err?.code == 10008 || err?.code == 10003 || err?.code == 50001){ //Unknown message/channel or missing access
+		if(err?.code == 10008 || err?.code == 10003 || err?.code == 50001 || err?.code == 50083){ //Unknown message/channel or missing access/archived thread
 			console.log("Deleted message from dashboard table");
 			pgClient.query("DELETE FROM dashboard WHERE messageid = $1;", [messageID]);
 			pgClient.query("DELETE FROM outfitDashboard WHERE messageid = $1;", [messageID]);
