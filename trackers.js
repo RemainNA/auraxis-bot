@@ -126,7 +126,8 @@ module.exports = {
 		try{
 			let name = "";
 			if(type == "population"){
-				name = await populationName(serverIDs[serverName]);
+				pop = await getPopulation();
+				name = await populationName(pop[serverIDs[serverName]], serverNames[serverIDs[serverName]]);
 			}
 			else if(type == "territory"){
 				name = await territoryName(serverIDs[serverName]);
