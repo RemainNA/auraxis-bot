@@ -223,7 +223,7 @@ module.exports = {
 		for(const serverName of servers){
 			if(!continentOnly){
 				try{
-					const popName = populationName(pop[serverIDs[serverName]], serverName);
+					const popName = populationName(pop[serverIDs[serverName]], serverNames[serverIDs[serverName]]);
 					const channels = await pgClient.query("SELECT channel FROM tracker WHERE trackertype = $1 AND world = $2;", ["population", serverName]);
 					for(const row of channels.rows){
 						await updateChannelName(popName, row.channel, discordClient, pgClient);
