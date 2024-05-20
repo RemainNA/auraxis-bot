@@ -220,6 +220,10 @@ const editMessage = async function(channelID, messageID, newDash, pgClient, disc
 			pgClient.query("DELETE FROM dashboard WHERE messageid = $1;", [messageID]);
 			pgClient.query("DELETE FROM outfitDashboard WHERE messageid = $1;", [messageID]);
 		}
+		else if(err?.code == 50035){
+			console.log("Error editing dashboard: Embed too large");
+			console.log(newDash);
+		}
 		else{
 			console.log('Error editing dashboard');
 			console.log(err);
