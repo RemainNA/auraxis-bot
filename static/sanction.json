@@ -6519,6 +6519,16 @@
         "name": "NS-44 \"Primed Amethyst\" Commissioner",
         "sanction": "infantry"
     },
+    "6015519": {
+        "category": "Pistol",
+        "name": "NS-44 \"Primed Lapis\" Commissioner",
+        "sanction": "infantry"
+    },
+    "6015440": {
+        "category": "Pistol",
+        "name": "NS-44 \"Primed Ruby\" Commissioner",
+        "sanction": "infantry"
+    },
     "803824": {
         "category": "Pistol",
         "name": "NS-44 Commissioner AE",
