@@ -416,17 +416,17 @@
     },
     "222": {
         "description": "Control territory to lock Oshur",
-        "duration": 5400,
+        "duration": 2700,
         "name": "Oshur Liberation"
     },
     "223": {
         "description": "Control territory to lock Oshur",
-        "duration": 5400,
+        "duration": 2700,
         "name": "Oshur Superiority"
     },
     "224": {
         "description": "Control territory to lock Oshur",
-        "duration": 5400,
+        "duration": 2700,
         "name": "Oshur Enlightenment"
     },
     "225": {
@@ -436,7 +436,7 @@
     },
     "226": {
         "description": "Control territory to lock Oshur",
-        "duration": 5400,
+        "duration": 2700,
         "name": "Oshur Conquest"
     },
     "227": {
@@ -506,7 +506,7 @@
     },
     "240": {
         "description": "Kill as many enemies as possible",
-        "duration": 900,
+        "duration": 600,
         "name": "Oshur Sudden Death"
     },
     "241": {
@@ -541,17 +541,17 @@
     },
     "248": {
         "description": "Control territory to lock Oshur",
-        "duration": 2700,
+        "duration": 1800,
         "name": "Oshur Unstable Meltdown"
     },
     "249": {
         "description": "Control territory to lock Oshur",
-        "duration": 2700,
+        "duration": 1800,
         "name": "Oshur Unstable Meltdown"
     },
     "250": {
         "description": "Control territory to lock Oshur",
-        "duration": 2700,
+        "duration": 1800,
         "name": "Oshur Unstable Meltdown"
     },
     "251": {
