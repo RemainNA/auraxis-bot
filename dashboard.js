@@ -249,6 +249,9 @@ module.exports = {
 		await pgClient.query("INSERT INTO dashboard (concatkey, channel, messageid, world) VALUES ($1, $2, $3, $4)\
 		ON CONFLICT(concatkey) DO UPDATE SET messageid = $3;",
 		[`${channel.id}-${serverName}`, channel.id, messageID, serverName]);
+		if(channel.type == "GUILD_PUBLIC_THREAD" || channel.type == "GUILD_PRIVATE_THREAD"){
+			return "Dashboard successfully created.  It will be automatically updated every 5 minutes.  Dashboard will no longer be updated if thread is archived.";
+		}
 		return "Dashboard successfully created.  It will be automatically updated every 5 minutes.";
 	},
 
