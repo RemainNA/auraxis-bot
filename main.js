@@ -302,7 +302,7 @@ client.on('interactionCreate', async interaction => {
 				break;
 
 			case 'config':
-				if(interaction.inGuild() && !interaction.memberPermissions.has("MANAGE_CHANNELS")){
+				if(interaction.inGuild() && !interaction.memberPermissions.has(PermissionFlagsBits.ManageChannels)){
 					await interaction.reply({content: "Manage channel permission required to use this command", ephemeral: true});
 					return;
 				}
@@ -345,7 +345,7 @@ client.on('interactionCreate', async interaction => {
 				break;
 
 			case 'subscribe':
-				if(interaction.inGuild() && !interaction.memberPermissions.has("MANAGE_CHANNELS")){
+				if(interaction.inGuild() && !interaction.memberPermissions.has(PermissionFlagsBits.ManageChannels)){
 					await interaction.reply({content: "Manage channel permission required to use this command", ephemeral: true});
 					return;
 				}
@@ -381,7 +381,7 @@ client.on('interactionCreate', async interaction => {
 				break;
 
 			case 'unsubscribe':
-				if(interaction.inGuild() && !interaction.memberPermissions.has("MANAGE_CHANNELS")){
+				if(interaction.inGuild() && !interaction.memberPermissions.has(PermissionFlagsBits.ManageChannels)){
 					await interaction.reply({content: "Manage channel permission required to use this command", ephemeral: true});
 					return;
 				}
@@ -464,7 +464,7 @@ client.on('interactionCreate', async interaction => {
 				break;
 
 			case 'dashboard':
-				if(interaction.inGuild() && !interaction.memberPermissions.has("MANAGE_CHANNELS")){
+				if(interaction.inGuild() && !interaction.memberPermissions.has(PermissionFlagsBits.ManageChannels)){
 					await interaction.reply({content: "Manage channel permission required to use this command", ephemeral: true});
 					return;
 				}
@@ -487,7 +487,7 @@ client.on('interactionCreate', async interaction => {
 				break;
 
 			case 'tracker':
-				if(interaction.inGuild() && !interaction.memberPermissions.has("MANAGE_CHANNELS")){
+				if(interaction.inGuild() && !interaction.memberPermissions.has(PermissionFlagsBits.ManageChannels)){
 					await interaction.reply({content: "Manage channel permission required to use this command", ephemeral: true});
 					return;
 				}

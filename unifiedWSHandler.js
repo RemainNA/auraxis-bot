@@ -63,7 +63,7 @@ const logEvent = async function(payload, environment, pgClient, discordClient){
                 discordClient.channels.fetch(row.channel)
                     .then(resChann => {
                         if(typeof(resChann.guild) !== 'undefined'){
-                            if(resChann.permissionsFor(resChann.guild.members.me).has([Permissions.FLAGS.SEND_MESSAGES, Permissions.FLAGS.VIEW_CHANNEL, Permissions.FLAGS.EMBED_LINKS])){
+                            if(resChann.permissionsFor(resChann.guild.members.me).has([PermissionFlagsBits.SendMessages, PermissionFlagsBits.ViewChannel, PermissionFlagsBits.EmbedLinks])){
                                 messageHandler.send(resChann, {embeds: [sendEmbed]}, "Log event")
                                 .then(messageId => {
                                     if(messageId != -1 && row.autodelete == true){
@@ -282,7 +282,7 @@ const alertEvent = async function(payload, environment, pgClient, discordClient)
                 discordClient.channels.fetch(row.channel)
                     .then(resChann => {
                         if(typeof(resChann.guild) !== 'undefined'){
-                            if(resChann.permissionsFor(resChann.guild.members.me).has([Permissions.FLAGS.SEND_MESSAGES, Permissions.FLAGS.VIEW_CHANNEL, Permissions.FLAGS.EMBED_LINKS])){
+                            if(resChann.permissionsFor(resChann.guild.members.me).has([PermissionFlagsBits.SendMessages, PermissionFlagsBits.ViewChannel, PermissionFlagsBits.EmbedLinks])){
                                 messageHandler.send(resChann, {embeds: [sendEmbed]}, "Alert notification")
                                 .then(messageId => {
                                     if(messageId != -1 && trackedAlerts.indexOf(Number(payload.metagame_event_id)) > -1){
@@ -440,7 +440,7 @@ const baseEvent = async function(payload, environment, pgClient, discordClient){
         for (let row of result.rows){
             discordClient.channels.fetch(row.channel).then(resChann => {
                 if(typeof(resChann.guild) !== 'undefined'){
-                    if(resChann.permissionsFor(resChann.guild.members.me).has([Permissions.FLAGS.SEND_MESSAGES, Permissions.FLAGS.VIEW_CHANNEL, Permissions.FLAGS.EMBED_LINKS])){
+                    if(resChann.permissionsFor(resChann.guild.members.me).has([PermissionFlagsBits.SendMessages, PermissionFlagsBits.ViewChannel, PermissionFlagsBits.EmbedLinks])){
                         messageHandler.send(resChann, {embeds: [sendEmbed]}, "Base capture event");
                     }
                     else{
