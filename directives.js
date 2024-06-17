@@ -60,7 +60,7 @@ module.exports = {
 		if (expanded) {
 			max = remaining;
 		}
-		const resEmbed = new Discord.MessageEmbed()
+		const resEmbed = new Discord.EmbedBuilder()
 			.setTitle(i18n.__mf({phrase: "{name} Directives", locale: locale}, {name: directiveList.name}))
 			.setColor(faction(directiveList.faction).color)
 			.setThumbnail('https://census.daybreakgames.com/files/ps2/images/static/84283.png');
@@ -77,12 +77,12 @@ module.exports = {
 		const row = [];
 		if (remaining > 0) {
 			completedDirectives += i18n.__mf({phrase: "And {num} more", locale: locale}, {num: remaining});
-			row[0] = new Discord.MessageActionRow()
+			row[0] = new Discord.ActionRowBuilder()
 				.addComponents(
-					new Discord.MessageButton()
+					new Discord.ButtonBuilder()
 						.setCustomId(`directives%${directiveList.name}%${platform}`)
 						.setLabel(i18n.__({phrase: "View all", locale: locale}))
-						.setStyle('PRIMARY')
+						.setStyle(Discord.ButtonStyle.Primary)
 				);
 		} 
 			

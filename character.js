@@ -355,21 +355,21 @@ module.exports = {
 		}
         
         const cInfo = await basicInfo(cName, platform);
-        let resEmbed = new Discord.MessageEmbed();
-        const row = new Discord.MessageActionRow()
+        let resEmbed = new Discord.EmbedBuilder();
+        const row = new Discord.ActionRowBuilder()
         row.addComponents(
-            new Discord.MessageButton()
+            new Discord.ButtonBuilder()
                 .setCustomId(`recentStats%30%${cInfo.characterID}%${platform}`)
                 .setLabel(i18n.__({phrase: '30 day stats', locale: locale}))
-                .setStyle('PRIMARY'),
-            new Discord.MessageButton()
+                .setStyle(Discord.ButtonStyle.Primary),
+            new Discord.ButtonBuilder()
                 .setCustomId(`recentStats%7%${cInfo.characterID}%${platform}`)
                 .setLabel(i18n.__({phrase: '7 day stats', locale: locale}))
-                .setStyle('PRIMARY'),
-            new Discord.MessageButton()
+                .setStyle(Discord.ButtonStyle.Primary),
+            new Discord.ButtonBuilder()
                 .setCustomId(`recentStats%1%${cInfo.characterID}%${platform}`)
                 .setLabel(i18n.__({phrase: '1 day stats', locale: locale}))
-                .setStyle('PRIMARY')
+                .setStyle(Discord.ButtonStyle.Primary)
         );
 
         // Username, title, fisu url
@@ -474,10 +474,10 @@ module.exports = {
             }
             resEmbed.addFields({name: i18n.__({phrase: 'Outfit Rank', locale: locale}), value: `${cInfo.outfitRank} (${cInfo.outfitRankOrdinal})`, inline: true});
             row.addComponents(
-                new Discord.MessageButton()
+                new Discord.ButtonBuilder()
                     .setCustomId(`outfit%${cInfo.outfitID}%${platform}`)
                     .setLabel(i18n.__({phrase: 'View outfit', locale: locale}))
-                    .setStyle('PRIMARY')
+                    .setStyle(Discord.ButtonStyle.Primary)
             );
         }
 
@@ -536,10 +536,10 @@ module.exports = {
 
         if(platform == 'ps2:v2'){
             row.addComponents(
-                new Discord.MessageButton()
+                new Discord.ButtonBuilder()
                     .setURL(`https://ps2.fisu.pw/player/?name=${cName}`)
                     .setLabel(i18n.__({phrase: 'fisuLink', locale: locale}))
-                    .setStyle('LINK')
+                    .setStyle(Discord.ButtonStyle.Link)
             );
         }
         return [resEmbed, [row]];
@@ -559,7 +559,7 @@ module.exports = {
         if(cInfo.time == 0){
             throw i18n.__({phrase: 'No stats in this time period', locale: locale});
         }
-        const resEmbed = new Discord.MessageEmbed();
+        const resEmbed = new Discord.EmbedBuilder();
         resEmbed.setTitle(cInfo.name);
         resEmbed.setDescription(i18n.__mf({phrase: '{day} day stats ending <t{end}d>', locale: locale}, {day: days, end: `:${cInfo.lastSave}:`}));
         resEmbed.setColor(faction(cInfo.faction).color);

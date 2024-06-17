@@ -73,7 +73,7 @@ const getImplantList = async function(cName, platform, locale="en-US"){
  */
 const ownedImplants = async function(cName, platform, locale="en-US"){
 	const implantList = await getImplantList(cName.toLowerCase(), platform, locale);
-	let resEmbed = new Discord.MessageEmbed();
+	let resEmbed = new Discord.EmbedBuilder();
 	resEmbed.setTitle(i18n.__mf({phrase: "characterImplants", locale: locale}, {name: implantList.name}));
 	resEmbed.addFields(
 		{name: i18n.__({phrase: "exceptional", locale: locale}), value: implantList.implants[0].join(", "), inline: true},

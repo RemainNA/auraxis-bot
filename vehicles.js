@@ -121,7 +121,7 @@ module.exports = {
 			throw i18n.__mf({phrase: "{name} has not used the {vehicle}", locale: locale}, 
 				{name: vInfo.charName, vehicle: vehicleName});
 		}
-		let resEmbed = new Discord.MessageEmbed();
+		let resEmbed = new Discord.EmbedBuilder();
 
 		resEmbed.setTitle(vInfo.charName);
 		resEmbed.setDescription(vehicleName);

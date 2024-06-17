@@ -124,7 +124,7 @@ module.exports = {
 		}
 
 		const oInfo = await onlineInfo(oTag, platform, outfitID, locale);
-		let resEmbed = new Discord.MessageEmbed();
+		let resEmbed = new Discord.EmbedBuilder();
 
 		resEmbed.setTitle(oInfo.name);
 		resEmbed.setThumbnail(`https://www.outfit-tracker.com/outfit-logo/${oInfo.outfitID}.png`);

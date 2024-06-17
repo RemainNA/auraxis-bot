@@ -49,7 +49,7 @@ module.exports = {
 	 */
 	servers: async function(locale="en-US"){
 		const status = await info();
-		const resEmbed = new Discord.MessageEmbed()
+		const resEmbed = new Discord.EmbedBuilder()
 			.setTitle(i18n.__({phrase: 'Server Status', locale: locale}));
 		for(const server in status){
 			resEmbed.addFields({name: i18n.__({phrase: server, locale: locale}), value: i18n.__({phrase: status[server], locale: locale}), inline: true});

@@ -94,7 +94,7 @@ module.exports = {
 		if(alertObj.length == 0){
 			throw i18n.__mf({phrase: "No active alerts on {server}", locale: locale}, {server: i18n.__({phrase: serverNames[serverID], locale: locale})}); 
 		}
-		let sendEmbed = new Discord.MessageEmbed();
+		let sendEmbed = new Discord.EmbedBuilder();
 		sendEmbed.setTitle(serverNames[serverID]+" alerts");
 		sendEmbed.setFooter({text: i18n.__mf({phrase: "Data from {site}", locale: locale}, {site: "ps2alerts.com"})});
 		sendEmbed.setTimestamp();

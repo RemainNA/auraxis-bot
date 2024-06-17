@@ -84,7 +84,7 @@ module.exports = {
 		}
 		let cInfo = await basicInfo(cName, platform, locale);
 
-		let resEmbed = new Discord.MessageEmbed();
+		let resEmbed = new Discord.EmbedBuilder();
 		resEmbed.setColor(faction(cInfo.faction).color);
 		resEmbed.setTitle(cInfo.name);
 		resEmbed.setDescription(`${i18n.__({phrase: "BR pre ASP", locale: locale})}: ${cInfo.preBR}`);

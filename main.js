@@ -158,7 +158,7 @@ client.on('interactionCreate', async interaction => {
 
 			case 'help':
 				const locale = interaction.locale;
-				let helpEmbed = new Discord.MessageEmbed();
+				let helpEmbed = new EmbedBuilder();
 				helpEmbed.setTitle("Auraxis bot");
 				helpEmbed.setColor("Blue");
 				const links = `\

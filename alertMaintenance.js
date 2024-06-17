@@ -29,7 +29,7 @@ const winnerFaction = {
  * @throws if error retrieving territory control for an alert
  */
 async function updateAlert(info, pgClient, discordClient, isComplete){
-	const messageEmbed = new Discord.MessageEmbed();
+	const messageEmbed = new Discord.EmbedBuilder();
 	messageEmbed.setTimestamp();
 	messageEmbed.setFooter({text: info.honuId ? "Data from wt.honu.pw" : "Data from ps2alerts.com & wt.honu.pw"});
 	const alertName = alerts[info.censusMetagameEventType].name;
@@ -103,7 +103,7 @@ async function updateAlert(info, pgClient, discordClient, isComplete){
 
 /**
  * Edits existing alert message with new information
- * @param {Discord.MessageEmbed} embed - embed to replace messageID with
+ * @param {Discord.EmbedBuilder} embed - embed to replace messageID with
  * @param {string} messageId - message id to edit
  * @param {string} channelId - channel id to edit message in
  * @param {Discord.Client} discordClient - discord client

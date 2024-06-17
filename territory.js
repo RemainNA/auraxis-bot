@@ -195,7 +195,7 @@ module.exports = {
 
         const serverID = serverIDs[serverName];
         let terObj = await this.territoryInfo(serverID);
-        let resEmbed = new Discord.MessageEmbed();
+        let resEmbed = new Discord.EmbedBuilder();
         resEmbed.setTitle(i18n.__mf({phrase: "{continent} territory", locale: locale}, {continent: i18n.__({phrase: serverNames[serverID], locale: locale})}));
         resEmbed.setTimestamp();
         resEmbed.setURL(fisuTerritory(serverID));

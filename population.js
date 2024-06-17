@@ -99,7 +99,7 @@ module.exports = {
 	lookup: async function(server, locale="en-US"){
 		const results = await getPopulation();
 		if(server == 'all'){
-			let resEmbed = new Discord.MessageEmbed();
+			let resEmbed = new Discord.EmbedBuilder();
 			let total = 0;
 			for(const server of servers){
 				const pop = results[serverIDs[server]];
@@ -127,7 +127,7 @@ module.exports = {
 			const serverID = serverIDs[server];
 			const normalized = serverNames[serverID];
 			const pop = results[serverID];
-			let sendEmbed = new Discord.MessageEmbed();
+			let sendEmbed = new Discord.EmbedBuilder();
 			sendEmbed.setTitle(i18n.__mf({phrase: "{server} population - {total}", locale: locale}, 
 				{server: i18n.__({phrase: normalized, locale: locale}), total: localeNumber(pop.global.all, locale)}));
 			const vsPc = localeNumber((pop.global.vs/(pop.global.all||1))*100, locale);
