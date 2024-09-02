@@ -2949,6 +2949,11 @@
         "name": "Meteorite",
         "sanction": ""
     },
+    "6015514": {
+        "category": "Infantry Abilities",
+        "name": "NE Scanner Tool",
+        "sanction": ""
+    },
     "6013328": {
         "category": "Infantry Abilities",
         "name": "NS NanoCaster",
@@ -6517,6 +6522,11 @@
     "6015212": {
         "category": "Pistol",
         "name": "NS-44 \"Primed Amethyst\" Commissioner",
+        "sanction": "infantry"
+    },
+    "6015620": {
+        "category": "Pistol",
+        "name": "NS-44 \"Primed Diamond\" Commissioner",
         "sanction": "infantry"
     },
     "6015519": {

@@ -16205,7 +16205,7 @@
         "ammo": 0,
         "category": "Infantry Abilities",
         "clip": 0,
-        "description": "Constructs a large, fortified lumifiber trimed wall with firing areas for infantry. This object shares it's maximum in world limit with at least one other construction item.",
+        "description": "Constructs a large, fortified lumifiber-trimmed wall with firing areas for infantry. This object shares its maximum in-world limit with at least one other construction item.",
         "faction": 2,
         "fireModes": [
             "Auto"
@@ -16224,7 +16224,7 @@
         "ammo": 0,
         "category": "Infantry Abilities",
         "clip": 0,
-        "description": "Constructs a large, fortified lumifiber trimed wall with firing areas for infantry. This object shares it's maximum in world limit with at least one other construction item.",
+        "description": "Constructs a large, fortified lumifiber-trimmed wall with firing areas for infantry. This object shares its maximum in-world limit with at least one other construction item.",
         "faction": 3,
         "fireModes": [
             "Auto"
@@ -16243,7 +16243,7 @@
         "ammo": 0,
         "category": "Infantry Abilities",
         "clip": 0,
-        "description": "Constructs a large, fortified lumifiber trimed wall with firing areas for infantry. This object shares it's maximum in world limit with at least one other construction item.",
+        "description": "Constructs a large, fortified lumifiber-trimmed wall with firing areas for infantry. This object shares its maximum in-world limit with at least one other construction item.",
         "faction": 1,
         "fireModes": [
             "Auto"
@@ -25218,7 +25218,7 @@
         "ammo": 0,
         "category": "Infantry Abilities",
         "clip": 0,
-        "description": "Allows cortium to be used to construct an Aspis Anti-Aircraft Phalanx Tower that may be manned by allied players.",
+        "description": "Allows cortium to be used to construct an Hoplon Anti-Aircraft Phalanx Tower that may be manned by allied players.",
         "faction": 4,
         "fireModes": [
             "Auto"
@@ -25446,7 +25446,7 @@
         "ammo": 0,
         "category": "Infantry Abilities",
         "clip": 0,
-        "description": "Constructs a large, fortified lumifiber trimed wall with firing areas for infantry. This object shares it's maximum in world limit with at least one other construction item.",
+        "description": "Constructs a large, fortified lumifiber-trimmed wall with firing areas for infantry. This object shares its maximum in-world limit with at least one other construction item.",
         "faction": 4,
         "fireModes": [
             "Auto"
@@ -32696,7 +32696,7 @@
         "ammo": 44,
         "category": "Mosquito Wing Mount",
         "clip": 4,
-        "description": "This rack of anti-air missiles lock onto enemy aircraft, unleashing a barrage of four havoc warheads. On impact, mechanical targets will be affected by a destabilizing field that prevents them from being repaired for up to 6 seconds.",
+        "description": "This rack of anti-air missiles lock onto enemy aircraft, unleashing a barrage of four havoc warheads. On impact, mechanical targets will be affected by a destabilizing field that prevents them from being repaired for up to 8 seconds.",
         "directDamage": 150,
         "faction": 3,
         "fireModes": [
@@ -32726,7 +32726,7 @@
         "ammo": 44,
         "category": "Scythe Wing Mount",
         "clip": 4,
-        "description": "This rack of anti-air missiles lock onto enemy aircraft, unleashing a barrage of four havoc warheads. On impact, mechanical targets will be affected by a destabilizing field that prevents them from being repaired for up to 6 seconds.",
+        "description": "This rack of anti-air missiles lock onto enemy aircraft, unleashing a barrage of four havoc warheads. On impact, mechanical targets will be affected by a destabilizing field that prevents them from being repaired for up to 8 seconds.",
         "directDamage": 150,
         "faction": 1,
         "fireModes": [
@@ -32756,7 +32756,7 @@
         "ammo": 44,
         "category": "Reaver Wing Mount",
         "clip": 4,
-        "description": "This rack of anti-air missiles lock onto enemy aircraft, unleashing a barrage of four havoc warheads. On impact, mechanical targets will be affected by a destabilizing field that prevents them from being repaired for up to 6 seconds.",
+        "description": "This rack of anti-air missiles lock onto enemy aircraft, unleashing a barrage of four havoc warheads. On impact, mechanical targets will be affected by a destabilizing field that prevents them from being repaired for up to 8 seconds.",
         "directDamage": 150,
         "faction": 2,
         "fireModes": [
@@ -39962,7 +39962,7 @@
         "ammo": 2,
         "category": "Explosive",
         "clip": 1,
-        "description": "Detonates on enemy movement releasing a destabilizing field that affects mechanical targets and prevents them from being repaired for up to 6 seconds.",
+        "description": "Detonates on enemy movement releasing a destabilizing field that affects mechanical targets and prevents them from being repaired for up to 8 seconds.",
         "faction": 4,
         "fireModes": [
             "Thrown"
@@ -44773,6 +44773,29 @@
         "useInWater": true,
         "verticalRecoil": 1.8
     },
+    "6015514": {
+        "adsCofRecoil": 0,
+        "adsMoveSpeed": 1,
+        "ammo": 0,
+        "category": "Infantry Abilities",
+        "clip": 0,
+        "description": "Nanite Systems' high density rod and reel for the discerning angler. Used on the waters of Auraxis to catch really big fish.<br><br><font color=\"#dc9c36\">Use Aim to cast your line and Fire to set the hook & reel it in.</font>",
+        "faction": 0,
+        "fireModes": [
+            "Control the Probe"
+        ],
+        "fireRate": 750,
+        "hipCofRecoil": 0,
+        "image_id": 93445,
+        "name": "NE Scanner Tool",
+        "recoilAngleMax": 0,
+        "recoilAngleMin": 0,
+        "standingCofMax": 0,
+        "standingCofMaxADS": 0,
+        "standingCofMin": 0,
+        "standingCofMinADS": 0,
+        "useInWater": false
+    },
     "6015519": {
         "adsCofRecoil": 0.2,
         "adsMoveSpeed": 0.75,
@@ -44807,6 +44830,62 @@
         "minDamage": 225,
         "minDamageRange": 42,
         "name": "NS-44 \"Primed Lapis\" Commissioner",
+        "recoilAngleMax": 0,
+        "recoilAngleMin": 0,
+        "recoilHorizontalMax": 0.18,
+        "recoilHorizontalMin": 0.18,
+        "recoilHorizontalTolerance": 0.4,
+        "reload": 3000,
+        "runningCofMax": 7,
+        "runningCofMaxADS": 2,
+        "runningCofMin": 1.75,
+        "runningCofMinADS": 0.2,
+        "speed": 375,
+        "sprintingCofMax": 7,
+        "sprintingCofMaxADS": 2,
+        "sprintingCofMin": 5,
+        "sprintingCofMinADS": 0.2,
+        "standingCofMax": 7,
+        "standingCofMaxADS": 2,
+        "standingCofMin": 1.25,
+        "standingCofMinADS": 0.2,
+        "useInWater": true,
+        "verticalRecoil": 1.8
+    },
+    "6015620": {
+        "adsCofRecoil": 0.2,
+        "adsMoveSpeed": 0.75,
+        "ammo": 42,
+        "category": "Pistol",
+        "chamber": 1000,
+        "clip": 6,
+        "crouchWalkingCofMax": 7,
+        "crouchWalkingCofMaxADS": 2,
+        "crouchWalkingCofMin": 1.75,
+        "crouchWalkingCofMinADS": 0.2,
+        "crouchingCofMax": 7,
+        "crouchingCofMaxADS": 2,
+        "crouchingCofMin": 1.25,
+        "crouchingCofMinADS": 0.2,
+        "description": "Sparkle and shine with the Limited Edition \"Primed Diamond\" variant of the accurate NS-44 Commissioner revolver!  All factions can use this weapon.",
+        "faction": 0,
+        "fallingCofMax": 7,
+        "fallingCofMaxADS": 2,
+        "fallingCofMin": 7,
+        "fallingCofMinADS": 0.2,
+        "fireModes": [
+            "Semi-Auto"
+        ],
+        "fireRate": 352,
+        "firstShotMultiplier": 1,
+        "headshotMultiplier": 1,
+        "hipCofRecoil": 0.4,
+        "image_id": 97602,
+        "maxDamage": 450,
+        "maxDamageRange": 8,
+        "minDamage": 225,
+        "minDamageRange": 42,
+        "name": "NS-44 \"Primed Diamond\" Commissioner",
         "recoilAngleMax": 0,
         "recoilAngleMin": 0,
         "recoilHorizontalMax": 0.18,
@@ -55789,7 +55868,7 @@
         "ammo": 0,
         "category": "Infantry Abilities",
         "clip": 0,
-        "description": "Allows cortium to be used to construct an Aspis Anti-Aircraft Phalanx Tower that may be manned by allied players.",
+        "description": "Allows cortium to be used to construct an Hoplon Anti-Aircraft Phalanx Tower that may be manned by allied players.",
         "faction": 2,
         "fireModes": [
             "Auto"
@@ -55808,7 +55887,7 @@
         "ammo": 0,
         "category": "Infantry Abilities",
         "clip": 0,
-        "description": "Allows cortium to be used to construct an Aspis Anti-Aircraft Phalanx Tower that may be manned by allied players.",
+        "description": "Allows cortium to be used to construct an Hoplon Anti-Aircraft Phalanx Tower that may be manned by allied players.",
         "faction": 3,
         "fireModes": [
             "Auto"
@@ -55827,7 +55906,7 @@
         "ammo": 0,
         "category": "Infantry Abilities",
         "clip": 0,
-        "description": "Allows cortium to be used to construct an Aspis Anti-Aircraft Phalanx Tower that may be manned by allied players.",
+        "description": "Allows cortium to be used to construct an Hoplon Anti-Aircraft Phalanx Tower that may be manned by allied players.",
         "faction": 1,
         "fireModes": [
             "Auto"
