@@ -13,10 +13,9 @@ const {MessageEmbed} = require('discord.js');
 const messageHandler = require('./messageHandler.js');
 const {getPopulation} = require('./population.js');
 const {alertInfo, popLevels} = require('./alerts.js');
-const {territoryInfo, continentBenefit} = require('./territory.js');
+const {territoryInfo} = require('./territory.js');
 const {onlineInfo, totalLength} = require('./online.js');
-const {ownedBases, centralBases} = require('./outfit.js');
-const bases = require('./static/bases.json');
+const {ownedBases, calculateResourceIncome, getOwnedBaseNames} = require('./outfit.js');
 const {serverNames, serverIDs, servers, continents, continentNames, faction, localeNumber, outfitLink, discordEmoji} = require('./utils.js');
 
 /**
@@ -160,37 +159,14 @@ const outfitStatus = async function(outfitID, platform, pgClient){
 	}
 
 	const oBases = await ownedBases(outfitID, oInfo.world, pgClient);
-	let auraxium = 0;
-	let synthium = 0;
-	let polystellarite = 0;
-	let ownedNames = [];
-	for(const base of oBases){
-		if(base.facility in bases){
-			const baseInfo = bases[base.facility];
-			ownedNames.push(baseInfo.name);
-			if(centralBases.includes(base.facility)){
-				polystellarite += 2;
-			}
-			else if(baseInfo.type == "Small Outpost"){
-				auraxium += 5;
-			}
-			else if(baseInfo.type == "Large Outpost"){
-				auraxium += 25;
-			}
-			else if(baseInfo.type == "Construction Outpost"){
-				synthium += 3;
-			}
-			else if(["Bio Lab", "Amp Station", "Tech Plant", "Containment Site"].includes(baseInfo.type)){
-				synthium += 8;
-			}
-		}
-	}
-	if((auraxium + synthium + polystellarite) > 0){ //Recognized bases are owned
+	const ResourceIncome = calculateResourceIncome(oBases);
+	const ownedNames = await getOwnedBaseNames(oBases, pgClient);
+	if((ResourceIncome.auraxium + ResourceIncome.synthium + ResourceIncome.polystellarite) > 0){ //Recognized bases are owned
 		resEmbed.addFields(
 			{name: "Bases owned", value: `${ownedNames}`.replace(/,/g, '\n')},
-			{name: `${discordEmoji["Auraxium"]}`, value: `+${auraxium/5}/min`, inline: true},
-			{name: `${discordEmoji["Synthium"]}`, value: `+${synthium/5}/min`, inline: true},
-			{name: `${discordEmoji["Polystellarite"]}`, value: `+${polystellarite/5}/min`, inline: true}
+			{name: `${discordEmoji["Auraxium"]}`, value: `+${ResourceIncome.auraxium/5}/min`, inline: true},
+			{name: `${discordEmoji["Synthium"]}`, value: `+${ResourceIncome.synthium/5}/min`, inline: true},
+			{name: `${discordEmoji["Polystellarite"]}`, value: `+${ResourceIncome.polystellarite/5}/min`, inline: true}
 		)
 	}
 

@@ -118,6 +118,73 @@ const centralBases = [
 ]
 
 /**
+ * Calculate the resource income of an outfit based on its owned bases
+ * @param {Array} bases - Array of owned bases
+ * @returns {Object} - Object containing the resource income for each type
+ */
+const calculateResourceIncome = function(bases){
+	let resourceIncome = {
+		auraxium: 0,
+		synthium: 0,
+		polystellarite: 0
+	};
+
+	for (const base of bases) {
+		if (base.facility in bases) {
+			const baseInfo = bases[base.facility];
+			if (centralBases.includes(base.facility)) {
+				resourceIncome.polystellarite += 2;
+				continue;
+			}
+			switch (baseInfo.type) {
+				case "Small Outpost":
+				case "CTF Small Outpost":
+				case "Seapost":
+					resourceIncome.auraxium += 5;
+					break;
+				case "Large Outpost":
+				case "CTF Large Outpost":
+					resourceIncome.auraxium += 25;
+					break;
+				case "Construction Outpost":
+				case "CTF Construction Outpost":
+					resourceIncome.synthium += 3;
+					break;
+				case "Bio Lab":
+				case "Amp Station":
+				case "CTF Amp Station":
+				case "Tech Plant":
+				case "Containment Site":
+				case "Interlink":
+					resourceIncome.synthium += 8;
+					break;
+				case "Trident":
+					resourceIncome.polystellarite += 1;
+					break;
+			}
+		}
+	}
+
+	return resourceIncome;
+}
+
+/**
+ * Get the names of the owned bases from Postgres owned bases
+ * @param {Array} ownedBases - Array of owned bases
+ * @returns {Object} - Object containing the names of the owned bases
+ */
+const getOwnedBaseNames = function(ownedBases) {
+	let ownedNames = [];
+	for (const base of ownedBases) {
+		if (base.facility in bases) {
+			const baseInfo = bases[base.facility];
+			ownedNames.push(baseInfo.name);
+		}
+	}
+	return ownedNames;
+}
+
+/**
  * Generate an outfit report on https://wt.honu.pw/report
  * @param {string[]} outfits - the outfits to include in the report
  * @param {number} start - start time of the repot
@@ -183,51 +250,13 @@ module.exports = {
 		)
 		resEmbed.setColor(factionInfo.color);
 		resEmbed.addFields({name: i18n.__({phrase: 'Owner', locale: locale}), value: `[${oInfo.owner}](${characterLink(oInfo.owner, oInfo.leaderID, platform)})`, inline: true});
-		let auraxium = 0;
-		let synthium = 0;
-		let polystellarite = 0;
-		let ownedNames = [];
-		for(let base of oBases){
-			if(base.facility in bases){
-				const baseInfo = bases[base.facility];
-				ownedNames.push(baseInfo.name);
-				if(centralBases.includes(base.facility)){
-					polystellarite += 2;
-					continue;
-				}
-				switch(baseInfo.type){
-					case "Small Outpost":
-					case "CTF Small Outpost":
-					case "Seapost":
-						auraxium += 5;
-						break;
-					case "Large Outpost":
-					case "CTF Large Outpost":
-						auraxium += 25;
-						break;
-					case "Construction Outpost":
-					case "CTF Construction Outpost":
-						synthium += 3;
-						break;
-					case "Bio Lab":
-					case "Amp Station":
-					case "CTF Amp Station":
-					case "Tech Plant":
-					case "Containment Site":
-					case "Interlink":
-						synthium += 8;
-						break;
-					case "Trident":
-						polystellarite += 1;
-						break;
-				}
-			}
-		}
-		if((auraxium + synthium + polystellarite) > 0){ //Recognized bases are owned
+		const resourceIncome = calculateResourceIncome(oBases);
+		const ownedNames = getOwnedBaseNames(oBases);
+		if((resourceIncome.auraxium + resourceIncome.synthium + resourceIncome.polystellarite) > 0){ //Recognized bases are owned
 			resEmbed.addFields(
-				{name: `${discordEmoji["Auraxium"]}`, value: i18n.__mf({phrase: "quantityPerMinute", locale: locale}, {quantity: auraxium/5}), inline: true},
-				{name: `${discordEmoji["Synthium"]}`, value: i18n.__mf({phrase: "quantityPerMinute", locale: locale}, {quantity: synthium/5}), inline: true},
-				{name: `${discordEmoji["Polystellarite"]}`, value: i18n.__mf({phrase: "quantityPerMinute", locale: locale}, {quantity: polystellarite/5}), inline: true},
+				{name: `${discordEmoji["Auraxium"]}`, value: i18n.__mf({phrase: "quantityPerMinute", locale: locale}, {quantity: resourceIncome.auraxium/5}), inline: true},
+				{name: `${discordEmoji["Synthium"]}`, value: i18n.__mf({phrase: "quantityPerMinute", locale: locale}, {quantity: resourceIncome.synthium/5}), inline: true},
+				{name: `${discordEmoji["Polystellarite"]}`, value: i18n.__mf({phrase: "quantityPerMinute", locale: locale}, {quantity: resourceIncome.polystellarite/5}), inline: true},
 				{name: i18n.__({phrase: 'Bases owned', locale: locale}), value: `${ownedNames}`.replace(/,/g, '\n'), inline: true}
 			)
 		}
@@ -268,5 +297,7 @@ module.exports = {
 	},
 
 	ownedBases: ownedBases,
-	centralBases: centralBases
+	centralBases: centralBases,
+	calculateResourceIncome: calculateResourceIncome,
+	getOwnedBaseNames: getOwnedBaseNames,
 }
