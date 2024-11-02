@@ -162,10 +162,17 @@ module.exports = {
 				}
                 
                 const request = await fetch(url);
-                if (request.status == 200) { // a non-200 means Honu did not find the alert for some reason
+				if (request.status == 404) {
+					checkError(row, pgClient, "Error retrieving alert info: 404");
+					return;
+				}
+                else if (request.status == 200) { // a non-200 means Honu did not find the alert for some reason
                     const response = await request.json();
                     await updateAlert(response, pgClient, discordClient, response.timeEnded != null);
                 }
+				else{
+					checkError(row, pgClient, `Error retrieving alert info: ${request.status} status code`);
+				}
 			}
 			catch (err) {
 				if (typeof(err) !== 'string') {
