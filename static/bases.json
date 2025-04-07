@@ -302,7 +302,7 @@
     "217000": {
         "continent": "6",
         "name": "The Bastion",
-        "type": "CTF Large Outpost"
+        "type": "Large Outpost"
     },
     "218": {
         "continent": "2",
@@ -322,7 +322,7 @@
     "219000": {
         "continent": "6",
         "name": "Splitpeak Pass",
-        "type": "CTF Large Outpost"
+        "type": "Large Outpost"
     },
     "220": {
         "continent": "2",
@@ -332,7 +332,7 @@
     "220000": {
         "continent": "6",
         "name": "West Pass Watchtower",
-        "type": "CTF Large Outpost"
+        "type": "Large Outpost"
     },
     "221": {
         "continent": "2",
@@ -597,7 +597,7 @@
     "237000": {
         "continent": "8",
         "name": "The Traverse",
-        "type": "CTF Small Outpost"
+        "type": "Small Outpost"
     },
     "239": {
         "continent": "2",
@@ -682,7 +682,7 @@
     "246000": {
         "continent": "8",
         "name": "Mattherson's Triumph",
-        "type": "CTF Large Outpost"
+        "type": "Large Outpost"
     },
     "247": {
         "continent": "2",
@@ -887,7 +887,7 @@
     "279000": {
         "continent": "4",
         "name": "Hunter's Blind",
-        "type": "CTF Small Outpost"
+        "type": "Small Outpost"
     },
     "280000": {
         "continent": "4",
@@ -997,7 +997,7 @@
     "290000": {
         "continent": "4",
         "name": "Fort Drexler",
-        "type": "CTF Large Outpost"
+        "type": "Large Outpost"
     },
     "291000": {
         "continent": "4",
@@ -1234,60 +1234,20 @@
         "name": "Hossin Southern Warpgate",
         "type": "Warpgate"
     },
-    "310500": {
-        "continent": "10",
-        "name": "Arazek SATCOM Hub",
-        "type": "Large Outpost"
-    },
-    "310510": {
-        "continent": "10",
-        "name": "Nexus Secure Substation",
-        "type": "Small Outpost"
-    },
-    "310520": {
-        "continent": "10",
-        "name": "Hydroponics Compound",
-        "type": "Small Outpost"
-    },
-    "310530": {
-        "continent": "10",
-        "name": "The Granitehead Reactor",
-        "type": "Large Outpost"
-    },
-    "310540": {
-        "continent": "10",
-        "name": "Argent Pass",
-        "type": "Small Outpost"
-    },
-    "310550": {
-        "continent": "10",
-        "name": "Slate Canyon Hold",
-        "type": "Small Outpost"
-    },
-    "310560": {
-        "continent": "10",
-        "name": "Nexus Omega Warpgate",
+    "310060": {
+        "continent": "98",
+        "name": "Player Spawn",
         "type": "Warpgate"
     },
-    "310570": {
-        "continent": "10",
-        "name": "Nexus Alpha Warpgate",
+    "310064": {
+        "continent": "96",
+        "name": "Player Spawn",
         "type": "Warpgate"
     },
-    "310590": {
-        "continent": "10",
-        "name": "Bitter Gorge Garrison",
-        "type": "Large Outpost"
-    },
-    "310600": {
-        "continent": "10",
-        "name": "Nexus Alpha",
-        "type": "Large Outpost"
-    },
-    "310610": {
-        "continent": "10",
-        "name": "Nexus Omega",
-        "type": "Large Outpost"
+    "310065": {
+        "continent": "97",
+        "name": "Player Spawn",
+        "type": "Warpgate"
     },
     "3201": {
         "continent": "2",
@@ -1407,12 +1367,12 @@
     "400135": {
         "continent": "8",
         "name": "Untapped Reservoir",
-        "type": "Construction Outpost"
+        "type": "Small Outpost"
     },
     "400314": {
         "continent": "8",
         "name": "Baldur",
-        "type": "CTF Amp Station"
+        "type": "Amp Station"
     },
     "400315": {
         "continent": "8",
@@ -1423,6 +1383,21 @@
         "continent": "8",
         "name": "Jord",
         "type": "CTF Amp Station"
+    },
+    "400319": {
+        "continent": "364",
+        "name": "Training Outpost Echo",
+        "type": "Default"
+    },
+    "400322": {
+        "continent": "364",
+        "name": "Substation Coral",
+        "type": "Default"
+    },
+    "400324": {
+        "continent": "364",
+        "name": "Training Amp Station",
+        "type": "Default"
     },
     "400326": {
         "continent": "8",
@@ -1437,11 +1412,11 @@
     "400328": {
         "continent": "8",
         "name": "Spral Oasis",
-        "type": "CTF Construction Outpost"
+        "type": "Construction Outpost"
     },
     "400329": {
         "continent": "344",
-        "name": "Mirror Bay Watchtower",
+        "name": "Centri Import Hub",
         "type": "Large Outpost"
     },
     "400330": {
@@ -1456,7 +1431,7 @@
     },
     "400332": {
         "continent": "344",
-        "name": "Centri Import Hub",
+        "name": "Bathala Overlook",
         "type": "Construction Outpost"
     },
     "400333": {
@@ -1562,7 +1537,7 @@
     "400353": {
         "continent": "344",
         "name": "Astira Solar Station",
-        "type": "Construction Outpost"
+        "type": "Small Outpost"
     },
     "400354": {
         "continent": "344",
@@ -1641,17 +1616,17 @@
     },
     "400369": {
         "continent": "344",
-        "name": "Oshur Northwest Flotilla",
+        "name": "Oshur West Flotilla",
         "type": "Warpgate"
     },
     "400370": {
         "continent": "344",
-        "name": "Oshur Northeast Flotilla",
+        "name": "Oshur North Flotilla",
         "type": "Warpgate"
     },
     "400371": {
         "continent": "344",
-        "name": "Oshur South Flotilla",
+        "name": "Oshur Southeast Flotilla",
         "type": "Warpgate"
     },
     "400372": {
@@ -1687,7 +1662,7 @@
     "400404": {
         "continent": "344",
         "name": "Veridad Pass",
-        "type": "Construction Outpost"
+        "type": "Small Outpost"
     },
     "400405": {
         "continent": "344",
@@ -1696,7 +1671,7 @@
     },
     "400407": {
         "continent": "344",
-        "name": "Wakerift Beachhead",
+        "name": "Wakerift Plateau",
         "type": "Construction Outpost"
     },
     "400409": {
@@ -1766,12 +1741,22 @@
     },
     "400427": {
         "continent": "344",
-        "name": "Bathala Garden",
-        "type": "Construction Outpost"
+        "name": "Excavion Cleanup Site",
+        "type": "Large Outpost"
     },
     "400428": {
         "continent": "344",
         "name": "HMS Technologies",
+        "type": "Small Outpost"
+    },
+    "400430": {
+        "continent": "344",
+        "name": "Hunter's Respite",
+        "type": "Construction Outpost"
+    },
+    "400431": {
+        "continent": "344",
+        "name": "Leif Biochemical",
         "type": "Small Outpost"
     },
     "4010": {
@@ -1817,12 +1802,12 @@
     "5100": {
         "continent": "2",
         "name": "Indar Excavation Site",
-        "type": "CTF Large Outpost"
+        "type": "Large Outpost"
     },
     "5200": {
         "continent": "2",
         "name": "J908 Impact Site",
-        "type": "CTF Large Outpost"
+        "type": "Large Outpost"
     },
     "5300": {
         "continent": "2",
