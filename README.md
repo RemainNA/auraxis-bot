@@ -52,6 +52,7 @@ Thank you to the following translators for their contributions!
 - Russian: Simacrus & Kinderbug
 - Spanish: [1ITL] Facer
 - Ukranian: Veydzher
+- Turkish: delidolu1adam (Serhat ÖKTEM)
 
 ## Support development
 
