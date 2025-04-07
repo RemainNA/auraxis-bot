@@ -7,7 +7,7 @@
  require('dotenv').config();
 
 // Import the discord.js module
-const Discord = require('discord.js');
+const { Client, GatewayIntentBits, Partials, EmbedBuilder, PermissionFlagsBits, ActivityType } = require('discord.js');
 
 //PostgreSQL connection
 const pg = require('pg');
@@ -61,12 +61,12 @@ if(typeof(process.env.DATABASE_URL) !== 'undefined'){
 }
 
 const intentsList = [
-	Discord.Intents.FLAGS.GUILD_MESSAGES,
-	Discord.Intents.FLAGS.DIRECT_MESSAGES,
-	Discord.Intents.FLAGS.GUILDS
+	GatewayIntentBits.GuildMessages,
+	GatewayIntentBits.DirectMessages,
+	GatewayIntentBits.Guilds
 ]
 
-const client = new Discord.Client({intents: intentsList, allowedMentions: {parse: ['roles']}, partials: ['CHANNEL']});
+const client = new Client({intents: intentsList, allowedMentions: {parse: ['roles']}, partials: [Partials.Channel]});
 
 // https://discordapp.com/developers/applications/me
 const token = process.env.token;
@@ -109,7 +109,7 @@ client.on('ready', async () => {
 		}, 600000) //Update trackers every 10 minutes
 	}
 
-	client.user.setActivity('/help');
+	client.user.setActivity({name: '/help', type: ActivityType.Custom});
 });
 
 const listOfCommands = 
