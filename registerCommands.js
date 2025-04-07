@@ -1,19 +1,10 @@
 /**
- * Run this file with `node registerCommands.js` to register all commands for the  discord bot
+ * Run this file with `node registerCommands.js` to register all commands for the bot
  * @module registerCommands
  */
-const { REST } = require('@discordjs/rest');
-const { Routes } = require('discord-api-types/v9');
+const { REST, Routes, SlashCommandBuilder } = require('discord.js');
 
 require('dotenv').config();
-
-const i18n = require('i18n');
-i18n.configure({
-	directory: './locales/commands',
-	defaultLocale: 'en-us',
-	updateFiles: false,
-	objectNotation: true
-})
 
 /**
  * all server options
@@ -80,711 +71,566 @@ const serversNoJaeger = [
  */
 const servers = serversNoJaeger.concat([{name:"Jaeger", value: "jaeger"}]);
 
-/**
- * All PC servers except for Jaeger
- */
- const pcServers = [
-	{
-		name: "Connery",
-		value: "connery"
-	},
-	{
-		name: "Miller",
-		value: "miller"
-	},
-	{
-		name: "Cobalt",
-		value: "cobalt"
-	},
-	{
-		name: "Emerald",
-		value: "emerald"
-	},
-	{
-		name: "SolTech",
-		value: "soltech"
-	}
-]
-
-/**
- * All possible commands
- */
-const data = [
-	{
-		name: 'ping',
-		description: "Get the bot's current ping to Discord servers"
-	},
-	{
-		name: 'help',
-		description: "Get a list of bot commands and associated links"
-	},
-	{
-		name: 'character',
-		description: "Look up a character's stats and basic information",
-		options: [{
-			name: 'name',
-			type: 3,
-			description: 'Character name, or multiple separated by spaces',
-			required: true,
-		},
-		{
-			name: 'platform',
-			type: 3,
-			description: "Which platform is the character on?  Defaults to PC",
-			required: false,
-			choices: platforms
-		}]
-	},
-	{
-		name: 'stats',
-		description: "Look up a character's stats, either with the specified weapon or overall",
-		options: [{
-			name: 'name',
-			type: 3,
-			description: 'Character name',
-			required: true,
-		},
-		{
-			name: 'weapon',
-			type: 3,
-			description: 'Weapon name or id, can search with a partial name',
-			autocomplete: true,
-			required: false,
-		},
-		{
-			name: 'platform',
-			type: 3,
-			description: "Which platform is the character on?  Defaults to PC",
-			required: false,
-			choices: platforms
-		}]
-	},
-	{
-		name: 'outfit',
-		description: "Look up an outfit's basic information, including recent activity and bases owned",
-		options: [{
-			name: 'tag',
-			type: 3,
-			description: 'Outfit tag or tags separated by spaces, no brackets',
-			required: true,
-		},
-		{
-			name: 'platform',
-			type: 3,
-			description: "Which platform is the outfit on?  Defaults to PC",
-			required: false,
-			choices: platforms
-		}]
-	},
-	{
-		name: 'online',
-		description: "Look up currently online members for a given outfit",
-		options: [{
-			name: 'tag',
-			type: 3,
-			description: 'Outfit tag or tags separated by spaces, no brackets',
-			required: true,
-		},
-		{
-			name: 'platform',
-			type: 3,
-			description: "Which platform is the outfit on?  Defaults to PC",
-			required: false,
-			choices: platforms
-		}]
-	},
-	{
-		name: 'subscribe',
-		description: "Subscribe to various different real time events",
-		options: [{
-			name: "alerts",
-			description: "Receive alert notifications when an alert starts on a server",
-			type: 1,
-			options: [{
-				name: 'server',
-				description: 'Server name',
-				type: 3,
-				required: true,
-				choices: servers
-			}
-			]
-		},
-		{
-			name: "activity",
-			description: "Receive notifications whenever an outfit member logs in or out",
-			type: 1,
-			options: [{
-				name: 'tag',
-				type: 3,
-				description: 'Tag of outfit to subscribe to, no brackets',
-				required: true
-			},
-			{
-				name: 'platform',
-				type: 3,
-				description: "Which platform is the outfit on?  Defaults to PC",
-				required: false,
-				choices: platforms
-			}
-			]
-		},
-		{
-			name: "captures",
-			description: "Receive a notification whenever an outfit captures a base",
-			type: 1,
-			options: [{
-				name: 'tag',
-				type: 3,
-				description: 'Tag of outfit to subscribe to, no brackets',
-				required: true
-			},
-			{
-				name: 'platform',
-				type: 3,
-				description: "Which platform is the outfit on?  Defaults to PC",
-				required: false,
-				choices: platforms
-			}
-			]
-		},
-		{
-			name: "unlocks",
-			description: "Receive a notification when a continent unlocks on a server",
-			type: 1,
-			options: [{
-				name: 'server',
-				description: 'Server name',
-				type: 3,
-				required: true,
-				choices: servers
-			}
-			]
-		}
-		]
-	},
-	{
-		name: 'unsubscribe',
-		description: "Subscribe to various different real time events",
-		options: [{
-			name: "alerts",
-			description: "Remove active alert subscriptions",
-			type: 1,
-			options: [{
-				name: 'server',
-				description: 'Server name',
-				type: 3,
-				required: true,
-				choices: servers
-			}
-			]
-		},
-		{
-			name: "activity",
-			description: "Remove active outfit activity subscriptions",
-			type: 1,
-			options: [{
-				name: 'tag',
-				type: 3,
-				description: 'Tag of outfit to remove, no brackets',
-				required: true
-			},
-			{
-				name: 'platform',
-				type: 3,
-				description: "Which platform is the outfit on?  Defaults to PC",
-				required: false,
-				choices: platforms
-			}
-			]
-		},
-		{
-			name: "captures",
-			description: "Remove active outfit base capture subscriptions",
-			type: 1,
-			options: [{
-				name: 'tag',
-				type: 3,
-				description: 'Tag of outfit to remove.  No brackets',
-				required: true
-			},
-			{
-				name: 'platform',
-				type: 3,
-				description: "Which platform is the outfit on?  Defaults to PC",
-				required: false,
-				choices: platforms
-			}
-			]
-		},
-		{
-			name: "unlocks",
-			description: "Remove active continent unlock subscriptions",
-			type: 1,
-			options: [{
-				name: 'server',
-				description: 'Server name',
-				type: 3,
-				required: true,
-				choices: servers
-			}
-			]
-		},
-		{
-			name: "all",
-			description: "Remove all active subscriptions and settings from the channel",
-			type: 1
-		}
-		]
-	},
-	{
-		name: 'config',
-		description: 'Modify subscription settings',
-		options: [
-			{
-				name: 'view',
-				description: 'View current subscription settings',
-				type: 1
-			},
-			{
-				name: 'audit',
-				description: 'Check for errors in subscription settings',
-				type: 1
-			},
-			{
-				name: 'continent',
-				description: 'Enable or disable alert and unlock notifications for a given continent',
-				type: 1,
-				options: [{
-					name: 'continent',
-					description: 'The continent to change the setting for',
-					type: 3,
-					required: true,
-					choices: [
-						{
-							name: 'Koltyr',
-							value: 'koltyr'
-						},
-						{
-							name: 'Indar',
-							value: 'indar'
-						},
-						{
-							name: 'Hossin',
-							value: 'hossin'
-						},
-						{
-							name: 'Amerish',
-							value: 'amerish'
-						},
-						{
-							name: 'Esamir',
-							value: 'esamir'
-						},
-						{
-							name: 'Oshur',
-							value: 'oshur'
-						},
-						{
-							name: 'Other',
-							value: 'other'
-						}
-					]
-				},
-				{
-					name: 'setting',
-					description: "Show alerts and unlocks for specified continent",
-					type: 3,
-					required: true,
-					choices: [
-						{
-							name: 'Enable',
-							value: 'enable'
-						},
-						{
-							name: 'Disable',
-							value: 'disable'
-						}
-					]
-				}]
-			},
-			{
-				name: 'autodelete',
-				description: 'Automatically delete alerts and outfit activity notifications',
-				type: 1,
-				options: [{
-						name: 'setting',
-						description: 'Delete notifications in this channel',
-						type: 3,
-						required: true,
-						choices: [
-						{
-							name: 'Enable',
-							value: 'enable'
-						},
-						{
-							name: 'Disable',
-							value: 'disable'
-						}
-					]
-				}]
-			},
-			{
-				name: 'alert-types',
-				description: 'Whether to show different types of alerts',
-				type: 1,
-				options: [{
-					name: 'type',
-					description: 'The type of alert',
-					type: 3,
-					required: true,
-					choices: [
-						{
-							name: 'Territory alerts',
-							value: 'territory'
-						},
-						{
-							name: 'Non-territory alerts',
-							value: 'nonterritory'
-						},
-					]
-				},
-				{
-					name: 'setting',
-					type: 5,
-					description: 'Whether to display the selected type of alert',
-					required: true
-				}]
-			}
-		]
-	},
-	{
-		name: 'population',
-		description: "Look up the current population of a server",
-		options: [{
-			name: 'server',
-			type: 3,
-			description: 'Server name',
-			required: true,
-			choices: servers.concat([allOption])
-		}]
-	},
-	{
-		name: 'territory',
-		description: "Look up the current territory control of a server",
-		options: [{
-			name: 'server',
-			type: 3,
-			description: 'Server name',
-			required: true,
-			choices: servers
-		}]
-	},
-	{
-		name: 'alerts',
-		description: "Look up ongoing alerts on a server",
-		options: [{
-			name: 'server',
-			type: 3,
-			description: 'Server name',
-			required: true,
-			choices: serversNoJaeger
-		}]
-	},
-	{
-		name: 'status',
-		description: "Look up server status as provided by the API"
-	},
-	{
-		name: 'weapon',
-		description: "Look up weapon stats",
-		options: [{
-			name: 'query',
-			type: 3,
-			description: 'Weapon name, partial name, or id',
-			autocomplete: true,
-			required: true,
-		}]
-	},
-	{
-		name: 'weaponsearch',
-		description: "Look up a list of weapons matching your search",
-		options: [{
-			name: 'query',
-			type: 3,
-			description: 'Weapon name or partial name',
-			required: true,
-		}]
-	},
-	{
-		name: 'implant',
-		description: "Look up implant information",
-		options: [{
-			name: 'query',
-			type: 3,
-			description: 'Implant name or partial name',
-			autocomplete: true,
-			required: true,
-		}]
-	},
-	{
-		name: 'asp',
-		description: "Look up ASP specific information for a character",
-		options: [{
-			name: 'name',
-			type: 3,
-			description: 'Character name',
-			required: true,
-		},
-		{
-			name: 'platform',
-			type: 3,
-			description: "Which platform is the character on?  Defaults to PC",
-			required: false,
-			choices: platforms
-		}]
-	},
-	{
-		name: 'dashboard',
-		description: "Create an automatically updating dashboard",
-		options: [{
-			name: "server",
-			description: "Create an automatically updating dashboard displaying server status",
-			type: 1,
-			options: [{
-				name: 'server',
-				type: 3,
-				description: 'Server name',
-				required: true,
-				choices: servers
-			}]
-		},
-		{
-			name: "outfit",
-			description: "Create an automatically updating dashboard displaying outfit status",
-			type: 1,
-			options: [{
-				name: 'tag',
-				type: 3,
-				description: 'Outfit tag',
-				required: true
-			},
-			{
-				name: 'platform',
-				type: 3,
-				description: "Which platform is the outfit on?  Defaults to PC",
-				required: false,
-				choices: platforms
-			}
-			]
-		}
-		]
-	},
-	{
-		name: 'tracker',
-		description: "Create an automatically updating voice channel",
-		dm_permission: false,
-		options: [{
-			name: "server",
-			description: "Create an automatically updating voice channel displaying server info",
-			type: 1,
-			options: [{
-				name: 'server',
-				type: 3,
-				description: 'Server name',
-				required: true,
-				choices: servers
-			},
-			{
-				name: 'type',
-				type: 3,
-				description: 'Type of tracker channel',
-				required: true,
-				choices:[
+const commands = [
+	new SlashCommandBuilder()
+		.setName('ping')
+		.setDescription('Get the bot\'s current ping to Discord servers')
+		.setIntegrationTypes([0, 1])
+		.setContexts([0, 1, 2]),
+	new SlashCommandBuilder()
+		.setName('help')
+		.setDescription('Get a list of bot commands and associated links')
+		.setIntegrationTypes([0, 1])
+		.setContexts([0, 1, 2]),
+	new SlashCommandBuilder()
+		.setName('character')
+		.setDescription('Look up a character\'s stats and basic information')
+		.setIntegrationTypes([0, 1])
+		.setContexts([0, 1, 2])
+		.addStringOption(option =>
+			option.setName('name')
+				.setDescription('Character name, or multiple separated by spaces')
+				.setRequired(true))
+		.addStringOption(option =>
+			option.setName('platform')
+				.setDescription("Which platform is the character on?  Defaults to PC")
+				.addChoices(platforms)),
+	new SlashCommandBuilder()
+		.setName('stats')
+		.setDescription('Look up a character\'s stats, either with the specified weapon or overall')
+		.setIntegrationTypes([0, 1])
+		.setContexts([0, 1, 2])
+		.addStringOption(option =>
+			option.setName('name')
+				.setDescription('Character name')
+				.setRequired(true))
+		.addStringOption(option =>
+			option.setName('weapon')
+				.setDescription('Weapon name or id, can search with a partial name')
+				.setRequired(false))
+		.addStringOption(option =>
+			option.setName('platform')
+				.setDescription("Which platform is the character on?  Defaults to PC")
+				.addChoices(platforms)),
+	new SlashCommandBuilder()
+		.setName('outfit')
+		.setDescription('Look up an outfit\'s basic information, including recent activity and bases owned')
+		.setIntegrationTypes([0, 1])
+		.setContexts([0, 1, 2])
+		.addStringOption(option =>
+			option.setName('tag')
+				.setDescription('Outfit tag or tags separated by spaces, no brackets')
+				.setRequired(true))
+		.addStringOption(option =>
+			option.setName('platform')
+				.setDescription("Which platform is the outfit on?  Defaults to PC")
+				.addChoices(platforms)),
+	new SlashCommandBuilder()
+		.setName('online')
+		.setDescription('Look up currently online members for a given outfit')
+		.setIntegrationTypes([0, 1])
+		.setContexts([0, 1, 2])
+		.addStringOption(option =>
+			option.setName('tag')
+				.setDescription('Outfit tag or tags separated by spaces, no brackets')
+				.setRequired(true))
+		.addStringOption(option =>
+			option.setName('platform')
+				.setDescription("Which platform is the outfit on?  Defaults to PC")
+				.addChoices(platforms)),
+	new SlashCommandBuilder()
+		.setName('subscribe')
+		.setDescription('Subscribe to various different real time events')
+		.setIntegrationTypes([0])
+		.setContexts([0, 1])
+		.addSubcommand(subcommand =>
+			subcommand
+				.setName('alerts')
+				.setDescription('Receive alert notifications when an alert starts on a server')
+				.addStringOption(option =>
+					option.setName('server')
+						.setDescription('Server name')
+						.setRequired(true)
+						.addChoices(servers)))
+		.addSubcommand(subcommand =>
+			subcommand
+				.setName('activity')
+				.setDescription('Receive notifications whenever an outfit member logs in or out')
+				.addStringOption(option =>
+					option.setName('tag')
+						.setDescription('Tag of outfit to subscribe to, no brackets')
+						.setRequired(true))
+				.addStringOption(option =>
+					option.setName('platform')
+						.setDescription("Which platform is the outfit on?  Defaults to PC")
+						.addChoices(platforms)))
+		.addSubcommand(subcommand =>
+			subcommand
+				.setName('captures')
+				.setDescription('Receive a notification whenever an outfit captures a base')
+				.addStringOption(option =>
+					option.setName('tag')
+						.setDescription('Tag of outfit to subscribe to, no brackets')
+						.setRequired(true))
+				.addStringOption(option =>
+					option.setName('platform')
+						.setDescription("Which platform is the outfit on?  Defaults to PC")
+						.addChoices(platforms)))
+		.addSubcommand(subcommand =>
+			subcommand
+				.setName('unlocks')
+				.setDescription('Receive a notification when a continent unlocks on a server')
+				.addStringOption(option =>
+					option.setName('server')
+						.setDescription('Server name')
+						.setRequired(true)
+						.addChoices(servers))),
+	new SlashCommandBuilder()
+		.setName('unsubscribe')
+		.setDescription('Subscribe to various different real time events')
+		.setIntegrationTypes([0])
+		.setContexts([0, 1])
+		.addSubcommand(subcommand =>
+			subcommand
+				.setName('alerts')
+				.setDescription('Remove active alert subscriptions')
+				.addStringOption(option =>
+					option.setName('server')
+						.setDescription('Server name')
+						.setRequired(true)
+						.addChoices(servers)))
+		.addSubcommand(subcommand =>
+			subcommand
+				.setName('activity')
+				.setDescription('Remove active outfit activity subscriptions')
+				.addStringOption(option =>
+					option.setName('tag')
+						.setDescription('Tag of outfit to remove, no brackets')
+						.setRequired(true))
+				.addStringOption(option =>
+					option.setName('platform')
+						.setDescription("Which platform is the outfit on?  Defaults to PC")
+						.addChoices(platforms)))
+		.addSubcommand(subcommand =>
+			subcommand
+				.setName('captures')
+				.setDescription('Remove active outfit base capture subscriptions')
+				.addStringOption(option =>
+					option.setName('tag')
+						.setDescription('Tag of outfit to remove.  No brackets')
+						.setRequired(true))
+				.addStringOption(option =>
+					option.setName('platform')
+						.setDescription("Which platform is the outfit on?  Defaults to PC")
+						.addChoices(platforms)))
+		.addSubcommand(subcommand =>
+			subcommand
+				.setName('unlocks')
+				.setDescription('Remove active continent unlock subscriptions')
+				.addStringOption(option =>
+					option.setName('server')
+						.setDescription('Server name')
+						.setRequired(true)
+						.addChoices(servers)))
+		.addSubcommand(subcommand =>
+			subcommand
+				.setName('all')
+				.setDescription('Remove all active subscriptions and settings from the channel')),
+	new SlashCommandBuilder()
+		.setName('config')
+		.setDescription('Modify subscription settings')
+		.setIntegrationTypes([0])
+		.setContexts([0, 1])
+		.addSubcommand(subcommand =>
+			subcommand
+				.setName('view')
+				.setDescription('View current subscription settings')
+		)
+		.addSubcommand(subcommand =>
+			subcommand
+				.setName('audit')
+				.setDescription('Check for errors in subscription settings')
+		)
+		.addSubcommand(subcommand =>
+			subcommand
+				.setName('continent')
+				.setDescription('Enable or disable alert and unlock notifications for a given continent')
+				.addStringOption(option =>
+					option.setName('continent')
+						.setDescription('The continent to change the setting for')
+						.setRequired(true)
+						.addChoices([
+							{
+								name: 'Koltyr',
+								value: 'koltyr'
+							},
+							{
+								name: 'Indar',
+								value: 'indar'
+							},
+							{
+								name: 'Hossin',
+								value: 'hossin'
+							},
+							{
+								name: 'Amerish',
+								value: 'amerish'
+							},
+							{
+								name: 'Esamir',
+								value: 'esamir'
+							},
+							{
+								name: 'Oshur',
+								value: 'oshur'
+							},
+							{
+								name: 'Other',
+								value: 'other'
+							}
+						])
+				)
+				.addStringOption(option =>
+					option.setName('setting')
+						.setDescription("Show alerts and unlocks for specified continent")
+						.setRequired(true)
+						.addChoices([
+							{
+								name: 'Enable',
+								value: 'enable'
+							},
+							{
+								name: 'Disable',
+								value: 'disable'
+							}
+						])
+				)
+		)
+		.addSubcommand(subcommand =>
+			subcommand
+				.setName('autodelete')
+				.setDescription('Automatically delete alerts and outfit activity notifications')
+				.addStringOption(option =>
+					option.setName('setting')
+						.setDescription('Delete notifications in this channel')
+						.setRequired(true)
+						.addChoices([
+							{
+								name: 'Enable',
+								value: 'enable'
+							},
+							{
+								name: 'Disable',
+								value: 'disable'
+							}
+						])
+				)
+		)
+		.addSubcommand(subcommand => 
+			subcommand
+				.setName('alert-types')
+				.setDescription('Whether to show different types of alerts')
+				.addStringOption(option =>
+					option.setName('type')
+						.setDescription('The type of alert')
+						.setRequired(true)
+						.addChoices([
+							{
+								name: 'Territory alerts',
+								value: 'territory'
+							},
+							{
+								name: 'Non-territory alerts',
+								value: 'nonterritory'
+							},
+						])
+				)),
+	new SlashCommandBuilder()
+		.setName('population')
+		.setDescription('Look up the current population of a server')
+		.setIntegrationTypes([0, 1])
+		.setContexts([0, 1, 2])
+		.addStringOption(option =>
+			option.setName('server')
+				.setDescription('Server name')
+				.setRequired(true)
+				.addChoices(servers.concat([allOption]))),
+	new SlashCommandBuilder()
+		.setName('territory')
+		.setDescription('Look up the current territory control of a server')
+		.setIntegrationTypes([0, 1])
+		.setContexts([0, 1, 2])
+		.addStringOption(option =>
+			option.setName('server')
+				.setDescription('Server name')
+				.setRequired(true)
+				.addChoices(servers)),
+	new SlashCommandBuilder()
+		.setName('alerts')
+		.setDescription('Look up ongoing alerts on a server')
+		.setIntegrationTypes([0, 1])
+		.setContexts([0, 1, 2])
+		.addStringOption(option =>
+			option.setName('server')
+				.setDescription('Server name')
+				.setRequired(true)
+				.addChoices(serversNoJaeger)),
+	new SlashCommandBuilder()
+		.setName('status')
+		.setDescription('Look up server status as provided by the API')
+		.setIntegrationTypes([0, 1])
+		.setContexts([0, 1, 2]),
+	new SlashCommandBuilder()
+		.setName('weapon')
+		.setDescription('Look up weapon stats')
+		.setIntegrationTypes([0, 1])
+		.setContexts([0, 1, 2])
+		.addStringOption(option =>
+			option.setName('query')
+				.setDescription('Weapon name, partial name, or id')
+				.setRequired(true)
+				.setAutocomplete(true)),
+	new SlashCommandBuilder()
+		.setName('weaponsearch')
+		.setDescription('Look up a list of weapons matching your search')
+		.setIntegrationTypes([0, 1])
+		.setContexts([0, 1, 2])
+		.addStringOption(option =>
+			option.setName('query')
+				.setDescription('Weapon name or partial name')
+				.setRequired(true)),
+	new SlashCommandBuilder()
+		.setName('implant')
+		.setDescription('Look up implant information')
+		.setIntegrationTypes([0, 1])
+		.setContexts([0, 1, 2])
+		.addStringOption(option =>
+			option.setName('query')
+				.setDescription('Implant name or partial name')
+				.setRequired(true)
+				.setAutocomplete(true)),
+	new SlashCommandBuilder()
+		.setName('asp')
+		.setDescription('Look up ASP specific information for a character')
+		.setIntegrationTypes([0, 1])
+		.setContexts([0, 1, 2])
+		.addStringOption(option =>
+			option.setName('name')
+				.setDescription('Character name')
+				.setRequired(true))
+		.addStringOption(option =>
+			option.setName('platform')
+				.setDescription("Which platform is the character on?  Defaults to PC")
+				.addChoices(platforms)),
+	new SlashCommandBuilder()
+		.setName('dashboard')
+		.setDescription('Create an automatically updating dashboard')
+		.setIntegrationTypes([0])
+		.setContexts([0, 1])
+		.addSubcommand(subcommand =>
+			subcommand
+				.setName('server')
+				.setDescription('Create an automatically updating dashboard displaying server status')
+				.addStringOption(option =>
+					option.setName('server')
+						.setDescription('Server name')
+						.setRequired(true)
+						.addChoices(servers))
+		)
+		.addSubcommand(subcommand =>
+			subcommand
+				.setName('outfit')
+				.setDescription('Create an automatically updating dashboard displaying outfit status')
+				.addStringOption(option =>
+					option.setName('tag')
+						.setDescription('Outfit tag')
+						.setRequired(true))
+				.addStringOption(option =>
+					option.setName('platform')
+						.setDescription("Which platform is the outfit on?  Defaults to PC")
+						.addChoices(platforms))),
+	new SlashCommandBuilder()
+		.setName('tracker')
+		.setDescription('Create an automatically updating voice channel')
+		.setIntegrationTypes([0])
+		.setContexts([0])
+		.addSubcommand(subcommand =>
+			subcommand
+				.setName('server')
+				.setDescription('Create an automatically updating voice channel displaying server info')
+				.addStringOption(option =>
+					option.setName('server')
+						.setDescription('Server name')
+						.setRequired(true)
+						.addChoices(servers))
+				.addStringOption(option =>
+					option.setName('type')
+						.setDescription('Type of tracker channel')
+						.setRequired(true)
+						.addChoices([
+							{
+								name: 'Population',
+								value: 'population'
+							},
+							{
+								name: 'Continents',
+								value: 'territory'
+							}
+						])
+				)
+		)
+		.addSubcommand(subcommand =>
+			subcommand
+				.setName('outfit')
+				.setDescription('Create an automatically updating voice channel displaying outfit online count')
+				.addStringOption(option =>
+					option.setName('tag')
+						.setDescription('Outfit tag')
+						.setRequired(true))
+				.addStringOption(option =>
+					option.setName('show-faction')
+						.setDescription('Display a faction indicator in channel name? ex: 🟣/🔵/🔴/⚪')
+						.setRequired(true))
+				.addStringOption(option =>
+					option.setName('platform')
+						.setDescription("Which platform is the outfit on?  Defaults to PC")
+						.addChoices(platforms))),
+	new SlashCommandBuilder()
+		.setName('auraxiums')
+		.setDescription('Lookup a list of a character\'s Auraxium medals')
+		.setIntegrationTypes([0, 1])
+		.setContexts([0, 1, 2])
+		.addStringOption(option =>
+			option.setName('name')
+				.setDescription('Character name')
+				.setRequired(true))
+		.addStringOption(option =>
+			option.setName('platform')
+				.setDescription("Which platform is the character on?  Defaults to PC")
+				.addChoices(platforms)),
+	new SlashCommandBuilder()
+		.setName('leaderboard')
+		.setDescription('Lookup current leaderboard')
+		.setIntegrationTypes([0, 1])
+		.setContexts([0, 1, 2])
+		.addStringOption(option =>
+			option.setName('type')
+				.setDescription('Type of leaderboard to look up')
+				.setRequired(true)
+				.addChoices([
 					{
-						name: 'Population',
-						value: 'population'
+						name: 'Kills',
+						value: 'Kills'
 					},
 					{
-						name: 'Continents',
-						value: 'territory'
+						name: 'Score',
+						value: 'Score'
+					},
+					{
+						name: 'Time',
+						value: 'Time'
+					},
+					{
+						name: 'Deaths',
+						value: 'Deaths'
 					}
-				]
-			}]
-			},
-			{
-				name: "outfit",
-				description: "Create an automatically updating voice channel displaying outfit online count",
-				type: 1,
-				options: [{
-					name: 'tag',
-					type: 3,
-					description: 'Outfit tag',
-					required: true
-				},
-				{
-					name: 'show-faction',
-					type: 5,
-					description: 'Display a faction indicator in channel name? ex: 🟣/🔵/🔴/⚪',
-					required: true
-				},
-				{
-					name: 'platform',
-					type: 3,
-					description: "Which platform is the outfit on?  Defaults to PC",
-					required: false,
-					choices: platforms
-				}
-				]
-			}
-		]
-	},
-	{
-		name: 'auraxiums',
-		description: "Lookup a list of a character's Auraxium medals",
-		options: [{
-			name: 'name',
-			type: 3,
-			description: 'Character name',
-			required: true,
-		},
-		{
-			name: 'platform',
-			type: 3,
-			description: "Which platform is the character on?  Defaults to PC",
-			required: false,
-			choices: platforms
-		}]
-	},
-	{
-		name: 'leaderboard',
-		description: "Lookup current leaderboard",
-		options: [{
-			name: 'type',
-			type: 3,
-			description: 'Type of leaderboard to look up',
-			required: true,
-			choices: [{
-				name: 'Kills',
-				value: 'Kills'
-			},
-			{
-				name: 'Score',
-				value: 'Score'
-			},
-			{
-				name: 'Time',
-				value: 'Time'
-			},
-			{
-				name: 'Deaths',
-				value: 'Deaths'
-			}]
-		},
-		{
-			name: 'period',
-			type: 3,
-			description: 'Time period of the leaderboard',
-			required: true,
-			choices: [{
-				name: 'Forever',
-				value: 'Forever'
-			},
-			{
-				name: 'Monthly',
-				value: 'Monthly'
-			},
-			{
-				name: 'Weekly',
-				value: 'Weekly'
-			},
-			{
-				name: 'Daily',
-				value: 'Daily'
-			},
-			{
-				name: 'One Life',
-				value: 'OneLife'
-			}]
-		},
-		{
-			name: 'server',
-			type: 3,
-			description: 'Server name',
-			required: false,
-			choices: servers
-		}]
-	},
-	{
-		name: 'directives',
-		description: "Lookup a list of a character's Auraxium medals",
-		options: [{
-			name: 'name',
-			type: 3,
-			description: 'Character name',
-			required: true,
-		},
-		{
-			name: 'platform',
-			type: 3,
-			description: "Which platform is the character on?  Defaults to PC",
-			required: false,
-			choices: platforms
-		}]
-	},
-	{
-		name: 'vehicle',
-		description: "Lookup a character's stats with a given vehicle",
-		options: [{
-			name: 'name',
-			type: 3,
-			description: 'Character name',
-			required: true,
-		},
-		{
-			name: 'vehicle',
-			type: 3,
-			description: 'Vehicle name',
-			autocomplete: true,
-			required: true,
-		},
-		{
-			name: 'platform',
-			type: 3,
-			description: "Which platform is the character on?  Defaults to PC",
-			required: false,
-			choices: platforms
-		}]
-	},
-	{
-		name: 'owned-implants',
-		description: "Lookup a list of a character's implants",
-		options: [{
-			name: 'name',
-			type: 3,
-			description: 'Character name',
-			required: true,
-		},
-		{
-			name: 'platform',
-			type: 3,
-			description: "Which platform is the character on?  Defaults to PC",
-			required: false,
-			choices: platforms
-		}]
-	},
+				])
+		)
+		.addStringOption(option =>
+			option.setName('period')
+				.setDescription('Time period of the leaderboard')
+				.setRequired(true)
+				.addChoices([
+					{
+						name: 'Forever',
+						value: 'Forever'
+					},
+					{
+						name: 'Monthly',
+						value: 'Monthly'
+					},
+					{
+						name: 'Weekly',
+						value: 'Weekly'
+					},
+					{
+						name: 'Daily',
+						value: 'Daily'
+					},
+					{
+						name: 'One Life',
+						value: 'OneLife'
+					}
+				])
+		)
+		.addStringOption(option =>
+			option.setName('server')
+				.setDescription('Server name')
+				.setRequired(false)
+				.addChoices(servers)),
+	new SlashCommandBuilder()
+		.setName('directives')
+		.setDescription('Lookup a list of a character\'s Auraxium medals')
+		.setIntegrationTypes([0, 1])
+		.setContexts([0, 1, 2])
+		.addStringOption(option =>
+			option.setName('name')
+				.setDescription('Character name')
+				.setRequired(true))
+		.addStringOption(option =>
+			option.setName('platform')
+				.setDescription("Which platform is the character on?  Defaults to PC")
+				.addChoices(platforms)),
+	new SlashCommandBuilder()
+		.setName('vehicle')
+		.setDescription('Lookup a character\'s stats with a given vehicle')
+		.setIntegrationTypes([0, 1])
+		.setContexts([0, 1, 2])
+		.addStringOption(option =>
+			option.setName('name')
+				.setDescription('Character name')
+				.setRequired(true))
+		.addStringOption(option =>
+			option.setName('vehicle')
+				.setDescription('Vehicle name')
+				.setRequired(true)
+				.setAutocomplete(true))
+		.addStringOption(option =>
+			option.setName('platform')
+				.setDescription("Which platform is the character on?  Defaults to PC")
+				.addChoices(platforms)),
+	new SlashCommandBuilder()
+		.setName('owned-implants')
+		.setDescription('Lookup a list of a character\'s implants')
+		.setIntegrationTypes([0, 1])
+		.setContexts([0, 1, 2])
+		.addStringOption(option =>
+			option.setName('name')
+				.setDescription('Character name')
+				.setRequired(true))
+		.addStringOption(option =>
+			option.setName('platform')
+				.setDescription("Which platform is the character on?  Defaults to PC")
+				.addChoices(platforms))
 ]
 
-const rest = new REST({ version: '9'}).setToken(process.env.token);
+const commandsJSON = commands.map(command => command.toJSON());
+
+const rest = new REST().setToken(process.env.token);
 
 (async () => {
-	try{
-		await rest.put(
+	try {
+		console.log('Started refreshing application (/) commands.');
+
+		const data = await rest.put(
 			Routes.applicationCommands(process.env.clientID),
-			{ body: data },
+			{ body: commandsJSON },
 		);
-		console.log('done');
+
+		console.log(`Successfully reloaded ${data.length} application (/) commands.`);
+	} catch (error) {
+		console.error(error);
 	}
-	catch(err){
-		console.log(err)
-	}
-}) ();
+}
+
+)();
