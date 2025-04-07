@@ -7,7 +7,7 @@
  require('dotenv').config();
 
 // Import the discord.js module
-const { Client, GatewayIntentBits, Partials, EmbedBuilder, PermissionFlagsBits, ActivityType } = require('discord.js');
+const { Client, GatewayIntentBits, Partials, EmbedBuilder, PermissionFlagsBits, ActivityType, MessageFlags } = require('discord.js');
 
 //PostgreSQL connection
 const pg = require('pg');
@@ -181,7 +181,7 @@ client.on('interactionCreate', async interaction => {
 				if(characterNames.length > 10){
 					await interaction.reply({
 						content: i18n.__({phrase: "This commands supports a maximum of 10 characters per query", locale: interaction.locale}),
-						ephemeral: true
+						flags: [MessageFlags.Ephemeral]
 					});
 					break;
 				}
@@ -231,7 +231,7 @@ client.on('interactionCreate', async interaction => {
 				if(outfitTags.length > 10){
 					await interaction.reply({
 						content: i18n.__({phrase: "This commands supports a maximum of 10 outfits per query", locale: interaction.locale}),
-						ephemeral: true
+						flags: [MessageFlags.Ephemeral]
 					});
 					break;
 				}
@@ -269,7 +269,7 @@ client.on('interactionCreate', async interaction => {
 				if(onlineTags.length > 10){
 					await interaction.reply({
 						content: i18n.__({phrase: "This commands supports a maximum of 10 outfits per query", locale: interaction.locale}),
-						ephemeral: true
+						flags: [MessageFlags.Ephemeral]
 					});
 					break;
 				}
@@ -303,7 +303,7 @@ client.on('interactionCreate', async interaction => {
 
 			case 'config':
 				if(interaction.inGuild() && !interaction.memberPermissions.has(PermissionFlagsBits.ManageChannels)){
-					await interaction.reply({content: "Manage channel permission required to use this command", ephemeral: true});
+					await interaction.reply({content: "Manage channel permission required to use this command", flags: [MessageFlags.Ephemeral]});
 					return;
 				}
 				await interaction.deferReply();
@@ -346,7 +346,7 @@ client.on('interactionCreate', async interaction => {
 
 			case 'subscribe':
 				if(interaction.inGuild() && !interaction.memberPermissions.has(PermissionFlagsBits.ManageChannels)){
-					await interaction.reply({content: "Manage channel permission required to use this command", ephemeral: true});
+					await interaction.reply({content: "Manage channel permission required to use this command", flags: [MessageFlags.Ephemeral]});
 					return;
 				}
 				await interaction.deferReply();
@@ -382,7 +382,7 @@ client.on('interactionCreate', async interaction => {
 
 			case 'unsubscribe':
 				if(interaction.inGuild() && !interaction.memberPermissions.has(PermissionFlagsBits.ManageChannels)){
-					await interaction.reply({content: "Manage channel permission required to use this command", ephemeral: true});
+					await interaction.reply({content: "Manage channel permission required to use this command", flags: [MessageFlags.Ephemeral]});
 					return;
 				}
 				await interaction.deferReply();
@@ -449,7 +449,7 @@ client.on('interactionCreate', async interaction => {
 
 			case 'weaponsearch':
 				res = await weaponSearch.lookup(options.getString("query"));
-				await interaction.reply({embeds: [res], ephemeral: true});
+				await interaction.reply({embeds: [res], flags: [MessageFlags.Ephemeral]});
 				break;
 
 			case 'implant':
@@ -465,7 +465,7 @@ client.on('interactionCreate', async interaction => {
 
 			case 'dashboard':
 				if(interaction.inGuild() && !interaction.memberPermissions.has(PermissionFlagsBits.ManageChannels)){
-					await interaction.reply({content: "Manage channel permission required to use this command", ephemeral: true});
+					await interaction.reply({content: "Manage channel permission required to use this command", flags: [MessageFlags.Ephemeral]});
 					return;
 				}
 				await interaction.deferReply();
@@ -488,11 +488,11 @@ client.on('interactionCreate', async interaction => {
 
 			case 'tracker':
 				if(interaction.inGuild() && !interaction.memberPermissions.has(PermissionFlagsBits.ManageChannels)){
-					await interaction.reply({content: "Manage channel permission required to use this command", ephemeral: true});
+					await interaction.reply({content: "Manage channel permission required to use this command", flags: [MessageFlags.Ephemeral]});
 					return;
 				}
 				if(interaction.channel.type == 'DM'){
-					await interaction.reply({content: "Cannot create trackers in DMs", ephemeral: true})
+					await interaction.reply({content: "Cannot create trackers in DMs", flags: [MessageFlags.Ephemeral]})
 				}
 				await interaction.deferReply();
 				switch(options.getSubcommand()){
@@ -587,31 +587,31 @@ client.on('interactionCreate', async interaction => {
 			const options = interaction.customId.split('%');
 			switch(options[0]){
 				case 'auraxiums':
-					await interaction.deferReply({ephemeral: true});
+					await interaction.deferReply({flags: [MessageFlags.Ephemeral]});
 					const aurax = await auraxiums.medals(options[1], options[2], true, interaction.locale);
 					await interaction.editReply({embeds: [aurax[0]]});
 					break;
 
 				case 'directives':
-					await interaction.deferReply({ephemeral: true});
+					await interaction.deferReply({flags: [MessageFlags.Ephemeral]});
 					const direc = await directives.directives(options[1], options[2], true);
 					await interaction.editReply({embeds: [direc[0]]});
 					break;
 
 				case 'recentStats':
-					await interaction.deferReply({ephemeral: false});
+					await interaction.deferReply();
 					const recentStats = await character.recentStats(options[2], options[3], options[1], interaction.locale);
 					await interaction.editReply({embeds: [recentStats]});
 					break;
 
 				case 'outfit':
-					await interaction.deferReply({ephemeral: false});
+					await interaction.deferReply();
 					const outfitRes = await outfit.outfit("", options[2], SQLclient, options[1], interaction.locale);
 					await interaction.editReply({embeds: [outfitRes[0]], components: outfitRes[1]});
 					break;
 
 				case 'online':
-					await interaction.deferReply({ephemeral: false});
+					await interaction.deferReply();
 					const onlineRes = await online.online("", options[2], options[1], interaction.locale);
 					await interaction.editReply({embeds: [onlineRes]});
 					break;
@@ -634,7 +634,7 @@ client.on('interactionCreate', async interaction => {
 						await interaction.editReply(i18n.__({phrase: "Error occurred when handling command", locale: interaction.locale}));
 					}
 					else{
-						await interaction.reply({content: i18n.__({phrase: "Error occurred when handling command", locale: interaction.locale}), ephemeral: true});
+						await interaction.reply({content: i18n.__({phrase: "Error occurred when handling command", locale: interaction.locale}), flags: [MessageFlags.Ephemeral]});
 					}
 				}
 				else{
@@ -642,7 +642,7 @@ client.on('interactionCreate', async interaction => {
 						await interaction.editReply(err);
 					}
 					else{
-						await interaction.reply({content: err, ephemeral: true});
+						await interaction.reply({content: err, flags: [MessageFlags.Ephemeral]});
 					}
 				}
 			}
