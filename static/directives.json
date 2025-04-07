@@ -221,19 +221,39 @@
     },
     "95": {
         "name": "Javelin",
-        "image": "93910"
+        "image": "93911"
     },
     "96": {
         "name": "Dervish",
-        "image": "93589"
+        "image": "93608"
     },
     "97": {
         "name": "Chimera",
-        "image": "93577"
+        "image": "93609"
+    },
+    "100": {
+        "name": "Halloween VIII",
+        "image": "80676"
     },
     "102": {
         "name": "Exceptional V",
         "image": "79737"
+    },
+    "103": {
+        "name": "Oshur Dog Tags",
+        "image": "78104"
+    },
+    "104": {
+        "name": "Conquest - Oshur",
+        "image": "79586"
+    },
+    "106": {
+        "name": "Black Market",
+        "image": "84293"
+    },
+    "107": {
+        "name": "Gone Fishing",
+        "image": "84293"
     },
     "109": {
         "name": "Exceptional VI",
@@ -241,6 +261,58 @@
     },
     "113": {
         "name": "Corsair",
-        "image": "95007"
+        "image": "95008"
+    },
+    "115": {
+        "name": "Exceptional VII",
+        "image": "79737"
+    },
+    "116": {
+        "name": "Halloween 2022",
+        "image": "80676"
+    },
+    "126": {
+        "name": "Halloween 2023",
+        "image": "80676"
+    },
+    "127": {
+        "name": "Exceptional VIII",
+        "image": "79737"
+    },
+    "135": {
+        "name": "Fishing",
+        "image": "97804"
+    },
+    "139": {
+        "name": "Conquest - Indar",
+        "image": "79586"
+    },
+    "140": {
+        "name": "Conquest - Hossin",
+        "image": "79586"
+    },
+    "141": {
+        "name": "Conquest - Amerish",
+        "image": "79586"
+    },
+    "142": {
+        "name": "Conquest - Esamir",
+        "image": "79586"
+    },
+    "143": {
+        "name": "Nanite of the Living Dead 2024",
+        "image": "80676"
+    },
+    "144": {
+        "name": "Fishing",
+        "image": "97804"
+    },
+    "145": {
+        "name": "Exceptional IX",
+        "image": "79737"
+    },
+    "152": {
+        "name": "Fishing Mastery",
+        "image": "97804"
     }
 }
