@@ -134,15 +134,15 @@ module.exports = {
 				name = await territoryName(serverIDs[serverName]);
 			}
 			
-			let newChannel = await guild.channels.create({name: name, type: 'GUILD_VOICE', reason: 'New tracker channel', permissionOverwrites: [
+			let newChannel = await guild.channels.create({name: name, type: ChannelType.GuildVoice, reason: 'New tracker channel', permissionOverwrites: [
 				{
 					id: guild.id,
-					deny: ['CONNECT'],
-					allow: ['VIEW_CHANNEL']
+					deny: [PermissionFlagsBits.Connect],
+					allow: [PermissionFlagsBits.ViewChannel]
 				},
 				{
 					id: discordClient.user.id,
-					allow: ['CONNECT', 'MANAGE_CHANNELS', 'VIEW_CHANNEL']
+					allow: [PermissionFlagsBits.Connect, PermissionFlagsBits.ManageChannels, PermissionFlagsBits.ViewChannel]
 				}
 			]});
 
