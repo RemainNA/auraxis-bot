@@ -45,10 +45,6 @@ const serversNoJaeger = [
 		value: "miller"
 	},
 	{
-		name: "Cobalt",
-		value: "cobalt"
-	},
-	{
 		name: "Emerald",
 		value: "emerald"
 	},

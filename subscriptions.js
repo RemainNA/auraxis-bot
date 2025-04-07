@@ -23,8 +23,6 @@ const standardizeName = function(server){
             return "Connery";
         case "miller":
             return "Miller";
-        case "cobalt":
-            return "Cobalt";
         case "emerald":
             return "Emerald";
         case "jaeger":

@@ -121,7 +121,6 @@ CREATE TABLE IF NOT EXISTS openContinents(
 
 INSERT INTO opencontinents (world) VALUES ('connery');
 INSERT INTO opencontinents (world) VALUES ('miller');
-INSERT INTO opencontinents (world) VALUES ('cobalt');
 INSERT INTO opencontinents (world) VALUES ('emerald');
 INSERT INTO opencontinents (world) VALUES ('jaeger');
 INSERT INTO opencontinents (world) VALUES ('soltech');

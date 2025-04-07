@@ -12,7 +12,6 @@ const {fetch} = require('undici');
 const servers = [
 	"connery",
     "miller",
-    "cobalt",
     "emerald",
 	"jaeger",
     "soltech",
@@ -50,7 +49,6 @@ const continents = [
 const serverNames = {
 	1: "Connery",
 	10: "Miller",
-	13: "Cobalt",
 	17: "Emerald",
 	19: "Jaeger",
 	40: "SolTech",
@@ -64,7 +62,6 @@ const serverNames = {
 const serverIDs = {
     "connery": 1,
     "miller": 10,
-    "cobalt": 13,
     "emerald": 17,
     "jaeger": 19,
     "soltech": 40,

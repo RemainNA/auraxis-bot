@@ -21,7 +21,6 @@ async function info(){
 	const status = {
 		'Connery': 'Unknown',
 		'Miller': 'Unknown',
-		'Cobalt': 'Unknown',
 		'Emerald': 'Unknown',
 		'SolTech': 'Unknown',
 		'Jaeger': 'Unknown',
