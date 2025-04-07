@@ -2464,6 +2464,26 @@
         "name": "Lightning Grenade",
         "sanction": "none"
     },
+    "6015932": {
+        "category": "Grenade",
+        "name": "Love Bomber Frag Grenade",
+        "sanction": "none"
+    },
+    "6015935": {
+        "category": "Grenade",
+        "name": "Love Bomber Frag Grenade",
+        "sanction": "none"
+    },
+    "6015936": {
+        "category": "Grenade",
+        "name": "Love Bomber Frag Grenade",
+        "sanction": "none"
+    },
+    "6015937": {
+        "category": "Grenade",
+        "name": "Love Bomber Frag Grenade",
+        "sanction": "none"
+    },
     "884": {
         "category": "Grenade",
         "name": "Nanite Revive Grenade",
@@ -2897,6 +2917,11 @@
     "6015169": {
         "category": "Heavy Weapon",
         "name": "NS-D \"Doombringer\" Helios",
+        "sanction": "none"
+    },
+    "6015793": {
+        "category": "Heavy Weapon",
+        "name": "NS-D \"Ice Dragon\" Helios",
         "sanction": "none"
     },
     "6014957": {
@@ -3579,6 +3604,246 @@
         "name": "Durability Module",
         "sanction": "none"
     },
+    "6015682": {
+        "category": "Infantry Abilities",
+        "name": "EL Medical Applicator 1",
+        "sanction": "none"
+    },
+    "6015683": {
+        "category": "Infantry Abilities",
+        "name": "EL Medical Applicator 1",
+        "sanction": "none"
+    },
+    "6015684": {
+        "category": "Infantry Abilities",
+        "name": "EL Medical Applicator 1",
+        "sanction": "none"
+    },
+    "6015685": {
+        "category": "Infantry Abilities",
+        "name": "EL Medical Applicator 1",
+        "sanction": "none"
+    },
+    "6015686": {
+        "category": "Infantry Abilities",
+        "name": "EL Medical Applicator 2",
+        "sanction": "none"
+    },
+    "6015687": {
+        "category": "Infantry Abilities",
+        "name": "EL Medical Applicator 2",
+        "sanction": "none"
+    },
+    "6015688": {
+        "category": "Infantry Abilities",
+        "name": "EL Medical Applicator 2",
+        "sanction": "none"
+    },
+    "6015689": {
+        "category": "Infantry Abilities",
+        "name": "EL Medical Applicator 2",
+        "sanction": "none"
+    },
+    "6015690": {
+        "category": "Infantry Abilities",
+        "name": "EL Medical Applicator 3",
+        "sanction": "none"
+    },
+    "6015691": {
+        "category": "Infantry Abilities",
+        "name": "EL Medical Applicator 3",
+        "sanction": "none"
+    },
+    "6015692": {
+        "category": "Infantry Abilities",
+        "name": "EL Medical Applicator 3",
+        "sanction": "none"
+    },
+    "6015693": {
+        "category": "Infantry Abilities",
+        "name": "EL Medical Applicator 3",
+        "sanction": "none"
+    },
+    "6015694": {
+        "category": "Infantry Abilities",
+        "name": "EL Medical Applicator 4",
+        "sanction": "none"
+    },
+    "6015695": {
+        "category": "Infantry Abilities",
+        "name": "EL Medical Applicator 4",
+        "sanction": "none"
+    },
+    "6015696": {
+        "category": "Infantry Abilities",
+        "name": "EL Medical Applicator 4",
+        "sanction": "none"
+    },
+    "6015697": {
+        "category": "Infantry Abilities",
+        "name": "EL Medical Applicator 4",
+        "sanction": "none"
+    },
+    "6015698": {
+        "category": "Infantry Abilities",
+        "name": "EL Medical Applicator 5",
+        "sanction": "none"
+    },
+    "6015699": {
+        "category": "Infantry Abilities",
+        "name": "EL Medical Applicator 5",
+        "sanction": "none"
+    },
+    "6015700": {
+        "category": "Infantry Abilities",
+        "name": "EL Medical Applicator 5",
+        "sanction": "none"
+    },
+    "6015701": {
+        "category": "Infantry Abilities",
+        "name": "EL Medical Applicator 5",
+        "sanction": "none"
+    },
+    "6015702": {
+        "category": "Infantry Abilities",
+        "name": "EL Medical Applicator 6",
+        "sanction": "none"
+    },
+    "6015703": {
+        "category": "Infantry Abilities",
+        "name": "EL Medical Applicator 6",
+        "sanction": "none"
+    },
+    "6015704": {
+        "category": "Infantry Abilities",
+        "name": "EL Medical Applicator 6",
+        "sanction": "none"
+    },
+    "6015705": {
+        "category": "Infantry Abilities",
+        "name": "EL Medical Applicator 6",
+        "sanction": "none"
+    },
+    "6015714": {
+        "category": "Infantry Abilities",
+        "name": "EL Nano-Armor Kit 1",
+        "sanction": "none"
+    },
+    "6015715": {
+        "category": "Infantry Abilities",
+        "name": "EL Nano-Armor Kit 1",
+        "sanction": "none"
+    },
+    "6015716": {
+        "category": "Infantry Abilities",
+        "name": "EL Nano-Armor Kit 1",
+        "sanction": "none"
+    },
+    "6015717": {
+        "category": "Infantry Abilities",
+        "name": "EL Nano-Armor Kit 1",
+        "sanction": "none"
+    },
+    "6015718": {
+        "category": "Infantry Abilities",
+        "name": "EL Nano-Armor Kit 2",
+        "sanction": "none"
+    },
+    "6015719": {
+        "category": "Infantry Abilities",
+        "name": "EL Nano-Armor Kit 2",
+        "sanction": "none"
+    },
+    "6015720": {
+        "category": "Infantry Abilities",
+        "name": "EL Nano-Armor Kit 2",
+        "sanction": "none"
+    },
+    "6015721": {
+        "category": "Infantry Abilities",
+        "name": "EL Nano-Armor Kit 2",
+        "sanction": "none"
+    },
+    "6015722": {
+        "category": "Infantry Abilities",
+        "name": "EL Nano-Armor Kit 3",
+        "sanction": "none"
+    },
+    "6015723": {
+        "category": "Infantry Abilities",
+        "name": "EL Nano-Armor Kit 3",
+        "sanction": "none"
+    },
+    "6015724": {
+        "category": "Infantry Abilities",
+        "name": "EL Nano-Armor Kit 3",
+        "sanction": "none"
+    },
+    "6015725": {
+        "category": "Infantry Abilities",
+        "name": "EL Nano-Armor Kit 3",
+        "sanction": "none"
+    },
+    "6015726": {
+        "category": "Infantry Abilities",
+        "name": "EL Nano-Armor Kit 4",
+        "sanction": "none"
+    },
+    "6015727": {
+        "category": "Infantry Abilities",
+        "name": "EL Nano-Armor Kit 4",
+        "sanction": "none"
+    },
+    "6015728": {
+        "category": "Infantry Abilities",
+        "name": "EL Nano-Armor Kit 4",
+        "sanction": "none"
+    },
+    "6015729": {
+        "category": "Infantry Abilities",
+        "name": "EL Nano-Armor Kit 4",
+        "sanction": "none"
+    },
+    "6015730": {
+        "category": "Infantry Abilities",
+        "name": "EL Nano-Armor Kit 5",
+        "sanction": "none"
+    },
+    "6015731": {
+        "category": "Infantry Abilities",
+        "name": "EL Nano-Armor Kit 5",
+        "sanction": "none"
+    },
+    "6015732": {
+        "category": "Infantry Abilities",
+        "name": "EL Nano-Armor Kit 5",
+        "sanction": "none"
+    },
+    "6015733": {
+        "category": "Infantry Abilities",
+        "name": "EL Nano-Armor Kit 5",
+        "sanction": "none"
+    },
+    "6015734": {
+        "category": "Infantry Abilities",
+        "name": "EL Nano-Armor Kit 6",
+        "sanction": "none"
+    },
+    "6015735": {
+        "category": "Infantry Abilities",
+        "name": "EL Nano-Armor Kit 6",
+        "sanction": "none"
+    },
+    "6015736": {
+        "category": "Infantry Abilities",
+        "name": "EL Nano-Armor Kit 6",
+        "sanction": "none"
+    },
+    "6015737": {
+        "category": "Infantry Abilities",
+        "name": "EL Nano-Armor Kit 6",
+        "sanction": "none"
+    },
     "6009753": {
         "category": "Infantry Abilities",
         "name": "Elysium Refinery",
@@ -4215,6 +4480,26 @@
         "sanction": "none"
     },
     "6005217": {
+        "category": "Infantry Abilities",
+        "name": "Nano-Armor Kit 1",
+        "sanction": "none"
+    },
+    "6015710": {
+        "category": "Infantry Abilities",
+        "name": "Nano-Armor Kit 1",
+        "sanction": "none"
+    },
+    "6015711": {
+        "category": "Infantry Abilities",
+        "name": "Nano-Armor Kit 1",
+        "sanction": "none"
+    },
+    "6015712": {
+        "category": "Infantry Abilities",
+        "name": "Nano-Armor Kit 1",
+        "sanction": "none"
+    },
+    "6015713": {
         "category": "Infantry Abilities",
         "name": "Nano-Armor Kit 1",
         "sanction": "none"
@@ -5339,6 +5624,11 @@
         "name": "Ancient Psykinetic Blade",
         "sanction": "none"
     },
+    "6015789": {
+        "category": "Knife",
+        "name": "Anunnaki Blade",
+        "sanction": "none"
+    },
     "800625": {
         "category": "Knife",
         "name": "Auraxium Chainblade",
@@ -5414,6 +5704,11 @@
         "name": "Force-Blade",
         "sanction": "none"
     },
+    "6015792": {
+        "category": "Knife",
+        "name": "GM Osprey",
+        "sanction": "none"
+    },
     "6011455": {
         "category": "Knife",
         "name": "Guillotine",
@@ -5427,6 +5722,11 @@
     "802315": {
         "category": "Knife",
         "name": "Hexedge",
+        "sanction": "none"
+    },
+    "6015746": {
+        "category": "Knife",
+        "name": "Iceberg Knife",
         "sanction": "none"
     },
     "802584": {
@@ -5539,6 +5839,21 @@
         "name": "NS Icebreaker",
         "sanction": "none"
     },
+    "6015923": {
+        "category": "Knife",
+        "name": "NS \"Primed Amethyst\" Shard",
+        "sanction": "none"
+    },
+    "6015922": {
+        "category": "Knife",
+        "name": "NS \"Primed Diamond\" Shard",
+        "sanction": "none"
+    },
+    "6015921": {
+        "category": "Knife",
+        "name": "NS \"Primed Ruby\" Shard",
+        "sanction": "none"
+    },
     "6012441": {
         "category": "Knife",
         "name": "NS SQU-34K",
@@ -5557,6 +5872,11 @@
     "6005664": {
         "category": "Knife",
         "name": "NS-G Commando",
+        "sanction": "none"
+    },
+    "6015844": {
+        "category": "Knife",
+        "name": "NS-T Skeleton Key",
         "sanction": "none"
     },
     "804113": {
@@ -5619,9 +5939,24 @@
         "name": "Trench Shovel",
         "sanction": "none"
     },
+    "6015790": {
+        "category": "Knife",
+        "name": "VEX-B Proto Data Point",
+        "sanction": "none"
+    },
     "6014780": {
         "category": "Knife",
         "name": "Wavestinger Harpoon",
+        "sanction": "none"
+    },
+    "6015791": {
+        "category": "Knife",
+        "name": "WMC Inquirer",
+        "sanction": "none"
+    },
+    "6015990": {
+        "category": "Knife",
+        "name": "Wrench Knife",
         "sanction": "none"
     },
     "6011914": {
