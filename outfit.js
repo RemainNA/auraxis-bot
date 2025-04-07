@@ -222,7 +222,7 @@ module.exports = {
 		const oInfo = await basicInfo(oTag, platform, oID);
 		const oBases = await ownedBases(oInfo.outfitID, oInfo.worldId, pgClient);
 
-		let resEmbed = new Discord.MessageEmbed();
+		let resEmbed = new Discord.EmbedBuilder();
 
 		resEmbed.setTitle(oInfo.name);
 		resEmbed.setThumbnail(`https://www.outfit-tracker.com/outfit-logo/${oInfo.outfitID}.png`);
@@ -261,10 +261,10 @@ module.exports = {
 			)
 		}
 
-		const row = new Discord.MessageActionRow();
+		const row = new Discord.ActionRowBuilder();
 		row.addComponents(
-			new Discord.MessageButton()
-				.setStyle('PRIMARY')
+			new Discord.ButtonBuilder()
+				.setStyle(Discord.ButtonStyle.Primary)
 				.setLabel(i18n.__({phrase: 'View online', locale: locale}))
 				.setCustomId(`online%${oInfo.outfitID}%${platform}`)
 		);
@@ -272,22 +272,22 @@ module.exports = {
 			const now = Math.round(Date.now() / 1000);
 
 			row.addComponents(
-				new Discord.MessageButton()
-					.setStyle('LINK')
+				new Discord.ButtonBuilder()
+					.setStyle(Discord.ButtonStyle.Link)
 					.setURL(generateReport([oInfo.outfitID], now-3600, now))
 					.setLabel(i18n.__({phrase: 'Past 1 hour report', locale: locale})),
-				new Discord.MessageButton()
-					.setStyle('LINK')
+				new Discord.ButtonBuilder()
+					.setStyle(Discord.ButtonStyle.Link)
 					.setURL(generateReport([oInfo.outfitID], now-7200, now))
 					.setLabel(i18n.__({phrase: 'Past 2 hour report', locale: locale}))
 			);
 			if(oInfo.alias != ""){
 				if(platform == 'ps2:v2'){
 					row.addComponents(
-						new Discord.MessageButton()
+						new Discord.ButtonBuilder()
 							.setURL(`https://ps2.fisu.pw/outfit/?name=${oInfo.alias}`)
 							.setLabel(i18n.__({phrase: 'fisuLink', locale: locale}))
-							.setStyle('LINK')
+							.setStyle(Discord.ButtonStyle.Link)
 					);
 				}
 			}

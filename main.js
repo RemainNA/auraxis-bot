@@ -7,7 +7,7 @@
  require('dotenv').config();
 
 // Import the discord.js module
-const Discord = require('discord.js');
+const { Client, GatewayIntentBits, Partials, EmbedBuilder, PermissionFlagsBits, ActivityType } = require('discord.js');
 
 //PostgreSQL connection
 const pg = require('pg');
@@ -61,12 +61,12 @@ if(typeof(process.env.DATABASE_URL) !== 'undefined'){
 }
 
 const intentsList = [
-	Discord.Intents.FLAGS.GUILD_MESSAGES,
-	Discord.Intents.FLAGS.DIRECT_MESSAGES,
-	Discord.Intents.FLAGS.GUILDS
+	GatewayIntentBits.GuildMessages,
+	GatewayIntentBits.DirectMessages,
+	GatewayIntentBits.Guilds
 ]
 
-const client = new Discord.Client({intents: intentsList, allowedMentions: {parse: ['roles']}, partials: ['CHANNEL']});
+const client = new Client({intents: intentsList, allowedMentions: {parse: ['roles']}, partials: [Partials.Channel]});
 
 // https://discordapp.com/developers/applications/me
 const token = process.env.token;
@@ -109,7 +109,7 @@ client.on('ready', async () => {
 		}, 600000) //Update trackers every 10 minutes
 	}
 
-	client.user.setActivity('/help');
+	client.user.setActivity({name: '/help', type: ActivityType.Custom});
 });
 
 const listOfCommands = 
@@ -158,9 +158,9 @@ client.on('interactionCreate', async interaction => {
 
 			case 'help':
 				const locale = interaction.locale;
-				let helpEmbed = new Discord.MessageEmbed();
+				let helpEmbed = new EmbedBuilder();
 				helpEmbed.setTitle("Auraxis bot");
-				helpEmbed.setColor("BLUE");
+				helpEmbed.setColor("Blue");
 				const links = `\
 				\n[${i18n.__({phrase: "GitHub page & FAQ", locale: locale})}](https://github.com/RemainNA/auraxis-bot)\
 				\n[${i18n.__({phrase: "Support server", locale: locale})}](https://discord.gg/Kf5P6Ut)\
@@ -302,7 +302,7 @@ client.on('interactionCreate', async interaction => {
 				break;
 
 			case 'config':
-				if(interaction.inGuild() && !interaction.memberPermissions.has("MANAGE_CHANNELS")){
+				if(interaction.inGuild() && !interaction.memberPermissions.has(PermissionFlagsBits.ManageChannels)){
 					await interaction.reply({content: "Manage channel permission required to use this command", ephemeral: true});
 					return;
 				}
@@ -345,7 +345,7 @@ client.on('interactionCreate', async interaction => {
 				break;
 
 			case 'subscribe':
-				if(interaction.inGuild() && !interaction.memberPermissions.has("MANAGE_CHANNELS")){
+				if(interaction.inGuild() && !interaction.memberPermissions.has(PermissionFlagsBits.ManageChannels)){
 					await interaction.reply({content: "Manage channel permission required to use this command", ephemeral: true});
 					return;
 				}
@@ -381,7 +381,7 @@ client.on('interactionCreate', async interaction => {
 				break;
 
 			case 'unsubscribe':
-				if(interaction.inGuild() && !interaction.memberPermissions.has("MANAGE_CHANNELS")){
+				if(interaction.inGuild() && !interaction.memberPermissions.has(PermissionFlagsBits.ManageChannels)){
 					await interaction.reply({content: "Manage channel permission required to use this command", ephemeral: true});
 					return;
 				}
@@ -464,7 +464,7 @@ client.on('interactionCreate', async interaction => {
 				break;
 
 			case 'dashboard':
-				if(interaction.inGuild() && !interaction.memberPermissions.has("MANAGE_CHANNELS")){
+				if(interaction.inGuild() && !interaction.memberPermissions.has(PermissionFlagsBits.ManageChannels)){
 					await interaction.reply({content: "Manage channel permission required to use this command", ephemeral: true});
 					return;
 				}
@@ -487,7 +487,7 @@ client.on('interactionCreate', async interaction => {
 				break;
 
 			case 'tracker':
-				if(interaction.inGuild() && !interaction.memberPermissions.has("MANAGE_CHANNELS")){
+				if(interaction.inGuild() && !interaction.memberPermissions.has(PermissionFlagsBits.ManageChannels)){
 					await interaction.reply({content: "Manage channel permission required to use this command", ephemeral: true});
 					return;
 				}

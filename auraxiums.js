@@ -85,7 +85,7 @@ module.exports = {
 	medals: async function(cName, platform, expanded=false, locale='en-US'){
 		const medalList = await getAuraxiumList(cName.toLowerCase(), platform, locale);
 
-		let resEmbed = new Discord.MessageEmbed();
+		let resEmbed = new Discord.EmbedBuilder();
 		resEmbed.setTitle(i18n.__mf({phrase: "{name} Auraxiums", locale: locale}, {name: medalList.name}));
 		let textList = "**" + i18n.__mf({phrase: "auraxiumMedalCount", locale: locale}, {num: medalList.medals.length}) + "**\n";
 		let remaining = medalList.medals.length + medalList.possibleMedals.length;
@@ -177,12 +177,12 @@ module.exports = {
 		resEmbed.setThumbnail('https://census.daybreakgames.com/files/ps2/images/static/3068.png');
 		resEmbed.setURL(characterLink(medalList.name, medalList.id, platform, "weapons"));
 		if(remaining > 0){
-			const row = new Discord.MessageActionRow()
+			const row = new Discord.ActionRowBuilder()
 			row.addComponents(
-				new Discord.MessageButton()
+				new Discord.ButtonBuilder()
 					.setCustomId(`auraxiums%${medalList.name}%${platform}`)
 					.setLabel(i18n.__({phrase: "View all", locale: locale}))
-					.setStyle('PRIMARY')
+					.setStyle(Discord.ButtonStyle.Primary)
 			);
 			return [resEmbed, [row]];
 		}

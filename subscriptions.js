@@ -9,7 +9,7 @@
 
 const config = require('./subscriptionConfig.js');
 const { censusRequest, badQuery, faction } = require('./utils.js')
-const { Permissions } = require('discord.js');
+const { PermissionFlagsBits } = require('discord.js');
 const i18n = require('i18n');
 
 /**
@@ -308,7 +308,7 @@ module.exports = {
         if(channel.isThread()){
             channel = interaction.channel.parent;
         }
-        if(!await channel.permissionsFor(user).has([Permissions.FLAGS.VIEW_CHANNEL, Permissions.FLAGS.SEND_MESSAGES])){
+        if(!await channel.permissionsFor(user).has([PermissionFlagsBits.ViewChannel, PermissionFlagsBits.SendMessages])){
             await interaction.followUp({
                 content: i18n.__({phrase: "insufficientPermissions", locale: locale})
             });

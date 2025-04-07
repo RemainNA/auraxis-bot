@@ -7,7 +7,7 @@
  * @typedef {import('discord.js').Client} discord.Client
  */
 
-const {MessageEmbed, Permissions} = require('discord.js');
+const {EmbedBuilder, PermissionFlagsBits} = require('discord.js');
 const messageHandler = require('./messageHandler.js');
 const subscriptions = require('./subscriptions.js');
 const config = require('./subscriptionConfig.js');
@@ -55,7 +55,7 @@ const logEvent = async function(payload, environment, pgClient, discordClient){
             throw `Error in logEvent: ${error}`;
         }
         if (result.rows.length > 0){
-            let sendEmbed = new MessageEmbed();
+            let sendEmbed = new EmbedBuilder();
             sendEmbed.setTitle(result.rows[0].alias+' '+playerEvent);
             sendEmbed.setDescription(char.name.first);
             sendEmbed.setColor(faction(char.faction_id).color);
@@ -63,7 +63,7 @@ const logEvent = async function(payload, environment, pgClient, discordClient){
                 discordClient.channels.fetch(row.channel)
                     .then(resChann => {
                         if(typeof(resChann.guild) !== 'undefined'){
-                            if(resChann.permissionsFor(resChann.guild.members.me).has([Permissions.FLAGS.SEND_MESSAGES, Permissions.FLAGS.VIEW_CHANNEL, Permissions.FLAGS.EMBED_LINKS])){
+                            if(resChann.permissionsFor(resChann.guild.members.me).has([PermissionFlagsBits.SendMessages, PermissionFlagsBits.ViewChannel, PermissionFlagsBits.EmbedLinks])){
                                 messageHandler.send(resChann, {embeds: [sendEmbed]}, "Log event")
                                 .then(messageId => {
                                     if(messageId != -1 && row.autodelete == true){
@@ -189,7 +189,7 @@ const alertEvent = async function(payload, environment, pgClient, discordClient)
         let server = serverNames[payload.world_id];
         let response = await alertInfo(payload, environment);
         if(typeof(response.name) != undefined && response.name){
-            let sendEmbed = new MessageEmbed();
+            let sendEmbed = new EmbedBuilder();
             sendEmbed.setTitle(response.name);
             if(trackedAlerts.indexOf(Number(payload.metagame_event_id)) == -1){
                 sendEmbed.setDescription(response.description);
@@ -199,13 +199,13 @@ const alertEvent = async function(payload, environment, pgClient, discordClient)
             }
             sendEmbed.setTimestamp();
             if (response.name.includes('Enlightenment')){
-                sendEmbed.setColor('PURPLE');
+                sendEmbed.setColor('Purple');
             }
             else if (response.name.includes('Liberation')){
-                sendEmbed.setColor('BLUE');
+                sendEmbed.setColor('Blue');
             }
             else if (response.name.includes('Superiority')){
-                sendEmbed.setColor('RED');
+                sendEmbed.setColor('Red');
             }
             sendEmbed.addFields(
                 {name: 'Server', value: server, inline: true},
@@ -282,7 +282,7 @@ const alertEvent = async function(payload, environment, pgClient, discordClient)
                 discordClient.channels.fetch(row.channel)
                     .then(resChann => {
                         if(typeof(resChann.guild) !== 'undefined'){
-                            if(resChann.permissionsFor(resChann.guild.members.me).has([Permissions.FLAGS.SEND_MESSAGES, Permissions.FLAGS.VIEW_CHANNEL, Permissions.FLAGS.EMBED_LINKS])){
+                            if(resChann.permissionsFor(resChann.guild.members.me).has([PermissionFlagsBits.SendMessages, PermissionFlagsBits.ViewChannel, PermissionFlagsBits.EmbedLinks])){
                                 messageHandler.send(resChann, {embeds: [sendEmbed]}, "Alert notification")
                                 .then(messageId => {
                                     if(messageId != -1 && trackedAlerts.indexOf(Number(payload.metagame_event_id)) > -1){
@@ -403,7 +403,7 @@ const baseEvent = async function(payload, environment, pgClient, discordClient){
     //check if outfit is in db, construct and send info w/ facility id
     let result = await pgClient.query("SELECT * FROM outfitcaptures WHERE id=$1 AND platform = $2;", [payload.outfit_id, platform]);
     if(result.rowCount > 0){
-        let sendEmbed = new MessageEmbed();
+        let sendEmbed = new EmbedBuilder();
         let base = await baseInfo(payload.facility_id, environment);
         sendEmbed.setTitle("["+result.rows[0].alias+"] "+result.rows[0].name+' captured '+base.name);
         sendEmbed.setTimestamp();
@@ -440,7 +440,7 @@ const baseEvent = async function(payload, environment, pgClient, discordClient){
         for (let row of result.rows){
             discordClient.channels.fetch(row.channel).then(resChann => {
                 if(typeof(resChann.guild) !== 'undefined'){
-                    if(resChann.permissionsFor(resChann.guild.members.me).has([Permissions.FLAGS.SEND_MESSAGES, Permissions.FLAGS.VIEW_CHANNEL, Permissions.FLAGS.EMBED_LINKS])){
+                    if(resChann.permissionsFor(resChann.guild.members.me).has([PermissionFlagsBits.SendMessages, PermissionFlagsBits.ViewChannel, PermissionFlagsBits.EmbedLinks])){
                         messageHandler.send(resChann, {embeds: [sendEmbed]}, "Base capture event");
                     }
                     else{

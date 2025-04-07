@@ -67,7 +67,7 @@ module.exports = {
 		
 		const iInfo = await implantInfo(name);
 
-		const resEmbed = new Discord.MessageEmbed();
+		const resEmbed = new Discord.EmbedBuilder();
 		resEmbed.setTitle(iInfo.name);
 		resEmbed.setThumbnail(`http://census.daybreakgames.com/files/ps2/images/static/${iInfo.image}.png`);
 		if(iInfo.craft !== undefined){

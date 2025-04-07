@@ -61,7 +61,7 @@ module.exports = {
 				return "This channel currently has no subscriptions";
 			}
 			let row = res.rows[0];
-			let resEmbed = new Discord.MessageEmbed();
+			let resEmbed = new Discord.EmbedBuilder();
 			resEmbed.setTitle("Subscription config");
 			let alertStatus = "NB: If this channel is not subscribed to alerts you can ignore the following two sections\n";
 			alertStatus += getAlertStatus("Koltyr", row.koltyr)+"\n";
@@ -97,7 +97,7 @@ module.exports = {
 			else{
 				resEmbed.addFields({name: "Auto Delete", value: ":x: Alert and outfit activity notifications are not automatically deleted"});
 			}
-			resEmbed.setColor("BLUE");
+			resEmbed.setColor("Blue");
 			return resEmbed;
 		}
 		catch(err){

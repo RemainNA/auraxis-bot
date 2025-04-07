@@ -2,6 +2,9 @@
  * This file defines methods for sending messages to subscribed channels, and handles errors that occur in that process.
  * @module messageHandler
  */
+
+const {PermissionFlagsBits} = require('discord.js');
+
 /**
  * @typedef {import('discord.js').TextBasedChannel} discord.Channel
  */
@@ -15,7 +18,7 @@ module.exports = {
      * @returns the ID of the message sent. If the bot does not have permission will return -1
      */
     send: async function(channel, message, context="default", embed=false){
-        if(embed && channel.type != 'DM' && !channel.permissionsFor(channel.guild.members.me).has('EMBED_LINKS')){
+        if(embed && channel.type != 'DM' && !channel.permissionsFor(channel.guild.members.me).has(PermissionFlagsBits.EmbedLinks)){
             try {
                 await channel.send('Please grant the "Embed Links" permission to use this command');
             }

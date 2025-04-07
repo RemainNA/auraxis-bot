@@ -5,11 +5,11 @@
 /**
  * @typedef {import('pg').Client} pg.Client
  * @typedef {import('discord.js').Client} discord.Client
- * @typedef {import('discord.js').MessageEmbed} discord.MessageEmbed
+ * @typedef {import('discord.js').EmbedBuilder} discord.EmbedBuilder
  * @typedef {import('discord.js').TextBasedChannel} discord.Channel
 */
 
-const {MessageEmbed} = require('discord.js');
+const {EmbedBuilder} = require('discord.js');
 const messageHandler = require('./messageHandler.js');
 const {getPopulation} = require('./population.js');
 const {alertInfo, popLevels} = require('./alerts.js');
@@ -26,7 +26,7 @@ const {serverNames, serverIDs, servers, continents, continentNames, faction, loc
  * @returns the server dashboard embed
  */
 const serverStatus = async function(serverID, pgClient, population=undefined){
-	let resEmbed = new MessageEmbed();
+	let resEmbed = new EmbedBuilder();
 	resEmbed.setTitle(`${serverNames[serverID]} Dashboard`);
 
 	// Population
@@ -112,7 +112,7 @@ const serverStatus = async function(serverID, pgClient, population=undefined){
 	}
 	resEmbed.setTimestamp();
 	resEmbed.setFooter({text: "Updated every 5 minutes • Population from wt.honu.pw • Alerts from PS2Alerts"});
-	resEmbed.setColor("BLUE");
+	resEmbed.setColor("Blue");
 
 	return resEmbed;
 }
@@ -126,7 +126,7 @@ const serverStatus = async function(serverID, pgClient, population=undefined){
  */
 const outfitStatus = async function(outfitID, platform, pgClient){
 	const oInfo = await onlineInfo("", platform, outfitID);
-	let resEmbed = new MessageEmbed();
+	let resEmbed = new EmbedBuilder();
 	if(oInfo.alias != ""){
 		resEmbed.setTitle(`[${oInfo.alias}] ${oInfo.name}`);
 		resEmbed.setURL(outfitLink(oInfo.alias, oInfo.outfitID, platform));
@@ -180,7 +180,7 @@ const outfitStatus = async function(outfitID, platform, pgClient){
  * Edit dashboard embeds with new data
  * @param {string} channelID - The channel ID where the current dashboard is
  * @param {string} messageID - The message ID of the current dashboard
- * @param {discord.MessageEmbed} newDash - The new dashboard
+ * @param {discord.EmbedBuilder} newDash - The new dashboard
  * @param {pg.Client} pgClient = The postgres client
  * @param {discord.Client} discordClient - The discord client 
  */

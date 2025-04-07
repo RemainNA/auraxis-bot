@@ -29,19 +29,19 @@ const winnerFaction = {
  * @throws if error retrieving territory control for an alert
  */
 async function updateAlert(info, pgClient, discordClient, isComplete){
-	const messageEmbed = new Discord.MessageEmbed();
+	const messageEmbed = new Discord.EmbedBuilder();
 	messageEmbed.setTimestamp();
 	messageEmbed.setFooter({text: info.honuId ? "Data from wt.honu.pw" : "Data from ps2alerts.com & wt.honu.pw"});
 	const alertName = alerts[info.censusMetagameEventType].name;
 	messageEmbed.setTitle(alertName);
 	if (alertName.includes('Enlightenment')){
-		messageEmbed.setColor('PURPLE');
+		messageEmbed.setColor('Purple');
 	}
 	else if (alertName.includes('Liberation')){
-		messageEmbed.setColor('BLUE');
+		messageEmbed.setColor('Blue');
 	}
 	else if (alertName.includes('Superiority')){
-		messageEmbed.setColor('RED');
+		messageEmbed.setColor('Red');
 	}
 	messageEmbed.setDescription(`[${alerts[info.censusMetagameEventType].description}](https://ps2alerts.com/alert/${info.instanceId}?utm_source=auraxis-bot&utm_medium=discord&utm_campaign=partners)`);
 	messageEmbed.addFields({name: "Server", value: serverNames[info.world], inline: true});
@@ -103,7 +103,7 @@ async function updateAlert(info, pgClient, discordClient, isComplete){
 
 /**
  * Edits existing alert message with new information
- * @param {Discord.MessageEmbed} embed - embed to replace messageID with
+ * @param {Discord.EmbedBuilder} embed - embed to replace messageID with
  * @param {string} messageId - message id to edit
  * @param {string} channelId - channel id to edit message in
  * @param {Discord.Client} discordClient - discord client
@@ -111,7 +111,7 @@ async function updateAlert(info, pgClient, discordClient, isComplete){
 async function editMessage(embed, messageId, channelId, discordClient){
 	try {
 		const resChann = await discordClient.channels.fetch(channelId);
-		if (['GUILD_TEXT','GUILD_NEWS'].includes(resChann.type) && resChann.permissionsFor(resChann.guild.members.me).has(Discord.Permissions.FLAGS.VIEW_CHANNEL)) {
+		if (['GUILD_TEXT','GUILD_NEWS'].includes(resChann.type) && resChann.permissionsFor(resChann.guild.members.me).has(Discord.PermissionFlagsBits.ViewChannel)) {
 			const resMsg = await resChann.messages.fetch(messageId);
 			await resMsg.edit({embeds: [embed]});
 		}

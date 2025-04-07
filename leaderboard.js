@@ -43,7 +43,7 @@ module.exports = {
 		}
 		const data = await censusRequest(platform, 'leaderboard_list', constructExtension(name, period, serverIDs[server], limit));
 
-		let resEmbed = new Discord.MessageEmbed();
+		let resEmbed = new Discord.EmbedBuilder();
 		if(server == undefined){
 			resEmbed.setTitle(i18n.__mf({phrase: "{period} {type} leaderboard", locale: locale}, 
 			{period: i18n.__({phrase: period, locale: locale}), type: i18n.__({phrase: name, locale: locale})}));

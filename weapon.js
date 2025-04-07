@@ -114,7 +114,7 @@ module.exports = {
 
 		let wInfo = await weaponInfo(name);
 		
-		let resEmbed = new Discord.MessageEmbed();
+		let resEmbed = new Discord.EmbedBuilder();
 
 		resEmbed.setTitle(wInfo.name);
 		wInfo.image_id != -1 && resEmbed.setThumbnail('http://census.daybreakgames.com/files/ps2/images/static/'+wInfo.image_id+'.png');
@@ -333,11 +333,11 @@ module.exports = {
 		resEmbed.setDescription(wInfo.description);
 		resEmbed.setFooter({text: i18n.__({phrase: "Weapon ID", locale: locale})+": "+wInfo.id});
 
-		const row = new Discord.MessageActionRow()
+		const row = new Discord.ActionRowBuilder()
 			.addComponents(
-				new Discord.MessageButton()
+				new Discord.ButtonBuilder()
 					.setLabel(i18n.__({phrase: "weaponGlobalStats", locale: locale}))
-					.setStyle('LINK')
+					.setStyle(Discord.ButtonStyle.Link)
 					.setURL(`https://wt.honu.pw/i/${wInfo.id}`)
 			);
 

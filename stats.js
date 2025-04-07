@@ -256,7 +256,7 @@ module.exports = {
 		}
 		wInfo.id = cInfo.weapon;
 
-		let resEmbed = new Discord.MessageEmbed();
+		let resEmbed = new Discord.EmbedBuilder();
 		resEmbed.setTitle(cInfo.name);
 		resEmbed.setDescription(`${wInfo.name} (${wInfo.category})`);
 		let totalKills = parseInt(cInfo.vsKills)+parseInt(cInfo.ncKills)+parseInt(cInfo.trKills);

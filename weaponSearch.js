@@ -37,7 +37,7 @@ module.exports = {
 		if(found.length == 0){
 			throw "No weapons found matching that query";
 		}
-		let resEmbed = new Discord.MessageEmbed();
+		let resEmbed = new Discord.EmbedBuilder();
 		resEmbed.setTitle("Weapon search results");
 		resEmbed.addFields({name: '\u200b', value: `${found}`.replace(/,/g, '\n')});
 
