@@ -225,8 +225,6 @@ module.exports = {
 		let resEmbed = new Discord.EmbedBuilder();
 
 		resEmbed.setTitle(oInfo.name);
-		resEmbed.setThumbnail(`https://www.outfit-tracker.com/outfit-logo/${oInfo.outfitID}.png`);
-		resEmbed.setFooter({text: i18n.__({phrase: "outfitDecalSource", locale: locale})});
 		if(oInfo.alias != "" || platform == "ps2:v2"){
 			resEmbed.setURL(outfitLink(oInfo.alias, oInfo.outfitID, platform));
 		}

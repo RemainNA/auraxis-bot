@@ -127,8 +127,6 @@ module.exports = {
 		let resEmbed = new Discord.EmbedBuilder();
 
 		resEmbed.setTitle(oInfo.name);
-		resEmbed.setThumbnail(`https://www.outfit-tracker.com/outfit-logo/${oInfo.outfitID}.png`);
-		resEmbed.setFooter({text: i18n.__({phrase: "outfitDecalSource", locale: locale})});
 		resEmbed.setDescription(oInfo.alias+"\n"+i18n.__mf({phrase: "{online}/{total} online", locale: locale}, 
 		{online: oInfo.onlineCount, total: oInfo.memberCount}));
 		resEmbed.setTimestamp();
