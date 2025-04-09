@@ -185,7 +185,7 @@ function faction(factionID){
 		case "3":
 			return {color: 'Red', decal: discordEmoji['TR'], initial: 'TR', tracker: '🔴'};
 		default:
-			return {color: 'Grey', decal: discordEmoji['NS'], initial: 'NSO', tracker: '⚪'};
+			return {color: 'Grey', decal: discordEmoji['NSO'], initial: 'NSO', tracker: '⚪'};
 	}
 }
 
