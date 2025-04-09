@@ -479,7 +479,7 @@ const commands = [
 					option.setName('tag')
 						.setDescription('Outfit tag')
 						.setRequired(true))
-				.addStringOption(option =>
+				.addBooleanOption(option =>
 					option.setName('show-faction')
 						.setDescription('Display a faction indicator in channel name? ex: 🟣/🔵/🔴/⚪')
 						.setRequired(true))
