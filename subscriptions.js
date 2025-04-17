@@ -9,7 +9,7 @@
 
 const config = require('./subscriptionConfig.js');
 const { censusRequest, badQuery, faction } = require('./utils.js')
-const { PermissionFlagsBits } = require('discord.js');
+const { PermissionFlagsBits, ChannelType } = require('discord.js');
 const i18n = require('i18n');
 
 /**
@@ -297,7 +297,7 @@ module.exports = {
      * @param {string} locale - the locale of the channel 
      */
     permissionCheck: async function(interaction, user, locale="en-US"){
-        if(interaction.channel.type == 'DM'){
+        if(interaction.channel.type == ChannelType.DM){
             return;
         }
         let channel = interaction.channel;
