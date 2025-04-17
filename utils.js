@@ -101,7 +101,7 @@ async function censusRequest(platform, key, extension, retry = 2){
 		return;
 	}
 	try{
-		const request = await fetch(uri);
+		const request = await fetch(uri, {headers: {"User-Agent": process.env.USER_AGENT}});
 		if(!request.ok) {
 			throw `Census API unreachable: ${request.status}`;
 		}

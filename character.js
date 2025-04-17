@@ -231,7 +231,7 @@ const getWeaponName = async function(ID, platform){
         return response[0].name.en;
     }
     const URI = `https://census.lithafalcon.cc/get/ps2/item?item_id=${ID}&c:lang=en` //Fallback Falcon URI
-    const request = await fetch(URI);
+    const request = await fetch(URI, {headers: {"User-Agent": process.env.USER_AGENT}});
     const falconResponse = await request.json();
     if(falconResponse.item_list.length == 1){
         return falconResponse.item_list[0].name.en;

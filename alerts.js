@@ -32,7 +32,7 @@ const popLevels = {
 const alertInfo = async function(server, locale='en-US'){
 	try{
 		const uri = `https://api.ps2alerts.com/instances/active?world=${server}`;
-		const request = await fetch(uri);
+		const request = await fetch(uri, {headers: {"User-Agent": process.env.USER_AGENT}});
 		if(!request.ok) {
 			throw i18n.__({phrase: "API Unreachable", locale: locale});
 		}

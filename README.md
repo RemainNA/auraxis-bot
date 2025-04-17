@@ -25,6 +25,7 @@ token = <Discord Token>
 clientID = <Discord Client ID>
 serviceID = <PS2 Census Service ID>
 DATABASE_URL = <Postgres URL>
+USER_AGENT = <User Agent for fetch requests>
 ```
 
 After initial startup, run `node registerCommands.js` once to register the bot's commands with Discord.

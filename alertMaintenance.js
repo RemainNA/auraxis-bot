@@ -161,7 +161,7 @@ module.exports = {
 					url = `https://wt.honu.pw/api/alerts/dropin/${row.alertid}`;
 				}
                 
-                const request = await fetch(url);
+                const request = await fetch(url, {headers: {"User-Agent": process.env.USER_AGENT}});
 				if (request.status == 404) {
 					checkError(row, pgClient, "Error retrieving alert info: 404");
 					return;
