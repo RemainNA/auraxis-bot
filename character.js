@@ -339,6 +339,31 @@ const recentStatsInfo =  async function(cID, platform, days){
     return resObj;
 }
 
+/**
+ * Retrieve the ID of a character's last session on Honu. PC only
+ * @param {string} cID - Character ID 
+ * @returns {Promise<string>} ID of the character's latest session
+ */
+const getLatestSession = async function(cID){
+    const URI = `http://wt.honu.pw/api/character/${cID}/honu-data`;
+    const request = await fetch(URI, {headers: 
+        {'User-Agent': process.env.USER_AGENT}});
+    if(request.status == 200){
+        const honuData = await request.json();
+        return honuData.sessionID;
+    }
+
+    // Backup request in case character is not in memory
+    const sessionsURI = `https://wt.honu.pw/api/character/${cID}/sessions?limit=1`;
+    const sessionsRequest = await fetch(sessionsURI, {headers: 
+        {'User-Agent': process.env.USER_AGENT}});
+    const sessionsList = await sessionsRequest.json();
+    if(sessionsList.length == 0){
+        return 0
+    }
+    return sessionsList.at(0).id;
+}
+
 module.exports = {
     /**
      * Create a discord embed of an overview of a character lifetime stats
@@ -535,12 +560,23 @@ module.exports = {
         }
 
         if(platform == 'ps2:v2'){
-            row.addComponents(
+            const sessionID = await getLatestSession(cInfo.characterID)
+            const row2 = new Discord.ActionRowBuilder()
+            if(sessionID){
+                row2.addComponents(
+                    new Discord.ButtonBuilder()
+                        .setURL(`https://wt.honu.pw/s/${sessionID}`)
+                        .setLabel(i18n.__({phrase: 'latestSession', locale: locale}))
+                        .setStyle(Discord.ButtonStyle.Link)
+                )
+            }
+            row2.addComponents(
                 new Discord.ButtonBuilder()
                     .setURL(`https://ps2.fisu.pw/player/?name=${cName}`)
                     .setLabel(i18n.__({phrase: 'fisuLink', locale: locale}))
                     .setStyle(Discord.ButtonStyle.Link)
             );
+            return [resEmbed, [row, row2]];
         }
         return [resEmbed, [row]];
     },
