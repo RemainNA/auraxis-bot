@@ -79,13 +79,13 @@ async function getPopulation(locale='en-US'){
  */
 const fisuPopulation = function(serverID){
 	if(serverID == 2000){
-		return 'http://ps4eu.ps2.fisu.pw/activity/?world=2000';
+		return 'https://ps4eu.ps2.fisu.pw/activity/?world=2000';
 	}
 	else if(serverID == 1000){
-		return 'http://ps4us.ps2.fisu.pw/activity/?world=1000';
+		return 'https://ps4us.ps2.fisu.pw/activity/?world=1000';
 	}
 	else{
-		return `http://ps2.fisu.pw/activity/?world=${serverID}`;
+		return `https://ps2.fisu.pw/activity/?world=${serverID}`;
 	}
 }
 

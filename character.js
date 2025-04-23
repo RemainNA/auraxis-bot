@@ -345,7 +345,7 @@ const recentStatsInfo =  async function(cID, platform, days){
  * @returns {Promise<string>} ID of the character's latest session
  */
 const getLatestSession = async function(cID){
-    const URI = `http://wt.honu.pw/api/character/${cID}/honu-data`;
+    const URI = `https://wt.honu.pw/api/character/${cID}/honu-data`;
     const request = await fetch(URI, {headers: 
         {'User-Agent': process.env.USER_AGENT}});
     if(request.status == 200){

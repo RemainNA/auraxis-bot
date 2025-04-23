@@ -203,20 +203,20 @@ function characterLink(charName, charID, platform, page=""){
 			return `https://wt.honu.pw/c/${charID}/${page}?name=${charName}`;
 		}
 		else if(platform === "ps2ps4us:v2"){
-			return `http://ps4us.ps2.fisu.pw/player/?name=${charName}&show=${page}`;
+			return `https://ps4us.ps2.fisu.pw/player/?name=${charName}&show=${page}`;
 		}
 		else if(platform === "ps2ps4eu:v2"){
-			return `http://ps4eu.ps2.fisu.pw/player/?name=${charName}&show=${page}`;
+			return `https://ps4eu.ps2.fisu.pw/player/?name=${charName}&show=${page}`;
 		}
 	}
 	if(platform === "ps2:v2"){
 		return `https://wt.honu.pw/c/${charID}?name=${charName}`;
 	}
 	else if(platform === "ps2ps4us:v2"){
-		return `http://ps4us.ps2.fisu.pw/player/?name=${charName}`;
+		return `https://ps4us.ps2.fisu.pw/player/?name=${charName}`;
 	}
 	else if(platform === "ps2ps4eu:v2"){
-		return `http://ps4eu.ps2.fisu.pw/player/?name=${charName}`;
+		return `https://ps4eu.ps2.fisu.pw/player/?name=${charName}`;
 	}
 }
 
@@ -232,10 +232,10 @@ function outfitLink(outfitTag, outfitID, platform){
 		return `https://wt.honu.pw/o/${outfitID}`;
 	}
 	else if(platform === "ps2ps4us:v2" && outfitTag != ""){
-		return `http://ps4us.ps2.fisu.pw/outfit/?name=${outfitTag}`;
+		return `https://ps4us.ps2.fisu.pw/outfit/?name=${outfitTag}`;
 	}
 	else if(platform === "ps2ps4eu:v2" && outfitTag != ""){
-		return `http://ps4eu.ps2.fisu.pw/outfit/?name=${outfitTag}`;
+		return `https://ps4eu.ps2.fisu.pw/outfit/?name=${outfitTag}`;
 	}
 }
 
