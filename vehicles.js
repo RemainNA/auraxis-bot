@@ -125,7 +125,7 @@ module.exports = {
 
 		resEmbed.setTitle(vInfo.charName);
 		resEmbed.setDescription(vehicleName);
-		resEmbed.setThumbnail(`http://census.daybreakgames.com/files/ps2/images/static/${imageID}.png`);
+		resEmbed.setThumbnail(`https://census.daybreakgames.com/files/ps2/images/static/${imageID}.png`);
 		resEmbed.setColor(faction(vInfo.faction).color);
 		const hoursPlayed = Math.floor(vInfo.playTime/3600);
 		const minutesPlayed = Math.floor(vInfo.playTime/60 - hoursPlayed*60);

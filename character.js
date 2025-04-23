@@ -414,28 +414,28 @@ module.exports = {
 
         // Decal thumbnail
         if(cInfo.prestige == "1"){
-            resEmbed.setThumbnail("http://census.daybreakgames.com/files/ps2/images/static/88685.png");
+            resEmbed.setThumbnail("https://census.daybreakgames.com/files/ps2/images/static/88685.png");
         }
         else if (cInfo.prestige == "2"){
-            resEmbed.setThumbnail("http://census.daybreakgames.com/files/ps2/images/static/94469.png");
+            resEmbed.setThumbnail("https://census.daybreakgames.com/files/ps2/images/static/94469.png");
         }
         else if (cInfo.prestige == "3"){
-            resEmbed.setThumbnail("http://census.daybreakgames.com/files/ps2/images/static/95504.png");
+            resEmbed.setThumbnail("https://census.daybreakgames.com/files/ps2/images/static/95504.png");
         }
         else if (parseInt(cInfo.br) > 100){
-            resEmbed.setThumbnail(`http://census.daybreakgames.com/files/ps2/images/static/${85033+(parseInt(cInfo.br)-100)}.png`);
+            resEmbed.setThumbnail(`https://census.daybreakgames.com/files/ps2/images/static/${85033+(parseInt(cInfo.br)-100)}.png`);
         }
         else if (cInfo.faction == "1"){ //vs
-            resEmbed.setThumbnail(`http://census.daybreakgames.com/files/ps2/images/static/${decals.vs[parseInt(cInfo.br)]}.png`);
+            resEmbed.setThumbnail(`https://census.daybreakgames.com/files/ps2/images/static/${decals.vs[parseInt(cInfo.br)]}.png`);
         }
         else if (cInfo.faction == "2"){ //nc
-            resEmbed.setThumbnail(`http://census.daybreakgames.com/files/ps2/images/static/${decals.nc[parseInt(cInfo.br)]}.png`);
+            resEmbed.setThumbnail(`https://census.daybreakgames.com/files/ps2/images/static/${decals.nc[parseInt(cInfo.br)]}.png`);
         }
         else if (cInfo.faction == "3"){ //tr
-            resEmbed.setThumbnail(`http://census.daybreakgames.com/files/ps2/images/static/${decals.tr[parseInt(cInfo.br)]}.png`);
+            resEmbed.setThumbnail(`https://census.daybreakgames.com/files/ps2/images/static/${decals.tr[parseInt(cInfo.br)]}.png`);
         }
         else{ //nso
-            resEmbed.setThumbnail(`http://census.daybreakgames.com/files/ps2/images/static/${90110+Math.floor(parseInt(cInfo.br)/10)}.png`);
+            resEmbed.setThumbnail(`https://census.daybreakgames.com/files/ps2/images/static/${90110+Math.floor(parseInt(cInfo.br)/10)}.png`);
         }
 
         // Score, SPM

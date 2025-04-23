@@ -69,7 +69,7 @@ module.exports = {
 
 		const resEmbed = new Discord.EmbedBuilder();
 		resEmbed.setTitle(iInfo.name);
-		resEmbed.setThumbnail(`http://census.daybreakgames.com/files/ps2/images/static/${iInfo.image}.png`);
+		resEmbed.setThumbnail(`https://census.daybreakgames.com/files/ps2/images/static/${iInfo.image}.png`);
 		if(iInfo.craft !== undefined){
 			resEmbed.setDescription(`${iInfo.craft} ${discordEmoji["ISO-4"]}`);
 		}

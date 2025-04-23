@@ -117,7 +117,7 @@ module.exports = {
 		let resEmbed = new Discord.EmbedBuilder();
 
 		resEmbed.setTitle(wInfo.name);
-		wInfo.image_id != -1 && resEmbed.setThumbnail('http://census.daybreakgames.com/files/ps2/images/static/'+wInfo.image_id+'.png');
+		wInfo.image_id != -1 && resEmbed.setThumbnail('https://census.daybreakgames.com/files/ps2/images/static/'+wInfo.image_id+'.png');
 		
 		if(typeof(wInfo.category) !== 'undefined'){
 			resEmbed.addFields({name: i18n.__({phrase: "Category", locale: locale}), value: wInfo.category, inline: true});

@@ -103,7 +103,7 @@ module.exports = {
 				{name: i18n.__({phrase: "ASP Skills Continued", locale: locale}), value: cInfo.unlocksContinued.substring(0,(cInfo.unlocksContinued.length-6))}
 			);
 		}
-		resEmbed.setThumbnail("http://census.daybreakgames.com/files/ps2/images/static/88688.png");
+		resEmbed.setThumbnail("https://census.daybreakgames.com/files/ps2/images/static/88688.png");
 		return resEmbed;
 	}
 }

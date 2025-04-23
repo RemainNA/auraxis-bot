@@ -286,7 +286,7 @@ module.exports = {
 		);
 		resEmbed.setColor(faction(cInfo.faction).color)
 		if(wInfo.image_id != -1 && wInfo.image_id != undefined){
-			resEmbed.setThumbnail('http://census.daybreakgames.com/files/ps2/images/static/'+wInfo.image_id+'.png');
+			resEmbed.setThumbnail('https://census.daybreakgames.com/files/ps2/images/static/'+wInfo.image_id+'.png');
 		}
 		resEmbed.setFooter({text: i18n.__({phrase: "Weapon ID", locale: locale})+": "+wInfo.id});
 
