@@ -19,8 +19,8 @@ async function info(){
 	}
 
 	const status = {
-		'Connery': 'Unknown',
-		'Miller': 'Unknown',
+		'Osprey': 'Unknown',
+		'Wainwright': 'Unknown',
 		'SolTech': 'Unknown',
 		'Jaeger': 'Unknown',
 		'Genudine': 'Unknown',

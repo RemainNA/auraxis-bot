@@ -119,8 +119,8 @@ CREATE TABLE IF NOT EXISTS openContinents(
 	koltyrchange TIMESTAMPTZ
 );
 
-INSERT INTO opencontinents (world) VALUES ('connery');
-INSERT INTO opencontinents (world) VALUES ('miller');
+INSERT INTO opencontinents (world) VALUES ('osprey');
+INSERT INTO opencontinents (world) VALUES ('wainwright');
 INSERT INTO opencontinents (world) VALUES ('jaeger');
 INSERT INTO opencontinents (world) VALUES ('soltech');
 INSERT INTO opencontinents (world) VALUES ('genudine');

@@ -19,10 +19,10 @@ const i18n = require('i18n');
  */
 const standardizeName = function(server){
     switch(server.toLowerCase()){
-        case "connery":
-            return "Connery";
-        case "miller":
-            return "Miller";
+        case "osprey":
+            return "Osprey";
+        case "wainwright":
+            return "Wainwright";
         case "jaeger":
             return "Jaeger";
         case "soltech":

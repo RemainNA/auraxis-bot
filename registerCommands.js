@@ -37,12 +37,12 @@ const platforms = [
  */
 const serversNoJaeger = [
 	{
-		name: "Connery",
-		value: "connery"
+		name: "Osprey",
+		value: "osprey"
 	},
 	{
-		name: "Miller",
-		value: "miller"
+		name: "Wainwright",
+		value: "wainwright"
 	},
 	{
 		name: "SolTech",

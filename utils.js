@@ -10,8 +10,8 @@ const {fetch} = require('undici');
  * A list of the different servers all lowercase
  */
 const servers = [
-	"connery",
-    "miller",
+	"osprey",
+    "wainwright",
 	"jaeger",
     "soltech",
     "genudine",
@@ -46,8 +46,8 @@ const continents = [
  * `serverID`: `serverName`
  */
 const serverNames = {
-	1: "Connery",
-	10: "Miller",
+	1: "Osprey",
+	10: "Wainwright",
 	19: "Jaeger",
 	40: "SolTech",
 	1000: "Genudine",
@@ -58,8 +58,8 @@ const serverNames = {
  * `serverName`: `serverID`
  */
 const serverIDs = {
-    "connery": 1,
-    "miller": 10,
+    "osprey": 1,
+    "wainwright": 10,
     "jaeger": 19,
     "soltech": 40,
     "genudine": 1000,
