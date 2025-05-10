@@ -2,7 +2,7 @@
  * Run this file with `node registerCommands.js` to register all commands for the bot
  * @module registerCommands
  */
-const { REST, Routes, SlashCommandBuilder } = require('discord.js');
+const { REST, Routes, SlashCommandBuilder, InteractionContextType, ApplicationIntegrationType } = require('discord.js');
 
 require('dotenv').config();
 
@@ -67,18 +67,18 @@ const commands = [
 	new SlashCommandBuilder()
 		.setName('ping')
 		.setDescription('Get the bot\'s current ping to Discord servers')
-		.setIntegrationTypes([0, 1])
-		.setContexts([0, 1, 2]),
+		.setIntegrationTypes([ApplicationIntegrationType.GuildInstall])
+		.setContexts([InteractionContextType.Guild, InteractionContextType.BotDM]),
 	new SlashCommandBuilder()
 		.setName('help')
 		.setDescription('Get a list of bot commands and associated links')
-		.setIntegrationTypes([0, 1])
-		.setContexts([0, 1, 2]),
+		.setIntegrationTypes([ApplicationIntegrationType.GuildInstall])
+		.setContexts([InteractionContextType.Guild, InteractionContextType.BotDM]),
 	new SlashCommandBuilder()
 		.setName('character')
 		.setDescription('Look up a character\'s stats and basic information')
-		.setIntegrationTypes([0, 1])
-		.setContexts([0, 1, 2])
+		.setIntegrationTypes([ApplicationIntegrationType.GuildInstall])
+		.setContexts([InteractionContextType.Guild, InteractionContextType.BotDM])
 		.addStringOption(option =>
 			option.setName('name')
 				.setDescription('Character name, or multiple separated by spaces')
@@ -90,8 +90,8 @@ const commands = [
 	new SlashCommandBuilder()
 		.setName('stats')
 		.setDescription('Look up a character\'s stats, either with the specified weapon or overall')
-		.setIntegrationTypes([0, 1])
-		.setContexts([0, 1, 2])
+		.setIntegrationTypes([ApplicationIntegrationType.GuildInstall])
+		.setContexts([InteractionContextType.Guild, InteractionContextType.BotDM])
 		.addStringOption(option =>
 			option.setName('name')
 				.setDescription('Character name')
@@ -107,8 +107,8 @@ const commands = [
 	new SlashCommandBuilder()
 		.setName('outfit')
 		.setDescription('Look up an outfit\'s basic information, including recent activity and bases owned')
-		.setIntegrationTypes([0, 1])
-		.setContexts([0, 1, 2])
+		.setIntegrationTypes([ApplicationIntegrationType.GuildInstall])
+		.setContexts([InteractionContextType.Guild, InteractionContextType.BotDM])
 		.addStringOption(option =>
 			option.setName('tag')
 				.setDescription('Outfit tag or tags separated by spaces, no brackets')
@@ -120,8 +120,8 @@ const commands = [
 	new SlashCommandBuilder()
 		.setName('online')
 		.setDescription('Look up currently online members for a given outfit')
-		.setIntegrationTypes([0, 1])
-		.setContexts([0, 1, 2])
+		.setIntegrationTypes([ApplicationIntegrationType.GuildInstall])
+		.setContexts([InteractionContextType.Guild, InteractionContextType.BotDM])
 		.addStringOption(option =>
 			option.setName('tag')
 				.setDescription('Outfit tag or tags separated by spaces, no brackets')
@@ -133,8 +133,8 @@ const commands = [
 	new SlashCommandBuilder()
 		.setName('subscribe')
 		.setDescription('Subscribe to various different real time events')
-		.setIntegrationTypes([0])
-		.setContexts([0, 1])
+		.setIntegrationTypes([ApplicationIntegrationType.GuildInstall])
+		.setContexts([InteractionContextType.Guild, InteractionContextType.BotDM])
 		.addSubcommand(subcommand =>
 			subcommand
 				.setName('alerts')
@@ -180,8 +180,8 @@ const commands = [
 	new SlashCommandBuilder()
 		.setName('unsubscribe')
 		.setDescription('Subscribe to various different real time events')
-		.setIntegrationTypes([0])
-		.setContexts([0, 1])
+		.setIntegrationTypes([ApplicationIntegrationType.GuildInstall])
+		.setContexts([InteractionContextType.Guild, InteractionContextType.BotDM])
 		.addSubcommand(subcommand =>
 			subcommand
 				.setName('alerts')
@@ -231,8 +231,8 @@ const commands = [
 	new SlashCommandBuilder()
 		.setName('config')
 		.setDescription('Modify subscription settings')
-		.setIntegrationTypes([0])
-		.setContexts([0, 1])
+		.setIntegrationTypes([ApplicationIntegrationType.GuildInstall])
+		.setContexts([InteractionContextType.Guild, InteractionContextType.BotDM])
 		.addSubcommand(subcommand =>
 			subcommand
 				.setName('view')
@@ -340,8 +340,8 @@ const commands = [
 	new SlashCommandBuilder()
 		.setName('population')
 		.setDescription('Look up the current population of a server')
-		.setIntegrationTypes([0, 1])
-		.setContexts([0, 1, 2])
+		.setIntegrationTypes([ApplicationIntegrationType.GuildInstall])
+		.setContexts([InteractionContextType.Guild, InteractionContextType.BotDM])
 		.addStringOption(option =>
 			option.setName('server')
 				.setDescription('Server name')
@@ -350,8 +350,8 @@ const commands = [
 	new SlashCommandBuilder()
 		.setName('territory')
 		.setDescription('Look up the current territory control of a server')
-		.setIntegrationTypes([0, 1])
-		.setContexts([0, 1, 2])
+		.setIntegrationTypes([ApplicationIntegrationType.GuildInstall])
+		.setContexts([InteractionContextType.Guild, InteractionContextType.BotDM])
 		.addStringOption(option =>
 			option.setName('server')
 				.setDescription('Server name')
@@ -360,8 +360,8 @@ const commands = [
 	new SlashCommandBuilder()
 		.setName('alerts')
 		.setDescription('Look up ongoing alerts on a server')
-		.setIntegrationTypes([0, 1])
-		.setContexts([0, 1, 2])
+		.setIntegrationTypes([ApplicationIntegrationType.GuildInstall])
+		.setContexts([InteractionContextType.Guild, InteractionContextType.BotDM])
 		.addStringOption(option =>
 			option.setName('server')
 				.setDescription('Server name')
@@ -370,13 +370,13 @@ const commands = [
 	new SlashCommandBuilder()
 		.setName('status')
 		.setDescription('Look up server status as provided by the API')
-		.setIntegrationTypes([0, 1])
-		.setContexts([0, 1, 2]),
+		.setIntegrationTypes([ApplicationIntegrationType.GuildInstall])
+		.setContexts([InteractionContextType.Guild, InteractionContextType.BotDM]),
 	new SlashCommandBuilder()
 		.setName('weapon')
 		.setDescription('Look up weapon stats')
-		.setIntegrationTypes([0, 1])
-		.setContexts([0, 1, 2])
+		.setIntegrationTypes([ApplicationIntegrationType.GuildInstall])
+		.setContexts([InteractionContextType.Guild, InteractionContextType.BotDM])
 		.addStringOption(option =>
 			option.setName('query')
 				.setDescription('Weapon name, partial name, or id')
@@ -385,8 +385,8 @@ const commands = [
 	new SlashCommandBuilder()
 		.setName('weaponsearch')
 		.setDescription('Look up a list of weapons matching your search')
-		.setIntegrationTypes([0, 1])
-		.setContexts([0, 1, 2])
+		.setIntegrationTypes([ApplicationIntegrationType.GuildInstall])
+		.setContexts([InteractionContextType.Guild, InteractionContextType.BotDM])
 		.addStringOption(option =>
 			option.setName('query')
 				.setDescription('Weapon name or partial name')
@@ -394,8 +394,8 @@ const commands = [
 	new SlashCommandBuilder()
 		.setName('implant')
 		.setDescription('Look up implant information')
-		.setIntegrationTypes([0, 1])
-		.setContexts([0, 1, 2])
+		.setIntegrationTypes([ApplicationIntegrationType.GuildInstall])
+		.setContexts([InteractionContextType.Guild, InteractionContextType.BotDM])
 		.addStringOption(option =>
 			option.setName('query')
 				.setDescription('Implant name or partial name')
@@ -404,8 +404,8 @@ const commands = [
 	new SlashCommandBuilder()
 		.setName('asp')
 		.setDescription('Look up ASP specific information for a character')
-		.setIntegrationTypes([0, 1])
-		.setContexts([0, 1, 2])
+		.setIntegrationTypes([ApplicationIntegrationType.GuildInstall])
+		.setContexts([InteractionContextType.Guild, InteractionContextType.BotDM])
 		.addStringOption(option =>
 			option.setName('name')
 				.setDescription('Character name')
@@ -417,8 +417,8 @@ const commands = [
 	new SlashCommandBuilder()
 		.setName('dashboard')
 		.setDescription('Create an automatically updating dashboard')
-		.setIntegrationTypes([0])
-		.setContexts([0, 1])
+		.setIntegrationTypes([ApplicationIntegrationType.GuildInstall])
+		.setContexts([InteractionContextType.Guild, InteractionContextType.BotDM])
 		.addSubcommand(subcommand =>
 			subcommand
 				.setName('server')
@@ -444,8 +444,8 @@ const commands = [
 	new SlashCommandBuilder()
 		.setName('tracker')
 		.setDescription('Create an automatically updating voice channel')
-		.setIntegrationTypes([0])
-		.setContexts([0])
+		.setIntegrationTypes([ApplicationIntegrationType.GuildInstall])
+		.setContexts([InteractionContextType.Guild])
 		.addSubcommand(subcommand =>
 			subcommand
 				.setName('server')
@@ -490,8 +490,8 @@ const commands = [
 	new SlashCommandBuilder()
 		.setName('auraxiums')
 		.setDescription('Lookup a list of a character\'s Auraxium medals')
-		.setIntegrationTypes([0, 1])
-		.setContexts([0, 1, 2])
+		.setIntegrationTypes([ApplicationIntegrationType.GuildInstall])
+		.setContexts([InteractionContextType.Guild, InteractionContextType.BotDM])
 		.addStringOption(option =>
 			option.setName('name')
 				.setDescription('Character name')
@@ -503,8 +503,8 @@ const commands = [
 	new SlashCommandBuilder()
 		.setName('leaderboard')
 		.setDescription('Lookup current leaderboard')
-		.setIntegrationTypes([0, 1])
-		.setContexts([0, 1, 2])
+		.setIntegrationTypes([ApplicationIntegrationType.GuildInstall])
+		.setContexts([InteractionContextType.Guild, InteractionContextType.BotDM])
 		.addStringOption(option =>
 			option.setName('type')
 				.setDescription('Type of leaderboard to look up')
@@ -563,8 +563,8 @@ const commands = [
 	new SlashCommandBuilder()
 		.setName('directives')
 		.setDescription('Lookup a list of a character\'s Auraxium medals')
-		.setIntegrationTypes([0, 1])
-		.setContexts([0, 1, 2])
+		.setIntegrationTypes([ApplicationIntegrationType.GuildInstall])
+		.setContexts([InteractionContextType.Guild, InteractionContextType.BotDM])
 		.addStringOption(option =>
 			option.setName('name')
 				.setDescription('Character name')
@@ -576,8 +576,8 @@ const commands = [
 	new SlashCommandBuilder()
 		.setName('vehicle')
 		.setDescription('Lookup a character\'s stats with a given vehicle')
-		.setIntegrationTypes([0, 1])
-		.setContexts([0, 1, 2])
+		.setIntegrationTypes([ApplicationIntegrationType.GuildInstall])
+		.setContexts([InteractionContextType.Guild, InteractionContextType.BotDM])
 		.addStringOption(option =>
 			option.setName('name')
 				.setDescription('Character name')
@@ -594,8 +594,8 @@ const commands = [
 	new SlashCommandBuilder()
 		.setName('owned-implants')
 		.setDescription('Lookup a list of a character\'s implants')
-		.setIntegrationTypes([0, 1])
-		.setContexts([0, 1, 2])
+		.setIntegrationTypes([ApplicationIntegrationType.GuildInstall])
+		.setContexts([InteractionContextType.Guild, InteractionContextType.BotDM])
 		.addStringOption(option =>
 			option.setName('name')
 				.setDescription('Character name')
