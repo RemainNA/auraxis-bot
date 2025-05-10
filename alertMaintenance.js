@@ -111,11 +111,11 @@ async function updateAlert(info, pgClient, discordClient, isComplete){
 async function editMessage(embed, messageId, channelId, discordClient){
 	try {
 		const resChann = await discordClient.channels.fetch(channelId);
-		if (['GUILD_TEXT','GUILD_NEWS'].includes(resChann.type) && resChann.permissionsFor(resChann.guild.members.me).has(Discord.PermissionFlagsBits.ViewChannel)) {
+		if ([Discord.ChannelType.GuildText, Discord.ChannelType.GuildAnnouncement].includes(resChann.type) && resChann.permissionsFor(resChann.guild.members.me).has(Discord.PermissionFlagsBits.ViewChannel)) {
 			const resMsg = await resChann.messages.fetch(messageId);
 			await resMsg.edit({embeds: [embed]});
 		}
-		else if(resChann.type == 'DM'){
+		else if(resChann.type == Discord.ChannelType.DM){
 			const resMsg = await resChann.messages.fetch(messageId);
 			await resMsg.edit({embeds: [embed]});
 		}
