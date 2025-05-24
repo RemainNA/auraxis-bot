@@ -280,5 +280,7 @@
 	"fisuLink": "View on fisu",
 	"latestSession": "Latest session",
 	"Osprey": "Osprey",
-	"Wainwright": "Wainwright"
+	"Wainwright": "Wainwright",
+	"weaponIDNotFound": "Weapon ID {id} not found",
+	"ribbons": "Ribbons"
 }

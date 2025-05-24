@@ -6,7 +6,7 @@
 const Discord = require('discord.js');
 const weaponsJSON = require('./static/weapons.json');
 const sanction = require('./static/sanction.json');
-const { badQuery, censusRequest, localeNumber, faction } = require('./utils.js');
+const { badQuery, censusRequest, localeNumber, faction, discordEmoji } = require('./utils.js');
 const i18n = require('i18n');
 
 /**
@@ -121,6 +121,34 @@ const partialMatches = async function(query){
 }
 
 /**
+ * Returns the number of ribbons and the medal the provided character has with the provided weapon
+ * @param {string} cName - The name of the character to get the stats for
+ * @param {string} wName - The name of the weapon to get the stats for
+ * @param {string} platform - The platform to get the stats for
+ */
+const weaponAchievements = async function name(cID, wID, platform) {
+	let response = await censusRequest(platform, 'achievement_list', `/achievement?item_id=${wID}&c:join=characters_achievement^terms:character_id=${cID}&c:limit=5`);
+	if(response.length == 0){
+        throw i18n.__mf({phrase: "weaponIDNotFound", locale: locale}, {id: wID});
+	}
+	const achievements = {
+		ribbons: 0,
+		medal: 0
+	}
+	for(const achievement of response){
+		if(achievement.repeatable == "1"){
+			// Ribbon
+			achievements.ribbons = achievement.achievement_id_join_characters_achievement.earned_count;
+		}
+		else{
+			// Medals
+			achievements.medal += parseInt(achievement.achievement_id_join_characters_achievement.earned_count);
+		}
+	}
+	return achievements;
+}
+
+/**
  * Get character's stats with a specific weapon
  * @param {string} cName - The name of the character to get the stats for
  * @param {string} wName - The name of the weapon to get the stats for
@@ -145,7 +173,9 @@ const characterInfo = async function(cName, wName, platform, locale="en-US"){
 		fireCount: 0,
 		hits: 0,
 		playTime: 0,
-		score: 0
+		score: 0,
+		ribbons: 0,
+		medal: 0
 	};
 
 	let validIds = [];
@@ -222,6 +252,10 @@ const characterInfo = async function(cName, wName, platform, locale="en-US"){
 		}
 	}
 
+	const achievements = await weaponAchievements(data.character_id, wId, platform);
+	resObj.ribbons = achievements.ribbons;
+	resObj.medal = achievements.medal;
+
 	return resObj;
 }
 
@@ -258,7 +292,14 @@ module.exports = {
 
 		let resEmbed = new Discord.EmbedBuilder();
 		resEmbed.setTitle(cInfo.name);
-		resEmbed.setDescription(`${wInfo.name} (${wInfo.category})`);
+		const medalEmoji = [
+			"",
+			discordEmoji.CopperMedal,
+			discordEmoji.SilverMedal,
+			discordEmoji.GoldMedal,
+			discordEmoji.AuraxiumMedal
+		].at(cInfo.medal)
+		resEmbed.setDescription(`${wInfo.name} (${wInfo.category}) ${medalEmoji}`);
 		let totalKills = parseInt(cInfo.vsKills)+parseInt(cInfo.ncKills)+parseInt(cInfo.trKills);
 		let totalHeadshots = parseInt(cInfo.vsHeadshots)+parseInt(cInfo.ncHeadshots)+parseInt(cInfo.trHeadshots);
 		let totalDamage = parseInt(cInfo.vsDamageGiven)+parseInt(cInfo.ncDamageGiven)+parseInt(cInfo.trDamageGiven);
@@ -282,7 +323,8 @@ module.exports = {
 			{name: i18n.__({phrase: "Playtime", locale: locale}), value: i18n.__mf({phrase: "{hour} hours, {minute} minutes", locale: locale}, {hour: hours, minute: minutes}), inline: true},
 			{name: i18n.__({phrase: "KPM", locale: locale}), value: localeNumber(totalKills/(cInfo.playTime/60), locale), inline: true},
 			{name: i18n.__({phrase: "Avg Damage/Kill", locale: locale}), value: Math.floor(totalDamage/totalKills).toLocaleString(locale), inline: true},
-			{name: i18n.__({phrase: "Score (SPM)", locale: locale}), value: cInfo.score.toLocaleString(locale)+" ("+localeNumber(spm, locale)+")", inline: true}
+			{name: i18n.__({phrase: "Score (SPM)", locale: locale}), value: cInfo.score.toLocaleString(locale)+" ("+localeNumber(spm, locale)+")", inline: true},
+			{name: i18n.__({phrase: "ribbons", locale: locale}), value: cInfo.ribbons, inline: true}
 		);
 		resEmbed.setColor(faction(cInfo.faction).color)
 		if(wInfo.image_id != -1 && wInfo.image_id != undefined){
