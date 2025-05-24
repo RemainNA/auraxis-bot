@@ -6,7 +6,7 @@
 const Discord = require('discord.js');
 const weaponsJSON = require('./static/weapons.json');
 const sanction = require('./static/sanction.json');
-const { badQuery, censusRequest, localeNumber, faction, discordEmoji } = require('./utils.js');
+const { badQuery, censusRequest, localeNumber, faction, discordEmoji, characterLink } = require('./utils.js');
 const i18n = require('i18n');
 
 /**
@@ -168,6 +168,7 @@ const characterInfo = async function(cName, wName, platform, locale="en-US"){
 	}
 	let resObj = {
 		name: data.name.first,
+		id: data.character_id,
 		faction: data.faction_id,
 		deaths: 0,
 		fireCount: 0,
@@ -292,6 +293,7 @@ module.exports = {
 
 		let resEmbed = new Discord.EmbedBuilder();
 		resEmbed.setTitle(cInfo.name);
+		resEmbed.setURL(characterLink(cInfo.name, cInfo.id, platform, "weapons"));
 		const medalEmoji = [
 			"",
 			discordEmoji.CopperMedal,
