@@ -311,7 +311,23 @@
         "name": "Exceptional IX",
         "image": "79737"
     },
-    "152": {
+    "148": {
+        "name": "Indar Dog Tags",
+        "image": "78104"
+    },
+    "149": {
+        "name": "Amerish Dog Tags",
+        "image": "78104"
+    },
+    "150": {
+        "name": "Hossin Dog Tags",
+        "image": "78104"
+    },
+    "151": {
+        "name": "Esamir Dog Tags",
+        "image": "78104"
+    },
+    "154": {
         "name": "Fishing Mastery",
         "image": "97804"
     }
