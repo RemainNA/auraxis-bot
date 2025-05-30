@@ -55,6 +55,7 @@ const basicInfo = async function(cName, platform){
         resObj.outfitRank = data.outfit_member.member_rank;
         resObj.outfitRankOrdinal = data.outfit_member.member_rank_ordinal;
         resObj.outfitID = data.outfit_member.outfit_id;
+        resObj.outfitMemberSince = data.outfit_member.member_since;
     }
     if(data.stats != null){
         resObj.stats = true;
@@ -492,10 +493,13 @@ module.exports = {
         // Outfit info
         if(cInfo.inOutfit){
             if(cInfo.outfitAlias != "" || platform == 'ps2:v2'){
-                resEmbed.addFields({name: i18n.__({phrase: 'Outfit', locale: locale}), value: `[[${cInfo.outfitAlias}]](${outfitLink(cInfo.outfitAlias, cInfo.outfitID, platform)}) ${cInfo.outfitName}`, inline: true});
+                resEmbed.addFields({name: i18n.__({phrase: 'Outfit', locale: locale}),
+                value: `[[${cInfo.outfitAlias}]](${outfitLink(cInfo.outfitAlias, cInfo.outfitID, platform)}) ${cInfo.outfitName}\
+                \n${i18n.__mf({phrase: 'joinedOutfit', locale: locale}, {time: cInfo.outfitMemberSince})}`, inline: true});
             }
             else{
-                resEmbed.addFields({name: i18n.__({phrase: 'Outfit', locale: locale}), value: cInfo.outfitName, inline: true});
+                resEmbed.addFields({name: i18n.__({phrase: 'Outfit', locale: locale}),
+                value: `${cInfo.outfitName}\n${i18n.__mf({phrase: 'joinedOutfit', locale: locale}, {time: cInfo.outfitMemberSince})}`, inline: true});
             }
             resEmbed.addFields({name: i18n.__({phrase: 'Outfit Rank', locale: locale}), value: `${cInfo.outfitRank} (${cInfo.outfitRankOrdinal})`, inline: true});
             row.addComponents(

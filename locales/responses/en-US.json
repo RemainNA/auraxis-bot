@@ -282,5 +282,6 @@
 	"Osprey": "Osprey",
 	"Wainwright": "Wainwright",
 	"weaponIDNotFound": "Weapon ID {id} not found",
-	"ribbons": "Ribbons"
+	"ribbons": "Ribbons",
+	"joinedOutfit": "Joined <t:{time}:R>"
 }
