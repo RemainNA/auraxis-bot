@@ -16,14 +16,14 @@ const i18n = require('i18n');
  * @returns name of the weapon Auraxiumed if the achievement is for one, else false
  */
 const verifyAuraxium = async function(achievement, finish_date) {
-	const name = achievement.name.en;
 	if(achievement === undefined || finish_date == "1970-01-01 00:00:00.0"){
 		return false;
 	}
+	const name = achievement.name.en;
 	if(achievement.description == undefined && name.indexOf("Auraxium") > -1){
 		return name.split(":")[0];
 	}
-	if(["1160 Enemies Killed", "1000 Enemies Killed"].includes(achievement.description.en)){
+	if(["1160 Enemies Killed", "1000 Enemies Killed"].includes(achievement.description?.en)){
 		return name.split(":")[0];
 	}
 	return false;
