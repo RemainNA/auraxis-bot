@@ -10,6 +10,26 @@ const { localeNumber, characterLink } = require('./utils.js');
 const i18n = require('i18n');
 
 /**
+ * Verifies if a given achievement represents an Auraxium medal
+ * @param {object} achievement
+ * @param {string} finish_date
+ * @returns name of the weapon Auraxiumed if the achievement is for one, else false
+ */
+const verifyAuraxium = async function(achievement, finish_date) {
+	const name = achievement.name.en;
+	if(achievement === undefined || finish_date == "1970-01-01 00:00:00.0"){
+		return false;
+	}
+	if(achievement.description == undefined && name.indexOf("Auraxium") > -1){
+		return name.split(":")[0];
+	}
+	if(["1160 Enemies Killed", "1000 Enemies Killed"].includes(achievement.description.en)){
+		return name.split(":")[0];
+	}
+	return false;
+}
+
+/**
  * Get a list of a character's Auraxium medals
  * @param {string} cName - The name of the character
  * @param {string} platform - platform of the character
@@ -31,25 +51,13 @@ const getAuraxiumList = async function(cName, platform, locale='en-US'){
 	}
     let achievementList = response[0].character_id_join_characters_achievement;
     for(const x of achievementList){
-        const achievement = x.achievement_id_join_achievement;
-        if(achievement != undefined && x.finish_date != "1970-01-01 00:00:00.0"){
-            if(achievement.description == undefined){
-                if(achievement.name.en.indexOf("Auraxium") > -1){
-					if(!duplicateCheck.includes(`${achievement.name.en.split(":")[0]}:${Date.parse(x.finish_date)}`)){
-						medalList.push([achievement.name.en.split(":")[0], Date.parse(x.finish_date)]);
-					}
-					confirmedMedals.push(achievement.name.en.split(":")[0]);
-					duplicateCheck.push(`${achievement.name.en.split(":")[0]}:${Date.parse(x.finish_date)}`);
-                }
-            }
-            else if(achievement.description.en == "1000 Enemies Killed"){
-				if(!duplicateCheck.includes(`${achievement.name.en.split(":")[0]}:${Date.parse(x.finish_date)}`)){
-					medalList.push([achievement.name.en.split(":")[0], Date.parse(x.finish_date)]);
-				}
-				confirmedMedals.push(achievement.name.en.split(":")[0]);
-				duplicateCheck.push(`${achievement.name.en.split(":")[0]}:${Date.parse(x.finish_date)}`);
-            }
-        }
+		const medalName = await verifyAuraxium(x.achievement_id_join_achievement, x.finish_date);
+		const medalDate = Date.parse(x.finish_date);
+		if(medalName && !duplicateCheck.includes(`${medalName}:${medalDate}`)){
+			medalList.push([medalName, medalDate]);
+			confirmedMedals.push(medalName);
+			duplicateCheck.push(`${medalName}:${medalDate}`);
+		}
     }
 
 	let statList = response[0].stats?.weapon_stat_by_faction;
