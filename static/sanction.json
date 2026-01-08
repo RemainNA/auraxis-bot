@@ -1259,6 +1259,11 @@
         "name": "Bastion Battery",
         "sanction": "none"
     },
+    "19002": {
+        "category": "Carbine",
+        "name": "",
+        "sanction": ""
+    },
     "1869": {
         "category": "Carbine",
         "name": "19A Fortuna",
@@ -2074,6 +2079,21 @@
         "name": "Tank Mine",
         "sanction": "none"
     },
+    "6015553": {
+        "category": "Fishing Scanners",
+        "name": "SQ-031 \"Tracker\"",
+        "sanction": "none"
+    },
+    "6015926": {
+        "category": "Fishing Scanners",
+        "name": "SQS-3.045 \"Beleza\"",
+        "sanction": "none"
+    },
+    "6015913": {
+        "category": "Fishing Scanners",
+        "name": "ST-2.301B \"Nanocaster\"",
+        "sanction": "none"
+    },
     "6004753": {
         "category": "Flash Primary Weapon",
         "name": "LA7 Buzzard",
@@ -2412,6 +2432,26 @@
     "6050": {
         "category": "Grenade",
         "name": "Decoy Grenade",
+        "sanction": "none"
+    },
+    "6015984": {
+        "category": "Grenade",
+        "name": "Easter Egg Frag Grenade",
+        "sanction": "none"
+    },
+    "6015985": {
+        "category": "Grenade",
+        "name": "Easter Egg Frag Grenade",
+        "sanction": "none"
+    },
+    "6015986": {
+        "category": "Grenade",
+        "name": "Easter Egg Frag Grenade",
+        "sanction": "none"
+    },
+    "6015979": {
+        "category": "Grenade",
+        "name": "Easter Egg Plasma Grenade",
         "sanction": "none"
     },
     "50051": {
@@ -4619,6 +4659,11 @@
         "name": "Neutralizer Device",
         "sanction": "none"
     },
+    "6016215": {
+        "category": "Infantry Abilities",
+        "name": "Observer",
+        "sanction": "none"
+    },
     "6014727": {
         "category": "Infantry Abilities",
         "name": "Orbital Mining Drill",
@@ -4974,6 +5019,31 @@
         "name": "Recon Detection Device 6",
         "sanction": "none"
     },
+    "75564": {
+        "category": "Infantry Abilities",
+        "name": "Recon Drone",
+        "sanction": "none"
+    },
+    "6016136": {
+        "category": "Infantry Abilities",
+        "name": "Recon Drone 1",
+        "sanction": "none"
+    },
+    "6016137": {
+        "category": "Infantry Abilities",
+        "name": "Recon Drone 2",
+        "sanction": "none"
+    },
+    "6016138": {
+        "category": "Infantry Abilities",
+        "name": "Recon Drone 3",
+        "sanction": "none"
+    },
+    "6016139": {
+        "category": "Infantry Abilities",
+        "name": "Recon Drone 4",
+        "sanction": "none"
+    },
     "804974": {
         "category": "Infantry Abilities",
         "name": "Reconnaissance Module",
@@ -5304,6 +5374,31 @@
         "name": "Spitfire Auto-Turret",
         "sanction": "none"
     },
+    "6016202": {
+        "category": "Infantry Abilities",
+        "name": "Spitfire Auto-Turret",
+        "sanction": "none"
+    },
+    "6016216": {
+        "category": "Infantry Abilities",
+        "name": "Spitfire Auto-Turret",
+        "sanction": "none"
+    },
+    "6016217": {
+        "category": "Infantry Abilities",
+        "name": "Spitfire Auto-Turret",
+        "sanction": "none"
+    },
+    "6016218": {
+        "category": "Infantry Abilities",
+        "name": "Spitfire Auto-Turret",
+        "sanction": "none"
+    },
+    "6016219": {
+        "category": "Infantry Abilities",
+        "name": "Spitfire Auto-Turret",
+        "sanction": "none"
+    },
     "6015075": {
         "category": "Infantry Abilities",
         "name": "Spitfire \"Prime Directive\" Auto-Turret",
@@ -5624,6 +5719,11 @@
         "name": "Ancient Psykinetic Blade",
         "sanction": "none"
     },
+    "6016250": {
+        "category": "Knife",
+        "name": "Antebrachium",
+        "sanction": "none"
+    },
     "6015789": {
         "category": "Knife",
         "name": "Anunnaki Blade",
@@ -5722,11 +5822,6 @@
     "802315": {
         "category": "Knife",
         "name": "Hexedge",
-        "sanction": "none"
-    },
-    "6015746": {
-        "category": "Knife",
-        "name": "Iceberg Knife",
         "sanction": "none"
     },
     "802584": {
@@ -5849,6 +5944,11 @@
         "name": "NS \"Primed Diamond\" Shard",
         "sanction": "none"
     },
+    "6015746": {
+        "category": "Knife",
+        "name": "NS \"Primed Lapis\" Shard",
+        "sanction": "none"
+    },
     "6015921": {
         "category": "Knife",
         "name": "NS \"Primed Ruby\" Shard",
@@ -5952,6 +6052,21 @@
     "6015791": {
         "category": "Knife",
         "name": "WMC Inquirer",
+        "sanction": "none"
+    },
+    "6015987": {
+        "category": "Knife",
+        "name": "Wrench Knife",
+        "sanction": "none"
+    },
+    "6015988": {
+        "category": "Knife",
+        "name": "Wrench Knife",
+        "sanction": "none"
+    },
+    "6015989": {
+        "category": "Knife",
+        "name": "Wrench Knife",
         "sanction": "none"
     },
     "6015990": {
