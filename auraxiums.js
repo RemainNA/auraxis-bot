@@ -80,6 +80,85 @@ const getAuraxiumList = async function(cName, platform, locale='en-US'){
 	};
 }
 
+/**
+ * Adds fields to the message embed with the full list of Auraxium medals
+ * @param {Discord.EmbedBuilder} resEmbed The embed to edit
+ * @param {*} medalList
+ * @param {*} textList
+ * @param {number} titleLength
+ * @param {string} locale
+ * @returns Nothing
+ */
+const createExpandedList = function(resEmbed, medalList, textList, titleLength, locale){
+	let continued = false;
+	const tooManyMedalsLength = i18n.__({phrase: "tooManyMedals", locale: locale}).length;
+	const continuedLength = i18n.__({phrase: "Continued...", locale: locale}).length;
+	let maxLength = 5999 - tooManyMedalsLength - continuedLength * 2 - titleLength;
+	let atMaxLength = false;
+	for(const medal of medalList.medals){
+		const currentItem = `<t:${medal[1]/1000}:d>: ${medal[0]}\n`;
+		const currentLength = currentItem.length;
+		if(!continued && (textList.length + currentLength) > 4000){
+			continued = true;
+			resEmbed.setDescription(textList);
+			textList = currentItem;
+		}
+		else if(continued && (textList.length + currentLength) > 1024){
+			resEmbed.addFields({name: i18n.__({phrase: "Continued...", locale: locale}), value: textList});
+			textList = currentItem;
+		}
+		else if((resEmbed.length + textList.length + currentLength) < maxLength){
+			textList += currentItem;
+		}
+		else{
+			textList += i18n.__({phrase: "tooManyMedals", locale: locale});
+			atMaxLength = true;
+			break;
+		}
+	}
+	if(continued){
+		resEmbed.addFields({name: i18n.__({phrase: "Continued...", locale: locale}), value: textList});
+	}
+	else{
+		resEmbed.setDescription(textList);
+	}
+	
+	if(atMaxLength){
+		return;
+	}
+
+	textList = "";
+	continued = false;
+	const possibleMedalCountLength = i18n.__mf({phrase: "possibleMedalCount", locale: locale}, {num: medalList.possibleMedals.length}).length;
+	maxLength = maxLength - possibleMedalCountLength - continued;
+
+	for(const medal of medalList.possibleMedals){
+		const currentItem = `${medal}\n`;
+		if(resEmbed.length + textList.length + currentItem.length > maxLength){
+			textList += i18n.__({phrase: "tooManyMedals", locale: locale});
+			break;
+		}
+		if(!continued && (textList.length + currentItem.length) > 1024){
+			continued = true;
+			resEmbed.addFields({name: i18n.__mf({phrase: "possibleMedalCount", locale: locale}, {num: medalList.possibleMedals.length}), value: textList});
+			textList = currentItem;
+		}
+		else if(continued && (textList.length + currentItem.length) > 1024){
+			resEmbed.addFields({name: i18n.__({phrase: "Continued...", locale: locale}), value: textList});
+			textList = currentItem;
+		}
+		else{
+			textList += currentItem;
+		}
+	}
+	if(continued){
+		resEmbed.addFields({name: i18n.__({phrase: "Continued...", locale: locale}), value: textList});
+	}
+	else if(textList != ""){
+		resEmbed.addFields({name: i18n.__mf({phrase: "possibleMedalCount", locale: locale}, {num: medalList.possibleMedals.length}), value: textList});
+	}
+}
+
 module.exports = {
 	/**
 	 * Create a discord embed with a list of a character's Auraxium medals
@@ -94,61 +173,15 @@ module.exports = {
 		const medalList = await getAuraxiumList(cName.toLowerCase(), platform, locale);
 
 		let resEmbed = new Discord.EmbedBuilder();
-		resEmbed.setTitle(i18n.__mf({phrase: "{name} Auraxiums", locale: locale}, {name: medalList.name}));
+		const title = i18n.__mf({phrase: "{name} Auraxiums", locale: locale}, {name: medalList.name});
+		resEmbed.setTitle(title);
 		let textList = "**" + i18n.__mf({phrase: "auraxiumMedalCount", locale: locale}, {num: medalList.medals.length}) + "**\n";
 		let remaining = medalList.medals.length + medalList.possibleMedals.length;
 		if(remaining == 0){
 			throw i18n.__mf({phrase: "{name} has no Auraxium medals", locale: locale}, {name: medalList.name});
 		}
 		if(expanded){
-			let continued = false;
-			remaining = 0;
-			for(const medal of medalList.medals){
-				const currentItem = `<t:${medal[1]/1000}:d>: ${medal[0]}\n`;
-				if(!continued && (textList.length + currentItem.length) > 4000){
-					continued = true;
-					resEmbed.setDescription(textList);
-					textList = currentItem;
-				}
-				else if(continued && (textList.length + currentItem.length) > 1024){
-					resEmbed.addFields({name: i18n.__({phrase: "Continued...", locale: locale}), value: textList});
-					textList = currentItem;
-				}
-				else{
-					textList += currentItem;
-				}
-			}
-			if(continued){
-				resEmbed.addFields({name: i18n.__({phrase: "Continued...", locale: locale}), value: textList});
-			}
-			else{
-				resEmbed.setDescription(textList);
-			}
-
-			textList = "";
-			continued = false;
-
-			for(const medal of medalList.possibleMedals){
-				const currentItem = `${medal}\n`;
-				if(!continued && (textList.length + currentItem.length) > 1024){
-					continued = true;
-					resEmbed.addFields({name: i18n.__mf({phrase: "possibleMedalCount", locale: locale}, {num: medalList.possibleMedals.length}), value: textList});
-					textList = currentItem;
-				}
-				else if(continued && (textList.length + currentItem.length) > 1024){
-					resEmbed.addFields({name: i18n.__({phrase: "Continued...", locale: locale}), value: textList});
-					textList = currentItem;
-				}
-				else{
-					textList += currentItem;
-				}
-			}
-			if(continued){
-				resEmbed.addFields({name: i18n.__({phrase: "Continued...", locale: locale}), value: textList});
-			}
-			else if(textList != ""){
-				resEmbed.addFields({name: i18n.__mf({phrase: "possibleMedalCount", locale: locale}, {num: medalList.possibleMedals.length}), value: textList});
-			}
+			createExpandedList(resEmbed, medalList, textList, title.length, locale);
 		}
 		else{
 			let max = 20;
