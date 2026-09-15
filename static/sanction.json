@@ -124,6 +124,26 @@
         "name": "Rocklet Rifle",
         "sanction": "none"
     },
+    "6016433": {
+        "category": "Aerial Combat Weapon",
+        "name": "\"Deluge\" Rocklet Rifle",
+        "sanction": "none"
+    },
+    "6016438": {
+        "category": "Aerial Combat Weapon",
+        "name": "\"Deluge\" Rocklet Rifle",
+        "sanction": "none"
+    },
+    "6016443": {
+        "category": "Aerial Combat Weapon",
+        "name": "\"Deluge\" Rocklet Rifle",
+        "sanction": "none"
+    },
+    "6016448": {
+        "category": "Aerial Combat Weapon",
+        "name": "\"Deluge\" Rocklet Rifle",
+        "sanction": "none"
+    },
     "7507": {
         "category": "AI MAX (Left)",
         "name": "AF-23 Grinder",
@@ -2504,11 +2524,6 @@
         "name": "Lightning Grenade",
         "sanction": "none"
     },
-    "6015932": {
-        "category": "Grenade",
-        "name": "Love Bomber Frag Grenade",
-        "sanction": "none"
-    },
     "6015935": {
         "category": "Grenade",
         "name": "Love Bomber Frag Grenade",
@@ -2522,6 +2537,11 @@
     "6015937": {
         "category": "Grenade",
         "name": "Love Bomber Frag Grenade",
+        "sanction": "none"
+    },
+    "6015932": {
+        "category": "Grenade",
+        "name": "Love Bomber Plasma Grenade",
         "sanction": "none"
     },
     "884": {
@@ -4659,11 +4679,6 @@
         "name": "Neutralizer Device",
         "sanction": "none"
     },
-    "6016215": {
-        "category": "Infantry Abilities",
-        "name": "Observer",
-        "sanction": "none"
-    },
     "6014727": {
         "category": "Infantry Abilities",
         "name": "Orbital Mining Drill",
@@ -5376,27 +5391,32 @@
     },
     "6016202": {
         "category": "Infantry Abilities",
-        "name": "Spitfire Auto-Turret",
+        "name": "Spitfire \"Observer\" Auto-Turret",
+        "sanction": "none"
+    },
+    "6016215": {
+        "category": "Infantry Abilities",
+        "name": "Spitfire \"Observer\" Auto-Turret",
         "sanction": "none"
     },
     "6016216": {
         "category": "Infantry Abilities",
-        "name": "Spitfire Auto-Turret",
+        "name": "Spitfire \"Observer\" Auto-Turret",
         "sanction": "none"
     },
     "6016217": {
         "category": "Infantry Abilities",
-        "name": "Spitfire Auto-Turret",
+        "name": "Spitfire \"Observer\" Auto-Turret",
         "sanction": "none"
     },
     "6016218": {
         "category": "Infantry Abilities",
-        "name": "Spitfire Auto-Turret",
+        "name": "Spitfire \"Observer\" Auto-Turret",
         "sanction": "none"
     },
     "6016219": {
         "category": "Infantry Abilities",
-        "name": "Spitfire Auto-Turret",
+        "name": "Spitfire \"Observer\" Auto-Turret",
         "sanction": "none"
     },
     "6015075": {
@@ -5827,6 +5847,11 @@
     "802584": {
         "category": "Knife",
         "name": "Icikill",
+        "sanction": "none"
+    },
+    "6016457": {
+        "category": "Knife",
+        "name": "Ire of Elysium",
         "sanction": "none"
     },
     "6014042": {
