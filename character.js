@@ -285,7 +285,7 @@ const getAuraxiumCount = async function(cName, platform){
                     medalCount++;
                 }
             }
-            else if(achievement.description.en == "1000 Enemies Killed"){
+            else if(["1160 Enemies Killed", "1000 Enemies Killed"].includes(achievement.description?.en)){
                 medalCount++;
             }
         }
