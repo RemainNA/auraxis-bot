@@ -260,6 +260,9 @@ module.exports = {
 	update: async function(pgClient, discordClient){
 		const population = await getPopulation();
 		for(const serverName of servers){
+			if(serverName == "jaeger"){
+				continue;
+			}
 			try{
 				const status = await serverStatus(serverIDs[serverName], pgClient, population);
 				const channels = await pgClient.query('SELECT * FROM dashboard WHERE world = $1;', [serverName]);
