@@ -10,9 +10,9 @@
 const WebSocket = require('ws');
 const { router } = require('./unifiedWSHandler');
 
-const PC_SUBSCRIPTION = '{"service":"event","action":"subscribe","worlds":["1","10","13","17","19","40"],"eventNames":["PlayerLogin","PlayerLogout","MetagameEvent","FacilityControl"]}';
-const US_SUBSCRIPTION = '{"service":"event","action":"subscribe","worlds":["1000"],"eventNames":["PlayerLogin","PlayerLogout","MetagameEvent","FacilityControl"]}';
-const EU_SUBSCRIPTION = '{"service":"event","action":"subscribe","worlds":["2000"],"eventNames":["PlayerLogin","PlayerLogout","MetagameEvent","FacilityControl"]}';
+const PC_SUBSCRIPTION = '{"service":"event","action":"subscribe","worlds":["1","10","13","17","19","40"],"eventNames":["MetagameEvent","FacilityControl"]}';
+const US_SUBSCRIPTION = '{"service":"event","action":"subscribe","worlds":["1000"],"eventNames":["MetagameEvent","FacilityControl"]}';
+const EU_SUBSCRIPTION = '{"service":"event","action":"subscribe","worlds":["2000"],"eventNames":["MetagameEvent","FacilityControl"]}';
 const PC_URI = `wss://push.nanite-systems.net/streaming?environment=ps2&service-id=s:${process.env.serviceID}`;
 const US_URI = `wss://push.nanite-systems.net/streaming?environment=ps2ps4us&service-id=s:${process.env.serviceID}`;
 const EU_URI = `wss://push.nanite-systems.net/streaming?environment=ps2ps4eu&service-id=s:${process.env.serviceID}`;

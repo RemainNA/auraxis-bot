@@ -144,18 +144,18 @@ const commands = [
 						.setDescription('Server name')
 						.setRequired(true)
 						.addChoices(servers)))
-		.addSubcommand(subcommand =>
-			subcommand
-				.setName('activity')
-				.setDescription('Receive notifications whenever an outfit member logs in or out')
-				.addStringOption(option =>
-					option.setName('tag')
-						.setDescription('Tag of outfit to subscribe to, no brackets')
-						.setRequired(true))
-				.addStringOption(option =>
-					option.setName('platform')
-						.setDescription("Which platform is the outfit on?  Defaults to PC")
-						.addChoices(platforms)))
+		// .addSubcommand(subcommand =>
+		// 	subcommand
+		// 		.setName('activity')
+		// 		.setDescription('Receive notifications whenever an outfit member logs in or out')
+		// 		.addStringOption(option =>
+		// 			option.setName('tag')
+		// 				.setDescription('Tag of outfit to subscribe to, no brackets')
+		// 				.setRequired(true))
+		// 		.addStringOption(option =>
+		// 			option.setName('platform')
+		// 				.setDescription("Which platform is the outfit on?  Defaults to PC")
+		// 				.addChoices(platforms)))
 		.addSubcommand(subcommand =>
 			subcommand
 				.setName('captures')

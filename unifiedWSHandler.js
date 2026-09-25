@@ -32,7 +32,7 @@ const environmentToPlatform = {
 }
 
 /**
- * Tracks player login and logout events
+ * Tracks player login and logout events.  Currently disabled
  * @param payload - The payload from the Stream API
  * @param {string} environment - which environment to query for
  * @param {pg.Client} pgClient - postgres client to use
@@ -40,6 +40,7 @@ const environmentToPlatform = {
  * @throws if there are error in logEvent
  */
 const logEvent = async function(payload, environment, pgClient, discordClient){
+    return
     let response = await censusRequest(environment, 'character_list', `/character/${payload.character_id}?c:resolve=outfit_member`);
     let platform = environmentToPlatform[environment];
     let playerEvent = payload.event_name.substring(6);
@@ -574,15 +575,7 @@ module.exports = {
         queue.push(payload);
         queue.shift();
 
-        if(payload.character_id != null){
-            logEvent(payload, environment, pgClient, discordClient)
-                .catch(error => {
-                    if(typeof(error) == "string" && error != "Census API currently unavailable" && error != "Census API unavailable: Redirect"){
-                        console.log("Login error: "+error);
-                    }
-                });
-        }
-        else if(payload.metagame_event_state_name != null){
+        if(payload.metagame_event_state_name != null){
             alertEvent(payload, environment, pgClient, discordClient)
                 .catch(error => console.log(error));
         }
