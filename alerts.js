@@ -43,31 +43,7 @@ const alertInfo = async function(server, locale='en-US'){
 		if(response.length == 0){
 			return [];
 		}
-		let allAlerts = [];
-		for(let alert of response){
-			if(typeof(alerts[alert.censusMetagameEventType]) === 'undefined'){
-				console.log("Unable to find alert info for id "+alert.censusMetagameEventType);
-				throw "Alert lookup error";
-			}
-			let now = Date.now();
-			let start = Date.parse(alert.timeStarted);
-			let resObj = {
-				name: alerts[alert.censusMetagameEventType].name,
-				description: alerts[alert.censusMetagameEventType].description,
-				vs: alert.result.vs,
-				nc: alert.result.nc,
-				tr: alert.result.tr,
-				continent: alert.zone,
-				timeSinceStart: now-start,
-				timeLeft: (start+alert.duration)-now,
-				timeEnd: (start+alert.duration)/1000, //In Unix Epoch, not JS
-				timeStart: start/1000,
-				instanceId: alert.instanceId,
-				bracket: alert.bracket
-			};
-			allAlerts.push(resObj);
-		}
-		
+		allAlerts = parseAlerts(response)
 		return allAlerts;
 	}
 	catch(err){
@@ -78,6 +54,40 @@ const alertInfo = async function(server, locale='en-US'){
 			throw `Error retrieving alert information: ${err.message}`;
 		}
 	}
+}
+
+/**
+ * Parses responses to the PS2alerts API into a list of objects for the bot to use
+ * @param activeResponse Response from ps2alerts API for active alerts
+ * @returns Parsed version of the input response
+ */
+const parseAlerts = function(activeResponse){
+	let allAlerts = [];
+	for(const alert of activeResponse){
+		if(typeof(alerts[alert.censusMetagameEventType]) === 'undefined'){
+			console.log("Unable to find alert info for id "+alert.censusMetagameEventType);
+			throw "Alert lookup error";
+		}
+		let now = Date.now();
+		let start = Date.parse(alert.timeStarted);
+		let resObj = {
+			name: alerts[alert.censusMetagameEventType].name,
+			description: alerts[alert.censusMetagameEventType].description,
+			vs: alert.result.vs,
+			nc: alert.result.nc,
+			tr: alert.result.tr,
+			continent: alert.zone,
+			timeSinceStart: now-start,
+			timeLeft: (start+alert.duration)-now,
+			timeEnd: (start+alert.duration)/1000, //In Unix Epoch, not JS
+			timeStart: start/1000,
+			instanceId: alert.instanceId,
+			bracket: alert.bracket
+		};
+		allAlerts.push(resObj);
+	}
+		
+	return allAlerts;
 }
 
 module.exports = {
@@ -118,5 +128,6 @@ module.exports = {
 	},
 
 	alertInfo: alertInfo,
+	parseAlerts: parseAlerts,
 	popLevels: popLevels
 }
