@@ -80,8 +80,11 @@ async function updateAlert(info, pgClient, discordClient, isComplete){
 	}
 	
 	if(isComplete){
-		if(info.result.draw){
+		if(info.result.draw || info.result.victor == 0){
 			messageEmbed.addFields({name: "Result", value: "Draw", inline: true});
+			if (minutesDone < 5){
+				isComplete = false; //In case victor == 0 is due to a bug, check again up to 5 minutes later
+			}
 		}
 		else{
 			messageEmbed.addFields({name: "Result", value: `${winnerFaction[info.result.victor]}`, inline: true});
