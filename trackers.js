@@ -10,7 +10,7 @@
 const {getPopulation} = require('./population.js');
 const {territoryInfo} = require('./territory.js');
 const {onlineInfo} = require('./online.js');
-const {alertInfo} = require('./alerts.js');
+const {alertInfo, parseAlerts} = require('./alerts.js');
 const {serverNames, serverIDs, servers, continents, continentNames, faction} = require('./utils.js');
 const {PermissionFlagsBits, ChannelType} = require('discord.js')
 
@@ -27,11 +27,11 @@ const populationName = function(serverPopulation, serverName){
 /**
  * Get open continents on server
  * @param {number} serverID - the server to check open continents
+ * @param alerts - List representing the output of alertInfo for a given server
  * @returns which continents are open on the  server
  */
-const territoryName = async function(serverID){
+const territoryName = async function(serverID, alerts){
 	const territory = await territoryInfo(serverID);
-	const alerts = await alertInfo(serverID);
 	const alertList = [];
 	const openList = [];
 	const unstableList = [];
@@ -131,7 +131,8 @@ module.exports = {
 				name = await populationName(pop[serverIDs[serverName]], serverNames[serverIDs[serverName]]);
 			}
 			else if(type == "territory"){
-				name = await territoryName(serverIDs[serverName]);
+				const alerts = await alertInfo(serverIDs[serverName]);
+				name = await territoryName(serverIDs[serverName], alerts);
 			}
 			
 			let newChannel = await guild.channels.create({name: name, type: ChannelType.GuildVoice, reason: 'New tracker channel', permissionOverwrites: [
@@ -221,6 +222,19 @@ module.exports = {
 		if(!continentOnly){
 			pop = await getPopulation();
 		}
+		let updateContinents = true;
+		const activeAlertsUri = "https://api.ps2alerts.com/instances/active";
+		const activeAlertsRequest = await fetch(activeAlertsUri, {headers: {"User-Agent": process.env.USER_AGENT}});
+		if(!activeAlertsRequest.ok){
+			console.log("Unable to retrieve active alerts");
+			updateContinents = false;
+		}
+		const activeAlertsResponse = await activeAlertsRequest.json();
+		if(typeof(activeAlertsResponse.error) !== 'undefined'){
+			console.log("Error getting active alerts");
+			console.log(activeAlertsResponse.error);
+			updateContinents = false;
+		}
 		for(const serverName of servers){
 			if(!continentOnly){
 				try{
@@ -235,17 +249,27 @@ module.exports = {
 					console.log(err);
 				}
 			}
-			try{
-				const terName = await territoryName(serverIDs[serverName]);
-				const channels = await pgClient.query("SELECT channel FROM tracker WHERE trackertype = $1 AND world = $2;", ["territory", serverName]);
-				for(const row of channels.rows){
-					await updateChannelName(terName, row.channel, discordClient, pgClient);
+			if(updateContinents){
+				try{
+					let serverAlerts = [];
+					for(const a of activeAlertsResponse){
+						if(a.world == serverIDs[serverName]){
+							serverAlerts.push(a);
+						}
+					}
+					const serverActiveAlerts = parseAlerts(serverAlerts);
+					const terName = await territoryName(serverIDs[serverName], serverActiveAlerts);
+					const channels = await pgClient.query("SELECT channel FROM tracker WHERE trackertype = $1 AND world = $2;", ["territory", serverName]);
+					for(const row of channels.rows){
+						await updateChannelName(terName, row.channel, discordClient, pgClient);
+					}
+				}
+				catch(err){
+					console.log(`Error updating ${serverName} territory tracker`);
+					console.log(err);
 				}
 			}
-			catch(err){
-				console.log(`Error updating ${serverName} territory tracker`);
-				console.log(err);
-			}
+			
 		}
 		if(!continentOnly){
 			try{
